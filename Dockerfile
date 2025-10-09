@@ -1,5 +1,5 @@
-# Stage 1: Build the Spring Boot jar
-FROM maven:3.9.0-eclipse-temurin-17 AS build
+# Stage 1: Build the Spring Boot jar with Maven
+FROM maven:3.9.0-amazoncorretto-17 AS build
 WORKDIR /app
 
 # Copy pom and source code
@@ -9,14 +9,14 @@ COPY src ./src
 # Build the jar (skip tests for faster build)
 RUN mvn clean package -DskipTests
 
-# Stage 2: Create the runtime image
-FROM eclipse-temurin:17-jdk-alpine
+# Stage 2: Runtime image with Corretto 17
+FROM amazoncorretto:17
 WORKDIR /app
 
-# Copy the jar from the build stage
+# Copy the jar from build stage
 COPY --from=build /app/target/admin-suite-backend-1.0.0.jar app.jar
 
-# Expose port (Cloud Run automatically detects PORT env variable)
+# Cloud Run uses PORT environment variable
 ENV PORT=8080
 EXPOSE 8080
 
