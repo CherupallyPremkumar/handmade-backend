@@ -51,19 +51,12 @@ public class AuthService {
     }
 
     @Transactional
-    public LoginResponse login(LoginRequest request, String tenantId) {
-        final String finalTenantId = (tenantId == null || tenantId.isEmpty()) ? "default" : tenantId;
-        
-        System.out.println("Login attempt - Email: " + request.getEmail() + ", TenantId: " + finalTenantId);
-        
-        TenantContext.setCurrentTenant(finalTenantId);
-        
-        AdminUser user = adminUserRepository.findByEmailAndTenantId(request.getEmail(), finalTenantId)
+    public LoginResponse login(LoginRequest request) {
+        AdminUser user = adminUserRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> {
-                    System.out.println("User not found: " + request.getEmail() + " in tenant: " + finalTenantId);
                     return new RuntimeException("Invalid credentials");
                 });
-
+        String finalTenantId =user.getTenantId();
         System.out.println("User found, checking password...");
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             System.out.println("Password mismatch for user: " + request.getEmail());
