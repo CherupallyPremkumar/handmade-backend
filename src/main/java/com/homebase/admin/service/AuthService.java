@@ -1,0 +1,120 @@
+package com.homebase.admin.service;
+
+import com.homebase.admin.dto.AdminUserDTO;
+import com.homebase.admin.dto.LoginRequest;
+import com.homebase.admin.dto.LoginResponse;
+import com.homebase.admin.dto.TenantConfigDTO;
+import com.homebase.admin.entity.AdminUser;
+import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.repository.AdminUserRepository;
+import com.homebase.admin.security.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final AdminUserRepository adminUserRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+
+    // Mock tenant configurations (in production, store in database)
+    private static final Map<String, TenantConfigDTO> TENANT_CONFIGS = new HashMap<>();
+    
+    static {
+        TENANT_CONFIGS.put("tenant1", new TenantConfigDTO(
+            "tenant1", "Tenant 1 Store", "tenant1",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200",
+            "340 75% 55%", "142 30% 55%"
+        ));
+        TENANT_CONFIGS.put("tenant2", new TenantConfigDTO(
+            "tenant2", "Tenant 2 Shop", "tenant2",
+            "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=200",
+            "220 75% 55%", "280 60% 55%"
+        ));
+        TENANT_CONFIGS.put("default", new TenantConfigDTO(
+            "default", "Home Decor Admin", "default",
+            null, null, null
+        ));
+    }
+
+    @Transactional
+    public LoginResponse login(LoginRequest request, String tenantId) {
+        final String finalTenantId = (tenantId == null || tenantId.isEmpty()) ? "default" : tenantId;
+        
+        System.out.println("Login attempt - Email: " + request.getEmail() + ", TenantId: " + finalTenantId);
+        
+        TenantContext.setCurrentTenant(finalTenantId);
+        
+        AdminUser user = adminUserRepository.findByEmailAndTenantId(request.getEmail(), finalTenantId)
+                .orElseThrow(() -> {
+                    System.out.println("User not found: " + request.getEmail() + " in tenant: " + finalTenantId);
+                    return new RuntimeException("Invalid credentials");
+                });
+
+        System.out.println("User found, checking password...");
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            System.out.println("Password mismatch for user: " + request.getEmail());
+            throw new RuntimeException("Invalid credentials");
+        }
+        System.out.println("Login successful for: " + request.getEmail());
+
+        if (!user.getEnabled()) {
+            throw new RuntimeException("Account is disabled");
+        }
+
+        // Update last login
+        user.setLastLogin(LocalDateTime.now());
+        adminUserRepository.save(user);
+
+        // Generate JWT token
+        String token = jwtUtil.generateToken(
+            user.getEmail(),
+            finalTenantId,
+            user.getRole().name()
+        );
+
+        // Convert user to DTO
+        AdminUserDTO userDTO = convertToDTO(user, finalTenantId);
+
+        // Get tenant config
+        TenantConfigDTO tenantConfig = TENANT_CONFIGS.getOrDefault(finalTenantId, TENANT_CONFIGS.get("default"));
+
+        // Check if 2FA is required
+        String sessionId = user.getRequiresTwoFactor() ? UUID.randomUUID().toString() : null;
+
+        return new LoginResponse(
+            userDTO,
+            token,
+            user.getRequiresTwoFactor(),
+            sessionId,
+            tenantConfig
+        );
+    }
+
+    public AdminUserDTO getCurrentUser(String email, String tenantId) {
+        AdminUser user = adminUserRepository.findByEmailAndTenantId(email, tenantId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return convertToDTO(user, tenantId);
+    }
+
+    private AdminUserDTO convertToDTO(AdminUser user, String tenantId) {
+        AdminUserDTO dto = new AdminUserDTO();
+        dto.setId(String.valueOf(user.getId()));
+        dto.setEmail(user.getEmail());
+        dto.setName(user.getName());
+        dto.setRole(user.getRole().name().toLowerCase());
+        dto.setAvatarUrl(user.getAvatarUrl());
+        dto.setLastLogin(user.getLastLogin() != null ? user.getLastLogin().toString() : null);
+        dto.setTenantId(tenantId);
+        return dto;
+    }
+}
