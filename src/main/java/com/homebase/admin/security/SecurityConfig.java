@@ -61,7 +61,7 @@ public class SecurityConfig {
             "http://localhost:3000",
             "http://localhost:8080",
             "http://localhost:8081",
-                "https://handmade-backend-981536694150.asia-south1.run.app"
+                "https://homebase-admin-suite-981536694150.europe-west1.run.app/"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
