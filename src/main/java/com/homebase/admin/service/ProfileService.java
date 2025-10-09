@@ -5,7 +5,7 @@ import com.homebase.admin.dto.UpdateProfileRequest;
 import com.homebase.admin.entity.AdminUser;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.AdminUserRepository;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,10 +17,13 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class ProfileService {
 
     private final AdminUserRepository adminUserRepository;
+
+    public ProfileService(AdminUserRepository adminUserRepository) {
+        this.adminUserRepository = adminUserRepository;
+    }
 
     public AdminProfileDTO getProfile(String email) {
         String tenantId = TenantContext.getCurrentTenant();

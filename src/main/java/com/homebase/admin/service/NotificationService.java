@@ -5,7 +5,6 @@ import com.homebase.admin.dto.NotificationStatsDTO;
 import com.homebase.admin.entity.Notification;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.NotificationRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class NotificationService {
 
     private final NotificationRepository notificationRepository;
+
+    public NotificationService(NotificationRepository notificationRepository) {
+        this.notificationRepository = notificationRepository;
+    }
 
     public List<NotificationDTO> getAllNotifications() {
         String tenantId = TenantContext.getCurrentTenant();

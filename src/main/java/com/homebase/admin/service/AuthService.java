@@ -8,7 +8,6 @@ import com.homebase.admin.entity.AdminUser;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.AdminUserRepository;
 import com.homebase.admin.security.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +18,6 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private final AdminUserRepository adminUserRepository;
@@ -44,6 +42,12 @@ public class AuthService {
             "default", "Home Decor Admin", "default",
             null, null, null
         ));
+    }
+
+    public AuthService(AdminUserRepository adminUserRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+        this.adminUserRepository = adminUserRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Transactional

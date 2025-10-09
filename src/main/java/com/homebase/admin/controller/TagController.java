@@ -2,7 +2,6 @@ package com.homebase.admin.controller;
 
 import com.homebase.admin.dto.TagDTO;
 import com.homebase.admin.service.TagService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,10 +11,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tags")
-@RequiredArgsConstructor
 public class TagController {
 
     private final TagService tagService;
+
+    public TagController(TagService tagService) {
+        this.tagService = tagService;
+    }
 
     @GetMapping
     public ResponseEntity<List<TagDTO>> getAllTags() {

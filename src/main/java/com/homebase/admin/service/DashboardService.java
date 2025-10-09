@@ -4,17 +4,20 @@ import com.homebase.admin.dto.DashboardStatsDTO;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.OrderRepository;
 import com.homebase.admin.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
-@RequiredArgsConstructor
 public class DashboardService {
 
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+
+    public DashboardService(ProductRepository productRepository, OrderRepository orderRepository) {
+        this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
+    }
 
     public DashboardStatsDTO getDashboardStats() {
         String tenantId = TenantContext.getCurrentTenant();

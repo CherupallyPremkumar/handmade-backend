@@ -4,7 +4,7 @@ import com.homebase.admin.dto.ProductDTO;
 import com.homebase.admin.entity.Product;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +12,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<ProductDTO> getAllProducts() {
         String tenantId = TenantContext.getCurrentTenant();

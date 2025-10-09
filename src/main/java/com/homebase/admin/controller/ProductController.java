@@ -4,30 +4,62 @@ import com.homebase.admin.dto.CategoryDTO;
 import com.homebase.admin.dto.ProductDTO;
 import com.homebase.admin.service.CategoryService;
 import com.homebase.admin.service.ProductService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
 
-    @Data
-    @AllArgsConstructor
+    public ProductController(ProductService productService, CategoryService categoryService) {
+        this.productService = productService;
+        this.categoryService = categoryService;
+    }
+
+
     public static class ProductPageData {
         private List<ProductDTO> products;
         private List<CategoryDTO> categories;
         private List<String> tags;
+
+        public ProductPageData(List<ProductDTO> products, List<CategoryDTO> categories, List<String> tags) {
+            this.products = products;
+            this.categories = categories;
+            this.tags = tags;
+        }
+
+        public List<ProductDTO> getProducts() {
+            return products;
+        }
+
+        public void setProducts(List<ProductDTO> products) {
+            this.products = products;
+        }
+
+        public List<CategoryDTO> getCategories() {
+            return categories;
+        }
+
+        public void setCategories(List<CategoryDTO> categories) {
+            this.categories = categories;
+        }
+
+        public List<String> getTags() {
+            return tags;
+        }
+
+        public void setTags(List<String> tags) {
+            this.tags = tags;
+        }
     }
 
     @GetMapping("/page-data")

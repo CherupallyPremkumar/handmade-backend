@@ -1,18 +1,11 @@
 package com.homebase.admin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tags",
        uniqueConstraints = @UniqueConstraint(columnNames = {"slug", "tenant_id"}))
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+
 public class Tag extends BaseEntity {
 
     @Column(nullable = false)
@@ -20,4 +13,20 @@ public class Tag extends BaseEntity {
 
     @Column(nullable = false)
     private String slug;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 }

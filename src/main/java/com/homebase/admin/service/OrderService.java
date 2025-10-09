@@ -6,7 +6,6 @@ import com.homebase.admin.entity.Order;
 import com.homebase.admin.entity.OrderItem;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+
 public class OrderService {
 
     private final OrderRepository orderRepository;
+
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     public List<OrderDTO> getAllOrders() {
         String tenantId = TenantContext.getCurrentTenant();

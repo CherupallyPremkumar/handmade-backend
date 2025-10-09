@@ -4,17 +4,19 @@ import com.homebase.admin.dto.CustomerDTO;
 import com.homebase.admin.entity.Customer;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     public List<CustomerDTO> getAllCustomers() {
         String tenantId = TenantContext.getCurrentTenant();

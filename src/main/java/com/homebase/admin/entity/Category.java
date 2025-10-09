@@ -1,18 +1,12 @@
 package com.homebase.admin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "categories",
        uniqueConstraints = @UniqueConstraint(columnNames = {"slug", "tenant_id"}))
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+
 public class Category extends BaseEntity {
 
     @Column(nullable = false)
@@ -26,4 +20,36 @@ public class Category extends BaseEntity {
 
     @Column(nullable = false)
     private Integer productCount = 0;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
 }

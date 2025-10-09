@@ -5,7 +5,7 @@ import com.homebase.admin.entity.Category;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.CategoryRepository;
 import com.homebase.admin.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+
+    public CategoryService(CategoryRepository categoryRepository, ProductRepository productRepository) {
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
+    }
 
     public List<CategoryDTO> getAllCategories() {
         String tenantId = TenantContext.getCurrentTenant();

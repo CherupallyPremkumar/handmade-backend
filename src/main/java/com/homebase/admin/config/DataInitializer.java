@@ -2,7 +2,6 @@ package com.homebase.admin.config;
 
 import com.homebase.admin.entity.*;
 import com.homebase.admin.repository.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
     private final AdminUserRepository adminUserRepository;
@@ -22,6 +20,15 @@ public class DataInitializer implements CommandLineRunner {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public DataInitializer(AdminUserRepository adminUserRepository, ProductRepository productRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        this.adminUserRepository = adminUserRepository;
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+        this.orderRepository = orderRepository;
+        this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void run(String... args) throws Exception {

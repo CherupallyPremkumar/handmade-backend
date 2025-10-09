@@ -4,7 +4,6 @@ import com.homebase.admin.dto.TagDTO;
 import com.homebase.admin.entity.Tag;
 import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.TagRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class TagService {
 
     private final TagRepository tagRepository;
+
+    public TagService(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
 
     public List<TagDTO> getAllTags() {
         String tenantId = TenantContext.getCurrentTenant();

@@ -3,7 +3,6 @@ package com.homebase.admin.controller;
 import com.homebase.admin.dto.AdminProfileDTO;
 import com.homebase.admin.dto.UpdateProfileRequest;
 import com.homebase.admin.service.ProfileService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/profile")
-@RequiredArgsConstructor
 public class ProfileController {
 
     private final ProfileService profileService;
+
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @GetMapping
     public ResponseEntity<AdminProfileDTO> getProfile(Authentication authentication) {
