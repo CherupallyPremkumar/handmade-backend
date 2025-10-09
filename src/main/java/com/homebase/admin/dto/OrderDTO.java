@@ -14,9 +14,16 @@ public class OrderDTO {
     private String id;
     private String customerName;
     private String customerEmail;
+    private String customerPhone;
+    private String shippingAddress;
     private List<OrderItemDTO> items;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal shippingCost;
     private BigDecimal total;
     private String status;
+    private String paymentStatus;
+    private String transactionId;
     private String createdAt;
     private String updatedAt;
 }
