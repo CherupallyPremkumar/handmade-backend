@@ -24,24 +24,9 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     private String customerEmail;
 
-    @Column
-    private String customerPhone;
-
-    @Column(length = 1000)
-    private String shippingAddress;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderItem> items = new ArrayList<>();
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal subtotal;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal tax;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal shippingCost;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
@@ -49,12 +34,6 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status = OrderStatus.PENDING;
-
-    @Column(nullable = false)
-    private String paymentStatus = "PENDING";
-
-    @Column
-    private String transactionId;
 
     public enum OrderStatus {
         PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED

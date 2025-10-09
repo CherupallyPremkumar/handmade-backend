@@ -43,41 +43,6 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDTO createOrder(OrderDTO orderDTO) {
-        String tenantId = TenantContext.getCurrentTenant();
-        
-        Order order = new Order();
-        order.setCustomerName(orderDTO.getCustomerName());
-        order.setCustomerEmail(orderDTO.getCustomerEmail());
-        order.setCustomerPhone(orderDTO.getCustomerPhone());
-        order.setShippingAddress(orderDTO.getShippingAddress());
-        order.setSubtotal(orderDTO.getSubtotal());
-        order.setTax(orderDTO.getTax());
-        order.setShippingCost(orderDTO.getShippingCost());
-        order.setTotal(orderDTO.getTotal());
-        order.setStatus(Order.OrderStatus.PENDING);
-        order.setPaymentStatus("PENDING");
-        order.setTenantId(tenantId);
-        
-        // Convert items
-        List<OrderItem> items = orderDTO.getItems().stream()
-                .map(itemDTO -> {
-                    OrderItem item = new OrderItem();
-                    item.setProductId(itemDTO.getProductId());
-                    item.setProductName(itemDTO.getProductName());
-                    item.setQuantity(itemDTO.getQuantity());
-                    item.setPrice(itemDTO.getPrice());
-                    return item;
-                })
-                .collect(Collectors.toList());
-        
-        order.setItems(items);
-        
-        Order saved = orderRepository.save(order);
-        return convertToDTO(saved);
-    }
-
-    @Transactional
     public OrderDTO updateOrderStatus(Long id, String status) {
         String tenantId = TenantContext.getCurrentTenant();
         Order order = orderRepository.findByIdAndTenantId(id, tenantId)
@@ -87,41 +52,17 @@ public class OrderService {
         Order updated = orderRepository.save(order);
         return convertToDTO(updated);
     }
-    
-    @Transactional
-    public OrderDTO updatePaymentStatus(Long id, String paymentStatus, String transactionId) {
-        String tenantId = TenantContext.getCurrentTenant();
-        Order order = orderRepository.findByIdAndTenantId(id, tenantId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-
-        order.setPaymentStatus(paymentStatus);
-        order.setTransactionId(transactionId);
-        
-        if ("PAID".equals(paymentStatus)) {
-            order.setStatus(Order.OrderStatus.PROCESSING);
-        }
-        
-        Order updated = orderRepository.save(order);
-        return convertToDTO(updated);
-    }
 
     private OrderDTO convertToDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(String.valueOf(order.getId()));
         dto.setCustomerName(order.getCustomerName());
         dto.setCustomerEmail(order.getCustomerEmail());
-        dto.setCustomerPhone(order.getCustomerPhone());
-        dto.setShippingAddress(order.getShippingAddress());
         dto.setItems(order.getItems().stream()
                 .map(this::convertItemToDTO)
                 .collect(Collectors.toList()));
-        dto.setSubtotal(order.getSubtotal());
-        dto.setTax(order.getTax());
-        dto.setShippingCost(order.getShippingCost());
         dto.setTotal(order.getTotal());
         dto.setStatus(order.getStatus().name().toLowerCase());
-        dto.setPaymentStatus(order.getPaymentStatus());
-        dto.setTransactionId(order.getTransactionId());
         dto.setCreatedAt(order.getCreatedAt() != null ? order.getCreatedAt().toString() : null);
         dto.setUpdatedAt(order.getUpdatedAt() != null ? order.getUpdatedAt().toString() : null);
         return dto;
@@ -129,11 +70,10 @@ public class OrderService {
 
     private OrderItemDTO convertItemToDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
-        dto.setProductId(item.getProductId());
+        dto.setProductId(String.valueOf(item.getProductId()));
         dto.setProductName(item.getProductName());
         dto.setQuantity(item.getQuantity());
         dto.setPrice(item.getPrice());
-        dto.setSubtotal(item.getPrice().multiply(java.math.BigDecimal.valueOf(item.getQuantity())));
         return dto;
     }
 }
