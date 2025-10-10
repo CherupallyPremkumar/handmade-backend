@@ -3,11 +3,14 @@ package com.homebase.admin.service;
 import com.homebase.admin.dto.ProductDTO;
 import com.homebase.admin.entity.Product;
 import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.observer.event.ProductPriceChangedEvent;
 import com.homebase.admin.repository.ProductRepository;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +19,11 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ApplicationEventPublisher eventPublisher) {
         this.productRepository = productRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public List<ProductDTO> getAllProducts() {
@@ -60,6 +65,12 @@ public class ProductService {
         Product product = productRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
+        // Capture old values for price change detection
+        BigDecimal oldPrice = product.getPrice();
+        BigDecimal oldSalePrice = product.getSalePrice();
+        Boolean oldOnSale = product.isOnSale();
+
+        // Update product fields
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
@@ -69,8 +80,36 @@ public class ProductService {
         product.setTags(productDTO.getTags());
         product.setRating(productDTO.getRating());
         product.setFeatured(productDTO.getFeatured());
+        
+        // Update sale fields if present in DTO
+        if (productDTO.getOnSale() != null) {
+            product.setOnSale(productDTO.getOnSale());
+        }
+        if (productDTO.getSalePrice() != null) {
+            product.setSalePrice(productDTO.getSalePrice());
+        }
 
         Product updated = productRepository.save(product);
+        
+        // Check if price or sale status changed and publish event
+        boolean priceChanged = !oldPrice.equals(updated.getPrice());
+        boolean salePriceChanged = (oldSalePrice == null && updated.getSalePrice() != null) ||
+                                   (oldSalePrice != null && !oldSalePrice.equals(updated.getSalePrice()));
+        boolean saleStatusChanged = !oldOnSale.equals(updated.isOnSale());
+        
+        if (priceChanged || salePriceChanged || saleStatusChanged) {
+            ProductPriceChangedEvent event = new ProductPriceChangedEvent(
+                updated.getId(),
+                oldPrice,
+                updated.getPrice(),
+                oldOnSale,
+                updated.isOnSale(),
+                oldSalePrice,
+                updated.getSalePrice()
+            );
+            eventPublisher.publishEvent(event);
+        }
+        
         return convertToDTO(updated);
     }
 
@@ -94,6 +133,8 @@ public class ProductService {
         dto.setTags(product.getTags());
         dto.setRating(product.getRating());
         dto.setFeatured(product.getFeatured());
+        dto.setOnSale(product.isOnSale());
+        dto.setSalePrice(product.getSalePrice());
         dto.setCreatedAt(product.getCreatedAt() != null ? product.getCreatedAt().toString() : null);
         dto.setUpdatedAt(product.getUpdatedAt() != null ? product.getUpdatedAt().toString() : null);
         return dto;

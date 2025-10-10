@@ -17,6 +17,8 @@ public class ProductDTO {
     private List<String> tags;
     private Double rating;
     private Boolean featured;
+    private Boolean onSale;
+    private BigDecimal salePrice;
     private String createdAt;
     private String updatedAt;
 
@@ -114,5 +116,21 @@ public class ProductDTO {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getOnSale() {
+        return onSale;
+    }
+
+    public void setOnSale(Boolean onSale) {
+        this.onSale = onSale;
+    }
+
+    public BigDecimal getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(BigDecimal salePrice) {
+        this.salePrice = salePrice;
     }
 }

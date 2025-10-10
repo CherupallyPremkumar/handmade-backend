@@ -1,20 +1,20 @@
 package com.homebase.admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admin_users", 
        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "tenant_id"}))
-
-
 public class AdminUser extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
@@ -45,6 +45,7 @@ public class AdminUser extends BaseEntity {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

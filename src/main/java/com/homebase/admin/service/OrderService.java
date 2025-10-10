@@ -73,10 +73,11 @@ public class OrderService {
 
     private OrderItemDTO convertItemToDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
-        dto.setProductId(String.valueOf(item.getProductId()));
+        dto.setId(String.valueOf(item.getId()));
+        dto.setProductId(item.getProductId());
         dto.setProductName(item.getProductName());
-        dto.setQuantity(item.getQuantity());
         dto.setPrice(item.getPrice());
+        dto.setQuantity(item.getQuantity());
         return dto;
     }
 }

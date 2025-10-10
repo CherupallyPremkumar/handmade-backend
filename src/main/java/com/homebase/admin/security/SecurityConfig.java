@@ -39,6 +39,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/admin/login", "/api/admin/verify-2fa", 
                                 "/api/admin/password-reset", "/h2-console/**").permitAll()
+                .requestMatchers("/api/user/**").permitAll() // Allow public access to customer-facing APIs
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )

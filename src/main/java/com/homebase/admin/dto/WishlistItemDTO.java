@@ -1,24 +1,21 @@
 package com.homebase.admin.dto;
 
-
-
 import java.math.BigDecimal;
 
-
-public class OrderItemDTO {
-    private String id;
+public class WishlistItemDTO {
+    private Long id;
     private Long productId;
     private String productName;
     private String productImage;
     private BigDecimal price;
-    private Integer quantity;
-    private BigDecimal subtotal;
+    private Integer desiredQuantity;
+    private boolean inStock;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,22 +27,6 @@ public class OrderItemDTO {
         this.productId = productId;
     }
 
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -54,12 +35,12 @@ public class OrderItemDTO {
         this.productName = productName;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public BigDecimal getPrice() {
@@ -68,5 +49,21 @@ public class OrderItemDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Integer getDesiredQuantity() {
+        return desiredQuantity;
+    }
+
+    public void setDesiredQuantity(Integer desiredQuantity) {
+        this.desiredQuantity = desiredQuantity;
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
     }
 }

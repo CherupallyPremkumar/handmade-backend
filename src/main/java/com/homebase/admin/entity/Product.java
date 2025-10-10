@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity {
+public class Product extends BaseEntity implements Priceable {
 
     @Column(nullable = false)
     private String name;
@@ -19,6 +19,30 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+
+    public boolean isOnSale() {
+        return onSale;
+    }
+
+    public void setOnSale(boolean onSale) {
+        this.onSale = onSale;
+    }
+
+    public BigDecimal getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(BigDecimal salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    private boolean onSale;
+    private BigDecimal salePrice;
+
+    @Override
+    public BigDecimal getPrice() {
+        return isOnSale() ? salePrice : price;
+    }
 
     @Column(nullable = false)
     private Integer stock = 0;
@@ -56,9 +80,6 @@ public class Product extends BaseEntity {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
 
     public void setPrice(BigDecimal price) {
         this.price = price;

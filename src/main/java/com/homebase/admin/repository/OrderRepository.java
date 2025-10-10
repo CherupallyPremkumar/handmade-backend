@@ -14,12 +14,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     
     List<Order> findByTenantId(String tenantId);
     
+    Optional<Order> findByOrderNumberAndTenantId(String orderNumber, String tenantId);
+    
+    List<Order> findByCustomerIdAndTenantIdOrderByCreatedAtDesc(Long customerId, String tenantId);
+    
+    List<Order> findByTenantIdAndStatus(String tenantId, Order.OrderStatus status);
+    
     Optional<Order> findByIdAndTenantId(Long id, String tenantId);
     
     List<Order> findByStatusAndTenantId(Order.OrderStatus status, String tenantId);
     
     Long countByTenantId(String tenantId);
-    
     @Query("SELECT SUM(o.total) FROM Order o WHERE o.tenantId = ?1")
     BigDecimal getTotalSalesByTenant(String tenantId);
 }

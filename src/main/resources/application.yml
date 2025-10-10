@@ -5,6 +5,16 @@ spring:
   application:
     name: homebase-admin-suite
 
+# MyBatis Configuration
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.homebase.admin.entity,com.homebase.admin.dto
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
   # Database Configuration (H2 for development)
   datasource:
     url: jdbc:h2:mem:homebase_admin

@@ -1,0 +1,55 @@
+# PhonePe Payment Gateway Configuration
+
+phonepe:
+  # Merchant Configuration
+  merchant:
+    id: ${PHONEPE_MERCHANT_ID:MERCHANTUAT}  # Get from PhonePe dashboard
+  
+  # Salt Key for checksum generation
+  salt:
+    key: ${PHONEPE_SALT_KEY:099eb0cd-02cf-4e2a-8aca-3e6c6aff0399}  # Get from PhonePe dashboard
+    index: ${PHONEPE_SALT_INDEX:1}
+  
+  # API URLs
+  api:
+    # Production URL
+    url: ${PHONEPE_API_URL:https://api.phonepe.com/apis/hermes}
+    # Sandbox URL for testing
+    # url: https://api-preprod.phonepe.com/apis/pg-sandbox
+  
+  # Redirect URLs (where customer returns after payment)
+  redirect:
+    url: ${PHONEPE_REDIRECT_URL:http://localhost:3000/payment/success}
+  
+  # Callback URL (webhook for payment status)
+  callback:
+    url: ${PHONEPE_CALLBACK_URL:http://localhost:8080/api/user/payment/callback}
+
+# Environment-specific overrides
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
+phonepe:
+  api:
+    url: https://api.phonepe.com/apis/hermes
+  redirect:
+    url: https://yoursite.com/payment/success
+  callback:
+    url: https://yoursite.com/api/user/payment/callback
+
+---
+spring:
+  config:
+    activate:
+      on-profile: development
+
+phonepe:
+  api:
+    url: https://api-preprod.phonepe.com/apis/pg-sandbox
+  redirect:
+    url: http://localhost:3000/payment/success
+  callback:
+    url: http://localhost:8080/api/user/payment/callback
