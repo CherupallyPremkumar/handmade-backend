@@ -1,27 +1,38 @@
 package com.homebase.admin.service;
 
 import com.homebase.admin.entity.Tenant;
-import com.homebase.admin.repository.TenantRepository;
+import com.homebase.admin.mapper.TenantMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class TenantService {
 
-    private final TenantRepository tenantRepository;
+    private final TenantMapper tenantMapper;
 
-    public TenantService(TenantRepository tenantRepository) {
-        this.tenantRepository = tenantRepository;
+    public TenantService(TenantMapper tenantMapper) {
+        this.tenantMapper = tenantMapper;
     }
 
     /**
-     * Fetch tenant by URL path
+     * Fetch tenant by URL path using MyBatis
      * @param urlPath tenant path from frontend
      * @return Tenant entity or null if not found
      */
     public Tenant findByUrlPath(String urlPath) {
-        Optional<Tenant> tenantOpt = tenantRepository.findByUrlPath(urlPath);
-        return tenantOpt.orElse(null);
+        return tenantMapper.findByUrlPath(urlPath);
+    }
+
+    /**
+     * Fetch tenant by ID
+     */
+    public Tenant findById(Long id) {
+        return tenantMapper.findById(id);
+    }
+
+    /**
+     * Fetch tenant by tenant code
+     */
+    public Tenant findByTenantCode(String tenantCode) {
+        return tenantMapper.findByTenantCode(tenantCode);
     }
 }

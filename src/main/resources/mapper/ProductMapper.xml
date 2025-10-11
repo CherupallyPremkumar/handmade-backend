@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homebase.admin.mapper.ProductMapper">
+
+    <!-- Result Map for Product -->
+    <resultMap id="productResultMap" type="com.homebase.admin.entity.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="price" column="price"/>
+        <result property="salePrice" column="sale_price"/>
+        <result property="onSale" column="on_sale"/>
+        <result property="stock" column="stock"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="category" column="category"/>
+        <result property="rating" column="rating"/>
+        <result property="featured" column="featured"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <!-- Find all products by tenant -->
+    <select id="findAllByTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- Find product by ID and tenant -->
+    <select id="findByIdAndTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE id = #{id} AND tenant_id = #{tenantId} AND deleted = false
+    </select>
+
+    <!-- Find products by category -->
+    <select id="findByCategoryAndTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE category = #{category} AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- Find featured products -->
+    <select id="findFeaturedByTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE featured = true AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC 
+        LIMIT #{limit}
+    </select>
+
+    <!-- Find on-sale products -->
+    <select id="findOnSaleByTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE on_sale = true AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- Find in-stock products -->
+    <select id="findInStockByTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE stock > 0 AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- Search products by name -->
+    <select id="searchByNameAndTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE name LIKE CONCAT('%', #{search}, '%') 
+        AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- Find products by minimum rating -->
+    <select id="findByMinRatingAndTenantId" resultMap="productResultMap">
+        SELECT * FROM products 
+        WHERE rating >= #{minRating} AND tenant_id = #{tenantId} AND deleted = false 
+        ORDER BY rating DESC
+    </select>
+
+    <!-- Count products by tenant -->
+    <select id="countByTenantId" resultType="long">
+        SELECT COUNT(*) FROM products 
+        WHERE tenant_id = #{tenantId} AND deleted = false
+    </select>
+
+    <!-- Count out of stock products -->
+    <select id="countOutOfStockByTenantId" resultType="long">
+        SELECT COUNT(*) FROM products 
+        WHERE stock = 0 AND tenant_id = #{tenantId} AND deleted = false
+    </select>
+
+</mapper>

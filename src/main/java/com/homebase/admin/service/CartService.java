@@ -2,6 +2,7 @@ package com.homebase.admin.service;
 
 import com.homebase.admin.dto.CartItemDTO;
 import com.homebase.admin.entity.*;
+import com.homebase.admin.mapper.CartMapper;
 import com.homebase.admin.repository.CartItemRepository;
 import com.homebase.admin.repository.CartRepository;
 import com.homebase.admin.repository.CustomerRepository;
@@ -18,15 +19,18 @@ public class CartService {
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final CartMapper cartMapper;
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
     private final PriceCalculationService priceCalculationService;
 
     public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository,
-                       ProductRepository productRepository, CustomerRepository customerRepository,
+                       CartMapper cartMapper, ProductRepository productRepository, 
+                       CustomerRepository customerRepository,
                        PriceCalculationService priceCalculationService) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
+        this.cartMapper = cartMapper;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
         this.priceCalculationService = priceCalculationService;
@@ -34,8 +38,13 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<CartItemDTO> getCartItems(Long customerId, String tenantId) {
-        Cart cart = getOrCreateCart(customerId, tenantId);
-        return cart.getCartItems().stream()
+        // Use MyBatis for GET query
+        Cart cart = cartMapper.findByCustomerIdAndTenantId(customerId, tenantId);
+        if (cart == null) {
+            cart = getOrCreateCart(customerId, tenantId);
+        }
+        List<CartItem> items = cartMapper.findCartItemsByCartId(cart.getId(), tenantId);
+        return items.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }

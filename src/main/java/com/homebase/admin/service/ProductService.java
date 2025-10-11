@@ -3,6 +3,7 @@ package com.homebase.admin.service;
 import com.homebase.admin.dto.ProductDTO;
 import com.homebase.admin.entity.Product;
 import com.homebase.admin.config.TenantContext;
+import com.homebase.admin.mapper.ProductMapper;
 import com.homebase.admin.observer.event.ProductPriceChangedEvent;
 import com.homebase.admin.repository.ProductRepository;
 
@@ -19,17 +20,19 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
     private final ApplicationEventPublisher eventPublisher;
 
-    public ProductService(ProductRepository productRepository, ApplicationEventPublisher eventPublisher) {
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper, ApplicationEventPublisher eventPublisher) {
         this.productRepository = productRepository;
+        this.productMapper = productMapper;
         this.eventPublisher = eventPublisher;
     }
 
     public List<ProductDTO> getAllProducts() {
         String tenantId = TenantContext.getCurrentTenant();
         System.out.println("ProductService.getAllProducts() - TenantId from context: " + tenantId);
-        List<Product> products = productRepository.findByTenantId(tenantId);
+        List<Product> products = productMapper.findAllByTenantId(tenantId); // MyBatis
         System.out.println(
                 "ProductService.getAllProducts() - Found " + products.size() + " products for tenant: " + tenantId);
         return products.stream()
@@ -39,7 +42,7 @@ public class ProductService {
 
     public List<ProductDTO> getLowStockProducts(int threshold) {
         String tenantId = TenantContext.getCurrentTenant();
-        return productRepository.findByTenantId(tenantId).stream()
+        return productMapper.findAllByTenantId(tenantId).stream() // MyBatis
                 .filter(p -> p.getStock() < threshold)
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -47,8 +50,10 @@ public class ProductService {
 
     public ProductDTO getProductById(Long id) {
         String tenantId = TenantContext.getCurrentTenant();
-        Product product = productRepository.findByIdAndTenantId(id, tenantId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productMapper.findByIdAndTenantId(id, tenantId); // MyBatis
+        if (product == null) {
+            throw new RuntimeException("Product not found");
+        }
         return convertToDTO(product);
     }
 
