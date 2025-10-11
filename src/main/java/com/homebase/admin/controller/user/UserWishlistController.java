@@ -24,7 +24,7 @@ public class UserWishlistController {
      */
     @GetMapping
     public ResponseEntity<List<WishlistItemDTO>> getWishlist(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         List<WishlistItemDTO> items = wishlistService.getWishlistItems(customerId, tenantId);
         return ResponseEntity.ok(items);
@@ -36,10 +36,10 @@ public class UserWishlistController {
      */
     @PostMapping
     public ResponseEntity<WishlistItemDTO> addToWishlist(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId,
-            @RequestBody Map<String, Long> request) {
-        Long productId = request.get("productId");
+            @RequestBody Map<String, String> request) {
+        String productId = request.get("productId");
         WishlistItemDTO item = wishlistService.addToWishlist(customerId, productId, tenantId);
         return ResponseEntity.ok(item);
     }
@@ -50,7 +50,7 @@ public class UserWishlistController {
      */
     @DeleteMapping("/{itemId}")
     public ResponseEntity<Void> removeFromWishlist(
-            @PathVariable Long itemId,
+            @PathVariable String itemId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         wishlistService.removeFromWishlist(itemId, tenantId);
         return ResponseEntity.noContent().build();
@@ -62,7 +62,7 @@ public class UserWishlistController {
      */
     @DeleteMapping
     public ResponseEntity<Void> clearWishlist(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         wishlistService.clearWishlist(customerId, tenantId);
         return ResponseEntity.noContent().build();
@@ -74,8 +74,8 @@ public class UserWishlistController {
      */
     @GetMapping("/check")
     public ResponseEntity<Map<String, Boolean>> checkWishlist(
-            @RequestParam Long customerId,
-            @RequestParam Long productId,
+            @RequestParam String customerId,
+            @RequestParam String productId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         boolean inWishlist = wishlistService.isInWishlist(customerId, productId, tenantId);
         return ResponseEntity.ok(Map.of("inWishlist", inWishlist));

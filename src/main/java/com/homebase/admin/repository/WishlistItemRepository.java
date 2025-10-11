@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface WishlistItemRepository extends JpaRepository<WishlistItem, Long> {
+public interface WishlistItemRepository extends JpaRepository<WishlistItem, String> {
     
-    List<WishlistItem> findByWishlistId(Long wishlistId);
+    List<WishlistItem> findByWishlistId(String wishlistId);
     
-    Optional<WishlistItem> findByWishlistIdAndProductId(Long wishlistId, Long productId);
+    Optional<WishlistItem> findByWishlistIdAndProductId(String wishlistId, String productId);
     
     @Query("SELECT wi FROM WishlistItem wi WHERE wi.product.id = :productId AND wi.wishlist.tenantId = :tenantId")
     List<WishlistItem> findWishlistItemsContainingProduct(@Param("productId") Long productId, @Param("tenantId") String tenantId);
     
-    void deleteByWishlistId(Long wishlistId);
+    void deleteByWishlistId(String wishlistId);
 }

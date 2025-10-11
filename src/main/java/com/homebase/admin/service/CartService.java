@@ -37,7 +37,7 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public List<CartItemDTO> getCartItems(Long customerId, String tenantId) {
+    public List<CartItemDTO> getCartItems(String customerId, String tenantId) {
         // Use MyBatis for GET query
         Cart cart = cartMapper.findByCustomerIdAndTenantId(customerId, tenantId);
         if (cart == null) {
@@ -50,7 +50,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartItemDTO addToCart(Long customerId, Long productId, int quantity, String tenantId) {
+    public CartItemDTO addToCart(String customerId, String productId, int quantity, String tenantId) {
         Cart cart = getOrCreateCart(customerId, tenantId);
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -96,7 +96,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartItemDTO updateCartItem(Long itemId, int quantity, String tenantId) {
+    public CartItemDTO updateCartItem(String itemId, int quantity, String tenantId) {
         CartItem item = cartItemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Cart item not found"));
         
@@ -111,7 +111,7 @@ public class CartService {
     }
 
     @Transactional
-    public void removeFromCart(Long itemId, String tenantId) {
+    public void removeFromCart(String itemId, String tenantId) {
         CartItem item = cartItemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Cart item not found"));
         
@@ -126,7 +126,7 @@ public class CartService {
     }
 
     @Transactional
-    public void clearCart(Long customerId, String tenantId) {
+    public void clearCart(String customerId, String tenantId) {
         Cart cart = cartRepository.findByCustomerIdAndTenantIdAndStatus(
                 customerId, tenantId, Cart.CartStatus.OPEN
         ).orElse(null);
@@ -145,7 +145,7 @@ public class CartService {
      * This is called by the Observer pattern when a ProductPriceChangedEvent is fired
      */
     @Transactional
-    public void recalculateCartItemPrices(Long productId, String tenantId) {
+    public void recalculateCartItemPrices(String productId, String tenantId) {
         List<CartItem> affectedItems = cartItemRepository.findCartItemsContainingProduct(productId, tenantId);
         
         for (CartItem item : affectedItems) {
@@ -171,7 +171,7 @@ public class CartService {
         }
     }
 
-    private Cart getOrCreateCart(Long customerId, String tenantId) {
+    private Cart getOrCreateCart(String customerId, String tenantId) {
         return cartRepository.findByCustomerIdAndTenantIdAndStatus(
                 customerId, tenantId, Cart.CartStatus.OPEN
         ).orElseGet(() -> {

@@ -9,13 +9,13 @@ import java.util.List;
 @Mapper
 public interface NotificationMapper {
 
-    List<Notification> findByCustomerIdAndTenantId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    List<Notification> findByCustomerIdAndTenantId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    List<Notification> findUnreadByCustomerIdAndTenantId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    List<Notification> findUnreadByCustomerIdAndTenantId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    Notification findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Notification findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
-    long countUnreadByCustomerId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    long countUnreadByCustomerId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    List<Notification> findRecentByCustomerId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId, @Param("limit") int limit);
+    List<Notification> findRecentByCustomerId(@Param("customerId") String customerId, @Param("tenantId") String tenantId, @Param("limit") int limit);
 }

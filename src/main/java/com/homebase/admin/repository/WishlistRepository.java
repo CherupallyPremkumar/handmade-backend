@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
+public interface WishlistRepository extends JpaRepository<Wishlist, String> {
     
-    Optional<Wishlist> findByCustomerIdAndTenantId(Long customerId, String tenantId);
+    Optional<Wishlist> findByCustomerIdAndTenantId(String customerId, String tenantId);
     
     List<Wishlist> findByTenantId(String tenantId);
     

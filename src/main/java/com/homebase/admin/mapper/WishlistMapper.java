@@ -10,13 +10,13 @@ import java.util.List;
 @Mapper
 public interface WishlistMapper {
 
-    Wishlist findByCustomerIdAndTenantId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    Wishlist findByCustomerIdAndTenantId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    List<WishlistItem> findWishlistItemsByWishlistId(@Param("wishlistId") Long wishlistId, @Param("tenantId") String tenantId);
+    List<WishlistItem> findWishlistItemsByWishlistId(@Param("wishlistId") String wishlistId, @Param("tenantId") String tenantId);
 
-    WishlistItem findWishlistItemByWishlistAndProduct(@Param("wishlistId") Long wishlistId, @Param("productId") Long productId, @Param("tenantId") String tenantId);
+    WishlistItem findWishlistItemByWishlistAndProduct(@Param("wishlistId") String wishlistId, @Param("productId") String productId, @Param("tenantId") String tenantId);
 
-    int countWishlistItems(@Param("wishlistId") Long wishlistId, @Param("tenantId") String tenantId);
+    int countWishlistItems(@Param("wishlistId") String wishlistId, @Param("tenantId") String tenantId);
 
-    boolean existsInWishlist(@Param("wishlistId") Long wishlistId, @Param("productId") Long productId, @Param("tenantId") String tenantId);
+    boolean existsInWishlist(@Param("wishlistId") String wishlistId, @Param("productId") String productId, @Param("tenantId") String tenantId);
 }

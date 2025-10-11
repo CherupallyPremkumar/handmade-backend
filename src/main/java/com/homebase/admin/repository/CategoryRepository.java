@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, String> {
     
     List<Category> findByTenantId(String tenantId);
     
-    Optional<Category> findByIdAndTenantId(Long id, String tenantId);
+    Optional<Category> findByIdAndTenantId(String id, String tenantId);
     
     Optional<Category> findBySlugAndTenantId(String slug, String tenantId);
 }

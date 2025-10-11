@@ -11,7 +11,7 @@ public interface TenantMapper {
 
     Tenant findByUrlPath(@Param("urlPath") String urlPath);
 
-    Tenant findById(@Param("id") Long id);
+    Tenant findById(@Param("id") String id);
 
     Tenant findByTenantCode(@Param("tenantCode") String tenantCode);
 

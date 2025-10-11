@@ -12,16 +12,16 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
     @Column(nullable = false)
-    private Long productId;
+    private String productId;
 
     @Column(nullable = false)
     private String productName;

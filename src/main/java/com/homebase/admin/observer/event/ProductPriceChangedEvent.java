@@ -3,7 +3,7 @@ package com.homebase.admin.observer.event;
 import java.math.BigDecimal;
 
 public class ProductPriceChangedEvent {
-    private final Long productId;
+    private final String productId;
     private final BigDecimal oldPrice;
     private final BigDecimal newPrice;
     private final Boolean oldOnSale;
@@ -11,7 +11,7 @@ public class ProductPriceChangedEvent {
     private final BigDecimal oldSalePrice;
     private final BigDecimal newSalePrice;
     
-    public ProductPriceChangedEvent(Long productId, BigDecimal oldPrice, BigDecimal newPrice,
+    public ProductPriceChangedEvent(String productId, BigDecimal oldPrice, BigDecimal newPrice,
                                    Boolean oldOnSale, Boolean newOnSale,
                                    BigDecimal oldSalePrice, BigDecimal newSalePrice) {
         this.productId = productId;
@@ -23,7 +23,7 @@ public class ProductPriceChangedEvent {
         this.newSalePrice = newSalePrice;
     }
     
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
     

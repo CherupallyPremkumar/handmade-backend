@@ -30,12 +30,13 @@ public class TenantController {
 
         // Convert Tenant entity to DTO for frontend
         TenantConfigDTO dto = new TenantConfigDTO.Builder()
-                .id(String.valueOf(tenant.getId()))
+                .id(tenant.getTenantCode()) // Use tenantCode for API
                 .name(tenant.getTenantName())
+                .displayName(tenant.getDisplayName())
                 .urlPath(tenant.getUrlPath())
                 .logoUrl(tenant.getLogoUrl())
                 .currency(tenant.getCurrency())
-                .theme(tenant.getTheme())// optional, if needed in frontend
+                .theme(tenant.getTheme())
                 .configuration(new TenantConfigurationDTO.Builder()
                         .primaryColor(tenant.getConfiguration().getPrimaryColor())
                         .enablePromotions(tenant.getConfiguration().getEnablePromotions())

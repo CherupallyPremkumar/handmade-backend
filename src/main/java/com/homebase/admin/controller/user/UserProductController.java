@@ -1,6 +1,8 @@
 package com.homebase.admin.controller.user;
 
 import com.homebase.admin.dto.ProductDTO;
+import com.homebase.admin.dto.ProductFilterRequest;
+import com.homebase.admin.dto.ProductFilterResponse;
 import com.homebase.admin.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,17 @@ public class UserProductController {
 
     public UserProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    /**
+     * POST /api/user/products/filter
+     * Comprehensive filter endpoint for home page
+     * Supports all filters: category, search, price range, stock, sale, sorting
+     */
+    @PostMapping("/filter")
+    public ResponseEntity<ProductFilterResponse> filterProducts(@RequestBody ProductFilterRequest filterRequest) {
+        ProductFilterResponse response = productService.filterProducts(filterRequest);
+        return ResponseEntity.ok(response);
     }
 
     /**
@@ -34,7 +47,7 @@ public class UserProductController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         ProductDTO product = productService.getProductById(id);
         return ResponseEntity.ok(product);

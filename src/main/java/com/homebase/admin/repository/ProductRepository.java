@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, String> {
     
     List<Product> findByTenantId(String tenantId);
     
-    Optional<Product> findByIdAndTenantId(Long id, String tenantId);
+    Optional<Product> findByIdAndTenantId(String id, String tenantId);
     
     List<Product> findByCategoryAndTenantId(String category, String tenantId);
     

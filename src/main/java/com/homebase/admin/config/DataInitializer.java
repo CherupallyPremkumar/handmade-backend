@@ -34,104 +34,149 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Initialize data for multiple tenants with distinct data
-        initializeTenantData("default", "Home Decor","havenhome","USD");
-        initializeTenantData("tenant1", "Fashion Store","stylehub","EUR");
-        initializeTenantData("tenant2", "Tech Shop","techmart","GBP");
+        initializeTenantData("havenhome", "Home Decor","havenhome","USD");
+        initializeTenantData("stylehub", "Fashion Store","stylehub","EUR");
+        initializeTenantData("techmart", "Tech Shop","techmart","GBP");
     }
 
-    private void initializeTenantData(String tenantId, String businessName,String urlPath,String currency) {
-
-        createTenant(tenantId, businessName,urlPath,currency);
+    private void initializeTenantData(String tenantCode, String businessName, String urlPath, String currency) {
+        createTenant(tenantCode, businessName, urlPath, currency);
         // Set tenant context for this initialization
-        TenantContext.setCurrentTenant(tenantId);
+        TenantContext.setCurrentTenant(tenantCode);
         
         // Create tenant-specific admin users
-        String adminEmail = getAdminEmail(tenantId);
-        String editorEmail = getEditorEmail(tenantId);
-        String viewerEmail = getViewerEmail(tenantId);
+        String adminEmail = getAdminEmail(tenantCode);
+        String editorEmail = getEditorEmail(tenantCode);
+        String viewerEmail = getViewerEmail(tenantCode);
         
         // Check if data already exists
-        if (adminUserRepository.existsByEmailAndTenantId(adminEmail, tenantId)) {
+        if (adminUserRepository.existsByEmailAndTenantId(adminEmail, tenantCode)) {
             return;
         }
         
         createAdminUser(adminEmail, "admin123", businessName + " Admin", 
-                       List.of(AdminUser.UserRole.SUPER_ADMIN.toString()), false, tenantId);
+                       List.of(AdminUser.UserRole.SUPER_ADMIN.toString()), false, tenantCode);
         createAdminUser(editorEmail, "editor123", businessName + " Editor",
-                List.of(AdminUser.UserRole.EDITOR.toString()), true, tenantId);
+                List.of(AdminUser.UserRole.EDITOR.toString()), true, tenantCode);
         createAdminUser(viewerEmail, "viewer123", businessName + " Viewer",
-                List.of(AdminUser.UserRole.VIEWER.toString()), false, tenantId);
+                List.of(AdminUser.UserRole.VIEWER.toString()), false, tenantCode);
 
-        // Create tenant-specific data
-        if (tenantId.equals("default")) {
+        // Create tenant-specific data based on business name
+        if (businessName.equals("Home Decor")) {
             // Home Decor products
-            createCategory("Storage", "storage", "Storage solutions", tenantId);
-            createCategory("Decorative", "decorative", "Decorative items", tenantId);
-            createCategory("Wall Art", "wall-art", "Wall decorations", tenantId);
+            createCategory("Storage", "storage", "Storage solutions", tenantCode);
+            createCategory("Decorative", "decorative", "Decorative items", tenantCode);
+            createCategory("Wall Art", "wall-art", "Wall decorations", tenantCode);
+            createCategory("Furniture", "furniture", "Home furniture", tenantCode);
+            createCategory("Lighting", "lighting", "Lighting solutions", tenantCode);
             
+            // Storage products
             createProduct("Handwoven Basket", "Beautiful handwoven basket perfect for storage",
                          new BigDecimal("45.99"), 15, "Storage", 
-                         Arrays.asList("handmade", "natural"), true, tenantId);
+                         Arrays.asList("handmade", "natural"), true, 4.5, false, null, tenantCode);
+            createProduct("Storage Ottoman", "Multi-purpose storage ottoman with cushioned top",
+                         new BigDecimal("89.99"), 12, "Storage", 
+                         Arrays.asList("furniture", "storage"), false, 4.2, true, new BigDecimal("69.99"), tenantCode);
+            createProduct("Wooden Crate Set", "Set of 3 rustic wooden storage crates",
+                         new BigDecimal("54.99"), 20, "Storage", 
+                         Arrays.asList("wood", "rustic"), true, 4.7, false, null, tenantCode);
+            
+            // Decorative products
             createProduct("Ceramic Vase", "Elegant ceramic vase with modern design",
                          new BigDecimal("32.50"), 8, "Decorative", 
-                         Arrays.asList("ceramic", "modern"), false, tenantId);
+                         Arrays.asList("ceramic", "modern"), false, 4.3, false, null, tenantCode);
+            createProduct("Decorative Throw Pillows", "Set of 2 bohemian style throw pillows",
+                         new BigDecimal("39.99"), 25, "Decorative", 
+                         Arrays.asList("textile", "bohemian"), true, 4.6, true, new BigDecimal("29.99"), tenantCode);
+            createProduct("Table Runner", "Handwoven cotton table runner",
+                         new BigDecimal("24.99"), 18, "Decorative", 
+                         Arrays.asList("textile", "handmade"), false, 4.4, false, null, tenantCode);
+            
+            // Wall Art products
             createProduct("Wooden Wall Art", "Rustic wooden wall art piece",
                          new BigDecimal("89.99"), 5, "Wall Art", 
-                         Arrays.asList("wood", "rustic"), true, tenantId);
+                         Arrays.asList("wood", "rustic"), true, 4.8, false, null, tenantCode);
+            createProduct("Abstract Canvas Print", "Modern abstract canvas wall art",
+                         new BigDecimal("79.99"), 10, "Wall Art", 
+                         Arrays.asList("canvas", "modern"), false, 4.5, true, new BigDecimal("59.99"), tenantCode);
+            createProduct("Metal Wall Sculpture", "Contemporary metal wall sculpture",
+                         new BigDecimal("129.99"), 3, "Wall Art", 
+                         Arrays.asList("metal", "contemporary"), true, 4.9, false, null, tenantCode);
             
-            createCustomer("Sarah Johnson", "sarah@homedecor.com", "+1234567890", tenantId);
-            createCustomer("Michael Chen", "customer@example.com", "+0987654321", tenantId);
+            // Furniture products
+            createProduct("Accent Chair", "Mid-century modern accent chair",
+                         new BigDecimal("299.99"), 8, "Furniture", 
+                         Arrays.asList("furniture", "modern"), true, 4.7, false, null, tenantCode);
+            createProduct("Coffee Table", "Solid wood coffee table with storage",
+                         new BigDecimal("249.99"), 6, "Furniture", 
+                         Arrays.asList("wood", "furniture"), false, 4.6, true, new BigDecimal("199.99"), tenantCode);
+            createProduct("Bookshelf", "5-tier industrial bookshelf",
+                         new BigDecimal("179.99"), 0, "Furniture", 
+                         Arrays.asList("industrial", "storage"), false, 4.4, false, null, tenantCode);
             
-        } else if (tenantId.equals("tenant1")) {
+            // Lighting products
+            createProduct("Table Lamp", "Modern ceramic table lamp",
+                         new BigDecimal("69.99"), 15, "Lighting", 
+                         Arrays.asList("lamp", "modern"), true, 4.5, false, null, tenantCode);
+            createProduct("Floor Lamp", "Arc floor lamp with marble base",
+                         new BigDecimal("159.99"), 7, "Lighting", 
+                         Arrays.asList("lamp", "contemporary"), false, 4.7, true, new BigDecimal("129.99"), tenantCode);
+            createProduct("String Lights", "Warm white LED string lights",
+                         new BigDecimal("19.99"), 50, "Lighting", 
+                         Arrays.asList("led", "decorative"), true, 4.8, false, null, tenantCode);
+            
+            createCustomer("Sarah Johnson", "sarah@homedecor.com", "+1234567890", tenantCode);
+            createCustomer("Michael Chen", "customer@example.com", "+0987654321", tenantCode);
+            
+        } else if (businessName.equals("Fashion Store")) {
             // Fashion Store products
-            createCategory("Clothing", "clothing", "Fashion clothing", tenantId);
-            createCategory("Accessories", "accessories", "Fashion accessories", tenantId);
-            createCategory("Footwear", "footwear", "Shoes and sandals", tenantId);
+            createCategory("Clothing", "clothing", "Fashion clothing", tenantCode);
+            createCategory("Accessories", "accessories", "Fashion accessories", tenantCode);
+            createCategory("Footwear", "footwear", "Shoes and sandals", tenantCode);
             
             createProduct("Designer T-Shirt", "Premium cotton designer t-shirt",
                          new BigDecimal("29.99"), 50, "Clothing", 
-                         Arrays.asList("fashion", "cotton"), true, tenantId);
+                         Arrays.asList("fashion", "cotton"), true, 4.6, false, null, tenantCode);
             createProduct("Leather Handbag", "Genuine leather handbag",
                          new BigDecimal("129.99"), 12, "Accessories", 
-                         Arrays.asList("leather", "luxury"), true, tenantId);
+                         Arrays.asList("leather", "luxury"), true, 4.8, true, new BigDecimal("99.99"), tenantCode);
             createProduct("Running Shoes", "Comfortable running shoes",
                          new BigDecimal("79.99"), 25, "Footwear", 
-                         Arrays.asList("sports", "comfort"), false, tenantId);
+                         Arrays.asList("sports", "comfort"), false, 4.5, false, null, tenantCode);
             
-            createCustomer("Emma Davis", "emma@fashion.com", "+1555123456", tenantId);
-            createCustomer("James Wilson", "", "+1555654321", tenantId);
+            createCustomer("Emma Wilson", "emma@fashion.com", "+1122334455", tenantCode);
             
-        } else if (tenantId.equals("tenant2")) {
+        } else if (businessName.equals("Tech Shop")) {
             // Tech Shop products
-            createCategory("Electronics", "electronics", "Electronic devices", tenantId);
-            createCategory("Tech Accessories", "tech-accessories", "Tech accessories", tenantId);
-            createCategory("Gaming", "gaming", "Gaming equipment", tenantId);
+            createCategory("Electronics", "electronics", "Electronic devices", tenantCode);
+            createCategory("Accessories", "accessories", "Tech accessories", tenantCode);
+            createCategory("Gaming", "gaming", "Gaming products", tenantCode);
             
             createProduct("Wireless Mouse", "Ergonomic wireless mouse",
-                         new BigDecimal("24.99"), 100, "Electronics", 
-                         Arrays.asList("tech", "wireless"), true, tenantId);
-            createProduct("USB-C Cable", "Premium USB-C charging cable",
-                         new BigDecimal("12.99"), 200, "Tech Accessories", 
-                         Arrays.asList("cable", "usb"), false, tenantId);
-            createProduct("Gaming Keyboard", "RGB mechanical gaming keyboard",
-                         new BigDecimal("89.99"), 30, "Gaming", 
-                         Arrays.asList("gaming", "rgb"), true, tenantId);
+                         new BigDecimal("39.99"), 30, "Accessories", 
+                         Arrays.asList("wireless", "ergonomic"), true, 4.7, false, null, tenantCode);
+            createProduct("USB-C Hub", "7-in-1 USB-C hub adapter",
+                         new BigDecimal("49.99"), 20, "Accessories", 
+                         Arrays.asList("usb-c", "adapter"), false, 4.4, true, new BigDecimal("39.99"), tenantCode);
+            createProduct("Gaming Headset", "RGB gaming headset with mic",
+                         new BigDecimal("89.99"), 15, "Gaming", 
+                         Arrays.asList("gaming", "rgb"), true, 4.9, false, null, tenantCode);
             
-            createCustomer("Alex Tech", "alex@techshop.com", "+1777888999", tenantId);
-            createCustomer("Lisa Chen", "lisa@techshop.com", "+1777999888", tenantId);
+            createCustomer("David Lee", "david@techshop.com", "+9988776655", tenantCode);
+            createCustomer("Lisa Chen", "lisa@techshop.com", "+1777999888", tenantCode);
         }
 
-        System.out.println("Sample data initialized for " + businessName + " (tenant: " + tenantId + ")");
+        System.out.println("Sample data initialized for " + businessName + " (tenant: " + tenantCode + ")");
         
         // Clear tenant context after initialization
         TenantContext.clear();
     }
 
-    private void createTenant(String tenantId, String businessName, String urlPath, String currency) {
+    private Tenant createTenant(String tenantCode, String businessName, String urlPath, String currency) {
         Tenant tenant = new Tenant();
 
         // Basic tenant info
-        tenant.setTenantCode(tenantId);
+        tenant.setTenantCode(tenantCode);
         tenant.setTenantName(businessName);
         tenant.setDisplayName(businessName); // fallback displayName
         tenant.setUrlPath(urlPath);
@@ -156,14 +201,18 @@ public class DataInitializer implements CommandLineRunner {
 
         // Configuration / feature flags
         TenantConfiguration config = new TenantConfiguration();
+        config.setTenantId(tenantCode);
+        config.setPrimaryColor("#4A90E2");
+        config.setSecondaryColor("#50E3C2");
         config.setEnablePromotions(true);
-        config.setEnableReviews(true);// example additional field
+        config.setEnableReviews(true);
         tenant.setConfiguration(config);
 
-        // Save tenant
+        // Save tenant (cascade will save config)
         tenantRepository.save(tenant);
 
-        System.out.println("Tenant created: " + businessName + " (" + tenantId + ")");
+        System.out.println("Tenant created: " + businessName + " (" + tenantCode + ")");
+        return tenant;
     }
 
     private void createAdminUser(String email, String password, String name, 
@@ -190,7 +239,8 @@ public class DataInitializer implements CommandLineRunner {
 
     private void createProduct(String name, String description, BigDecimal price, 
                               Integer stock, String category, List<String> tags, 
-                              Boolean featured, String tenantId) {
+                              Boolean featured, Double rating, Boolean onSale, 
+                              BigDecimal salePrice, String tenantId) {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
@@ -199,7 +249,9 @@ public class DataInitializer implements CommandLineRunner {
         product.setCategory(category);
         product.setTags(tags);
         product.setFeatured(featured);
-        product.setRating(4.5);
+        product.setRating(rating);
+        product.setOnSale(onSale);
+        product.setSalePrice(salePrice);
         product.setImageUrl("https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400");
         productRepository.save(product);
     }
@@ -217,33 +269,33 @@ public class DataInitializer implements CommandLineRunner {
 
     // Helper methods to generate tenant-specific emails
     private String getAdminEmail(String tenantId) {
-        if (tenantId.equals("default")) {
+        if (tenantId.equals("havenhome")) {
             return "admin@homedecor.com";
-        } else if (tenantId.equals("tenant1")) {
+        } else if (tenantId.equals("stylehub")) {
             return "admin@fashion.com";
-        } else if (tenantId.equals("tenant2")) {
+        } else if (tenantId.equals("techmart")) {
             return "admin@techshop.com";
         }
         return "admin@" + tenantId + ".com";
     }
 
     private String getEditorEmail(String tenantId) {
-        if (tenantId.equals("default")) {
+        if (tenantId.equals("havenhome")) {
             return "editor@homedecor.com";
-        } else if (tenantId.equals("tenant1")) {
+        } else if (tenantId.equals("stylehub")) {
             return "editor@fashion.com";
-        } else if (tenantId.equals("tenant2")) {
+        } else if (tenantId.equals("techmart")) {
             return "editor@techshop.com";
         }
         return "editor@" + tenantId + ".com";
     }
 
     private String getViewerEmail(String tenantId) {
-        if (tenantId.equals("default")) {
+        if (tenantId.equals("havenhome")) {
             return "viewer@homedecor.com";
-        } else if (tenantId.equals("tenant1")) {
+        } else if (tenantId.equals("stylehub")) {
             return "viewer@fashion.com";
-        } else if (tenantId.equals("tenant2")) {
+        } else if (tenantId.equals("techmart")) {
             return "viewer@techshop.com";
         }
         return "viewer@" + tenantId + ".com";

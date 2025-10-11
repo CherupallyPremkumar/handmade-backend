@@ -137,7 +137,7 @@ public class UserOrderService {
      * Get customer orders
      */
     @Transactional(readOnly = true)
-    public List<OrderDTO> getCustomerOrders(Long customerId, String tenantId) {
+    public List<OrderDTO> getCustomerOrders(String customerId, String tenantId) {
         List<Order> orders = orderRepository.findByCustomerIdAndTenantIdOrderByCreatedAtDesc(
                 customerId, tenantId
         );
@@ -273,7 +273,7 @@ public class UserOrderService {
         return "ORD" + timestamp;
     }
 
-    private void clearCustomerCart(Long customerId, String tenantId) {
+    private void clearCustomerCart(String customerId, String tenantId) {
         Cart cart = cartRepository.findByCustomerIdAndTenantIdAndStatus(
                 customerId, tenantId, Cart.CartStatus.CHECKED_OUT
         ).orElse(null);

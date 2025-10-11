@@ -23,7 +23,7 @@ public class CartDomainService {
         this.pricingStrategy = pricingStrategy;
     }
 
-    public void addItemToCart(Cart cart, Long productId, int quantity) {
+    public void addItemToCart(Cart cart, String productId, int quantity) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 

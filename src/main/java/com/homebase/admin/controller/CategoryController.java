@@ -37,7 +37,7 @@ public class CategoryController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'EDITOR')")
     public ResponseEntity<CategoryDTO> updateCategory(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody CategoryDTO categoryDTO) {
         CategoryDTO updated = categoryService.updateCategory(id, categoryDTO);
         return ResponseEntity.ok(updated);
@@ -45,7 +45,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'EDITOR')")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable String id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }

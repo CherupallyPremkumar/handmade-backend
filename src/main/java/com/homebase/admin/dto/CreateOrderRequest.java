@@ -3,7 +3,7 @@ package com.homebase.admin.dto;
 import java.util.List;
 
 public class CreateOrderRequest {
-    private Long customerId;
+    private String customerId;
     private String customerName;
     private String customerEmail;
     private String customerPhone;
@@ -15,14 +15,14 @@ public class CreateOrderRequest {
     private String paymentMethod; // "PHONEPE", "COD", etc.
 
     public static class OrderItemRequest {
-        private Long productId;
+        private String productId;
         private int quantity;
 
-        public Long getProductId() {
+        public String getProductId() {
             return productId;
         }
 
-        public void setProductId(Long productId) {
+        public void setProductId(String productId) {
             this.productId = productId;
         }
 
@@ -35,11 +35,11 @@ public class CreateOrderRequest {
         }
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
+public interface CartRepository extends JpaRepository<Cart, String> {
     
-    Optional<Cart> findByCustomerIdAndTenantIdAndStatus(Long customerId, String tenantId, Cart.CartStatus status);
+    Optional<Cart> findByCustomerIdAndTenantIdAndStatus(String customerId, String tenantId, Cart.CartStatus status);
     
     List<Cart> findByTenantId(String tenantId);
     

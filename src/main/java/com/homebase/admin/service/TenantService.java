@@ -25,7 +25,7 @@ public class TenantService {
     /**
      * Fetch tenant by ID
      */
-    public Tenant findById(Long id) {
+    public Tenant findById(String id) {
         return tenantMapper.findById(id);
     }
 

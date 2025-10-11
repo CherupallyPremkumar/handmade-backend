@@ -1,9 +1,11 @@
 package com.homebase.admin.mapper;
 
+import com.homebase.admin.dto.ProductFilterRequest;
 import com.homebase.admin.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper
@@ -11,7 +13,7 @@ public interface ProductMapper {
 
     List<Product> findAllByTenantId(@Param("tenantId") String tenantId);
 
-    Product findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Product findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
     List<Product> findByCategoryAndTenantId(@Param("category") String category, @Param("tenantId") String tenantId);
 
@@ -28,4 +30,15 @@ public interface ProductMapper {
     long countByTenantId(@Param("tenantId") String tenantId);
 
     long countOutOfStockByTenantId(@Param("tenantId") String tenantId);
+
+    // New comprehensive filter method
+    List<Product> findProductsWithFilters(@Param("filter") ProductFilterRequest filter);
+
+    long countProductsWithFilters(@Param("filter") ProductFilterRequest filter);
+
+    List<String> findAllCategoriesByTenantId(@Param("tenantId") String tenantId);
+
+    BigDecimal findMinPriceByTenantId(@Param("tenantId") String tenantId);
+
+    BigDecimal findMaxPriceByTenantId(@Param("tenantId") String tenantId);
 }

@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+public interface CartItemRepository extends JpaRepository<CartItem, String> {
     
-    List<CartItem> findByCartId(Long cartId);
+    List<CartItem> findByCartId(String cartId);
     
-    Optional<CartItem> findByCartIdAndProductId(Long cartId, Long productId);
+    Optional<CartItem> findByCartIdAndProductId(String cartId, String productId);
     
     @Query("SELECT ci FROM CartItem ci WHERE ci.product.id = :productId AND ci.cart.tenantId = :tenantId")
-    List<CartItem> findCartItemsContainingProduct(@Param("productId") Long productId, @Param("tenantId") String tenantId);
+    List<CartItem> findCartItemsContainingProduct(@Param("productId") String productId, @Param("tenantId") String tenantId);
     
-    void deleteByCartId(Long cartId);
+    void deleteByCartId(String cartId);
 }

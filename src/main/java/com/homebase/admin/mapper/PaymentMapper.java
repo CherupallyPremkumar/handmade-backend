@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface PaymentMapper {
 
-    List<Payment> findByOrderIdAndTenantId(@Param("orderId") Long orderId, @Param("tenantId") String tenantId);
+    List<Payment> findByOrderIdAndTenantId(@Param("orderId") String orderId, @Param("tenantId") String tenantId);
 
-    Payment findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Payment findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
     Payment findByTransactionIdAndTenantId(@Param("transactionId") String transactionId, @Param("tenantId") String tenantId);
 

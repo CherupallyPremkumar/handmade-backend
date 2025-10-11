@@ -15,6 +15,11 @@
         <result property="timezone" column="timezone"/>
         <result property="supportEmail" column="support_email"/>
         <result property="supportPhone" column="support_phone"/>
+        <!-- Embedded TenantTheme -->
+        <result property="theme.primaryColor" column="theme_primary_color"/>
+        <result property="theme.secondaryColor" column="theme_secondary_color"/>
+        <result property="theme.background" column="theme_background"/>
+        <result property="theme.text" column="theme_text"/>
         <association property="configuration" javaType="com.homebase.admin.entity.TenantConfiguration">
             <id property="id" column="config_id"/>
             <result property="primaryColor" column="primary_color"/>
@@ -41,6 +46,10 @@
             t.timezone,
             t.support_email,
             t.support_phone,
+            t.primary_color as theme_primary_color,
+            t.secondary_color as theme_secondary_color,
+            t.background as theme_background,
+            t.text as theme_text,
             tc.id as config_id,
             tc.primary_color,
             tc.secondary_color,
@@ -68,6 +77,10 @@
             t.timezone,
             t.support_email,
             t.support_phone,
+            t.primary_color as theme_primary_color,
+            t.secondary_color as theme_secondary_color,
+            t.background as theme_background,
+            t.text as theme_text,
             tc.id as config_id,
             tc.primary_color,
             tc.secondary_color,
@@ -95,6 +108,10 @@
             t.timezone,
             t.support_email,
             t.support_phone,
+            t.primary_color as theme_primary_color,
+            t.secondary_color as theme_secondary_color,
+            t.background as theme_background,
+            t.text as theme_text,
             tc.id as config_id,
             tc.primary_color,
             tc.secondary_color,
@@ -122,6 +139,10 @@
             t.timezone,
             t.support_email,
             t.support_phone,
+            t.primary_color as theme_primary_color,
+            t.secondary_color as theme_secondary_color,
+            t.background as theme_background,
+            t.text as theme_text,
             tc.id as config_id,
             tc.primary_color,
             tc.secondary_color,

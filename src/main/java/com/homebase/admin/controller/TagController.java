@@ -34,7 +34,7 @@ public class TagController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'EDITOR')")
-    public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTag(@PathVariable String id) {
         tagService.deleteTag(id);
         return ResponseEntity.noContent().build();
     }

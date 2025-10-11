@@ -11,9 +11,9 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    List<Order> findByCustomerIdAndTenantId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    List<Order> findByCustomerIdAndTenantId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    Order findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Order findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
     Order findByOrderNumberAndTenantId(@Param("orderNumber") String orderNumber, @Param("tenantId") String tenantId);
 
@@ -23,7 +23,7 @@ public interface OrderMapper {
 
     List<Order> findAllByTenantIdPaginated(@Param("tenantId") String tenantId, @Param("limit") int limit, @Param("offset") int offset);
 
-    List<OrderItem> findOrderItemsByOrderId(@Param("orderId") Long orderId, @Param("tenantId") String tenantId);
+    List<OrderItem> findOrderItemsByOrderId(@Param("orderId") String orderId, @Param("tenantId") String tenantId);
 
     long countByTenantId(@Param("tenantId") String tenantId);
 

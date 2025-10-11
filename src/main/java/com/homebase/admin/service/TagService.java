@@ -34,7 +34,7 @@ public class TagService {
     }
 
     @Transactional
-    public void deleteTag(Long id) {
+    public void deleteTag(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Tag tag = tagRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Tag not found"));

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class OrderItemDTO {
     private String id;
-    private Long productId;
+    private String productId;
     private String productName;
     private String productImage;
     private BigDecimal price;
@@ -22,11 +22,11 @@ public class OrderItemDTO {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

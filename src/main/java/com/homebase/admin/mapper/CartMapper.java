@@ -11,15 +11,15 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
 
-    Cart findByCustomerIdAndTenantId(@Param("customerId") Long customerId, @Param("tenantId") String tenantId);
+    Cart findByCustomerIdAndTenantId(@Param("customerId") String customerId, @Param("tenantId") String tenantId);
 
-    List<CartItem> findCartItemsByCartId(@Param("cartId") Long cartId, @Param("tenantId") String tenantId);
+    List<CartItem> findCartItemsByCartId(@Param("cartId") String cartId, @Param("tenantId") String tenantId);
 
-    CartItem findCartItemById(@Param("id") Long id, @Param("tenantId") String tenantId);
+    CartItem findCartItemById(@Param("id") String id, @Param("tenantId") String tenantId);
 
-    CartItem findCartItemByCartAndProduct(@Param("cartId") Long cartId, @Param("productId") Long productId, @Param("tenantId") String tenantId);
+    CartItem findCartItemByCartAndProduct(@Param("cartId") String cartId, @Param("productId") String productId, @Param("tenantId") String tenantId);
 
-    BigDecimal calculateCartTotal(@Param("cartId") Long cartId, @Param("tenantId") String tenantId);
+    BigDecimal calculateCartTotal(@Param("cartId") String cartId, @Param("tenantId") String tenantId);
 
-    int countCartItems(@Param("cartId") Long cartId, @Param("tenantId") String tenantId);
+    int countCartItems(@Param("cartId") String cartId, @Param("tenantId") String tenantId);
 }

@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
         ProductDTO product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
@@ -92,7 +92,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'EDITOR')")
     public ResponseEntity<ProductDTO> updateProduct(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody ProductDTO productDTO) {
         ProductDTO updated = productService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updated);
@@ -100,7 +100,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'EDITOR')")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }

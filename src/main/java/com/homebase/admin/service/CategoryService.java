@@ -50,7 +50,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
+    public CategoryDTO updateCategory(String id, CategoryDTO categoryDTO) {
         String tenantId = TenantContext.getCurrentTenant();
         Category category = categoryRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -64,7 +64,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public void deleteCategory(Long id) {
+    public void deleteCategory(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Category category = categoryRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));

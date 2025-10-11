@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CartDTO {
-    private Long id;
-    private Long customerId;
+    private String id;
+    private String customerId;
     private String customerName;
     private List<CartItemDTO> items;
     private int totalQuantity;
@@ -16,19 +16,19 @@ public class CartDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

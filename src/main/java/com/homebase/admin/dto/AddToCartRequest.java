@@ -1,14 +1,14 @@
 package com.homebase.admin.dto;
 
 public class AddToCartRequest {
-    private Long productId;
+    private String productId;
     private int quantity = 1;
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

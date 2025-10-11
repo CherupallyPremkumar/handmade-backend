@@ -11,7 +11,7 @@ public interface CustomerMapper {
 
     Customer findByEmailAndTenantId(@Param("email") String email, @Param("tenantId") String tenantId);
 
-    Customer findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Customer findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
     List<Customer> findAllByTenantId(@Param("tenantId") String tenantId);
 

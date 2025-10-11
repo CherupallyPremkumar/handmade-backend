@@ -8,7 +8,7 @@ import java.util.List;
 public class OrderDTO {
     private String id;
     private String orderNumber;
-    private Long customerId;
+    private String customerId;
     private String customerName;
     private String customerEmail;
     private String customerPhone;
@@ -96,11 +96,11 @@ public class OrderDTO {
         this.orderNumber = orderNumber;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

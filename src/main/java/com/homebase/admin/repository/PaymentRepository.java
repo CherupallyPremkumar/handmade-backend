@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
+public interface PaymentRepository extends JpaRepository<Payment, String> {
     
     Optional<Payment> findByTransactionId(String transactionId);
     
     Optional<Payment> findByMerchantTransactionId(String merchantTransactionId);
     
-    List<Payment> findByOrderId(Long orderId);
+    List<Payment> findByOrderId(String orderId);
     
     List<Payment> findByTenantIdAndStatus(String tenantId, Payment.PaymentStatus status);
 }

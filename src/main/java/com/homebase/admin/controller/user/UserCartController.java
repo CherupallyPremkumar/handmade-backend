@@ -25,7 +25,7 @@ public class UserCartController {
      */
     @GetMapping
     public ResponseEntity<List<CartItemDTO>> getCart(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         List<CartItemDTO> items = cartService.getCartItems(customerId, tenantId);
         return ResponseEntity.ok(items);
@@ -37,7 +37,7 @@ public class UserCartController {
      */
     @PostMapping
     public ResponseEntity<CartItemDTO> addToCart(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId,
             @RequestBody AddToCartRequest request) {
         CartItemDTO item = cartService.addToCart(
@@ -55,7 +55,7 @@ public class UserCartController {
      */
     @PutMapping("/{itemId}")
     public ResponseEntity<CartItemDTO> updateCartItem(
-            @PathVariable Long itemId,
+            @PathVariable String itemId,
             @RequestParam(required = false, defaultValue = "default") String tenantId,
             @RequestBody UpdateCartItemRequest request) {
         CartItemDTO item = cartService.updateCartItem(itemId, request.getQuantity(), tenantId);
@@ -68,7 +68,7 @@ public class UserCartController {
      */
     @DeleteMapping("/{itemId}")
     public ResponseEntity<Void> removeFromCart(
-            @PathVariable Long itemId,
+            @PathVariable String itemId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         cartService.removeFromCart(itemId, tenantId);
         return ResponseEntity.noContent().build();
@@ -80,7 +80,7 @@ public class UserCartController {
      */
     @DeleteMapping
     public ResponseEntity<Void> clearCart(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         cartService.clearCart(customerId, tenantId);
         return ResponseEntity.noContent().build();

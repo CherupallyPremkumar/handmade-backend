@@ -10,17 +10,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Order, String> {
     
     List<Order> findByTenantId(String tenantId);
     
     Optional<Order> findByOrderNumberAndTenantId(String orderNumber, String tenantId);
     
-    List<Order> findByCustomerIdAndTenantIdOrderByCreatedAtDesc(Long customerId, String tenantId);
+    List<Order> findByCustomerIdAndTenantIdOrderByCreatedAtDesc(String customerId, String tenantId);
     
     List<Order> findByTenantIdAndStatus(String tenantId, Order.OrderStatus status);
     
-    Optional<Order> findByIdAndTenantId(Long id, String tenantId);
+    Optional<Order> findByIdAndTenantId(String id, String tenantId);
     
     List<Order> findByStatusAndTenantId(Order.OrderStatus status, String tenantId);
     

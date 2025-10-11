@@ -11,7 +11,7 @@ public interface CategoryMapper {
 
     List<Category> findAllByTenantId(@Param("tenantId") String tenantId);
 
-    Category findByIdAndTenantId(@Param("id") Long id, @Param("tenantId") String tenantId);
+    Category findByIdAndTenantId(@Param("id") String id, @Param("tenantId") String tenantId);
 
     Category findBySlugAndTenantId(@Param("slug") String slug, @Param("tenantId") String tenantId);
 

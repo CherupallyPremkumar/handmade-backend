@@ -1,6 +1,8 @@
 package com.homebase.admin.service;
 
 import com.homebase.admin.dto.ProductDTO;
+import com.homebase.admin.dto.ProductFilterRequest;
+import com.homebase.admin.dto.ProductFilterResponse;
 import com.homebase.admin.entity.Product;
 import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.mapper.ProductMapper;
@@ -23,7 +25,8 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ApplicationEventPublisher eventPublisher;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper, ApplicationEventPublisher eventPublisher) {
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper,
+            ApplicationEventPublisher eventPublisher) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
         this.eventPublisher = eventPublisher;
@@ -48,13 +51,36 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductById(Long id) {
+    public ProductDTO getProductById(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Product product = productMapper.findByIdAndTenantId(id, tenantId); // MyBatis
         if (product == null) {
             throw new RuntimeException("Product not found");
         }
         return convertToDTO(product);
+    }
+
+    public ProductFilterResponse filterProducts(ProductFilterRequest filter) {
+        // Get filtered products
+        List<Product> products = productMapper.findProductsWithFilters(filter);
+        long totalProducts = productMapper.countProductsWithFilters(filter);
+
+        // Get metadata
+        List<String> categories = productMapper.findAllCategoriesByTenantId(filter.getTenantId());
+        BigDecimal minPrice = productMapper.findMinPriceByTenantId(filter.getTenantId());
+        BigDecimal maxPrice = productMapper.findMaxPriceByTenantId(filter.getTenantId());
+
+        // Build response
+        ProductFilterResponse response = new ProductFilterResponse();
+        response.setProducts(products.stream().map(this::convertToDTO).collect(Collectors.toList()));
+        response.setCategories(new java.util.HashSet<>(categories));
+        response.setMinPrice(minPrice != null ? minPrice : BigDecimal.ZERO);
+        response.setMaxPrice(maxPrice != null ? maxPrice : BigDecimal.ZERO);
+        response.setTotalProducts(totalProducts);
+        response.setCurrentPage(filter.getPage());
+        response.setTotalPages((int) Math.ceil((double) totalProducts / filter.getSize()));
+
+        return response;
     }
 
     @Transactional
@@ -65,7 +91,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+    public ProductDTO updateProduct(String id, ProductDTO productDTO) {
         String tenantId = TenantContext.getCurrentTenant();
         Product product = productRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -85,7 +111,7 @@ public class ProductService {
         product.setTags(productDTO.getTags());
         product.setRating(productDTO.getRating());
         product.setFeatured(productDTO.getFeatured());
-        
+
         // Update sale fields if present in DTO
         if (productDTO.getOnSale() != null) {
             product.setOnSale(productDTO.getOnSale());
@@ -95,31 +121,30 @@ public class ProductService {
         }
 
         Product updated = productRepository.save(product);
-        
+
         // Check if price or sale status changed and publish event
         boolean priceChanged = !oldPrice.equals(updated.getPrice());
         boolean salePriceChanged = (oldSalePrice == null && updated.getSalePrice() != null) ||
-                                   (oldSalePrice != null && !oldSalePrice.equals(updated.getSalePrice()));
+                (oldSalePrice != null && !oldSalePrice.equals(updated.getSalePrice()));
         boolean saleStatusChanged = !oldOnSale.equals(updated.isOnSale());
-        
+
         if (priceChanged || salePriceChanged || saleStatusChanged) {
             ProductPriceChangedEvent event = new ProductPriceChangedEvent(
-                updated.getId(),
-                oldPrice,
-                updated.getPrice(),
-                oldOnSale,
-                updated.isOnSale(),
-                oldSalePrice,
-                updated.getSalePrice()
-            );
+                    updated.getId(),
+                    oldPrice,
+                    updated.getPrice(),
+                    oldOnSale,
+                    updated.isOnSale(),
+                    oldSalePrice,
+                    updated.getSalePrice());
             eventPublisher.publishEvent(event);
         }
-        
+
         return convertToDTO(updated);
     }
 
     @Transactional
-    public void deleteProduct(Long id) {
+    public void deleteProduct(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Product product = productRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));

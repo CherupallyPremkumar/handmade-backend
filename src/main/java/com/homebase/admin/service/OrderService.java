@@ -38,7 +38,7 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO getOrderById(Long id) {
+    public OrderDTO getOrderById(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Order order = orderRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
@@ -46,7 +46,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDTO updateOrderStatus(Long id, String status) {
+    public OrderDTO updateOrderStatus(String id, String status) {
         String tenantId = TenantContext.getCurrentTenant();
         Order order = orderRepository.findByIdAndTenantId(id, tenantId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));

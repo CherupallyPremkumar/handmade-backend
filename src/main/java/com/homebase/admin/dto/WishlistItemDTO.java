@@ -3,27 +3,27 @@ package com.homebase.admin.dto;
 import java.math.BigDecimal;
 
 public class WishlistItemDTO {
-    private Long id;
-    private Long productId;
+    private String id;
+    private String productId;
     private String productName;
     private String productImage;
     private BigDecimal price;
     private Integer desiredQuantity;
     private boolean inStock;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

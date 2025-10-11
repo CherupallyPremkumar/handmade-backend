@@ -74,7 +74,7 @@ public class Tenant {
     @Column(name = "support_phone", length = 20)
     private String supportPhone;
 
-
+    @Embedded
     private TenantTheme theme;
 
     @OneToOne(cascade = CascadeType.ALL)

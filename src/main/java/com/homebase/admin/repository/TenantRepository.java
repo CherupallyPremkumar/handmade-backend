@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TenantRepository extends JpaRepository<Tenant, Long> {
+public interface TenantRepository extends JpaRepository<Tenant, String> {
 
     // Find tenant by URL path (used in frontend)
     Optional<Tenant> findByUrlPath(String urlPath);

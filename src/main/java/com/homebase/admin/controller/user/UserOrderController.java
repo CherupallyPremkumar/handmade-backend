@@ -47,7 +47,7 @@ public class UserOrderController {
      */
     @GetMapping
     public ResponseEntity<List<OrderDTO>> getCustomerOrders(
-            @RequestParam Long customerId,
+            @RequestParam String customerId,
             @RequestParam(required = false, defaultValue = "default") String tenantId) {
         List<OrderDTO> orders = userOrderService.getCustomerOrders(customerId, tenantId);
         return ResponseEntity.ok(orders);

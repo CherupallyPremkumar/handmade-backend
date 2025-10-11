@@ -29,7 +29,7 @@ public class WishlistService {
     }
 
     @Transactional(readOnly = true)
-    public List<WishlistItemDTO> getWishlistItems(Long customerId, String tenantId) {
+    public List<WishlistItemDTO> getWishlistItems(String customerId, String tenantId) {
         Wishlist wishlist = getOrCreateWishlist(customerId, tenantId);
         return wishlist.getItems().stream()
                 .map(this::convertToDTO)
@@ -37,7 +37,7 @@ public class WishlistService {
     }
 
     @Transactional
-    public WishlistItemDTO addToWishlist(Long customerId, Long productId, String tenantId) {
+    public WishlistItemDTO addToWishlist(String customerId, String productId, String tenantId) {
         Wishlist wishlist = getOrCreateWishlist(customerId, tenantId);
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -63,7 +63,7 @@ public class WishlistService {
     }
 
     @Transactional
-    public void removeFromWishlist(Long itemId, String tenantId) {
+    public void removeFromWishlist(String itemId, String tenantId) {
         WishlistItem item = wishlistItemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Wishlist item not found"));
         
@@ -77,7 +77,7 @@ public class WishlistService {
     }
 
     @Transactional
-    public void clearWishlist(Long customerId, String tenantId) {
+    public void clearWishlist(String customerId, String tenantId) {
         Wishlist wishlist = wishlistRepository.findByCustomerIdAndTenantId(customerId, tenantId)
                 .orElse(null);
 
@@ -89,7 +89,7 @@ public class WishlistService {
     }
 
     @Transactional(readOnly = true)
-    public boolean isInWishlist(Long customerId, Long productId, String tenantId) {
+    public boolean isInWishlist(String customerId, String productId, String tenantId) {
         Wishlist wishlist = wishlistRepository.findByCustomerIdAndTenantId(customerId, tenantId)
                 .orElse(null);
         
@@ -101,7 +101,7 @@ public class WishlistService {
                 .anyMatch(item -> item.getProduct().getId().equals(productId));
     }
 
-    private Wishlist getOrCreateWishlist(Long customerId, String tenantId) {
+    private Wishlist getOrCreateWishlist(String customerId, String tenantId) {
         return wishlistRepository.findByCustomerIdAndTenantId(customerId, tenantId)
                 .orElseGet(() -> {
                     Customer customer = customerRepository.findById(customerId)

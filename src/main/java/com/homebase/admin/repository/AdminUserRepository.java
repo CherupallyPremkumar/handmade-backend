@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminUserRepository extends JpaRepository<AdminUser, Long> {
+public interface AdminUserRepository extends JpaRepository<AdminUser, String> {
     
     Optional<AdminUser> findByEmailAndTenantId(String email, String tenantId);
     

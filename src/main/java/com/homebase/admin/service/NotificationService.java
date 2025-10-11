@@ -35,7 +35,7 @@ public class NotificationService {
     }
 
     @Transactional
-    public void markAsRead(Long id) {
+    public void markAsRead(String id) {
         String tenantId = TenantContext.getCurrentTenant();
         Notification notification = notificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Notification not found"));
