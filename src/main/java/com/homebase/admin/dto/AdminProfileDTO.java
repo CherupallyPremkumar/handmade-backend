@@ -1,13 +1,23 @@
 package com.homebase.admin.dto;
 
 
+import java.util.List;
 
 public class AdminProfileDTO {
     private String id;
     private String name;
     private String email;
     private String phone;
-    private String role;
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    private List<String> roles;
     private String avatarUrl;
     private String createdAt;
     private String updatedAt;
@@ -44,13 +54,6 @@ public class AdminProfileDTO {
         this.phone = phone;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;

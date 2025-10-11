@@ -3,7 +3,7 @@ package com.homebase.admin.service;
 import com.homebase.admin.dto.NotificationDTO;
 import com.homebase.admin.dto.NotificationStatsDTO;
 import com.homebase.admin.entity.Notification;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

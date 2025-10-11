@@ -2,7 +2,7 @@ package com.homebase.admin.service;
 
 import com.homebase.admin.dto.CustomerDTO;
 import com.homebase.admin.entity.Customer;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 

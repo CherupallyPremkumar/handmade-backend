@@ -4,7 +4,7 @@ import com.homebase.admin.dto.OrderDTO;
 import com.homebase.admin.dto.OrderItemDTO;
 import com.homebase.admin.entity.Order;
 import com.homebase.admin.entity.OrderItem;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

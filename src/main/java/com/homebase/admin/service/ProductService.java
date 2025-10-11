@@ -2,7 +2,7 @@ package com.homebase.admin.service;
 
 import com.homebase.admin.dto.ProductDTO;
 import com.homebase.admin.entity.Product;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.observer.event.ProductPriceChangedEvent;
 import com.homebase.admin.repository.ProductRepository;
 

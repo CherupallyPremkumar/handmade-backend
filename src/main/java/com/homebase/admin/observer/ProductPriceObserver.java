@@ -1,6 +1,6 @@
 package com.homebase.admin.observer;
 
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.observer.event.ProductPriceChangedEvent;
 import com.homebase.admin.service.CartService;
 import org.springframework.context.event.EventListener;

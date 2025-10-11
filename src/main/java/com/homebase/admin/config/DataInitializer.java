@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,25 +19,29 @@ public class DataInitializer implements CommandLineRunner {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TenantRepository tenantRepository;
 
-    public DataInitializer(AdminUserRepository adminUserRepository, ProductRepository productRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+    public DataInitializer(AdminUserRepository adminUserRepository, ProductRepository productRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, CustomerRepository customerRepository, PasswordEncoder passwordEncoder, TenantRepository tenantRepository) {
         this.adminUserRepository = adminUserRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.tenantRepository = tenantRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         // Initialize data for multiple tenants with distinct data
-        initializeTenantData("default", "Home Decor");
-        initializeTenantData("tenant1", "Fashion Store");
-        initializeTenantData("tenant2", "Tech Shop");
+        initializeTenantData("default", "Home Decor","havenhome","USD");
+        initializeTenantData("tenant1", "Fashion Store","stylehub","EUR");
+        initializeTenantData("tenant2", "Tech Shop","techmart","GBP");
     }
 
-    private void initializeTenantData(String tenantId, String businessName) {
+    private void initializeTenantData(String tenantId, String businessName,String urlPath,String currency) {
+
+        createTenant(tenantId, businessName,urlPath,currency);
         // Set tenant context for this initialization
         TenantContext.setCurrentTenant(tenantId);
         
@@ -53,11 +56,11 @@ public class DataInitializer implements CommandLineRunner {
         }
         
         createAdminUser(adminEmail, "admin123", businessName + " Admin", 
-                       AdminUser.UserRole.SUPER_ADMIN, false, tenantId);
-        createAdminUser(editorEmail, "editor123", businessName + " Editor", 
-                       AdminUser.UserRole.EDITOR, true, tenantId);
-        createAdminUser(viewerEmail, "viewer123", businessName + " Viewer", 
-                       AdminUser.UserRole.VIEWER, false, tenantId);
+                       List.of(AdminUser.UserRole.SUPER_ADMIN.toString()), false, tenantId);
+        createAdminUser(editorEmail, "editor123", businessName + " Editor",
+                List.of(AdminUser.UserRole.EDITOR.toString()), true, tenantId);
+        createAdminUser(viewerEmail, "viewer123", businessName + " Viewer",
+                List.of(AdminUser.UserRole.VIEWER.toString()), false, tenantId);
 
         // Create tenant-specific data
         if (tenantId.equals("default")) {
@@ -77,7 +80,7 @@ public class DataInitializer implements CommandLineRunner {
                          Arrays.asList("wood", "rustic"), true, tenantId);
             
             createCustomer("Sarah Johnson", "sarah@homedecor.com", "+1234567890", tenantId);
-            createCustomer("Michael Chen", "michael@homedecor.com", "+0987654321", tenantId);
+            createCustomer("Michael Chen", "customer@example.com", "+0987654321", tenantId);
             
         } else if (tenantId.equals("tenant1")) {
             // Fashion Store products
@@ -96,7 +99,7 @@ public class DataInitializer implements CommandLineRunner {
                          Arrays.asList("sports", "comfort"), false, tenantId);
             
             createCustomer("Emma Davis", "emma@fashion.com", "+1555123456", tenantId);
-            createCustomer("James Wilson", "james@fashion.com", "+1555654321", tenantId);
+            createCustomer("James Wilson", "", "+1555654321", tenantId);
             
         } else if (tenantId.equals("tenant2")) {
             // Tech Shop products
@@ -124,13 +127,52 @@ public class DataInitializer implements CommandLineRunner {
         TenantContext.clear();
     }
 
+    private void createTenant(String tenantId, String businessName, String urlPath, String currency) {
+        Tenant tenant = new Tenant();
+
+        // Basic tenant info
+        tenant.setTenantCode(tenantId);
+        tenant.setTenantName(businessName);
+        tenant.setDisplayName(businessName); // fallback displayName
+        tenant.setUrlPath(urlPath);
+        tenant.setCurrency(currency);
+        tenant.setLocale("en-US");
+        tenant.setTimezone("UTC");
+
+        // Branding / UI
+        tenant.setLogoUrl("https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=200");
+
+        // Support info
+        tenant.setSupportEmail("support@" + urlPath + ".com");
+        tenant.setSupportPhone("+10000000000");
+
+        // Theme (non-null)
+        TenantTheme theme = new TenantTheme();
+        theme.setPrimaryColor("#4A90E2");
+        theme.setSecondaryColor("#50E3C2");
+        theme.setBackground("#FFFFFF");
+        theme.setText("#333333");
+        tenant.setTheme(theme);
+
+        // Configuration / feature flags
+        TenantConfiguration config = new TenantConfiguration();
+        config.setEnablePromotions(true);
+        config.setEnableReviews(true);// example additional field
+        tenant.setConfiguration(config);
+
+        // Save tenant
+        tenantRepository.save(tenant);
+
+        System.out.println("Tenant created: " + businessName + " (" + tenantId + ")");
+    }
+
     private void createAdminUser(String email, String password, String name, 
-                                 AdminUser.UserRole role, boolean requires2FA, String tenantId) {
+                                 List<String> roles, boolean requires2FA, String tenantId) {
         AdminUser user = new AdminUser();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setName(name);
-        user.setRole(role);
+        user.setRoles(roles);
         user.setRequiresTwoFactor(requires2FA);
         user.setEnabled(true);
         user.setAvatarUrl("https://api.dicebear.com/7.x/avataaars/svg?seed=" + email);
@@ -165,6 +207,7 @@ public class DataInitializer implements CommandLineRunner {
     private void createCustomer(String name, String email, String phone, String tenantId) {
         Customer customer = new Customer();
         customer.setName(name);
+        customer.setPassword(passwordEncoder.encode("customer123"));
         customer.setEmail(email);
         customer.setPhone(phone);
         customer.setOrderCount(0);

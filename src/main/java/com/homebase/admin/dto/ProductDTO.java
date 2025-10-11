@@ -110,7 +110,8 @@ public class ProductDTO {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public String
+    getUpdatedAt() {
         return updatedAt;
     }
 

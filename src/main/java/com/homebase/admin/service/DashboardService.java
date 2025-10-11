@@ -1,7 +1,7 @@
 package com.homebase.admin.service;
 
 import com.homebase.admin.dto.DashboardStatsDTO;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.OrderRepository;
 import com.homebase.admin.repository.ProductRepository;
 import org.springframework.stereotype.Service;

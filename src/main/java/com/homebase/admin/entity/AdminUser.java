@@ -2,9 +2,11 @@ package com.homebase.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.homebase.admin.entity.converter.RolesConverter;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "admin_users", 
@@ -21,9 +23,8 @@ public class AdminUser extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role = UserRole.VIEWER;
+    @Convert(converter = RolesConverter.class)
+    private List<String> roles;
 
     private String avatarUrl;
 
@@ -60,14 +61,6 @@ public class AdminUser extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public String getAvatarUrl() {
@@ -108,6 +101,14 @@ public class AdminUser extends BaseEntity {
 
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     public enum UserRole {

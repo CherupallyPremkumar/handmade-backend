@@ -3,7 +3,7 @@ package com.homebase.admin.service;
 import com.homebase.admin.dto.AdminProfileDTO;
 import com.homebase.admin.dto.UpdateProfileRequest;
 import com.homebase.admin.entity.AdminUser;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.AdminUserRepository;
 
 import org.springframework.stereotype.Service;
@@ -79,7 +79,7 @@ public class ProfileService {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setPhone(user.getPhone());
-        dto.setRole(user.getRole().name().toLowerCase());
+        dto.setRoles(user.getRoles());
         dto.setAvatarUrl(user.getAvatarUrl());
         dto.setCreatedAt(user.getCreatedAt() != null ? user.getCreatedAt().toString() : null);
         dto.setUpdatedAt(user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null);

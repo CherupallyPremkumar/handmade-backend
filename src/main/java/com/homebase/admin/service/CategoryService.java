@@ -2,7 +2,7 @@ package com.homebase.admin.service;
 
 import com.homebase.admin.dto.CategoryDTO;
 import com.homebase.admin.entity.Category;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.CategoryRepository;
 import com.homebase.admin.repository.ProductRepository;
 

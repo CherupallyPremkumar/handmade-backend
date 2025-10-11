@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -54,10 +55,10 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username, String tenantId, String role) {
+    public String generateToken(String username, String tenantId, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("tenantId", tenantId);
-        claims.put("role", role);
+        claims.put("role", roles);
         return createToken(claims, username);
     }
 

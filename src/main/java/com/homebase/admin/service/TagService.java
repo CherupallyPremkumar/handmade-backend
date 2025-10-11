@@ -2,7 +2,7 @@ package com.homebase.admin.service;
 
 import com.homebase.admin.dto.TagDTO;
 import com.homebase.admin.entity.Tag;
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import com.homebase.admin.repository.TagRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

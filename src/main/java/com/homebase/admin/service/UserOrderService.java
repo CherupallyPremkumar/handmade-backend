@@ -98,10 +98,9 @@ public class UserOrderService {
             Product product = cartItem.getProduct();
             
             OrderItem orderItem = new OrderItem();
-            orderItem.setProduct(product.getId());
+            orderItem.setProductId(product.getId());
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getSnapshotPrice()); // Use snapshot price from cart
-            orderItem.setTenantId(tenantId);
             
             BigDecimal itemTotal = cartItem.getSnapshotPrice()
                     .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
@@ -245,7 +244,10 @@ public class UserOrderService {
 
     private void restoreStock(List<OrderItem> orderItems) {
         for (OrderItem item : orderItems) {
-            Product product = item.getProduct();
+            Product product = item.getProductId() != null
+                    ? productRepository.findById(item.getProductId())
+                        .orElse(null)
+                    : null;
             product.setStock(product.getStock() + item.getQuantity());
             productRepository.save(product);
         }
@@ -316,9 +318,8 @@ public class UserOrderService {
     private OrderItemDTO convertOrderItemToDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
         dto.setId(String.valueOf(item.getId()));
-        dto.setProductId(item.getProduct().getId());
-        dto.setProductName(item.getProduct().getName());
-        dto.setProductImage(item.getProduct().getImageUrl());
+        dto.setProductId(item.getProductId());
+        dto.setProductName(item.getProductName());
         dto.setPrice(item.getPrice());
         dto.setQuantity(item.getQuantity());
         dto.setSubtotal(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));

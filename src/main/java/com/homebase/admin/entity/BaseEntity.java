@@ -1,5 +1,6 @@
 package com.homebase.admin.entity;
 
+import com.homebase.admin.config.TenantContext;
 import jakarta.persistence.*;
 
 import org.springframework.data.annotation.CreatedDate;

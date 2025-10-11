@@ -1,15 +1,15 @@
 package com.homebase.admin.entity;
 
+import com.homebase.admin.entity.converter.RolesConverter;
 import jakarta.persistence.*;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "customers",
        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "tenant_id"}))
-
-
 public class Customer extends BaseEntity {
 
     @Column(nullable = false)
@@ -17,6 +17,8 @@ public class Customer extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
+    private String password;
 
     private String phone;
 
@@ -25,6 +27,10 @@ public class Customer extends BaseEntity {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalSpent = BigDecimal.ZERO;
+
+    @Column(name = "roles", nullable = false)
+    @Convert(converter = RolesConverter.class)
+    private List<String> roles;
 
     public String getName() {
         return name;
@@ -64,5 +70,21 @@ public class Customer extends BaseEntity {
 
     public void setTotalSpent(BigDecimal totalSpent) {
         this.totalSpent = totalSpent;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

@@ -5,7 +5,6 @@ import com.homebase.admin.dto.LoginRequest;
 import com.homebase.admin.dto.LoginResponse;
 import com.homebase.admin.dto.TenantConfigDTO;
 import com.homebase.admin.entity.AdminUser;
-import com.homebase.admin.entity.TenantContext;
 import com.homebase.admin.repository.AdminUserRepository;
 import com.homebase.admin.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,22 +25,28 @@ public class AuthService {
 
     // Mock tenant configurations (in production, store in database)
     private static final Map<String, TenantConfigDTO> TENANT_CONFIGS = new HashMap<>();
-    
+
     static {
-        TENANT_CONFIGS.put("tenant1", new TenantConfigDTO(
-            "tenant1", "Tenant 1 Store", "tenant1",
-            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200",
-            "340 75% 55%", "142 30% 55%"
-        ));
-        TENANT_CONFIGS.put("tenant2", new TenantConfigDTO(
-            "tenant2", "Tenant 2 Shop", "tenant2",
-            "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=200",
-            "220 75% 55%", "280 60% 55%"
-        ));
-        TENANT_CONFIGS.put("default", new TenantConfigDTO(
-            "default", "Home Decor Admin", "default",
-            null, null, null
-        ));
+        TENANT_CONFIGS.put("tenant1", new TenantConfigDTO.Builder()
+                .id("tenant1")
+                .name("Tenant 1 Store")
+                .logoUrl("https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200")
+                .build()
+        );
+
+        TENANT_CONFIGS.put("tenant2", new TenantConfigDTO.Builder()
+                .id("tenant2")
+                .name("Tenant 2 Shop")
+                .logoUrl("https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=200")
+                .build()
+        );
+
+        TENANT_CONFIGS.put("default", new TenantConfigDTO.Builder()
+                .id("default")
+                .name("Home Decor Admin")
+                .logoUrl(null)
+                .build()
+        );
     }
 
     public AuthService(AdminUserRepository adminUserRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
@@ -76,7 +81,7 @@ public class AuthService {
         String token = jwtUtil.generateToken(
             user.getEmail(),
             finalTenantId,
-            user.getRole().name()
+            user.getRoles()
         );
 
         // Convert user to DTO
@@ -108,7 +113,7 @@ public class AuthService {
         dto.setId(String.valueOf(user.getId()));
         dto.setEmail(user.getEmail());
         dto.setName(user.getName());
-        dto.setRole(user.getRole().name().toLowerCase());
+        dto.setRoles(user.getRoles());
         dto.setAvatarUrl(user.getAvatarUrl());
         dto.setLastLogin(user.getLastLogin() != null ? user.getLastLogin().toString() : null);
         dto.setTenantId(tenantId);

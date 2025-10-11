@@ -1,6 +1,6 @@
 package com.homebase.admin.security;
 
-import com.homebase.admin.entity.TenantContext;
+import com.homebase.admin.config.TenantContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,28 +28,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+        if (path.startsWith("/api/tenants/") || path.startsWith("/api/user/auth/")) {
+            chain.doFilter(request, response); // skip JWT check
+            return;
+        }
         final String authorizationHeader = request.getHeader("Authorization");
-        final String tenantIdHeader = request.getHeader("X-Tenant-ID");
 
         String username = null;
         String jwt = null;
-        String tenantId = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 jwt = authorizationHeader.substring(7);
                 username = jwtUtil.extractUsername(jwt);
-                tenantId = jwtUtil.extractTenantId(jwt);
             } catch (Exception e) {
                 logger.error("Error extracting JWT token: " + e.getMessage(), e);
             }
-        }
-
-        // Set tenant context from header or JWT
-        if (tenantIdHeader != null) {
-            TenantContext.setCurrentTenant(tenantIdHeader);
-        } else if (tenantId != null) {
-            TenantContext.setCurrentTenant(tenantId);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

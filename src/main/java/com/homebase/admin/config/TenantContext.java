@@ -1,4 +1,4 @@
-package com.homebase.admin.entity;
+package com.homebase.admin.config;
 
 public class TenantContext {
     private static final ThreadLocal<String> currentTenant = new ThreadLocal<>();
