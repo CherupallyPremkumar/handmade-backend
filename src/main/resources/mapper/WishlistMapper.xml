@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.homebase.admin.mapper.WishlistMapper">
+<mapper namespace="com.homebase.ecom.mapper.WishlistMapper">
 
-    <resultMap id="wishlistResultMap" type="com.homebase.admin.entity.Wishlist">
+    <resultMap id="wishlistResultMap" type="com.homebase.ecom.domain.Wishlist">
         <id property="id" column="id"/>
         <result property="customerId" column="customer_id"/>
         <result property="tenantId" column="tenant_id"/>
     </resultMap>
 
-    <resultMap id="wishlistItemResultMap" type="com.homebase.admin.entity.WishlistItem">
+    <resultMap id="wishlistItemResultMap" type="com.homebase.ecom.domain.WishlistItem">
         <id property="id" column="id"/>
         <result property="wishlistId" column="wishlist_id"/>
         <result property="productId" column="product_id"/>

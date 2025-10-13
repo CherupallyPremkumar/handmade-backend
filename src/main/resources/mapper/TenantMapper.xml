@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.homebase.admin.mapper.TenantMapper">
+<mapper namespace="com.homebase.ecom.mapper.TenantMapper">
 
-    <!-- Result Map for Tenant with Configuration -->
-    <resultMap id="tenantWithConfig" type="com.homebase.admin.entity.Tenant">
+    <!-- Result Map for TenantEntity with Configuration -->
+    <resultMap id="tenantWithConfig" type="com.homebase.ecom.domain.Tenant">
         <id property="id" column="id"/>
         <result property="tenantCode" column="tenant_code"/>
         <result property="tenantName" column="tenant_name"/>
@@ -20,7 +20,7 @@
         <result property="theme.secondaryColor" column="theme_secondary_color"/>
         <result property="theme.background" column="theme_background"/>
         <result property="theme.text" column="theme_text"/>
-        <association property="configuration" javaType="com.homebase.admin.entity.TenantConfiguration">
+        <association property="configuration" javaType="com.homebase.ecom.domain.TenantConfiguration">
             <id property="id" column="config_id"/>
             <result property="primaryColor" column="primary_color"/>
             <result property="secondaryColor" column="secondary_color"/>

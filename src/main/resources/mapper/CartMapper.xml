@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.homebase.admin.mapper.CartMapper">
+<mapper namespace="com.homebase.ecom.mapper.CartMapper">
 
-    <!-- Result Map for Cart -->
-    <resultMap id="cartResultMap" type="com.homebase.admin.entity.Cart">
+    <!-- Result Map for CartEntity -->
+    <resultMap id="cartResultMap" type="com.homebase.ecom.domain.Cart">
         <id property="id" column="id"/>
         <result property="customerId" column="customer_id"/>
         <result property="tenantId" column="tenant_id"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <!-- Result Map for CartItem with Product details -->
-    <resultMap id="cartItemResultMap" type="com.homebase.admin.entity.CartItem">
+    <resultMap id="cartItemResultMap" type="com.homebase.ecom.domain.CartItem">
         <id property="id" column="id"/>
         <result property="cartId" column="cart_id"/>
         <result property="productId" column="product_id"/>

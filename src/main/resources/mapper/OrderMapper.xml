@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.homebase.admin.mapper.OrderMapper">
+<mapper namespace="com.homebase.ecom.mapper.OrderMapper">
 
     <!-- Result Map for Order -->
-    <resultMap id="orderResultMap" type="com.homebase.admin.entity.Order">
+    <resultMap id="orderResultMap" type="com.homebase.ecom.domain.Order">
         <id property="id" column="id"/>
         <result property="orderNumber" column="order_number"/>
         <result property="customerId" column="customer_id"/>
@@ -12,8 +12,10 @@
         <result property="customerPhone" column="customer_phone"/>
         <result property="shippingAddress" column="shipping_address"/>
         <result property="city" column="city"/>
-        <result property="state" column="state"/>
+        <result property="stateAddress" column="state"/>
         <result property="pincode" column="pincode"/>
+        <result property="stateId" column="state_id"/>
+        <result property="flowId" column="flow_id"/>
         <result property="subtotal" column="subtotal"/>
         <result property="tax" column="tax"/>
         <result property="shippingCost" column="shipping_cost"/>
@@ -28,7 +30,7 @@
     </resultMap>
 
     <!-- Result Map for OrderItem -->
-    <resultMap id="orderItemResultMap" type="com.homebase.admin.entity.OrderItem">
+    <resultMap id="orderItemResultMap" type="com.homebase.ecom.domain.OrderItem">
         <id property="id" column="id"/>
         <result property="orderId" column="order_id"/>
         <result property="productId" column="product_id"/>

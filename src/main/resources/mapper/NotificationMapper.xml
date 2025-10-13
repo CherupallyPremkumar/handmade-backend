@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.homebase.admin.mapper.NotificationMapper">
+<mapper namespace="com.homebase.ecom.mapper.NotificationMapper">
 
-    <resultMap id="notificationResultMap" type="com.homebase.admin.entity.Notification">
+    <resultMap id="notificationResultMap" type="com.homebase.ecom.domain.Notification">
         <id property="id" column="id"/>
         <result property="customerId" column="customer_id"/>
         <result property="title" column="title"/>
