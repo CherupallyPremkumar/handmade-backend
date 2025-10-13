@@ -74,7 +74,7 @@ if (!storedUser || !storedToken) {
 axiosInstance.interceptors.request.use((config) => {
   const tenantId = sessionStorage.getItem('tenant');
   if (tenantId) {
-    config.headers['X-Tenant-ID'] = tenantId;
+    config.headers['X-TenantEntity-ID'] = tenantId;
   }
   
   // Get token from storage

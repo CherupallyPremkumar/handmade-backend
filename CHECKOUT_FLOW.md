@@ -361,7 +361,7 @@ REFUNDED (if customer returns)
 ### Empty Cart
 ```json
 {
-  "error": "Cart is empty"
+  "error": "CartEntity is empty"
 }
 ```
 **Action:** Customer must add items first

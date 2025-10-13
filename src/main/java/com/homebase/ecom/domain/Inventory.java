@@ -1,4 +1,6 @@
 package com.homebase.ecom.domain;
 
-public class Inventory {
+import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
+
+public class Inventory extends AbstractExtendedStateEntity {
 }

@@ -1,0 +1,19 @@
+package com.homebase.ecom.repository;
+
+import com.homebase.ecom.entity.CartEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface CartRepository extends JpaRepository<CartEntity, String> {
+    
+    Optional<CartEntity> findByCustomerIdAndTenantAndStatus(String customerId, String tenantId, CartEntity.CartStatus status);
+    
+    List<CartEntity> findByTenant(String tenantId);
+    
+}

@@ -13,14 +13,15 @@
     </parent>
 
     <groupId>com.homebase</groupId>
-    <artifactId>admin-suite-backend</artifactId>
+    <artifactId>ecom-backend</artifactId>
     <version>1.0.0</version>
-    <name>Homebase Admin Suite Backend</name>
-    <description>Multi-tenant admin dashboard backend with Spring Boot</description>
+    <name>Homebase Ecommerce Backend</name>
+    <description>Multi-tenant ecommerce backend with Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>
         <jwt.version>0.12.3</jwt.version>
+        <chenile.version>2.1.2</chenile.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,38 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.chenile/workflow-api -->
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-api</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-core</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-http</artifactId>
+            <version>${chenile.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-base</artifactId>
+            <version>${chenile.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-service</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>jpa-utils</artifactId>
+            <version>2.1.2</version>
         </dependency>
 
         <!-- Spring Boot Security -->

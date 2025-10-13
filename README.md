@@ -125,7 +125,7 @@ curl -X POST http://localhost:8080/api/admin/login?tenantId=default \
   "user": {
     "id": "1",
     "email": "admin@homedecor.com",
-    "name": "Admin User",
+    "name": "AdminEntity User",
     "role": "super_admin",
     "tenantId": "default"
   },
@@ -133,7 +133,7 @@ curl -X POST http://localhost:8080/api/admin/login?tenantId=default \
   "requiresTwoFactor": false,
   "tenantConfig": {
     "id": "default",
-    "name": "Home Decor Admin"
+    "name": "Home Decor AdminEntity"
   }
 }
 ```
