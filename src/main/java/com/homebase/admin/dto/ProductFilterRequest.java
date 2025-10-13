@@ -8,7 +8,6 @@ import java.math.BigDecimal;
  */
 public class ProductFilterRequest {
     
-    private String tenantId;
     private String category;
     private String searchQuery;
     private BigDecimal minPrice;
@@ -20,14 +19,6 @@ public class ProductFilterRequest {
     private Integer size = 100;
 
     // Getters and Setters
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
     public String getCategory() {
         return category;
     }

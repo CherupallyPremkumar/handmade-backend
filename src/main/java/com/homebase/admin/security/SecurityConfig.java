@@ -37,12 +37,11 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/admin/login", "/api/admin/verify-2fa", 
+                .requestMatchers("/api/admin/login", "/api/admin/verify-2fa",
                                 "/api/admin/password-reset", "/h2-console/**").permitAll()
-                .requestMatchers("/api/user/**").permitAll() // Allow public access to customer-facing APIs
-                .requestMatchers("/api/tenants/**").permitAll() // Allow public access to customer-facing APIs
-                .requestMatchers("/api/**").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers("/api/user/auth/**").permitAll()
+                .requestMatchers("/api/tenants/**").permitAll()
+                .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

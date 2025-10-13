@@ -32,9 +32,9 @@ public interface ProductMapper {
     long countOutOfStockByTenantId(@Param("tenantId") String tenantId);
 
     // New comprehensive filter method
-    List<Product> findProductsWithFilters(@Param("filter") ProductFilterRequest filter);
+    List<Product> findProductsWithFilters(@Param("filter") ProductFilterRequest filter, @Param("tenantId") String tenantId);
 
-    long countProductsWithFilters(@Param("filter") ProductFilterRequest filter);
+    long countProductsWithFilters(@Param("filter") ProductFilterRequest filter, @Param("tenantId") String tenantId);
 
     List<String> findAllCategoriesByTenantId(@Param("tenantId") String tenantId);
 

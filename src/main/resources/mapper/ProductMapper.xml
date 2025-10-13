@@ -112,7 +112,7 @@
             pt.tag
         FROM products p
         LEFT JOIN product_tags pt ON p.id = pt.product_id
-        WHERE p.tenant_id = #{filter.tenantId}
+        WHERE p.tenant_id = #{tenantId}
         
         <!-- Category filter -->
         <if test="filter.category != null and filter.category != '' and filter.category != 'All'">
@@ -173,14 +173,18 @@
 
     <!-- Count products with filters -->
     <select id="countProductsWithFilters" resultType="long">
-        SELECT COUNT(*) FROM products 
-        WHERE tenant_id = #{filter.tenantId}
+        SELECT COUNT(DISTINCT p.id)
+        FROM products p
+        LEFT JOIN product_tags pt ON p.id = pt.product_id
+        WHERE p.tenant_id = #{tenantId}
         
         <if test="filter.category != null and filter.category != '' and filter.category != 'All'">
             AND category = #{filter.category}
         </if>
         
         <if test="filter.searchQuery != null and filter.searchQuery != ''">
+            AND (p.name LIKE CONCAT('%', #{filter.searchQuery}, '%') 
+                 OR p.description LIKE CONCAT('%', #{filter.searchQuery}, '%'))
             AND (name LIKE CONCAT('%', #{filter.searchQuery}, '%') 
                  OR description LIKE CONCAT('%', #{filter.searchQuery}, '%'))
         </if>
