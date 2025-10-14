@@ -1,6 +1,21 @@
 server:
   port: 8081
 
+chenile:
+  security:
+    keycloak:
+      host: http://localhost:8082       # Keycloak host
+      port: 8080                   # Keycloak port
+      base:
+       realm: master           # Default realm
+    client:
+      id: handmade          # OAuth2 client ID in Keycloak
+      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem   # OAuth2 client secret
+    login:
+      success-url: /               # Redirect after successful login
+      failure-url: /login?error    # Redirect on failure
+    ignore: false
+
 spring:
   application:
     name: homebase-admin-suite
