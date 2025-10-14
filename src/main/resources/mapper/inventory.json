@@ -1,0 +1,105 @@
+[
+  {
+    "id": "Inventory.getByInventoryId",
+    "name": "getByInventoryId",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      }
+    },
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Inventory.getAll",
+    "name": "inventories",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "quantityOnHand": {
+        "name": "quantity_on_hand",
+        "filterable": true,
+        "columnType": "Number",
+        "sortable": true
+      },
+      "quantityCommitted": {
+        "name": "quantity_committed",
+        "filterable": true,
+        "columnType": "Number",
+        "sortable": true
+      },
+      "quantityAvailable": {
+        "name": "quantity_committed",
+        "filterable": true,
+        "columnType": "Number",
+        "sortable": true
+      },
+      "quantity_back_ordered": {
+        "name": "quantity_back_ordered",
+        "filterable": true,
+        "columnType": "Number",
+        "sortable": true
+      },
+      "status": {
+        "name": "status",
+        "filterable": true,
+        "columnType": "Text",
+        "sortable": true
+      },
+      "createBy": {
+        "name": "create_by",
+        "columnType": "Text"
+      },
+      "createdTime": {
+        "name": "created_time",
+        "columnType": "DateTime"
+      },
+      "modifiedTime": {
+        "name": "modified_time",
+        "columnType": "DateTime"
+      },
+      "modifiedBy": {
+        "name": "modified_by",
+        "columnType": "Text"
+      },
+      "variant_id": {
+        "name": "variant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      },
+      "location_id": {
+        "name": "location_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

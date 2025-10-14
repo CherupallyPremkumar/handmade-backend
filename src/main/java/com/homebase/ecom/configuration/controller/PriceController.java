@@ -28,7 +28,7 @@ public class PriceController extends ControllerSupport {
     }
 
     @PostMapping("/price")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class PriceController extends ControllerSupport {
 
     @PutMapping("/price/{id}/{eventID}")
     @BodyTypeSelector({"priceBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Price>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

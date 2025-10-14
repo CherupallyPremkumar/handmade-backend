@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class TenantController extends ControllerSupport {
 
     @GetMapping("/tenant/{id}")
-    @InterceptedBy({"securityInterceptor"})
+   // @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> retrieve(
             HttpServletRequest httpServletRequest,
             @PathVariable String id) {
@@ -28,7 +28,7 @@ public class TenantController extends ControllerSupport {
     }
 
     @PostMapping("/tenant")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class TenantController extends ControllerSupport {
 
     @PutMapping("/tenant/{id}/{eventID}")
     @BodyTypeSelector({"tenantBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Tenant>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

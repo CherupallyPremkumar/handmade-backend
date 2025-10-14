@@ -28,7 +28,7 @@ public class InventoryController extends ControllerSupport {
     }
 
     @PostMapping("/inventory")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class InventoryController extends ControllerSupport {
 
     @PutMapping("/inventory/{id}/{eventID}")
     @BodyTypeSelector({"inventoryBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Inventory>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

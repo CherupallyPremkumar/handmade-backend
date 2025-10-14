@@ -1,0 +1,66 @@
+[
+
+  {
+    "id": "Product.getByProductId",
+    "name": "getByProductId",
+    "columnMetadata": {
+      "id" : {
+        "name": "id",
+        "columnType": "Text",
+        "containsQuery": true,
+        "filterable": true
+      },
+      "tenant_id" : {
+        "name": "tenant",
+        "columnType": "Text",
+        "containsQuery": false,
+        "filterable": true
+      }
+    },
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Product.getAll",
+    "name": "products",
+    "columnMetadata": {
+      "internal_id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "created_time": {
+        "name": "created_time",
+        "filterable": true,
+        "columnType": "DateTime",
+        "sortable": true
+      },
+      "created_by": {
+        "name": "created_by",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "name": {
+        "name": "name",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

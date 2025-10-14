@@ -12,8 +12,31 @@ public class WishlistItemEntity extends BaseJpaEntity {
 
     private String wishlistId;
 
-    private String productId;
+    private String productVariantId;
+    private String notes;
 
-    private Integer desiredQuantity; // optional
 
+    public String getWishlistId() {
+        return wishlistId;
+    }
+
+    public void setWishlistId(String wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
+    public String getProductVariantId() {
+        return productVariantId;
+    }
+
+    public void setProductVariantId(String productVariantId) {
+        this.productVariantId = productVariantId;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

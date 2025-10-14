@@ -1,0 +1,33 @@
+[
+  {
+    "id": "State.getAll",
+    "name": "state",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "state_name": {
+        "name": "state_name",
+        "filterable": true,
+        "columnType": "Text",
+        "likeQuery": true
+      },
+      "country_id": {
+        "name": "country_id",
+        "filterable": true,
+        "columnType": "Text",
+        "likeQuery": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]
+

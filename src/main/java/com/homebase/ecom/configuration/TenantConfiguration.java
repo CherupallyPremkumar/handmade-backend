@@ -37,7 +37,7 @@ import java.util.function.Function;
 public class TenantConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/tenant-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "src/main/resources/state/tenant-flow.xml";
 
     @Bean
     @Autowired

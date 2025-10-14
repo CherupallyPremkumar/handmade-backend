@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+
+    <resultMap id="orderMap" type="com.netscoretech.pos.orderlist.OrderList">
+        <result column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="transaction_type" property="transactionType"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="customerName" property="customerName"/>
+        <result column="comments" property="comments"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="txn" property="txn"/>
+        <result column="payment_id" property="paymentId"/>
+        <result column="payment_mode" property="paymentMode"/>
+        <result column="tax_amount" property="taxAmount"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="transaction_amount" property="transactionAmount"/>
+        <result column="shift_id" property="shiftId"/>
+        <result column="counter_id" property="counterId"/>
+        <result column="location_id" property="locationId"/>
+        <result column="subsidiary_id" property="subsidiaryId"/>
+        <result column="delivered_count" property="deliveredCount"/>
+        <result column="tenant" property="tenantId"/>
+        <result column="lay_way_pay" property="layWayPay"/>
+        <result column="saved_date_time" property="SavedDateTime"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="orderMap">
+        SELECT
+        o.id,
+        to_char(o.created_time,'YYYY-MM-DD HH12:MI:SS') AS created_time,
+        o.state_id AS status,
+        o.order_no,
+        o.transaction_type,
+        o.customer_id,
+        concat(c.first_name, c.last_name) as customerName,
+        o.comments,
+        o.employee_id,
+        o.txn,
+        o.payment_id,
+        o.payment_mode,
+        o.tax_amount,
+        o.total_amount,
+        o.transaction_amount,
+        o.shift_id,
+        o.tenant,
+        o.counter_id,
+        o.location_id,
+        o.subsidiary_id,
+        o.delivered_count,
+        o.lay_way_pay,
+        o.saved_date_time
+        FROM ns_order o
+        JOIN ns_customer c ON o.customer_id = c.id
+        <where>
+            o.tenant =#{tenant_id}
+            <if test="status != null and status.size() > 0">
+                AND o.state_id in
+                <foreach item="item" index="index" collection="status"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="created_time != null">
+                AND o.created_time BETWEEN CAST(#{created_time[0]} AS TIMESTAMP) AND CAST(#{created_time[1]} AS TIMESTAMP)
+            </if>
+            <if test="transaction_amount != null">
+                AND o.transaction_amount between #{transaction_amount[0]} and #{transaction_amount[1]}
+            </if>
+            <if test="id!=null and id !=''">
+                AND o.id = #{id}
+            </if>
+            <if test="transaction_type != null and transactionType != ''">
+                AND o.transaction_type LIKE #{transactionType}
+            </if>
+            <if test="order_no !=null">
+                AND o.order_no = #{order_no}
+            </if>
+
+            <if test="customerId != null and customerId != ''">
+                AND o.customer_id = #{customerId}
+            </if>
+
+            <if test="employeeId != null and employeeId != ''">
+                AND o.employee_id = #{employeeId}
+            </if>
+
+            <if test="locationId != null and locationId != ''">
+                AND o.location_id LIKE #{locationId}
+            </if>
+            <if test="layWayPay != null and layWayPay != ''">
+                AND lay_way_pay LIKE #{layWayPay}
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll-count" resultType="int">
+        SELECT
+        count(*)
+        FROM ns_order o
+        <where>
+            o.tenant =#{tenant_id}
+            <if test="status != null and status.size() > 0">
+                AND o.state_id in
+                <foreach item="item" index="index" collection="status"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="created_time != null">
+                AND o.created_time BETWEEN CAST(#{created_time[0]} AS TIMESTAMP) AND CAST(#{created_time[1]} AS TIMESTAMP)
+            </if>
+            <if test="id!=null and id !=''">
+                AND o.id = #{id}
+            </if>
+            <if test="transaction_type != null and transactionType != ''">
+                AND o.transaction_type LIKE #{transactionType}
+            </if>
+            <if test="order_no !=null">
+                AND o.order_no = #{order_no}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                AND o.customer_id = #{customerId}
+            </if>
+
+            <if test="employeeId != null and employeeId != ''">
+                AND o.employee_id = #{employeeId}
+            </if>
+
+            <if test="locationId != null and locationId != ''">
+                AND o.location_id LIKE #{locationId}
+            </if>
+            <if test="layWayPay != null and layWayPay != ''">
+                AND o.lay_way_pay LIKE #{layWayPay}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="orders" type="com.netscoretech.pos.order.Order">
+        <id column="orderId" property="id"/>
+        <result column="status" property="status"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="orderNo" property="orderNo"/>
+        <result column="transactionType" property="transactionType"/>
+        <result column="customerId" property="customerId"/>
+        <result column="customerName" property="customerName"/>
+        <result column="customerEmail" property="customerEmail"/>
+        <result column="comments" property="comments"/>
+        <result column="employeeId" property="employeeId"/>
+        <result column="employeeName" property="employeeName"/>
+        <result column="txn" property="txn"/>
+        <result column="paymentId" property="paymentId"/>
+        <result column="paymentMode" property="paymentMode"/>
+        <result column="taxAmount" property="taxAmount"/>
+        <result column="totalAmount" property="totalAmount"/>
+        <result column="transactionAmount" property="transactionAmount"/>
+        <result column="paidAmount" property="paidAmount"/>
+        <result column="remainingAmount" property="remainingAmount"/>
+        <result column="shiftId" property="shiftId"/>
+        <result column="registerId" property="registerId"/>
+        <result column="locationId" property="locationId"/>
+        <result column="locationName" property="locationName"/>
+        <result column="subsidiaryId" property="subsidiaryId"/>
+        <result column="deliveredCount" property="deliveredCount"/>
+        <result column="tenantId" property="tenantId"/>
+        <result column="layWayPay" property="layWayPay"/>
+        <association property="payments" javaType="com.netscoretech.pos.order.Payments" resultMap="payments"/>
+        <collection property="orderLines" ofType="com.netscoretech.pos.order.OrderItems" resultMap="orderLineMap"/>
+    </resultMap>
+
+    <resultMap id="paymentLinesResultMap" type="com.netscoretech.pos.order.PaymentLines">
+        <id property="id" column="paymentLineId"/>
+        <result property="tenantId" column="paymentLineTenantId"/>
+        <result property="referenceNumber" column="referenceNumber"/>
+        <result property="method" column="paymentMethod"/> <!-- Enum mapping -->
+        <result property="amount" column="lineAmount"/>
+    </resultMap>
+
+    <resultMap id="payments" type="com.netscoretech.pos.order.Payments">
+        <id property="paymentId" column="paymentId"/>
+        <result property="amount" column="paymentAmount"/>
+        <collection property="paymentLines" ofType="com.netscoretech.pos.order.PaymentLines"
+                    resultMap="paymentLinesResultMap"/>
+    </resultMap>
+
+    <resultMap id="orderLineMap" type="com.netscoretech.pos.order.OrderItems">
+        <id column="orderLineId" property="orderLineId"/>
+        <result column="productId" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="openedQty" property="openedQuantity"/>
+        <result column="packedQty" property="packedQuantity"/>
+        <result column="productVariantId" property="productVariantId"/>
+        <result column="displayName" property="displayName"/>
+        <result column="delivered" property="isDelivered"/>
+        <result column="price" property="price"/>
+        <result column="orderLineTenantId" property="tenantId"/>
+        <result column="pickedQty" property="pickedQuantity"/>
+        <result column="committedQty" property="committedQuantity"/>
+    </resultMap>
+
+    <!-- SQL Queries -->
+    <select id="viewOrder" resultMap="orders">
+        WITH order_cte AS (
+        SELECT
+        id,
+        state_id,
+        created_time,
+        order_no,
+        flow_id,
+        transaction_type,
+        customer_id,
+        comments,
+        employee_id,
+        txn,
+        payment_id,
+        payment_mode,
+        tax_amount,
+        total_amount,
+        transaction_amount,
+        paid_amount,
+        remaining_amount,
+        shift_id,
+        counter_id,
+        location_id,
+        subsidiary_id,
+        delivered_count,
+        tenant,
+        lay_way_pay
+        FROM ns_order
+        <where>
+            tenant = #{tenant_id}
+            <if test="order_id != null">
+                AND id = #{order_id}
+            </if>
+            <if test="status != null and status.size() > 0">
+                AND state_id in
+                <foreach item="item" index="index" collection="status"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="created_time != null">
+                AND created_time BETWEEN CAST(#{created_time[0]} AS TIMESTAMP) AND CAST(#{created_time[1]} AS TIMESTAMP)
+            </if>
+
+            <if test="total_amount != null">
+                AND total_amount BETWEEN #{total_amount[0]} AND #{total_amount[1]}
+            </if>
+            <if test="customer_id != null">
+                AND customer_id = #{customer_id}
+            </if>
+            <if test="counter_id != null">
+                AND counter_id = #{counter_id}
+            </if>
+            <if test="order_no != null">
+                AND UPPER(order_no) LIKE UPPER(#{order_no})
+            </if>
+        </where>
+        )
+        SELECT
+        order_cte.id AS orderId,
+        order_cte.state_id AS status,
+        to_char(order_cte.created_time,'YYYY-MM-DD HH12:MI:SS') AS createdTime,
+        order_cte.order_no AS orderNo,
+        order_cte.transaction_type AS transactionType,
+        order_cte.customer_id AS customerId,
+        CONCAT(c.first_name, ' ', c.last_name) AS customerName,
+        c.email AS customerEmail,
+        order_cte.comments AS comments,
+        order_cte.employee_id AS employeeId,
+        CONCAT(e.first_name, ' ', e.last_name) AS employeeName,
+        order_cte.txn AS txn,
+        order_cte.payment_id AS paymentId,
+        order_cte.payment_mode AS paymentMode,
+        order_cte.tax_amount AS taxAmount,
+        order_cte.total_amount AS totalAmount,
+        order_cte.transaction_amount AS transactionAmount,
+        order_cte.paid_amount AS paidAmount,
+        order_cte.remaining_amount AS remainingAmount,
+        order_cte.shift_id AS shiftId,
+        order_cte.counter_id AS registerId,
+        order_cte.location_id AS locationId,
+        l.location_name AS locationName,
+        order_cte.subsidiary_id AS subsidiaryId,
+        order_cte.delivered_count AS deliveredCount,
+        order_cte.tenant AS tenantId,
+        order_cte.lay_way_pay AS layWayPay,
+        ol.id AS orderLineId,
+        ol.tenant AS orderLineTenantId,
+        ol.product_variant_id AS productVariantId,
+        pv.display_name AS displayName,
+        ol.product_id AS productId,
+        ol.quantity AS quantity,
+        ol.is_delivered AS delivered,
+        ol.opened_quantity AS openedQty,
+        ol.picked_quantity AS pickedQty,
+        ol.packed_quantity AS packedQty,
+        ol.committed_quantity AS committedQty,
+        ol.price AS price,
+        p.id AS paymentId,
+        p.amount AS paymentAmount,
+        pl.id AS paymentLineId,
+        pl.tenant AS paymentLineTenantId,
+        pl.ref_number AS referenceNumber,
+        pl.payment_type AS paymentMethod,  <!-- Enum as string -->
+        pl.amount AS lineAmount,
+        a.address1 AS address1,
+        a.address2 AS address2
+        FROM order_cte
+        LEFT JOIN ns_order_line AS ol ON order_cte.id = ol.order_id
+        LEFT JOIN ns_product_variant AS pv ON ol.product_variant_id = pv.id
+        LEFT JOIN ns_payment AS p ON order_cte.payment_id = p.id
+        LEFT JOIN ns_payment_line AS pl ON pl.payment_id = p.id
+        LEFT JOIN ns_location AS l ON order_cte.location_id = l.id
+        LEFT JOIN ns_customer AS c ON order_cte.customer_id = c.id
+        LEFT JOIN ns_employee AS e ON order_cte.employee_id = e.id
+        LEFT JOIN ns_address AS a ON c.id=a.customer_id;
+    </select>
+</mapper>

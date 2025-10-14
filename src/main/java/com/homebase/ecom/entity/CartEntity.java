@@ -1,47 +1,26 @@
 package com.homebase.ecom.entity;
 
-import com.homebase.ecom.entity.CartItemEntity;
-import com.homebase.ecom.entity.CustomerEntity;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "carts")
 public class CartEntity extends AbstractJpaStateEntity {
 
+    @Column(name = "customer_id")
+    private String customerId;
 
-    private int quantity;
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal total = BigDecimal.ZERO;
-    private BigDecimal salePrice = BigDecimal.ZERO;
     
-    @Enumerated(EnumType.STRING)
-    private CartStatus status = CartStatus.OPEN;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal subtotal = BigDecimal.ZERO;
+    
+    @Column(precision = 10, scale = 2)
+    private BigDecimal discount = BigDecimal.ZERO;
 
-    String customerId;
-
-    public enum CartStatus {
-        OPEN, CHECKED_OUT, ABANDONED
-    }
-
-
-    public CartStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CartStatus status) {
-        this.status = status;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public BigDecimal getTotal() {
         return total;
@@ -51,13 +30,19 @@ public class CartEntity extends AbstractJpaStateEntity {
         this.total = total;
     }
 
-    public BigDecimal getSalePrice() {
-        return salePrice;
+    public BigDecimal getSubtotal() {
+        return subtotal;
     }
 
-    public void setSalePrice(BigDecimal salePrice) {
-        this.salePrice = salePrice;
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
+    public BigDecimal getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
 }

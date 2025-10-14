@@ -8,8 +8,6 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 @Table(name = "tenant_configuration")
 public class TenantConfiguration extends BaseJpaEntity {
 
-    @Column(name = "tenant_id", nullable = false)
-    private String tenantId;
 
     @Column(name = "primary_color", length = 20)
     private String primaryColor;
@@ -23,13 +21,6 @@ public class TenantConfiguration extends BaseJpaEntity {
     @Column(name = "enable_reviews", nullable = false)
     private Boolean enableReviews = true;
 
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
 
     public String getPrimaryColor() {
         return primaryColor;

@@ -1,7 +1,7 @@
 package com.homebase.ecom.configuration.controller;
 
 
-import com.homebase.ecom.domain.Product;
+import com.homebase.ecom.domain.ProductVariant;
 import jakarta.servlet.http.HttpServletRequest;
 import org.chenile.base.response.GenericResponse;
 import org.chenile.http.annotation.BodyTypeSelector;
@@ -15,11 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@ChenileController(value = "productService", serviceName = "_productStateEntityService_",
-        healthCheckerName = "productHealthChecker")
-public class ProductController extends ControllerSupport {
+@ChenileController(value = "productVariantService", serviceName = "_productVariantStateEntityService_",
+        healthCheckerName = "productVariantHealthChecker")
+public class ProductVariantController extends ControllerSupport {
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/productVariant/{id}")
     @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> retrieve(
             HttpServletRequest httpServletRequest,
@@ -27,21 +27,21 @@ public class ProductController extends ControllerSupport {
         return process("retrieve", httpServletRequest, id);
     }
 
-    @PostMapping("/product")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @PostMapping("/productVariant")
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
-            @RequestBody Product entity) {
+            @RequestBody ProductVariant entity) {
         return process("create", httpServletRequest, entity);
 
     }
 
 
-    @PutMapping("/product/{id}/{eventID}")
-    @BodyTypeSelector({"productBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
-    public ResponseEntity<GenericResponse<StateEntityServiceResponse<Product>>> processById(
+    @PutMapping("/productVariant/{id}/{eventID}")
+    @BodyTypeSelector({"productVariantBodyTypeSelector", "subclassBodyTypeSelector"})
+    @InterceptedBy({"securityInterceptor"})
+    public ResponseEntity<GenericResponse<StateEntityServiceResponse<ProductVariant>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,
             @PathVariable String eventID,

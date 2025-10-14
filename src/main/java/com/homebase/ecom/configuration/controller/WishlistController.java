@@ -28,7 +28,7 @@ public class WishlistController extends ControllerSupport {
     }
 
     @PostMapping("/wishlist")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class WishlistController extends ControllerSupport {
 
     @PutMapping("/wishlist/{id}/{eventID}")
     @BodyTypeSelector({"wishlistBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Wishlist>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

@@ -1,0 +1,119 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Customer">
+
+    <resultMap id="customerResultMap" type="com.netscoretech.pos.customer.CustomerDto">
+        <id property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="companyName" column="company_name"/>
+        <result property="dateOfBirth" column="date_of_birth"/>
+        <result property="gender" column="gender"/>
+        <result property="indivisual" column="indivisual"/>
+        <result property="tenantId" column="tenant"/>
+        <collection property="address" ofType="com.netscoretech.pos.customer.AddressDto">
+            <id property="id" column="shipping_address_id"/>
+            <result property="address1" column="shipping_address1"/>
+            <result property="address2" column="shipping_address2"/>
+            <result property="city" column="shipping_city"/>
+            <result property="companyName" column="shipping_company_name"/>
+            <result property="isDefault" column="is_default"/>
+            <result property="addressType" column="address_type"/>
+            <result property="zipCode" column="shipping_zip_code"/>
+            <result property="countryId" column="shipping_country_id"/>
+            <result property="stateId" column="shipping_state_id"/>
+            <result property="stateName" column="state_name"/>
+            <result property="countryName" column="country_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAll" resultMap="customerResultMap">
+        SELECT
+        id,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        company_name AS company_name,
+        date_of_birth AS date_of_birth,
+        gender,
+        is_individual AS indivisual,
+        tenant
+        FROM ns_customer
+        <where>
+            tenant = #{tenant_id}
+            <if test="searchString != null and searchString.trim().length() > 0">
+                AND (
+                UPPER(TRIM(first_name)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(last_name)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(phone_number)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(email)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(company_name)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%')))
+                )
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll-count" resultType="int">
+        SELECT COUNT(*)
+        FROM ns_customer
+        <where>
+            tenant = #{tenant_id}
+            <if test="searchString != null and searchString.trim().length() > 0">
+                AND (
+                UPPER(TRIM(first_name)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(last_name)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(phone_number)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(email)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%'))) OR
+                UPPER(TRIM(email)) LIKE UPPER(TRIM(CONCAT('%', #{searchString}, '%')))
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="getCustomerById" resultMap="customerResultMap">
+        SELECT
+        c.id,
+        c.first_name,
+        c.last_name,
+        c.email,
+        c.phone_number,
+        c.company_name AS company_name,
+        c.date_of_birth AS date_of_birth,
+        c.gender,
+        c.is_individual AS indivisual,
+        c.tenant,
+        sa.id AS shipping_address_id,
+        sa.address1 AS shipping_address1,
+        sa.address2 AS shipping_address2,
+        sa.is_default AS is_default,
+        sa.address_type AS address_type,
+        sa.city AS shipping_city,
+        sa.company_name AS shipping_company_name,
+        sa.zip_code AS shipping_zip_code,
+        sa.country_id AS shipping_country_id,
+        sa.state_id AS shipping_state_id,
+        co.country_name AS country_name,
+        ns.state_name AS state_name
+        FROM ns_customer c
+        LEFT JOIN ns_address sa ON c.id = sa.customer_id
+        LEFT JOIN ns_country co on co.id = sa.country_id
+        LEFT JOIN ns_state ns on ns.id = sa.state_id
+        <where>
+            c.tenant = #{tenant_id}
+            AND c.id = #{customerId}
+        </where>
+    </select>
+
+    <resultMap id="emailExists" type="map">
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <select id="emailExists" resultMap="emailExists">
+        SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS email
+        FROM ns_customer
+        WHERE email = #{email}
+    </select>
+</mapper>

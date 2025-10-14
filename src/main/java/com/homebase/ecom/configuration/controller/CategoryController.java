@@ -28,7 +28,7 @@ public class CategoryController extends ControllerSupport {
     }
 
     @PostMapping("/category")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class CategoryController extends ControllerSupport {
 
     @PutMapping("/category/{id}/{eventID}")
     @BodyTypeSelector({"categoryBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Category>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

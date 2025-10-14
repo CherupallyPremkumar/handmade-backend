@@ -28,7 +28,7 @@ public class OrderController extends ControllerSupport {
     }
 
     @PostMapping("/order")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class OrderController extends ControllerSupport {
 
     @PutMapping("/order/{id}/{eventID}")
     @BodyTypeSelector({"orderBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<Order>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

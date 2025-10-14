@@ -1,8 +1,5 @@
 package com.homebase.ecom.entity;
 
-;
-
-import com.homebase.ecom.entity.ProductEntity;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
@@ -12,23 +9,20 @@ import java.math.BigDecimal;
 @Table(name = "cart_items")
 public class CartItemEntity extends AbstractJpaStateEntity {
 
-    @Column(name = "cart_id", insertable = false, updatable = false)
-    String cartId;
+    @Column(name = "cart_id")
+    private String cartId;
 
-    private String productId;
+    @Column(name = "prodcut_variant_id", nullable = false)
+    private String productVariantId;
 
-    private int quantity;
-    
-    // Price snapshot at the time of adding to cart
+    @Column(nullable = false)
+    private Integer quantity = 1;
+
+    @Column(precision = 10, scale = 2)
     private BigDecimal snapshotPrice;
-    
-    // Track if the product was on sale when added
-    private Boolean wasOnSale = false;
-    
-    // Original price (non-sale) for reference
+
+    @Column(precision = 10, scale = 2)
     private BigDecimal originalPrice;
-
-
 
     public BigDecimal getSnapshotPrice() {
         return snapshotPrice;
@@ -46,13 +40,7 @@ public class CartItemEntity extends AbstractJpaStateEntity {
         this.quantity = quantity;
     }
 
-    public Boolean getWasOnSale() {
-        return wasOnSale;
-    }
 
-    public void setWasOnSale(Boolean wasOnSale) {
-        this.wasOnSale = wasOnSale;
-    }
 
     public BigDecimal getOriginalPrice() {
         return originalPrice;
@@ -60,5 +48,25 @@ public class CartItemEntity extends AbstractJpaStateEntity {
 
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+    public String getProductVariantId() {
+        return productVariantId;
+    }
+
+    public void setProductVariantId(String productVariantId) {
+        this.productVariantId = productVariantId;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

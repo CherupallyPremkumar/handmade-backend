@@ -1,7 +1,5 @@
 package com.homebase.ecom.entity;
 
-import com.homebase.ecom.entity.TenantConfiguration;
-import com.homebase.ecom.entity.TenantTheme;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
@@ -40,8 +38,6 @@ public class TenantEntity extends AbstractJpaStateEntity {
     @Column(name = "support_phone", length = 20)
     private String supportPhone;
 
-    @Embedded
-    private TenantTheme theme;
 
     @Column(name = "configuration_id")
     private String configurationId;
@@ -67,13 +63,6 @@ public class TenantEntity extends AbstractJpaStateEntity {
         this.urlPath = urlPath;
     }
 
-    public TenantTheme getTheme() {
-        return theme;
-    }
-
-    public void setTheme(TenantTheme theme) {
-        this.theme = theme;
-    }
 
     public String getConfigurationId() {
         return configurationId;

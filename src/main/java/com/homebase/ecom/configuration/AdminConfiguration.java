@@ -36,7 +36,7 @@ import java.util.function.Function;
 public class AdminConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/admin-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "resources/state/admin-stm.xml";
 
     @Bean
     @Autowired

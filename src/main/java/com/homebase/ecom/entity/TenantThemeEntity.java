@@ -1,14 +1,19 @@
 package com.homebase.ecom.entity;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 
-@Embeddable
-public class TenantTheme {
+@Entity
+public class TenantThemeEntity extends BaseJpaEntity {
 
-    private String primaryColor = "#4A90E2";
-    private String secondaryColor = "#50E3C2";
-    private String background = "#FFFFFF";
-    private String text = "#333333";
+    private String primaryColor;
+    private String secondaryColor;
+    private String background;
+    private String text;
+    private String fontFamily;
+    private String buttonStyle;
+    private String linkStyle;
 
     // Getters and Setters
     public String getPrimaryColor() { return primaryColor; }

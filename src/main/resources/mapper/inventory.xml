@@ -1,0 +1,99 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Inventory">
+
+    <resultMap id="InventoryResultMap" type="map">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant"/>
+        <result property="quantityOnHand" column="quantity_on_hand"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="created_by"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="modifiedTime" column="modified_time"/>
+        <result property="variantId" column="variant_id"/>
+        <result property="quantityCommitted" column="quantity_committed"/>
+        <result property="quantityAvailable" column="quantity_available"/>
+        <result property="quantityBackOrdered" column="quantity_back_ordered"/>
+        <result property="locationId" column="location_id"/>
+    </resultMap>
+
+
+    <select id="getAll" resultMap="InventoryResultMap">
+        SELECT
+        id,
+        tenant,
+        quantity_on_hand,
+        state_id,
+        created_by,
+        created_time,
+        last_modified_time,
+        variant_id,
+        quantity_committed,
+        quantity_available,
+        quantity_back_ordered,
+        location_id
+        FROM ns_inventory
+        <where>
+            tenant= #{tenant_id}
+            <if test="variant_id != null">
+                AND variant_id = #{variant_id}
+            </if>
+            <if test="status != null">
+                AND state_id in
+                <foreach item="item" index="index" collection="status"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="location_id != null">
+                AND location_id = #{location_id}
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id='getAll-count' resultType="int" >
+        SELECT
+        count(*)
+        FROM ns_inventory
+        <where>
+            tenant= #{tenant_id}
+            <if test="variant_id != null">
+                AND variant_id = #{variant_id}
+            </if>
+            <if test="status != null">
+                AND state_id in
+                <foreach item="item" index="index" collection="status"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="location_id != null">
+                AND location_id = #{location_id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByInventoryId" resultMap="InventoryResultMap">
+        SELECT
+        id,
+        tenant,
+        quantity_on_hand,
+        state_id,
+        created_by,
+        created_time,
+        last_modified_time,
+        variant_id,
+        quantity_committed,
+        quantity_available,
+        quantity_back_ordered,
+        location_id
+        FROM ns_inventory
+        <where>
+            tenant= #{tenant_id}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </select>
+
+</mapper>

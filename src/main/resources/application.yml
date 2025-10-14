@@ -1,91 +1,76 @@
-server:
-  port: 8081
-
-chenile:
-  security:
-    keycloak:
-      host: http://localhost:8082       # Keycloak host
-      port: 8080                   # Keycloak port
-      base:
-       realm: master           # Default realm
-    client:
-      id: handmade          # OAuth2 client ID in Keycloak
-      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem   # OAuth2 client secret
-    login:
-      success-url: /               # Redirect after successful login
-      failure-url: /login?error    # Redirect on failure
-    ignore: false
-
 spring:
-  application:
-    name: homebase-admin-suite
-
-# MyBatis Configuration
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.homebase.ecom.entity,com.homebase.ecom.dto
-  configuration:
-    map-underscore-to-camel-case: true
-    default-fetch-size: 100
-    default-statement-timeout: 30
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-
-  # Database Configuration (H2 for development)
   datasource:
     url: jdbc:h2:mem:homebase_admin
     driver-class-name: org.h2.Driver
     username: sa
     password:
 
-  # For PostgreSQL (uncomment and configure)
-  # datasource:
-  #   url: jdbc:postgresql://localhost:5432/homebase_admin
-  #   username: your_username
-  #   password: your_password
-  #   driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # Automatically create/update schema
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-        # For PostgreSQL use: org.hibernate.dialect.PostgreSQLDialect
 
   h2:
     console:
-      enabled: true
+      enabled: true # Enable H2 web console
       path: /h2-console
 
-# JWT Configuration
-jwt:
-  secret: osy3WEPH2GmwCYJNJwzvuoqfoweOQpJL0ZPfwCOzBpmS3wVC2SKIU29RvyfWPyNYmsYRT/Wr8k2/EDENne0bGQ==
-  expiration: 86400000 # 24 hours in milliseconds
-  refresh-expiration: 604800000 # 7 days in milliseconds
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8081
 
-# CORS Configuration
-cors:
-  allowed-origins: http://localhost:5173,http://localhost:3000,http://localhost:8080,http://localhost:8081
-  allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
-  allowed-headers: "*"
-  allow-credentials: true
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+  show-actuator: false
 
-# Multi-tenant Configuration
-multitenancy:
-  enabled: true
-  default-tenant: default
+query:
+  jpa:
+    hibernate:
+      show_sql: "true"
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: "true"
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    maximumPoolSize: "10"
+    type: com.zaxxer.hikari.HikariDataSource
+    username: demo
+    password: password
+    minimumIdle: "2"
+    idleTimeout: "5000"
+    jdbcUrl: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  mapperFiles: classpath*:src/main/resources/mapper/*.xml
+  definitionFiles: classpath*:src/main/resources/mapper/*.json
 
-# File Upload Configuration
-file:
-  upload-dir: ./uploads
-  max-file-size: 5MB
-  max-request-size: 10MB
+chenile:
+  security:
+    keycloak:
+      host: http://localhost:8082 # Keycloak host
+      port: 8080 # Keycloak port
+      base:
+        realm: master # Default realm
+    client:
+      id: handmade # OAuth2 client ID in Keycloak
+      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem # OAuth2 client secret
+    login:
+      success-url: / # Redirect after successful login
+      failure-url: /login?error # Redirect on failure
+    ignore:
+      false
 
-# Logging
-logging:
-  level:
-    com.homebase: DEBUG
-    org.springframework.security: DEBUG
-    org.hibernate.SQL: DEBUG
+      # Accessible at http://localhost:8081/h2-console

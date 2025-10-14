@@ -1,0 +1,129 @@
+[
+  {
+    "id": "Dashboard.getAll",
+    "name": "dashboard",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "location_id": {
+        "name": "location_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "cat_id": {
+        "name": "cat_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "display_name": {
+        "name": "display_name",
+        "filterable": true,
+        "columnType": "Text",
+        "likeQuery": true
+      },
+      "description": {
+        "name": "description",
+        "filterable": true,
+        "columnType": "Text",
+        "likeQuery": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Dashboard.getAllParentCategory",
+    "name": "getAllParentCategory",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "location_id": {
+        "name": "location_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "cat_id": {
+        "name": "cat_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Dashboard.getAllSubCategory",
+    "name": "getAllSubCategory",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "cat_id": {
+        "name": "cat_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Dashboard.viewProduct",
+    "name": "viewProduct",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      }
+    },
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]
+

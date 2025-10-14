@@ -1,0 +1,122 @@
+[
+  {
+    "id": "Order.getAll",
+    "name": "orders",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "created_time": {
+        "name": "created_time",
+        "filterable": true,
+        "columnType": "Date",
+        "betweenQuery": true,
+        "sortable": true
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "status": {
+        "name": "status",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": true
+      },
+      "transactionType": {
+        "name": "transaction_type",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      },
+      "transactionAmount": {
+        "name": "transaction_amount",
+        "filterable": true,
+        "columnType": "Text",
+        "sortable": true
+      },
+      "customerId": {
+        "name": "customer_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "employeeId": {
+        "name": "employee_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "locationId": {
+        "name": "location_id",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "layWayPay": {
+        "name": "lay_way_pay",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": true
+      },
+      "order_no": {
+        "name": "order_no",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Order.viewOrder",
+    "name": "viewOrder",
+    "columnMetadata": {
+      "order_id": {
+        "name": "order_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "locationId": {
+        "name": "location_id",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "status": {
+        "name": "state_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": true
+      },
+      "created_time": {
+        "name": "created_time",
+        "filterable": true,
+        "columnType": "Date",
+        "betweenQuery": true,
+        "sortable": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

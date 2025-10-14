@@ -28,7 +28,7 @@ public class CartItemController extends ControllerSupport {
     }
 
     @PostMapping("/cartItem")
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse>> create(
             HttpServletRequest httpServletRequest,
             @ChenileParamType(StateEntity.class)
@@ -40,7 +40,7 @@ public class CartItemController extends ControllerSupport {
 
     @PutMapping("/cartItem/{id}/{eventID}")
     @BodyTypeSelector({"cartItemBodyTypeSelector", "subclassBodyTypeSelector"})
-    @InterceptedBy({"securityInterceptor", "cloudEdgeSwitch"})
+    @InterceptedBy({"securityInterceptor"})
     public ResponseEntity<GenericResponse<StateEntityServiceResponse<CartItem>>> processById(
             HttpServletRequest httpServletRequest,
             @PathVariable String id,

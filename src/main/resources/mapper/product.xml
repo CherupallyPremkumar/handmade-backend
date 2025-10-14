@@ -1,0 +1,77 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Product">
+
+
+    <resultMap id="productMap" type="map">
+        <id property="internalId" column="internal_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="tenant" column="tenant"/>
+        <result property="name" column="name"/>
+        <!-- result property="productCode" column="product_code"/ -->
+        <result property="feature_description" column="feature_description"/>
+        <result property="sales_description" column="sales_description"/>
+        <result property="details_description" column="details_description"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="productMap">
+        SELECT
+        p.id AS internal_id,
+        p.name,
+        -- p.product_code,
+        p.created_time,
+        p.created_by,
+        p.feature_description,
+        p.sales_description,
+        p.details_description,
+        p.tenant
+        FROM
+        ns_product p
+        <where>
+            p.tenant = #{tenant_id}
+            <if test="id != null">
+                AND p.id like #{id}
+            </if>
+            <if test="name != null and name.trim().length() > 0">
+                AND UPPER(TRIM(p.name)) LIKE UPPER(TRIM(#{name}))
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll-count" resultType="int">
+        SELECT COUNT(*)
+        FROM ns_product p
+        <where>
+            p.tenant =#{tenant_id}
+            <if test="id != null">
+                AND p.id like #{id}
+            </if>
+            <if test="name != null">
+                AND UPPER(p.name) like UPPER(#{name})
+            </if>
+        </where>
+    </select>
+
+    <select id="getByProductId" resultMap="productMap">
+        SELECT
+        p.id AS internal_id,
+        p.name,
+        -- p.product_code,
+        p.created_time,
+        p.created_by,
+        p.feature_description,
+        p.sales_description,
+        p.details_description,
+        p.tenant
+        FROM ns_product p
+        <where>
+            p.tenant = #{tenant_id}
+            <if test="id != null">
+                AND p.id = #{id}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cart">
+
+    <resultMap id="orders" type="com.netscoretech.pos.cart.OrderCartDto">
+        <id column="orderId" property="id"/>
+        <result column="status" property="status"/>
+        <result column="orderNo" property="orderNo"/>
+        <result column="transactionType" property="transactionType"/>
+        <result column="customerId" property="customerId"/>
+        <result column="comments" property="comments"/>
+        <result column="employeeId" property="employeeId"/>
+        <result column="txn" property="txn"/>
+        <result column="paymentId" property="paymentId"/>
+        <result column="paymentMode" property="paymentMode"/>
+        <result column="taxAmount" property="taxAmount"/>
+        <result column="totalAmount" property="totalAmount"/>
+        <result column="transactionAmount" property="transactionAmount"/>
+        <result column="shiftId" property="shiftId"/>
+        <result column="registerId" property="counterId"/>
+        <result column="locationId" property="locationId"/>
+        <result column="subsidiaryId" property="subsidiaryId"/>
+        <result column="deliveredCount" property="deliveredCount"/>
+        <result column="tenantId" property="tenantId"/>
+        <result column="layWayPay" property="layWayPay"/>
+        <collection property="orderLines" ofType="com.netscoretech.pos.cart.OrderCartItemsDto" resultMap="orderLineMap"/>
+    </resultMap>
+
+    <resultMap id="orderLineMap" type="com.netscoretech.pos.cart.OrderCartItemsDto">
+        <id column="orderLineId" property="orderLineId"/>
+        <result column="productId" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="openQuantity" property="openQuantity"/>
+        <result column="packedQuantity" property="packedQuantity"/>
+        <result column="productVariantId" property="productVariantId"/>
+        <result column="delivered" property="isDelivered"/>
+        <result column="price" property="price"/>
+        <result column="olTotalAmount" property="totalAmount"/>
+        <result column="tenantId" property="tenantId"/>
+        <result column="pickedQuantity" property="pickedQuantity"/>
+        <result column="committedQuantity" property="committedQuantity"/>
+        <result column="inventoryLocationId" property="locationId"/>
+        <result column="quantityAvailable" property="quantityAvailable"/>
+        <result column="displayName" property="displayName"/>
+        <result column="thumbnail" property="thumbnail"/>
+    </resultMap>
+
+    <select id="cart" resultMap="orders">
+        WITH order_cte AS (
+        SELECT
+        id,
+        state_id,
+        order_no,
+        flow_id,
+        transaction_type,
+        customer_id,
+        comments,
+        employee_id,
+        txn,
+        payment_id,
+        payment_mode,
+        tax_amount,
+        total_amount,
+        transaction_amount,
+        shift_id,
+        counter_id,
+        location_id,
+        subsidiary_id,
+        delivered_count,
+        tenant,
+        lay_way_pay
+        FROM ns_order
+        <where>
+            tenant= #{tenant_id} AND id =#{id}
+        </where>
+        )
+        SELECT
+        order_cte.id AS orderId,
+        order_cte.state_id AS status,
+        order_cte.order_no AS orderNo,
+        order_cte.transaction_type AS transactionType,
+        order_cte.customer_id AS customerId,
+        order_cte.comments AS comments,
+        order_cte.employee_id AS employeeId,
+        order_cte.txn AS txn,
+        order_cte.payment_id AS paymentId,
+        order_cte.payment_mode AS paymentMode,
+        order_cte.tax_amount AS taxAmount,
+        order_cte.total_amount AS totalAmount,
+        order_cte.transaction_amount AS transactionAmount,
+        order_cte.shift_id AS shiftId,
+        order_cte.counter_id AS registerId,
+        order_cte.location_id AS locationId,
+        order_cte.subsidiary_id AS subsidiaryId,
+        order_cte.delivered_count AS deliveredCount,
+        order_cte.tenant AS tenantId,
+        order_cte.lay_way_pay AS layWayPay,
+        ol.id AS orderLineId,
+        ol.tenant AS orderLineTenantId,
+        ol.product_variant_id AS productVariantId,
+        ol.product_id AS productId,
+        ol.quantity AS quantity,
+        ol.is_delivered AS delivered,
+        ol.opened_quantity AS openQuantity,
+        ol.picked_quantity AS pickedQuantity,
+        ol.packed_quantity AS packedQuantity,
+        ol.committed_quantity AS committedQuantity,
+        COALESCE(pr.amount, 0.00) as price,
+        ol.total_amount As olTotalAmount,
+        i.quantity_available as quantityAvailable,
+        i.location_id as inventoryLocationId,
+        pv.display_name As displayName,
+        pv.thumbnail as thumbnail
+        FROM order_cte
+        JOIN ns_order_line AS ol ON order_cte.id = ol.order_id
+        INNER JOIN ns_price pr ON ol.product_variant_id = pr.variant_id
+        INNER JOIN ns_inventory AS i ON ol.product_variant_id = i.variant_id
+        INNER JOIN ns_location AS l ON l.id = i.location_id
+        INNER JOIN ns_product_variant AS pv ON ol.product_variant_id = pv.id
+        <where>
+            <if test="location_id != null">
+                AND i.location_id = #{location_id}
+            </if>
+        </where>
+        ${orderby}
+    </select>
+</mapper>

@@ -1,9 +1,10 @@
 package com.homebase.ecom.domain;
 
 import jakarta.persistence.Embeddable;
+import org.chenile.utils.entity.model.BaseEntity;
 
-@Embeddable
-public class TenantTheme {
+
+public class TenantTheme extends BaseEntity {
 
     private String primaryColor = "#4A90E2";
     private String secondaryColor = "#50E3C2";

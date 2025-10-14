@@ -1,0 +1,32 @@
+[
+  {
+    "id": "Cart.cart",
+    "name": "cart",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "location_id": {
+        "name": "location_id",
+        "columnType": "Text",
+        "filterable": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

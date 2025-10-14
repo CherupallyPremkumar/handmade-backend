@@ -1,0 +1,192 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dashboard">
+
+    <resultMap id="viewProduct" type="com.netscoretech.pos.dashboard.Products">
+        <id property="internalId" column="internal_id"/>
+        <result property="displayName" column="display_name"/>
+        <result property="description" column="description"/>
+        <result property="basePrice" column="price"/>
+        <result property="catId" column="cat_id"/>
+        <result property="sku" column="sku"/>
+        <result property="productId" column="product_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <collection property="inventoryDetails" ofType="com.netscoretech.pos.dashboard.InventoryDetails">
+            <id property="locationId" column="id"/>
+            <result property="location_name" column="location_name"/>
+            <result property="quantityOnHand" column="quantity_on_hand"/>
+            <result property="quantityAvailable" column="quantity_available"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="productsList" type="com.netscoretech.pos.dashboard.ProductList">
+        <id property="internalId" column="internal_id"/>
+        <result property="displayName" column="display_name"/>
+        <result property="description" column="description"/>
+        <result property="basePrice" column="price"/>
+        <result property="catId" column="cat_id"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="sku" column="sku"/>
+        <result property="productId" column="product_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="location_name" column="location_name"/>
+        <result property="quantityOnHand" column="quantity_on_hand"/>
+        <result property="quantityAvailable" column="quantity_available"/>
+    </resultMap>
+
+    <resultMap id="categoryMap" type="com.netscoretech.pos.dashboard.Category">
+        <id property="categoryId" column="id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="thumbnail" column="thumbnail"/>
+    </resultMap>
+
+
+    <select id="viewProduct" resultMap="viewProduct">
+        SELECT
+        pv.id AS internal_id,
+        pv.created_time,
+        pv.created_by,
+        pv.description,
+        pv.display_name,
+        pv.tenant,
+        pv.cat_id,
+        COALESCE(pr.amount, 0.00) as price,
+        pv.sku,
+        pv.product_id,
+        pv.thumbnail,
+        l.id,
+        i.quantity_available,
+        i.quantity_on_hand,
+        l.location_name
+        FROM
+        ns_product_variant pv
+        LEFT JOIN ns_price pr ON pv.id = pr.variant_id
+        LEFT JOIN ns_inventory i ON pv.id = i.variant_id
+        LEFT JOIN ns_location l ON i.location_id = l.id
+        <where>
+            pv.tenant = #{tenant_id} AND pv.id = #{id}
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll" resultMap="productsList">
+        SELECT
+        pv.id AS internal_id,
+        pv.created_time,
+        pv.created_by,
+        pv.description,
+        pv.display_name,
+        pv.tenant,
+        pv.cat_id,
+        COALESCE(pr.amount, 0.00) as price,
+        pv.sku,
+        pv.product_id,
+        pv.thumbnail,
+        l.id AS location_id,
+        i.quantity_available,
+        i.quantity_on_hand,
+        l.location_name
+        FROM
+        ns_product_variant pv
+        LEFT JOIN
+        ns_price pr ON pr.variant_id = pv.id
+        LEFT JOIN
+        ns_inventory i ON pv.id = i.variant_id
+        LEFT JOIN
+        ns_location l ON i.location_id = l.id
+        <where>
+            pv.tenant = #{tenant_id}
+            AND l.id = #{location_id}
+            <if test="internal_id != null">
+                AND pv.id = #{internal_id}
+            </if>
+            <if test="cat_id != null">
+                AND pv.cat_id = #{cat_id}
+            </if>
+            <if test="display_name!=null ">
+                AND UPPER(pv.display_name) like UPPER(#{display_name})
+            </if>
+            <if test="description!=null">
+                OR pv.description like #{description}
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll-count" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        ns_product_variant pv
+        LEFT JOIN
+        ns_inventory i ON pv.id = i.variant_id
+        LEFT JOIN
+        ns_location l ON i.location_id = l.id
+        <where>
+            pv.tenant = #{tenant_id}
+            AND l.id = #{location_id}
+            <if test="internal_id != null">
+                AND pv.id = #{internal_id}
+            </if>
+            <if test="cat_id != null">
+                AND pv.cat_id = #{cat_id}
+            </if>
+            <if test="display_name!=null ">
+                AND UPPER(pv.display_name) like UPPER(#{display_name})
+            </if>
+            <if test="description!=null">
+                OR UPPER(pv.description) like UPPER(#{description})
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllParentCategory" resultMap="categoryMap">
+        SELECT
+        id,
+        category_name,
+        tenant_id,
+        cat_id
+        thumbnail
+        FROM ns_category
+        <where>
+            tenant_id= #{tenant_id} AND cat_id is null
+        </where>
+    </select>
+
+    <select id="getAllParentCategory-count" resultType="int">
+        SELECT
+        count(*)
+        FROM ns_category
+        <where>
+            tenant_id= #{tenant_id} AND cat_id is null
+        </where>
+    </select>
+
+    <select id="getAllSubCategory" resultMap="categoryMap">
+        SELECT
+        id,
+        category_name,
+        tenant_id,
+        cat_id,
+        thumbnail
+        FROM ns_category
+        <where>
+            tenant_id= #{tenant_id}
+            <if test="cat_id != null">
+                AND cat_id = #{cat_id}
+            </if>
+        </where>
+    </select>
+    <select id="getAllSubCategory-count" resultType="int">
+        SELECT
+        count(*)
+        FROM ns_category
+        <where>
+            tenant_id= #{tenant_id}
+            <if test="cat_id != null">
+                AND cat_id = #{cat_id}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ProductVariant.getByVariantId",
+    "name": "getByVariantId",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "columnType": "Text",
+        "containsQuery": false,
+        "filterable": true
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "ProductVariant.getAll",
+    "name": "variants",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      },
+      "created_by": {
+        "name": "created_by",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "name": {
+        "name": "name",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "name": {
+        "name": "display_name",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "name": {
+        "name": "description",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "product_id": {
+        "name": "product_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "color": {
+        "name": "color",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      },
+      "size": {
+        "name": "size",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": true,
+        "sortable": true
+      },
+      "searchString": {
+        "name": "searchString",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

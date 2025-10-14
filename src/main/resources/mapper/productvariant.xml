@@ -1,0 +1,99 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductVariant">
+
+    <resultMap id="variant" type="map">
+        <id property="internalId" column="internal_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="catId" column="cat_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="variantId" column="tenant_id"/>
+        <result property="displayName" column="display_name"/>
+        <result property="description" column="description"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="variant">
+        SELECT
+        pv.id AS internal_id,
+        pv.name as name,
+        pv.created_time,
+        pv.created_by,
+        pv.description,
+        pv.display_name,
+        pv.tenant,
+        pv.cat_id,
+        COALESCE(pr.amount, 0.00) AS price,
+        pv.sku,
+        pv.product_id,
+        pv.thumbnail
+        FROM ns_product_variant pv
+        LEFT JOIN ns_price pr ON pr.variant_id = pv.id
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            pv.tenant = #{tenant_id}
+            <if test="searchString != null and searchString.trim().length() > 0">
+                AND (
+                UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%') OR
+                UPPER(pv.name) LIKE CONCAT('%', UPPER(#{searchString}), '%') OR
+                UPPER(pv.description) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                )
+            </if>
+            <if test="size != null and size.size() > 0">
+                AND size IN
+                <foreach item="item" index="index" collection="size"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="color != null and color != ''">
+                AND color = #{color}
+            </if>
+        </trim>
+        ${orderby} ${pagination}
+    </select>
+
+    <select id="getAll-count" resultType="int">
+        SELECT COUNT(*)
+        FROM ns_product_variant
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            tenant = #{tenant_id}
+            <if test="searchString != null and searchString.length() > 0">
+                AND (
+                UPPER(display_name) LIKE UPPER(CONCAT('%', #{searchString}, '%')) OR
+                UPPER(name) LIKE UPPER(CONCAT('%', #{searchString}, '%')) OR
+                UPPER(description) LIKE UPPER(CONCAT('%', #{searchString}, '%'))
+                )
+            </if>
+            <if test="size != null and size != ''">
+                AND size = #{size}
+            </if>
+            <if test="color != null and color != ''">
+                AND color = #{color}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getByVariantId" resultMap="variant">
+        SELECT
+        pv.id AS internal_id,
+        pv.name,
+        pv.created_time,
+        pv.created_by,
+        pv.description,
+        pv.display_name,
+        pv.tenant,
+        pv.cat_id,
+        COALESCE(pr.amount, 0.00) AS price,
+        pv.sku,
+        pv.product_id,
+        pv.thumbnail
+        FROM ns_product_variant pv
+        LEFT JOIN ns_price pr ON pr.variant_id = pv.id
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            pv.tenant = #{tenant_id}
+            AND pv.id = #{id}
+        </trim>
+    </select>
+</mapper>

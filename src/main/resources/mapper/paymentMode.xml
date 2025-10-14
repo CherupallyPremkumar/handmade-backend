@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PaymentMode">
+    <resultMap id="payments" type="map">
+        <id column="id" property="paymentId"/>
+        <result column="payment_type" property="paymentType"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="payments">
+        SELECT
+        id,
+        payment_type
+        FROM
+        ns_payment_mode
+        <where>
+            tenant_id= #{tenant_id}
+        </where>
+    </select>
+</mapper>
