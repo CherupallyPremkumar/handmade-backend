@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
-@Table(name = "product_variants")
+@Table(name = "hm_product_variant")
 public class ProductVariantEntity extends AbstractJpaStateEntity {
 
     private String productId;
@@ -13,7 +13,6 @@ public class ProductVariantEntity extends AbstractJpaStateEntity {
     private String name;
     private String description;
     private String attributes;
-
 
     public String getProductId() {
         return productId;

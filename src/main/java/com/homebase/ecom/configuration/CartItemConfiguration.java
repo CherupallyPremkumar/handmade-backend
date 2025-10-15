@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.CartItem;
 import com.homebase.ecom.entitystore.CartItemEntityStore;
 import com.homebase.ecom.repository.CartItemRepository;
+import com.homebase.ecom.service.impl.CartItemStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class CartItemConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/cart-item-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/cart-item-flow.xml";
 
     @Bean
     @Autowired
@@ -84,11 +85,11 @@ public class CartItemConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _cartItemStateEntityService_(
+    StateEntityService<CartItem> _cartItemStateEntityService_(
             @Qualifier("cartItemEntityStm") STM<CartItem> stm,
             @Qualifier("cartItemActionsInfoProvider") STMActionsInfoProvider cartItemInfoProvider,
             @Qualifier("cartItemEntityStore") EntityStore<CartItem> entityStore) {
-        return new StateEntityServiceImpl(stm, cartItemInfoProvider, entityStore);
+        return new CartItemStateServiceImpl(stm, cartItemInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

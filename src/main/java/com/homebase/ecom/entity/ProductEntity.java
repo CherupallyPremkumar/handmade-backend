@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "products")
+@Table(name = "hm_product")
 public class ProductEntity extends AbstractJpaStateEntity  {
 
     @Column(nullable = false)
@@ -17,7 +17,6 @@ public class ProductEntity extends AbstractJpaStateEntity  {
 
     @Column(length = 2000)
     private String description;
-
 
     @Column(nullable = false)
     private String categoryId;
@@ -36,11 +35,7 @@ public class ProductEntity extends AbstractJpaStateEntity  {
     @Column(name = "tag")
     private List<String> tags = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Double rating = 0.0;
 
-    @Column(nullable = false)
-    private Boolean featured = false;
 
     public String getName() {
         return name;
@@ -68,19 +63,54 @@ public class ProductEntity extends AbstractJpaStateEntity  {
         this.tags = tags;
     }
 
-    public Double getRating() {
-        return rating;
+
+    public String name() {
+        return name;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public String description() {
+        return description;
     }
 
-    public Boolean getFeatured() {
-        return featured;
+    public String categoryId() {
+        return categoryId;
     }
 
-    public void setFeatured(Boolean featured) {
-        this.featured = featured;
+    public ProductEntity setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+        return this;
     }
+
+    public String featureDescription() {
+        return featureDescription;
+    }
+
+    public ProductEntity setFeatureDescription(String featureDescription) {
+        this.featureDescription = featureDescription;
+        return this;
+    }
+
+    public String salesDescription() {
+        return salesDescription;
+    }
+
+    public ProductEntity setSalesDescription(String salesDescription) {
+        this.salesDescription = salesDescription;
+        return this;
+    }
+
+    public String detailsDescription() {
+        return detailsDescription;
+    }
+
+    public ProductEntity setDetailsDescription(String detailsDescription) {
+        this.detailsDescription = detailsDescription;
+        return this;
+    }
+
+    public List<String> tags() {
+        return tags;
+    }
+
+
 }

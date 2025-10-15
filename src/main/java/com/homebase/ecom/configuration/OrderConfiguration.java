@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Order;
 import com.homebase.ecom.entitystore.OrderEntityStore;
 import com.homebase.ecom.repository.OrderRepository;
+import com.homebase.ecom.service.impl.OrderStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class OrderConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/order-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/order-flow.xml";
 
     @Bean
     @Autowired
@@ -85,11 +86,11 @@ public class OrderConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _orderStateEntityService_(
+    StateEntityService<Order> _orderStateEntityService_(
             @Qualifier("orderEntityStm") STM<Order> stm,
             @Qualifier("orderActionsInfoProvider") STMActionsInfoProvider orderInfoProvider,
             @Qualifier("orderEntityStore") EntityStore<Order> entityStore) {
-        return new StateEntityServiceImpl(stm, orderInfoProvider, entityStore);
+        return new OrderStateServiceImpl(stm, orderInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components
@@ -113,7 +114,6 @@ public class OrderConfiguration {
     }
 
     @Bean
-    @Autowired
     STMTransitionAction<Order> orderBaseTransitionAction() {
         return new BaseTransitionAction<>();
     }

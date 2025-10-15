@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "hm_category")
 public class CategoryEntity extends AbstractJpaStateEntity {
 
     @Column(nullable = false)

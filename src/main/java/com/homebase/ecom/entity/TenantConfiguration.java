@@ -5,7 +5,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
-@Table(name = "tenant_configuration")
+@Table(name = "hm_tenant_configuration")
 public class TenantConfiguration extends BaseJpaEntity {
 
 

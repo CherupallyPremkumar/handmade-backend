@@ -45,18 +45,6 @@
         "columnType": "Text"
       },
       "name": {
-        "name": "name",
-        "columnType": "Text",
-        "likeQuery": true,
-        "filterable": true
-      },
-      "name": {
-        "name": "display_name",
-        "columnType": "Text",
-        "likeQuery": true,
-        "filterable": true
-      },
-      "name": {
         "name": "description",
         "columnType": "Text",
         "likeQuery": true,

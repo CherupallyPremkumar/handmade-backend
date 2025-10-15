@@ -1,0 +1,29 @@
+
+chenile:
+  security:
+    client:
+      id: "authz-servlet"
+      secret: "secret"
+    keycloak:
+      host: "localhost"
+      port: 8188
+      base:
+        realm: quickstart
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/realms/#tenantId#/protocol/openid-connect/certs
+
+logging:
+  level:
+    org:
+      chenile:
+        security: DEBUG
+
+
+

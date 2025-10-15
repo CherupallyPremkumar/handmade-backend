@@ -5,7 +5,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "hm_tag")
 public class TagEntity extends BaseJpaEntity {
 
     @Column(nullable = false)

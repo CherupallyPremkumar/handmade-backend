@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "wishlists")
+@Table(name = "hm_wishlist")
 public class WishlistEntity extends AbstractJpaStateEntity {
 
      private String customerId;

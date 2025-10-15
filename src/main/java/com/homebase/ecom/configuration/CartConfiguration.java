@@ -1,10 +1,9 @@
 package com.homebase.ecom.configuration;
 
-
-
 import com.homebase.ecom.domain.Cart;
 import com.homebase.ecom.entitystore.CartEntityStore;
 import com.homebase.ecom.repository.CartRepository;
+import com.homebase.ecom.service.impl.CartStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -36,9 +35,7 @@ import java.util.function.Function;
 @Configuration
 public class CartConfiguration {
 
-
-    private static final String FLOW_DEFINITION_FILE = "stm/cart-flow.xml";
-
+    private static final String FLOW_DEFINITION_FILE = "state/cart-flow.xml";
 
     @Bean
     @Autowired
@@ -47,14 +44,10 @@ public class CartConfiguration {
         return builder.build();
     }
 
-
     @Bean
     BeanFactoryAdapter cartBeanFactoryAdapter() {
         return new SpringBeanFactoryAdapter();
     }
-
-
-
 
     @Bean
     STMFlowStoreImpl cartFlowStore(@Qualifier("cartBeanFactoryAdapter") BeanFactoryAdapter cartBeanFactoryAdapter) throws Exception {
@@ -62,7 +55,6 @@ public class CartConfiguration {
         stmFlowStore.setBeanFactory(cartBeanFactoryAdapter);
         return stmFlowStore;
     }
-
 
     @Bean
     @Autowired
@@ -86,11 +78,11 @@ public class CartConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _cartStateEntityService_(
+    StateEntityService<Cart> _cartStateEntityService_(
             @Qualifier("cartEntityStm") STM<Cart> stm,
             @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
             @Qualifier("cartEntityStore") EntityStore<Cart> entityStore) {
-        return new StateEntityServiceImpl(stm, cartInfoProvider, entityStore);
+        return new CartStateServiceImpl(stm, cartInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components
@@ -98,7 +90,7 @@ public class CartConfiguration {
     @Bean
     @Autowired
     GenericEntryAction<Cart> cartEntryAction(@Qualifier("cartEntityStore") EntityStore<Cart> entityStore,
-                                               @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider) {
+            @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider) {
         return new GenericEntryAction<Cart>(entityStore, cartInfoProvider);
     }
 
@@ -118,7 +110,6 @@ public class CartConfiguration {
         return new BaseTransitionAction<>();
     }
 
-
     @Bean
     XmlFlowReader cartFlowReader(@Qualifier("cartFlowStore") STMFlowStoreImpl flowStore) throws Exception {
         XmlFlowReader flowReader = new XmlFlowReader(flowStore);
@@ -126,4 +117,3 @@ public class CartConfiguration {
         return flowReader;
     }
 }
-

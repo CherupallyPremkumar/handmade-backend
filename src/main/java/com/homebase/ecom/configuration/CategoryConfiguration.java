@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Category;
 import com.homebase.ecom.entitystore.CategoryEntityStore;
 import com.homebase.ecom.repository.CategoryRepository;
+import com.homebase.ecom.service.impl.CategoryStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class CategoryConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/category-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/category-flow.xml";
 
     @Bean
     @Autowired
@@ -85,11 +86,11 @@ public class CategoryConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _categoryStateEntityService_(
+    StateEntityService<Category> _categoryStateEntityService_(
             @Qualifier("categoryEntityStm") STM<Category> stm,
             @Qualifier("categoryActionsInfoProvider") STMActionsInfoProvider categoryInfoProvider,
             @Qualifier("categoryEntityStore") EntityStore<Category> entityStore) {
-        return new StateEntityServiceImpl(stm, categoryInfoProvider, entityStore);
+        return new CategoryStateServiceImpl(stm, categoryInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components
@@ -120,6 +121,7 @@ public class CategoryConfiguration {
 
 
     @Bean
+    @Autowired
     XmlFlowReader categoryFlowReader(@Qualifier("categoryFlowStore") STMFlowStoreImpl flowStore) throws Exception {
         XmlFlowReader flowReader = new XmlFlowReader(flowStore);
         flowReader.setFilename(FLOW_DEFINITION_FILE);

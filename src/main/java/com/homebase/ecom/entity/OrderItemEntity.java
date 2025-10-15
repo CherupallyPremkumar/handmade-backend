@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "hm_order_item")
 public class OrderItemEntity extends BaseJpaEntity {
 
     @Column(name = "order_id")

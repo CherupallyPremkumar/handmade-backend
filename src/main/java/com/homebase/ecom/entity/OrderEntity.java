@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "hm_order")
 public class OrderEntity extends AbstractJpaStateEntity {
 
     @Column(unique = true, nullable = false)
     private String orderNumber;
+
+    @Column(name = "payment_id")
+    private String paymentId;
 
     @Column(name = "customer_id")
     private String customerId;

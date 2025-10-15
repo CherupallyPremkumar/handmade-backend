@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="priceFlow" default="true">
+        <entry-action componentName="priceEntryAction" />
+        <exit-action componentName="priceExitAction" />
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="activate" componentName="activatePriceInCreatedService" newStateId="ACTIVE" />
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deactivate" componentName="deactivatePriceService" newStateId="INACTIVE" />
+            <on eventId="expire" componentName="expirePriceService" newStateId="EXPIRED" />
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="activate" componentName="activatePriceInInActiveService" newStateId="ACTIVE" />
+        </manual-state>
+
+        <manual-state id="EXPIRED" />
+    </flow>
+</states>

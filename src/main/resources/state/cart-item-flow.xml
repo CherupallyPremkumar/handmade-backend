@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="cartItemFlow" default="true">
+        <entry-action componentName="cartItemEntryAction" />
+        <exit-action componentName="cartItemExitAction" />
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="updateQuantity" componentName="updateQuantityCartItemService" newStateId="UPDATED" />
+            <on eventId="remove" componentName="removeCartItemInCreatedService" newStateId="REMOVED" />
+        </manual-state>
+
+        <manual-state id="UPDATED">
+            <on eventId="updateQuantity" componentName="updateQuantityCartItemInUpdatedService" newStateId="UPDATED" />
+            <on eventId="remove" componentName="removeCartItemService" newStateId="REMOVED" />
+        </manual-state>
+
+        <manual-state id="REMOVED" />
+    </flow>
+</states>

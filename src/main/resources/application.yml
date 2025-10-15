@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # Automatically create/update schema
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -18,9 +18,9 @@ spring:
     console:
       enabled: true # Enable H2 web console
       path: /h2-console
-
   main:
     allow-bean-definition-overriding: true
+
 server:
   port: 8081
 
@@ -37,10 +37,11 @@ springdoc:
   show-actuator: false
 
 query:
+  mapperFiles: classpath*:mapper/*.xml
+  definitionFiles: classpath*:mapper/*.json
   jpa:
     hibernate:
       show_sql: "true"
-      ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
@@ -54,8 +55,7 @@ query:
     minimumIdle: "2"
     idleTimeout: "5000"
     jdbcUrl: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  mapperFiles: classpath*:src/main/resources/mapper/*.xml
-  definitionFiles: classpath*:src/main/resources/mapper/*.json
+
 
 chenile:
   security:
@@ -69,8 +69,8 @@ chenile:
       secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem # OAuth2 client secret
     login:
       success-url: / # Redirect after successful login
-      failure-url: /login?error # Redirect on failure
+      failure-url: http://localhost:8080/tenant0
     ignore:
       false
 
-      # Accessible at http://localhost:8081/h2-console
+

@@ -4,7 +4,7 @@
 
 <mapper namespace="Order">
 
-    <resultMap id="orderMap" type="com.netscoretech.pos.orderlist.OrderList">
+    <resultMap id="orderMap" type="com.homebase.ecom.mybatis.orderlist.OrderList">
         <result column="id" property="id"/>
         <result column="status" property="status"/>
         <result column="order_no" property="orderNo"/>
@@ -143,7 +143,7 @@
     </select>
 
 
-    <resultMap id="orders" type="com.netscoretech.pos.order.Order">
+    <resultMap id="orders" type="com.homebase.ecom.mybatis.order.Order">
         <id column="orderId" property="id"/>
         <result column="status" property="status"/>
         <result column="createdTime" property="createdTime"/>
@@ -171,11 +171,11 @@
         <result column="deliveredCount" property="deliveredCount"/>
         <result column="tenantId" property="tenantId"/>
         <result column="layWayPay" property="layWayPay"/>
-        <association property="payments" javaType="com.netscoretech.pos.order.Payments" resultMap="payments"/>
-        <collection property="orderLines" ofType="com.netscoretech.pos.order.OrderItems" resultMap="orderLineMap"/>
+        <association property="payments" javaType="com.homebase.ecom.mybatis.order.Payments" resultMap="payments"/>
+        <collection property="orderLines" ofType="com.homebase.ecom.mybatis.order.OrderItems" resultMap="orderLineMap"/>
     </resultMap>
 
-    <resultMap id="paymentLinesResultMap" type="com.netscoretech.pos.order.PaymentLines">
+    <resultMap id="paymentLinesResultMap" type="com.homebase.ecom.mybatis.order.PaymentLines">
         <id property="id" column="paymentLineId"/>
         <result property="tenantId" column="paymentLineTenantId"/>
         <result property="referenceNumber" column="referenceNumber"/>
@@ -183,14 +183,14 @@
         <result property="amount" column="lineAmount"/>
     </resultMap>
 
-    <resultMap id="payments" type="com.netscoretech.pos.order.Payments">
+    <resultMap id="payments" type="com.homebase.ecom.mybatis.order.Payments">
         <id property="paymentId" column="paymentId"/>
         <result property="amount" column="paymentAmount"/>
         <collection property="paymentLines" ofType="com.netscoretech.pos.order.PaymentLines"
                     resultMap="paymentLinesResultMap"/>
     </resultMap>
 
-    <resultMap id="orderLineMap" type="com.netscoretech.pos.order.OrderItems">
+    <resultMap id="orderLineMap" type="com.homebase.ecom.mybatis.order.OrderItems">
         <id column="orderLineId" property="orderLineId"/>
         <result column="productId" property="productId"/>
         <result column="quantity" property="quantity"/>

@@ -2,9 +2,12 @@ package com.homebase.ecom.entity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
+
 @Entity
+@Table(name = "hm_tenant_theme")
 public class TenantThemeEntity extends BaseJpaEntity {
 
     private String primaryColor;

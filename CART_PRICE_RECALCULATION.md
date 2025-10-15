@@ -9,7 +9,7 @@ When a product's price changes or goes on/off sale, all cart items containing th
 ## Design Patterns Used
 
 ### 1. **Strategy Pattern** - Pricing Calculation
-**Location:** `com.homebase.admin.strategy`
+**Location:** `com.homebase.ecom.strategy`
 
 **Purpose:** Encapsulates different pricing algorithms to calculate product prices.
 
@@ -40,7 +40,7 @@ public class PriceCalculationService {
 ```
 
 ### 2. **Observer Pattern** - Price Change Notifications
-**Location:** `com.homebase.admin.observer`
+**Location:** `com.homebase.ecom.observer`
 
 **Purpose:** Automatically notifies and updates cart items when product prices change.
 

@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
-@Table(name = "locations")
+@Table(name = "hm_location")
 public class LocationEntity extends BaseJpaEntity {
     private String name;
     private String address;

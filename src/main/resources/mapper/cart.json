@@ -9,13 +9,18 @@
         "columnType": "Text",
         "containsQuery": false
       },
-      "tenant_id": {
-        "name": "tenant_id",
+      "tenant": {
+        "name": "tenant",
         "filterable": true,
         "columnType": "Text",
         "containsQuery": false
       },
       "location_id": {
+        "name": "location_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "customer_id": {
         "name": "location_id",
         "columnType": "Text",
         "filterable": true

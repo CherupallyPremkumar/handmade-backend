@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="wishlistFlow" default="true">
+        <entry-action componentName="wishlistEntryAction" />
+        <exit-action componentName="wishlistExitAction" />
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="addItem" componentName="addItemWishlistInCreatedService" newStateId="ACTIVE" />
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="addItem" componentName="addItemWishlistService" newStateId="ACTIVE" />
+            <on eventId="removeItem" componentName="removeItemWishlistService" newStateId="ACTIVE" />
+            <on eventId="clear" componentName="clearWishlistService" newStateId="EMPTY" />
+        </manual-state>
+
+        <manual-state id="EMPTY">
+            <on eventId="addItem" componentName="addItemWishlistInEmptyService" newStateId="ACTIVE" />
+        </manual-state>
+    </flow>
+</states>

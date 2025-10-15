@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
-@Table(name = "images")
+@Table(name = "hm_image")
 public class ImageEntity extends BaseJpaEntity {
 
     private String url;

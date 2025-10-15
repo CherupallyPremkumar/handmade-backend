@@ -13,6 +13,4 @@ public class HomebaseAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(HomebaseAdminApplication.class, args);
     }
-
-
 }

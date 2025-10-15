@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Admin;
 import com.homebase.ecom.entitystore.AdminEntityStore;
 import com.homebase.ecom.repository.AdminRepository;
+import com.homebase.ecom.service.impl.AdminStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.stm.STM;
 import org.chenile.stm.action.STMTransitionAction;
@@ -35,8 +36,7 @@ import java.util.function.Function;
 @Configuration
 public class AdminConfiguration {
 
-
-    private static final String FLOW_DEFINITION_FILE = "resources/state/admin-stm.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/admin-flow.xml";
 
     @Bean
     @Autowired
@@ -83,11 +83,11 @@ public class AdminConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _adminStateEntityService_(
+    StateEntityService<Admin> _adminStateEntityService_(
             @Qualifier("adminEntityStm") STM<Admin> stm,
             @Qualifier("adminActionsInfoProvider") STMActionsInfoProvider adminInfoProvider,
             @Qualifier("adminEntityStore") EntityStore<Admin> entityStore) {
-        return new StateEntityServiceImpl(stm, adminInfoProvider, entityStore);
+        return new AdminStateServiceImpl(stm, adminInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

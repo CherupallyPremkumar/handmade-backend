@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Tenant;
 import com.homebase.ecom.entitystore.TenantEntityStore;
 import com.homebase.ecom.repository.TenantRepository;
+import com.homebase.ecom.service.impl.TenantStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class TenantConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "src/main/resources/state/tenant-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/tenant-flow.xml";
 
     @Bean
     @Autowired
@@ -78,17 +79,18 @@ public class TenantConfiguration {
     }
 
     @Bean
+    @Autowired
     EntityStore<Tenant> tenantEntityStore(TenantRepository tenantRepository) {
         return new TenantEntityStore(tenantRepository);
     }
 
     @Bean
     @Autowired
-    StateEntityService _tenantStateEntityService_(
+    StateEntityService<Tenant> _tenantStateEntityService_(
             @Qualifier("tenantEntityStm") STM<Tenant> stm,
             @Qualifier("tenantActionsInfoProvider") STMActionsInfoProvider tenantInfoProvider,
             @Qualifier("tenantEntityStore") EntityStore<Tenant> entityStore) {
-        return new StateEntityServiceImpl(stm, tenantInfoProvider, entityStore);
+        return new TenantStateServiceImpl(stm, tenantInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

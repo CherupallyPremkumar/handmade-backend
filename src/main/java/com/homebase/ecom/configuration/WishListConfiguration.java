@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Wishlist;
 import com.homebase.ecom.entitystore.WishlistEntityStore;
 import com.homebase.ecom.repository.WishlistRepository;
+import com.homebase.ecom.service.impl.WishlistStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class WishListConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/wishlist-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/wishlist-flow.xml";
 
     @Bean
     @Autowired
@@ -84,11 +85,11 @@ public class WishListConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _wishlistStateEntityService_(
+    StateEntityService<Wishlist> _wishlistStateEntityService_(
             @Qualifier("wishlistEntityStm") STM<Wishlist> stm,
             @Qualifier("wishlistActionsInfoProvider") STMActionsInfoProvider wishlistInfoProvider,
             @Qualifier("wishlistEntityStore") EntityStore<Wishlist> entityStore) {
-        return new StateEntityServiceImpl(stm, wishlistInfoProvider, entityStore);
+        return new WishlistStateServiceImpl(stm, wishlistInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

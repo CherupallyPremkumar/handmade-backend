@@ -2,7 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dashboard">
 
-    <resultMap id="viewProduct" type="com.netscoretech.pos.dashboard.Products">
+    <resultMap id="viewProduct" type="com.homebase.ecom.mybatis.dashboard.Products">
         <id property="internalId" column="internal_id"/>
         <result property="displayName" column="display_name"/>
         <result property="description" column="description"/>
@@ -12,7 +12,7 @@
         <result property="productId" column="product_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="thumbnail" column="thumbnail"/>
-        <collection property="inventoryDetails" ofType="com.netscoretech.pos.dashboard.InventoryDetails">
+        <collection property="inventoryDetails" ofType="com.homebase.ecom.mybatis.dashboard.InventoryDetails">
             <id property="locationId" column="id"/>
             <result property="location_name" column="location_name"/>
             <result property="quantityOnHand" column="quantity_on_hand"/>
@@ -20,7 +20,7 @@
         </collection>
     </resultMap>
 
-    <resultMap id="productsList" type="com.netscoretech.pos.dashboard.ProductList">
+    <resultMap id="productsList" type="com.homebase.ecom.mybatis.dashboard.ProductList">
         <id property="internalId" column="internal_id"/>
         <result property="displayName" column="display_name"/>
         <result property="description" column="description"/>
@@ -35,7 +35,7 @@
         <result property="quantityAvailable" column="quantity_available"/>
     </resultMap>
 
-    <resultMap id="categoryMap" type="com.netscoretech.pos.dashboard.Category">
+    <resultMap id="categoryMap" type="com.homebase.ecom.mybatis.dashboard.Category">
         <id property="categoryId" column="id"/>
         <result property="categoryName" column="category_name"/>
         <result property="thumbnail" column="thumbnail"/>

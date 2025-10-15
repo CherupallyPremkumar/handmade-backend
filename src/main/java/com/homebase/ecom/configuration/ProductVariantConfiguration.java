@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.ProductVariant;
 import com.homebase.ecom.entitystore.ProductVariantEntityStore;
 import com.homebase.ecom.repository.ProductVariantRepository;
+import com.homebase.ecom.service.impl.ProductVariantStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class ProductVariantConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/productVariant-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/productVariant-flow.xml";
 
     @Bean
     @Autowired
@@ -84,11 +85,11 @@ public class ProductVariantConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _productVariantStateEntityService_(
+    StateEntityService<ProductVariant> _productVariantStateEntityService_(
             @Qualifier("productVariantEntityStm") STM<ProductVariant> stm,
             @Qualifier("productVariantActionsInfoProvider") STMActionsInfoProvider productVariantInfoProvider,
             @Qualifier("productVariantEntityStore") EntityStore<ProductVariant> entityStore) {
-        return new StateEntityServiceImpl(stm, productVariantInfoProvider, entityStore);
+        return new ProductVariantStateServiceImpl(stm, productVariantInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

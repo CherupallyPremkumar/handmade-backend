@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
-@Table(name = "notifications")
+@Table(name = "hm_notification")
 public class NotificationEntity extends AbstractJpaStateEntity {
 
     @Enumerated(EnumType.STRING)

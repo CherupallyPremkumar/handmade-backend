@@ -8,7 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface TenantRepository extends JpaRepository<TenantEntity, String> {
-
-    // Find tenant by URL path (used in frontend)
-    Optional<TenantEntity> findByUrlPath(String urlPath);
+    ;
 }

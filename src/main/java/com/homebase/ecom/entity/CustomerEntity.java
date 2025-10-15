@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "hm_customer")
 public class CustomerEntity extends AbstractJpaStateEntity {
 
     @Column(nullable = false)

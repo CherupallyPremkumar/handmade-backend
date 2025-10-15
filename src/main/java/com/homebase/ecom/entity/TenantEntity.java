@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
-@Table(name = "tenants",
+@Table(name = "hm_tenant",
         uniqueConstraints = @UniqueConstraint(columnNames = {"tenant_code"}))
 public class TenantEntity extends AbstractJpaStateEntity {
 

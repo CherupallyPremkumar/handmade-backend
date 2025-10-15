@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "hm_review")
 public class ReviewEntity extends BaseJpaEntity {
 
     private String productVariantId;

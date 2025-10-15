@@ -12,16 +12,16 @@
         </manual-state>
 
         <manual-state id="CHECKOUT_INITIATED">
-            <on eventId="confirmPayment" componentName="paymentAction" newStateId="PAYMENT_CONFIRMED" />
+            <on eventId="confirmPayment" newStateId="PAYMENT_CONFIRMED" />
             <on eventId="cancel" newStateId="CREATED" />
         </manual-state>
 
         <manual-state id="PAYMENT_CONFIRMED">
-            <on eventId="ship" newStateId="SHIPPED" />
+            <on eventId="ship"  newStateId="SHIPPED" />
         </manual-state>
 
         <manual-state id="SHIPPED">
-            <on eventId="deliver" newStateId="DELIVERED" />
+            <on eventId="deliver"  newStateId="DELIVERED" />
         </manual-state>
 
         <manual-state id="DELIVERED" />

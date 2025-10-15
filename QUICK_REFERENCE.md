@@ -81,7 +81,7 @@ Content-Type: application/json
 
 ## 🏗️ Code Structure
 ```
-com.homebase.admin/
+com.homebase.ecom/
 ├── controller/     # REST endpoints
 ├── service/        # Business logic
 ├── repository/     # Data access

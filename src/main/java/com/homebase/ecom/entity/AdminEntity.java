@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "admins")
+@Table(name = "hm_admin")
 public class AdminEntity extends AbstractJpaStateEntity {
 
     @Column(nullable = false)

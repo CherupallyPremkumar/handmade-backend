@@ -5,6 +5,7 @@ package com.homebase.ecom.configuration;
 import com.homebase.ecom.domain.Inventory;
 import com.homebase.ecom.entitystore.InventoryEntityStore;
 import com.homebase.ecom.repository.InventoryRepository;
+import com.homebase.ecom.service.impl.InventoryStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
@@ -37,7 +38,7 @@ import java.util.function.Function;
 public class InventoryConfiguration {
 
 
-    private static final String FLOW_DEFINITION_FILE = "stm/inventory-flow.xml";
+    private static final String FLOW_DEFINITION_FILE = "state/inventory-flow.xml";
 
     @Bean
     @Autowired
@@ -84,11 +85,11 @@ public class InventoryConfiguration {
 
     @Bean
     @Autowired
-    StateEntityService _inventoryStateEntityService_(
+    StateEntityService<Inventory> _inventoryStateEntityService_(
             @Qualifier("inventoryEntityStm") STM<Inventory> stm,
             @Qualifier("inventoryActionsInfoProvider") STMActionsInfoProvider inventoryInfoProvider,
             @Qualifier("inventoryEntityStore") EntityStore<Inventory> entityStore) {
-        return new StateEntityServiceImpl(stm, inventoryInfoProvider, entityStore);
+        return new InventoryStateServiceImpl(stm, inventoryInfoProvider, entityStore);
     }
 
     // Now we start constructing the STM Components

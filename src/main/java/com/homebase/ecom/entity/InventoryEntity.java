@@ -10,12 +10,11 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  * Inventory entity with state management.
  */
 @Entity
-@Table(name = "inventory")
+@Table(name = "hm_inventory")
 public class InventoryEntity extends AbstractJpaStateEntity {
 
     @Column(name = "quantity_on_hand")
     private int quantityOnHand;
-
     @NotNull
     @Column(name = "variant_id")
     private String productVariantId;
