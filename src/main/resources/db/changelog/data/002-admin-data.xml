@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-admin-data" author="system">
+        <insert tableName="hm_admin">
+            <column name="id" value="admin-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="John Admin"/>
+            <column name="email" value="admin@homebase.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="phone" value="+1-555-0101"/>
+            <column name="avatar_url" value="https://i.pravatar.cc/150?img=12"/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="requires_two_factor" valueBoolean="false"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="adminFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_admin">
+            <column name="id" value="admin-002"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Sarah Manager"/>
+            <column name="email" value="manager@homebase.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="phone" value="+1-555-0102"/>
+            <column name="avatar_url" value="https://i.pravatar.cc/150?img=47"/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="requires_two_factor" valueBoolean="true"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="adminFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="admin_roles">
+            <column name="admin_id" value="admin-001"/>
+            <column name="role" value="SUPER_ADMIN"/>
+        </insert>
+
+        <insert tableName="admin_roles">
+            <column name="admin_id" value="admin-001"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+
+        <insert tableName="admin_roles">
+            <column name="admin_id" value="admin-002"/>
+            <column name="role" value="MANAGER"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

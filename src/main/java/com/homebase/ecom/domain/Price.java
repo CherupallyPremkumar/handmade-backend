@@ -1,12 +1,9 @@
 package com.homebase.ecom.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.chenile.jpautils.entity.AbstractJpaStateEntity;
+import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
-@Entity
-@Table(name = "prices")
-public class Price extends AbstractJpaStateEntity {
+
+public class Price extends AbstractExtendedStateEntity {
 
     private String productId;
     private String currency;

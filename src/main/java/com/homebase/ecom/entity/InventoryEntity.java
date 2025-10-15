@@ -16,7 +16,7 @@ public class InventoryEntity extends AbstractJpaStateEntity {
     @Column(name = "quantity_on_hand")
     private int quantityOnHand;
     @NotNull
-    @Column(name = "variant_id")
+    @Column(name = "product_variant_id")
     private String productVariantId;
     @Column(name = "location_id")
     private String locationId;

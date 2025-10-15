@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-product-data" author="system">
+        <!-- Electronics Products -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Wireless Bluetooth Headphones"/>
+            <column name="description" value="Premium noise-cancelling wireless headphones with 30-hour battery life"/>
+            <column name="category_id" value="category-001"/>
+            <column name="feature_description" value="Active Noise Cancellation, Premium Sound Quality"/>
+            <column name="details_description" value="Bluetooth 5.0, Foldable Design, Comfortable Ear Cushions"/>
+            <column name="sales_description" value="Experience crystal clear audio with our best-selling headphones"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product">
+            <column name="id" value="product-002"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Smart Watch Pro"/>
+            <column name="description" value="Advanced fitness tracking smartwatch with heart rate monitor"/>
+            <column name="category_id" value="category-001"/>
+            <column name="feature_description" value="Heart Rate Monitor, GPS Tracking, Water Resistant"/>
+            <column name="details_description" value="1.4 inch AMOLED Display, 7-day battery life"/>
+            <column name="sales_description" value="Track your fitness goals with style"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Clothing Products -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-003"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Classic Cotton T-Shirt"/>
+            <column name="description" value="Comfortable 100% cotton t-shirt in various colors"/>
+            <column name="category_id" value="category-002"/>
+            <column name="feature_description" value="100% Cotton, Breathable, Machine Washable"/>
+            <column name="details_description" value="Available in S, M, L, XL sizes"/>
+            <column name="sales_description" value="Your everyday comfort essential"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product">
+            <column name="id" value="product-004"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Denim Jeans"/>
+            <column name="description" value="Classic fit denim jeans with stretch comfort"/>
+            <column name="category_id" value="category-002"/>
+            <column name="feature_description" value="Stretch Denim, Classic Fit, Durable"/>
+            <column name="details_description" value="5-pocket design, Available in multiple washes"/>
+            <column name="sales_description" value="Timeless style meets modern comfort"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Home & Garden Products -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-005"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="LED Desk Lamp"/>
+            <column name="description" value="Adjustable LED desk lamp with touch controls"/>
+            <column name="category_id" value="category-003"/>
+            <column name="feature_description" value="Touch Control, Adjustable Brightness, Energy Efficient"/>
+            <column name="details_description" value="USB Charging Port, Flexible Arm"/>
+            <column name="sales_description" value="Perfect lighting for work and study"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Product Variants -->
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-001"/>
+            <column name="tenant" value="default"/>
+            <column name="product_id" value="product-001"/>
+            <column name="display_name" value="Wireless Bluetooth Headphones - Black"/>
+            <column name="sku" value="WBH-BLK-001"/>
+            <column name="description" value="Black color variant"/>
+            <column name="attributes" value="Color: Black"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-002"/>
+            <column name="tenant" value="default"/>
+            <column name="product_id" value="product-001"/>
+            <column name="display_name" value="Wireless Bluetooth Headphones - Silver"/>
+            <column name="sku" value="WBH-SLV-001"/>
+            <column name="description" value="Silver color variant"/>
+            <column name="attributes" value="Color: Silver"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-003"/>
+            <column name="tenant" value="default"/>
+            <column name="product_id" value="product-003"/>
+            <column name="display_name" value="Classic Cotton T-Shirt - White - M"/>
+            <column name="sku" value="CCT-WHT-M-001"/>
+            <column name="description" value="White color, Medium size"/>
+            <column name="attributes" value="Color: White, Size: M"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Prices -->
+        <insert tableName="hm_price">
+            <column name="id" value="price-001"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="price" value="199.99"/>
+            <column name="discount_percentage" valueNumeric="10"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-002"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="price" value="199.99"/>
+            <column name="discount_percentage" valueNumeric="10"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-003"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="price" value="29.99"/>
+            <column name="discount_percentage" valueNumeric="0"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Inventory -->
+        <insert tableName="hm_location">
+            <column name="id" value="location-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Main Warehouse"/>
+            <column name="address" value="1000 Industrial Blvd"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="10001"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-001"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="100"/>
+            <column name="quantity_available" valueNumeric="95"/>
+            <column name="quantity_committed" valueNumeric="5"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-002"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="50"/>
+            <column name="quantity_available" valueNumeric="48"/>
+            <column name="quantity_committed" valueNumeric="2"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-003"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="200"/>
+            <column name="quantity_available" valueNumeric="190"/>
+            <column name="quantity_committed" valueNumeric="10"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

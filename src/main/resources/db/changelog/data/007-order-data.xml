@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-order-data" author="system">
+        <!-- Order 1 - Delivered -->
+        <insert tableName="hm_order">
+            <column name="id" value="order-001"/>
+            <column name="tenant" value="default"/>
+            <column name="order_number" value="ORD-2024-001"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="customer_name" value="Alice Johnson"/>
+            <column name="customer_email" value="alice.johnson@example.com"/>
+            <column name="customer_phone" value="+1-555-0201"/>
+            <column name="shipping_address" value="123 Main Street, Apt 4B"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="pincode" value="10001"/>
+            <column name="subtotal" valueNumeric="199.99"/>
+            <column name="tax" valueNumeric="16.00"/>
+            <column name="shipping_cost" valueNumeric="9.99"/>
+            <column name="total" valueNumeric="225.98"/>
+            <column name="status" value="DELIVERED"/>
+            <column name="payment_status" value="PAID"/>
+            <column name="payment_id" value="payment-001"/>
+            <column name="transaction_id" value="TXN-001-2024"/>
+            <column name="state_id" value="DELIVERED"/>
+            <column name="flow_id" value="orderFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Order 2 - Shipped -->
+        <insert tableName="hm_order">
+            <column name="id" value="order-002"/>
+            <column name="tenant" value="default"/>
+            <column name="order_number" value="ORD-2024-002"/>
+            <column name="customer_id" value="customer-002"/>
+            <column name="customer_name" value="Bob Smith"/>
+            <column name="customer_email" value="bob.smith@example.com"/>
+            <column name="customer_phone" value="+1-555-0202"/>
+            <column name="shipping_address" value="456 Oak Avenue"/>
+            <column name="city" value="Los Angeles"/>
+            <column name="state" value="CA"/>
+            <column name="pincode" value="90001"/>
+            <column name="subtotal" valueNumeric="399.98"/>
+            <column name="tax" valueNumeric="32.00"/>
+            <column name="shipping_cost" valueNumeric="12.99"/>
+            <column name="total" valueNumeric="444.97"/>
+            <column name="status" value="SHIPPED"/>
+            <column name="payment_status" value="PAID"/>
+            <column name="payment_id" value="payment-002"/>
+            <column name="transaction_id" value="TXN-002-2024"/>
+            <column name="state_id" value="SHIPPED"/>
+            <column name="flow_id" value="orderFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <!-- Order 3 - Processing -->
+        <insert tableName="hm_order">
+            <column name="id" value="order-003"/>
+            <column name="tenant" value="default"/>
+            <column name="order_number" value="ORD-2024-003"/>
+            <column name="customer_id" value="customer-003"/>
+            <column name="customer_name" value="Carol Williams"/>
+            <column name="customer_email" value="carol.williams@example.com"/>
+            <column name="customer_phone" value="+1-555-0203"/>
+            <column name="shipping_address" value="789 Pine Road"/>
+            <column name="city" value="Chicago"/>
+            <column name="state" value="IL"/>
+            <column name="pincode" value="60601"/>
+            <column name="subtotal" valueNumeric="89.97"/>
+            <column name="tax" valueNumeric="7.20"/>
+            <column name="shipping_cost" valueNumeric="5.99"/>
+            <column name="total" valueNumeric="103.16"/>
+            <column name="status" value="PROCESSING"/>
+            <column name="payment_status" value="PAID"/>
+            <column name="payment_id" value="payment-003"/>
+            <column name="transaction_id" value="TXN-003-2024"/>
+            <column name="state_id" value="PROCESSING"/>
+            <column name="flow_id" value="orderFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <!-- Order 4 - Confirmed -->
+        <insert tableName="hm_order">
+            <column name="id" value="order-004"/>
+            <column name="tenant" value="default"/>
+            <column name="order_number" value="ORD-2024-004"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="customer_name" value="Alice Johnson"/>
+            <column name="customer_email" value="alice.johnson@example.com"/>
+            <column name="customer_phone" value="+1-555-0201"/>
+            <column name="shipping_address" value="123 Main Street, Apt 4B"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="pincode" value="10001"/>
+            <column name="subtotal" valueNumeric="59.98"/>
+            <column name="tax" valueNumeric="4.80"/>
+            <column name="shipping_cost" valueNumeric="5.99"/>
+            <column name="total" valueNumeric="70.77"/>
+            <column name="status" value="CONFIRMED"/>
+            <column name="payment_status" value="PAID"/>
+            <column name="payment_id" value="payment-004"/>
+            <column name="transaction_id" value="TXN-004-2024"/>
+            <column name="state_id" value="CONFIRMED"/>
+            <column name="flow_id" value="orderFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Order Items for Order 1 -->
+        <insert tableName="hm_order_item">
+            <column name="id" value="order-item-001"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-001"/>
+            <column name="product_id" value="variant-001"/>
+            <column name="product_name" value="Wireless Bluetooth Headphones - Black"/>
+            <column name="product_image_url" value="https://example.com/images/headphones-black.jpg"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="price" valueNumeric="199.99"/>
+            <column name="subtotal" valueNumeric="199.99"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Order Items for Order 2 -->
+        <insert tableName="hm_order_item">
+            <column name="id" value="order-item-002"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-002"/>
+            <column name="product_id" value="variant-001"/>
+            <column name="product_name" value="Wireless Bluetooth Headphones - Black"/>
+            <column name="product_image_url" value="https://example.com/images/headphones-black.jpg"/>
+            <column name="quantity" valueNumeric="2"/>
+            <column name="price" valueNumeric="199.99"/>
+            <column name="subtotal" valueNumeric="399.98"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <!-- Order Items for Order 3 -->
+        <insert tableName="hm_order_item">
+            <column name="id" value="order-item-003"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-003"/>
+            <column name="product_id" value="variant-003"/>
+            <column name="product_name" value="Classic Cotton T-Shirt - White - M"/>
+            <column name="product_image_url" value="https://example.com/images/tshirt-white.jpg"/>
+            <column name="quantity" valueNumeric="3"/>
+            <column name="price" valueNumeric="29.99"/>
+            <column name="subtotal" valueNumeric="89.97"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <!-- Order Items for Order 4 -->
+        <insert tableName="hm_order_item">
+            <column name="id" value="order-item-004"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-004"/>
+            <column name="product_id" value="variant-003"/>
+            <column name="product_name" value="Classic Cotton T-Shirt - White - M"/>
+            <column name="product_image_url" value="https://example.com/images/tshirt-white.jpg"/>
+            <column name="quantity" valueNumeric="2"/>
+            <column name="price" valueNumeric="29.99"/>
+            <column name="subtotal" valueNumeric="59.98"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

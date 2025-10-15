@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-tenant-data" author="system">
+        <insert tableName="hm_tenant">
+            <column name="id" value="tenant-001"/>
+            <column name="tenant" value="default"/>
+            <column name="tenant_name" value="HomeBase Store"/>
+            <column name="tenant_code" value="HOMEBASE"/>
+            <column name="display_name" value="HomeBase E-Commerce"/>
+            <column name="url_path" value="/homebase"/>
+            <column name="logo_url" value="https://example.com/logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/New_York"/>
+            <column name="support_email" value="support@homebase.com"/>
+            <column name="support_phone" value="+1-555-0100"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_tenant">
+            <column name="id" value="tenant-002"/>
+            <column name="tenant" value="demo"/>
+            <column name="tenant_name" value="Demo Store"/>
+            <column name="tenant_code" value="DEMO"/>
+            <column name="display_name" value="Demo E-Commerce"/>
+            <column name="url_path" value="/demo"/>
+            <column name="logo_url" value="https://example.com/demo-logo.png"/>
+            <column name="currency" value="EUR"/>
+            <column name="locale" value="en_GB"/>
+            <column name="timezone" value="Europe/London"/>
+            <column name="support_email" value="support@demo.com"/>
+            <column name="support_phone" value="+44-20-7946-0958"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,7 +1,7 @@
 [
   {
-    "id": "Cart.cart",
-    "name": "cart",
+    "id": "Cart.getByCartId",
+    "name": "getByCartId",
     "columnMetadata": {
       "id": {
         "name": "id",
@@ -23,7 +23,9 @@
       "customer_id": {
         "name": "location_id",
         "columnType": "Text",
-        "filterable": true
+        "filterable": true,
+        "containsQuery": false
+
       }
     },
     "flexiblePropnames": false,

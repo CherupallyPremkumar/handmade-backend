@@ -4,22 +4,20 @@ import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 import java.math.BigDecimal;
 
-
 public class CartItem extends AbstractExtendedStateEntity {
-
 
     private Cart cart;
 
     private Product product;
 
     private int quantity;
-    
+
     // Price snapshot at the time of adding to cart
     private BigDecimal snapshotPrice;
-    
+
     // Track if the product was on sale when added
     private Boolean wasOnSale = false;
-    
+
     // Original price (non-sale) for reference
     private BigDecimal originalPrice;
 

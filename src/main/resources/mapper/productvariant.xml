@@ -23,16 +23,19 @@
         pv.created_by,
         pv.description,
         pv.display_name,
-        pv.tenant,
         pv.cat_id,
         COALESCE(pr.amount, 0.00) AS price,
         pv.sku,
         pv.product_id,
         pv.thumbnail
+        t.id AS tenant_id,
         FROM hm_product_variant pv
+        LEFT JOIN hm_image img ON img.product_variant_id = pv.id
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
+        INNER JOIN hm_product p ON p.id = pv.product_id
+        INNER JOIN hm_category c ON c.id = pv.cat_id
+        INNER JOIN hm_tenant t ON t.id = pv.tenant
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            pv.tenant = #{tenant_id}
             <if test="searchString != null and searchString.trim().length() > 0">
                 AND (
                 UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%') OR
@@ -56,7 +59,12 @@
 
     <select id="getAll-count" resultType="int">
         SELECT COUNT(*)
-        FROM hm_product_variant
+        FROM hm_product_variant pv
+        LEFT JOIN hm_image img ON img.product_variant_id = pv.id
+        LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
+        INNER JOIN hm_product p ON p.id = pv.product_id
+        INNER JOIN hm_category c ON c.id = pv.cat_id
+        INNER JOIN hm_tenant t ON t.id = pv.tenant
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             tenant = #{tenant_id}
             <if test="searchString != null and searchString.length() > 0">
@@ -83,14 +91,31 @@
         pv.created_by,
         pv.description,
         pv.display_name,
-        pv.tenant,
         pv.cat_id,
         COALESCE(pr.amount, 0.00) AS price,
         pv.sku,
         pv.product_id,
         pv.thumbnail
+        pr.price AS price
+        pr.discountPercentage AS discount_percentage
+        a.id AS artisan_id
+        a.name AS artisan_name
+        p.id AS product_id
+        p.description AS product_description
+        p.feature_description AS feature_description
+        p.sales_description AS sales_description
+        p.details AS product_details
+        c.id AS category_id
+        c.name AS category_name
+        t.id AS tenant_id
+        t.name AS tenant_name
         FROM hm_product_variant pv
-        LEFT JOIN hm_price pr ON pr.variant_id = pv.id
+        LEFT JOIN hm_image img ON img.product_variant_id = pv.id
+        LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
+        INNER JOIN hm_product p ON p.id = pv.product_id
+        INNER JOIN hm_category c ON c.id = pv.cat_id
+        INNER JOIN hm_tenant t ON t.id = pv.tenant
+        INNER JOIN hm_artisan a ON a.id = p.artisan_id
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             pv.tenant = #{tenant_id}
             AND pv.id = #{id}

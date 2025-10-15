@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-payment-data" author="system">
+        <insert tableName="hm_payment">
+            <column name="id" value="payment-001"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-001"/>
+            <column name="transaction_id" value="TXN-001-2024"/>
+            <column name="merchant_transaction_id" value="MERCH-TXN-001"/>
+            <column name="amount" valueNumeric="225.98"/>
+            <column name="currency" value="USD"/>
+            <column name="state_id" value="COMPLETED"/>
+            <column name="flow_id" value="paymentFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_payment">
+            <column name="id" value="payment-002"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-002"/>
+            <column name="transaction_id" value="TXN-002-2024"/>
+            <column name="merchant_transaction_id" value="MERCH-TXN-002"/>
+            <column name="amount" valueNumeric="444.97"/>
+            <column name="currency" value="USD"/>
+            <column name="state_id" value="COMPLETED"/>
+            <column name="flow_id" value="paymentFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <insert tableName="hm_payment">
+            <column name="id" value="payment-003"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-003"/>
+            <column name="transaction_id" value="TXN-003-2024"/>
+            <column name="merchant_transaction_id" value="MERCH-TXN-003"/>
+            <column name="amount" valueNumeric="103.16"/>
+            <column name="currency" value="USD"/>
+            <column name="state_id" value="COMPLETED"/>
+            <column name="flow_id" value="paymentFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <insert tableName="hm_payment">
+            <column name="id" value="payment-004"/>
+            <column name="tenant" value="default"/>
+            <column name="order_id" value="order-004"/>
+            <column name="transaction_id" value="TXN-004-2024"/>
+            <column name="merchant_transaction_id" value="MERCH-TXN-004"/>
+            <column name="amount" valueNumeric="70.77"/>
+            <column name="currency" value="USD"/>
+            <column name="state_id" value="COMPLETED"/>
+            <column name="flow_id" value="paymentFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

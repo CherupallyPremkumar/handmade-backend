@@ -40,7 +40,6 @@ build/
 *.log
 
 ### Application Properties ###
-application-local.yml
 application-prod.yml
 
 ### Uploads ###

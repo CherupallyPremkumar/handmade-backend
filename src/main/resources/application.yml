@@ -1,28 +1,16 @@
+# Default Configuration (falls back to h2 for easy local development)
 spring:
-  datasource:
-    url: jdbc:h2:mem:homebase_admin
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:h2}
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
+  application:
+    name: homebase-ecom
 
-  h2:
-    console:
-      enabled: true # Enable H2 web console
-      path: /h2-console
   main:
     allow-bean-definition-overriding: true
 
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 
 # Swagger/OpenAPI Configuration
 springdoc:
@@ -39,38 +27,10 @@ springdoc:
 query:
   mapperFiles: classpath*:mapper/*.xml
   definitionFiles: classpath*:mapper/*.json
-  jpa:
-    hibernate:
-      show_sql: "true"
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        format_sql: "true"
-        dialect: org.hibernate.dialect.H2Dialect
-  datasource:
-    maximumPoolSize: "10"
-    type: com.zaxxer.hikari.HikariDataSource
-    username: demo
-    password: password
-    minimumIdle: "2"
-    idleTimeout: "5000"
-    jdbcUrl: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 
-
+# Chenile Security Configuration (common across all environments)
 chenile:
   security:
-    keycloak:
-      host: http://localhost:8082 # Keycloak host
-      port: 8080 # Keycloak port
-      base:
-        realm: master # Default realm
-    client:
-      id: handmade # OAuth2 client ID in Keycloak
-      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem # OAuth2 client secret
     login:
-      success-url: / # Redirect after successful login
-      failure-url: http://localhost:8080/tenant0
-    ignore:
-      false
-
-
+      success-url: /
+      failure-url: /login?error

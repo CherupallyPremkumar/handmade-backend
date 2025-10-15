@@ -7,9 +7,7 @@ Feature: Tests the Cart Query Service using a REST client.
 """
 {
 	"filters" :{
-	"tenant_id":"tenant0",
-	"id":"32caf83a-4fe1-44cd-a100-67158ecef2ed",
-	"location_id": "1"
+	"customer_id":"32caf83a-4fe1-44cd-a100-67158ecef2ed",
 	}
 }
 """

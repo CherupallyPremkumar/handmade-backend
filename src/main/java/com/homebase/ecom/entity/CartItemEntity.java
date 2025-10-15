@@ -14,6 +14,8 @@ public class CartItemEntity extends AbstractJpaStateEntity {
 
     @Column(name = "product_variant_id", nullable = false)
     private String productVariantId;
+    @Column(name = "total_amount", precision = 10, scale = 2)
+    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity = 1;

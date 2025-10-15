@@ -1,0 +1,68 @@
+# H2 Database Configuration (for local development and testing)
+spring:
+  datasource:
+    url: jdbc:h2:mem:homebase_h2
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: true  # Drop and recreate schema on startup
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8081
+
+chenile:
+  security:
+    keycloak:
+      host: http://localhost
+      port: 8082
+      base:
+        realm: tenant0
+    client:
+      id: handmade
+      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem
+    ignore: false
+
+logging:
+  level:
+    root: INFO
+    com.homebase.ecom: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Query Service Configuration for H2
+query:
+  jpa:
+    hibernate:
+      show_sql: "true"
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: "true"
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    maximumPoolSize: "10"
+    type: com.zaxxer.hikari.HikariDataSource
+    username: sa
+    password:
+    minimumIdle: "2"
+    idleTimeout: "600000"
+    jdbcUrl: jdbc:h2:mem:homebase_h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE

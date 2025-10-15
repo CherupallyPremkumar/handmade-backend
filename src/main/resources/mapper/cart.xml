@@ -11,7 +11,6 @@
         <result column="taxAmount" property="taxAmount"/>
         <result column="totalAmount" property="totalAmount"/>
         <result column="transactionAmount" property="transactionAmount"/>
-        <result column="tenantId" property="tenantId"/>
         <collection property="cartItems" ofType="com.homebase.ecom.mybatis.cart.CartItemsDto" resultMap="cartItemMap"/>
     </resultMap>
 
@@ -27,55 +26,55 @@
         <result column="quantityAvailable" property="quantityAvailable"/>
         <result column="displayName" property="displayName"/>
         <result column="thumbnail" property="thumbnail"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="createdBy" property="createdBy"/>
+        <result column="updatedTime" property="updatedTime"/>
+        <result column="updatedBy" property="updatedBy"/>
     </resultMap>
 
     <select id="getByCartId" resultMap="carts">
         WITH cart_cte AS (
-        SELECT
-        id,
-        state_id,
-        flow_id,
-        customer_id,
-        txn,
-        tax_amount,
-        discount,
-        total_amount,
-        transaction_amount,
-        tenant
-        FROM hm_cart
-        <where>
-            tenant= #{tenant_id} AND id =#{id}
-        </where>
+            SELECT *
+            FROM hm_cart
+            <where>
+                <if test="customer_id != null">
+                    customer_id = #{customer_id}
+                </if>
+            </where>
         )
         SELECT
-        cart_cte.id AS cartId,
-        cart_cte.state_id AS status,
-        cart_cte.customer_id AS customerId,
-        cart_cte.txn AS txn,
-        cart_cte.tax_amount AS taxAmount,
-        cart_cte.total_amount AS totalAmount,
-        cart_cte.transaction_amount AS transactionAmount,
-        cart_cte.tenant AS tenantId,
-        ol.id AS cartItemId,
-        ol.tenant AS cartItemTenantId,
-        pv.id AS productVariantId,
-        p.id AS productId,
-        ol.quantity AS quantity,
-        COALESCE(pr.amount, 0.00) as price,
-        ol.total_amount As olTotalAmount,
-        i.quantity_available as quantityAvailable,
-        i.location_id as inventoryLocationId,
-        pv.display_name As displayName,
-        pv.description as description,
-        img.url as thumbnail
-        FROM cart_cte
-        JOIN hm_cart_item AS ol ON cart_cte.id = ol.cart_id
-        INNER JOIN hm_product_variant AS pv ON ol.product_variant_id = pv.id
-        INNER JOIN hm_product AS p ON pv.product_id = p.id
-        INNER JOIN hm_image AS img ON pv.id = img.product_variant_id
-        INNER JOIN hm_price pr ON ol.product_variant_id = pr.variant_id
-        INNER JOIN hm_inventory AS i ON ol.product_variant_id = i.variant_id
-        INNER JOIN hm_location AS l ON l.id = i.location_id
+            c.id AS cartId,
+            c.state_id AS status,
+            c.customer_id AS customerId,
+            c.txn AS txn,
+            c.tax_amount AS taxAmount,
+            c.total_amount AS totalAmount,
+            c.transaction_amount AS transactionAmount,
+            ci.id AS cartItemId,
+            ci.tenant AS tenantId,
+            pv.id AS productVariantId,
+            p.id AS productId,
+            ci.quantity AS quantity,
+            ci.created_time AS createdTime,
+            ci.created_by AS createdBy,
+            ci.last_modified_time AS updatedTime,
+            ci.last_modified_by AS updatedBy,
+            COALESCE(pr.price::numeric, 0.00) AS price,
+            ci.total_amount AS olTotalAmount,
+            i.quantity_available AS quantityAvailable,
+            i.location_id AS inventoryLocationId,
+            pv.display_name AS displayName,
+            pv.description AS description,
+            img.url AS thumbnail
+        FROM cart_cte c
+        JOIN hm_cart_item ci ON c.id = ci.cart_id
+        INNER JOIN hm_product_variant pv ON ci.product_variant_id = pv.id
+        INNER JOIN hm_product p ON pv.product_id = p.id
+        LEFT JOIN hm_image img ON pv.id = img.product_variant_id
+        LEFT JOIN hm_price pr ON ci.product_variant_id = pr.product_variant_id
+        LEFT JOIN hm_inventory i ON ci.product_variant_id = i.product_variant_id
+        LEFT JOIN hm_location l ON l.id = i.location_id
+        LEFT JOIN hm_tenant t ON t.id = ci.tenant
         <where>
             <if test="location_id != null">
                 AND i.location_id = #{location_id}

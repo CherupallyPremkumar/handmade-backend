@@ -4,6 +4,7 @@ import com.homebase.ecom.domain.Price;
 import com.homebase.ecom.repository.PriceRepository;
 import org.chenile.utils.entity.service.EntityStore;
 
+
 public class PriceEntityStore implements EntityStore<Price> {
 
 

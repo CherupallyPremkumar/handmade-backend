@@ -9,8 +9,9 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 public class ProductVariantEntity extends AbstractJpaStateEntity {
 
     private String productId;
+    private String artisanId;
     private String sku;
-    private String name;
+    private String displayName;
     private String description;
     private String attributes;
 
@@ -31,11 +32,11 @@ public class ProductVariantEntity extends AbstractJpaStateEntity {
     }
 
     public String getName() {
-        return name;
+        return displayName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getDescription() {

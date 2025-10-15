@@ -1,4 +1,5 @@
 package com.homebase.ecom.mybatis.cart;
+
 public class CartItemsDto {
     private String cartItemId;
     private String tenantId;
@@ -12,134 +13,137 @@ public class CartItemsDto {
     private String displayName;
     private String thumbnail;
     private String description;
+    private String createdTime;
+    private String createdBy;
+    private String lastModifiedTime;
+    private String lastModifiedBy;
 
 
     public String getCartItemId() {
         return cartItemId;
     }
 
-    public CartItemsDto setCartItemId(String cartItemId) {
+    public void setCartItemId(String cartItemId) {
         this.cartItemId = cartItemId;
-        return this;
     }
 
     public String getTenantId() {
         return tenantId;
     }
 
-    public CartItemsDto setTenantId(String tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
-        return this;
     }
 
     public String getProductVariantId() {
         return productVariantId;
     }
 
-    public CartItemsDto setProductVariantId(String productVariantId) {
+    public void setProductVariantId(String productVariantId) {
         this.productVariantId = productVariantId;
-        return this;
     }
 
     public String getProductId() {
         return productId;
     }
 
-    public CartItemsDto setProductId(String productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
-        return this;
     }
 
     public String getQuantity() {
         return quantity;
     }
 
-    public CartItemsDto setQuantity(String quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
-        return this;
     }
 
-
-    public String tenantId() {
-        return tenantId;
-    }
-
-    public String productVariantId() {
-        return productVariantId;
-    }
-
-    public String productId() {
-        return productId;
-    }
-
-    public String quantity() {
-        return quantity;
-    }
-
-    public String price() {
+    public String getPrice() {
         return price;
     }
 
-    public CartItemsDto setPrice(String price) {
+    public void setPrice(String price) {
         this.price = price;
-        return this;
     }
 
-    public String totalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public CartItemsDto setTotalAmount(String totalAmount) {
+    public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
-        return this;
     }
 
-    public String locationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public CartItemsDto setLocationId(String locationId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
-        return this;
     }
 
-    public String quantityAvailable() {
+    public String getQuantityAvailable() {
         return quantityAvailable;
     }
 
-    public CartItemsDto setQuantityAvailable(String quantityAvailable) {
+    public void setQuantityAvailable(String quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
-        return this;
     }
 
-    public String displayName() {
+    public String getDisplayName() {
         return displayName;
     }
 
-    public CartItemsDto setDisplayName(String displayName) {
+    public void setDisplayName(String displayName) {
         this.displayName = displayName;
-        return this;
     }
 
-    public String thumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public CartItemsDto setThumbnail(String thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-        return this;
     }
 
-    public String cartItemId() {
-        return cartItemId;
-    }
-
-    public String description() {
+    public String getDescription() {
         return description;
     }
 
-    public CartItemsDto setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(String lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 }

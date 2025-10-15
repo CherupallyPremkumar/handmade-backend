@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-category-data" author="system">
+        <insert tableName="hm_category">
+            <column name="id" value="category-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Electronics"/>
+            <column name="slug" value="electronics"/>
+            <column name="description" value="Electronic devices and accessories"/>
+            <column name="product_count" valueNumeric="10"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="categoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_category">
+            <column name="id" value="category-002"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Clothing"/>
+            <column name="slug" value="clothing"/>
+            <column name="description" value="Fashion and apparel"/>
+            <column name="product_count" valueNumeric="25"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="categoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_category">
+            <column name="id" value="category-003"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Home &amp; Garden"/>
+            <column name="slug" value="home-garden"/>
+            <column name="description" value="Home decor and garden supplies"/>
+            <column name="product_count" valueNumeric="15"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="categoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -55,8 +55,8 @@
         o.delivered_count,
         o.lay_way_pay,
         o.saved_date_time
-        FROM ns_order o
-        JOIN ns_customer c ON o.customer_id = c.id
+        FROM hm_order o
+        JOIN hm_customer c ON o.customer_id = c.id
         <where>
             o.tenant =#{tenant_id}
             <if test="status != null and status.size() > 0">
@@ -103,7 +103,7 @@
     <select id="getAll-count" resultType="int">
         SELECT
         count(*)
-        FROM ns_order o
+        FROM hm_order o
         <where>
             o.tenant =#{tenant_id}
             <if test="status != null and status.size() > 0">
@@ -314,13 +314,13 @@
         a.address1 AS address1,
         a.address2 AS address2
         FROM order_cte
-        LEFT JOIN ns_order_line AS ol ON order_cte.id = ol.order_id
-        LEFT JOIN ns_product_variant AS pv ON ol.product_variant_id = pv.id
-        LEFT JOIN ns_payment AS p ON order_cte.payment_id = p.id
-        LEFT JOIN ns_payment_line AS pl ON pl.payment_id = p.id
-        LEFT JOIN ns_location AS l ON order_cte.location_id = l.id
-        LEFT JOIN ns_customer AS c ON order_cte.customer_id = c.id
-        LEFT JOIN ns_employee AS e ON order_cte.employee_id = e.id
-        LEFT JOIN ns_address AS a ON c.id=a.customer_id;
+        LEFT JOIN hm_order_item AS ol ON order_cte.id = ol.order_id
+        LEFT JOIN hm_product_variant AS pv ON ol.product_variant_id = pv.id
+        LEFT JOIN hm_payment AS p ON order_cte.payment_id = p.id
+        LEFT JOIN hm_payment_line AS pl ON pl.payment_id = p.id
+        LEFT JOIN hm_location AS l ON order_cte.location_id = l.id
+        LEFT JOIN hm_customer AS c ON order_cte.customer_id = c.id
+        LEFT JOIN hm_employee AS e ON order_cte.employee_id = e.id
+        LEFT JOIN hm_address AS a ON c.id=a.customer_id;
     </select>
 </mapper>

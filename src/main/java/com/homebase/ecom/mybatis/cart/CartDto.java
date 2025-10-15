@@ -15,96 +15,79 @@ public class CartDto {
     private String totalAmount;
     private String transactionAmount;
     private String locationId;
-    private String tenantId;
-    private List<CartItemsDto> orderLines;
+    private List<CartItemsDto> cartItems;
 
-    public String getId() {
-        return id;
-    }
-
-    public CartDto setId(String id) {
-        this.id = id;
-        return this;
-    }
 
     public String getStatus() {
         return status;
     }
 
-    public CartDto setStatus(String status) {
+    public void setStatus(String status) {
         this.status = status;
-        return this;
     }
 
-    public String customerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public CartDto setCustomerId(String customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
-        return this;
     }
 
-    public String txn() {
+    public String getTxn() {
         return txn;
     }
 
-    public CartDto setTxn(String txn) {
+    public void setTxn(String txn) {
         this.txn = txn;
-        return this;
     }
 
-    public String taxAmount() {
+    public String getTaxAmount() {
         return taxAmount;
     }
 
-    public CartDto setTaxAmount(String taxAmount) {
+    public void setTaxAmount(String taxAmount) {
         this.taxAmount = taxAmount;
-        return this;
     }
 
-    public String totalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public CartDto setTotalAmount(String totalAmount) {
+    public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
-        return this;
     }
 
-    public String transactionAmount() {
+    public String getTransactionAmount() {
         return transactionAmount;
     }
 
-    public CartDto setTransactionAmount(String transactionAmount) {
+    public void setTransactionAmount(String transactionAmount) {
         this.transactionAmount = transactionAmount;
-        return this;
     }
 
-    public String locationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public CartDto setLocationId(String locationId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
-        return this;
     }
 
-    public String tenantId() {
-        return tenantId;
+
+    public List<CartItemsDto> getCartItems() {
+        return cartItems;
     }
 
-    public CartDto setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
+    public void setCartItems(List<CartItemsDto> cartItems) {
+        this.cartItems = cartItems;
     }
 
-    public List<CartItemsDto> orderLines() {
-        return orderLines;
+    public String getId() {
+        return id;
     }
 
-    public CartDto setOrderLines(List<CartItemsDto> orderLines) {
-        this.orderLines = orderLines;
-        return this;
+    public void setId(String id) {
+        this.id = id;
     }
 }

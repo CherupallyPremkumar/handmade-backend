@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- Core Tables -->
+    <include file="db/changelog/tables/001-tenant.xml"/>
+    <include file="db/changelog/tables/002-admin.xml"/>
+    <include file="db/changelog/tables/003-customer.xml"/>
+    <include file="db/changelog/tables/004-category.xml"/>
+    <include file="db/changelog/tables/005-product.xml"/>
+    <include file="db/changelog/tables/006-product-variant.xml"/>
+    <include file="db/changelog/tables/007-price.xml"/>
+    <include file="db/changelog/tables/008-inventory.xml"/>
+    <include file="db/changelog/tables/009-cart.xml"/>
+    <include file="db/changelog/tables/010-cart-item.xml"/>
+    <include file="db/changelog/tables/011-order.xml"/>
+    <include file="db/changelog/tables/012-order-item.xml"/>
+    <include file="db/changelog/tables/013-wishlist.xml"/>
+    <include file="db/changelog/tables/014-payment.xml"/>
+    <include file="db/changelog/tables/016-additional.xml"/>
+
+    <!-- Dummy Data -->
+    <include file="db/changelog/data/001-tenant-data.xml"/>
+    <include file="db/changelog/data/002-admin-data.xml"/>
+    <include file="db/changelog/data/003-customer-data.xml"/>
+    <include file="db/changelog/data/004-category-data.xml"/>
+    <include file="db/changelog/data/005-product-data.xml"/>
+    <include file="db/changelog/data/006-cart-data.xml"/>
+    <include file="db/changelog/data/007-order-data.xml"/>
+    <include file="db/changelog/data/008-payment-data.xml"/>
+    <include file="db/changelog/data/009-wishlist-data.xml"/>
+    <include file="db/changelog/data/010-additional-data.xml"/>
+
+</databaseChangeLog>

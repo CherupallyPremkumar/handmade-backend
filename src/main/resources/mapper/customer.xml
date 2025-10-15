@@ -40,7 +40,7 @@
         gender,
         is_individual AS indivisual,
         tenant
-        FROM ns_customer
+        FROM hm_customer
         <where>
             tenant = #{tenant_id}
             <if test="searchString != null and searchString.trim().length() > 0">
@@ -58,7 +58,7 @@
 
     <select id="getAll-count" resultType="int">
         SELECT COUNT(*)
-        FROM ns_customer
+        FROM hm_customer
         <where>
             tenant = #{tenant_id}
             <if test="searchString != null and searchString.trim().length() > 0">
@@ -97,10 +97,10 @@
         sa.state_id AS shipping_state_id,
         co.country_name AS country_name,
         ns.state_name AS state_name
-        FROM ns_customer c
-        LEFT JOIN ns_address sa ON c.id = sa.customer_id
-        LEFT JOIN ns_country co on co.id = sa.country_id
-        LEFT JOIN ns_state ns on ns.id = sa.state_id
+        FROM hm_customer c
+        LEFT JOIN hm_address sa ON c.id = sa.customer_id
+        LEFT JOIN hm_country co on co.id = sa.country_id
+        LEFT JOIN hm_state ns on ns.id = sa.state_id
         <where>
             c.tenant = #{tenant_id}
             AND c.id = #{customerId}
@@ -113,7 +113,7 @@
 
     <select id="emailExists" resultMap="emailExists">
         SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS email
-        FROM ns_customer
+        FROM hm_customer
         WHERE email = #{email}
     </select>
 </mapper>

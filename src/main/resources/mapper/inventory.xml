@@ -31,7 +31,7 @@
         quantity_available,
         quantity_back_ordered,
         location_id
-        FROM ns_inventory
+        FROM hm_inventory
         <where>
             tenant= #{tenant_id}
             <if test="variant_id != null">
@@ -54,7 +54,7 @@
     <select id='getAll-count' resultType="int" >
         SELECT
         count(*)
-        FROM ns_inventory
+        FROM hm_inventory
         <where>
             tenant= #{tenant_id}
             <if test="variant_id != null">
@@ -87,7 +87,7 @@
         quantity_available,
         quantity_back_ordered,
         location_id
-        FROM ns_inventory
+        FROM hm_inventory
         <where>
             tenant= #{tenant_id}
             <if test="id != null">

@@ -93,7 +93,8 @@ public class CategoryConfiguration {
         return new CategoryStateServiceImpl(stm, categoryInfoProvider, entityStore);
     }
 
-    // Now we start constructing the STM Components
+    // Now we start constructi
+    //ng the STM Components
 
     @Bean
     @Autowired

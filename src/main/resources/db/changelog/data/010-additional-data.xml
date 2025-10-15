@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-additional-data" author="system">
+        <!-- Addresses -->
+        <insert tableName="hm_address">
+            <column name="id" value="address-001"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="street" value="123 Main Street, Apt 4B"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="10001"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_address">
+            <column name="id" value="address-0"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="street" value="123 Main Street, Apt 4B"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="10001"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_address">
+            <column name="id" value="address-002"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="street" value="456 Work Plaza, Suite 200"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="10002"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_address">
+            <column name="id" value="address-003"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-002"/>
+            <column name="street" value="456 Oak Avenue"/>
+            <column name="city" value="Los Angeles"/>
+            <column name="state" value="CA"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="90001"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <insert tableName="hm_address">
+            <column name="id" value="address-004"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-003"/>
+            <column name="street" value="789 Pine Road"/>
+            <column name="city" value="Chicago"/>
+            <column name="state" value="IL"/>
+            <column name="country" value="USA"/>
+            <column name="zip_code" value="60601"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <!-- Product Images -->
+        <insert tableName="hm_image">
+            <column name="id" value="image-001"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="url" value="https://example.com/images/headphones-black-1.jpg"/>
+            <column name="alt_text" value="Wireless Bluetooth Headphones Black - Front View"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-002"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="url" value="https://example.com/images/headphones-black-2.jpg"/>
+            <column name="alt_text" value="Wireless Bluetooth Headphones Black - Side View"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-003"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="url" value="https://example.com/images/headphones-silver-1.jpg"/>
+            <column name="alt_text" value="Wireless Bluetooth Headphones Silver - Front View"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-004"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="url" value="https://example.com/images/tshirt-white-1.jpg"/>
+            <column name="alt_text" value="Classic Cotton T-Shirt White - Front"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Product Reviews -->
+        <insert tableName="hm_review">
+            <column name="id" value="review-001"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="rating" valueNumeric="5"/>
+            <column name="comment" value="Excellent sound quality and very comfortable!"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_review">
+            <column name="id" value="review-002"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="customer_id" value="customer-002"/>
+            <column name="rating" valueNumeric="4"/>
+            <column name="comment" value="Great headphones, battery life is amazing"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <insert tableName="hm_review">
+            <column name="id" value="review-003"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="customer_id" value="customer-003"/>
+            <column name="rating" valueNumeric="5"/>
+            <column name="comment" value="Perfect fit and very soft material"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <!-- Tags -->
+        <insert tableName="hm_tag">
+            <column name="id" value="tag-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Best Seller"/>
+            <column name="slug" value="best-seller"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_tag">
+            <column name="id" value="tag-002"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="New Arrival"/>
+            <column name="slug" value="new-arrival"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_tag">
+            <column name="id" value="tag-003"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Sale"/>
+            <column name="slug" value="sale"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_tag">
+            <column name="id" value="tag-004"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Featured"/>
+            <column name="slug" value="featured"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Product Tags Association -->
+        <insert tableName="product_tags">
+            <column name="product_id" value="product-001"/>
+            <column name="tag" value="Best Seller"/>
+        </insert>
+
+        <insert tableName="product_tags">
+            <column name="product_id" value="product-001"/>
+            <column name="tag" value="Featured"/>
+        </insert>
+
+        <insert tableName="product_tags">
+            <column name="product_id" value="product-002"/>
+            <column name="tag" value="New Arrival"/>
+        </insert>
+
+        <insert tableName="product_tags">
+            <column name="product_id" value="product-003"/>
+            <column name="tag" value="Sale"/>
+        </insert>
+
+        <insert tableName="product_tags">
+            <column name="product_id" value="product-003"/>
+            <column name="tag" value="Best Seller"/>
+        </insert>
+
+        <!-- Notifications -->
+        <insert tableName="hm_notification">
+            <column name="id" value="notification-001"/>
+            <column name="tenant" value="default"/>
+            <column name="title" value="Order Shipped"/>
+            <column name="message" value="Your order ORD-2024-002 has been shipped and is on its way!"/>
+            <column name="type" value="ORDER"/>
+            <column name="link" value="/orders/order-002"/>
+            <column name="read" valueBoolean="false"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="notificationFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_notification">
+            <column name="id" value="notification-002"/>
+            <column name="tenant" value="default"/>
+            <column name="title" value="New Product Alert"/>
+            <column name="message" value="Check out our latest Smart Watch Pro now available!"/>
+            <column name="type" value="PRODUCT"/>
+            <column name="link" value="/products/product-002"/>
+            <column name="read" valueBoolean="false"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="notificationFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_notification">
+            <column name="id" value="notification-003"/>
+            <column name="tenant" value="default"/>
+            <column name="title" value="Order Delivered"/>
+            <column name="message" value="Your order ORD-2024-001 has been delivered successfully!"/>
+            <column name="type" value="ORDER"/>
+            <column name="link" value="/orders/order-001"/>
+            <column name="read" valueBoolean="true"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="notificationFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_notification">
+            <column name="id" value="notification-004"/>
+            <column name="tenant" value="default"/>
+            <column name="title" value="Flash Sale"/>
+            <column name="message" value="50% off on Electronics category! Limited time offer."/>
+            <column name="type" value="CATEGORY"/>
+            <column name="link" value="/categories/category-001"/>
+            <column name="read" valueBoolean="false"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="notificationFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Tenant Configuration -->
+        <insert tableName="hm_tenant_configuration">
+            <column name="id" value="config-001"/>
+            <column name="tenant" value="default"/>
+            <column name="enable_reviews" valueBoolean="true"/>
+            <column name="enable_promotions" valueBoolean="true"/>
+            <column name="primary_color" value="#007bff"/>
+            <column name="secondary_color" value="#6c757d"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Tenant Theme -->
+        <insert tableName="hm_tenant_theme">
+            <column name="id" value="theme-001"/>
+            <column name="tenant" value="default"/>
+            <column name="primary_color" value="#007bff"/>
+            <column name="secondary_color" value="#6c757d"/>
+            <column name="background" value="#ffffff"/>
+            <column name="text" value="#212529"/>
+            <column name="font_family" value="Inter, sans-serif"/>
+            <column name="button_style" value="rounded"/>
+            <column name="link_style" value="underline"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
