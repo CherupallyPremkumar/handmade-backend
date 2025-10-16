@@ -15,6 +15,7 @@
         <result property="productId" column="product_id"/>
         <result property="thumbnail" column="thumbnail"/>
         <result property="tenantId" column="tenant_id"/>
+        <result property="tenantName" column="tenant_name"/>
     </resultMap>
 
     <select id="getAll" resultMap="variant">
@@ -30,7 +31,8 @@
             pv.sku,
             pv.product_id,
             img.url AS thumbnail,
-            t.id AS tenant_id
+            t.id AS tenant_id,
+            t.tenant_name AS tenant_name
         FROM hm_product_variant pv
         LEFT JOIN hm_image img ON img.product_variant_id = pv.id
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id

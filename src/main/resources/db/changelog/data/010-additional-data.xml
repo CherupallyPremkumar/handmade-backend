@@ -82,7 +82,7 @@
             <column name="id" value="image-001"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-001"/>
-            <column name="url" value="https://example.com/images/headphones-black-1.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"/>
             <column name="alt_text" value="Wireless Bluetooth Headphones Black - Front View"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
@@ -93,7 +93,7 @@
             <column name="id" value="image-002"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-001"/>
-            <column name="url" value="https://example.com/images/headphones-black-2.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"/>
             <column name="alt_text" value="Wireless Bluetooth Headphones Black - Side View"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
@@ -104,7 +104,7 @@
             <column name="id" value="image-003"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-002"/>
-            <column name="url" value="https://example.com/images/headphones-silver-1.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500"/>
             <column name="alt_text" value="Wireless Bluetooth Headphones Silver - Front View"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
@@ -115,7 +115,7 @@
             <column name="id" value="image-004"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-003"/>
-            <column name="url" value="https://example.com/images/tshirt-white-1.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"/>
             <column name="alt_text" value="Classic Cotton T-Shirt White - Front"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>

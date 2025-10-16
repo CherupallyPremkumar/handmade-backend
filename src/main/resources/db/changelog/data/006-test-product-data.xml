@@ -151,7 +151,7 @@
             <column name="id" value="image-101"/>
             <column name="tenant" value="tenant-001"/>
             <column name="product_variant_id" value="variant-101"/>
-            <column name="url" value="https://example.com/images/shirt-blue-m.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Blue Cotton Shirt Medium"/>
             <column name="version" valueNumeric="0"/>
@@ -163,7 +163,7 @@
             <column name="id" value="image-102"/>
             <column name="tenant" value="tenant-001"/>
             <column name="product_variant_id" value="variant-102"/>
-            <column name="url" value="https://example.com/images/shirt-blue-l.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Blue Cotton Shirt Large"/>
             <column name="version" valueNumeric="0"/>
@@ -175,7 +175,7 @@
             <column name="id" value="image-103"/>
             <column name="tenant" value="tenant-001"/>
             <column name="product_variant_id" value="variant-103"/>
-            <column name="url" value="https://example.com/images/shirt-red-m.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Red Cotton Shirt Medium"/>
             <column name="version" valueNumeric="0"/>
@@ -187,7 +187,7 @@
             <column name="id" value="image-104"/>
             <column name="tenant" value="tenant-001"/>
             <column name="product_variant_id" value="variant-104"/>
-            <column name="url" value="https://example.com/images/shirt-red-l.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Red Cotton Shirt Large"/>
             <column name="version" valueNumeric="0"/>
@@ -344,7 +344,7 @@
             <column name="id" value="image-201"/>
             <column name="tenant" value="tenant-002"/>
             <column name="product_variant_id" value="variant-201"/>
-            <column name="url" value="https://example.com/images/laptop-black-15.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Gaming Laptop Black 15 inch"/>
             <column name="version" valueNumeric="0"/>
@@ -481,7 +481,7 @@
             <column name="id" value="image-301"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-301"/>
-            <column name="url" value="https://example.com/images/hoodie-gray-m.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Gray Hoodie Medium"/>
             <column name="version" valueNumeric="0"/>
@@ -493,7 +493,7 @@
             <column name="id" value="image-302"/>
             <column name="tenant" value="default"/>
             <column name="product_variant_id" value="variant-302"/>
-            <column name="url" value="https://example.com/images/hoodie-black-l.jpg"/>
+            <column name="url" value="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Black Hoodie Large"/>
             <column name="version" valueNumeric="0"/>

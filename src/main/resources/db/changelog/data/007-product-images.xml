@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="007-add-real-product-images" author="system">
+        <comment>Add real product images from Unsplash</comment>
+
+        <!-- Handwoven Baskets -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-001"/>
+            <column name="url" value="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500"/>
+            <column name="alt_text" value="Handwoven Natural Basket"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-002"/>
+            <column name="url" value="https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?w=500"/>
+            <column name="alt_text" value="Handwoven Seagrass Basket"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Ceramic Pottery -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-003"/>
+            <column name="url" value="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=500"/>
+            <column name="alt_text" value="Handmade Ceramic Vase"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-004"/>
+            <column name="url" value="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500"/>
+            <column name="alt_text" value="Ceramic Bowl Set"/>
+            <column name="product_variant_id" value="variant-004"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Wooden Crafts -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-005"/>
+            <column name="url" value="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500"/>
+            <column name="alt_text" value="Wooden Cutting Board"/>
+            <column name="product_variant_id" value="variant-005"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-006"/>
+            <column name="url" value="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=500"/>
+            <column name="alt_text" value="Wooden Serving Tray"/>
+            <column name="product_variant_id" value="variant-006"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Textiles -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-007"/>
+            <column name="url" value="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=500"/>
+            <column name="alt_text" value="Handwoven Cotton Throw"/>
+            <column name="product_variant_id" value="variant-007"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-008"/>
+            <column name="url" value="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500"/>
+            <column name="alt_text" value="Embroidered Cushion Cover"/>
+            <column name="product_variant_id" value="variant-008"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Jewelry -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-009"/>
+            <column name="url" value="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500"/>
+            <column name="alt_text" value="Handcrafted Silver Necklace"/>
+            <column name="product_variant_id" value="variant-009"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-010"/>
+            <column name="url" value="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500"/>
+            <column name="alt_text" value="Beaded Bracelet"/>
+            <column name="product_variant_id" value="variant-010"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Leather Goods -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-011"/>
+            <column name="url" value="https://images.unsplash.com/photo-1627123424574-724758594e93?w=500"/>
+            <column name="alt_text" value="Leather Wallet"/>
+            <column name="product_variant_id" value="variant-011"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-012"/>
+            <column name="url" value="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500"/>
+            <column name="alt_text" value="Leather Tote Bag"/>
+            <column name="product_variant_id" value="variant-012"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Candles & Home Decor -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-013"/>
+            <column name="url" value="https://images.unsplash.com/photo-1602874801006-95415c52e0b8?w=500"/>
+            <column name="alt_text" value="Soy Candle Set"/>
+            <column name="product_variant_id" value="variant-013"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="img-014"/>
+            <column name="url" value="https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"/>
+            <column name="alt_text" value="Macrame Wall Hanging"/>
+            <column name="product_variant_id" value="variant-014"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Art & Prints -->
+        <insert tableName="hm_image">
+            <column name="id" value="img-015"/>
+            <column name="url" value="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500"/>
+            <column name="alt_text" value="Abstract Painting"/>
+            <column name="product_variant_id" value="variant-015"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="created_time" valueDate="2024-01-15T10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
