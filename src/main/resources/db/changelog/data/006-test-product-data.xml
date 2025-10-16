@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-multi-tenant-test-data" author="system">
+        
+        <!-- Tenant 1 Products (tenant-001) - Fashion Store -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-101"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="name" value="Premium Cotton Shirt"/>
+            <column name="description" value="High-quality cotton shirt perfect for formal occasions"/>
+            <column name="category_id" value="category-002"/>
+            <column name="feature_description" value="100% Premium Cotton, Wrinkle-Free, Breathable"/>
+            <column name="details_description" value="Slim fit, Button-down collar, Available in multiple colors"/>
+            <column name="sales_description" value="Elevate your wardrobe with our premium shirt collection"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Variants for Premium Cotton Shirt -->
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-101"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_id" value="product-101"/>
+            <column name="color" value="Blue"/>
+            <column name="size" value="M"/>
+            <column name="display_name" value="Premium Cotton Shirt - Blue - M"/>
+            <column name="sku" value="PCS-BLU-M-001"/>
+            <column name="description" value="Blue cotton shirt in Medium size"/>
+            <column name="attributes" value="Color: Blue, Size: M, Material: Cotton"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-10-01 10:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-102"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_id" value="product-101"/>
+            <column name="color" value="Blue"/>
+            <column name="size" value="L"/>
+            <column name="display_name" value="Premium Cotton Shirt - Blue - L"/>
+            <column name="sku" value="PCS-BLU-L-001"/>
+            <column name="description" value="Blue cotton shirt in Large size"/>
+            <column name="attributes" value="Color: Blue, Size: L, Material: Cotton"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-10-05 14:30:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-103"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_id" value="product-101"/>
+            <column name="color" value="Red"/>
+            <column name="size" value="M"/>
+            <column name="display_name" value="Premium Cotton Shirt - Red - M"/>
+            <column name="sku" value="PCS-RED-M-001"/>
+            <column name="description" value="Red cotton shirt in Medium size"/>
+            <column name="attributes" value="Color: Red, Size: M, Material: Cotton"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-10-10 09:15:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-104"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_id" value="product-101"/>
+            <column name="color" value="Red"/>
+            <column name="size" value="L"/>
+            <column name="display_name" value="Premium Cotton Shirt - Red - L"/>
+            <column name="sku" value="PCS-RED-L-001"/>
+            <column name="description" value="Red cotton shirt in Large size"/>
+            <column name="attributes" value="Color: Red, Size: L, Material: Cotton"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-10-15 16:45:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Prices for tenant-001 variants -->
+        <insert tableName="hm_price">
+            <column name="id" value="price-101"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-101"/>
+            <column name="price" value="49.99"/>
+            <column name="discount_percentage" valueNumeric="15"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-102"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-102"/>
+            <column name="price" value="49.99"/>
+            <column name="discount_percentage" valueNumeric="15"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-103"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-103"/>
+            <column name="price" value="54.99"/>
+            <column name="discount_percentage" valueNumeric="10"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-104"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-104"/>
+            <column name="price" value="54.99"/>
+            <column name="discount_percentage" valueNumeric="10"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Images for tenant-001 variants -->
+        <insert tableName="hm_image">
+            <column name="id" value="image-101"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-101"/>
+            <column name="url" value="https://example.com/images/shirt-blue-m.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Blue Cotton Shirt Medium"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-102"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-102"/>
+            <column name="url" value="https://example.com/images/shirt-blue-l.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Blue Cotton Shirt Large"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-103"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-103"/>
+            <column name="url" value="https://example.com/images/shirt-red-m.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Red Cotton Shirt Medium"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-104"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-104"/>
+            <column name="url" value="https://example.com/images/shirt-red-l.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Red Cotton Shirt Large"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Inventory for tenant-001 -->
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-101"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-101"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="150"/>
+            <column name="quantity_available" valueNumeric="145"/>
+            <column name="quantity_committed" valueNumeric="5"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-102"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-102"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="120"/>
+            <column name="quantity_available" valueNumeric="118"/>
+            <column name="quantity_committed" valueNumeric="2"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-103"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-103"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="80"/>
+            <column name="quantity_available" valueNumeric="75"/>
+            <column name="quantity_committed" valueNumeric="5"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-104"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="product_variant_id" value="variant-104"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="60"/>
+            <column name="quantity_available" valueNumeric="58"/>
+            <column name="quantity_committed" valueNumeric="2"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Tenant 2 Products (tenant-002) - Electronics Store -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-201"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="name" value="Gaming Laptop Pro"/>
+            <column name="description" value="High-performance gaming laptop with RTX graphics"/>
+            <column name="category_id" value="category-001"/>
+            <column name="feature_description" value="RTX 4060, 16GB RAM, 1TB SSD, 144Hz Display"/>
+            <column name="details_description" value="Intel i7 13th Gen, RGB Keyboard, Advanced Cooling"/>
+            <column name="sales_description" value="Ultimate gaming experience in a portable form"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Variants for Gaming Laptop -->
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-201"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_id" value="product-201"/>
+            <column name="color" value="Black"/>
+            <column name="size" value="15inch"/>
+            <column name="display_name" value="Gaming Laptop Pro - Black - 15 inch"/>
+            <column name="sku" value="GLP-BLK-15-001"/>
+            <column name="description" value="15-inch gaming laptop with black finish"/>
+            <column name="attributes" value="Color: Black, Screen: 15 inch, RAM: 16GB"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-09-15 11:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-202"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_id" value="product-201"/>
+            <column name="color" value="Silver"/>
+            <column name="size" value="17inch"/>
+            <column name="display_name" value="Gaming Laptop Pro - Silver - 17 inch"/>
+            <column name="sku" value="GLP-SLV-17-001"/>
+            <column name="description" value="17-inch gaming laptop with silver finish"/>
+            <column name="attributes" value="Color: Silver, Screen: 17 inch, RAM: 32GB"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-09-20 15:30:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Prices for tenant-002 variants -->
+        <insert tableName="hm_price">
+            <column name="id" value="price-201"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-201"/>
+            <column name="price" value="1499.99"/>
+            <column name="discount_percentage" valueNumeric="5"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-202"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-202"/>
+            <column name="price" value="1899.99"/>
+            <column name="discount_percentage" valueNumeric="8"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Images for tenant-002 variants -->
+        <insert tableName="hm_image">
+            <column name="id" value="image-201"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-201"/>
+            <column name="url" value="https://example.com/images/laptop-black-15.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Gaming Laptop Black 15 inch"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-202"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-202"/>
+            <column name="url" value="https://example.com/images/laptop-silver-17.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Gaming Laptop Silver 17 inch"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Inventory for tenant-002 -->
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-201"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-201"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="25"/>
+            <column name="quantity_available" valueNumeric="23"/>
+            <column name="quantity_committed" valueNumeric="2"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-202"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="product_variant_id" value="variant-202"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="15"/>
+            <column name="quantity_available" valueNumeric="14"/>
+            <column name="quantity_committed" valueNumeric="1"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Default Tenant Products - More Clothing -->
+        <insert tableName="hm_product">
+            <column name="id" value="product-301"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Casual Hoodie"/>
+            <column name="description" value="Comfortable cotton blend hoodie for everyday wear"/>
+            <column name="category_id" value="category-002"/>
+            <column name="feature_description" value="Cotton Blend, Kangaroo Pocket, Adjustable Hood"/>
+            <column name="details_description" value="Unisex fit, Ribbed cuffs and hem, Machine washable"/>
+            <column name="sales_description" value="Stay cozy and stylish with our bestselling hoodie"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Variants for Casual Hoodie -->
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-301"/>
+            <column name="tenant" value="default"/>
+            <column name="product_id" value="product-301"/>
+            <column name="color" value="Gray"/>
+            <column name="size" value="M"/>
+            <column name="display_name" value="Casual Hoodie - Gray - M"/>
+            <column name="sku" value="CH-GRY-M-001"/>
+            <column name="description" value="Gray hoodie in Medium size"/>
+            <column name="attributes" value="Color: Gray, Size: M, Material: Cotton Blend"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-08-10 08:00:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_product_variant">
+            <column name="id" value="variant-302"/>
+            <column name="tenant" value="default"/>
+            <column name="product_id" value="product-301"/>
+            <column name="color" value="Black"/>
+            <column name="size" value="L"/>
+            <column name="display_name" value="Casual Hoodie - Black - L"/>
+            <column name="sku" value="CH-BLK-L-001"/>
+            <column name="description" value="Black hoodie in Large size"/>
+            <column name="attributes" value="Color: Black, Size: L, Material: Cotton Blend"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="productVariantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" value="2024-08-25 13:20:00"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Prices for default tenant variants -->
+        <insert tableName="hm_price">
+            <column name="id" value="price-301"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-301"/>
+            <column name="price" value="39.99"/>
+            <column name="discount_percentage" valueNumeric="20"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_price">
+            <column name="id" value="price-302"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-302"/>
+            <column name="price" value="39.99"/>
+            <column name="discount_percentage" valueNumeric="20"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="priceFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Images for default tenant variants -->
+        <insert tableName="hm_image">
+            <column name="id" value="image-301"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-301"/>
+            <column name="url" value="https://example.com/images/hoodie-gray-m.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Gray Hoodie Medium"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_image">
+            <column name="id" value="image-302"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-302"/>
+            <column name="url" value="https://example.com/images/hoodie-black-l.jpg"/>
+            <column name="is_primary" valueBoolean="true"/>
+            <column name="alt_text" value="Black Hoodie Large"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Inventory for default tenant -->
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-301"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-301"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="180"/>
+            <column name="quantity_available" valueNumeric="175"/>
+            <column name="quantity_committed" valueNumeric="5"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_inventory">
+            <column name="id" value="inventory-302"/>
+            <column name="tenant" value="default"/>
+            <column name="product_variant_id" value="variant-302"/>
+            <column name="location_id" value="location-001"/>
+            <column name="quantity_on_hand" valueNumeric="220"/>
+            <column name="quantity_available" valueNumeric="210"/>
+            <column name="quantity_committed" valueNumeric="10"/>
+            <column name="quantity_back_ordered" valueNumeric="0"/>
+            <column name="state_id" value="IN_STOCK"/>
+            <column name="flow_id" value="inventoryFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

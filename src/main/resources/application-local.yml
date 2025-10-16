@@ -16,7 +16,7 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
-    drop-first: false
+    drop-first: true
 
   main:
     allow-bean-definition-overriding: true
@@ -52,25 +52,21 @@ query:
     idleTimeout: "600000"
     jdbcUrl: jdbc:postgresql://localhost:5432/handmade_local
 
-
 chenile:
   security:
     keycloak:
       host: http://localhost:8082 # Keycloak host
       port: 8080 # Keycloak port
       base:
-        realm: master # Default realm
+        realm: tenant0 # Default realm
     client:
       id: handmade # OAuth2 client ID in Keycloak
       secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem # OAuth2 client secret
     login:
       success-url: / # Redirect after successful login
       failure-url: http://localhost:8080/tenant0
-    ignore:
-      false
-
+    ignore: false
 
 logging:
   level:
     liquibase: DEBUG
-

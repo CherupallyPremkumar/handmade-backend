@@ -28,6 +28,7 @@
     <include file="db/changelog/data/003-customer-data.xml"/>
     <include file="db/changelog/data/004-category-data.xml"/>
     <include file="db/changelog/data/005-product-data.xml"/>
+    <include file="db/changelog/data/006-test-product-data.xml"/>
     <include file="db/changelog/data/006-cart-data.xml"/>
     <include file="db/changelog/data/007-order-data.xml"/>
     <include file="db/changelog/data/008-payment-data.xml"/>

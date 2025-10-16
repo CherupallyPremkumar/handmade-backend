@@ -10,6 +10,7 @@ public class ImageEntity extends BaseJpaEntity {
 
     private String url;
     private String altText;
+    private Boolean isPrimary;
 
     public String getProductVariantId() {
         return productVariantId;
@@ -37,5 +38,13 @@ public class ImageEntity extends BaseJpaEntity {
 
     public void setAltText(String altText) {
         this.altText = altText;
+    }
+
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+
+    public void setIsPrimary(Boolean isPrimary) {
+        this.isPrimary = isPrimary;
     }
 }

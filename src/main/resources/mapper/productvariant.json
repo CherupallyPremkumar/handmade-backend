@@ -26,7 +26,7 @@
   },
   {
     "id": "ProductVariant.getAll",
-    "name": "variants",
+    "name": "getAll",
     "columnMetadata": {
       "id": {
         "name": "id",
@@ -44,6 +44,12 @@
         "filterable": true,
         "columnType": "Text"
       },
+      "created_time": {
+        "name": "created_time",
+        "filterable": true,
+        "sortable": true,
+        "columnType": "DateTime"
+      },
       "name": {
         "name": "description",
         "columnType": "Text",
@@ -59,7 +65,7 @@
         "name": "color",
         "columnType": "Text",
         "filterable": true,
-        "containsQuery": false
+        "likeQuery": true
       },
       "size": {
         "name": "size",
@@ -72,6 +78,50 @@
         "name": "searchString",
         "columnType": "Text",
         "likeQuery": true,
+        "filterable": true
+      },
+      "category_id": {
+        "name": "category_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "price": {
+        "name": "price",
+        "columnType": "Number",
+        "filterable": true,
+        "sortable": true
+      },
+      "sku": {
+        "name": "sku",
+        "columnType": "Text",
+        "filterable": true,
+        "sortable": true
+      },
+      "display_name": {
+        "name": "display_name",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true,
+        "sortable": true
+      },
+      "min_price": {
+        "name": "min_price",
+        "columnType": "Number",
+        "filterable": true
+      },
+      "max_price": {
+        "name": "max_price",
+        "columnType": "Number",
+        "filterable": true
+      },
+      "in_stock_only": {
+        "name": "in_stock_only",
+        "columnType": "CheckBox",
+        "filterable": true
+      },
+      "on_sale_only": {
+        "name": "on_sale_only",
+        "columnType": "CheckBox",
         "filterable": true
       }
     },

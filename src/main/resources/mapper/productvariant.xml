@@ -4,56 +4,79 @@
 
     <resultMap id="variant" type="map">
         <id property="internalId" column="internal_id"/>
+        <result property="name" column="name"/>
         <result property="createdTime" column="created_time"/>
         <result property="createdBy" column="created_by"/>
-        <result property="catId" column="cat_id"/>
-        <result property="productId" column="product_id"/>
-        <result property="variantId" column="tenant_id"/>
-        <result property="displayName" column="display_name"/>
         <result property="description" column="description"/>
+        <result property="displayName" column="display_name"/>
+        <result property="categoryId" column="category_id"/>
         <result property="price" column="price"/>
-        <result property="name" column="name"/>
+        <result property="sku" column="sku"/>
+        <result property="productId" column="product_id"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="tenantId" column="tenant_id"/>
     </resultMap>
 
     <select id="getAll" resultMap="variant">
         SELECT
-        pv.id AS internal_id,
-        pv.name as name,
-        pv.created_time,
-        pv.created_by,
-        pv.description,
-        pv.display_name,
-        pv.cat_id,
-        COALESCE(pr.amount, 0.00) AS price,
-        pv.sku,
-        pv.product_id,
-        pv.thumbnail
-        t.id AS tenant_id,
+            pv.id AS internal_id,
+            pv.display_name AS name,
+            TO_CHAR(pv.created_time, 'YYYY-MM-DD HH24:MI:SS') AS created_time,
+            pv.created_by,
+            pv.description,
+            pv.display_name,
+            p.category_id,
+            COALESCE(pr.price::numeric, 0.00) AS price,
+            pv.sku,
+            pv.product_id,
+            img.url AS thumbnail,
+            t.id AS tenant_id
         FROM hm_product_variant pv
         LEFT JOIN hm_image img ON img.product_variant_id = pv.id
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
         INNER JOIN hm_product p ON p.id = pv.product_id
-        INNER JOIN hm_category c ON c.id = pv.cat_id
+        INNER JOIN hm_category c ON c.id = p.category_id
         INNER JOIN hm_tenant t ON t.id = pv.tenant
-        <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <where>
             <if test="searchString != null and searchString.trim().length() > 0">
                 AND (
-                UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%') OR
-                UPPER(pv.name) LIKE CONCAT('%', UPPER(#{searchString}), '%') OR
-                UPPER(pv.description) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                    UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                    OR UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                    OR UPPER(pv.description) LIKE CONCAT('%', UPPER(#{searchString}), '%')
                 )
             </if>
+            <if test="color != null and color != ''">
+                AND UPPER(pv.color) LIKE CONCAT('%', UPPER(#{color}), '%')
+            </if>
             <if test="size != null and size.size() > 0">
-                AND size IN
-                <foreach item="item" index="index" collection="size"
-                         open="(" separator="," close=")">
+                AND pv.size IN
+                <foreach item="item" index="index" collection="size" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
-            <if test="color != null and color != ''">
-                AND color = #{color}
+            <if test="tenant_id != null and tenant_id != ''">
+                AND pv.tenant = #{tenant_id}
             </if>
-        </trim>
+            <if test="category_id != null and category_id != ''">
+                AND p.category_id = #{category_id}
+            </if>
+            <if test="min_price != null">
+                AND COALESCE(pr.price::numeric, 0.00) &gt;= #{min_price}
+            </if>
+            <if test="max_price != null">
+                AND COALESCE(pr.price::numeric, 0.00) &lt;= #{max_price}
+            </if>
+            <if test="in_stock_only != null and in_stock_only == true">
+                AND EXISTS (
+                    SELECT 1 FROM hm_inventory inv 
+                    WHERE inv.product_variant_id = pv.id 
+                    AND inv.quantity_available &gt; 0
+                )
+            </if>
+            <if test="on_sale_only != null and on_sale_only == true">
+                AND pr.discount_percentage &gt; 0
+            </if>
+        </where>
         ${orderby} ${pagination}
     </select>
 
@@ -63,24 +86,48 @@
         LEFT JOIN hm_image img ON img.product_variant_id = pv.id
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
         INNER JOIN hm_product p ON p.id = pv.product_id
-        INNER JOIN hm_category c ON c.id = pv.cat_id
+        INNER JOIN hm_category c ON c.id = p.category_id
         INNER JOIN hm_tenant t ON t.id = pv.tenant
-        <trim prefix="WHERE" prefixOverrides="AND|OR">
-            tenant = #{tenant_id}
-            <if test="searchString != null and searchString.length() > 0">
+        <where>
+            <if test="searchString != null and searchString.trim().length() > 0">
                 AND (
-                UPPER(display_name) LIKE UPPER(CONCAT('%', #{searchString}, '%')) OR
-                UPPER(name) LIKE UPPER(CONCAT('%', #{searchString}, '%')) OR
-                UPPER(description) LIKE UPPER(CONCAT('%', #{searchString}, '%'))
+                    UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                    OR UPPER(pv.display_name) LIKE CONCAT('%', UPPER(#{searchString}), '%')
+                    OR UPPER(pv.description) LIKE CONCAT('%', UPPER(#{searchString}), '%')
                 )
             </if>
-            <if test="size != null and size != ''">
-                AND size = #{size}
-            </if>
             <if test="color != null and color != ''">
-                AND color = #{color}
+                AND UPPER(pv.color) LIKE CONCAT('%', UPPER(#{color}), '%')
             </if>
-        </trim>
+            <if test="size != null and size.size() > 0">
+                AND pv.size IN
+                <foreach item="item" index="index" collection="size" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="tenant_id != null and tenant_id != ''">
+                AND pv.tenant = #{tenant_id}
+            </if>
+            <if test="category_id != null and category_id != ''">
+                AND p.category_id = #{category_id}
+            </if>
+            <if test="min_price != null">
+                AND COALESCE(pr.price::numeric, 0.00) &gt;= #{min_price}
+            </if>
+            <if test="max_price != null">
+                AND COALESCE(pr.price::numeric, 0.00) &lt;= #{max_price}
+            </if>
+            <if test="in_stock_only != null and in_stock_only == true">
+                AND EXISTS (
+                    SELECT 1 FROM hm_inventory inv 
+                    WHERE inv.product_variant_id = pv.id 
+                    AND inv.quantity_available &gt; 0
+                )
+            </if>
+            <if test="on_sale_only != null and on_sale_only == true">
+                AND pr.discount_percentage &gt; 0
+            </if>
+        </where>
     </select>
 
     <select id="getByVariantId" resultMap="variant">
@@ -92,22 +139,21 @@
         pv.description,
         pv.display_name,
         pv.cat_id,
-        COALESCE(pr.amount, 0.00) AS price,
+        COALESCE(pr.price::numeric, 0.00) AS price,
         pv.sku,
         pv.product_id,
-        pv.thumbnail
-        pr.price AS price
-        pr.discountPercentage AS discount_percentage
-        a.id AS artisan_id
-        a.name AS artisan_name
-        p.id AS product_id
-        p.description AS product_description
-        p.feature_description AS feature_description
-        p.sales_description AS sales_description
-        p.details AS product_details
-        c.id AS category_id
-        c.name AS category_name
-        t.id AS tenant_id
+        img.url AS thumbnail,
+        pr.discount_percentage,
+        a.id AS artisan_id,
+        a.name AS artisan_name,
+        p.id AS product_id,
+        p.description AS product_description,
+        p.feature_description AS feature_description,
+        p.sales_description AS sales_description,
+        p.details AS product_details,
+        c.id AS category_id,
+        c.name AS category_name,
+        t.id AS tenant_id,
         t.name AS tenant_name
         FROM hm_product_variant pv
         LEFT JOIN hm_image img ON img.product_variant_id = pv.id

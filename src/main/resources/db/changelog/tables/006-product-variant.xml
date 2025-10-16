@@ -15,6 +15,8 @@
             <column name="display_name" type="VARCHAR(255)"/>
             <column name="sku" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(255)"/>
+            <column name="color" type="varchar(100)"/>
+            <column name="size" type="varchar(100)"/>
             <column name="attributes" type="VARCHAR(255)"/>
             <column name="state_id" type="VARCHAR(255)"/>
             <column name="flow_id" type="VARCHAR(255)"/>
@@ -46,6 +48,9 @@
             <column name="product_variant_id" type="VARCHAR(255)"/>
             <column name="url" type="VARCHAR(255)"/>
             <column name="alt_text" type="VARCHAR(255)"/>
+            <column name="is_primary" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
             <column name="version" type="BIGINT" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>

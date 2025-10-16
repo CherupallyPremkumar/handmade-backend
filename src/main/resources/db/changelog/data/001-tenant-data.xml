@@ -7,7 +7,7 @@
 
     <changeSet id="001-insert-tenant-data" author="system">
         <insert tableName="hm_tenant">
-            <column name="id" value="tenant-001"/>
+            <column name="id" value="default"/>
             <column name="tenant" value="default"/>
             <column name="tenant_name" value="HomeBase Store"/>
             <column name="tenant_code" value="HOMEBASE"/>
@@ -27,18 +27,38 @@
         </insert>
 
         <insert tableName="hm_tenant">
+            <column name="id" value="tenant-001"/>
+            <column name="tenant" value="tenant-001"/>
+            <column name="tenant_name" value="Fashion Store"/>
+            <column name="tenant_code" value="FASHION"/>
+            <column name="display_name" value="Fashion E-Commerce"/>
+            <column name="url_path" value="/fashion"/>
+            <column name="logo_url" value="https://example.com/fashion-logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/New_York"/>
+            <column name="support_email" value="support@fashion.com"/>
+            <column name="support_phone" value="+1-555-0200"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_tenant">
             <column name="id" value="tenant-002"/>
-            <column name="tenant" value="demo"/>
-            <column name="tenant_name" value="Demo Store"/>
-            <column name="tenant_code" value="DEMO"/>
-            <column name="display_name" value="Demo E-Commerce"/>
-            <column name="url_path" value="/demo"/>
-            <column name="logo_url" value="https://example.com/demo-logo.png"/>
-            <column name="currency" value="EUR"/>
-            <column name="locale" value="en_GB"/>
-            <column name="timezone" value="Europe/London"/>
-            <column name="support_email" value="support@demo.com"/>
-            <column name="support_phone" value="+44-20-7946-0958"/>
+            <column name="tenant" value="tenant-002"/>
+            <column name="tenant_name" value="Electronics Store"/>
+            <column name="tenant_code" value="ELECTRONICS"/>
+            <column name="display_name" value="Electronics E-Commerce"/>
+            <column name="url_path" value="/electronics"/>
+            <column name="logo_url" value="https://example.com/electronics-logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/Los_Angeles"/>
+            <column name="support_email" value="support@electronics.com"/>
+            <column name="support_phone" value="+1-555-0300"/>
             <column name="state_id" value="ACTIVE"/>
             <column name="flow_id" value="tenantFlow"/>
             <column name="version" valueNumeric="0"/>

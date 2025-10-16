@@ -94,6 +94,8 @@
             <column name="id" value="variant-001"/>
             <column name="tenant" value="default"/>
             <column name="product_id" value="product-001"/>
+            <column name="color" value="Black"/>
+            <column name="size" value="M"/>
             <column name="display_name" value="Wireless Bluetooth Headphones - Black"/>
             <column name="sku" value="WBH-BLK-001"/>
             <column name="description" value="Black color variant"/>
@@ -109,6 +111,8 @@
             <column name="id" value="variant-002"/>
             <column name="tenant" value="default"/>
             <column name="product_id" value="product-001"/>
+            <column name="color" value="Silver"/>
+            <column name="size" value="M"/>
             <column name="display_name" value="Wireless Bluetooth Headphones - Silver"/>
             <column name="sku" value="WBH-SLV-001"/>
             <column name="description" value="Silver color variant"/>
@@ -124,6 +128,8 @@
             <column name="id" value="variant-003"/>
             <column name="tenant" value="default"/>
             <column name="product_id" value="product-003"/>
+            <column name="color" value="White"/>
+            <column name="size" value="L"/>
             <column name="display_name" value="Classic Cotton T-Shirt - White - M"/>
             <column name="sku" value="CCT-WHT-M-001"/>
             <column name="description" value="White color, Medium size"/>

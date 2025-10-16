@@ -7,6 +7,7 @@ public class Image extends BaseEntity {
     private String url;
     private String altText;
     private String productVariantId;
+    private Boolean isPrimary;
 
     public String getProductVariantId() {
         return productVariantId;
@@ -34,5 +35,12 @@ public class Image extends BaseEntity {
         this.altText = altText;
     }
 
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+
+    public void setIsPrimary(Boolean isPrimary) {
+        this.isPrimary = isPrimary;
+    }
 
 }
