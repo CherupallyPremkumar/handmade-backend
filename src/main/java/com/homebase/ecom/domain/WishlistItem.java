@@ -2,7 +2,7 @@ package com.homebase.ecom.domain;
 
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
-public class WishlistItem extends AbstractExtendedStateEntity {
+public class WishlistItem extends MultiTenantExtendedStateEntity {
 
     private Wishlist wishlist;
     private Product product;

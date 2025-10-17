@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "hm_product")
-public class ProductEntity extends AbstractJpaStateEntity  {
+public class ProductEntity extends MultiTenantStateEntity  {
 
     @Column(nullable = false)
     private String name;

@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Table(name = "hm_tag")
-public class TagEntity extends BaseJpaEntity {
+public class TagEntity extends MultiTenantStateEntity {
 
     @Column(nullable = false)
     private String name;

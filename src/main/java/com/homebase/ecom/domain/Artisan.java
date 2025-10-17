@@ -1,8 +1,9 @@
 package com.homebase.ecom.domain;
 
+import com.homebase.ecom.entity.MultiTenantStateEntity;
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
-public class Artisan extends AbstractExtendedStateEntity {
+public class Artisan extends MultiTenantExtendedStateEntity {
 
     private String name;
     private String email;

@@ -5,7 +5,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Table(name = "hm_category")
-public class CategoryEntity extends AbstractJpaStateEntity {
+public class CategoryEntity extends MultiTenantStateEntity {
 
     @Column(nullable = false)
     private String name;

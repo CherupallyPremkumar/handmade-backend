@@ -5,7 +5,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Table(name = "hm_wishlist_item")
-public class WishlistItemEntity extends BaseJpaEntity {
+public class WishlistItemEntity extends MultiTenantEntity {
 
     private String wishlistId;
 

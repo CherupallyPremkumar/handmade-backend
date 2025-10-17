@@ -11,6 +11,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="product_id" type="VARCHAR(255)"/>
             <column name="display_name" type="VARCHAR(255)"/>
             <column name="sku" type="VARCHAR(255)"/>
@@ -45,6 +46,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="product_variant_id" type="VARCHAR(255)"/>
             <column name="url" type="VARCHAR(255)"/>
             <column name="alt_text" type="VARCHAR(255)"/>
@@ -67,6 +69,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="product_variant_id" type="VARCHAR(255)"/>
             <column name="customer_id" type="VARCHAR(255)"/>
             <column name="rating" type="INTEGER">

@@ -3,7 +3,7 @@ package com.homebase.ecom.domain;
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 
-public class Price extends AbstractExtendedStateEntity {
+public class Price extends MultiTenantExtendedStateEntity {
 
     private String productId;
     private String currency;

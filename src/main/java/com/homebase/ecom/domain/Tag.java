@@ -2,7 +2,7 @@ package com.homebase.ecom.domain;
 
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
-public class Tag extends AbstractExtendedStateEntity {
+public class Tag extends MultiTenantBaseEntity {
 
     private String name;
     private String slug;

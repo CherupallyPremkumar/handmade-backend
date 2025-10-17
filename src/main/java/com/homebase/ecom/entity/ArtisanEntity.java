@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Table(name = "hm_artisan")
-public class ArtisanEntity extends AbstractJpaStateEntity {
+public class ArtisanEntity extends MultiTenantStateEntity {
 
     public String getName() {
         return name;

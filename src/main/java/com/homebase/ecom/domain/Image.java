@@ -2,7 +2,7 @@ package com.homebase.ecom.domain;
 
 import org.chenile.utils.entity.model.BaseEntity;
 
-public class Image extends BaseEntity {
+public class Image extends MultiTenantBaseEntity {
 
     private String url;
     private String altText;

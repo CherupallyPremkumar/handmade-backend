@@ -11,6 +11,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(255)"/>
             <column name="address" type="VARCHAR(255)"/>
             <column name="city" type="VARCHAR(255)"/>
@@ -33,6 +34,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="product_variant_id" type="VARCHAR(255)"/>
             <column name="location_id" type="VARCHAR(255)"/>
             <column name="quantity_on_hand" type="INTEGER"/>

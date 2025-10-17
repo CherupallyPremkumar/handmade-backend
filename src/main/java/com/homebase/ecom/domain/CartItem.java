@@ -4,7 +4,7 @@ import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 import java.math.BigDecimal;
 
-public class CartItem extends AbstractExtendedStateEntity {
+public class CartItem extends MultiTenantExtendedStateEntity {
 
     private Cart cart;
 

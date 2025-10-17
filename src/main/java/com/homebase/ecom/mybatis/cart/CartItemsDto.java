@@ -17,6 +17,7 @@ public class CartItemsDto {
     private String createdBy;
     private String lastModifiedTime;
     private String lastModifiedBy;
+    private String subTenantId;
 
 
     public String getCartItemId() {
@@ -145,5 +146,13 @@ public class CartItemsDto {
 
     public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getSubTenantId() {
+        return subTenantId;
+    }
+
+    public void setSubTenantId(String subTenantId) {
+        this.subTenantId = subTenantId;
     }
 }

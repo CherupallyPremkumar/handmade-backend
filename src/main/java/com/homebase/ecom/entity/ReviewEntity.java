@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Table(name = "hm_review")
-public class ReviewEntity extends BaseJpaEntity {
+public class ReviewEntity extends MultiTenantEntity {
 
     private String productVariantId;
     private String customerId;

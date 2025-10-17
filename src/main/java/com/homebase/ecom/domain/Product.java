@@ -9,7 +9,7 @@ import java.util.List;
 
 
 
-public class Product extends AbstractExtendedStateEntity {
+public class Product extends MultiTenantExtendedStateEntity {
 
     private String name;
 

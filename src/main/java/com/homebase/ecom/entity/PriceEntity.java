@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "hm_price")
-public class PriceEntity extends AbstractJpaStateEntity {
+public class PriceEntity extends MultiTenantStateEntity {
 
     @Column(name = "price")
     private String price;

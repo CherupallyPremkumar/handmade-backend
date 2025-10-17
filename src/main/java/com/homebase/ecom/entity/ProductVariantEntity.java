@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Table(name = "hm_product_variant")
-public class ProductVariantEntity extends AbstractJpaStateEntity {
+public class ProductVariantEntity extends MultiTenantStateEntity {
 
     private String productId;
     private String artisanId;

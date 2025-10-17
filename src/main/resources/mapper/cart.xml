@@ -93,4 +93,13 @@
         </where>
         ${orderby}
     </select>
+
+
+    <select id="cartCount" resultType="map">
+        SELECT
+            COALESCE(SUM(ci.quantity), 0) AS count
+        FROM hm_cart c
+        LEFT JOIN hm_cart_item ci ON c.id = ci.cart_id
+        WHERE c.customer_id = #{customer_id}
+    </select>
 </mapper>

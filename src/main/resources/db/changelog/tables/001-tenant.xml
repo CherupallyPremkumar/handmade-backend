@@ -51,6 +51,21 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="001-add-tenant-self-reference-constraint" author="system">
+        <addForeignKeyConstraint
+                baseTableName="hm_tenant"
+                baseColumnNames="tenant"
+                constraintName="fk_tenant_self_reference"
+                referencedTableName="hm_tenant"
+                referencedColumnNames="id"
+                onDelete="RESTRICT"
+                onUpdate="CASCADE"/>
+        
+        <createIndex indexName="idx_tenant_tenant" tableName="hm_tenant">
+            <column name="tenant"/>
+        </createIndex>
+    </changeSet>
+
     <changeSet id="002-create-tenant-configuration-table" author="system">
         <createTable tableName="hm_tenant_configuration">
             <column name="id" type="VARCHAR(255)">

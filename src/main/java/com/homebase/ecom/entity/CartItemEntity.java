@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "hm_cart_item")
-public class CartItemEntity extends AbstractJpaStateEntity {
+public class CartItemEntity extends MultiTenantStateEntity {
 
     @Column(name = "cart_id")
     private String cartId;

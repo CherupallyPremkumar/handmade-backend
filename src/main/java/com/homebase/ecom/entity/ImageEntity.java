@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Table(name = "hm_image")
-public class ImageEntity extends BaseJpaEntity {
+public class ImageEntity extends MultiTenantEntity {
 
     private String url;
     private String altText;

@@ -6,19 +6,20 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <changeSet id="001-insert-tenant-data" author="system">
+        <!-- Master Tenant (Marketplace) -->
         <insert tableName="hm_tenant">
-            <column name="id" value="default"/>
-            <column name="tenant" value="default"/>
-            <column name="tenant_name" value="HomeBase Store"/>
-            <column name="tenant_code" value="HOMEBASE"/>
-            <column name="display_name" value="HomeBase E-Commerce"/>
-            <column name="url_path" value="/homebase"/>
-            <column name="logo_url" value="https://example.com/logo.png"/>
+            <column name="id" value="master"/>
+            <!-- tenant is NULL for master tenant (no parent) -->
+            <column name="tenant_name" value="Master Marketplace"/>
+            <column name="tenant_code" value="MASTER"/>
+            <column name="display_name" value="Multi-Vendor Marketplace"/>
+            <column name="url_path" value="/marketplace"/>
+            <column name="logo_url" value="https://example.com/marketplace-logo.png"/>
             <column name="currency" value="USD"/>
             <column name="locale" value="en_US"/>
             <column name="timezone" value="America/New_York"/>
-            <column name="support_email" value="support@homebase.com"/>
-            <column name="support_phone" value="+1-555-0100"/>
+            <column name="support_email" value="support@marketplace.com"/>
+            <column name="support_phone" value="+1-555-0000"/>
             <column name="state_id" value="ACTIVE"/>
             <column name="flow_id" value="tenantFlow"/>
             <column name="version" valueNumeric="0"/>
@@ -26,9 +27,10 @@
             <column name="created_by" value="system"/>
         </insert>
 
+        <!-- Sub-Tenant 1: Fashion Store -->
         <insert tableName="hm_tenant">
             <column name="id" value="tenant-001"/>
-            <column name="tenant" value="tenant-001"/>
+            <column name="tenant" value="master"/>
             <column name="tenant_name" value="Fashion Store"/>
             <column name="tenant_code" value="FASHION"/>
             <column name="display_name" value="Fashion E-Commerce"/>
@@ -46,9 +48,10 @@
             <column name="created_by" value="system"/>
         </insert>
 
+        <!-- Sub-Tenant 2: Electronics Store -->
         <insert tableName="hm_tenant">
             <column name="id" value="tenant-002"/>
-            <column name="tenant" value="tenant-002"/>
+            <column name="tenant" value="master"/>
             <column name="tenant_name" value="Electronics Store"/>
             <column name="tenant_code" value="ELECTRONICS"/>
             <column name="display_name" value="Electronics E-Commerce"/>

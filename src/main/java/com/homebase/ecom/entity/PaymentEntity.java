@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "hm_payment")
-public class PaymentEntity extends AbstractJpaStateEntity {
+public class PaymentEntity extends MultiTenantStateEntity{
 
     String orderId;
 

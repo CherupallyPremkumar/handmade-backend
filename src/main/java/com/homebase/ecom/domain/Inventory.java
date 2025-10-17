@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 
-public class Inventory extends AbstractExtendedStateEntity {
+public class Inventory extends MultiTenantExtendedStateEntity {
     private int quantityOnHand;
     private String productVariantId;
     private String locationId;

@@ -11,6 +11,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="tenant" type="VARCHAR(255)"/>
+            <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="order_id" type="VARCHAR(255)"/>
             <column name="transaction_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>

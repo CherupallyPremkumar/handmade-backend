@@ -14,6 +14,7 @@
         <result property="sku" column="sku"/>
         <result property="productId" column="product_id"/>
         <result property="thumbnail" column="thumbnail"/>
+        <result property="subTenantId" column="sub_tenant_id"/>
         <result property="tenantId" column="tenant_id"/>
         <result property="tenantName" column="tenant_name"/>
     </resultMap>
@@ -30,6 +31,7 @@
             COALESCE(pr.price::numeric, 0.00) AS price,
             pv.sku,
             pv.product_id,
+            pv.sub_tenant_id,
             img.url AS thumbnail,
             t.id AS tenant_id,
             t.tenant_name AS tenant_name
@@ -38,7 +40,7 @@
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
         INNER JOIN hm_product p ON p.id = pv.product_id
         INNER JOIN hm_category c ON c.id = p.category_id
-        INNER JOIN hm_tenant t ON t.id = pv.tenant
+        LEFT JOIN hm_tenant t ON t.id = pv.sub_tenant_id
         <where>
             <if test="searchString != null and searchString.trim().length() > 0">
                 AND (
@@ -89,7 +91,7 @@
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
         INNER JOIN hm_product p ON p.id = pv.product_id
         INNER JOIN hm_category c ON c.id = p.category_id
-        INNER JOIN hm_tenant t ON t.id = pv.tenant
+        LEFT JOIN hm_tenant t ON t.id = pv.sub_tenant_id
         <where>
             <if test="searchString != null and searchString.trim().length() > 0">
                 AND (
@@ -162,7 +164,7 @@
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
         INNER JOIN hm_product p ON p.id = pv.product_id
         INNER JOIN hm_category c ON c.id = pv.cat_id
-        INNER JOIN hm_tenant t ON t.id = pv.tenant
+        LEFT JOIN hm_tenant t ON t.id = pv.sub_tenant_id
         INNER JOIN hm_artisan a ON a.id = p.artisan_id
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             pv.tenant = #{tenant_id}

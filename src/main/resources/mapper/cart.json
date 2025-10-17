@@ -35,5 +35,24 @@
       "test.normal",
       "test.premium"
     ]
+  },
+  {
+    "id": "Cart.cartCount",
+    "name": "cartCount",
+    "columnMetadata": {
+      "customer_id": {
+        "name": "customer_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
   }
 ]

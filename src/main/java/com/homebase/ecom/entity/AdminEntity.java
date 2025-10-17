@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "hm_admin")
-public class AdminEntity extends AbstractJpaStateEntity {
+public class AdminEntity extends MultiTenantStateEntity {
 
     @Column(nullable = false)
     private String email;

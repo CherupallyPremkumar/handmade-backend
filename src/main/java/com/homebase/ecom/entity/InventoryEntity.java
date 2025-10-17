@@ -11,7 +11,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Table(name = "hm_inventory")
-public class InventoryEntity extends AbstractJpaStateEntity {
+public class InventoryEntity extends MultiTenantStateEntity {
 
     @Column(name = "quantity_on_hand")
     private int quantityOnHand;

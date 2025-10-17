@@ -2,7 +2,7 @@ package com.homebase.ecom.domain;
 
 import org.chenile.utils.entity.model.BaseEntity;
 
-public class Review extends BaseEntity {
+public class Review extends MultiTenantBaseEntity {
 
     public void setProductVariantId(String productVariantId) {
         this.productVariantId = productVariantId;

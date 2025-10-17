@@ -4,7 +4,7 @@ import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 import java.math.BigDecimal;
 
-public class Payment extends AbstractExtendedStateEntity {
+public class Payment extends MultiTenantExtendedStateEntity {
 
     private Order order;
     private String transactionId;

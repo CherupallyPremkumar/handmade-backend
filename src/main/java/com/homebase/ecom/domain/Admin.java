@@ -7,7 +7,7 @@ import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Admin extends AbstractExtendedStateEntity {
+public class Admin extends MultiTenantExtendedStateEntity {
 
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

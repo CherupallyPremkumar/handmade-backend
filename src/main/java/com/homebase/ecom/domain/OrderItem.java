@@ -5,7 +5,7 @@ import org.chenile.utils.entity.model.BaseEntity;
 import java.math.BigDecimal;
 
 
-public class OrderItem  extends BaseEntity {
+public class OrderItem  extends MultiTenantExtendedStateEntity {
 
     private String orderId;
 

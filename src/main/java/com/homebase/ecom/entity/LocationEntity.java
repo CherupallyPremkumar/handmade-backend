@@ -6,7 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Table(name = "hm_location")
-public class LocationEntity extends BaseJpaEntity {
+public class LocationEntity extends MultiTenantEntity {
     private String name;
     private String address;
     private String city;
