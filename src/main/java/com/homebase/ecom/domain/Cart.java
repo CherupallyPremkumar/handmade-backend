@@ -1,5 +1,6 @@
 package com.homebase.ecom.domain;
 
+import jakarta.persistence.Column;
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 
 import java.math.BigDecimal;
@@ -8,70 +9,65 @@ import java.util.List;
 
 public class Cart extends AbstractExtendedStateEntity {
 
-    private List<CartItem> cartItems = new ArrayList<>();
-    
-    private int quantity;
-    private BigDecimal total = BigDecimal.ZERO;
-    private BigDecimal salePrice = BigDecimal.ZERO;
-    
-    private CartStatus status = CartStatus.OPEN;
+    private String customerId;
 
-    private Customer customer;
+    private BigDecimal txn = BigDecimal.ZERO;
 
-    public enum CartStatus {
-        OPEN, CHECKED_OUT, ABANDONED
+    private BigDecimal taxAmount = BigDecimal.ZERO;
+
+    private BigDecimal totalAmount = BigDecimal.ZERO;
+
+    private BigDecimal discount = BigDecimal.ZERO;
+
+    private BigDecimal transactionAmount = BigDecimal.ZERO;
+
+
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public BigDecimal getTxn() {
+        return txn;
     }
 
-    public CartStatus getStatus() {
-        return status;
+    public void setTxn(BigDecimal txn) {
+        this.txn = txn;
     }
 
-    public void setStatus(CartStatus status) {
-        this.status = status;
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public BigDecimal getDiscount() {
+        return discount;
     }
 
-
-
-    public BigDecimal getSalePrice() {
-        return salePrice;
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
-    public void setSalePrice(BigDecimal salePrice) {
-        this.salePrice = salePrice;
+    public BigDecimal getTransactionAmount() {
+        return transactionAmount;
     }
 
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
+    public void setTransactionAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
 }
 

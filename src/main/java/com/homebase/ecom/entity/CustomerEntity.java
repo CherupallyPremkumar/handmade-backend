@@ -27,7 +27,6 @@ public class CustomerEntity extends AbstractJpaStateEntity {
     private String address;
     
     private String city;
-    private String state;
     private String pincode;
     private String country;
 
@@ -115,14 +114,6 @@ public class CustomerEntity extends AbstractJpaStateEntity {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getPincode() {

@@ -27,6 +27,37 @@ public class CartEntity extends AbstractJpaStateEntity {
     @Column(name = "transaction_amount", precision = 10, scale = 2)
     private BigDecimal transactionAmount = BigDecimal.ZERO;
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public BigDecimal getTxn() {
+        return txn;
+    }
+
+    public void setTxn(BigDecimal txn) {
+        this.txn = txn;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     public BigDecimal getDiscount() {
         return discount;
@@ -36,54 +67,11 @@ public class CartEntity extends AbstractJpaStateEntity {
         this.discount = discount;
     }
 
-    public String customerId() {
-        return customerId;
-    }
-
-    public CartEntity setCustomerId(String customerId) {
-        this.customerId = customerId;
-        return this;
-    }
-
-
-
-    public BigDecimal discount() {
-        return discount;
-    }
-
-    public BigDecimal totalAmount() {
-        return totalAmount;
-    }
-
-    public CartEntity setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-        return this;
-    }
-
-    public BigDecimal txn() {
-        return txn;
-    }
-
-    public CartEntity setTxn(BigDecimal txn) {
-        this.txn = txn;
-        return this;
-    }
-
-    public BigDecimal taxAmount() {
-        return taxAmount;
-    }
-
-    public CartEntity setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
-        return this;
-    }
-
-    public BigDecimal transactionAmount() {
+    public BigDecimal getTransactionAmount() {
         return transactionAmount;
     }
 
-    public CartEntity setTransactionAmount(BigDecimal transactionAmount) {
+    public void setTransactionAmount(BigDecimal transactionAmount) {
         this.transactionAmount = transactionAmount;
-        return this;
     }
 }

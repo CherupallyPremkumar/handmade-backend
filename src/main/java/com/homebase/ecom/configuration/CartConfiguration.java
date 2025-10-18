@@ -2,6 +2,7 @@ package com.homebase.ecom.configuration;
 
 import com.homebase.ecom.domain.Cart;
 import com.homebase.ecom.entitystore.CartEntityStore;
+import com.homebase.ecom.entitystore.impl.CartEntityStoreImpl;
 import com.homebase.ecom.repository.CartRepository;
 import com.homebase.ecom.service.impl.CartStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
@@ -73,7 +74,13 @@ public class CartConfiguration {
     @Bean
     @Autowired
     EntityStore<Cart> cartEntityStore(CartRepository cartRepository) {
-        return new CartEntityStore(cartRepository);
+        return new CartEntityStoreImpl(cartRepository);
+    }
+
+    @Bean
+    @Autowired
+    CartEntityStore<Cart> cartEntityStore2(CartRepository cartRepository) {
+        return new CartEntityStoreImpl(cartRepository);
     }
 
     @Bean
@@ -81,8 +88,11 @@ public class CartConfiguration {
     StateEntityService<Cart> _cartStateEntityService_(
             @Qualifier("cartEntityStm") STM<Cart> stm,
             @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
-            @Qualifier("cartEntityStore") EntityStore<Cart> entityStore) {
-        return new CartStateServiceImpl(stm, cartInfoProvider, entityStore);
+            @Qualifier("cartEntityStore") EntityStore<Cart> entityStore,
+            @Qualifier("cartEntityStore2") CartEntityStore<Cart> cartEntityStore2,
+            ContextContainer contextContainer
+    ) {
+        return new CartStateServiceImpl(stm, cartInfoProvider, entityStore, cartEntityStore2,contextContainer);
     }
 
     // Now we start constructing the STM Components

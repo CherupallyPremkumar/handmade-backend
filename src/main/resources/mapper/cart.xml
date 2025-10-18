@@ -11,7 +11,6 @@
         <result column="taxAmount" property="taxAmount"/>
         <result column="totalAmount" property="totalAmount"/>
         <result column="transactionAmount" property="transactionAmount"/>
-        <result column="tenantId" property="tenantId"/>
         <collection property="cartItems" ofType="com.homebase.ecom.mybatis.cart.CartItemsDto" resultMap="cartItemMap"/>
     </resultMap>
 
@@ -23,14 +22,14 @@
         <result column="description" property="description"/>
         <result column="price" property="price"/>
         <result column="olTotalAmount" property="totalAmount"/>
-        <result column="tenantId" property="tenantId"/>
+        <result column="cartItemTenantId" property="tenantId"/>
         <result column="quantityAvailable" property="quantityAvailable"/>
         <result column="displayName" property="displayName"/>
         <result column="thumbnail" property="thumbnail"/>
         <result column="createdTime" property="createdTime"/>
         <result column="createdBy" property="createdBy"/>
-        <result column="updatedTime" property="updatedTime"/>
-        <result column="updatedBy" property="updatedBy"/>
+        <result column="lastModifiedTime" property="updatedTime"/>
+        <result column="lastModifiedBy" property="updatedBy"/>
     </resultMap>
 
     <select id="getByCartId" resultMap="carts">
@@ -48,7 +47,7 @@
         tenant
         FROM hm_cart
         <where>
-            customer_id= #{customer_id}
+            id= #{cart_id}
         </where>
         )
         SELECT
@@ -70,7 +69,7 @@
         ol.last_modified_time AS updatedTime,
         ol.last_modified_by AS updatedBy,
         ol.tenant AS tenantId,
-        COALESCE(pr.price, 0.00) as price,
+        COALESCE(pr.price::numeric, 0.00) as price,
         ol.total_amount As olTotalAmount,
         i.quantity_available as quantityAvailable,
         i.location_id as inventoryLocationId,
@@ -85,7 +84,7 @@
         INNER JOIN hm_price pr ON ol.product_variant_id = pr.product_variant_id
         INNER JOIN hm_inventory AS i ON ol.product_variant_id = i.product_variant_id
         INNER JOIN hm_location AS l ON l.id = i.location_id
-        INNER JOIN hm_tenant AS t ON t.id = cart_cte.tenant
+        INNER JOIN hm_tenant AS t ON t.id = ol.sub_tenant_id
         <where>
             <if test="location_id != null">
                 AND i.location_id = #{location_id}
@@ -97,9 +96,8 @@
 
     <select id="cartCount" resultType="map">
         SELECT
-            COALESCE(SUM(ci.quantity), 0) AS count
-        FROM hm_cart c
-        LEFT JOIN hm_cart_item ci ON c.id = ci.cart_id
-        WHERE c.customer_id = #{customer_id}
+            COALESCE(COUNT(ci.id), 0) AS count
+        FROM hm_cart_item ci
+        WHERE ci.cart_id = #{cart_id}
     </select>
 </mapper>

@@ -10,7 +10,9 @@
             <column name="id" type="VARCHAR(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="tenant" type="VARCHAR(255)"/>
+            <column name="tenant" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -18,7 +20,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="password" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="phone" type="VARCHAR(255)"/>
             <column name="address" type="VARCHAR(1000)"/>
@@ -35,8 +37,12 @@
             <column name="total_spent" type="DECIMAL(10,2)" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
-            <column name="state_id" type="VARCHAR(255)"/>
-            <column name="flow_id" type="VARCHAR(255)"/>
+            <column name="state_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flow_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="state_entry_time" type="TIMESTAMP"/>
             <column name="sla_red_date" type="TIMESTAMP"/>
             <column name="sla_yellow_date" type="TIMESTAMP"/>

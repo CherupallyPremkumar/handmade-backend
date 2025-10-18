@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 public class CartItem extends MultiTenantExtendedStateEntity {
 
-    private Cart cart;
+    private String cartId;
 
-    private Product product;
+    private String productVariantId;
 
     private int quantity;
 
@@ -21,13 +21,6 @@ public class CartItem extends MultiTenantExtendedStateEntity {
     // Original price (non-sale) for reference
     private BigDecimal originalPrice;
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public BigDecimal getSnapshotPrice() {
         return snapshotPrice;
@@ -45,13 +38,7 @@ public class CartItem extends MultiTenantExtendedStateEntity {
         this.quantity = quantity;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 
     public Boolean getWasOnSale() {
         return wasOnSale;
@@ -67,5 +54,21 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+    public String getProductVariantId() {
+        return productVariantId;
+    }
+
+    public void setProductVariantId(String productVariantId) {
+        this.productVariantId = productVariantId;
     }
 }

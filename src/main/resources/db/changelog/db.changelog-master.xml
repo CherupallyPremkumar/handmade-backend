@@ -21,6 +21,7 @@
     <include file="db/changelog/tables/013-wishlist.xml"/>
     <include file="db/changelog/tables/014-payment.xml"/>
     <include file="db/changelog/tables/016-additional.xml"/>
+    <include file="db/changelog/tables/017-cart-item-add-columns.xml"/>
 
     <!-- Dummy Data -->
     <include file="db/changelog/data/001-tenant-data.xml"/>

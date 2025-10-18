@@ -3,8 +3,8 @@
     "id": "Cart.getByCartId",
     "name": "getByCartId",
     "columnMetadata": {
-      "id": {
-        "name": "id",
+      "cart_id": {
+        "name": "cart_id",
         "filterable": true,
         "columnType": "Text",
         "containsQuery": false
@@ -40,8 +40,8 @@
     "id": "Cart.cartCount",
     "name": "cartCount",
     "columnMetadata": {
-      "customer_id": {
-        "name": "customer_id",
+      "cart_id": {
+        "name": "cart_id",
         "filterable": true,
         "columnType": "Text",
         "containsQuery": false

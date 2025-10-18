@@ -98,9 +98,14 @@
     ]
   },
   {
-    "id": "Customer.emailExists",
-    "name": "emailExists",
+    "id": "Customer.existsCustomer",
+    "name": "existsCustomer",
     "columnMetadata": {
+      "customer_id": {
+        "name": "customer_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
       "email": {
         "name": "email",
         "filterable": true,
@@ -109,10 +114,6 @@
     },
     "flexiblePropnames": false,
     "paginated": false,
-    "sortable": true,
-    "acls": [
-      "test.normal",
-      "test.premium"
-    ]
+    "sortable": false
   }
 ]

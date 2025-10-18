@@ -107,13 +107,14 @@
         </where>
     </select>
 
-    <resultMap id="emailExists" type="map">
-        <result property="email" column="email"/>
+    <resultMap id="existsCustomerResultMap" type="com.homebase.ecom.mybatis.customer.CustomerExists">
+        <result property="exists" column="exists"/>
     </resultMap>
 
-    <select id="emailExists" resultMap="emailExists">
-        SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS email
+    <select id="existsCustomer" resultMap="existsCustomerResultMap">
+        SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END as exists
         FROM hm_customer
-        WHERE email = #{email}
+        WHERE id = #{customer_id}
+        AND email = #{email}
     </select>
 </mapper>

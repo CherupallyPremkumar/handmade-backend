@@ -14,11 +14,21 @@ public class CartItemEntity extends MultiTenantStateEntity {
 
     @Column(name = "product_variant_id", nullable = false)
     private String productVariantId;
-    @Column(name = "total_amount", precision = 10, scale = 2)
-    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @Column(name = "quantity", nullable = false)
-    private Integer quantity = 1;
+    private Integer quantity;
+
+    @Column(name = "snapshot_price", precision = 10, scale = 2)
+    private BigDecimal snapshotPrice;
+
+    @Column(name = "was_on_sale")
+    private Boolean wasOnSale = false;
+
+    @Column(name = "original_price", precision = 10, scale = 2)
+    private BigDecimal originalPrice;
+
+    @Column(name = "total_amount", precision = 10, scale = 2)
+    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     public String getCartId() {
         return cartId;
@@ -36,7 +46,43 @@ public class CartItemEntity extends MultiTenantStateEntity {
         this.productVariantId = productVariantId;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getSnapshotPrice() {
+        return snapshotPrice;
+    }
+
+    public void setSnapshotPrice(BigDecimal snapshotPrice) {
+        this.snapshotPrice = snapshotPrice;
+    }
+
+    public Boolean getWasOnSale() {
+        return wasOnSale;
+    }
+
+    public void setWasOnSale(Boolean wasOnSale) {
+        this.wasOnSale = wasOnSale;
+    }
+
+    public BigDecimal getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }
