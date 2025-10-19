@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Country">
+    <resultMap id="countryResultMap" type="map">
+        <id property="id" column="id"/>
+        <result property="countryName" column="country_name"/>
+
+    </resultMap>
+
+    <select id="getAll" resultMap="countryResultMap">
+        SELECT
+        id,
+        country_name
+        FROM ns_country
+        <where>
+            <if test="country_name != null">
+                UPPER(country_name) like UPPER(#{country_name})
+            </if>
+        </where>
+        ORDER BY
+        country_name ASC
+        ${pagination}
+    </select>
+
+
+    <select id="getAll-count" resultType="int">
+        SELECT
+        count(*)
+        FROM ns_country
+        <where>
+            <if test="country_name != null">
+                UPPER(country_name) like UPPER(#{country_name})
+            </if>
+        </where>
+    </select>
+</mapper>

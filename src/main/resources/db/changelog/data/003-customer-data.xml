@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-customer-data" author="system">
+        <insert tableName="hm_customer">
+            <column name="id" value="customer-001"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Alice Johnson"/>
+            <column name="email" value="alice.johnson@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="phone" value="+1-555-0201"/>
+            <column name="address" value="123 Main Street"/>
+            <column name="city" value="New York"/>
+            <column name="state" value="NY"/>
+            <column name="pincode" value="10001"/>
+            <column name="country" value="USA"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="order_count" valueNumeric="5"/>
+            <column name="total_spent" valueNumeric="1250.50"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="customerFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_customer">
+            <column name="id" value="customer-002"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Bob Smith"/>
+            <column name="email" value="bob.smith@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="phone" value="+1-555-0202"/>
+            <column name="address" value="456 Oak Avenue"/>
+            <column name="city" value="Los Angeles"/>
+            <column name="state" value="CA"/>
+            <column name="pincode" value="90001"/>
+            <column name="country" value="USA"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="order_count" valueNumeric="3"/>
+            <column name="total_spent" valueNumeric="750.00"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="customerFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="hm_customer">
+            <column name="id" value="customer-003"/>
+            <column name="tenant" value="default"/>
+            <column name="name" value="Carol Williams"/>
+            <column name="email" value="carol.williams@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="phone" value="+1-555-0203"/>
+            <column name="address" value="789 Pine Road"/>
+            <column name="city" value="Chicago"/>
+            <column name="state" value="IL"/>
+            <column name="pincode" value="60601"/>
+            <column name="country" value="USA"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="order_count" valueNumeric="8"/>
+            <column name="total_spent" valueNumeric="2100.75"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="customerFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <insert tableName="customer_roles">
+            <column name="customer_id" value="customer-001"/>
+            <column name="role" value="CUSTOMER"/>
+        </insert>
+
+        <insert tableName="customer_roles">
+            <column name="customer_id" value="customer-002"/>
+            <column name="role" value="CUSTOMER"/>
+        </insert>
+
+        <insert tableName="customer_roles">
+            <column name="customer_id" value="customer-003"/>
+            <column name="role" value="CUSTOMER"/>
+        </insert>
+
+        <insert tableName="customer_roles">
+            <column name="customer_id" value="customer-003"/>
+            <column name="role" value="VIP"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

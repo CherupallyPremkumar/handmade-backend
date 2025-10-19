@@ -1,66 +1,36 @@
-server:
-  port: 8081
-
+# Default Configuration (falls back to h2 for easy local development)
 spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:h2}
+
   application:
-    name: homebase-admin-suite
+    name: homebase-ecom
 
-  # Database Configuration (H2 for development)
-  datasource:
-    url: jdbc:h2:mem:homebase_admin
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+  main:
+    allow-bean-definition-overriding: true
 
-  # For PostgreSQL (uncomment and configure)
-  # datasource:
-  #   url: jdbc:postgresql://localhost:5432/homebase_admin
-  #   username: your_username
-  #   password: your_password
-  #   driver-class-name: org.postgresql.Driver
+server:
+  port: ${SERVER_PORT:8081}
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
-        # For PostgreSQL use: org.hibernate.dialect.PostgreSQLDialect
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+  show-actuator: false
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+query:
+  mapperFiles: classpath*:mapper/*.xml
+  definitionFiles: classpath*:mapper/*.json
 
-# JWT Configuration
-jwt:
-  secret: osy3WEPH2GmwCYJNJwzvuoqfoweOQpJL0ZPfwCOzBpmS3wVC2SKIU29RvyfWPyNYmsYRT/Wr8k2/EDENne0bGQ==
-  expiration: 86400000 # 24 hours in milliseconds
-  refresh-expiration: 604800000 # 7 days in milliseconds
-
-# CORS Configuration
-cors:
-  allowed-origins: http://localhost:5173,http://localhost:3000,http://localhost:8080,http://localhost:8081
-  allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
-  allowed-headers: "*"
-  allow-credentials: true
-
-# Multi-tenant Configuration
-multitenancy:
-  enabled: true
-  default-tenant: default
-
-# File Upload Configuration
-file:
-  upload-dir: ./uploads
-  max-file-size: 5MB
-  max-request-size: 10MB
-
-# Logging
-logging:
-  level:
-    com.homebase: DEBUG
-    org.springframework.security: DEBUG
-    org.hibernate.SQL: DEBUG
+# Chenile Security Configuration (common across all environments)
+chenile:
+  security:
+    login:
+      success-url: /
+      failure-url: /login?error

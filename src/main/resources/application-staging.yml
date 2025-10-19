@@ -1,0 +1,51 @@
+# Staging Environment Configuration
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/homebase_staging}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: false
+
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: ${SERVER_PORT:8081}
+
+chenile:
+  security:
+    keycloak:
+      host: ${KEYCLOAK_HOST:http://keycloak-staging.example.com}
+      port: ${KEYCLOAK_PORT:8082}
+      base:
+        realm: ${KEYCLOAK_REALM:tenant0}
+    client:
+      id: ${KEYCLOAK_CLIENT_ID:handmade}
+      secret: ${KEYCLOAK_CLIENT_SECRET:}
+    ignore: false
+
+logging:
+  level:
+    root: INFO
+    com.homebase.ecom: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG

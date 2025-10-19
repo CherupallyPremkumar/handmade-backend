@@ -1,0 +1,136 @@
+[
+  {
+    "id": "ProductVariant.getByVariantId",
+    "name": "getByVariantId",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "columnType": "Text",
+        "containsQuery": false,
+        "filterable": true
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "ProductVariant.getAll",
+    "name": "getAll",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+      },
+      "created_by": {
+        "name": "created_by",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "created_time": {
+        "name": "created_time",
+        "filterable": true,
+        "sortable": true,
+        "columnType": "DateTime"
+      },
+      "name": {
+        "name": "description",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "product_id": {
+        "name": "product_id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "color": {
+        "name": "color",
+        "columnType": "Text",
+        "filterable": true,
+        "likeQuery": true
+      },
+      "size": {
+        "name": "size",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": true,
+        "sortable": true
+      },
+      "searchString": {
+        "name": "searchString",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true
+      },
+      "category_id": {
+        "name": "category_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "price": {
+        "name": "price",
+        "columnType": "Number",
+        "filterable": true,
+        "sortable": true
+      },
+      "sku": {
+        "name": "sku",
+        "columnType": "Text",
+        "filterable": true,
+        "sortable": true
+      },
+      "display_name": {
+        "name": "display_name",
+        "columnType": "Text",
+        "likeQuery": true,
+        "filterable": true,
+        "sortable": true
+      },
+      "min_price": {
+        "name": "min_price",
+        "columnType": "Number",
+        "filterable": true
+      },
+      "max_price": {
+        "name": "max_price",
+        "columnType": "Number",
+        "filterable": true
+      },
+      "in_stock_only": {
+        "name": "in_stock_only",
+        "columnType": "CheckBox",
+        "filterable": true
+      },
+      "on_sale_only": {
+        "name": "on_sale_only",
+        "columnType": "CheckBox",
+        "filterable": true
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

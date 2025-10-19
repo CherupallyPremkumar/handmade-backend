@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-tenant-data" author="system">
+        <!-- Master Tenant (Marketplace) -->
+        <insert tableName="hm_tenant">
+            <column name="id" value="master"/>
+            <!-- tenant is NULL for master tenant (no parent) -->
+            <column name="tenant_name" value="Master Marketplace"/>
+            <column name="tenant_code" value="MASTER"/>
+            <column name="display_name" value="Multi-Vendor Marketplace"/>
+            <column name="url_path" value="/marketplace"/>
+            <column name="logo_url" value="https://example.com/marketplace-logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/New_York"/>
+            <column name="support_email" value="support@marketplace.com"/>
+            <column name="support_phone" value="+1-555-0000"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Sub-Tenant 1: Fashion Store -->
+        <insert tableName="hm_tenant">
+            <column name="id" value="tenant-001"/>
+            <column name="tenant" value="master"/>
+            <column name="tenant_name" value="Fashion Store"/>
+            <column name="tenant_code" value="FASHION"/>
+            <column name="display_name" value="Fashion E-Commerce"/>
+            <column name="url_path" value="/fashion"/>
+            <column name="logo_url" value="https://example.com/fashion-logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/New_York"/>
+            <column name="support_email" value="support@fashion.com"/>
+            <column name="support_phone" value="+1-555-0200"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- Sub-Tenant 2: Electronics Store -->
+        <insert tableName="hm_tenant">
+            <column name="id" value="tenant-002"/>
+            <column name="tenant" value="master"/>
+            <column name="tenant_name" value="Electronics Store"/>
+            <column name="tenant_code" value="ELECTRONICS"/>
+            <column name="display_name" value="Electronics E-Commerce"/>
+            <column name="url_path" value="/electronics"/>
+            <column name="logo_url" value="https://example.com/electronics-logo.png"/>
+            <column name="currency" value="USD"/>
+            <column name="locale" value="en_US"/>
+            <column name="timezone" value="America/Los_Angeles"/>
+            <column name="support_email" value="support@electronics.com"/>
+            <column name="support_phone" value="+1-555-0300"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="tenantFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

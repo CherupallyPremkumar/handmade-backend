@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <flow id="tenantFlow" default="true">
+        <entry-action componentName="tenantEntryAction" />
+        <exit-action componentName="tenantExitAction" />
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="activate" componentName="activateTenantInCreatedService" newStateId="ACTIVE" />
+            <on eventId="suspend" componentName="suspendTenantInCreatedService" newStateId="SUSPENDED" />
+            <on eventId="delete" componentName="deleteTenantInCreatedService" newStateId="DELETED" />
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" componentName="suspendTenantService" newStateId="SUSPENDED" />
+            <on eventId="delete" componentName="deleteTenantInActiveService" newStateId="DELETED" />
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" componentName="reactivateTenantService" newStateId="ACTIVE" />
+            <on eventId="delete" componentName="deleteTenantService" newStateId="DELETED" />
+        </manual-state>
+
+        <manual-state id="DELETED" />
+    </flow>
+
+</states>

@@ -1,0 +1,73 @@
+<states>
+
+    <!-- Main Customer Lifecycle Flow -->
+    <flow id="customerFlow" default="true">
+        
+        <!-- Entry/Exit actions for customer lifecycle -->
+        <entry-action componentName="customerEntryAction" />
+        <exit-action componentName="customerExitAction" />
+
+        <!-- Initial state: Customer registers/signs up -->
+        <manual-state id="REGISTERED" initialState="true">
+            <!-- Customer verifies email -->
+            <on eventId="verifyEmail" componentName="verifyEmailAction" newStateId="ACTIVE" />
+            <!-- Customer can be suspended during registration if fraud detected -->
+            <on eventId="suspend" componentName="suspendCustomerAction" newStateId="SUSPENDED" />
+        </manual-state>
+
+        <!-- Active customer - can place orders, browse, etc -->
+        <manual-state id="ACTIVE">
+            <!-- Customer updates profile -->
+            <on eventId="updateProfile" componentName="updateProfileAction" />
+            <!-- Customer adds address -->
+            <on eventId="addAddress" componentName="addAddressAction" />
+            <!-- Customer places order -->
+            <on eventId="placeOrder" componentName="placeOrderAction" />
+            <!-- Customer can request account deactivation -->
+            <on eventId="deactivate" componentName="deactivateCustomerAction" newStateId="INACTIVE" />
+            <!-- Admin can suspend customer -->
+            <on eventId="suspend" componentName="suspendCustomerAction" newStateId="SUSPENDED" />
+            <!-- Customer becomes VIP after certain criteria -->
+            <on eventId="promoteToVip" componentName="promoteToVipAction" newStateId="VIP" />
+        </manual-state>
+
+        <!-- VIP customer - special privileges -->
+        <manual-state id="VIP">
+            <!-- VIP customer actions -->
+            <on eventId="updateProfile" componentName="updateProfileAction" />
+            <on eventId="addAddress" componentName="addAddressAction" />
+            <on eventId="placeOrder" componentName="placeOrderAction" />
+            <!-- VIP can be downgraded -->
+            <on eventId="downgradeToActive" componentName="downgradeToActiveAction" newStateId="ACTIVE" />
+            <!-- VIP can still be suspended -->
+            <on eventId="suspend" componentName="suspendCustomerAction" newStateId="SUSPENDED" />
+            <!-- VIP can deactivate account -->
+            <on eventId="deactivate" componentName="deactivateCustomerAction" newStateId="INACTIVE" />
+        </manual-state>
+
+        <!-- Inactive customer - temporarily deactivated -->
+        <manual-state id="INACTIVE">
+            <!-- Customer can reactivate account -->
+            <on eventId="reactivate" componentName="reactivateCustomerAction" newStateId="ACTIVE" />
+            <!-- After long inactivity, can be archived -->
+            <on eventId="archive" componentName="archiveCustomerAction" newStateId="ARCHIVED" />
+        </manual-state>
+
+        <!-- Suspended customer - violated terms or fraud -->
+        <manual-state id="SUSPENDED">
+            <!-- Admin can unsuspend after review -->
+            <on eventId="unsuspend" componentName="unsuspendCustomerAction" newStateId="ACTIVE" />
+            <!-- Permanent ban -->
+            <on eventId="ban" componentName="banCustomerAction" newStateId="BANNED" />
+        </manual-state>
+
+        <!-- Banned customer - permanent block -->
+        <manual-state id="BANNED" meta-endState="true">
+            <!-- Only admin can unban in exceptional cases -->
+            <on eventId="unban" componentName="unbanCustomerAction" newStateId="SUSPENDED" />
+        </manual-state>
+
+        <!-- Archived customer - old inactive accounts -->
+        <manual-state id="ARCHIVED" meta-endState="true" />
+    </flow>
+</states>

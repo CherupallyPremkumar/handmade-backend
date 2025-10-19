@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="categoryFlow" default="true">
+        <entry-action componentName="categoryEntryAction" />
+        <exit-action componentName="categoryExitAction" />
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="activate" componentName="activateCategoryInCreatedService" newStateId="ACTIVE" />
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deactivate" componentName="deactivateCategoryService" newStateId="INACTIVE" />
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="activate" componentName="activateCategoryInInActiveService" newStateId="ACTIVE" />
+        </manual-state>
+    </flow>
+</states>

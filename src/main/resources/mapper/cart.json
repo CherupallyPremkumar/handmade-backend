@@ -1,0 +1,58 @@
+[
+  {
+    "id": "Cart.getByCartId",
+    "name": "getByCartId",
+    "columnMetadata": {
+      "cart_id": {
+        "name": "cart_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "tenant": {
+        "name": "tenant",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      },
+      "location_id": {
+        "name": "location_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "customer_id": {
+        "name": "location_id",
+        "columnType": "Text",
+        "filterable": true,
+        "containsQuery": false
+
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  },
+  {
+    "id": "Cart.cartCount",
+    "name": "cartCount",
+    "columnMetadata": {
+      "cart_id": {
+        "name": "cart_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": false
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": false,
+    "sortable": false,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

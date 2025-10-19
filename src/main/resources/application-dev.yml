@@ -1,0 +1,67 @@
+# Development Environment Configuration (PostgreSQL)
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/homebase_dev}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: false  # Don't drop in dev with PostgreSQL
+
+server:
+  port: 8081
+
+chenile:
+  security:
+    keycloak:
+      host: http://localhost
+      port: 8082
+      base:
+        realm: tenant0
+    client:
+      id: handmade
+      secret: Br83cgSyskRgqYHYSHJgZtBRfKWCwpem
+    ignore: false
+
+logging:
+  level:
+    root: INFO
+    com.homebase.ecom: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Query Service Configuration for PostgreSQL
+query:
+  jpa:
+    hibernate:
+      show_sql: "true"
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: "true"
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    maximumPoolSize: "10"
+    type: com.zaxxer.hikari.HikariDataSource
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    minimumIdle: "2"
+    idleTimeout: "600000"
+    jdbcUrl: ${DATABASE_URL:jdbc:postgresql://localhost:5432/homebase_dev}

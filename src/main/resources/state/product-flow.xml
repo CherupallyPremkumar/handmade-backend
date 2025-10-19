@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Main Product Flow -->
+    <flow id="productFlow" default="true">
+
+        <!-- Entry/Exit actions commented out - will be handled by service layer -->
+        <entry-action componentName="productEntryAction" />
+         <exit-action componentName="productExitAction" />
+
+        <!-- Initial state logic -->
+        <manual-state id="draft" initialState="true">
+            <!-- AdminEntity or system can send product for review -->
+            <on eventId="submitForReview" newStateId="review" componentName="onSubmitForReviewAction" />
+            <!-- Product can also be discarded directly -->
+            <on eventId="discard" newStateId="archived" />
+        </manual-state>
+
+        <!-- Review stage -->
+        <manual-state id="review">
+            <on eventId="approve" newStateId="approved" componentName="onApproveAction" />
+            <on eventId="reject" newStateId="rejected" componentName="onRejectAction" />
+        </manual-state>
+
+        <!-- Approved but not yet visible -->
+        <manual-state id="approved">
+            <on eventId="publish" newStateId="published" componentName="onPublishAction" />
+            <on eventId="archive" newStateId="archived" componentName="onArchiveAction" />
+        </manual-state>
+
+        <!-- Rejected products can be edited and resubmitted -->
+        <manual-state id="rejected">
+            <on eventId="editAndResubmit" newStateId="review" componentName="onEditResubmitAction" />
+            <on eventId="archive" newStateId="archived" />
+        </manual-state>
+
+        <!-- Product live in store -->
+        <manual-state id="published">
+            <on eventId="unpublish" newStateId="approved" componentName="onUnpublishAction" />
+            <on eventId="archive" newStateId="archived" />
+        </manual-state>
+
+        <!-- Archived state -->
+        <manual-state id="archived" meta-endState="true" />
+    </flow>
+
+
+    <!-- Secondary Flow: Auto Correction or Validation Failures -->
+    <flow id="productValidation">
+
+        <!-- Entry/Exit actions commented out - will be handled by service layer -->
+        <!-- <entry-action componentName="productEntryAction" /> -->
+        <!-- <exit-action componentName="productExitAction" /> -->
+
+        <!-- Validation of product details -->
+        <if id="validateProduct"
+            initialState="true"
+            condition="price &gt; 0 &amp;&amp; name != null &amp;&amp; name.length() &gt; 3"
+            then="validProduct"
+            else="invalidProduct">
+
+            <on eventId="validProduct" newFlowId="productFlow" newStateId="draft" />
+            <on eventId="invalidProduct" newStateId="correctionNeeded" />
+        </if>
+
+        <manual-state id="correctionNeeded">
+            <on eventId="correct" newFlowId="productFlow" newStateId="draft" />
+            <on eventId="discard" newFlowId="productFlow" newStateId="archived" />
+        </manual-state>
+
+    </flow>
+
+</states>

@@ -1,0 +1,76 @@
+# Production Environment Configuration
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/homebase_prod}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: none  # Never auto-create schema in production
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: false  # Never drop schema in production
+
+  h2:
+    console:
+      enabled: false  # Disable H2 console in production
+
+server:
+  port: ${SERVER_PORT:8080}
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+
+chenile:
+  security:
+    keycloak:
+      host: ${KEYCLOAK_HOST:https://keycloak.example.com}
+      port: ${KEYCLOAK_PORT:443}
+      base:
+        realm: ${KEYCLOAK_REALM:tenant0}
+    client:
+      id: ${KEYCLOAK_CLIENT_ID:handmade}
+      secret: ${KEYCLOAK_CLIENT_SECRET:}
+    ignore: false
+
+logging:
+  level:
+    root: WARN
+    com.homebase.ecom: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: /var/log/homebase/application.log
+    max-size: 10MB
+    max-history: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized

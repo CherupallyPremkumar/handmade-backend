@@ -1,0 +1,48 @@
+chenile:
+  security:
+    client:
+      id: "authz-servlet"
+      secret: "secret"
+    keycloak:
+      host: "localhost"
+      port: 8188
+      base:
+        realm: quickstart
+
+
+
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: true
+
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/realms/#tenantId#/protocol/openid-connect/certs
+
+logging:
+  level:
+    org:
+      chenile:
+        security: DEBUG

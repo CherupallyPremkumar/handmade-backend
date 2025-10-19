@@ -13,17 +13,37 @@
     </parent>
 
     <groupId>com.homebase</groupId>
-    <artifactId>admin-suite-backend</artifactId>
+    <artifactId>ecom-backend</artifactId>
     <version>1.0.0</version>
-    <name>Homebase Admin Suite Backend</name>
-    <description>Multi-tenant admin dashboard backend with Spring Boot</description>
+    <name>Homebase Ecommerce Backend</name>
+    <description>Multi-tenant ecommerce backend with Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>
         <jwt.version>0.12.3</jwt.version>
+        <chenile.version>2.1.2</chenile.version>
+        <liquibase.version>4.25.1</liquibase.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>cucumber-sec-utils</artifactId>
+            <version>2.0.14</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dasniko</groupId>
+            <artifactId>testcontainers-keycloak</artifactId>
+            <version>3.4.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,12 +55,75 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <!-- MyBatis Spring Boot Starter -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.chenile/workflow-api -->
+
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-core</artifactId>
+            <version>2.0.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-http</artifactId>
+            <version>${chenile.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-service</artifactId>
+            <version>${chenile.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>jpa-utils</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>security-interceptor</artifactId>
+            <version>2.0.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-security</artifactId>
+            <version>2.0.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-security-api</artifactId>
+            <version>2.0.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>query-api</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-query-controller</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.chenile/security-service -->
 
         <!-- Spring Boot Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
         <!-- Spring Boot Validation -->
         <dependency>
@@ -48,49 +131,29 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- PostgreSQL Driver (change to your preferred database) -->
+        <!-- Swagger/OpenAPI Documentation -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
-        <!-- H2 Database (for testing) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JWT -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jwt.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jwt.version}</version>
-            <scope>runtime</scope>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-query-service</artifactId>
+            <version>2.0.13</version>
         </dependency>
 
-        <!-- Lombok -->
 
 
-        <!-- Spring Boot DevTools -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
+
+
 
         <!-- Spring Boot Test -->
         <dependency>

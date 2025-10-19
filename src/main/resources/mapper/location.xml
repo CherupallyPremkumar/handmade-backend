@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LocationEntity">
+
+    <!-- ResultMap for Location Entity -->
+    <resultMap id="locationResultMap" type="map">
+        <id property="id" column="id"/>
+        <result property="name" column="location_name"/>
+        <result property="address" column="address"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="country" column="country"/>
+        <result property="postalCode" column="postal_code"/>
+        <result property="tenantId" column="tenant_id"/>
+    </resultMap>
+
+    <!-- Select all locations -->
+    <select id="getAll" resultMap="locationResultMap">
+        SELECT id,location_name,address,city,state,zipcode,country,tenant_id FROM ns_location
+        <where>
+            tenant_id = #{tenant_id}
+            <if test="location_name != null">
+                AND UPPER(location_name) like UPPER(#{location_name})
+            </if>
+        </where>
+        ${orderby} ${pagination}
+    </select>
+    <select id="getAll-count" resultType="int">
+        SELECT count(*) FROM ns_location
+        <where>
+            tenant_id = #{tenant_id}
+            <if test="location_name != null">
+                AND UPPER(location_name) like UPPER(#{location_name})
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="locationResultMap">
+        SELECT * FROM ns_location WHERE id = #{id}
+    </select>
+
+</mapper>

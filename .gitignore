@@ -1,5 +1,6 @@
 HELP.md
 target/
+terra-dwell-commerce/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -39,7 +40,6 @@ build/
 *.log
 
 ### Application Properties ###
-application-local.yml
 application-prod.yml
 
 ### Uploads ###

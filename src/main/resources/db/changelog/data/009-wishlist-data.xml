@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-wishlist-data" author="system">
+        <!-- Wishlist for Customer 1 -->
+        <insert tableName="hm_wishlist">
+            <column name="id" value="wishlist-001"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="name" value="My Favorites"/>
+            <column name="description" value="Products I want to buy later"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="wishlistFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Wishlist for Customer 2 -->
+        <insert tableName="hm_wishlist">
+            <column name="id" value="wishlist-002"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-002"/>
+            <column name="name" value="Gift Ideas"/>
+            <column name="description" value="Gift ideas for family and friends"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="wishlistFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <!-- Wishlist for Customer 3 -->
+        <insert tableName="hm_wishlist">
+            <column name="id" value="wishlist-003"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-003"/>
+            <column name="name" value="Holiday Shopping"/>
+            <column name="description" value="Items for holiday season"/>
+            <column name="state_id" value="ACTIVE"/>
+            <column name="flow_id" value="wishlistFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+
+        <!-- Wishlist Items -->
+        <insert tableName="hm_wishlist_item">
+            <column name="id" value="wishlist-item-001"/>
+            <column name="tenant" value="default"/>
+            <column name="wishlist_id" value="wishlist-001"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="notes" value="Want this in silver color"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_wishlist_item">
+            <column name="id" value="wishlist-item-002"/>
+            <column name="tenant" value="default"/>
+            <column name="wishlist_id" value="wishlist-001"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="notes" value="Need more t-shirts"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <insert tableName="hm_wishlist_item">
+            <column name="id" value="wishlist-item-003"/>
+            <column name="tenant" value="default"/>
+            <column name="wishlist_id" value="wishlist-002"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="notes" value="Perfect gift for brother"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <insert tableName="hm_wishlist_item">
+            <column name="id" value="wishlist-item-004"/>
+            <column name="tenant" value="default"/>
+            <column name="wishlist_id" value="wishlist-003"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="notes" value="Holiday special"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-003"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

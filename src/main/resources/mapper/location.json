@@ -1,0 +1,56 @@
+[
+  {
+    "id": "LocationEntity.getAll",
+    "name": "location",
+    "columnMetadata": {
+      "id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "location_name": {
+        "name": "location_name",
+        "filterable": true,
+        "columnType": "Text",
+        "likeQuery": true
+      },
+      "address": {
+        "name": "address",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "city": {
+        "name": "city",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "state": {
+        "name": "state",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "zipcode": {
+        "name": "zipcode",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "country": {
+        "name": "country",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "tenant_id": {
+        "name": "tenant_id",
+        "filterable": true,
+        "columnType": "Text"
+      }
+    },
+    "flexiblePropnames": false,
+    "paginated": true,
+    "sortable": true,
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
+  }
+]

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-insert-cart-data" author="system">
+        <!-- Cart for Customer 1 -->
+        <insert tableName="hm_cart">
+            <column name="id" value="cart-001"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-001"/>
+            <column name="txn" valueNumeric="179.99"/>
+            <column name="tax_amount" valueNumeric="14.40"/>
+            <column name="total_amount" valueNumeric="194.39"/>
+            <column name="discount" valueNumeric="20.00"/>
+            <column name="transaction_amount" valueNumeric="194.39"/>
+            <column name="state_id" value="CREATED"/>
+            <column name="flow_id" value="cartFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Cart for Customer 2 -->
+        <insert tableName="hm_cart">
+            <column name="id" value="cart-002"/>
+            <column name="tenant" value="default"/>
+            <column name="customer_id" value="customer-002"/>
+            <column name="txn" valueNumeric="29.99"/>
+            <column name="tax_amount" valueNumeric="2.40"/>
+            <column name="total_amount" valueNumeric="32.39"/>
+            <column name="discount" valueNumeric="0.00"/>
+            <column name="transaction_amount" valueNumeric="32.39"/>
+            <column name="state_id" value="CREATED"/>
+            <column name="flow_id" value="cartFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <!-- Cart Items for Cart 1 -->
+        <insert tableName="hm_cart_item">
+            <column name="id" value="cart-item-001"/>
+            <column name="tenant" value="default"/>
+            <column name="cart_id" value="cart-001"/>
+            <column name="product_variant_id" value="variant-001"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="state_id" value="CREATED"/>
+            <column name="flow_id" value="cartItemFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+
+        <!-- Cart Items for Cart 2 -->
+        <insert tableName="hm_cart_item">
+            <column name="id" value="cart-item-002"/>
+            <column name="tenant" value="default"/>
+            <column name="cart_id" value="cart-002"/>
+            <column name="product_variant_id" value="variant-003"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="state_id" value="CREATED"/>
+            <column name="flow_id" value="cartItemFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-002"/>
+        </insert>
+
+        <insert tableName="hm_cart_item">
+            <column name="id" value="cart-item-003"/>
+            <column name="tenant" value="default"/>
+            <column name="cart_id" value="cart-001"/>
+            <column name="product_variant_id" value="variant-002"/>
+            <column name="quantity" valueNumeric="2"/>
+            <column name="state_id" value="CREATED"/>
+            <column name="flow_id" value="cartItemFlow"/>
+            <column name="version" valueNumeric="0"/>
+            <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="created_by" value="customer-001"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
