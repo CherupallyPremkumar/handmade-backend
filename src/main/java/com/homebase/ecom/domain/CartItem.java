@@ -30,6 +30,10 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     private boolean wasOnSale;
 
+    private String country;
+    private String state;
+    private String productCategory;
+
 
     @EventListener
     public boolean isOutOfQuanity(){
@@ -134,5 +138,29 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     public void setWasOnSale(boolean wasOnSale) {
         this.wasOnSale = wasOnSale;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 }

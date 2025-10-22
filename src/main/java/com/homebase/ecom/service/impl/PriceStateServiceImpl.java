@@ -4,6 +4,8 @@ import com.homebase.ecom.domain.CartItem;
 import com.homebase.ecom.domain.Price;
 import com.homebase.ecom.entitystore.PriceEntityStore;
 import com.homebase.ecom.service.PriceStateService;
+import com.homebase.ecom.service.price.factory.PriceServiceFactory;
+import com.homebase.ecom.service.price.factory.PriceStrategyService;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.utils.entity.service.EntityStore;
@@ -12,11 +14,13 @@ import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 
 import java.math.BigDecimal;
 
-public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> implements PriceStateService {
+public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> implements PriceStateService,BasePriceCalculator {
 
 
 
     PriceEntityStore priceEntityStore;
+
+    PriceServiceFactory priceServiceFactory;
     /**
      * @param stm                    the state machine that has read the corresponding State Transition Diagram
      * @param stmActionsInfoProvider the provider that gives out info about the state diagram
@@ -65,33 +69,25 @@ public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> impleme
     @Override
     public CartItem calculate(CartItem cartItem) {
         if (cartItem == null) return null;
-
-        // 1️⃣ Fetch price info from the price store
         Price price = priceEntityStore.findPriceByProductVariantId(cartItem.getProductVariantId());
         if (price == null) {
             throw new IllegalStateException("Price not found for productVariantId: " + cartItem.getProductVariantId());
         }
+        PriceStrategyService strategy = priceServiceFactory.getFactory(price);
+        cartItem = strategy.calculatePrice(price,cartItem);
+        return cartItem;
+    }
 
-        // 2️⃣ Set original/base price
+
+    public CartItem calculateBasePrice(Price price,CartItem cartItem) {
+        if (cartItem == null) return null;
+        if (price == null) throw new IllegalStateException("Price not found for productVariantId: " + cartItem.getProductVariantId());
+
         BigDecimal basePrice = price.getAmount() != null ? price.getAmount() : BigDecimal.ZERO;
         cartItem.setOriginalPrice(basePrice);
-
-        // 3️⃣ Determine the current (possibly discounted) sale price
-        BigDecimal finalPriceValue = price.getFinalPrice();
-        cartItem.setSalePrice(finalPriceValue != null ? finalPriceValue : basePrice);
-
-        // 4️⃣ Set snapshot price only the first time item is added
-        if (cartItem.getSnapshotPrice() == null) {
-            cartItem.setSnapshotPrice(basePrice);
-        }
-
-        // 5️⃣ Track if item *was* on sale during pricing
+        cartItem.setSnapshotPrice(cartItem.getSnapshotPrice() == null ? basePrice : cartItem.getSnapshotPrice());
+        cartItem.setSalePrice(price.getFinalPrice() != null ? price.getFinalPrice() : basePrice);
         cartItem.setWasOnSale(price.isOnSale());
-
-        // 6️⃣ Calculate total = salePrice × quantity
-        int quantity = (cartItem.getQuantity() != null) ? cartItem.getQuantity() : 0;
-        BigDecimal totalAmount = cartItem.getSalePrice().multiply(BigDecimal.valueOf(quantity));
-        cartItem.setTotalAmount(totalAmount);
 
         return cartItem;
     }

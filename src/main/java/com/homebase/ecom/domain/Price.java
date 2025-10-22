@@ -2,7 +2,9 @@ package com.homebase.ecom.domain;
 
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Price extends MultiTenantExtendedStateEntity {
 
@@ -38,18 +40,24 @@ public class Price extends MultiTenantExtendedStateEntity {
                 (saleAmount != null && saleAmount.compareTo(amount) < 0)
                         || (discountPercentage != null && discountPercentage.compareTo(BigDecimal.ZERO) > 0);
 
-        return inDateRange && hasDiscount;
+        return inDateRange && hasDiscount && "ON_SALE".equals(getCurrentState().getStateId());
     }
 
     public BigDecimal getFinalPrice() {
+        BigDecimal baseAmount = (amount != null) ? amount : BigDecimal.ZERO;
+
         if (isOnSale()) {
             if (saleAmount != null) return saleAmount;
+
             if (discountPercentage != null && discountPercentage.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal discountFactor = BigDecimal.ONE.subtract(discountPercentage.divide(BigDecimal.valueOf(100)));
-                return amount.multiply(discountFactor);
+                BigDecimal discountFactor = BigDecimal.ONE.subtract(
+                        discountPercentage.divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP)
+                );
+                return baseAmount.multiply(discountFactor);
             }
         }
-        return amount;
+
+        return baseAmount;
     }
 
     // --- Getters and Setters ---

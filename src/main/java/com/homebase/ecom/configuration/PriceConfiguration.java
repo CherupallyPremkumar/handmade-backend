@@ -7,6 +7,7 @@ import com.homebase.ecom.entitystore.PriceEntityStore;
 import com.homebase.ecom.entitystore.impl.PriceEntityStoreImpl;
 import com.homebase.ecom.repository.PriceRepository;
 import com.homebase.ecom.service.PriceStateService;
+import com.homebase.ecom.service.impl.BasePriceCalculator;
 import com.homebase.ecom.service.impl.PriceStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.stm.STM;
@@ -90,6 +91,14 @@ public class PriceConfiguration {
             @Qualifier("priceEntityStore") PriceEntityStore entityStore) {
         return new PriceStateServiceImpl(stm, priceInfoProvider, entityStore);
     }
+    @Bean
+    @Autowired
+    BasePriceCalculator basePriceCalculator(
+            @Qualifier("priceEntityStm") STM<Price> stm,
+            @Qualifier("priceActionsInfoProvider") STMActionsInfoProvider priceInfoProvider,
+            @Qualifier("priceEntityStore") PriceEntityStore entityStore) {
+        return new PriceStateServiceImpl(stm, priceInfoProvider, entityStore);
+    }
 
     // Now we start constructing the STM Components
 
@@ -123,5 +132,8 @@ public class PriceConfiguration {
         flowReader.setFilename(FLOW_DEFINITION_FILE);
         return flowReader;
     }
+
+
+
 }
 

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-public class TaxRate extends MultiTenantEntity {
+public class TaxRateEntity extends MultiTenantEntity {
     private String country;
         private String state;
         private String productCategory;
