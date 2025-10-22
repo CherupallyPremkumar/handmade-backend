@@ -1,11 +1,13 @@
 package com.homebase.ecom.mybatis.cart;
 
+import java.math.BigDecimal;
+
 public class CartItemsDto {
     private String cartItemId;
     private String tenantId;
     private String productVariantId;
     private String productId;
-    private String quantity;
+    private int quantity;
     private String price;
     private String totalAmount;
     private String locationId;
@@ -18,6 +20,10 @@ public class CartItemsDto {
     private String lastModifiedTime;
     private String lastModifiedBy;
     private String subTenantId;
+    private String statusId;
+    private BigDecimal basePrice;       // original price
+    private BigDecimal snapshotPrice;   // price when added to cart
+    private BigDecimal salePrice;       // discounted price if on sale
 
 
     public String getCartItemId() {
@@ -52,13 +58,7 @@ public class CartItemsDto {
         this.productId = productId;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
 
     public String getPrice() {
         return price;
@@ -154,5 +154,45 @@ public class CartItemsDto {
 
     public void setSubTenantId(String subTenantId) {
         this.subTenantId = subTenantId;
+    }
+
+    public String getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
+
+    public BigDecimal getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(BigDecimal basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public BigDecimal getSnapshotPrice() {
+        return snapshotPrice;
+    }
+
+    public void setSnapshotPrice(BigDecimal snapshotPrice) {
+        this.snapshotPrice = snapshotPrice;
+    }
+
+    public BigDecimal getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(BigDecimal salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

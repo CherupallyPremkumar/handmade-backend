@@ -14,6 +14,16 @@
             <column name="sub_tenant_id" type="VARCHAR(255)"/>
             <column name="cart_id" type="VARCHAR(255)"/>
             <column name="total_amount" type="DECIMAL(10,2)"/>
+            <column name="sale_price" type="decimal(10,2)"/>
+            <column name="base_price" type="decimal(10,2)"/>
+            <column name="snapshot_price" type="DECIMAL(10,2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="original_price" type="DECIMAL(10,2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tax_rate" type="DECIMAL(10,2)"/>
+            <column name="tax_amount" type="DECIMAL(10,2)"/>
             <column name="product_variant_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>

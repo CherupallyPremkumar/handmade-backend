@@ -1,6 +1,25 @@
 Feature: Advanced Query Examples - Chenile SearchRequest
 
   Background:
+
+   Scenario: Basic query with pagination
+     When I construct a REST request with authorization header in realm "tenant0" for user "t0-premium" and password "t0-premium"
+     And I construct a REST request with header "x-chenile-tenant-id" and value "tenant0"
+     And I construct a REST request with header "chenile-sub-tenant-id" and value "tenant-001"
+     And I construct a REST request with header "chenile-entry-point" and value "HTTP"
+     And I POST a REST request to URL "/q1/findActiveItemsByCartId" with payload
+    """
+   {
+	"filters" :{
+	"cartId":"cart-001",
+	"status": ["REMOVED"]
+	}
+   }
+    """
+    Then the http status code is 200
+    And success is true
+
+
     When I construct a REST request with authorization header in realm "tenant0" for user "t0-premium" and password "t0-premium"
     And I construct a REST request with header "x-chenile-tenant-id" and value "tenant0"
     Scenario: Basic query with pagination

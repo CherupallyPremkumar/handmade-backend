@@ -5,12 +5,15 @@ package com.homebase.ecom.constants;
  */
 public final class QueryConstants {
 
+    public static final String FIND_ACTIVE_CART_ITEMS_BY_CART_ID = "findActiveItemsByCartId";
+
     private QueryConstants() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     // Query names
     public static final String QUERY_EXISTS_CUSTOMER = "existsCustomer";
+    public static final String INVENTORY_EXISTS_ON_INSTOCK_PRODUCT_VARIANT = "getInventoryByProductVariantIdAndSubTenantId";
     public static final String QUERY_GET_CUSTOMER_BY_ID = "getCustomerById";
     public static final String QUERY_GET_ALL_CUSTOMERS = "getAll";
 

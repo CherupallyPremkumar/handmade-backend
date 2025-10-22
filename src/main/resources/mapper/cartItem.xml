@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartItem">
+
+    <resultMap id="cartItemMap" type="com.homebase.ecom.mybatis.cart.CartItemsDto">
+        <id column="cartItemId" property="cartItemId"/>
+        <id column="tenantId" property="tenantId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="productVariantId" property="productVariantId"/>
+        <result column="salePrice" property="salePrice"/>
+        <result column="basePrice" property="basePrice"/>
+        <result column="olTotalAmount" property="totalAmount"/>
+        <result column="cartItemTenantId" property="subTenantId"/>
+        <result column="displayName" property="displayName"/>
+        <result column="thumbnail" property="thumbnail"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="createdBy" property="createdBy"/>
+        <result column="status_id" property="statusId"/>
+        <result column="subTenantId" property="subTenantId"/>
+        <result column="lastModifiedTime" property="updatedTime"/>
+        <result column="lastModifiedBy" property="updatedBy"/>
+    </resultMap>
+
+    <select id="findActiveItemsByCartId" resultMap="cartItemMap">
+        SELECT
+        id AS cartItemId,
+        tenant as tenantId,
+        product_variant_id AS productVariantId,
+        quantity AS quantity,
+        snapshot_price AS snapshotPrice,
+        sale_price AS salePrice,
+        base_price as basePrice,
+        original_price AS basePrice,
+        total_amount AS totalAmount,
+        sub_tenant_id AS subTenantId,
+        state_id AS statusId,
+        created_time AS createdTime,
+        created_by AS createdBy,
+        last_modified_time AS updatedTime,
+        last_modified_by AS updatedBy
+            FROM hm_cart_item
+            <where>
+                <if test="status != null and status.size() > 0">
+                    AND state_id not in
+                    <foreach item="item" index="index" collection="status"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="id != null and id != ''">
+                    AND id = #{id}
+                </if>
+                <if test="cartId != null and cartId != ''">
+                    AND cart_id = #{cartId}
+                </if>
+                <if test="productVariantId != null and productVariantId != ''">
+                    AND product_variant_id = #{productVariantId}
+                </if>
+                <if test="tenantId != null and tenantId != ''">
+                    AND tenant_id = #{tenantId}
+                </if>
+                <if test="subTenantId != null and subTenantId != ''">
+                    AND sub_tenant_id = #{subTenantId}
+                </if>
+            </where>
+        ${orderby}
+    </select>
+
+
+</mapper>

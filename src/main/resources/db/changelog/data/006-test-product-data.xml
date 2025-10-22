@@ -27,7 +27,8 @@
         <!-- Variants for Premium Cotton Shirt -->
         <insert tableName="hm_product_variant">
             <column name="id" value="variant-101"/>
-            <column name="tenant" value="tenant-001"/>
+            <column name="TENANT" value="master"/>
+            <column name="sub_tenant_id" value="tenant-001"/>
             <column name="product_id" value="product-101"/>
             <column name="color" value="Blue"/>
             <column name="size" value="M"/>
@@ -44,7 +45,8 @@
 
         <insert tableName="hm_product_variant">
             <column name="id" value="variant-102"/>
-            <column name="tenant" value="tenant-001"/>
+            <column name="tenant" value="master"/>
+            <column name="sub_tenant_id" value="tenant-002"/>
             <column name="product_id" value="product-101"/>
             <column name="color" value="Blue"/>
             <column name="size" value="L"/>
@@ -61,7 +63,8 @@
 
         <insert tableName="hm_product_variant">
             <column name="id" value="variant-103"/>
-            <column name="tenant" value="tenant-001"/>
+            <column name="TENANT" value="master"/>
+            <column name="sub_tenant_id" value="tenant-002"/>
             <column name="product_id" value="product-101"/>
             <column name="color" value="Red"/>
             <column name="size" value="M"/>
@@ -78,7 +81,8 @@
 
         <insert tableName="hm_product_variant">
             <column name="id" value="variant-104"/>
-            <column name="tenant" value="tenant-001"/>
+            <column name="TENANT" value="master"/>
+            <column name="sub_tenant_id" value="tenant-002"/>
             <column name="product_id" value="product-101"/>
             <column name="color" value="Red"/>
             <column name="size" value="L"/>
@@ -100,7 +104,7 @@
             <column name="product_variant_id" value="variant-101"/>
             <column name="price" value="49.99"/>
             <column name="discount_percentage" valueNumeric="15"/>
-            <column name="state_id" value="ACTIVE"/>
+            <column name="state_id" value="ON_SALE"/>
             <column name="flow_id" value="priceFlow"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
@@ -113,7 +117,7 @@
             <column name="product_variant_id" value="variant-102"/>
             <column name="price" value="49.99"/>
             <column name="discount_percentage" valueNumeric="15"/>
-            <column name="state_id" value="ACTIVE"/>
+            <column name="state_id" value="ON_SALE"/>
             <column name="flow_id" value="priceFlow"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>
@@ -174,7 +178,7 @@
         <insert tableName="hm_image">
             <column name="id" value="image-103"/>
             <column name="tenant" value="tenant-001"/>
-            <column name="product_variant_id" value="variant-103"/>
+            <column name="product_variant_id" value="variant-102"/>
             <column name="url" value="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500"/>
             <column name="is_primary" valueBoolean="true"/>
             <column name="alt_text" value="Red Cotton Shirt Medium"/>
@@ -233,11 +237,11 @@
             <column name="tenant" value="tenant-001"/>
             <column name="product_variant_id" value="variant-103"/>
             <column name="location_id" value="location-001"/>
-            <column name="quantity_on_hand" valueNumeric="80"/>
-            <column name="quantity_available" valueNumeric="75"/>
-            <column name="quantity_committed" valueNumeric="5"/>
+            <column name="quantity_on_hand" valueNumeric="0"/>
+            <column name="quantity_available" valueNumeric="0"/>
+            <column name="quantity_committed" valueNumeric="0"/>
             <column name="quantity_back_ordered" valueNumeric="0"/>
-            <column name="state_id" value="IN_STOCK"/>
+            <column name="state_id" value="OUT_OF_STOCK"/>
             <column name="flow_id" value="inventoryFlow"/>
             <column name="version" valueNumeric="0"/>
             <column name="created_time" valueDate="CURRENT_TIMESTAMP"/>

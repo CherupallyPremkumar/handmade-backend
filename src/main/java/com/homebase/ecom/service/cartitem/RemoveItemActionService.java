@@ -8,10 +8,9 @@ import org.chenile.stm.model.Transition;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveCartItemService implements STMTransitionAction<CartItem> {
+public class RemoveItemActionService implements STMTransitionAction<CartItem> {
 
     @Override
-    public void doTransition(CartItem stateEntity, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-        // Implement remove cart item logic
+    public void doTransition(CartItem cartItem, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
     }
 }

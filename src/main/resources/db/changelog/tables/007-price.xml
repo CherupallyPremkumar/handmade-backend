@@ -7,14 +7,28 @@
 
     <changeSet id="001-create-price-table" author="system">
         <createTable tableName="hm_price">
+
+            <!-- Primary Key -->
             <column name="id" type="VARCHAR(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+
+            <!-- Tenant info -->
             <column name="tenant" type="VARCHAR(255)"/>
             <column name="sub_tenant_id" type="VARCHAR(255)"/>
-            <column name="product_variant_id" type="VARCHAR(255)"/>
-            <column name="price" type="VARCHAR(255)"/>
-            <column name="discount_percentage" type="DECIMAL(5,2)"/>
+
+            <!-- Product and Price details -->
+            <column name="product_variant_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="VARCHAR(255)"/>
+            <column name="price" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount_percentage" type="DECIMAL(5,2)" defaultValueNumeric="0.00"/>
+            <column name="sale_amount" type="DECIMAL(10,2)"/>
+
+            <!-- State Machine (STM) tracking -->
             <column name="state_id" type="VARCHAR(255)"/>
             <column name="flow_id" type="VARCHAR(255)"/>
             <column name="state_entry_time" type="TIMESTAMP"/>
@@ -29,11 +43,23 @@
             <column name="version" type="BIGINT" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_time" type="TIMESTAMP"/>
+
+            <!-- Audit columns -->
+            <column name="created_time" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="last_modified_time" type="TIMESTAMP"/>
             <column name="created_by" type="VARCHAR(255)"/>
             <column name="last_modified_by" type="VARCHAR(255)"/>
+
         </createTable>
+
+        <!-- Optional: Useful index for lookups -->
+        <createIndex tableName="hm_price" indexName="idx_price_product_variant">
+            <column name="product_variant_id"/>
+        </createIndex>
+
+        <createIndex tableName="hm_price" indexName="idx_price_tenant">
+            <column name="tenant"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

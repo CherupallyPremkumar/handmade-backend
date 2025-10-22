@@ -1,45 +1,49 @@
 package com.homebase.ecom.mybatis.dashboard;
 
 public class InventoryDetails {
-    public String locationId;
-    public  String quantityAvailable;
-    public  String quantityOnHand;
-    public  String location_name;
-
+    private String locationId;
+    private int quantityAvailable;
+    private int quantityOnHand;
+    private String locationName;
+    private String stateId;// should be String, not int
 
     public String getLocationId() {
         return locationId;
     }
 
-    public InventoryDetails setLocationId(String locationId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
-        return this;
     }
 
-    public String getQuantityAvailable() {
+    public int getQuantityAvailable() {
         return quantityAvailable;
     }
 
-    public InventoryDetails setQuantityAvailable(String quantityAvailable) {
+    public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
-        return this;
     }
 
-    public String getQuantityOnHand() {
+    public int getQuantityOnHand() {
         return quantityOnHand;
     }
 
-    public InventoryDetails setQuantityOnHand(String quantityOnHand) {
+    public void setQuantityOnHand(int quantityOnHand) {
         this.quantityOnHand = quantityOnHand;
-        return this;
     }
 
-    public String getLocation_name() {
-        return location_name;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public InventoryDetails setLocation_name(String location_name) {
-        this.location_name = location_name;
-        return this;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public String getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(String stateId) {
+        this.stateId = stateId;
     }
 }

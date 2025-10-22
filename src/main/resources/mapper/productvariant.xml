@@ -13,10 +13,16 @@
         <result property="price" column="price"/>
         <result property="sku" column="sku"/>
         <result property="productId" column="product_id"/>
-        <result property="thumbnail" column="thumbnail"/>
         <result property="subTenantId" column="sub_tenant_id"/>
         <result property="tenantId" column="tenant_id"/>
         <result property="tenantName" column="tenant_name"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="stateId" column="state_id"/>
+        <result property="images" column="image"/>
+    </resultMap>
+    <resultMap id="images" type="map">
+        <id property="id" column="id"/>
+        <result property="url" column="url"/>
     </resultMap>
 
     <select id="getAll" resultMap="variant">
@@ -32,9 +38,12 @@
             pv.sku,
             pv.product_id,
             pv.sub_tenant_id,
-            img.url AS thumbnail,
+            pv.state_id as state_id,
+            c.name AS category_name,
             t.id AS tenant_id,
-            t.tenant_name AS tenant_name
+            t.tenant_name AS tenant_name,
+            img.id AS image_id,
+            img.url AS url
         FROM hm_product_variant pv
         LEFT JOIN hm_image img ON img.product_variant_id = pv.id
         LEFT JOIN hm_price pr ON pr.product_variant_id = pv.id
@@ -79,6 +88,9 @@
             </if>
             <if test="on_sale_only != null and on_sale_only == true">
                 AND pr.discount_percentage &gt; 0
+            </if>
+            <if test="state!=null">
+                AND pv.state_id = #{state}
             </if>
         </where>
         ${orderby} ${pagination}

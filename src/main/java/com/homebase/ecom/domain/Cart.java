@@ -21,6 +21,7 @@ public class Cart extends AbstractExtendedStateEntity {
 
     private BigDecimal transactionAmount = BigDecimal.ZERO;
 
+    private int totalItems = 0;
 
     public String getCustomerId() {
         return customerId;
@@ -68,6 +69,14 @@ public class Cart extends AbstractExtendedStateEntity {
 
     public void setTransactionAmount(BigDecimal transactionAmount) {
         this.transactionAmount = transactionAmount;
+    }
+
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
 }
 

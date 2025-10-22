@@ -1,17 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
     <flow id="cartItemFlow" default="true">
+        <event-information eventId='addItem' meta-acls="test.normal,test.premium"
+                           meta-bodyType='com.homebase.ecom.command.cartitem.AddItemPayload'/>
+        <event-information eventId='removeItem' meta-acls="test.normal,test.premium"
+                           meta-bodyType='com.homebase.ecom.command.cartitem.RemoveItemPayload'/>
+        <event-information eventId='incrementQty' meta-acls="test.normal,test.premium"
+                           meta-bodyType='com.netscoretech.pos.order.payload.CartItemIncrementQtyPayLoad'/>
+        <event-information eventId='decrementQty' meta-acls="test.normal,test.premium"
+                           meta-bodyType='com.netscoretech.pos.order.payload.CartItemDecrementQtyPayLoad'/>
+        <event-information eventId='productPriceChanged' meta-acls="test.normal,test.premium"
+                           meta-bodyType='com.homebase.ecom.service.cart.RefreshCartService'/>
+        <event-information eventId="updateQuantity" meta-bodyType="com.homebase.ecom.command.cart.UpdateCartItemQuantityPayload" />
+        <event-information eventId="remove" meta-bodyType="com.homebase.ecom.command.cart.RemoveCartItemPayload" />
+
         <entry-action componentName="cartItemEntryAction" />
         <exit-action componentName="cartItemExitAction" />
 
-        <manual-state id="CREATED" initialState="true">
-            <on eventId="updateQuantity" componentName="updateQuantityCartItemService" newStateId="UPDATED" />
-            <on eventId="remove" componentName="removeCartItemInCreatedService" newStateId="REMOVED" />
+        <manual-state id="CREATED" initialState="true" >
+            <on eventId="addItem" componentName="addItemActionService" newStateId="CHECK_ON_SALE_OR_NOT" />
         </manual-state>
 
-        <manual-state id="UPDATED">
-            <on eventId="updateQuantity" componentName="updateQuantityCartItemInUpdatedService" newStateId="UPDATED" />
-            <on eventId="remove" componentName="removeCartItemService" newStateId="REMOVED" />
+
+        <auto-state id="CHECK_ON_SALE_OR_NOT" componentName="checkIfCartItemOnSaleService">
+            <on eventId="onSale" newStateId="CHECK_STOCK_AFTER_ONSALE"/>
+            <on eventId="notOnSale" newStateId="CHECK_STOCK_AFTER_NOTSALE"/>
+        </auto-state>
+
+        <auto-state id="CHECK_STOCK_AFTER_ONSALE" componentName="checkIfCartItemInStockService">
+            <on eventId="outOfQuantity" newStateId="REMOVED"/>
+            <on eventId="inStock" newStateId="ON_SALE_IN_STOCK"/>
+            <on eventId="outOfStock" newStateId="OUT_OF_STOCK"/>
+        </auto-state>
+
+        <auto-state id="CHECK_STOCK_AFTER_NOTSALE" componentName="checkIfCartItemInStockService">
+            <on eventId="outOfQuantity" newStateId="REMOVED"/>
+            <on eventId="inStock" newStateId="NON_SALE_IN_STOCK"/>
+            <on eventId="outOfStock" newStateId="OUT_OF_STOCK"/>
+        </auto-state>
+
+
+        <manual-state id="ON_SALE_IN_STOCK">
+            <on eventId="addItem" componentName="addItemActionService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="removeItem" componentName="removeItemActionService" newStateId="REMOVED" />
+            <on eventId="incrementQty" componentName="cartItemIncrementQtyService" newStateId="CHECK_ON_SALE_OR_NOT"/>
+            <on eventId="decrementQty" componentName="cartItemDecrementQtyService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="updateQuantity" componentName="updateQuantityCartItemService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="updatePrice" componentName="updatePriceCartItemService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="refreshCartItem" componentName="checkReStockCartItemService" newStateId="CHECK_IN_STOCK" />
+        </manual-state>
+
+        <manual-state id="NON_SALE_IN_STOCK">
+            <on eventId="addItem" componentName="addItemActionService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="removeItem" componentName="removeItemActionService" newStateId="REMOVED" />
+            <on eventId="incrementQty" componentName="cartItemIncrementQtyService" newStateId="CHECK_ON_SALE_OR_NOT"/>
+            <on eventId="decrementQty" componentName="cartItemDecrementQtyService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="updateQuantity" componentName="updateQuantityCartItemService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="updatePrice" componentName="updatePriceCartItemService" newStateId="CHECK_ON_SALE_OR_NOT" />
+            <on eventId="refreshCartItem" componentName="checkReStockCartItemService" newStateId="CHECK_IN_STOCK" />
+        </manual-state>
+
+        <manual-state id="OUT_OF_STOCK">
+            <on eventId="refreshCartItem" componentName="checkReStockCartItemService" newStateId="CHECK_ON_SALE_OR_NOT"/>
+            <on eventId="remove" componentName="removeItemActionService" newStateId="REMOVED" />
         </manual-state>
 
         <manual-state id="REMOVED" />

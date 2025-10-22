@@ -1,5 +1,6 @@
 package com.homebase.ecom.service.cartitem;
 
+import com.homebase.ecom.command.cartitem.UpdateCartItemQuantityPayload;
 import com.homebase.ecom.domain.CartItem;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 public class UpdateQuantityCartItemService implements STMTransitionAction<CartItem> {
 
     @Override
-    public void doTransition(CartItem stateEntity, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-        // Implement update quantity logic
+    public void doTransition(CartItem cartItem, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
+        UpdateCartItemQuantityPayload payload = (UpdateCartItemQuantityPayload) transitionParam;
+        int newQuantity = Math.max(0, payload.getQuantity());
+        cartItem.setQuantity(newQuantity);
     }
 }

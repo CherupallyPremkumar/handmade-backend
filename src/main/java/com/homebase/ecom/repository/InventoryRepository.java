@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryEntity, String> {
+    void findByProductVariantId(String variantId);
+
+    InventoryEntity findByProductVariantIdAndSubTenantId(String variantId,String subTenantId);
 }

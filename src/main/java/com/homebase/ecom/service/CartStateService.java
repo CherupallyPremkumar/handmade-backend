@@ -3,11 +3,9 @@ package com.homebase.ecom.service;
 import com.homebase.ecom.domain.Cart;
 import org.chenile.workflow.dto.StateEntityServiceResponse;
 
-public interface CartStateService<Cart> {
+public interface CartStateService {
 
-    StateEntityServiceResponse<Cart> create(Cart order);
+    public void refreshCart(String cartId);
 
-    StateEntityServiceResponse<Cart> processById(String id, String event, Object payload);
 
-    StateEntityServiceResponse<Cart> retrieve(String id);
 }

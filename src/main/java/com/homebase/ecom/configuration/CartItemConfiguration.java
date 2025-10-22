@@ -4,7 +4,10 @@ package com.homebase.ecom.configuration;
 
 import com.homebase.ecom.domain.CartItem;
 import com.homebase.ecom.entitystore.CartItemEntityStore;
+import com.homebase.ecom.entitystore.impl.CartItemEntityStoreImpl;
 import com.homebase.ecom.repository.CartItemRepository;
+import com.homebase.ecom.service.CartItemStateService;
+import com.homebase.ecom.service.CartStateService;
 import com.homebase.ecom.service.impl.CartItemStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
@@ -79,18 +82,35 @@ public class CartItemConfiguration {
     }
 
     @Bean
-    EntityStore<CartItem> cartItemEntityStore(CartItemRepository cartItemRepository) {
-        return new CartItemEntityStore(cartItemRepository);
+    @Autowired
+    CartItemEntityStore cartItemEntityStore(CartItemRepository cartItemRepository) {
+        return new CartItemEntityStoreImpl(cartItemRepository);
     }
+
+
+
 
     @Bean
     @Autowired
     StateEntityService<CartItem> _cartItemStateEntityService_(
             @Qualifier("cartItemEntityStm") STM<CartItem> stm,
             @Qualifier("cartItemActionsInfoProvider") STMActionsInfoProvider cartItemInfoProvider,
-            @Qualifier("cartItemEntityStore") EntityStore<CartItem> entityStore) {
-        return new CartItemStateServiceImpl(stm, cartItemInfoProvider, entityStore);
+            @Qualifier("cartItemEntityStore") CartItemEntityStore entityStore,
+            CartStateService cartStateService
+    ) {
+        return new CartItemStateServiceImpl(stm, cartItemInfoProvider, entityStore,cartStateService);
     }
+
+    @Bean
+    @Autowired
+    CartItemStateService<CartItem> _cartItemStateEntityService(
+            @Qualifier("cartItemEntityStm") STM<CartItem> stm,
+            @Qualifier("cartItemActionsInfoProvider") STMActionsInfoProvider cartItemInfoProvider,
+            @Qualifier("cartItemEntityStore") EntityStore<CartItem> entityStore,
+            @Qualifier("_cartStateEntityService_") CartStateService cartStateService) {
+        return new CartItemStateServiceImpl(stm, cartItemInfoProvider, entityStore,cartStateService);
+    }
+
 
     // Now we start constructing the STM Components
 

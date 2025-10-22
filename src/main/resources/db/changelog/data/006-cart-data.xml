@@ -45,6 +45,10 @@
             <column name="id" value="cart-item-001"/>
             <column name="tenant" value="default"/>
             <column name="cart_id" value="cart-001"/>
+            <column name="sub_tenant_id" value="tenant-001"/>
+            <column name="base_price" valueNumeric="14.40"/>
+            <column name="sale_price" valueNumeric="14.40"/>
+            <column name="snapshot_price" valueNumeric="14.40"/>
             <column name="product_variant_id" value="variant-001"/>
             <column name="quantity" valueNumeric="1"/>
             <column name="state_id" value="CREATED"/>
@@ -59,6 +63,10 @@
             <column name="id" value="cart-item-002"/>
             <column name="tenant" value="default"/>
             <column name="cart_id" value="cart-002"/>
+            <column name="sub_tenant_id" value="tenant-001"/>
+            <column name="base_price" valueNumeric="14.40"/>
+            <column name="sale_price" valueNumeric="14.40"/>
+            <column name="snapshot_price" valueNumeric="14.40"/>
             <column name="product_variant_id" value="variant-003"/>
             <column name="quantity" valueNumeric="1"/>
             <column name="state_id" value="CREATED"/>
@@ -72,7 +80,11 @@
             <column name="id" value="cart-item-003"/>
             <column name="tenant" value="default"/>
             <column name="cart_id" value="cart-001"/>
+            <column name="sub_tenant_id" value="tenant-001"/>
             <column name="product_variant_id" value="variant-002"/>
+            <column name="base_price" valueNumeric="14.40"/>
+            <column name="sale_price" valueNumeric="14.40"/>
+            <column name="snapshot_price" valueNumeric="14.40"/>
             <column name="quantity" valueNumeric="2"/>
             <column name="state_id" value="CREATED"/>
             <column name="flow_id" value="cartItemFlow"/>

@@ -1,6 +1,5 @@
 package com.homebase.ecom.entity;
 
-import com.homebase.ecom.constants.HeaderConstants;
 import jakarta.persistence.*;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;

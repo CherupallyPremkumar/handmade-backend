@@ -26,6 +26,7 @@
         created_by,
         created_time,
         last_modified_time,
+        sub_tenant_id,
         variant_id,
         quantity_committed,
         quantity_available,
@@ -74,6 +75,28 @@
     </select>
 
     <select id="getByInventoryId" resultMap="InventoryResultMap">
+        SELECT
+        id,
+        tenant,
+        quantity_on_hand,
+        state_id,
+        created_by,
+        created_time,
+        last_modified_time,
+        product_variant_id,
+        quantity_committed,
+        quantity_available,
+        quantity_back_ordered,
+        location_id
+        FROM hm_inventory
+        <where>
+            tenant= #{tenant_id} and product_variant_id=#{product_variant_id}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </select>
+    <select id="getInventoryByProductVariantIdAndSubTenantId" resultMap="InventoryResultMap">
         SELECT
         id,
         tenant,

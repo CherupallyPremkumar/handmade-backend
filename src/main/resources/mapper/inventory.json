@@ -19,6 +19,26 @@
       "test.normal",
       "test.premium"
     ]
+  },{
+    "id": "Inventory.getInventoryByProductVariantIdAndSubTenantId",
+    "name": "getInventoryByProductVariantIdAndSubTenantId",
+    "columnMetadata": {
+      "product_variant_id": {
+        "name": "id",
+        "filterable": true,
+        "columnType": "Text"
+      },
+      "sub_tenant_id": {
+        "name": "sub_tenant_id",
+        "filterable": true,
+        "columnType": "Text",
+        "containsQuery": true
+      }
+    },
+    "acls": [
+      "test.normal",
+      "test.premium"
+    ]
   },
   {
     "id": "Inventory.getAll",

@@ -10,8 +10,6 @@ chenile:
         realm: quickstart
 
 
-
-
 spring:
   datasource:
     url: jdbc:h2:mem:testdb

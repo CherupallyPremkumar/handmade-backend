@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Handles conversion between Cart domain model and CartEntity JPA entity.
  */
 
-public interface CartEntityStore<T> {
-
+public interface CartEntityStore extends EntityStore<Cart> {
+    public Cart findByCustomerId(String customerId);
 
 }

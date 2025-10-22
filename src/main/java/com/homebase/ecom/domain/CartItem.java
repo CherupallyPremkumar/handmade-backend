@@ -1,8 +1,12 @@
 package com.homebase.ecom.domain;
 
+
 import org.chenile.utils.entity.model.AbstractExtendedStateEntity;
+import org.springframework.context.event.EventListener;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartItem extends MultiTenantExtendedStateEntity {
 
@@ -10,17 +14,45 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     private String productVariantId;
 
-    private int quantity;
+    private Integer quantity;
 
-    // Price snapshot at the time of adding to cart
     private BigDecimal snapshotPrice;
 
-    // Track if the product was on sale when added
-    private Boolean wasOnSale = false;
+    private BigDecimal salePrice;
 
-    // Original price (non-sale) for reference
     private BigDecimal originalPrice;
 
+    private BigDecimal taxRate;
+
+    private BigDecimal taxAmount;
+
+    private BigDecimal totalAmount = BigDecimal.ZERO;
+
+    private boolean wasOnSale;
+
+
+    @EventListener
+    public boolean isOutOfQuanity(){
+       return this.quantity==0;
+    }
+
+    // Increment quantity safely
+    public void incrementQuantity(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Increment amount must be positive");
+        }
+        this.quantity += amount;
+    }
+
+    public void decrementQuantity(int amount) {
+        if (amount < 0) throw new IllegalArgumentException("Decrement must be positive");
+        this.quantity = Math.max(0, this.quantity - amount);
+    }
+
+
+    public boolean isOnSale() {
+        return salePrice != null && salePrice.compareTo(originalPrice) < 0;
+    }
 
     public BigDecimal getSnapshotPrice() {
         return snapshotPrice;
@@ -30,23 +62,14 @@ public class CartItem extends MultiTenantExtendedStateEntity {
         this.snapshotPrice = snapshotPrice;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-
-
-    public Boolean getWasOnSale() {
-        return wasOnSale;
-    }
-
-    public void setWasOnSale(Boolean wasOnSale) {
-        this.wasOnSale = wasOnSale;
-    }
 
     public BigDecimal getOriginalPrice() {
         return originalPrice;
@@ -70,5 +93,46 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     public void setProductVariantId(String productVariantId) {
         this.productVariantId = productVariantId;
+    }
+
+    public BigDecimal getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(BigDecimal salePrice) {
+        this.salePrice = salePrice;
+    }
+
+
+    public BigDecimal getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public boolean isWasOnSale() {
+        return wasOnSale;
+    }
+
+    public void setWasOnSale(boolean wasOnSale) {
+        this.wasOnSale = wasOnSale;
     }
 }

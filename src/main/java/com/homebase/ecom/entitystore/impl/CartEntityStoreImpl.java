@@ -6,7 +6,7 @@ import com.homebase.ecom.entitystore.CartEntityStore;
 import com.homebase.ecom.repository.CartRepository;
 import org.chenile.utils.entity.service.EntityStore;
 
-public class CartEntityStoreImpl  implements EntityStore<Cart>, CartEntityStore<Cart> {
+public class CartEntityStoreImpl  implements CartEntityStore {
     private final CartRepository cartRepository;
 
     public CartEntityStoreImpl(CartRepository cartRepository) {

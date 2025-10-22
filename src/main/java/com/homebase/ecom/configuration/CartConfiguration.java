@@ -2,8 +2,10 @@ package com.homebase.ecom.configuration;
 
 import com.homebase.ecom.domain.Cart;
 import com.homebase.ecom.entitystore.CartEntityStore;
+import com.homebase.ecom.entitystore.CartItemEntityStore;
 import com.homebase.ecom.entitystore.impl.CartEntityStoreImpl;
 import com.homebase.ecom.repository.CartRepository;
+import com.homebase.ecom.service.CartStateService;
 import com.homebase.ecom.service.impl.CartStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.core.context.ContextContainer;
@@ -16,8 +18,6 @@ import org.chenile.stm.impl.STMImpl;
 import org.chenile.stm.impl.XmlFlowReader;
 import org.chenile.stm.spring.SpringBeanFactoryAdapter;
 import org.chenile.utils.entity.service.EntityStore;
-import org.chenile.workflow.api.StateEntityService;
-import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.BaseTransitionAction;
 import org.chenile.workflow.service.stmcmds.GenericEntryAction;
 import org.chenile.workflow.service.stmcmds.GenericExitAction;
@@ -71,28 +71,24 @@ public class CartConfiguration {
         return new STMActionsInfoProvider(stmFlowStore);
     }
 
+
+
     @Bean
     @Autowired
-    EntityStore<Cart> cartEntityStore(CartRepository cartRepository) {
+    CartEntityStore cartEntityStore(CartRepository cartRepository) {
         return new CartEntityStoreImpl(cartRepository);
     }
 
     @Bean
     @Autowired
-    CartEntityStore<Cart> cartEntityStore2(CartRepository cartRepository) {
-        return new CartEntityStoreImpl(cartRepository);
-    }
-
-    @Bean
-    @Autowired
-    StateEntityService<Cart> _cartStateEntityService_(
+    CartStateService _cartStateEntityService_(
             @Qualifier("cartEntityStm") STM<Cart> stm,
             @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
-            @Qualifier("cartEntityStore") EntityStore<Cart> entityStore,
-            @Qualifier("cartEntityStore2") CartEntityStore<Cart> cartEntityStore2,
+            @Qualifier("cartEntityStore") CartEntityStore entityStore,
+            @Qualifier("cartItemEntityStore") CartItemEntityStore cartItemEntityStore,
             ContextContainer contextContainer
     ) {
-        return new CartStateServiceImpl(stm, cartInfoProvider, entityStore, cartEntityStore2,contextContainer);
+        return new CartStateServiceImpl(stm, cartInfoProvider, entityStore,cartItemEntityStore,contextContainer);
     }
 
     // Now we start constructing the STM Components

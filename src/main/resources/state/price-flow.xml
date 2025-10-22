@@ -11,6 +11,12 @@
         <manual-state id="ACTIVE">
             <on eventId="deactivate" componentName="deactivatePriceService" newStateId="INACTIVE" />
             <on eventId="expire" componentName="expirePriceService" newStateId="EXPIRED" />
+            <on eventId="putOnSale" componentName="putPriceOnSaleService" newStateId="ON_SALE" />
+        </manual-state>
+
+        <manual-state id="ON_SALE">
+            <on eventId="removeFromSale" componentName="removePriceFromSaleService" newStateId="ACTIVE" />
+            <on eventId="deactivate" componentName="deactivatePriceFromSaleService" newStateId="INACTIVE" />
         </manual-state>
 
         <manual-state id="INACTIVE">

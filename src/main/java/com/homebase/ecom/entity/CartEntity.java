@@ -1,5 +1,6 @@
 package com.homebase.ecom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
@@ -26,6 +27,9 @@ public class CartEntity extends AbstractJpaStateEntity {
 
     @Column(name = "transaction_amount", precision = 10, scale = 2)
     private BigDecimal transactionAmount = BigDecimal.ZERO;
+
+    @Column(name = "total_items_count",precision = 10,scale = 2)
+    private Integer totalItems;
 
     public String getCustomerId() {
         return customerId;
@@ -73,5 +77,13 @@ public class CartEntity extends AbstractJpaStateEntity {
 
     public void setTransactionAmount(BigDecimal transactionAmount) {
         this.transactionAmount = transactionAmount;
+    }
+
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
 }

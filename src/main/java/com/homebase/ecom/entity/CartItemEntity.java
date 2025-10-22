@@ -1,5 +1,6 @@
 package com.homebase.ecom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "hm_cart_item")
 public class CartItemEntity extends MultiTenantStateEntity {
 
-    @Column(name = "cart_id")
+    @Column(name = "cart_id", nullable = false)
     private String cartId;
 
     @Column(name = "product_variant_id", nullable = false)
@@ -21,11 +22,17 @@ public class CartItemEntity extends MultiTenantStateEntity {
     @Column(name = "snapshot_price", precision = 10, scale = 2)
     private BigDecimal snapshotPrice;
 
-    @Column(name = "was_on_sale")
-    private Boolean wasOnSale = false;
+    @Column(name = "sale_price", precision = 10, scale = 2)
+    private BigDecimal salePrice;
 
     @Column(name = "original_price", precision = 10, scale = 2)
     private BigDecimal originalPrice;
+
+    @Column(name = "tax_rate", precision = 5, scale = 4)
+    private BigDecimal taxRate;
+
+    @Column(name = "tax_amount", precision = 10, scale = 2)
+    private BigDecimal taxAmount;
 
     @Column(name = "total_amount", precision = 10, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
@@ -62,12 +69,12 @@ public class CartItemEntity extends MultiTenantStateEntity {
         this.snapshotPrice = snapshotPrice;
     }
 
-    public Boolean getWasOnSale() {
-        return wasOnSale;
+    public BigDecimal getSalePrice() {
+        return salePrice;
     }
 
-    public void setWasOnSale(Boolean wasOnSale) {
-        this.wasOnSale = wasOnSale;
+    public void setSalePrice(BigDecimal salePrice) {
+        this.salePrice = salePrice;
     }
 
     public BigDecimal getOriginalPrice() {
@@ -84,5 +91,21 @@ public class CartItemEntity extends MultiTenantStateEntity {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 }

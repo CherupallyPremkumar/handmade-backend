@@ -4,10 +4,11 @@ package com.homebase.ecom.configuration;
 
 import com.homebase.ecom.domain.Inventory;
 import com.homebase.ecom.entitystore.InventoryEntityStore;
+import com.homebase.ecom.entitystore.impl.InventoryEntityStoreImpl;
 import com.homebase.ecom.repository.InventoryRepository;
+import com.homebase.ecom.service.InventoryStateService;
 import com.homebase.ecom.service.impl.InventoryStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
-import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.BeanFactoryAdapter;
@@ -18,7 +19,6 @@ import org.chenile.stm.impl.XmlFlowReader;
 import org.chenile.stm.spring.SpringBeanFactoryAdapter;
 import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.api.StateEntityService;
-import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.BaseTransitionAction;
 import org.chenile.workflow.service.stmcmds.GenericEntryAction;
 import org.chenile.workflow.service.stmcmds.GenericExitAction;
@@ -79,16 +79,16 @@ public class InventoryConfiguration {
     }
 
     @Bean
-    EntityStore<Inventory> inventoryEntityStore(InventoryRepository inventoryRepository) {
-        return new InventoryEntityStore(inventoryRepository);
+    InventoryEntityStore<Inventory> inventoryEntityStore(InventoryRepository inventoryRepository) {
+        return new InventoryEntityStoreImpl(inventoryRepository);
     }
 
     @Bean
     @Autowired
-    StateEntityService<Inventory> _inventoryStateEntityService_(
+    InventoryStateService _inventoryStateEntityService_(
             @Qualifier("inventoryEntityStm") STM<Inventory> stm,
             @Qualifier("inventoryActionsInfoProvider") STMActionsInfoProvider inventoryInfoProvider,
-            @Qualifier("inventoryEntityStore") EntityStore<Inventory> entityStore) {
+            @Qualifier("inventoryEntityStore") InventoryEntityStore<Inventory> entityStore) {
         return new InventoryStateServiceImpl(stm, inventoryInfoProvider, entityStore);
     }
 

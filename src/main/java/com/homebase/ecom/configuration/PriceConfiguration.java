@@ -4,10 +4,11 @@ package com.homebase.ecom.configuration;
 
 import com.homebase.ecom.domain.Price;
 import com.homebase.ecom.entitystore.PriceEntityStore;
+import com.homebase.ecom.entitystore.impl.PriceEntityStoreImpl;
 import com.homebase.ecom.repository.PriceRepository;
+import com.homebase.ecom.service.PriceStateService;
 import com.homebase.ecom.service.impl.PriceStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
-import org.chenile.core.context.ContextContainer;
 import org.chenile.stm.STM;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.BeanFactoryAdapter;
@@ -17,8 +18,6 @@ import org.chenile.stm.impl.STMImpl;
 import org.chenile.stm.impl.XmlFlowReader;
 import org.chenile.stm.spring.SpringBeanFactoryAdapter;
 import org.chenile.utils.entity.service.EntityStore;
-import org.chenile.workflow.api.StateEntityService;
-import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.BaseTransitionAction;
 import org.chenile.workflow.service.stmcmds.GenericEntryAction;
 import org.chenile.workflow.service.stmcmds.GenericExitAction;
@@ -79,16 +78,16 @@ public class PriceConfiguration {
     }
 
     @Bean
-    EntityStore<Price> priceEntityStore(PriceRepository priceRepository) {
-        return new PriceEntityStore(priceRepository);
+    PriceEntityStore priceEntityStore(PriceRepository priceRepository) {
+        return new PriceEntityStoreImpl(priceRepository);
     }
 
     @Bean
     @Autowired
-    StateEntityService<Price> _priceStateEntityService_(
+    PriceStateService _priceStateEntityService_(
             @Qualifier("priceEntityStm") STM<Price> stm,
             @Qualifier("priceActionsInfoProvider") STMActionsInfoProvider priceInfoProvider,
-            @Qualifier("priceEntityStore") EntityStore<Price> entityStore) {
+            @Qualifier("priceEntityStore") PriceEntityStore entityStore) {
         return new PriceStateServiceImpl(stm, priceInfoProvider, entityStore);
     }
 

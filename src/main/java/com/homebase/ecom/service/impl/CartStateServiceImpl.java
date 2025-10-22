@@ -2,6 +2,7 @@ package com.homebase.ecom.service.impl;
 
 import com.homebase.ecom.domain.Cart;
 import com.homebase.ecom.entitystore.CartEntityStore;
+import com.homebase.ecom.entitystore.CartItemEntityStore;
 import com.homebase.ecom.entitystore.impl.CartEntityStoreImpl;
 import com.homebase.ecom.service.CartStateService;
 import org.chenile.core.context.ContextContainer;
@@ -13,10 +14,11 @@ import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class CartStateServiceImpl extends StateEntityServiceImpl<Cart> implements CartStateService<Cart> {
+public class CartStateServiceImpl extends StateEntityServiceImpl<Cart> implements CartStateService {
 
+    CartEntityStore cartEntityStore;
 
-    CartEntityStoreImpl cartEntityStore;
+    CartItemEntityStore cartItemEntityStore;
 
     ContextContainer contextContainer;
 
@@ -26,27 +28,24 @@ public class CartStateServiceImpl extends StateEntityServiceImpl<Cart> implement
      * @param entityStore            the store for persisting the entity
      */
     public CartStateServiceImpl(STM<Cart> stm, STMActionsInfoProvider stmActionsInfoProvider,
-                                EntityStore<Cart> entityStore,
-                                CartEntityStore<Cart> cartEntityStore,
+                                CartEntityStore entityStore,
+                                CartItemEntityStore cartItemEntityStore,
                                 ContextContainer contextContainer
     ) {
         super(stm, stmActionsInfoProvider, entityStore);
-        this.cartEntityStore= (CartEntityStoreImpl) cartEntityStore;
+        this.cartEntityStore =entityStore;
+        this.cartItemEntityStore=cartItemEntityStore;
         this.contextContainer=contextContainer;
     }
 
-    @Override
-    protected Cart processEntity(Cart entity, String event, Object payload) {
-        Cart cart=cartEntityStore.findByCustomerId(contextContainer.getUser());
-        if(cart!=null){
-            return cart;
-        }
-        entity.setCustomerId(contextContainer.getUser());
-        return super.processEntity(entity, event, payload);
-    }
 
     @Override
     public StateEntityServiceResponse<Cart> create(Cart entity) {
+        Cart cart=cartEntityStore.findByCustomerId(contextContainer.getUser());
+        if(cart!=null){
+            return super.process(cart,null,null);
+        }
+        entity.setCustomerId(contextContainer.getUser());
         return super.create(entity);
     }
 
@@ -58,5 +57,11 @@ public class CartStateServiceImpl extends StateEntityServiceImpl<Cart> implement
     @Override
     public StateEntityServiceResponse<Cart> processById(String id, String event, Object payload) {
         return super.processById(id, event, payload);
+    }
+
+
+    @Override
+    public void refreshCart(String cartId) {
+        processById(cartId,"refresh",null);
     }
 }

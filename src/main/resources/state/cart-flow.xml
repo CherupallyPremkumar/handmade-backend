@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
 
+
+
     <flow id="cartFlow" default="true">
         <entry-action componentName="cartEntryAction" />
         <exit-action componentName="cartExitAction" />
 
-        <manual-state id="CREATED" initialState="true">
-            <on eventId="addItem" componentName="addItemAction" />
-            <on eventId="removeItem" componentName="removeItemAction" />
+        <manual-state id="EMPTY" initialState="true">
+            <on eventId="expire" newStateId="EXPIRED"/>
+            <on eventId="refresh" componentName="refreshCartService" newStateId="RECALCULATE_CART"/>
+        </manual-state>
+        <auto-state id='RECALCULATE_CART' componentName="cartRecalculateService">
+            <on condition="success" newStateId="READY"/>
+            <on condition="error" newStateId="RECALCULATE_ERROR_CART"/>
+        </auto-state>
+        <auto-state id='RECALCULATE_ERROR_CART' componentName="cartRecalculateService">
+            <on condition="success" newStateId="READY"/>
+            <on condition="error" newStateId="READY"/>
+        </auto-state>
+        <manual-state id="READY">
+            <on eventId="refresh" componentName="refreshCartService" newStateId="RECALCULATE_CART"/>
             <on eventId="checkout" newStateId="CHECKOUT_INITIATED" />
         </manual-state>
-
         <manual-state id="CHECKOUT_INITIATED">
-            <on eventId="confirmPayment" newStateId="PAYMENT_CONFIRMED" />
-            <on eventId="cancel" newStateId="CREATED" />
+            <!-- Payment success moves cart to order or next step -->
+            <on eventId="paymentSuccess" newStateId="CHECKED_OUT"/>
+            <on eventId="paymentFailed" newStateId="READY"/>
+            <on eventId="cancel" newStateId="READY"/>
         </manual-state>
+        <manual-state id="CHECKED_OUT"/>
+        <manual-state id="EXPIRED"/>
 
-        <manual-state id="PAYMENT_CONFIRMED">
-            <on eventId="ship"  newStateId="SHIPPED" />
-        </manual-state>
-
-        <manual-state id="SHIPPED">
-            <on eventId="deliver"  newStateId="DELIVERED" />
-        </manual-state>
-
-        <manual-state id="DELIVERED" />
     </flow>
 
 </states>

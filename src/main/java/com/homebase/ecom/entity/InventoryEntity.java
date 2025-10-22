@@ -44,4 +44,35 @@ public class InventoryEntity extends MultiTenantStateEntity {
         this.productVariantId = productVariantId;
     }
 
+    public int getQuantityOnHand() {
+        return quantityOnHand;
+    }
+
+    public void setQuantityOnHand(int quantityOnHand) {
+        this.quantityOnHand = quantityOnHand;
+    }
+
+    public int getQuantityCommitted() {
+        return quantityCommitted;
+    }
+
+    public void setQuantityCommitted(int quantityCommitted) {
+        this.quantityCommitted = quantityCommitted;
+    }
+
+    public int getQuantityAvailable() {
+        return quantityAvailable;
+    }
+
+    public void setQuantityAvailable(int quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
+
+    public int getQuantityBackOrdered() {
+        return quantityBackOrdered;
+    }
+
+    public void setQuantityBackOrdered(int quantityBackOrdered) {
+        this.quantityBackOrdered = quantityBackOrdered;
+    }
 }
