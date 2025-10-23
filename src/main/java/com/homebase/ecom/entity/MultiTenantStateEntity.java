@@ -1,5 +1,6 @@
 package com.homebase.ecom.entity;
 
+import com.homebase.ecom.constants.HmHeaderUtils;
 import jakarta.persistence.*;
 import org.chenile.core.context.ContextContainer;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
@@ -25,10 +26,9 @@ public abstract class MultiTenantStateEntity extends AbstractJpaStateEntity {
 
     @Override
     protected void initializeIfRequired() {
-        super.initializeIfRequired();
         ContextContainer contextContainer = ContextContainer.getInstance();
         if (this.subTenantId == null) {
-            this.subTenantId = contextContainer.get(HeaderConstants.HEADER_SUB_TENANT_ID);
+            this.subTenantId = contextContainer.get(HmHeaderUtils.SUB_TENANT_ID_KEY);
         }
     }
 }

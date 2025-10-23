@@ -9,27 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartItem extends MultiTenantExtendedStateEntity {
-
     private String cartId;
-
     private String productVariantId;
-
     private Integer quantity;
-
     private BigDecimal snapshotPrice;
-
     private BigDecimal salePrice;
-
     private BigDecimal originalPrice;
-
     private BigDecimal taxRate;
-
     private BigDecimal taxAmount;
-
     private BigDecimal totalAmount = BigDecimal.ZERO;
-
     private boolean wasOnSale;
-
     private String country;
     private String state;
     private String productCategory;
