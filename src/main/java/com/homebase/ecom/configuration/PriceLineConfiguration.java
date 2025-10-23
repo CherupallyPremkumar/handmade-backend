@@ -9,6 +9,7 @@ import com.homebase.ecom.repository.PriceLineRepository;
 import com.homebase.ecom.service.PriceLineStateService;
 
 import com.homebase.ecom.service.impl.BasePriceLineCalculator;
+import com.homebase.ecom.service.impl.PriceCalculationService;
 import com.homebase.ecom.service.impl.PriceLineStateServiceImpl;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.stm.STM;
@@ -81,7 +82,7 @@ public class PriceLineConfiguration {
 
     @Bean
     @Autowired
-    PriceLineEntityStore priceLineEntityStore(PriceLineRepository priceLineRepository) {
+    EntityStore<PriceLine> priceLineEntityStore(PriceLineRepository priceLineRepository) {
         return new PriceLineEntityStoreImpl(priceLineRepository);
     }
 
@@ -90,8 +91,10 @@ public class PriceLineConfiguration {
     PriceLineStateService _priceLineStateEntityService_(
             @Qualifier("priceLineEntityStm") STM<PriceLine> stm,
             @Qualifier("priceLineActionsInfoProvider") STMActionsInfoProvider priceLineInfoProvider,
-            @Qualifier("priceLineEntityStore") PriceLineEntityStore entityStore) {
-        return new PriceLineStateServiceImpl(stm, priceLineInfoProvider, entityStore);
+            @Qualifier("priceLineEntityStore") EntityStore<PriceLine> priceLineEntityStore,
+            PriceCalculationService priceCalculationService
+    ) {
+        return new PriceLineStateServiceImpl(stm, priceLineInfoProvider, priceLineEntityStore, priceCalculationService);
     }
 
     @Bean
@@ -99,8 +102,8 @@ public class PriceLineConfiguration {
     BasePriceLineCalculator basePriceLineCalculator(
             @Qualifier("priceLineEntityStm") STM<PriceLine> stm,
             @Qualifier("priceLineActionsInfoProvider") STMActionsInfoProvider priceLineInfoProvider,
-            @Qualifier("priceLineEntityStore") PriceLineEntityStore entityStore) {
-        return new PriceLineStateServiceImpl(stm, priceLineInfoProvider, entityStore);
+            @Qualifier("priceLineEntityStore") EntityStore<PriceLine> entityStore,PriceCalculationService priceCalculationService) {
+        return new PriceLineStateServiceImpl(stm, priceLineInfoProvider, entityStore,priceCalculationService);
     }
 
     // Now we start constructing the STM Components

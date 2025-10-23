@@ -10,31 +10,43 @@ import com.homebase.ecom.errorcodes.ErrorCodes;
 import com.homebase.ecom.service.PriceStateService;
 import com.homebase.ecom.service.price.factory.PriceLineServiceFactory;
 import com.homebase.ecom.service.price.factory.PriceLineStrategyService;
-
 import org.chenile.base.exception.BadRequestException;
 import org.chenile.base.exception.ServerException;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.workflow.dto.StateEntityServiceResponse;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 import static org.chenile.core.context.ContextContainer.CONTEXT_CONTAINER;
 
+/**
+ * State service implementation for Price with improved error handling and
+ * logging
+ */
 public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> implements PriceStateService {
 
-    PriceEntityStore priceEntityStore;
-    PriceLineServiceFactory priceLineServiceFactory;
+    private static final Logger logger = LoggerFactory.getLogger(PriceStateServiceImpl.class);
+
+    private final PriceEntityStore priceEntityStore;
+    private final PriceLineServiceFactory priceLineServiceFactory;
+
     /**
-     * @param stm                    the state machine that has read the corresponding State Transition Diagram
-     * @param stmActionsInfoProvider the provider that gives out info about the state diagram
+     * @param stm                    the state machine that has read the
+     *                               corresponding State Transition Diagram
+     * @param stmActionsInfoProvider the provider that gives out info about the
+     *                               state diagram
      * @param entityStore            the store for persisting the entity
      */
-    public PriceStateServiceImpl(STM<Price> stm, STMActionsInfoProvider stmActionsInfoProvider, PriceEntityStore entityStore) {
+    public PriceStateServiceImpl(STM<Price> stm, STMActionsInfoProvider stmActionsInfoProvider,
+            PriceEntityStore entityStore,PriceLineServiceFactory priceLineServiceFactory) {
         super(stm, stmActionsInfoProvider, entityStore);
-        priceEntityStore=entityStore;
+        priceEntityStore = entityStore;
+       this.priceLineServiceFactory=priceLineServiceFactory;
     }
 
     @Override
@@ -54,11 +66,11 @@ public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> impleme
             makePriceObject(price, (PriceLinePayload) payload);
             super.create(price);
         }
-        PriceLine priceLine=createPriceLine(price.getId(), (PriceLinePayload) payload);
+        PriceLine priceLine = createPriceLine(price.getId(), (PriceLinePayload) payload);
         if (priceLine == null) {
-            throw new ServerException(ErrorCodes.PRICE_NOT_FOUND.getSubError(), new Object[]{priceLine});
+            throw new ServerException(ErrorCodes.PRICE_NOT_FOUND.getSubError(), new Object[] { priceLine });
         }
-        return super.processById(price.getId(), null,null);
+        return super.processById(price.getId(), null, null);
     }
 
     private void makePriceObject(Price price, PriceLinePayload payload) {
@@ -77,19 +89,17 @@ public class PriceStateServiceImpl extends StateEntityServiceImpl<Price> impleme
         }
     }
 
-
     @Override
     public CartItem calculate(CartItem cartItem) {
-        if (cartItem == null) return null;
+        if (cartItem == null)
+            return null;
         Price price = priceEntityStore.findPriceByProductVariantId(cartItem.getProductVariantId());
         if (price == null) {
             throw new IllegalStateException("Price not found for productVariantId: " + cartItem.getProductVariantId());
         }
         PriceLineStrategyService strategy = priceLineServiceFactory.getFactory(cartItem.getCountry());
-        cartItem = strategy.calculatePrice(price.getId(),cartItem);
+        cartItem = strategy.calculatePrice(price.getId(), cartItem);
         return cartItem;
     }
-
-
 
 }

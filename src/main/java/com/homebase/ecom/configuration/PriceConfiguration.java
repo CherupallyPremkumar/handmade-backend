@@ -8,6 +8,7 @@ import com.homebase.ecom.entitystore.impl.PriceEntityStoreImpl;
 import com.homebase.ecom.repository.PriceRepository;
 import com.homebase.ecom.service.PriceStateService;
 import com.homebase.ecom.service.impl.PriceStateServiceImpl;
+import com.homebase.ecom.service.price.factory.PriceLineServiceFactory;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.stm.STM;
 import org.chenile.stm.action.STMTransitionAction;
@@ -87,8 +88,9 @@ public class PriceConfiguration {
     PriceStateService _priceStateEntityService_(
             @Qualifier("priceEntityStm") STM<Price> stm,
             @Qualifier("priceActionsInfoProvider") STMActionsInfoProvider priceInfoProvider,
-            @Qualifier("priceEntityStore") PriceEntityStore entityStore) {
-        return new PriceStateServiceImpl(stm, priceInfoProvider, entityStore);
+            @Qualifier("priceEntityStore") PriceEntityStore entityStore,
+            PriceLineServiceFactory priceLineServiceFactory) {
+        return new PriceStateServiceImpl(stm, priceInfoProvider, entityStore,priceLineServiceFactory);
     }
 
 

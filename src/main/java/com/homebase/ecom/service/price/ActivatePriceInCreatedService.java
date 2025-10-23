@@ -13,17 +13,7 @@ import org.springframework.stereotype.Service;
 public class ActivatePriceInCreatedService implements STMTransitionAction<PriceLine> {
 
     @Override
-    public void doTransition(Price price, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-        if (!(transitionParam instanceof ActivatePriceCommand)) {
-            throw new IllegalArgumentException("Invalid transition parameter for activating price");
-        }
+    public void doTransition(PriceLine stateEntity, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
 
-        ActivatePriceCommand command = (ActivatePriceCommand) transitionParam;
-        if (!price.getProductVariantId().equals(command.getProductVariantId())) {
-            throw new IllegalStateException("Product variant ID mismatch during price activation");
-        }
-        if (price.getAmount() == null || price.getAmount().signum() <= 0) {
-            throw new IllegalStateException("Price amount must be greater than zero to activate");
-        }
     }
 }

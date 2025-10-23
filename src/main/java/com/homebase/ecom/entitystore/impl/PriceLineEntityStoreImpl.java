@@ -6,10 +6,15 @@ import com.homebase.ecom.entitystore.PriceEntityStore;
 import com.homebase.ecom.entitystore.PriceLineEntityStore;
 import com.homebase.ecom.repository.PriceLineRepository;
 import org.chenile.utils.entity.service.EntityStore;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Entity store for PriceLine with caching support
+ */
 public class PriceLineEntityStoreImpl implements EntityStore<PriceLine> , PriceLineEntityStore {
 
     private final PriceLineRepository priceLineRepository;
@@ -19,6 +24,7 @@ public class PriceLineEntityStoreImpl implements EntityStore<PriceLine> , PriceL
     }
 
     @Override
+    @CacheEvict(value = "priceLines", key = "#priceLine.priceId + ':' + #priceLine.currency")
     public void store(PriceLine priceLine) {
         PriceLineEntity entity = toEntity(priceLine);
         priceLineRepository.save(entity);
@@ -26,12 +32,14 @@ public class PriceLineEntityStoreImpl implements EntityStore<PriceLine> , PriceL
     }
 
     @Override
+    @Cacheable(value = "priceLines", key = "#id", unless = "#result == null")
     public PriceLine retrieve(String id) {
         Optional<PriceLineEntity> entityOpt = priceLineRepository.findById(id);
         return entityOpt.map(this::toDomain).orElse(null);
     }
 
     @Override
+    @Cacheable(value = "priceLines", key = "#priceId + ':' + #currency", unless = "#result == null")
     public PriceLine findByPriceIdAndCurrency(String priceId, String currency) {
         PriceLineEntity entity = priceLineRepository.findByPriceIdAndCurrency(priceId, currency)
                 .orElseThrow(() -> new IllegalStateException(

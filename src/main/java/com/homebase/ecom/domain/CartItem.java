@@ -22,6 +22,7 @@ public class CartItem extends MultiTenantExtendedStateEntity {
     private String country;
     private String state;
     private String productCategory;
+    private BigDecimal savingAmount;
 
 
     @EventListener
@@ -151,5 +152,13 @@ public class CartItem extends MultiTenantExtendedStateEntity {
 
     public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public BigDecimal getSavingAmount() {
+        return savingAmount;
+    }
+
+    public void setSavingAmount(BigDecimal savingAmount) {
+        this.savingAmount = savingAmount;
     }
 }

@@ -42,47 +42,13 @@ public class PriceEntityStoreImpl implements PriceEntityStore {
         PriceEntity entity = new PriceEntity();
         entity.setId(domain.getId());
         entity.setProductVariantId(domain.getProductVariantId());
-        entity.setCurrency(domain.getCurrency());
-
-        // Convert Double amount to String
-        if (domain.getAmount() != null) {
-            entity.setPrice(String.valueOf(domain.getAmount()));
-        }
-
-        // Convert Double discountPercentage to BigDecimal
-        if (domain.getDiscountPercentage() != null) {
-            entity.setDiscountPercentage(BigDecimal.valueOf(domain.getDiscountPercentage()));
-        } else {
-            entity.setDiscountPercentage(BigDecimal.ZERO);
-        }
-
         return entity;
     }
 
     private Price toDomain(PriceEntity entity) {
         if (entity == null) return null;
-
         Price domain = new Price();
-        domain.setId(entity.getId());
         domain.setProductVariantId(entity.getProductVariantId());
-        domain.setCurrency(entity.getCurrency());
-
-        // Convert String price to Double
-        try {
-            if (entity.getPrice() != null) {
-                domain.setAmount(Double.parseDouble(entity.getPrice()));
-            }
-        } catch (NumberFormatException e) {
-            domain.setAmount(0.0);
-        }
-
-        // Convert BigDecimal discountPercentage to Double
-        if (entity.getDiscountPercentage() != null) {
-            domain.setDiscountPercentage(entity.getDiscountPercentage().doubleValue());
-        } else {
-            domain.setDiscountPercentage(0.0);
-        }
-
         return domain;
     }
 }
