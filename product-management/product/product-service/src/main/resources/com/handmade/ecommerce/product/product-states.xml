@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <flow id="productFlow" default="true">
+
+        <entry-action componentName="productEntryAction"/>
+        <exit-action componentName="productExitAction"/>
+
+        <!-- DRAFT -->
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="IN_REVIEW" componentName="onSubmitProductService"/>
+        </manual-state>
+
+        <!-- IN_REVIEW -->
+        <manual-state id="IN_REVIEW">
+            <on eventId="approve" newStateId="READY_FOR_PUBLISH" componentName="onApproveProductService"/>
+            <on eventId="request_changes" newStateId="DRAFT" componentName="onRequestChangesProductService"/>
+        </manual-state>
+
+        <!-- READY_FOR_PUBLISH -->
+        <manual-state id="READY_FOR_PUBLISH">
+            <on eventId="publish" newStateId="ACTIVE" componentName="onPublishProductService"/>
+            <on eventId="request_changes" newStateId="IN_REVIEW" componentName="onRequestChangesProductService"/>
+        </manual-state>
+
+        <!-- ACTIVE -->
+        <manual-state id="ACTIVE">
+            <on eventId="hide" newStateId="HIDDEN" componentName="onHideProductService"/>
+        </manual-state>
+
+        <!-- HIDDEN -->
+        <manual-state id="HIDDEN">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="onArchiveProductService"/>
+            <on eventId="unhide" newStateId="ACTIVE" componentName="onUnhideProductService"/>
+        </manual-state>
+
+        <!-- ARCHIVED (final) -->
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+
+    </flow>
+
+</states>

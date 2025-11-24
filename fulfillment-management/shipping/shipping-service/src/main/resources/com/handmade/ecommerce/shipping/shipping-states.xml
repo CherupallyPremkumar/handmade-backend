@@ -1,0 +1,23 @@
+<states>
+<flow id="artisan-flow" default="true">
+<entry-action componentName="artisanEntryAction" />
+<exit-action componentName="artisanExitAction" />
+
+<manual-state id="CREATED" initialState="true">
+<on eventId="activate" componentName="activateArtisanInCreatedService" newStateId="ACTIVE" />
+</manual-state>
+
+<manual-state id="ACTIVE">
+<on eventId="deactivate" componentName="deactivateArtisanService" newStateId="INACTIVE" />
+<on eventId="suspend" componentName="suspendArtisanService" newStateId="SUSPENDED" />
+</manual-state>
+
+<manual-state id="INACTIVE">
+<on eventId="activate" componentName="activateArtisanInInActiveService" newStateId="ACTIVE" />
+</manual-state>
+
+<manual-state id="SUSPENDED">
+<on eventId="activate" componentName="activateArtisanInInSuspendService" newStateId="ACTIVE" />
+</manual-state>
+</flow>
+</states>

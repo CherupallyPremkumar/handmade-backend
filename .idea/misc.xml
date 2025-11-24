@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../seller/pom.xml" />
+        <option value="$PROJECT_DIR$/user/pom.xml" />
+        <option value="$PROJECT_DIR$/artisan/pom.xml" />
+        <option value="$PROJECT_DIR$/location/pom.xml" />
+        <option value="$PROJECT_DIR$/orderline/pom.xml" />
+        <option value="$PROJECT_DIR$/order/pom.xml" />
+        <option value="$PROJECT_DIR$/price/pom.xml" />
+        <option value="$PROJECT_DIR$/product-catalog/product/pom.xml" />
+        <option value="$PROJECT_DIR$/pricing-engine/price/pom.xml" />
+        <option value="$PROJECT_DIR$/product-catalog/variant/pom.xml" />
+        <option value="$PROJECT_DIR$/inventory-management/location/location-api/pom.xml" />
+        <option value="$PROJECT_DIR$/inventory-management/inventory/pom.xml" />
+        <option value="$PROJECT_DIR$/common-library/common/pom.xml" />
+        <option value="$PROJECT_DIR$/order-management/orderline/pom.xml" />
+        <option value="$PROJECT_DIR$/order-management/order/pom.xml" />
+        <option value="$PROJECT_DIR$/user-management/user/pom.xml" />
+        <option value="$PROJECT_DIR$/fulfillment-management/pom.xml" />
+        <option value="$PROJECT_DIR$/fulfillment-management/shipping/pom.xml" />
+        <option value="$PROJECT_DIR$/inventory-management/location/pom.xml" />
+        <option value="$PROJECT_DIR$/messaging-management/pom.xml" />
+        <option value="$PROJECT_DIR$/messaging-management/events/pom.xml" />
+        <option value="$PROJECT_DIR$/messaging-management/notification/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-audit-management/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-core-management/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-core-management/artisan/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-core-management/seller/pom.xml" />
+        <option value="$PROJECT_DIR$/product-management/pom.xml" />
+        <option value="$PROJECT_DIR$/tenant-management/pom.xml" />
+        <option value="$PROJECT_DIR$/tenant-management/tenant/pom.xml" />
+        <option value="$PROJECT_DIR$/supplier-management/supplier/supplier-api/pom.xml" />
+        <option value="$PROJECT_DIR$/productorch/productorch-service/pom.xml" />
+        <option value="$PROJECT_DIR$/productorch/pom.xml" />
+        <option value="$PROJECT_DIR$/event/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/common-events/pom.xml" />
+        <option value="$PROJECT_DIR$/event-common/pom.xml" />
+        <option value="$PROJECT_DIR$/user-cart/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

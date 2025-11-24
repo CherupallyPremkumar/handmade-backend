@@ -1,0 +1,46 @@
+
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:handmadeDB          # in-memory H2 database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true                       # enable H2 web console
+      path: /h2-console                   # accessible at http://localhost:8080/h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update                     # automatically create/update tables
+    show-sql: true                         # print SQL queries in logs
+
+# Optional: set logging level
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Optional: define active profile
+
+  profiles:
+    active: default
+
+chenile:
+  security:
+    keycloak:
+      host: http://localhost:8082 # Keycloak host
+      port: 8080 # Keycloak port
+      base:
+        realm: tenant0 # Default realm
+    client:
+      id: authz-servlet
+      secret: secret
+    login:
+      success-url: / # Redirect after successful login
+      failure-url: /
+    ignore: false
+server:
+  port: 8080
+  main:
+    allow-bean-definition-overriding: true

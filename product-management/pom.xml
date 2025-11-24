@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modules>
+        <module>product</module>
+        <module>variant</module>
+    </modules>
+    <groupId>com.handmade.ecommerce.product-catalog</groupId>
+    <version>${revision}</version>
+    <artifactId>product-management</artifactId>
+    <name>product-catalog</name>
+
+    <properties>
+        <prouct-catalog.version>${revision}</prouct-catalog.version>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+</project>
