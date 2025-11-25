@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.handmade.ecommerce.event</groupId>
+    <artifactId>event-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.handmade.ecommerce.event</groupId>
+  <artifactId>event-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Event Service Implementations</name>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.handmade.ecommerce.event</groupId>
+      <artifactId>event-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.chenile</groupId>
+      <artifactId>chenile-http</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.chenile</groupId>
+      <artifactId>cucumber-utils</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

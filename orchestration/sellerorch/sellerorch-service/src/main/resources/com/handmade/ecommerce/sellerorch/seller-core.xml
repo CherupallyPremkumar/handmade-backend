@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flows>
+    <flow id="seller-orchestration" defaultFlow="true">
+        <seller-chain>
+            <validate-seller-service/>
+            
+            <create-seller-service/>
+            
+            <verify-kyc-service/>
+            
+            <seller-parallel-chain>
+                <setup-bank-account-service/>
+                <send-welcome-email-service/>
+            </seller-parallel-chain>
+        </seller-chain>
+    </flow>
+</flows>

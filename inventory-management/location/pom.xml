@@ -8,9 +8,10 @@
 		<module>location-service</module>
 	</modules>
 	<parent>
-		<groupId>com.handmade.ecommerce</groupId>
+		<groupId>com.handmade.ecommerce.inventory-management</groupId>
+		<artifactId>inventory-management</artifactId>
 		<version>${revision}</version>
-		<artifactId>handmade-parent</artifactId>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<properties>

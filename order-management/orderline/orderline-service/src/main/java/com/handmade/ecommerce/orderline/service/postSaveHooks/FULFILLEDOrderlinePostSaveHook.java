@@ -1,6 +1,5 @@
 package com.handmade.ecommerce.orderline.service.postSaveHooks;
 
-import com.handmade.ecommerce.events.model.OrderLineEvent;
 import com.handmade.ecommerce.orderline.model.Orderline;
 import org.chenile.workflow.model.TransientMap;
 import org.chenile.workflow.service.stmcmds.PostSaveHook;
@@ -16,12 +15,6 @@ public class FULFILLEDOrderlinePostSaveHook implements PostSaveHook<Orderline>{
     private ApplicationEventPublisher eventPublisher;
 	@Override
     public void execute(Orderline orderline, TransientMap map){
-        OrderLineEvent fulfilledEvent = new OrderLineEvent(
-                this, // source
-                orderline.getOrderId(),
-                OrderLineEvent.ActionType.FULFILLED
-        );
 
-        eventPublisher.publishEvent(fulfilledEvent);
     }
 }

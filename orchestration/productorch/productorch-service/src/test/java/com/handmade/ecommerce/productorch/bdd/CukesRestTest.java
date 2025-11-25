@@ -6,8 +6,6 @@ import org.springframework.test.context.ActiveProfiles;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
-import static org.junit.Assert.assertEquals;
-
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/features",

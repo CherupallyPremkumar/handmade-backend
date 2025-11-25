@@ -9,32 +9,42 @@
   </parent>
 
   <modules>
+    <!-- Core Domains -->
+    <module>seller-management</module>
+    <module>artisan-management</module>
     <module>product-management</module>
-    <module>location</module>
-    <module>seller</module>
-    <module>user</module>
-    <module>common</module>
-    <module>payment-management</module>
-    <module>pricing-engine</module>
-    <module>events</module>
-    <module>artisan</module>
-    <module>app-boot</module>
-    <module>product-catalog</module>
-    <module>pricing-engine</module>
     <module>order-management</module>
-    <module>tenant-core</module>
-    <module>payment-management</module>
-    <module>app-boot</module>
-    <module>fulfillment</module>
-    <module>user-management</module>
-    <module>platform-audit</module>
-    <module>messaging-channel</module>
-    <module>common-library</module>
-    <module>platform-core</module>
+    <module>pricing-engine</module>
+    <module>customer-management</module>
+    <module>review-management</module>
+    <module>commission-management</module>
+    <module>promotion-management</module>
+    
+    <!-- Supporting Subdomains -->
     <module>inventory-management</module>
-    <module>procurement-Management</module>
+    <module>payment-management</module>
+    <module>fulfillment-management</module>
+    <module>user-management</module>
+    <module>tenant-management</module>
+    <module>dispute-management</module>
+    <module>analytics-management</module>
+    <module>catalog-management</module>
+    <module>shipping-management</module>
+    
+    <!-- Generic Subdomains -->
+    <module>financial-settlement</module>
+    <module>event-management</module>
+    
+    <!-- Infrastructure -->
+    <module>common-library</module>
+    <module>notification-management</module>
+    <module>content-management</module>
+    <module>platform-audit-management</module>
     <module>orchestration</module>
-    <module>event-common</module>
+    <module>app-boot</module>
+    <module>security-management</module>
+    <module>search-management</module>
+    <module>messaging-management</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>

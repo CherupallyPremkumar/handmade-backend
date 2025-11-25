@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Seller State Machine - Complete Lifecycle Management
+States: DRAFT → PENDING_VERIFICATION → VERIFICATION_COMPLETE → ACTIVE → SUSPENDED/PENDING_TERMINATION → TERMINATED
+-->
+<states>
+    <enablement-strategy componentName="sellerConfigBasedEnablementStrategy"/>
+    <default-transition-action componentName="sellerBaseTransitionAction"/>
+    
+    <!-- Custom DSL tags for cleaner syntax -->
+    <add-transition-tag tag="mandatory-activity" meta-activity="MANDATORY" meta-acls="seller.admin" eventIdTag="id"/>
+    <add-transition-tag tag="optional-activity" meta-activity="OPTIONAL" meta-acls="seller.admin" eventIdTag="id"/>
+    <add-state-tag tag="status" manualState="true"/>
+    <add-transition-tag tag="on-action" eventIdTag="id" newStateIdTag="move-to" meta-acls="seller.admin"/>
+
+    <!-- ======= EVENT DEFINITIONS ======= -->
+    <event-information eventId='submitApplication' meta-bodyType='com.handmade.ecommerce.seller.dto.command.SubmitApplicationPayload'/>
+    <event-information eventId='requestMoreInfo' meta-bodyType='com.handmade.ecommerce.seller.dto.command.RequestMoreInfoPayload'/>
+    <event-information eventId='submitAdditionalInfo' meta-bodyType='com.handmade.ecommerce.seller.dto.command.SubmitAdditionalInfoPayload'/>
+    <event-information eventId='approve' meta-bodyType='com.handmade.ecommerce.seller.dto.command.ApproveSellerPayload'/>
+    <event-information eventId='reject' meta-bodyType='com.handmade.ecommerce.seller.dto.command.RejectSellerPayload'/>
+    <event-information eventId='suspend' meta-bodyType='com.handmade.ecommerce.seller.dto.command.SuspendSellerPayload'/>
+    <event-information eventId='reactivate' meta-bodyType='com.handmade.ecommerce.seller.dto.command.ReactivateSellerPayload'/>
+    <event-information eventId='requestTermination' meta-bodyType='com.handmade.ecommerce.seller.dto.command.RequestTerminationPayload'/>
+    <event-information eventId='cancelTermination'/>
+    <event-information eventId='terminate' meta-bodyType='com.handmade.ecommerce.seller.dto.command.TerminateSellerPayload'/>
+    <event-information eventId='delete'/>
+    <event-information eventId='reapply'/>
+
+    <!-- ======= FLOW DEFINITION ======= -->
+    <flow id="SellerFlow" default="true">
+        <entry-action componentName="sellerEntryAction"/>
+        <exit-action componentName="sellerExitAction"/>
+        <security-strategy componentName="stmSecurityStrategy"/>
+
+        <!-- DRAFT: Seller started registration but hasn't submitted -->
+        <status id="DRAFT" initialState="true">
+            <on-action id="submitApplication" move-to="PENDING_VERIFICATION"/>
+            <on-action id="delete" move-to="DELETED"/>
+        </status>
+
+        <!-- PENDING_VERIFICATION: Application submitted, awaiting verification -->
+        <status id="PENDING_VERIFICATION">
+            <!-- Mandatory verification activities -->
+            <mandatory-activity id="verifyBusinessDocuments"/>
+            <mandatory-activity id="verifyBankAccount"/>
+            <mandatory-activity id="verifyKYC"/>
+            
+            <on-action id="requestMoreInfo" move-to="INFO_REQUESTED"/>
+            <on-action id="reject" move-to="REJECTED"/>
+            <on-action id="approve" move-to="VERIFICATION_COMPLETE"/>
+        </status>
+
+        <!-- INFO_REQUESTED: Additional information requested from seller -->
+        <status id="INFO_REQUESTED">
+            <on-action id="submitAdditionalInfo" move-to="PENDING_VERIFICATION"/>
+            <on-action id="reject" move-to="REJECTED"/>
+        </status>
+
+        <!-- VERIFICATION_COMPLETE: All verifications complete, ready for approval -->
+        <status id="VERIFICATION_COMPLETE">
+            <on-action id="approve" move-to="ACTIVE"/>
+            <on-action id="reject" move-to="REJECTED"/>
+        </status>
+
+        <!-- ACTIVE: Seller is active and can list products/receive orders -->
+        <status id="ACTIVE">
+            <!-- Optional activities for seller management -->
+            <optional-activity id="updateBankDetails"/>
+            <optional-activity id="updateBusinessInfo"/>
+            <optional-activity id="addWarehouse"/>
+            
+            <on-action id="suspend" move-to="SUSPENDED"/>
+            <on-action id="requestTermination" move-to="PENDING_TERMINATION"/>
+        </status>
+
+        <!-- SUSPENDED: Seller temporarily suspended -->
+        <status id="SUSPENDED">
+            <on-action id="reactivate" move-to="ACTIVE"/>
+            <on-action id="terminate" move-to="TERMINATED"/>
+        </status>
+
+        <!-- PENDING_TERMINATION: Seller requested termination, pending final settlements -->
+        <status id="PENDING_TERMINATION">
+            <!-- Mandatory termination activities -->
+            <mandatory-activity id="settleOutstandingPayments"/>
+            <mandatory-activity id="fulfillPendingOrders"/>
+            <mandatory-activity id="closeDisputes"/>
+            
+            <on-action id="cancelTermination" move-to="ACTIVE"/>
+            <on-action id="terminate" move-to="TERMINATED"/>
+        </status>
+
+        <!-- TERMINATED: Seller account permanently closed -->
+        <status id="TERMINATED"/>
+
+        <!-- REJECTED: Application rejected -->
+        <status id="REJECTED">
+            <on-action id="reapply" move-to="DRAFT"/>
+        </status>
+
+        <!-- DELETED: Draft deleted before submission -->
+        <status id="DELETED"/>
+    </flow>
+</states>

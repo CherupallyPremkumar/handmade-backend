@@ -31,9 +31,7 @@ public class PaymentTransaction extends BaseJpaEntity {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @Column(length = 20)
-    @Enumerated(EnumType.STRING)
-    private TransactionStatus status; // PENDING / SUCCESS / FAILED
+
 
     @Column(length = 3)
     private String currency;

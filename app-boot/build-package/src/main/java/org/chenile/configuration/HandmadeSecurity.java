@@ -24,47 +24,47 @@ import org.springframework.web.cors.CorsConfiguration;
 )
 public class HandmadeSecurity extends ChenileSecurityConfiguration {
 
-    @Autowired
-    private KeycloakConnectionDetails connectionDetails;
-
-    @Autowired
-    private String realm; // If Chenile registers it as a bean or config property
-
-    @Bean
-    @Override
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        String logoutUrl = connectionDetails.host + "/realms/" + realm + "/protocol/openid-connect/logout";
-
-        http
-                .csrf().disable()
-                .cors(cors -> cors.configurationSource(request -> {
-                    CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
-                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    configuration.setAllowedHeaders(Arrays.asList("*"));
-                    return configuration;
-                }))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutSuccessUrl(logoutUrl)
-                )
-                .oauth2Login(auth -> {
-                    auth.defaultSuccessUrl("/home")
-                            .failureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
-                })
-                .oauth2Client(Customizer.withDefaults())
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.authenticationManagerResolver(this.authenticationManagerResolver())
-                );
-
-        return http.build();
-    }
+//    @Autowired
+//    private KeycloakConnectionDetails connectionDetails;
+//
+//    @Autowired
+//    private String realm; // If Chenile registers it as a bean or config property
+//
+//    @Bean
+//    @Override
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+//        String logoutUrl = connectionDetails.host + "/realms/" + realm + "/protocol/openid-connect/logout";
+//
+//        http
+//                .csrf().disable()
+//                .cors(cors -> cors.configurationSource(request -> {
+//                    CorsConfiguration configuration = new CorsConfiguration();
+//                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
+//                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//                    configuration.setAllowedHeaders(Arrays.asList("*"));
+//                    return configuration;
+//                }))
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/public/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .invalidateHttpSession(true)
+//                        .clearAuthentication(true)
+//                        .logoutSuccessUrl(logoutUrl)
+//                )
+//                .oauth2Login(auth -> {
+//                    auth.defaultSuccessUrl("/home")
+//                            .failureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
+//                })
+//                .oauth2Client(Customizer.withDefaults())
+//                .oauth2ResourceServer(oauth2 ->
+//                        oauth2.authenticationManagerResolver(this.authenticationManagerResolver())
+//                );
+//
+//        return http.build();
+//    }
 
 }

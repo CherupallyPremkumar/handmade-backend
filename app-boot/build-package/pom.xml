@@ -30,11 +30,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-service</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
             <groupId>com.handmade.ecommerce.user</groupId>
             <artifactId>user-service</artifactId>
             <version>${revision}</version>

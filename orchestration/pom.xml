@@ -11,6 +11,7 @@
 
     <modules>
         <module>productorch</module>
+        <module>sellerorch</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.orchestration</groupId>

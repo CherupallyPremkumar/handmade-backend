@@ -1,0 +1,194 @@
+@startuml Catalog Management - Class Diagram
+
+' Class diagram showing domain model with methods
+
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFEFE
+
+' ==================== AGGREGATE ROOTS ====================
+
+class Category <<Aggregate Root>> {
+  - categoryId : String
+  - name : String
+  - slug : String
+  - parentId : String
+  - level : Integer
+  - displayOrder : Integer
+  - imageUrl : String
+  - active : Boolean
+  - featured : Boolean
+  - productCount : Long
+  - metadata : CategoryMetadata
+  - children : List<Category>
+  --
+  + getCategoryId() : String
+  + getName() : String
+  + getParentId() : String
+  + isActive() : Boolean
+  + getChildren() : List<Category>
+}
+
+class Collection <<Aggregate Root>> {
+  - collectionId : String
+  - name : String
+  - slug : String
+  - type : CollectionType
+  - startDate : LocalDateTime
+  - endDate : LocalDateTime
+  - active : Boolean
+  - featured : Boolean
+  - autoUpdate : Boolean
+  - ruleExpression : String
+  - productIds : List<String>
+  --
+  + getCollectionId() : String
+  + getName() : String
+  + getType() : CollectionType
+  + isCurrentlyActive() : boolean
+  + getProductIds() : List<String>
+}
+
+class CatalogItem <<Aggregate Root>> {
+  - catalogItemId : String
+  - productId : String
+  - featured : Boolean
+  - displayOrder : Integer
+  - active : Boolean
+  - visibilityStartDate : LocalDateTime
+  - visibilityEndDate : LocalDateTime
+  - tags : List<String>
+  - categoryIds : List<String>
+  - collectionIds : List<String>
+  --
+  + getCatalogItemId() : String
+  + getProductId() : String
+  + isFeatured() : Boolean
+  + isCurrentlyVisible() : boolean
+  + getTags() : List<String>
+}
+
+' ==================== VALUE OBJECTS ====================
+
+class CategoryMetadata <<Value Object>> {
+  - metaTitle : String
+  - metaDescription : String
+  - metaKeywords : String
+  - bannerImageUrl : String
+  - showInMenu : Boolean
+  - showInFooter : Boolean
+  --
+  + getMetaTitle() : String
+  + getMetaDescription() : String
+}
+
+' ==================== ENUMS ====================
+
+enum CollectionType {
+  SEASONAL
+  FEATURED
+  CURATED
+  DYNAMIC
+  PROMOTIONAL
+  ARTISAN_SPOTLIGHT
+}
+
+' ==================== ENTITIES ====================
+
+class ProductCategoryMapping <<Entity>> {
+  - mappingId : Long
+  - productId : String
+  - categoryId : String
+  - isPrimary : Boolean
+  - displayOrder : Integer
+  --
+  + getProductId() : String
+  + getCategoryId() : String
+  + isPrimary() : Boolean
+}
+
+class CollectionProductMapping <<Entity>> {
+  - mappingId : Long
+  - collectionId : String
+  - productId : String
+  - displayOrder : Integer
+  - addedBy : String
+  --
+  + getCollectionId() : String
+  + getProductId() : String
+  + getDisplayOrder() : Integer
+}
+
+' ==================== EXTERNAL ====================
+
+class Product <<External>> {
+  - productId : String
+  - name : String
+  - price : BigDecimal
+  --
+  <<from Product Management>>
+}
+
+' ==================== RELATIONSHIPS ====================
+
+Category "1" *-- "1" CategoryMetadata : embeds
+Category "1" o-- "0..*" Category : parent-child
+
+Collection "1" --> "1" CollectionType : has type
+
+CatalogItem "1" --> "1" Product : references
+
+Category "1" -- "0..*" ProductCategoryMapping
+Product "1" -- "0..*" ProductCategoryMapping
+
+Collection "1" -- "0..*" CollectionProductMapping
+Product "1" -- "0..*" CollectionProductMapping
+
+' ==================== NOTES ====================
+
+note right of Category
+  **Aggregate Root**
+  
+  Manages category hierarchy
+  and product organization.
+  
+  Self-referencing for
+  parent-child relationships.
+end note
+
+note right of Collection
+  **Aggregate Root**
+  
+  Groups products into
+  curated collections.
+  
+  Supports dynamic
+  auto-population via rules.
+end note
+
+note right of CatalogItem
+  **Aggregate Root**
+  
+  Bridge between Product
+  and Catalog domains.
+  
+  Stores merchandising
+  metadata and tags.
+end note
+
+note bottom of ProductCategoryMapping
+  Many-to-Many mapping:
+  Product ←→ Category
+  
+  Supports primary category
+  designation.
+end note
+
+note bottom of CollectionProductMapping
+  Many-to-Many mapping:
+  Collection ←→ Product
+  
+  Tracks display order
+  within collection.
+end note
+
+@enduml

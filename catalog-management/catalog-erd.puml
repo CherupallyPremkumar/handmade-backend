@@ -1,0 +1,248 @@
+@startuml Catalog Management - Entity Relationship Diagram
+
+!define AGGREGATE_ROOT #FFE4B5
+!define ENTITY #E0F2F7
+!define VALUE_OBJECT #F0E68C
+!define MAPPING #D3D3D3
+
+' Title
+title Catalog Management Domain Model - Entity Relationship Diagram
+
+' Legend
+legend top right
+  |= Color |= Type |
+  | <back:AGGREGATE_ROOT>   </back> | Aggregate Root |
+  | <back:ENTITY>   </back> | Entity |
+  | <back:VALUE_OBJECT>   </back> | Value Object |
+  | <back:MAPPING>   </back> | Mapping Table |
+endlegend
+
+' ==================== ENTITIES ====================
+
+' Category (Aggregate Root)
+entity "Category" as category AGGREGATE_ROOT {
+  * categoryId : String <<PK>>
+  --
+  * name : String
+  * slug : String <<unique>>
+  description : String
+  parentId : String <<FK>>
+  level : Integer
+  displayOrder : Integer
+  imageUrl : String
+  icon : String
+  active : Boolean
+  featured : Boolean
+  productCount : Long
+  createdAt : LocalDateTime
+  updatedAt : LocalDateTime
+  --
+  <<embedded>>
+  metadata : CategoryMetadata
+}
+
+' CategoryMetadata (Value Object)
+entity "CategoryMetadata" as categoryMetadata VALUE_OBJECT {
+  metaTitle : String
+  metaDescription : String
+  metaKeywords : String
+  bannerImageUrl : String
+  showInMenu : Boolean
+  showInFooter : Boolean
+}
+
+' Collection (Aggregate Root)
+entity "Collection" as collection AGGREGATE_ROOT {
+  * collectionId : String <<PK>>
+  --
+  * name : String
+  * slug : String <<unique>>
+  description : String
+  * type : CollectionType <<enum>>
+  imageUrl : String
+  startDate : LocalDateTime
+  endDate : LocalDateTime
+  active : Boolean
+  featured : Boolean
+  displayOrder : Integer
+  autoUpdate : Boolean
+  ruleExpression : String
+  productCount : Long
+  createdAt : LocalDateTime
+  updatedAt : LocalDateTime
+}
+
+' CollectionType (Enum)
+enum CollectionType {
+  SEASONAL
+  FEATURED
+  CURATED
+  DYNAMIC
+  PROMOTIONAL
+  ARTISAN_SPOTLIGHT
+}
+
+' CatalogItem (Aggregate Root)
+entity "CatalogItem" as catalogItem AGGREGATE_ROOT {
+  * catalogItemId : String <<PK>>
+  --
+  * productId : String <<FK to Product>>
+  featured : Boolean
+  displayOrder : Integer
+  active : Boolean
+  visibilityStartDate : LocalDateTime
+  visibilityEndDate : LocalDateTime
+  createdAt : LocalDateTime
+  updatedAt : LocalDateTime
+  --
+  <<collection>>
+  tags : List<String>
+}
+
+' ProductCategoryMapping (Mapping Entity)
+entity "ProductCategoryMapping" as productCategoryMapping MAPPING {
+  * mappingId : Long <<PK>>
+  --
+  * productId : String <<FK>>
+  * categoryId : String <<FK>>
+  isPrimary : Boolean
+  displayOrder : Integer
+  createdAt : LocalDateTime
+}
+
+' CollectionProductMapping (Mapping Entity)
+entity "CollectionProductMapping" as collectionProductMapping MAPPING {
+  * mappingId : Long <<PK>>
+  --
+  * collectionId : String <<FK>>
+  * productId : String <<FK>>
+  displayOrder : Integer
+  addedAt : LocalDateTime
+  addedBy : String
+}
+
+' External Product (from Product Management)
+entity "Product" as product #FFCCCC {
+  * productId : String <<PK>>
+  --
+  name : String
+  price : BigDecimal
+  artisanId : String
+  ...
+  --
+  <<external>>
+  From Product Management
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' Category self-referencing (hierarchy)
+category ||--o{ category : "parent-child\n(parentId)"
+
+' Category embeds CategoryMetadata
+category ||--|| categoryMetadata : "embeds"
+
+' Collection has type
+collection }o--|| CollectionType : "has type"
+
+' CatalogItem references Product (external)
+catalogItem }o--|| product : "references\n(productId)"
+
+' ProductCategoryMapping - Many-to-Many between Product and Category
+product ||--o{ productCategoryMapping : "1"
+category ||--o{ productCategoryMapping : "N"
+productCategoryMapping }o--|| product : "productId"
+productCategoryMapping }o--|| category : "categoryId"
+
+' CollectionProductMapping - Many-to-Many between Collection and Product
+collection ||--o{ collectionProductMapping : "1"
+product ||--o{ collectionProductMapping : "N"
+collectionProductMapping }o--|| collection : "collectionId"
+collectionProductMapping }o--|| product : "productId"
+
+' ==================== NOTES ====================
+
+note right of category
+  **Hierarchical Structure**
+  - Self-referencing via parentId
+  - Level 0 = Root categories
+  - Level 1+ = Child categories
+  - Supports unlimited depth
+  
+  **Example:**
+  Jewelry (level 0)
+    └─ Necklaces (level 1)
+        └─ Silver Necklaces (level 2)
+end note
+
+note right of collection
+  **Collection Types:**
+  - SEASONAL: Holiday Gifts, Summer Collection
+  - FEATURED: Editor's Picks, Staff Favorites
+  - CURATED: Manually selected products
+  - DYNAMIC: Auto-populated by rules
+  - PROMOTIONAL: Sale items, Clearance
+  - ARTISAN_SPOTLIGHT: Specific artisan's work
+  
+  **Dynamic Collections:**
+  - autoUpdate = true
+  - ruleExpression: "products.createdAt > now() - 7 days"
+end note
+
+note right of catalogItem
+  **Bridge to Product Management**
+  - productId is the ONLY link to Product
+  - Anti-Corruption Layer pattern
+  - Stores merchandising metadata
+  - Tags for filtering: "trending", "bestseller"
+  
+  **Visibility Control:**
+  - Time-based visibility (start/end dates)
+  - Featured flag for highlighting
+  - Display order for sorting
+end note
+
+note bottom of productCategoryMapping
+  **Many-to-Many Relationship**
+  - One product can be in multiple categories
+  - One category can have multiple products
+  - isPrimary: designates main category
+  
+  **Example:**
+  Product "Silver Necklace" in:
+    - Necklaces (primary)
+    - Silver Necklaces
+    - Jewelry
+end note
+
+note bottom of collectionProductMapping
+  **Many-to-Many Relationship**
+  - One product can be in multiple collections
+  - One collection can have multiple products
+  - Tracks who added product (addedBy)
+  - Display order within collection
+  
+  **Example:**
+  Product "Silver Necklace" in:
+    - Holiday Gifts 2024
+    - Editor's Picks
+    - Sarah's Jewelry Collection
+end note
+
+note left of product
+  **External Reference**
+  
+  This entity is NOT part of
+  Catalog Management.
+  
+  It belongs to Product Management
+  bounded context.
+  
+  Catalog only stores productId
+  as a string reference.
+  
+  Product details are fetched
+  via Anti-Corruption Layer (ACL).
+end note
+
+@enduml

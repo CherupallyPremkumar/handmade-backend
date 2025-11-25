@@ -2,11 +2,25 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$MAVEN_REPOSITORY$/org/chenile/chenile-parent/2.0.35/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/analytics-management/analytics-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/analytics-management/analytics-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/analytics-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/analytics-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/build-package/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/artisan-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/artisan-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/catalog-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/catalog-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commission-management/commission-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commission-management/commission-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commission-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commission-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-events/common-events-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-events/common-events-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-events/src/main/java" charset="UTF-8" />
@@ -18,16 +32,32 @@
     <file url="file://$PROJECT_DIR$/common-library/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-library/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-library/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/content-management/content-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/content-management/content-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/content-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/content-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-management/customer-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-management/customer-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dispute-management/dispute-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dispute-management/dispute-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dispute-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dispute-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/event/event-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/event/event-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/event/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/event/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event/event-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event/event-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/financial-settlement/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/shipping/shipping-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/shipping/shipping-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/shipping/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/shipping/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fulfillment-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/inventory-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/src/main/java" charset="UTF-8" />
@@ -47,10 +77,18 @@
     <file url="file://$PROJECT_DIR$/messaging-management/notification/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/messaging-management/notification/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/messaging-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification-management/notification-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification-management/notification-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/sellerorch/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/sellerorch/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-management/order/order-api/src/main/java" charset="UTF-8" />
@@ -71,16 +109,6 @@
     <file url="file://$PROJECT_DIR$/payment-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-audit-management/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/artisan/artisan-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/artisan/artisan-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/artisan/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/artisan/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/seller/seller-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/seller/seller-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/seller/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/seller/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/platform-core-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/java" charset="UTF-8" />
@@ -97,9 +125,40 @@
     <file url="file://$PROJECT_DIR$/product-management/variant/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/variant/variant-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/variant/variant-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/review-management/review-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/review-management/review-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/review-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/review-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/search-management/search-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/search-management/search-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/search-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/search-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-management/security-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-management/security-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/artisan/artisan-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/artisan/artisan-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/artisan/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/artisan/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/seller/seller-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/seller/seller-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/seller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/seller/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seller-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shipping-management/shipping-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shipping-management/shipping-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shipping-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shipping-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/supplier-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/supplier-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/supplier-management/supplier/supplier-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tenant-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tenant-management/src/main/resources" charset="UTF-8" />

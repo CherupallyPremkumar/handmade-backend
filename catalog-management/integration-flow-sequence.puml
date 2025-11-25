@@ -1,0 +1,106 @@
+@startuml Integration Flow - Real World Example
+
+!theme plain
+skinparam backgroundColor #FEFEFE
+
+title Real-World Integration Flow\n"20% off all Pottery this week"
+
+actor Customer
+participant "Catalog\nManagement" as Catalog
+participant "Promotion\nManagement" as Promo
+participant "Analytics\nManagement" as Analytics
+participant "Pricing\nEngine" as Pricing
+database "Event Bus" as Events
+
+== Step 1: Admin Creates Promotion ==
+
+Admin -> Promo: createPromotion(\n  name: "Pottery Week Sale"\n  targetType: CATEGORY\n  targetId: "CAT-022"\n  discount: 20%)
+activate Promo
+Promo -> Promo: Save promotion
+Promo --> Admin: Promotion created
+deactivate Promo
+
+== Step 2: Customer Views Category ==
+
+Customer -> Catalog: viewCategory("pottery")
+activate Catalog
+Catalog -> Catalog: Get category "CAT-022"
+Catalog -> Events: Publish CategoryViewedEvent
+activate Events
+Events -> Analytics: CategoryViewedEvent
+deactivate Events
+activate Analytics
+Analytics -> Analytics: Increment viewCount\nfor CAT-022
+deactivate Analytics
+Catalog --> Customer: Show category page
+deactivate Catalog
+
+== Step 3: Customer Views Product ==
+
+Customer -> Catalog: viewProduct("PROD-001")
+activate Catalog
+Catalog -> Catalog: Get product categories
+Catalog -> Promo: getActivePromotions(\n  targetType: CATEGORY\n  targetId: "CAT-022")
+activate Promo
+Promo --> Catalog: [Promotion: 20% off]
+deactivate Promo
+Catalog -> Pricing: calculatePrice(\n  originalPrice: $50\n  promotions: [20% off])
+activate Pricing
+Pricing -> Pricing: Apply 20% discount
+Pricing --> Catalog: finalPrice: $40
+deactivate Pricing
+Catalog --> Customer: Show product\nOriginal: $50\nSale: $40 (20% off)
+deactivate Catalog
+
+== Step 4: Customer Purchases Product ==
+
+Customer -> Pricing: checkout(\n  productId: "PROD-001")
+activate Pricing
+Pricing -> Promo: applyPromotion(\n  code: "POTTERY20")
+activate Promo
+Promo -> Promo: Validate promotion
+Promo -> Promo: Increment usage count
+Promo -> Promo: Create PromotionUsage record
+Promo --> Pricing: Discount applied: $10
+deactivate Promo
+Pricing -> Events: Publish ProductPurchasedEvent
+activate Events
+Events -> Analytics: ProductPurchasedEvent
+deactivate Events
+activate Analytics
+Analytics -> Analytics: Increment purchaseCount\nfor PROD-001
+Analytics -> Catalog: getProductCategories(\n  "PROD-001")
+activate Catalog
+Catalog --> Analytics: ["CAT-022"]
+deactivate Catalog
+Analytics -> Analytics: Increment purchaseCount\nfor CAT-022
+deactivate Analytics
+Pricing --> Customer: Order confirmed\nTotal: $40
+deactivate Pricing
+
+== Step 5: Daily Analytics Calculation ==
+
+Analytics -> Analytics: calculatePopularCategories()
+activate Analytics
+Analytics -> Analytics: CAT-022:\n  viewCount: 1,250\n  purchaseCount: 45\n  popularityScore: 95\n  trend: UP
+Analytics -> Events: Publish PopularCategoriesCalculatedEvent
+activate Events
+Events -> Catalog: PopularCategoriesCalculatedEvent
+deactivate Events
+activate Catalog
+Catalog -> Catalog: Update CAT-022:\n  featured: true\n  displayOrder: 1
+Catalog --> Analytics: Updated
+deactivate Catalog
+deactivate Analytics
+
+== Result ==
+
+note over Customer, Catalog
+  **Outcome:**
+  1. Customer got 20% discount on Pottery
+  2. Promotion usage tracked
+  3. Analytics updated with purchase data
+  4. Pottery category now featured (trending)
+end note
+
+@enduml

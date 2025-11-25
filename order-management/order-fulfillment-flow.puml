@@ -1,0 +1,122 @@
+@startuml Order Fulfillment Integration
+
+!theme plain
+skinparam backgroundColor #FEFEFE
+
+title Order Fulfillment Flow - Complete Integration
+
+actor Customer
+participant "Order\nManagement" as Order
+participant "Inventory\nManagement" as Inventory
+participant "Payment\nManagement" as Payment
+participant "Shipping\nManagement" as Shipping
+database "Event Bus" as Events
+
+== Step 1: Customer Places Order ==
+
+Customer -> Order: createOrder(items, address)
+activate Order
+Order -> Order: Create Order\n(status: DRAFT)
+
+== Step 2: Reserve Stock ==
+
+Order -> Inventory: reserveStock(orderId, items)
+note right: Via InventoryServiceClient (ACL)
+activate Inventory
+Inventory -> Inventory: Check availability
+Inventory -> Inventory: Create StockReservation
+Inventory -> Inventory: Update InventoryItem\n(quantityAvailable -= qty\nquantityReserved += qty)
+Inventory -> Events: Publish StockReservedEvent
+Inventory --> Order: ReservationResult(success)
+deactivate Inventory
+
+Order -> Order: Update status:\nPENDING_PAYMENT
+
+== Step 3: Initiate Payment ==
+
+Order -> Payment: initiatePayment(orderId, amount)
+note right: Via PaymentServiceClient (ACL)
+activate Payment
+Payment -> Payment: Create PaymentTransaction\n(status: PENDING)
+Payment --> Order: PaymentInitiationResult\n(paymentUrl)
+deactivate Payment
+
+Order --> Customer: Redirect to payment page
+deactivate Order
+
+== Step 4: Customer Pays ==
+
+Customer -> Payment: completePayment()
+activate Payment
+Payment -> Payment: Process with gateway\n(Stripe/Razorpay)
+Payment -> Payment: Update status: CAPTURED
+Payment -> Events: Publish PaymentCapturedEvent
+deactivate Payment
+
+== Step 5: Order Updates to PAID ==
+
+Events -> Order: PaymentCapturedEvent
+activate Order
+Order -> Order: Update status: PAID
+Order -> Events: Publish OrderPaidEvent
+deactivate Order
+
+== Step 6: Create Shipment ==
+
+Events -> Shipping: OrderPaidEvent
+activate Shipping
+Shipping -> Order: getShippingAddress(orderId)
+note left: Via OrderServiceClient (ACL)
+activate Order
+Order --> Shipping: ShippingAddress
+deactivate Order
+
+Shipping -> Shipping: Create Shipment\n(status: PENDING)
+Shipping -> Shipping: Generate shipping label
+Shipping -> Shipping: Update status: LABEL_CREATED
+Shipping -> Events: Publish ShipmentCreatedEvent
+deactivate Shipping
+
+== Step 7: Order Updates to SHIPPED ==
+
+Events -> Order: ShipmentCreatedEvent
+activate Order
+Order -> Order: Update status: SHIPPED
+Order --> Customer: Email: Order shipped!
+deactivate Order
+
+== Step 8: Delivery ==
+
+Shipping -> Shipping: Carrier picks up
+Shipping -> Shipping: Update status: IN_TRANSIT
+Shipping -> Events: Publish ShipmentInTransitEvent
+
+Shipping -> Shipping: Delivered
+Shipping -> Shipping: Update status: DELIVERED
+Shipping -> Events: Publish ShipmentDeliveredEvent
+
+Events -> Order: ShipmentDeliveredEvent
+activate Order
+Order -> Order: Update status: DELIVERED
+Order --> Customer: Email: Order delivered!
+deactivate Order
+
+== Step 9: Fulfill Stock Reservation ==
+
+Events -> Inventory: ShipmentDeliveredEvent
+activate Inventory
+Inventory -> Inventory: Find StockReservation\nby orderId
+Inventory -> Inventory: Update reservation:\nstatus = FULFILLED
+Inventory -> Inventory: Update InventoryItem:\nquantityReserved -= qty
+deactivate Inventory
+
+note over Customer, Inventory
+  **Complete Flow:**
+  1. Order created → Stock reserved
+  2. Payment processed → Order PAID
+  3. Shipment created → Order SHIPPED
+  4. Delivery confirmed → Order DELIVERED
+  5. Stock reservation fulfilled
+end note
+
+@enduml

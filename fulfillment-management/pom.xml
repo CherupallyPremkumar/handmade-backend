@@ -4,11 +4,18 @@
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
         <artifactId>handmade-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
+
+    <modules>
+        <module>shipping</module>
+    </modules>
+
+
     <artifactId>fulfillment-management</artifactId>
-    <packaging>jar</packaging>
+
+    <packaging>pom</packaging>
 
     <name>fulfillment</name>
     <url>http://maven.apache.org</url>

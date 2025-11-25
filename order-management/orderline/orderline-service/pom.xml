@@ -17,8 +17,8 @@
 	<dependencies>
 
         <dependency>
-            <groupId>com.handmade.ecommerce.events</groupId>
-            <artifactId>events-api</artifactId>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>event-api</artifactId>
             <version>${revision}</version>
         </dependency>
 		<dependency>
@@ -73,7 +73,12 @@
             <artifactId>cucumber-workflow-utils</artifactId>
             <scope>test</scope>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

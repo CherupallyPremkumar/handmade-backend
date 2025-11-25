@@ -1,0 +1,3 @@
+handmade:
+  seller:
+    flow-path: src/main/resources/com/handmade/ecommerce/sellerorch/seller-core.xml

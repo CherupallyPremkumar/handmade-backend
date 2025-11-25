@@ -5,9 +5,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.springframework.test.context.junit4.SpringRunner;
 
 
-@RunWith(Cucumber.class)
+@RunWith(SpringRunner.class)
 
 @CucumberOptions(features = "src/test/resources/features",
     glue = {"classpath:com/handmade/ecommerce/inventory/bdd",

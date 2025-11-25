@@ -18,14 +18,30 @@
     </license>
   </licenses>
   <modules>
-    <module>location</module>
-    <module>seller</module>
-    <module>user</module>
-    <module>payment</module>
-    <module>artisan</module>
-    <module>build</module>
+    <module>product-management</module>
+    <module>inventory-management</module>
+    <module>supplier-management</module>
+    <module>user-management</module>
+    <module>common-library</module>
+    <module>payment-management</module>
+    <module>pricing-engine</module>
+    <module>app-boot</module>
+    <module>order-management</module>
+    <module>tenant-management</module>
+    <module>fulfillment-management</module>
+    <module>platform-audit-management</module>
+    <module>messaging-management</module>
+    <module>platform-core-management</module>
+    <module>orchestration</module>
+    <module>event-management</module>
   </modules>
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+  </dependencies>
 </project>

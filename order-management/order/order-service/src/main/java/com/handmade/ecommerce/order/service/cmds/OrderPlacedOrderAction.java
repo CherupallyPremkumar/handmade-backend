@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.order.service.cmds;
 
+import com.handmade.ecommerce.order.dto.command.OrderPlacedOrderPayload;
 import org.chenile.core.entrypoint.ChenileEntryPoint;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
@@ -8,24 +9,28 @@ import org.chenile.stm.model.Transition;
 import org.chenile.utils.entity.model.ChenileEntity;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.order.model.Order;
-import com.handmade.ecommerce.events.model.OrderPlacedOrderPayload;
 
 /**
- Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
- <p>Use this class if you want to augment the common logic for this specific transition</p>
- <p>Use a customized payload if required instead of MinimalPayload</p>
-*/
-public class OrderPlacedOrderAction extends AbstractSTMTransitionAction<Order, OrderPlacedOrderPayload>{
-
+ * Contains customized logic for the transition. Common logic resides at
+ * {@link DefaultSTMTransitionAction}
+ * <p>
+ * Use this class if you want to augment the common logic for this specific
+ * transition
+ * </p>
+ * <p>
+ * Use a customized payload if required instead of MinimalPayload
+ * </p>
+ */
+public class OrderPlacedOrderAction extends AbstractSTMTransitionAction<Order, OrderPlacedOrderPayload> {
 
 	ChenileEntryPoint entity;
 
 	@Override
 	public void transitionTo(Order order,
-            OrderPlacedOrderPayload payload,
-            State startState, String eventId,
+			OrderPlacedOrderPayload payload,
+			State startState, String eventId,
 			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-            order.transientMap.previousPayload = payload;
+		order.transientMap.previousPayload = payload;
 	}
 
 }

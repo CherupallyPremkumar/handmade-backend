@@ -164,15 +164,6 @@ public class OrderlineConfiguration {
         return new ItemShipOrderlineAction();
     }
 
-    @Bean NoOrderlineAction
-            orderlineNoAction(){
-        return new NoOrderlineAction();
-    }
-
-    @Bean NoOrderlineAction
-            orderlineNoAction(){
-        return new NoOrderlineAction();
-    }
 
     @Bean ItemPackOrderlineAction
             orderlineItemPackAction(){
@@ -184,15 +175,6 @@ public class OrderlineConfiguration {
         return new ShipmentOrderlineAction();
     }
 
-    @Bean YesOrderlineAction
-            orderlineYesAction(){
-        return new YesOrderlineAction();
-    }
-
-    @Bean YesOrderlineAction
-            orderlineYesAction(){
-        return new YesOrderlineAction();
-    }
 
     @Bean SaveOrderOrderlineAction
             orderlineSaveOrderAction(){
@@ -209,10 +191,6 @@ public class OrderlineConfiguration {
         return new PayOrderlineAction();
     }
 
-    @Bean AddOrderLineOrderlineAction
-            orderlineAddOrderLineAction(){
-        return new AddOrderLineOrderlineAction();
-    }
 
     @Bean ModifyPriceOrderlineAction
             orderlineModifyPriceAction(){

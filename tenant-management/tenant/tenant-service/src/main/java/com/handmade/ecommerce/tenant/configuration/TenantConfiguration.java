@@ -1,8 +1,6 @@
 package com.handmade.ecommerce.tenant.configuration;
 
-import org.chenile.owiz.config.impl.OwizRule;
-import org.chenile.owiz.impl.Chain;
-import org.chenile.owiz.impl.BaseContext;
+
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
