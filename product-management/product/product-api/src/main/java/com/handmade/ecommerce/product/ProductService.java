@@ -5,4 +5,6 @@ import com.handmade.ecommerce.product.model.Product;
 
 public interface ProductService {
     Product createProduct(CreateProductCommand createProductCommand);
+
+    void validate(CreateProductCommand requestProduct);
 }

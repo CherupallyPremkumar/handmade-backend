@@ -1,7 +1,8 @@
 package com.handmade.ecommerce.catalog.model;
 
 import jakarta.persistence.*;
-import org.chenile.utils.entity.model.ChenileEntity;
+import org.chenile.jpautils.entity.BaseJpaEntity;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,8 @@ import java.util.List;
     @Index(name = "idx_featured", columnList = "featured"),
     @Index(name = "idx_active", columnList = "active")
 })
-public class CatalogItem extends ChenileEntity {
-    
-    @Id
-    @Column(name = "catalog_item_id", length = 50)
-    private String catalogItemId;
+public class CatalogItem extends BaseJpaEntity {
+
     
     /**
      * Reference to Product from product-management module
@@ -68,14 +66,7 @@ public class CatalogItem extends ChenileEntity {
     private List<String> collectionIds = new ArrayList<>();
     
     // Getters and Setters
-    
-    public String getCatalogItemId() {
-        return catalogItemId;
-    }
-    
-    public void setCatalogItemId(String catalogItemId) {
-        this.catalogItemId = catalogItemId;
-    }
+
     
     public String getProductId() {
         return productId;

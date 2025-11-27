@@ -1,0 +1,805 @@
+@startuml Product Microservices ERD
+
+' Styling
+skinparam linetype ortho
+skinparam backgroundColor #FEFEFE
+skinparam packageStyle rectangle
+
+skinparam class {
+    BackgroundColor<<Aggregate>> LightBlue
+    BackgroundColor<<Entity>> LightYellow
+    BackgroundColor<<ValueObject>> LightGreen
+    BorderColor Black
+    ArrowColor Black
+}
+
+' ============================================
+' PRODUCT SERVICE
+' ============================================
+package "Product Service" {
+    class Product <<Aggregate>> {
+        **Aggregate Root**
+        --
+        + id: Long <<PK>>
+        + sellerId: Long <<FK>> (External: Seller)
+        + name: String
+        + description: Text
+        + sku: String <<Unique>>
+        + categoryId: Long <<FK>> (External: Catalog)
+        + subcategoryId: Long
+        + productStatus: ProductStatus
+        + basePrice: BigDecimal
+        + compareAtPrice: BigDecimal
+        + taxCode: String
+        + weight: BigDecimal
+        + dimensions: String
+        + tags: List<String>
+        + metaTitle: String
+        + metaDescription: String
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        + state: String
+        --
+        + addVariant()
+        + updatePrice()
+        + activate()
+        + deactivate()
+    }
+
+    enum ProductStatus {
+        DRAFT
+        PENDING_REVIEW
+        NEEDS_REVISION
+        APPROVED
+        ACTIVE
+        INACTIVE
+        OUT_OF_STOCK
+        REJECTED
+        DISCONTINUED
+    }
+
+    class ProductVariant <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>>
+        + sku: String <<Unique>>
+        + name: String
+        + price: BigDecimal
+        + compareAtPrice: BigDecimal
+        + variantStatus: VariantStatus
+        + attributes: JSON
+        + position: Integer
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        + state: String
+        --
+        + updatePrice()
+        + activate()
+        + deactivate()
+    }
+
+    enum VariantStatus {
+        DRAFT
+        PENDING_APPROVAL
+        ACTIVE
+        OUT_OF_STOCK
+        INACTIVE
+        PENDING_PRICE_CHANGE
+        DISCONTINUED
+    }
+
+    class ProductImage <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>>
+        + variantId: Long <<FK>> (nullable)
+        + imageUrl: String
+        + altText: String
+        + isPrimary: Boolean
+        + displayOrder: Integer
+        + createdAt: Timestamp
+    }
+
+    class ProductAttribute <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>>
+        + attributeName: String
+        + attributeValue: String
+        + displayOrder: Integer
+    }
+
+    ' Internal Relationships
+    Product "1" *-- "0..*" ProductVariant : contains
+    Product "1" *-- "0..*" ProductImage : has
+    Product "1" *-- "0..*" ProductAttribute : has
+    Product "1" -- "1" ProductStatus : has status
+    ProductVariant "1" -- "1" VariantStatus : has status
+    ProductVariant "1" o-- "0..*" ProductImage : has images
+}
+
+' ============================================
+' CATALOG SERVICE
+' ============================================
+package "Catalog Service" {
+    class Category <<Aggregate>> {
+        + id: Long <<PK>>
+        + name: String
+        + slug: String <<Unique>>
+        + description: Text
+        + parentCategoryId: Long <<FK>>
+        + level: Integer
+        + inventoryStrategy: InventoryStrategy
+        + requiresVariants: Boolean
+        + imageUrl: String
+        + displayOrder: Integer
+        + isActive: Boolean
+        + metaTitle: String
+        + metaDescription: String
+        + createdAt: Timestamp
+    }
+
+    enum InventoryStrategy {
+        VARIANT_BASED
+        PRODUCT_BASED
+        MADE_TO_ORDER
+        DIGITAL
+        CONSIGNMENT
+    }
+
+    class CatalogItem <<Aggregate>> {
+        **Catalog Aggregate Root**
+        --
+        + id: Long <<PK>>
+        + productId: String <<FK>> (External: Product)
+        + featured: Boolean
+        + displayOrder: Integer
+        + active: Boolean
+        + visibilityStartDate: Timestamp
+        + visibilityEndDate: Timestamp
+        + tags: List<String>
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        --
+        + isCurrentlyVisible()
+    }
+
+    class CatalogEntry <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>> (External: Product)
+        + categoryId: Long <<FK>>
+        + searchKeywords: Text
+        + searchVector: TSVector
+        + popularity: Integer
+        + viewCount: Long
+        + salesCount: Long
+        + indexedAt: Timestamp
+        --
+        + incrementViewCount()
+        + incrementSalesCount()
+    }
+
+    class Collection <<Aggregate>> {
+        **Collection Aggregate Root**
+        --
+        + id: Long <<PK>>
+        + name: String
+        + slug: String <<Unique>>
+        + description: String
+        + type: CollectionType
+        + imageUrl: String
+        + startDate: Timestamp
+        + endDate: Timestamp
+        + active: Boolean
+        + featured: Boolean
+        + displayOrder: Integer
+        + autoUpdate: Boolean
+        + ruleExpression: String
+        + productCount: Long
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        --
+        + isCurrentlyActive()
+    }
+
+    enum CollectionType {
+        SEASONAL
+        FEATURED
+        CURATED
+        DYNAMIC
+        PROMOTIONAL
+        ARTISAN_SPOTLIGHT
+    }
+
+    class CollectionProductMapping <<Entity>> {
+        + mappingId: Long <<PK>>
+        + collectionId: String <<FK>>
+        + productId: String <<FK>> (External: Product)
+        + displayOrder: Integer
+        + addedAt: Timestamp
+        + addedBy: String
+    }
+
+    ' Internal Relationships
+    Category "1" -- "1" InventoryStrategy : defines strategy
+    Category "1" o-- "0..*" Category : parent/child
+    Category "1" -- "0..*" CatalogEntry : indexed in
+    
+    CatalogEntry "*" -- "1" Category : categorized in
+    CatalogItem "1" -- "1" CollectionType : has type
+    
+    Collection "1" -- "0..*" CollectionProductMapping : contains
+    Collection "1" -- "1" CollectionType : has type
+}
+
+' ============================================
+' INVENTORY SERVICE
+' ============================================
+package "Inventory Service" {
+    abstract class Inventory <<Entity>> {
+        **Abstract Base**
+        --
+        + id: Long <<PK>>
+        + inventoryType: InventoryType
+        + productId: Long <<FK>> (External: Product)
+        + locationId: Long <<FK>>
+        + reservedQuantity: Integer
+        + state: String
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        --
+        + {abstract} isAvailable(): Boolean
+        + {abstract} getAvailableQuantity(): Integer
+    }
+
+    enum InventoryType {
+        VARIANT_BASED
+        PRODUCT_BASED
+        MADE_TO_ORDER
+        DIGITAL
+    }
+
+    class VariantInventory <<Entity>> {
+        **For Electronics, Clothes**
+        --
+        + variantId: Long <<FK>> (External: Variant)
+        + quantity: Integer
+        + reorderPoint: Integer
+        + maxStockLevel: Integer
+        --
+        + isAvailable(): Boolean
+        + getAvailableQuantity(): Integer
+        + reserve()
+        + release()
+    }
+
+    class ProductInventory <<Entity>> {
+        **For Food, Perishables**
+        --
+        + quantity: Integer
+        + expiryDate: Date
+        + batchNumber: String
+        + manufacturingDate: Date
+        --
+        + isAvailable(): Boolean
+        + getAvailableQuantity(): Integer
+        + isExpired(): Boolean
+    }
+
+    class MadeToOrderInventory <<Entity>> {
+        **For Handmade Items**
+        --
+        + leadTimeDays: Integer
+        + maxConcurrentOrders: Integer
+        + currentOrders: Integer
+        --
+        + isAvailable(): Boolean
+        + getAvailableQuantity(): Integer
+    }
+
+    class Warehouse <<Aggregate>> {
+        **Fulfillment Center**
+        --
+        + id: Long <<PK>>
+        + code: String <<Unique>>
+        + name: String
+        + type: WarehouseType
+        + address: String
+        + city: String
+        + state: String
+        + country: String
+        + postalCode: String
+        + latitude: BigDecimal
+        + longitude: BigDecimal
+        + isActive: Boolean
+        + capacity: Long
+        + currentUtilization: Long
+        + operatingHours: JSON
+        + createdAt: Timestamp
+        --
+        + calculateDistance(lat, lon)
+        + hasCapacity()
+    }
+
+    enum WarehouseType {
+        FULFILLMENT_CENTER
+        SORTATION_CENTER
+        DELIVERY_STATION
+        RETURNS_CENTER
+        SELLER_WAREHOUSE
+    }
+
+    class WarehouseZone <<Entity>> {
+        + id: Long <<PK>>
+        + warehouseId: Long <<FK>>
+        + zoneName: String
+        + zoneType: ZoneType
+        + capacity: Integer
+        + isActive: Boolean
+    }
+
+    enum ZoneType {
+        RECEIVING
+        STORAGE
+        PICKING
+        PACKING
+        SHIPPING
+        RETURNS
+    }
+
+    class WarehouseBin <<Entity>> {
+        + id: Long <<PK>>
+        + zoneId: Long <<FK>>
+        + binCode: String <<Unique>>
+        + aisle: String
+        + rack: String
+        + shelf: String
+        + level: Integer
+        + capacity: Integer
+        + isOccupied: Boolean
+    }
+
+    class InventoryLocation <<Entity>> {
+        **Inventory per Warehouse**
+        --
+        + id: Long <<PK>>
+        + inventoryId: Long <<FK>>
+        + warehouseId: Long <<FK>>
+        + binId: Long <<FK>>
+        + quantity: Integer
+        + reservedQuantity: Integer
+        + availableQuantity: Integer
+        + reorderPoint: Integer
+        + maxStockLevel: Integer
+        + lastRestocked: Timestamp
+        --
+        + getAvailable()
+        + reserve(qty)
+        + release(qty)
+    }
+
+    class StockTransfer <<Entity>> {
+        + id: Long <<PK>>
+        + fromWarehouseId: Long <<FK>>
+        + toWarehouseId: Long <<FK>>
+        + productId: Long <<FK>> (External: Product)
+        + quantity: Integer
+        + status: TransferStatus
+        + initiatedAt: Timestamp
+        + completedAt: Timestamp
+    }
+
+    enum TransferStatus {
+        PENDING
+        IN_TRANSIT
+        COMPLETED
+        CANCELLED
+    }
+
+    ' Internal Relationships
+    Inventory <|-- VariantInventory : extends
+    Inventory <|-- ProductInventory : extends
+    Inventory <|-- MadeToOrderInventory : extends
+    
+    Warehouse "1" *-- "0..*" WarehouseZone : contains zones
+    WarehouseZone "1" *-- "0..*" WarehouseBin : contains bins
+    Warehouse "1" -- "1" WarehouseType : has type
+    
+    Inventory "1" -- "1..*" InventoryLocation : stored across warehouses
+    InventoryLocation "*" -- "1" Warehouse : located in
+    InventoryLocation "*" -- "1" WarehouseBin : stored in bin
+    
+    StockTransfer "*" -- "1" Warehouse : from warehouse
+    StockTransfer "*" -- "1" Warehouse : to warehouse
+    StockTransfer "1" -- "1" TransferStatus : has status
+}
+
+' ============================================
+' PRICING SERVICE
+' ============================================
+package "Pricing Service" {
+    class Price <<Aggregate>> {
+        **Pricing Aggregate Root**
+        --
+        + id: Long <<PK>>
+        + productId: Long <<FK>> (External: Product)
+        + variantId: Long <<FK>> (External: Variant)
+        + baseCurrency: String (USD)
+        + basePrice: BigDecimal
+        + priceType: PriceType
+        + effectiveFrom: Timestamp
+        + effectiveTo: Timestamp
+        + isActive: Boolean
+        + createdAt: Timestamp
+        + updatedAt: Timestamp
+        --
+        + calculatePrice(region, currency)
+        + applyRules(rules)
+        + convertCurrency(targetCurrency)
+    }
+
+    enum PriceType {
+        STANDARD
+        SALE
+        CLEARANCE
+        PROMOTIONAL
+        DYNAMIC
+    }
+
+    class RegionalPrice <<Entity>> {
+        + id: Long <<PK>>
+        + priceId: Long <<FK>>
+        + regionId: Long <<FK>>
+        + currency: String (ISO 4217)
+        + price: BigDecimal
+        + taxRate: BigDecimal
+        + includesTax: Boolean
+        + effectiveFrom: Timestamp
+        + effectiveTo: Timestamp
+        + isActive: Boolean
+        --
+        + getPriceWithTax()
+        + getPriceWithoutTax()
+    }
+
+    class PriceRule <<Entity>> {
+        + id: Long <<PK>>
+        + priceId: Long <<FK>>
+        + ruleType: PriceRuleType
+        + ruleCondition: JSON
+        + adjustmentType: AdjustmentType
+        + adjustmentValue: BigDecimal
+        + priority: Integer
+        + validFrom: Timestamp
+        + validUntil: Timestamp
+        + isActive: Boolean
+        --
+        + evaluate(context)
+        + apply(basePrice)
+    }
+
+    class PriceHistory <<Entity>> {
+        + id: Long <<PK>>
+        + priceId: Long <<FK>>
+        + oldPrice: BigDecimal
+        + newPrice: BigDecimal
+        + currency: String
+        + changedBy: Long
+        + changeReason: String
+        + changedAt: Timestamp
+    }
+
+    class Region <<Aggregate>> {
+        + id: Long <<PK>>
+        + code: String <<Unique>> (US, EU, IN)
+        + name: String
+        + defaultCurrency: String
+        + supportedCurrencies: List<String>
+        + taxRate: BigDecimal
+        + isActive: Boolean
+        --
+        + getSupportedCurrencies()
+        + getDefaultCurrency()
+    }
+
+    class Currency <<Entity>> {
+        + id: Long <<PK>>
+        + code: String <<Unique>> (USD, EUR, INR)
+        + name: String
+        + symbol: String ($, €, ₹)
+        + decimalPlaces: Integer
+        + isActive: Boolean
+    }
+
+    class ExchangeRate <<Entity>> {
+        + id: Long <<PK>>
+        + fromCurrency: String <<FK>>
+        + toCurrency: String <<FK>>
+        + rate: BigDecimal
+        + effectiveDate: Date
+        + source: String
+        + updatedAt: Timestamp
+        --
+        + convert(amount)
+        + isExpired()
+    }
+
+    class TaxRule <<Entity>> {
+        + id: Long <<PK>>
+        + regionId: Long <<FK>>
+        + productCategoryId: Long <<FK>> (External: Category)
+        + taxType: TaxType
+        + taxRate: BigDecimal
+        + isInclusive: Boolean
+        + effectiveFrom: Timestamp
+        + effectiveTo: Timestamp
+        + isActive: Boolean
+        --
+        + calculateTax(price)
+    }
+
+    enum TaxType {
+        VAT
+        GST
+        SALES_TAX
+        IMPORT_DUTY
+        NONE
+    }
+
+    enum PriceRuleType {
+        BASE_PRICE
+        BULK_DISCOUNT
+        SEASONAL
+        DYNAMIC
+        PROMOTIONAL
+    }
+
+    ' Internal Relationships
+    Price "1" *-- "0..*" RegionalPrice : regional pricing
+    Price "1" *-- "0..*" PriceRule : has rules
+    Price "1" *-- "0..*" PriceHistory : tracks history
+    Price "1" -- "1" PriceType : has type
+    
+    RegionalPrice "*" -- "1" Region : for region
+    RegionalPrice "*" -- "1" Currency : in currency
+    
+    Region "1" -- "1" Currency : default currency
+    Region "1" -- "0..*" Currency : supports currencies
+    Region "1" -- "0..*" TaxRule : has tax rules
+    
+    Currency "1" -- "0..*" ExchangeRate : from currency
+    Currency "1" -- "0..*" ExchangeRate : to currency
+    
+    TaxRule "*" -- "1" Region : applies to region
+    TaxRule "1" -- "1" TaxType : has type
+}
+
+' ============================================
+' SELLER SERVICE
+' ============================================
+package "Seller Service" {
+    abstract class Seller <<Aggregate>> {
+        **Base Seller (Joined Table Inheritance)**
+        --
+        + id: Long <<PK>>
+        + businessName: String
+        + email: String <<Unique>>
+        + phone: String
+        + sellerType: SellerType
+        + sellerStatus: SellerStatus
+        + kycStatus: KYCStatus
+        + commissionRate: BigDecimal
+        + rating: BigDecimal
+        + totalSales: Long
+        + createdAt: Timestamp
+    }
+
+    class IndividualArtisan <<Entity>> {
+        **Extends Seller**
+        --
+        + sellerId: Long <<PK,FK>>
+        + craftSpecialty: String
+        + yearsOfExperience: Integer
+        + portfolioUrl: String
+        + isCertified: Boolean
+        + certificationDetails: String
+    }
+
+    class HomeBasedMaker <<Entity>> {
+        **Extends Seller**
+        --
+        + sellerId: Long <<PK,FK>>
+        + workshopType: String
+        + productionCapacity: Integer
+        + specializations: List<String>
+        + hasBusinessLicense: Boolean
+    }
+
+    class SmallBusiness <<Entity>> {
+        **Extends Seller**
+        --
+        + sellerId: Long <<PK,FK>>
+        + businessRegistration: String
+        + taxId: String
+        + employeeCount: Integer
+        + hasPhysicalStore: Boolean
+        + storeAddress: String
+    }
+
+    class EnterpriseSeller <<Entity>> {
+        **Extends Seller**
+        --
+        + sellerId: Long <<PK,FK>>
+        + companyRegistration: String
+        + taxId: String
+        + employeeCount: Integer
+        + annualRevenue: BigDecimal
+        + warehouseCount: Integer
+        + hasAPI: Boolean
+    }
+
+    class Dropshipper <<Entity>> {
+        **Extends Seller**
+        --
+        + sellerId: Long <<PK,FK>>
+        + supplierNetwork: String
+        + averageShippingDays: Integer
+        + fulfillmentPartners: List<String>
+        + autoSyncInventory: Boolean
+    }
+
+    enum SellerType {
+        INDIVIDUAL_ARTISAN
+        HOME_BASED_MAKER
+        SMALL_BUSINESS
+        ENTERPRISE
+        DROPSHIPPER
+    }
+
+    enum SellerStatus {
+        PENDING_APPROVAL
+        ACTIVE
+        SUSPENDED
+        TERMINATED
+    }
+
+    class SellerLocation <<Entity>> {
+        **Seller Workshop/Studio Location**
+        --
+        + id: Long <<PK>>
+        + sellerId: Long <<FK>>
+        + locationType: LocationType
+        + addressLine1: String
+        + addressLine2: String
+        + city: String
+        + state: String
+        + country: String
+        + postalCode: String
+        + latitude: BigDecimal
+        + longitude: BigDecimal
+        + isPrimary: Boolean
+        + isPickupEnabled: Boolean
+        + operatingHours: JSON
+        + createdAt: Timestamp
+    }
+
+    enum LocationType {
+        HOME_WORKSHOP
+        STUDIO
+        RETAIL_STORE
+        WAREHOUSE
+        SHARED_WORKSPACE
+    }
+
+    ' Internal Relationships
+    Seller "1" *-- "1..*" SellerLocation : has locations
+    Seller "1" -- "1" SellerType : has type
+    Seller "1" -- "1" SellerStatus : has status
+    SellerLocation "1" -- "1" LocationType : has type
+    
+    Seller <|-- IndividualArtisan : extends
+    Seller <|-- HomeBasedMaker : extends
+    Seller <|-- SmallBusiness : extends
+    Seller <|-- EnterpriseSeller : extends
+    Seller <|-- Dropshipper : extends
+}
+
+' ============================================
+' REVIEW SERVICE
+' ============================================
+package "Review Service" {
+    class ProductReview <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>> (External: Product)
+        + customerId: Long <<FK>> (External: Customer)
+        + orderId: Long <<FK>> (External: Order)
+        + rating: Integer
+        + title: String
+        + comment: Text
+        + reviewStatus: ReviewStatus
+        + helpfulCount: Integer
+        + createdAt: Timestamp
+    }
+
+    enum ReviewStatus {
+        PENDING
+        APPROVED
+        REJECTED
+        FLAGGED
+    }
+    
+    ProductReview "1" -- "1" ReviewStatus : status
+}
+
+' ============================================
+' PROMOTION SERVICE
+' ============================================
+package "Promotion Service" {
+    class Promotion <<Entity>> {
+        + id: Long <<PK>>
+        + name: String
+        + promotionType: PromotionType
+        + discountValue: BigDecimal
+        + startDate: Timestamp
+        + endDate: Timestamp
+        + isActive: Boolean
+    }
+
+    class PromotionProduct <<Entity>> {
+        + id: Long <<PK>>
+        + promotionId: Long <<FK>>
+        + productId: Long <<FK>> (External: Product)
+    }
+    
+    Promotion "1" -- "0..*" PromotionProduct : applies to
+}
+
+' ============================================
+' SHIPPING SERVICE
+' ============================================
+package "Shipping Service" {
+    class ShippingProfile <<Entity>> {
+        + id: Long <<PK>>
+        + productId: Long <<FK>> (External: Product)
+        + weight: BigDecimal
+        + length: BigDecimal
+        + width: BigDecimal
+        + height: BigDecimal
+        + shippingCost: BigDecimal
+        + freeShippingThreshold: BigDecimal
+        + estimatedDeliveryDays: Integer
+    }
+}
+
+' ============================================
+' CROSS-SERVICE RELATIONSHIPS (Loose Coupling)
+' ============================================
+
+' Product <-> Catalog
+Product ..> Category : "belongs to (ID)"
+CatalogEntry ..> Product : "indexes (ID)"
+CatalogItem ..> Product : "references (ID)"
+CollectionProductMapping ..> Product : "references (ID)"
+
+' Product <-> Seller
+Product ..> Seller : "owned by (ID)"
+
+' Product <-> Inventory
+Product ..> Inventory : "has inventory (ID)"
+ProductVariant ..> VariantInventory : "has inventory (ID)"
+MadeToOrderInventory ..> SellerLocation : "fulfills from (ID)"
+
+' Product <-> Pricing
+Product ..> Price : "has prices (ID)"
+ProductVariant ..> Price : "has prices (ID)"
+
+' Product <-> Reviews
+Product ..> ProductReview : "has reviews (ID)"
+
+' Product <-> Promotions
+PromotionProduct ..> Product : "targets (ID)"
+
+' Product <-> Shipping
+Product ..> ShippingProfile : "has profile (ID)"
+
+' Pricing <-> Catalog
+TaxRule ..> Category : "applies to (ID)"
+
+@enduml

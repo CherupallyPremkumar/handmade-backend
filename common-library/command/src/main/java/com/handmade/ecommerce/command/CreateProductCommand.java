@@ -7,20 +7,21 @@ public class CreateProductCommand {
 
     private String id;
     private String name;
+    private String sku;
     private String description;
     private List<String> categoryId;
-    private String featureDescription;
     private String salesDescription;
     private String detailsDescription;
     private List<String> tags;
     private ProductImage primaryImage;
-    private Map<String, ProductAttributes> variantAttributes;
+    private Map<String, ProductAttributes> productAttributes;
     private List<CreateVariantCommand> variants;
 
 
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -92,13 +93,7 @@ public class CreateProductCommand {
         this.primaryImage = primaryImage;
     }
 
-    public Map<String, ProductAttributes> getVariantAttributes() {
-        return variantAttributes;
-    }
 
-    public void setVariantAttributes(Map<String, ProductAttributes> variantAttributes) {
-        this.variantAttributes = variantAttributes;
-    }
 
     public List<CreateVariantCommand> getVariants() {
         return variants;
@@ -106,5 +101,21 @@ public class CreateProductCommand {
 
     public void setVariants(List<CreateVariantCommand> variants) {
         this.variants = variants;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public Map<String, ProductAttributes> getProductAttributes() {
+        return productAttributes;
+    }
+
+    public void setProductAttributes(Map<String, ProductAttributes> productAttributes) {
+        this.productAttributes = productAttributes;
     }
 }

@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.promotion.model;
 
 import jakarta.persistence.*;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.utils.entity.model.ChenileEntity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,11 +18,8 @@ import java.util.List;
     @Index(name = "idx_active", columnList = "active"),
     @Index(name = "idx_target", columnList = "target_type, target_id")
 })
-public class Promotion extends ChenileEntity {
-    
-    @Id
-    @Column(name = "promotion_id", length = 50)
-    private String promotionId;
+public class Promotion extends BaseJpaEntity {
+
     
     @Column(name = "name", nullable = false, length = 100)
     private String name; // "Pottery Week Sale"
@@ -97,14 +95,7 @@ public class Promotion extends ChenileEntity {
     private List<String> excludedProductIds = new ArrayList<>();
     
     // Getters and Setters
-    
-    public String getPromotionId() {
-        return promotionId;
-    }
-    
-    public void setPromotionId(String promotionId) {
-        this.promotionId = promotionId;
-    }
+
     
     public String getName() {
         return name;
@@ -290,16 +281,7 @@ public class Promotion extends ChenileEntity {
         this.excludedProductIds = excludedProductIds;
     }
     
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+
     
     /**
      * Check if promotion is currently active based on date range and usage

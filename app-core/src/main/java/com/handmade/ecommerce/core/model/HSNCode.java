@@ -1,6 +1,5 @@
-package com.handmade.ecommerce.common.model;
+package com.handmade.ecommerce.core.model;
 
-import jakarta.persistence.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity

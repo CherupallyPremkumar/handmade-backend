@@ -1,6 +1,6 @@
-package com.handmade.ecommerce.common.model;
+package com.handmade.ecommerce.core.model;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Immutable value object representing money (amount + currency)
  */
+
 public final class Money {
 
     @NotNull

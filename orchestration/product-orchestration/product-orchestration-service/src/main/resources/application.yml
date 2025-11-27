@@ -1,0 +1,3 @@
+handmade:
+  product:
+    flow-path: src/main/resources/com/handmade/ecommerce/productorch/product-core.xml

@@ -4,12 +4,15 @@
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
         <artifactId>handmade-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>app-core</artifactId>
-    <packaging>jar</packaging>
 
+    <groupId>com.handmade.ecommerce.app-core</groupId>
+    <artifactId>app-core</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
     <name>app-core</name>
     <url>http://maven.apache.org</url>
 
@@ -18,6 +21,14 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>jpa-utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

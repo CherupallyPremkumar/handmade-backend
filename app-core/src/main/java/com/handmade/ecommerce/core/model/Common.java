@@ -1,6 +1,5 @@
-package com.handmade.ecommerce.common.model;
+package com.handmade.ecommerce.core.model;
 
-import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;

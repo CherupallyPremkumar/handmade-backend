@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.catalog.model;
 
 import jakarta.persistence.*;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.utils.entity.model.ChenileEntity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,11 +13,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "categories")
-public class Category extends ChenileEntity {
-    
-    @Id
-    @Column(name = "category_id", length = 50)
-    private String categoryId;
+public class Category extends BaseJpaEntity {
+
     
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -65,14 +63,7 @@ public class Category extends ChenileEntity {
     private List<Category> children = new ArrayList<>();
     
     // Getters and Setters
-    
-    public String getCategoryId() {
-        return categoryId;
-    }
-    
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
+
     
     public String getName() {
         return name;
@@ -194,14 +185,5 @@ public class Category extends ChenileEntity {
         this.children = children;
     }
     
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+
 }

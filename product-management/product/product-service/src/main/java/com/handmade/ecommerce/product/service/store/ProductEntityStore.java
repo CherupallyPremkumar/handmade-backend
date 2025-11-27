@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.product.service.store;
 
+import com.handmade.ecommerce.core.HmHeaderUtils;
+import org.chenile.core.context.ContextContainer;
 import org.chenile.utils.entity.service.EntityStore;
 import com.handmade.ecommerce.product.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class ProductEntityStore implements EntityStore<Product>{
 
 	@Override
 	public void store(Product entity) {
+		entity.setSellerId(HmHeaderUtils.getSellerId(ContextContainer.getContextExtensions()));
         productRepository.save(entity);
 	}
 

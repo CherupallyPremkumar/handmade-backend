@@ -31,5 +31,5 @@ public class SellerPaymentInfo extends BaseJpaEntity {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "paymentInfo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PaymentMethod> paymentMethods = new ArrayList<>();
+    private List<PaymentMethodd> paymentMethods = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package com.handmade.ecommerce.review.model;
 
 import jakarta.persistence.*;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +70,8 @@ public class ProductReview extends Review {
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
     
-    public ReviewStatus getReviewStatus() { return reviewStatus; }
-    public void setReviewStatus(ReviewStatus reviewStatus) { this.reviewStatus = reviewStatus; }
+    public String getReviewStatus() { return reviewStatus; }
+    public void setReviewStatus(ReviewStatus reviewStatus) { this.reviewStatus = String.valueOf(reviewStatus); }
     
     public List<String> getImages() { return images; }
     public void setImages(List<String> images) { this.images = images; }

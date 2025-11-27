@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.catalog.model;
 
 import jakarta.persistence.*;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.utils.entity.model.ChenileEntity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,11 +13,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "collections")
-public class Collection extends ChenileEntity {
+public class Collection extends BaseJpaEntity {
     
-    @Id
-    @Column(name = "collection_id", length = 50)
-    private String collectionId;
+
     
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -70,13 +69,7 @@ public class Collection extends ChenileEntity {
     
     // Getters and Setters
     
-    public String getCollectionId() {
-        return collectionId;
-    }
-    
-    public void setCollectionId(String collectionId) {
-        this.collectionId = collectionId;
-    }
+
     
     public String getName() {
         return name;
@@ -205,17 +198,7 @@ public class Collection extends ChenileEntity {
     public void setProductIds(List<String> productIds) {
         this.productIds = productIds;
     }
-    
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+
     
     /**
      * Check if collection is currently active based on date range

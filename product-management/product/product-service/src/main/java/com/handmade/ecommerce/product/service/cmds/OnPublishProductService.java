@@ -9,9 +9,5 @@ import org.chenile.stm.model.Transition;
 import org.springframework.stereotype.Component;
 
 
-public class OnPublishProductService implements STMTransitionAction<Product> {
-    @Override
-    public void doTransition(Product stateEntity, Object transitionParam, State startState, String eventId, State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-
-    }
+public class OnPublishProductService implements
 }

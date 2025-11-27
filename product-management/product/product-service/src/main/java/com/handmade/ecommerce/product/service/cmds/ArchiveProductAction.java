@@ -14,7 +14,6 @@ import com.handmade.ecommerce.product.dto.ArchiveProductPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ArchiveProductAction extends AbstractSTMTransitionAction<Product,
-
     ArchiveProductPayload>{
 
 

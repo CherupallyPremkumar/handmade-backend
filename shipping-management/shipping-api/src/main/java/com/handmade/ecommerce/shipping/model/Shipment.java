@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.shipping.model;
 
 import jakarta.persistence.*;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.utils.entity.model.ChenileEntity;
 import java.time.LocalDateTime;
 
@@ -14,11 +15,9 @@ import java.time.LocalDateTime;
     @Index(name = "idx_tracking_number", columnList = "tracking_number"),
     @Index(name = "idx_status", columnList = "status")
 })
-public class Shipment extends ChenileEntity {
+public class Shipment extends BaseJpaEntity {
     
-    @Id
-    @Column(name = "shipment_id", length = 50)
-    private String shipmentId;
+
     
     @Column(name = "order_id", nullable = false, length = 50)
     private String orderId; // Reference to Order Management
@@ -56,14 +55,7 @@ public class Shipment extends ChenileEntity {
     private LocalDateTime deliveredAt;
     
     // Getters and Setters
-    
-    public String getShipmentId() {
-        return shipmentId;
-    }
-    
-    public void setShipmentId(String shipmentId) {
-        this.shipmentId = shipmentId;
-    }
+
     
     public String getOrderId() {
         return orderId;
@@ -153,11 +145,7 @@ public class Shipment extends ChenileEntity {
         this.deliveredAt = deliveredAt;
     }
     
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        status = ShipmentStatus.PENDING;
-    }
+
     
     /**
      * Mark shipment as shipped

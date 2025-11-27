@@ -10,8 +10,8 @@
     </parent>
 
     <modules>
-        <module>productorch</module>
-        <module>sellerorch</module>
+        <module>product-orchestration</module>
+        <module>seller-orchestration</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.orchestration</groupId>

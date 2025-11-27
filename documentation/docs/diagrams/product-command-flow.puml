@@ -1,0 +1,97 @@
+@startuml Product Orchestration Commands
+
+title Product Orchestration - Command Flow
+
+participant Seller
+box "Orchestration Layer" #LightBlue
+    participant ProductOrchestration
+    participant ValidateSellerCmd
+    participant ValidateProductCmd
+    participant CreateVariantsCmd
+    participant CreateInventoryCmd
+    participant ValidateComplianceCmd
+    participant SubmitForReviewCmd
+    participant PublishProductCmd
+end box
+participant ProductService
+participant InventoryService
+participant CatalogService
+
+Seller -> ProductOrchestration: createProduct(request)
+activate ProductOrchestration
+
+ProductOrchestration -> ValidateSellerCmd: execute(context)
+activate ValidateSellerCmd
+ValidateSellerCmd -> ValidateSellerCmd: Check seller status
+ValidateSellerCmd --> ProductOrchestration: ✓ Valid
+deactivate ValidateSellerCmd
+
+ProductOrchestration -> ValidateProductCmd: execute(context)
+activate ValidateProductCmd
+ValidateProductCmd -> ValidateProductCmd: Validate data\nCheck SKU\nValidate images
+ValidateProductCmd --> ProductOrchestration: ✓ Valid
+deactivate ValidateProductCmd
+
+ProductOrchestration -> ProductService: createProduct(DRAFT)
+ProductService --> ProductOrchestration: Product created
+
+ProductOrchestration --> Seller: Product ID (DRAFT)
+deactivate ProductOrchestration
+
+...Seller adds variants...
+
+Seller -> ProductOrchestration: addVariants(productId, variants)
+activate ProductOrchestration
+
+ProductOrchestration -> CreateVariantsCmd: execute(context)
+activate CreateVariantsCmd
+CreateVariantsCmd -> ProductService: createVariants()
+ProductService --> CreateVariantsCmd: Variants created
+CreateVariantsCmd --> ProductOrchestration: ✓ Done
+deactivate CreateVariantsCmd
+
+ProductOrchestration -> CreateInventoryCmd: execute(context)
+activate CreateInventoryCmd
+CreateInventoryCmd -> InventoryService: createInventory()
+InventoryService --> CreateInventoryCmd: Inventory created
+CreateInventoryCmd --> ProductOrchestration: ✓ Done
+deactivate CreateInventoryCmd
+
+ProductOrchestration --> Seller: Variants added
+deactivate ProductOrchestration
+
+...Seller submits for review...
+
+Seller -> ProductOrchestration: submitForReview(productId)
+activate ProductOrchestration
+
+ProductOrchestration -> ValidateComplianceCmd: execute(context)
+activate ValidateComplianceCmd
+ValidateComplianceCmd -> ValidateComplianceCmd: Check compliance\nValidate category
+ValidateComplianceCmd --> ProductOrchestration: ✓ Valid
+deactivate ValidateComplianceCmd
+
+ProductOrchestration -> SubmitForReviewCmd: execute(context)
+activate SubmitForReviewCmd
+SubmitForReviewCmd -> ProductService: updateStatus(PENDING_REVIEW)
+ProductService --> SubmitForReviewCmd: Status updated
+SubmitForReviewCmd --> ProductOrchestration: ✓ Submitted
+deactivate SubmitForReviewCmd
+
+ProductOrchestration --> Seller: Pending Review
+deactivate ProductOrchestration
+
+...Admin approves...
+
+ProductOrchestration -> PublishProductCmd: execute(context)
+activate PublishProductCmd
+PublishProductCmd -> ProductService: updateStatus(ACTIVE)
+ProductService --> PublishProductCmd: Published
+PublishProductCmd -> CatalogService: indexProduct()
+CatalogService --> PublishProductCmd: Indexed
+PublishProductCmd --> ProductOrchestration: ✓ Published
+deactivate PublishProductCmd
+
+ProductOrchestration --> Seller: Product LIVE!
+
+@enduml

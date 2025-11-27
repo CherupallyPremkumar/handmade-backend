@@ -1,6 +1,9 @@
-package com.handmade.ecommerce.common.model;
+package com.handmade.ecommerce.core.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
@@ -12,6 +15,4 @@ public class ProductAttributeValue extends BaseJpaEntity {
     @ManyToOne
     @JoinColumn(name = "attribute_id")
     private ProductAttribute productAttribute;
-
-    // getters and setters
 }

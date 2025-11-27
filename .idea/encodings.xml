@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/app-boot/build-package/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/artisan-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/artisan-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/java" charset="UTF-8" />
@@ -81,10 +82,22 @@
     <file url="file://$PROJECT_DIR$/notification-management/notification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/product-orchestration-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/product-orchestration-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/productorch-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/productorch-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/seller-orchestration-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/seller-orchestration-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/sellerorch-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/sellerorch-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/src/main/java" charset="UTF-8" />
@@ -111,8 +124,10 @@
     <file url="file://$PROJECT_DIR$/platform-audit-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/pricing-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/product/product-api/src/main/java" charset="UTF-8" />

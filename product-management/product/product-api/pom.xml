@@ -25,6 +25,11 @@
 			<artifactId>jpa-utils</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.handmade.ecommerce.app-core</groupId>
+			<artifactId>app-core</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.handmade.ecommerce.common</groupId>
 			<artifactId>common-api</artifactId>
 			<version>${revision}</version>

@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.common.model;
+package com.handmade.ecommerce.core.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

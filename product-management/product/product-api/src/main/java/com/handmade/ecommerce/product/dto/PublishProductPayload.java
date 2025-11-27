@@ -1,4 +1,6 @@
 package com.handmade.ecommerce.product.dto;
 
-public class PublishProductPayload {
+import org.chenile.workflow.param.MinimalPayload;
+
+public class PublishProductPayload extends MinimalPayload {
 }

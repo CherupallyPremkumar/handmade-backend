@@ -1,6 +1,8 @@
 package com.handmade.ecommerce.product.model;
 
-import com.handmade.ecommerce.common.model.ProductAttribute;
+import com.handmade.ecommerce.core.model.AbstractSeller;
+import com.handmade.ecommerce.core.model.Money;
+import com.handmade.ecommerce.core.model.ProductAttribute;
 import org.chenile.workflow.activities.model.ActivityEnabledStateEntity;
 import org.chenile.workflow.activities.model.ActivityLog;
 import java.util.*;
@@ -8,48 +10,66 @@ import com.handmade.ecommerce.product.model.ProductActivityLog;
 import org.chenile.workflow.model.*;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
+
 @Entity
-@Table(name = "product")
-public class Product extends AbstractJpaStateEntity
-    implements ActivityEnabledStateEntity
-        ,
-    ContainsTransientMap
-{
+@Table(name = "hm_product")
+public class Product extends AbstractSeller
+        implements ActivityEnabledStateEntity,
+        ContainsTransientMap {
     @Column(nullable = false)
     private String name;
 
     @Column(length = 2000)
     private String description;
 
+    @Column(name = "category_id")
+    private String categoryId;
 
-    @Column(name = "feature_description")
-    private String featureDescription;
+    @Column(name = "sub_category_id")
+    private String subCategoryId;
+
+    @Column(name = "base_price")
+    private Money basePrice;
 
     @Column(name = "sales_description")
     private String salesDescription;
 
+    @Column(name = "feature_description")
+    private String featureDescription;
+
     @Column(name = "details_description")
     private String detailsDescription;
+
     @ManyToOne
     @JoinColumn(name = "product_attribute_id")
     private ProductAttribute productAttribute;
+
+    // Image URLs (managed by separate image service)
+    @Column(name = "primary_image_url", length = 500)
+    private String primaryImageUrl;
+
+    @Column(name = "primary_image_alt_text", length = 200)
+    private String primaryImageAltText;
+
+    @ElementCollection
+    @CollectionTable(name = "product_additional_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url", length = 500)
+    private List<String> additionalImageUrls = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag")
     private List<String> tags = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
     @Transient
     public TransientMap transientMap = new TransientMap();
-    public TransientMap getTransientMap(){
+
+    public TransientMap getTransientMap() {
         return this.transientMap;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
-    public List< ProductActivityLog> activities = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    public List<ProductActivityLog> activities = new ArrayList<>();
 
     public ProductAttribute getProductAttribute() {
         return productAttribute;
@@ -62,7 +82,7 @@ public class Product extends AbstractJpaStateEntity
     @Override
     public Collection<ActivityLog> obtainActivities() {
         Collection<ActivityLog> acts = new ArrayList<>();
-        for (ActivityLog a: activities){
+        for (ActivityLog a : activities) {
             acts.add(a);
         }
         return acts;
@@ -94,8 +114,6 @@ public class Product extends AbstractJpaStateEntity
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 
     public String getFeatureDescription() {
         return featureDescription;
@@ -129,12 +147,44 @@ public class Product extends AbstractJpaStateEntity
         this.tags = tags;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public String getPrimaryImageUrl() {
+        return primaryImageUrl;
+    }
+
+    public void setPrimaryImageUrl(String primaryImageUrl) {
+        this.primaryImageUrl = primaryImageUrl;
+    }
+
+    public String getPrimaryImageAltText() {
+        return primaryImageAltText;
+    }
+
+    public void setPrimaryImageAltText(String primaryImageAltText) {
+        this.primaryImageAltText = primaryImageAltText;
+    }
+
+    public List<String> getAdditionalImageUrls() {
+        return additionalImageUrls;
+    }
+
+    public void setAdditionalImageUrls(List<String> additionalImageUrls) {
+        this.additionalImageUrls = additionalImageUrls;
     }
 
     public void setTransientMap(TransientMap transientMap) {
@@ -148,4 +198,5 @@ public class Product extends AbstractJpaStateEntity
     public void setActivities(List<ProductActivityLog> activities) {
         this.activities = activities;
     }
+
 }

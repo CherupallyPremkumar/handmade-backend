@@ -1,0 +1,184 @@
+@startuml Product Creation Workflow
+
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+skinparam defaultFontName Arial
+
+title Seller Product Creation Workflow (Amazon-style)
+
+actor Seller
+participant "Product\nOrchestration" as Orch
+participant "Product\nService" as Product
+participant "Inventory\nService" as Inventory
+participant "Catalog\nService" as Catalog
+participant "Review\nService" as Review
+participant "Notification\nService" as Notify
+database "Database" as DB
+
+== Step 1: Create Product Draft ==
+
+Seller -> Orch: Create Product Request
+activate Orch
+
+Orch -> Orch: ValidateSellerCommand
+note right: Check seller is verified\nCheck product limits
+
+Orch -> Orch: ValidateProductDataCommand
+note right: Validate required fields\nCheck SKU uniqueness\nValidate images
+
+Orch -> Product: Create Product (DRAFT)
+activate Product
+Product -> DB: Save Product
+Product --> Orch: Product Created
+deactivate Product
+
+Orch -> Notify: Send Notification
+Notify -> Seller: "Draft Saved"
+
+Orch --> Seller: Product ID + Draft Status
+deactivate Orch
+
+== Step 2: Add Variants & Inventory ==
+
+Seller -> Orch: Add Variants Request
+activate Orch
+
+Orch -> Orch: CreateVariantsCommand
+note right: Validate variant data\nGenerate variant SKUs
+
+Orch -> Product: Create Variants
+activate Product
+Product -> DB: Save Variants
+Product --> Orch: Variants Created
+deactivate Product
+
+Orch -> Orch: CreateInventoryCommand
+note right: Validate stock levels\nCheck warehouse capacity
+
+Orch -> Inventory: Create Inventory Records
+activate Inventory
+Inventory -> DB: Save Inventory
+Inventory --> Orch: Inventory Created
+deactivate Inventory
+
+Orch --> Seller: Variants & Inventory Added
+deactivate Orch
+
+== Step 3: Compliance & Categorization ==
+
+Seller -> Orch: Set Category & Compliance
+activate Orch
+
+Orch -> Orch: ValidateComplianceCommand
+note right: Check category requirements\nValidate tax codes\nCheck restricted items
+
+Orch -> Orch: CreateCatalogEntryCommand
+note right: Generate search keywords\nCreate category mappings
+
+Orch -> Catalog: Create Catalog Entry
+activate Catalog
+Catalog -> DB: Save Catalog Entry
+Catalog --> Orch: Entry Created
+deactivate Catalog
+
+Orch --> Seller: Compliance Validated
+deactivate Orch
+
+== Step 4: Submit for Review ==
+
+Seller -> Orch: Submit for Review
+activate Orch
+
+Orch -> Orch: SubmitForReviewCommand
+note right: Change status to\nPENDING_REVIEW
+
+Orch -> Product: Update Status
+activate Product
+Product -> DB: Update Status
+Product --> Orch: Status Updated
+deactivate Product
+
+Orch -> Review: Trigger Review Workflow
+activate Review
+Review -> Review: Queue for Review
+Review --> Orch: Review Queued
+deactivate Review
+
+Orch -> Notify: Send Notification
+Notify -> Seller: "Submitted for Review"
+
+Orch --> Seller: Pending Review Status
+deactivate Orch
+
+== Step 5: Admin Review ==
+
+actor Admin
+Admin -> Review: Review Product
+activate Review
+
+Review -> Review: Content Moderation
+note right: Check prohibited items\nImage quality check\nPrice validation
+
+alt Product Approved
+    Review -> Product: Approve Product
+    activate Product
+    Product -> DB: Update Status (APPROVED)
+    Product --> Review: Approved
+    deactivate Product
+    
+    Review -> Notify: Send Notification
+    Notify -> Seller: "Product Approved"
+    
+else Needs Revision
+    Review -> Product: Request Revision
+    activate Product
+    Product -> DB: Update Status (NEEDS_REVISION)
+    Product --> Review: Revision Requested
+    deactivate Product
+    
+    Review -> Notify: Send Notification
+    Notify -> Seller: "Needs Revision + Feedback"
+    
+else Product Rejected
+    Review -> Product: Reject Product
+    activate Product
+    Product -> DB: Update Status (REJECTED)
+    Product --> Review: Rejected
+    deactivate Product
+    
+    Review -> Notify: Send Notification
+    Notify -> Seller: "Product Rejected + Reason"
+end
+
+Review --> Admin: Review Complete
+deactivate Review
+
+== Step 6: Publish Product ==
+
+alt If Approved
+    Review -> Orch: Publish Product
+    activate Orch
+    
+    Orch -> Orch: PublishProductCommand
+    note right: Change status to ACTIVE\nIndex in search\nMake visible
+    
+    Orch -> Product: Publish Product
+    activate Product
+    Product -> DB: Update Status (ACTIVE)
+    Product --> Orch: Published
+    deactivate Product
+    
+    Orch -> Catalog: Index in Search
+    activate Catalog
+    Catalog -> DB: Update Search Index
+    Catalog --> Orch: Indexed
+    deactivate Catalog
+    
+    Orch -> Notify: Send Notification
+    Notify -> Seller: "Product Live!"
+    
+    Orch --> Seller: Product Published
+    deactivate Orch
+end
+
+@enduml

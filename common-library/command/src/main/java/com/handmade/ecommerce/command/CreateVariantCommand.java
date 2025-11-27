@@ -1,19 +1,26 @@
 package com.handmade.ecommerce.command;
 
-
 import java.util.List;
 
 public class CreateVariantCommand {
 
     private String productId;
+    private String artisanId;
     private String id;
     private String sku;
     private String title;
+    private String description;
+    private String featureDescription;
+
+    // Shipping profiles (supports multiple packaging options)
+    private List<CreateShippingProfileCommand> shippingProfiles;
+
     private List<CreatePriceCommand> prices;
     private CreateInventoryCommand inventory;
     private List<VariantImage> images;
     // Variant properties (color, size, etc…)
-    private List<VariantAttribute> attributes;
+    private List<VariantAttributeDTO> variantAttributes;
+
     public String getProductId() {
         return productId;
     }
@@ -46,7 +53,6 @@ public class CreateVariantCommand {
         this.title = title;
     }
 
-
     public CreateInventoryCommand getInventory() {
         return inventory;
     }
@@ -63,19 +69,51 @@ public class CreateVariantCommand {
         this.images = images;
     }
 
-    public List<VariantAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<VariantAttribute> attributes) {
-        this.attributes = attributes;
-    }
-
     public List<CreatePriceCommand> getPrices() {
         return prices;
     }
 
     public void setPrices(List<CreatePriceCommand> prices) {
         this.prices = prices;
+    }
+
+    public List<VariantAttributeDTO> getVariantAttributes() {
+        return variantAttributes;
+    }
+
+    public void setVariantAttributes(List<VariantAttributeDTO> variantAttributes) {
+        this.variantAttributes = variantAttributes;
+    }
+
+    public String getFeatureDescription() {
+        return featureDescription;
+    }
+
+    public void setFeatureDescription(String featureDescription) {
+        this.featureDescription = featureDescription;
+    }
+
+    public String getArtisanId() {
+        return artisanId;
+    }
+
+    public void setArtisanId(String artisanId) {
+        this.artisanId = artisanId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<CreateShippingProfileCommand> getShippingProfiles() {
+        return shippingProfiles;
+    }
+
+    public void setShippingProfiles(List<CreateShippingProfileCommand> shippingProfiles) {
+        this.shippingProfiles = shippingProfiles;
     }
 }
