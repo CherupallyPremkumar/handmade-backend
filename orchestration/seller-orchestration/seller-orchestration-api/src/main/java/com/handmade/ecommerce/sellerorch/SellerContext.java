@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.sellerorch;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.handmade.ecommerce.command.CreateSellerCommand;
 import org.chenile.base.exception.ErrorNumException;
 import org.chenile.base.exception.ServerException;
 import org.chenile.base.response.ResponseMessage;

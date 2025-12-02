@@ -1,5 +1,9 @@
 package com.handmade.ecommerce.payment.configuration;
 
+import com.handmade.ecommerce.payment.service.PaymentExchange;
+import org.chenile.owiz.OrchExecutor;
+import org.chenile.owiz.config.impl.XmlOrchConfigurator;
+import org.chenile.owiz.impl.OrchExecutorImpl;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
@@ -7,6 +11,7 @@ import org.chenile.stm.spring.SpringBeanFactoryAdapter;
 import org.chenile.workflow.param.MinimalPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +26,6 @@ import org.chenile.workflow.api.WorkflowRegistry;
 import org.chenile.workflow.service.stmcmds.StmAuthoritiesBuilder;
 import java.util.function.Function;
 import org.chenile.core.context.ChenileExchange;
-import org.chenile.stm.State;
 import org.chenile.workflow.service.activities.ActivityChecker;
 import org.chenile.workflow.service.activities.AreActivitiesComplete;
 import com.handmade.ecommerce.payment.service.postSaveHooks.*;
@@ -34,6 +38,9 @@ public class PaymentConfiguration {
 	private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/payment/payment-states.xml";
 	public static final String PREFIX_FOR_PROPERTIES = "Payment";
     public static final String PREFIX_FOR_RESOLVER = "payment";
+
+    @Autowired
+    ApplicationContext applicationContext;
 
     @Bean BeanFactoryAdapter paymentBeanFactoryAdapter() {
 		return new SpringBeanFactoryAdapter();
@@ -215,5 +222,7 @@ public class PaymentConfiguration {
         paymentSUSPENDEDPostSaveHook(){
             return new SUSPENDEDPaymentPostSaveHook();
     }
+
+
 
 }

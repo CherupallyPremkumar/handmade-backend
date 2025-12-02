@@ -1,0 +1,58 @@
+@startuml payment-idempotency-flow
+!theme plain
+
+title Payment System - Idempotency Flow (Duplicate Request Prevention)
+
+actor Client
+participant "Payment\nService" as PaymentSvc
+database "Database" as DB
+
+note over Client
+    User clicks "Pay" twice
+end note
+
+== First Request ==
+Client -> PaymentSvc: processPayment(orderId=123)
+activate PaymentSvc
+
+PaymentSvc -> DB: findById(123)
+DB --> PaymentSvc: Not found
+
+PaymentSvc -> DB: Save PaymentOrder(id=123)
+note right of DB
+    Primary key constraint
+    ensures uniqueness
+end note
+
+PaymentSvc -> PaymentSvc: Execute payment...
+PaymentSvc -> DB: Update status=SUCCESS
+
+PaymentSvc --> Client: PaymentResponse\n{status=SUCCESS}
+deactivate PaymentSvc
+
+== Second Request (Duplicate) ==
+note over Client #lightblue
+    User clicks "Pay" again
+end note
+
+Client -> PaymentSvc: processPayment(orderId=123)
+activate PaymentSvc
+
+PaymentSvc -> DB: findById(123)
+DB --> PaymentSvc: PaymentOrder{status=SUCCESS}
+
+note over PaymentSvc #lightgreen
+    Already processed!
+    Return existing status
+end note
+
+PaymentSvc --> Client: PaymentResponse\n{status=SUCCESS}
+deactivate PaymentSvc
+
+note over Client,DB #yellow
+    ✓ No double payment!
+    Same idempotency key (orderId=123)
+    prevents duplicate processing
+end note
+
+@enduml

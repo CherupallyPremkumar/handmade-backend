@@ -3,7 +3,8 @@ package com.handmade.ecommerce.productorch.configuration;
 
 import com.handmade.ecommerce.inventory.service.InventoryService;
 import com.handmade.ecommerce.notification.service.NotificationService;
-import com.handmade.ecommerce.price.PricingService;
+
+import com.handmade.ecommerce.pricing.service.PricingService;
 import com.handmade.ecommerce.product.service.ProductService;
 import org.chenile.core.context.HeaderCopier;
 import org.chenile.proxy.builder.ProxyBuilder;
@@ -70,7 +71,7 @@ public class ProductOrchestrationProxyConfig {
     @Bean
     public PricingService pricingServiceProxy() {
         return proxyBuilder.buildProxy(
-            PricingService.class,
+                PricingService.class,
             "pricingService",
             headerCopier,
             pricingServiceUrl

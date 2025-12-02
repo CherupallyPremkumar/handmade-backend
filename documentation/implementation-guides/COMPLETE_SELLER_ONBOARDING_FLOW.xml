@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Complete Seller Onboarding Flow (Amazon-style)
+    
+    Flow Steps:
+    1. Seller Registration (validate basic info)
+    2. Upload Documents (PAN, GST, Bank, Address proof)
+    3. Document Verification (OCR + API + Manual review)
+    4. Video KYC (Optional for high-value sellers)
+    5. Approval/Rejection
+    6. Seller Status: ACTIVE
+-->
+<flows>
+    
+    <!-- ============================================ -->
+    <!-- MAIN FLOW: Seller Onboarding (Synchronous)  -->
+    <!-- ============================================ -->
+    <flow id="seller-onboarding" defaultFlow="true">
+        <seller-chain>
+            
+            <!-- Step 1: Basic Validation -->
+            <validate-seller-service/>
+            <!-- Validates: email format, business name, required fields -->
+            
+            <!-- Step 2: Nested Verification Chain -->
+            <verification-chain>
+                <!-- 2a. GSTIN Verification -->
+                <verify-gstin-service/>
+                <!-- Format validation, checksum, state code -->
+                
+                <!-- 2b. PAN Verification -->
+                <verify-pan-service/>
+                <!-- Format validation, extract from GSTIN -->
+                
+                <!-- 2c. Bank Account Verification -->
+                <verify-bank-account-service/>
+                <!-- IFSC validation, account number format -->
+            </verification-chain>
+            
+            <!-- Step 3: Create Seller (DRAFT state) -->
+            <create-seller-service/>
+            <!-- Creates seller with status: DRAFT -->
+            
+            <!-- Step 4: Document Upload Check -->
+            <verify-document-upload-service/>
+            <!-- Checks if all required documents are uploaded:
+                 - PAN Card
+                 - GST Certificate
+                 - Cancelled Cheque
+                 - Business Address Proof
+            -->
+            
+            <!-- Step 5: Parallel Actions -->
+            <seller-parallel-chain>
+                <!-- Send welcome email -->
+                <send-welcome-email-service/>
+                <!-- Email: "Application received, under review" -->
+                
+                <!-- Trigger async document verification -->
+                <trigger-document-verification-flow/>
+                <!-- Triggers: document-verification-flow (async) -->
+            </seller-parallel-chain>
+            
+        </seller-chain>
+    </flow>
+    
+    
+    <!-- ================================================== -->
+    <!-- ASYNC FLOW: Document Verification (2-3 days)      -->
+    <!-- ================================================== -->
+    <flow id="document-verification-flow">
+        <seller-chain>
+            
+            <!-- Step 1: OCR Extraction -->
+            <extract-document-data-service/>
+            <!-- Uses OCR to extract:
+                 - PAN number from PAN card
+                 - GSTIN from GST certificate
+                 - Account number from cheque
+                 - Address from proof
+            -->
+            
+            <!-- Step 2: API Verification -->
+            <api-verification-chain>
+                <!-- 2a. Verify GSTIN with GST Portal -->
+                <verify-gstin-api-service/>
+                <!-- Calls GST API, checks if GSTIN is active -->
+                
+                <!-- 2b. Verify PAN with Income Tax Portal -->
+                <verify-pan-api-service/>
+                <!-- Optional: Calls PAN verification API -->
+                
+                <!-- 2c. Bank Account Penny Drop -->
+                <verify-bank-penny-drop-service/>
+                <!-- Deposits ₹1, verifies account holder name -->
+            </api-verification-chain>
+            
+            <!-- Step 3: Cross-check Extracted Data -->
+            <cross-check-data-service/>
+            <!-- Verifies:
+                 - PAN from card matches PAN in GSTIN
+                 - Business name matches GST certificate
+                 - Account holder name matches business name
+            -->
+            
+            <!-- Step 4: Manual Review (if needed) -->
+            <manual-review-service/>
+            <!-- Assigns to admin if:
+                 - OCR confidence < 90%
+                 - API verification failed
+                 - Data mismatch detected
+            -->
+            
+            <!-- Step 5: Update Seller Status -->
+            <update-seller-status-service/>
+            <!-- Updates status based on verification result:
+                 - All verified: DRAFT → PENDING_APPROVAL
+                 - Failed: DRAFT → REJECTED
+            -->
+            
+            <!-- Step 6: Notify Seller -->
+            <notify-seller-verification-result-service/>
+            <!-- Email seller about verification status -->
+            
+        </seller-chain>
+    </flow>
+    
+    
+    <!-- ================================================== -->
+    <!-- OPTIONAL FLOW: Video KYC (High-value sellers)     -->
+    <!-- ================================================== -->
+    <flow id="video-kyc-flow">
+        <seller-chain>
+            
+            <!-- Step 1: Schedule Video Call -->
+            <schedule-video-kyc-service/>
+            <!-- Sends calendar invite to seller -->
+            
+            <!-- Step 2: Conduct Video KYC -->
+            <conduct-video-kyc-service/>
+            <!-- Admin verifies:
+                 - Seller shows original documents
+                 - Face matches ID photo
+                 - Documents are authentic
+            -->
+            
+            <!-- Step 3: Record Video KYC Result -->
+            <record-video-kyc-result-service/>
+            <!-- Stores verification result and video recording -->
+            
+            <!-- Step 4: Update Seller Status -->
+            <update-seller-status-service/>
+            <!-- PENDING_APPROVAL → ACTIVE (if approved) -->
+            
+        </seller-chain>
+    </flow>
+    
+    
+    <!-- ================================================== -->
+    <!-- ADMIN FLOW: Approve/Reject Seller                 -->
+    <!-- ================================================== -->
+    <flow id="seller-approval-flow">
+        <seller-chain>
+            
+            <!-- Step 1: Admin Review -->
+            <admin-review-service/>
+            <!-- Admin checks:
+                 - All documents verified
+                 - No red flags
+                 - Business is legitimate
+            -->
+            
+            <!-- Step 2: Decision -->
+            <decision-gateway>
+                <!-- If approved -->
+                <approve-seller-service/>
+                <!-- Updates status: PENDING_APPROVAL → ACTIVE -->
+                
+                <!-- If rejected -->
+                <reject-seller-service/>
+                <!-- Updates status: PENDING_APPROVAL → REJECTED -->
+            </decision-gateway>
+            
+            <!-- Step 3: Notify Seller -->
+            <notify-seller-decision-service/>
+            <!-- Email seller about approval/rejection -->
+            
+            <!-- Step 4: If Approved - Setup Seller Account -->
+            <conditional-chain condition="approved">
+                <setup-seller-account-service/>
+                <!-- Creates seller dashboard access -->
+                
+                <send-onboarding-guide-service/>
+                <!-- Sends "How to list products" guide -->
+                
+                <assign-account-manager-service/>
+                <!-- Assigns dedicated account manager (optional) -->
+            </conditional-chain>
+            
+        </seller-chain>
+    </flow>
+    
+    
+    <!-- ================================================== -->
+    <!-- UTILITY FLOWS                                      -->
+    <!-- ================================================== -->
+    
+    <!-- Resubmit Documents Flow -->
+    <flow id="resubmit-documents-flow">
+        <seller-chain>
+            <validate-resubmitted-documents-service/>
+            <trigger-document-verification-flow/>
+            <notify-seller-resubmission-received-service/>
+        </seller-chain>
+    </flow>
+    
+    <!-- Seller Update Flow (for existing sellers) -->
+    <flow id="seller-update-flow">
+        <seller-chain>
+            <validate-seller-update-service/>
+            <verification-chain>
+                <verify-gstin-service/>
+                <verify-pan-service/>
+                <verify-bank-account-service/>
+            </verification-chain>
+            <update-seller-service/>
+            <notify-seller-update-success-service/>
+        </seller-chain>
+    </flow>
+    
+</flows>

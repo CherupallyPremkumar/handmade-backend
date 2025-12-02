@@ -1,0 +1,75 @@
+@startuml payment-reconciliation-flow
+!theme plain
+
+title Payment System - Daily Reconciliation
+
+participant "Scheduler" as Scheduler
+participant "Reconciliation\nService" as ReconSvc
+participant "Ledger\nRepository" as LedgerRepo
+participant "Wallet\nRepository" as WalletRepo
+actor "Finance\nTeam" as Finance
+
+note over Scheduler
+    Runs daily at 2 AM
+end note
+
+Scheduler -> ReconSvc: reconcile()
+activate ReconSvc
+
+ReconSvc -> WalletRepo: findAllAccountIds()
+activate WalletRepo
+WalletRepo --> ReconSvc: [seller1, seller2, ...]
+deactivate WalletRepo
+
+loop For each account
+    ReconSvc -> LedgerRepo: getAccountBalance(accountId)
+    activate LedgerRepo
+    LedgerRepo --> ReconSvc: ledgerBalance = 1000.00
+    deactivate LedgerRepo
+    
+    ReconSvc -> WalletRepo: getBalance(accountId)
+    activate WalletRepo
+    WalletRepo --> ReconSvc: walletBalance = 1000.00
+    deactivate WalletRepo
+    
+    ReconSvc -> ReconSvc: Compare balances
+    
+    alt Balances Match
+        note over ReconSvc #lightgreen
+            ✓ OK
+            Ledger: 1000.00
+            Wallet: 1000.00
+        end note
+    else Mismatch Detected
+        note over ReconSvc #lightcoral
+            ✗ MISMATCH!
+            Ledger: 1000.00
+            Wallet: 995.00
+            Difference: 5.00
+        end note
+        
+        ReconSvc -> ReconSvc: Log mismatch details
+        ReconSvc -> Finance: Alert for manual review
+        activate Finance
+        
+        note over Finance
+            Finance team will:
+            1. Investigate root cause
+            2. Determine if automated fix
+            3. Or manual adjustment needed
+        end note
+        
+        deactivate Finance
+    end
+end
+
+deactivate ReconSvc
+
+note over Scheduler,Finance
+    **Reconciliation ensures:**
+    • Ledger (accounting) matches Wallet (balance)
+    • Catches any inconsistencies
+    • Last line of defense for data integrity
+end note
+
+@enduml

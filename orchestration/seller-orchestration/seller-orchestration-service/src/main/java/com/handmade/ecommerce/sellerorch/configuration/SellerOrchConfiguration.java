@@ -1,11 +1,19 @@
 package com.handmade.ecommerce.sellerorch.configuration;
 
+
+
+import com.handmade.ecommerce.payment.service.PaymentService;
+import com.handmade.ecommerce.sellerorch.SellerContext;
+import com.handmade.ecommerce.sellerorch.SellerorchService;
 import com.handmade.ecommerce.sellerorch.service.*;
 import com.handmade.ecommerce.sellerorch.service.impl.SellerOrchestrationService;
+import com.handmade.ecommerce.tax.service.TaxService;
 import org.chenile.owiz.BeanFactoryAdapter;
 import org.chenile.owiz.OrchExecutor;
 import org.chenile.owiz.config.impl.XmlOrchConfigurator;
 import org.chenile.owiz.impl.*;
+import org.chenile.owiz.impl.ognl.OgnlRouter;
+import org.chenile.proxy.builder.ProxyBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +32,7 @@ public class SellerOrchConfiguration {
 
     @Value("${handmade.seller.flow-path}")
     private String sellerOrchPath;
+
 
     @Autowired
     ApplicationContext applicationContext;
@@ -58,19 +67,61 @@ public class SellerOrchConfiguration {
         return new VerifyKycCommandService();
     }
 
-//    @Bean
-//    SetupBankAccountCommandService setupBankAccountService() {
-//        return new SetupBankAccountCommandService();
-//    }
+
+
+    @Bean
+    Router<SellerContext> countryValidatorRouter()
+    {
+        return new OgnlRouter<>();
+    }
+    @Bean
+    Chain<SellerContext> sellerOnboradingChain(){
+        return new Chain<>();
+    }
+
+
+
+    @Bean
+    BankAccountValidator bankAccountValidator(){
+        return new BankAccountValidator();
+    }
+
+    @Bean
+    Router<SellerContext> validateBankAccountRouter(){
+        return new OgnlRouter<>();
+    }
+    @Bean
+    EinValidator einValidator()
+    {
+        return new EinValidator();
+    }
+
+
+
+
+    @Bean
+    Router<SellerContext> taxIdVerifier(){
+        return new OgnlRouter<>();
+    }
+
+    @Bean
+    Chain<SellerContext> sellerValidationParallel(){
+        return new FilterChain<>();
+    }
+
+    @Bean
+    BasicFieldsValidator basicFieldsValidator(){
+        return new BasicFieldsValidator();
+    }
+
+    @Bean
+    EmailValidatorService emailValidator(){
+        return new EmailValidatorService();
+    }
 
     @Bean
     SendWelcomeEmailCommandService sendWelcomeEmailService() {
         return new SendWelcomeEmailCommandService();
-    }
-
-    @Bean
-    public FilterChain<SellerContext> sellerChain() {
-        return new FilterChain<>();
     }
 
     @Bean

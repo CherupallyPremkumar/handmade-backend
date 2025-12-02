@@ -3,6 +3,7 @@ package com.handmade.ecommerce.sellerorch.service;
 import com.handmade.ecommerce.seller.model.Seller;
 import com.handmade.ecommerce.seller.dto.command.VerifyKYCPayload;
 import com.handmade.ecommerce.seller.service.impl.SellerServiceImpl;
+import com.handmade.ecommerce.sellerorch.SellerContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

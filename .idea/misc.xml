@@ -6,14 +6,18 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/price/pricing-api/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-management/tax/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-management/orchestrator/orchestrator-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/common-library/common/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/shipping-api/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/price/price-api/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/pricing-core/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/gstin/pom.xml" />
       </set>
     </option>
   </component>

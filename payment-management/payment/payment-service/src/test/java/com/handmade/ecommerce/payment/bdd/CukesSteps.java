@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.payment.bdd;
 
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -7,6 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.handmade.ecommerce.payment.SpringTestConfig;
 
 import cucumber.api.java.en.Given;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
 * This "steps" file's purpose is to hook up the SpringConfig to the test case.
@@ -17,8 +19,8 @@ import cucumber.api.java.en.Given;
 * one step in a steps file)<br/>
 */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = SpringTestConfig.class)
-@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 @ActiveProfiles("unittest")
 public class CukesSteps {
-	@Given("dummy") public void dummy(){}
+
 }

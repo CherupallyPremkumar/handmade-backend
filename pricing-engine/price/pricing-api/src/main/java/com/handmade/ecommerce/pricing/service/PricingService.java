@@ -4,7 +4,6 @@ import com.handmade.ecommerce.command.CreatePriceCommand;
 import com.handmade.ecommerce.core.model.Money;
 import com.handmade.ecommerce.pricing.model.Price;
 
-import java.math.Money;
 
 /**
  * Pricing Service Interface

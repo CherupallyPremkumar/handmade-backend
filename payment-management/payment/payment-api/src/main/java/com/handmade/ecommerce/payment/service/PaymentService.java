@@ -1,36 +1,15 @@
 package com.handmade.ecommerce.payment.service;
+import com.handmade.ecommerce.command.payment.PaymentResponse;
 
-
-import com.handmade.ecommerce.command.dto.payment.CreatePaymentRequest;
-import com.handmade.ecommerce.command.dto.payment.PaymentResponse;
-
-/**
- * Payment Service Interface
- * Used by both implementation and Chenile Proxy
- */
 public interface PaymentService {
 
     /**
-     * Create a new payment
-     * 
-     * @param request Payment creation request
-     * @return Payment response with transaction details
+     * Process a payment (may contain multiple payment orders)
      */
-    PaymentResponse createPayment(CreatePaymentRequest request);
+    PaymentResponse processPayment(PaymentRequest request);
 
     /**
-     * Get payment by ID
-     * 
-     * @param paymentId Payment identifier
-     * @return Payment details
+     * Get payment status
      */
-    PaymentResponse getPayment(Long paymentId);
-
-    /**
-     * Refund a payment
-     * 
-     * @param paymentId Payment to refund
-     * @param reason    Refund reason
-     */
-    void refundPayment(Long paymentId, String reason);
+    PaymentResponse getPaymentStatus(String paymentId);
 }

@@ -1,8 +1,8 @@
 package com.handmade.ecommerce.sellerorch.service.impl;
 
-import com.handmade.ecommerce.sellerorch.service.SellerContext;
+import com.handmade.ecommerce.sellerorch.SellerContext;
+import com.handmade.ecommerce.sellerorch.SellerorchService;
 import com.handmade.ecommerce.sellerorch.service.SellerEntryPoint;
-import com.handmade.ecommerce.sellerorch.service.SellerorchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

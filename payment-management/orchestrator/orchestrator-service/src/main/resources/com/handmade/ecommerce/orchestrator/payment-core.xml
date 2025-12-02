@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flows>
+    <!-- 
+        Payment Initiation Flow (Hosted Payment Page - Figure 4)
+        
+        This flow orchestrates the "Pay-in" process up to the point of user redirection.
+        It corresponds to Steps 1-5 in Figure 4 of the Pragmatic Engineer guide.
+    -->
+    <flow id="initiate-payment-flow">
+        <payment-chain>
+            <!-- 1. Validation & Risk Check -->
+            <validate-payment-request/>
+            <risk-check-service/> <!-- Optional: AML/Fraud check before contacting PSP -->
+
+            <!-- 2. Create Internal Records (Payment Event & Orders) -->
+            <create-payment-event-service/>
+            
+            <!-- 3. Register with PSP (Get Token/URL) -->
+            <!-- Uses Strategy Pattern based on Currency/Region -->
+            <psp-registration-router expression="currency">
+                <razorpay-checkout-service route="INR"/>
+                <stripe-checkout-service route="USD"/>
+                <stripe-checkout-service route="EUR"/>
+            </psp-registration-router>
+
+            <!-- 4. Persist Token & Update Status -->
+            <persist-payment-token-service/>
+            
+            <!-- 5. Build Response (Return Redirect URL to Client) -->
+            <construct-checkout-response/>
+        </payment-chain>
+    </flow>
+
+    <!-- 
+        Webhook Processing Flow (Asynchronous Confirmation)
+        
+        This flow handles the callback from the PSP after user completes payment.
+        It corresponds to Step 9 in Figure 4 and the "Reconciliation" section.
+    -->
+    <flow id="process-webhook-flow">
+        <webhook-chain>
+            <!-- 1. Security & Parsing -->
+            <verify-webhook-signature/>
+            <parse-webhook-payload/>
+
+            <!-- 2. Idempotency & State Check -->
+            <lookup-payment-order/>
+            <idempotency-check-service/>
+
+            <!-- 3. Update Financial State -->
+            <update-payment-status-success/>
+            
+            <!-- 4. Money Movement (Internal) -->
+            <wallet-credit-service/> <!-- Credit Seller -->
+            <ledger-entry-service/>  <!-- Double-Entry Bookkeeping -->
+
+            <!-- 5. Finalization -->
+            <notify-payment-completion/>
+        </webhook-chain>
+    </flow>
+</flows>

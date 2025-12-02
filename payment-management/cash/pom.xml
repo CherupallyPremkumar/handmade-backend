@@ -8,14 +8,14 @@
 		<module>cash-service</module>
 	</modules>
 	<parent>
-		<groupId>org.chenile</groupId>
-		<version>2.0.35</version>
-		<artifactId>chenile-parent</artifactId>
+		<groupId>com.handmade.ecommerce.payment-management</groupId>
+		<artifactId>payment-management</artifactId>
+		<version>${revision}</version>
 	</parent>
 
 	<properties>
 		<cash.version>${revision}</cash.version>
-		<revision>0.0.1-SNAPSHOT</revision>
+
 	</properties>
 	
 	<groupId>com.handmade.ecommerce.cash</groupId>

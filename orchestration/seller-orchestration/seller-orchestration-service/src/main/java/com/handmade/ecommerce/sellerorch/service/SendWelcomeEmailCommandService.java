@@ -1,12 +1,16 @@
 package com.handmade.ecommerce.sellerorch.service;
 
 import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.sellerorch.SellerContext;
+import org.chenile.mqtt.pubsub.MqttPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SendWelcomeEmailCommandService extends BaseSellerOrchService {
 
+    @Autowired
+    MqttPublisher mqttPublisher;
 
     @Override
     protected void doProcess(SellerContext sellerContext) {
@@ -22,10 +26,10 @@ public class SendWelcomeEmailCommandService extends BaseSellerOrchService {
         }
         
         // Send welcome email using notification service
-    //    notificationService.sendSellerWelcomeEmail(seller);
+        mqttPublisher.publish();
         
         System.out.println("Welcome email sent to: " + seller.getContactEmail());
-        super.doProcess(sellerContext);
+
     }
     
     private Seller getSeller(SellerContext context) {

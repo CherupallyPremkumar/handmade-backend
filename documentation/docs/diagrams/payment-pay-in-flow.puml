@@ -1,0 +1,109 @@
+@startuml payment-pay-in-flow
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title Payment System - Complete Pay-In Flow (Happy Path)
+
+actor Client
+participant "Payment\nController" as Controller
+participant "Payment\nService" as PaymentSvc
+participant "Payment\nExecutor" as Executor
+participant "PSP\nFactory" as Factory
+participant "Razorpay\nPSP" as Razorpay
+participant "Wallet\nService" as WalletSvc
+participant "Ledger\nService" as LedgerSvc
+database "Database" as DB
+
+Client -> Controller: POST /v1/payments\n{checkoutId, buyerId, paymentOrders[]}
+activate Controller
+
+Controller -> PaymentSvc: processPayment(request)
+activate PaymentSvc
+
+== Create Payment Event ==
+PaymentSvc -> DB: Save PaymentEvent
+DB --> PaymentSvc: PaymentEvent saved
+
+== Process Each Payment Order ==
+loop For each PaymentOrder
+    
+    PaymentSvc -> DB: Check idempotency\nfindById(paymentOrderId)
+    
+    alt Already Processed
+        DB --> PaymentSvc: Existing PaymentOrder
+        PaymentSvc --> Controller: Return existing status
+    else New Payment
+        DB --> PaymentSvc: Not found
+        
+        PaymentSvc -> DB: Save PaymentOrder\n(status=NOT_STARTED)
+        
+        == Execute Payment via PSP ==
+        PaymentSvc -> Executor: execute(paymentOrder)
+        activate Executor
+        
+        Executor -> DB: Update status=EXECUTING
+        
+        Executor -> Factory: getPSP(currency)
+        activate Factory
+        Factory --> Executor: RazorpayPSP
+        deactivate Factory
+        
+        Executor -> Razorpay: processPayment(order)
+        activate Razorpay
+        note right of Razorpay
+            Uses order.id as
+            idempotency key
+        end note
+        Razorpay -> Razorpay: Call Razorpay API
+        Razorpay --> Executor: PaymentResult\n{success, token}
+        deactivate Razorpay
+        
+        Executor -> DB: Update status=SUCCESS\npspToken
+        Executor --> PaymentSvc: PaymentResult
+        deactivate Executor
+        
+        == Update Wallet ==
+        PaymentSvc -> WalletSvc: credit(sellerId, amount)
+        activate WalletSvc
+        
+        WalletSvc -> DB: Find Wallet by sellerId
+        DB --> WalletSvc: Wallet
+        
+        WalletSvc -> WalletSvc: balance += amount
+        
+        WalletSvc -> DB: Update Wallet balance
+        WalletSvc --> PaymentSvc: Success
+        deactivate WalletSvc
+        
+        PaymentSvc -> DB: Update walletUpdated=true
+        
+        == Update Ledger (Double-Entry) ==
+        PaymentSvc -> LedgerSvc: recordTransaction(order)
+        activate LedgerSvc
+        
+        LedgerSvc -> LedgerSvc: Create transactionId
+        
+        LedgerSvc -> DB: Save DEBIT entry (buyer)
+        LedgerSvc -> DB: Save CREDIT entry (seller)
+        
+        LedgerSvc -> DB: verifyDoubleEntry(txnId)
+        DB --> LedgerSvc: sum = 0 ✓
+        
+        LedgerSvc --> PaymentSvc: Success
+        deactivate LedgerSvc
+        
+        PaymentSvc -> DB: Update ledgerUpdated=true
+    end
+end
+
+== Mark Payment Event as Done ==
+PaymentSvc -> DB: Update isPaymentDone=true
+
+PaymentSvc --> Controller: PaymentResponse\n{paymentEventId, status}
+deactivate PaymentSvc
+
+Controller --> Client: 200 OK
+deactivate Controller
+
+@enduml

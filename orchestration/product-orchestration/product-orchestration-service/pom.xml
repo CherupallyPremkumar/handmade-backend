@@ -67,10 +67,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.price</groupId>
+            <groupId>com.handmade.ecommerce.pricing</groupId>
             <artifactId>pricing-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 </project>

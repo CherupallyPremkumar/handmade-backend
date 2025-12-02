@@ -12,6 +12,16 @@
 
     <modules>
         <module>payment</module>
+        <module>tax</module>
+        <module>gstin</module>
+        <module>ein</module>
+        <module>ledger</module>
+        <module>wallet</module>
+        <module>reconciliation</module>
+        <module>razorpay</module>
+        <module>stripe</module>
+        <module>cash</module>
+        <module>orchestrator</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.payment-management</groupId>

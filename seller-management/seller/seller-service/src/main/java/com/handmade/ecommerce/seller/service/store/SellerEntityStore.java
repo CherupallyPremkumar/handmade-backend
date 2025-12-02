@@ -28,4 +28,7 @@ public class SellerEntityStore implements EntityStore<Seller>{
         throw new NotFoundException(1500,"Unable to find Seller with ID " + id);
 	}
 
+    public boolean existsByContactEmail(String email) {
+
+    }
 }

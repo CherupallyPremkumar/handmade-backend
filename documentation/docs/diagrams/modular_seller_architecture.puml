@@ -1,0 +1,73 @@
+@startuml
+skinparam componentStyle uml2
+skinparam packageStyle rectangle
+
+package "Orchestration" {
+    component "orchestration-api" as OrchApi
+    component "orchestration-service" as OrchService
+}
+
+package "Seller Management" {
+    component "seller-api" as SellerApi
+    component "seller-service" as SellerService
+}
+
+package "GSTIN Management" {
+    component "gstin-api" as GstinApi
+    component "gstin-service" as GstinService
+}
+
+package "Payment Management" {
+    component "payment-api" as PaymentApi
+    component "payment-service" as PaymentService
+}
+
+package "User Management" {
+    component "user-api" as UserApi
+    component "user-service" as UserService
+}
+
+package "Notification" {
+    component "notification-api" as NotifApi
+    component "notification-service" as NotifService
+}
+
+package "Document Management" {
+    component "document-api" as DocApi
+    component "document-service" as DocService
+}
+
+' Relationships
+OrchService .down.> SellerApi : Uses
+OrchService .down.> UserApi : Uses
+OrchService .down.> NotifApi : Uses
+
+SellerService .down.> GstinApi : Uses
+SellerService .down.> PaymentApi : Uses
+SellerService .down.> DocApi : Uses
+
+' Implementation links
+SellerApi <|.. SellerService : Implements
+GstinApi <|.. GstinService : Implements
+PaymentApi <|.. PaymentService : Implements
+UserApi <|.. UserService : Implements
+NotifApi <|.. NotifService : Implements
+DocApi <|.. DocService : Implements
+
+note right of SellerService
+  <b>Orchestrator</b>
+  Delegates validation to
+  specialized modules
+end note
+
+note bottom of DocService
+  For KYC Documents
+  (PAN, GST Cert)
+end note
+
+note bottom of NotifService
+  Welcome Emails,
+  Status Updates
+end note
+
+@enduml

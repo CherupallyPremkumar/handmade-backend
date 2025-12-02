@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.sellerorch.service;
 
 import org.chenile.owiz.Command;
+import com.handmade.ecommerce.sellerorch.SellerContext;
 
 public class BaseSellerOrchService implements Command<SellerContext> {
 
