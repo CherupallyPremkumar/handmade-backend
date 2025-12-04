@@ -24,7 +24,15 @@ public class Payment extends AbstractJpaStateEntity
     private BigDecimal totalAmount;
     private String currency;
     private Boolean isPaymentDone = false;
-    private String status;
+
+    @Column(name = "idempotency_key", unique = true)
+    private String idempotencyKey; // For duplicate request prevention
+
+    // Relationship to PSP session details
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_session_id", referencedColumnName = "id")
+    private PaymentSession paymentSession;
+
     @Transient
     public TransientMap transientMap = new TransientMap();
 

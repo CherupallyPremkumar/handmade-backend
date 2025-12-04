@@ -12,6 +12,9 @@
 
     <modules>
         <module>payment</module>
+        <module>paymentorder</module>
+        <module>payment-executor</module>
+        <module>risk</module>
         <module>tax</module>
         <module>gstin</module>
         <module>ein</module>

@@ -2,6 +2,8 @@ package com.handmade.ecommerce.command;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,14 +11,15 @@ import java.util.List;
  * Payment Response
  * Returned after payment processing
  */
-@Data
-@Builder
+
+@Getter
+@Setter
 public class PaymentResponse {
 
     /**
      * Payment event ID (parent payment ID)
      */
-    private String paymentEventId;
+    private String paymentId;
 
     /**
      * Overall payment status

@@ -1,19 +1,22 @@
-package com.handmade.ecommerce.orchestrator.context;
+package com.handmade.ecommerce.orchestrator.service.context;
 
-import org.chenile.core.context.ChenileExchange;
+import com.handmade.ecommerce.orchestrator.PaymentExchange;
 import org.chenile.owiz.OrchExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PaymentEntryPoint {
 
     @Autowired
     private OrchExecutor<PaymentExchange> paymentOrchExecutor;
 
-    public void execute(PaymentExchange paymentExchange) {
+    public PaymentExchange execute(PaymentExchange paymentExchange) {
         try {
             paymentOrchExecutor.execute(paymentExchange);
         }catch(Exception e) {
             paymentExchange.setException(e);
         }
+        return paymentExchange;
     }
 }

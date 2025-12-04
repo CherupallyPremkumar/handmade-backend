@@ -1,11 +1,17 @@
 package com.handmade.ecommerce.orchestrator.configuration;
 
+
+import com.handmade.ecommerce.orchestrator.PaymentExchange;
+import com.handmade.ecommerce.orchestrator.service.ProductOrchestratorService;
+import com.handmade.ecommerce.orchestrator.service.healthcheck.OrchestratorHealthChecker;
+import com.handmade.ecommerce.orchestrator.service.impl.ProductOrchestratorServiceImpl;
+import org.chenile.owiz.OrchExecutor;
+import org.chenile.owiz.config.impl.XmlOrchConfigurator;
+import org.chenile.owiz.impl.OrchExecutorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.handmade.ecommerce.orchestrator.service.OrchestratorService;
-import com.handmade.ecommerce.orchestrator.service.impl.OrchestratorServiceImpl;
-import com.handmade.ecommerce.orchestrator.service.healthcheck.OrchestratorHealthChecker;
 
 /**
  This is where you will instantiate all the required classes in Spring
@@ -13,11 +19,13 @@ import com.handmade.ecommerce.orchestrator.service.healthcheck.OrchestratorHealt
 */
 @Configuration
 public class OrchestratorConfiguration {
-	@Bean public OrchestratorService _orchestratorService_() {
-		return new OrchestratorServiceImpl();
+	@Bean
+	public ProductOrchestratorService _orchestratorService_() {
+		return new ProductOrchestratorServiceImpl();
 	}
 
-	@Bean OrchestratorHealthChecker orchestratorHealthChecker(){
+	@Bean
+	OrchestratorHealthChecker orchestratorHealthChecker(){
     	return new OrchestratorHealthChecker();
     }
 
@@ -27,7 +35,7 @@ public class OrchestratorConfiguration {
 	ApplicationContext applicationContext;
 
 	@Bean
-	public OrchExecutor<PaymentExchange> sellerOrchExecutor() throws Exception {
+	public OrchExecutor<PaymentExchange> paymentOrchExecutor() throws Exception {
 		XmlOrchConfigurator<PaymentExchange> xmlOrchConfigurator = new XmlOrchConfigurator<PaymentExchange>();
 		xmlOrchConfigurator.setBeanFactoryAdapter(new org.chenile.owiz.BeanFactoryAdapter() {
 			@Override
@@ -40,4 +48,5 @@ public class OrchestratorConfiguration {
 		executor.setOrchConfigurator(xmlOrchConfigurator);
 		return executor;
 	}
+
 }

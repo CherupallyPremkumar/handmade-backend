@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.notification.service;
 
+import com.handmade.ecommerce.command.notification.NotificationResponse;
+import com.handmade.ecommerce.command.notification.SendNotificationRequest;
 import com.handmade.ecommerce.dto.notification.SendNotificationRequest;
 import com.handmade.ecommerce.dto.notification.NotificationResponse;
 
@@ -13,8 +15,8 @@ public interface NotificationService {
     
     /**
      * Send a notification to a user
-     * @param request Notification details
-     */
+//     * @param request Notification details
+//     */
     void sendNotification(SendNotificationRequest request);
     
     /**

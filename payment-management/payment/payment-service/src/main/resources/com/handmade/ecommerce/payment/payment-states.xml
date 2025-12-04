@@ -1,61 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- An example states xml file that demonstrates the following features:
- 1. The progression of Payment from OPENED to CLOSED  and ARCHIVED.
- 2. How to define and use a custom DSL to define the workflow.
- 3. How to use the activity framework to define mandatory and optional activities (along with a custom
- DSL that allows us to define these activities)
- 4. How to define an automatic "activity-checker" state that allows us to check if all the mandatory
- activities are completed before we proceed to the next status in the workflow.
-     This also demonstrates how to attach security permissions (not roles) to a state event so that
-     these perms would be checked before the action is allowed.
+<!--
+Payment State Machine
+Tracks the overall payment lifecycle for a checkout transaction.
+A Payment can contain multiple PaymentOrders (one per seller).
+
+State Flow:
+CREATED → PROCESSING → PARTIALLY_COMPLETED/COMPLETED/FAILED
+                    ↓
+                CANCELLED (from CREATED or PROCESSING)
+
+States:
+- CREATED: Payment record created, PaymentOrders being registered
+- PROCESSING: All PaymentOrders registered, waiting for user actions
+- PARTIALLY_COMPLETED: Some PaymentOrders succeeded, others pending/failed
+- COMPLETED: All PaymentOrders succeeded
+- FAILED: All PaymentOrders failed
+- CANCELLED: Payment cancelled by user or system
 -->
 <states>
     <enablement-strategy componentName="paymentConfigBasedEnablementStrategy"/>
-	<default-transition-action componentName="paymentBaseTransitionAction"/>
-    <add-transition-tag tag="mandatory-activity" meta-activity="MANDATORY"
-                        meta-acls="test.premium" eventIdTag="id"/>
-    <add-transition-tag tag="optional-activity" meta-activity="OPTIONAL"
-                        meta-acls="test.premium" eventIdTag="id"/>
-    <add-transition-tag tag="mandatory-post-closure-activity" meta-activity="MANDATORY"
-                        meta-acls="test.premium" eventIdTag="id"
-                        newStateId="AreClosedActivitiesComplete"/>
-    <add-state-tag tag="post-closure-activities-completion-check"
-                   componentName="activitiesCompletionCheck"
-                   id="AreClosedActivitiesComplete"
-                   whichStateId="CLOSED" />
-    <add-transition-tag tag="on-completion" newStateIdTag="goto" eventId="yes"/>
-    <add-transition-tag tag="if-not-complete" newStateIdTag="stay-in" eventId="no"/>
+    <default-transition-action componentName="paymentBaseTransitionAction"/>
+    
+    <!-- Define custom DSL tags for payment workflow -->
     <add-state-tag tag="status" manualState="true"/>
     <add-transition-tag tag="on-action" eventIdTag="id" newStateIdTag="move-to"
-                    meta-acls="test.premium"/>
+                        meta-acls="payment.manage"/>
+    <add-transition-tag tag="auto-transition" eventIdTag="id" newStateIdTag="move-to"
+                        componentNameTag="action"/>
 
-	<flow id='PaymentFlow' default='true'>
-		<entry-action componentName="paymentEntryAction"/>
-		<exit-action componentName="paymentExitAction"/>
+    <flow id='PaymentFlow' default='true'>
+        <entry-action componentName="paymentEntryAction"/>
+        <exit-action componentName="paymentExitAction"/>
         <security-strategy componentName="stmSecurityStrategy"/>
-		<status id='OPENED' initialState='true'>
-			<on-action id='assign'  move-to='ASSIGNED'/>
-		</status>
-
-		<status id='ASSIGNED'>
-			<on-action id='resolve' move-to='RESOLVED' />
-		</status>
-
-        <status id='RESOLVED'>
-            <mandatory-activity id='doRetrospective'/>
-            <mandatory-activity id='doPerfTesting'/>
-            <on-action id='close' move-to='CLOSED'/>
+        
+        <!-- CREATED: Initial state when payment is created -->
+        <status id='CREATED' initialState='true'>
+            <on-action id='startProcessing' move-to='PROCESSING'/>
+            <on-action id='cancel' move-to='CANCELLED'/>
         </status>
-        <status id='CLOSED' >
-            <mandatory-post-closure-activity id='captureObservations'/>
+
+        <!-- PROCESSING: PaymentOrders registered, waiting for user to complete payments -->
+        <status id='PROCESSING'>
+            <!-- Automatic transitions based on PaymentOrder statuses -->
+            <auto-transition id='checkCompletion' move-to='COMPLETED' 
+                           action='allOrdersSuccessful'/>
+            <auto-transition id='checkPartialCompletion' move-to='PARTIALLY_COMPLETED' 
+                           action='someOrdersSuccessful'/>
+            <auto-transition id='checkFailure' move-to='FAILED' 
+                           action='allOrdersFailed'/>
+            
+            <!-- Manual actions -->
+            <on-action id='cancel' move-to='CANCELLED'/>
         </status>
-        <post-closure-activities-completion-check>
-            <on-completion goto="ARCHIVED"/>
-            <if-not-complete stay-in="CLOSED"/>
-        </post-closure-activities-completion-check>
-        <status id='ARCHIVED' />
 
+        <!-- PARTIALLY_COMPLETED: Some orders succeeded, others failed/pending -->
+        <status id='PARTIALLY_COMPLETED'>
+            <!-- Can retry failed orders -->
+            <on-action id='retryFailed' move-to='PROCESSING'/>
+            
+            <!-- Or mark as completed with partial success -->
+            <on-action id='completePartial' move-to='COMPLETED'/>
+            
+            <!-- Auto-transition if all remaining orders complete -->
+            <auto-transition id='checkFullCompletion' move-to='COMPLETED' 
+                           action='allOrdersSuccessful'/>
+        </status>
 
-	</flow>
-	
+        <!-- COMPLETED: All PaymentOrders successfully processed -->
+        <status id='COMPLETED'>
+            <!-- Terminal state - can only refund -->
+            <on-action id='initiateRefund' move-to='REFUND_INITIATED'/>
+        </status>
+
+        <!-- FAILED: All PaymentOrders failed -->
+        <status id='FAILED'>
+            <!-- Can retry the entire payment -->
+            <on-action id='retry' move-to='PROCESSING'/>
+            
+            <!-- Or cancel permanently -->
+            <on-action id='cancel' move-to='CANCELLED'/>
+        </status>
+
+        <!-- CANCELLED: Payment cancelled -->
+        <status id='CANCELLED'>
+            <!-- Terminal state - no transitions out -->
+        </status>
+
+        <!-- REFUND_INITIATED: Refund process started (optional) -->
+        <status id='REFUND_INITIATED'>
+            <auto-transition id='refundComplete' move-to='REFUNDED' 
+                           action='allRefundsProcessed'/>
+            <auto-transition id='refundFailed' move-to='REFUND_FAILED' 
+                           action='refundProcessingFailed'/>
+        </status>
+
+        <!-- REFUNDED: Successfully refunded (optional) -->
+        <status id='REFUNDED'>
+            <!-- Terminal state -->
+        </status>
+
+        <!-- REFUND_FAILED: Refund failed (optional) -->
+        <status id='REFUND_FAILED'>
+            <on-action id='retryRefund' move-to='REFUND_INITIATED'/>
+        </status>
+
+    </flow>
+    
 </states>

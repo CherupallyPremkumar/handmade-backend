@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: handmade-staging
+
+namePrefix: staging-
+
+commonLabels:
+  environment: staging
+
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+  - configmap-patch.yaml
+  - hpa-patch.yaml
+
+images:
+  - name: handmade-backend
+    newName: handmade-backend
+    newTag: staging-latest
+
+configMapGenerator:
+  - name: env-config
+    literals:
+      - ENVIRONMENT=staging
+      - LOG_LEVEL=INFO
+      - ENABLE_SWAGGER=true
+
+replicas:
+  - name: handmade-backend
+    count: 2

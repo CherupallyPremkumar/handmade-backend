@@ -17,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CreatePaymentRequest {
 
+    private String idempotencyKey;
+
     @NotBlank(message = "Checkout ID is required")
     private String checkoutId;
 
@@ -35,4 +37,5 @@ public class CreatePaymentRequest {
      * Used for hosted payment page flow
      */
     private String redirectUrl;
+
 }

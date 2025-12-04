@@ -1,0 +1,84 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: handmade-backend-ingress
+  namespace: handmade
+  labels:
+    app: handmade-backend
+  annotations:
+    # NGINX Ingress Controller Annotations
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    
+    # Rate Limiting
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+    
+    # CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://yourdomain.com"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    
+    # Certificate Manager (if using cert-manager)
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    
+    # Security Headers
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.yourdomain.com
+    secretName: handmade-backend-tls
+  rules:
+  - host: api.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: handmade-backend
+            port:
+              number: 80
+---
+# Alternative: Using Traefik Ingress Controller
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: handmade-backend-ingress-traefik
+  namespace: handmade
+  labels:
+    app: handmade-backend
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: handmade-ratelimit@kubernetescrd,handmade-headers@kubernetescrd
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - api.yourdomain.com
+    secretName: handmade-backend-tls-traefik
+  rules:
+  - host: api.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: handmade-backend
+            port:
+              number: 80

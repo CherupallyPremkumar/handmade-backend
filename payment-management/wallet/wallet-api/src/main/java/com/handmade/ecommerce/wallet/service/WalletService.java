@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.wallet.service;
 
+import com.handmade.ecommerce.wallet.model.CreditWalletRequest;
+import com.handmade.ecommerce.wallet.model.DebitWalletRequest;
 import com.handmade.ecommerce.wallet.model.Wallet;
 import com.handmade.ecommerce.wallet.model.WalletTransaction;
 
@@ -8,24 +10,16 @@ import java.util.List;
 
 public interface WalletService {
 
-    Wallet getOrCreateWallet(String userId, String userType, String currency);
+        Wallet getOrCreateWallet(String userId, String userType, String currency);
 
-    WalletTransaction credit(
-            String userId,
-            String paymentOrderId,
-            BigDecimal amount,
-            String description
-    );
+        /**
+         * Credit wallet using request object
+         */
+        WalletTransaction credit(CreditWalletRequest request);
 
+        WalletTransaction debit(DebitWalletRequest request);
 
-    WalletTransaction debit(
-            String userId,
-            String paymentOrderId,
-            BigDecimal amount,
-            String description
-    );
+        BigDecimal getBalance(String userId);
 
-    BigDecimal getBalance(String userId);
-
-    List<WalletTransaction> getTransactionHistory(String userId);
+        List<WalletTransaction> getTransactionHistory(String userId);
 }

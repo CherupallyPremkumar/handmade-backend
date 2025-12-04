@@ -15,9 +15,25 @@
 	<name>Orchestrator Service Implementations</name>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.handmade.ecommerce.orchestrator</groupId>
 			<artifactId>orchestrator-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.payment</groupId>
+			<artifactId>payment-service</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-mqtt</artifactId>
+			<version>1.3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.risk</groupId>
+			<artifactId>risk-api</artifactId>
+			<version>${revision}</version>
 		</dependency>
 	    <dependency>
 			<groupId>org.chenile</groupId>
@@ -53,5 +69,22 @@
             <artifactId>security-interceptor</artifactId>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.common</groupId>
+			<artifactId>command</artifactId>
+			<version>${revision}</version>
+		</dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.paymentorder</groupId>
+            <artifactId>paymentorder-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.notification</groupId>
+			<artifactId>notification-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>

@@ -41,12 +41,10 @@ public class PaymentOrderRequest {
 
     /**
      * Amount as STRING (not double!)
-     * 
      * Why String?
      * - Avoids floating-point precision errors
      * - Safe for very large or very small numbers
      * - Recommended by Stripe, PayPal, Square
-     * 
      * Backend converts to BigDecimal for calculations
      */
     @NotBlank(message = "Amount is required")

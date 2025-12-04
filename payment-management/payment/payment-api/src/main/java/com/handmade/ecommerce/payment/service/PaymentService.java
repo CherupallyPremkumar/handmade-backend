@@ -1,15 +1,22 @@
 package com.handmade.ecommerce.payment.service;
-import com.handmade.ecommerce.command.payment.PaymentResponse;
+
+import com.handmade.ecommerce.command.CreatePaymentRequest;
+import com.handmade.ecommerce.command.PaymentResponse;
+import com.handmade.ecommerce.payment.model.Payment;
+import com.handmade.ecommerce.payment.model.PaymentSession;
+import com.handmade.ecommerce.command.WebhookPayload;
 
 public interface PaymentService {
 
-    /**
-     * Process a payment (may contain multiple payment orders)
-     */
-    PaymentResponse processPayment(PaymentRequest request);
 
-    /**
-     * Get payment status
-     */
+    PaymentResponse processPayment(CreatePaymentRequest request);
+
     PaymentResponse getPaymentStatus(String paymentId);
+
+    Payment findByIdempotencyKey(String idempotencyKey);
+
+    void addCheckoutSession(PaymentSession session);
+
+    void updatePayment(WebhookPayload webhookPayload);
+
 }
