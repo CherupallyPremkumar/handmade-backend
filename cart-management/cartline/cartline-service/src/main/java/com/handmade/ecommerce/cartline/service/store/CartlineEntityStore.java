@@ -5,6 +5,8 @@ import com.handmade.ecommerce.cartline.model.Cartline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.chenile.base.exception.NotFoundException;
 import com.handmade.ecommerce.cartline.configuration.dao.CartlineRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 public class CartlineEntityStore implements EntityStore<Cartline>{
@@ -22,4 +24,16 @@ public class CartlineEntityStore implements EntityStore<Cartline>{
         throw new NotFoundException(1500,"Unable to find Cartline with ID " + id);
 	}
 
+    public List<Cartline> getCartLines(String cartId) {
+        return cartlineRepository.findByCartId(cartId);
+    }
+
+    public Cartline checkVariantExists(String cartId, String variantId) {
+        return null;
+    }
+
+    public Cartline checkVariantExistsWithCreated(String cartId, String variantId ,String state) {
+       Optional<Cartline> cartline=cartlineRepository.findByCartIdAndVariantIdAndState(cartId, variantId,state);
+       return cartline.orElse(null);
+    }
 }

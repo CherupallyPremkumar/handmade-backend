@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
+import org.chenile.owiz.impl.ChainContext;
+import org.chenile.owiz.impl.ChainContextContainer;
 
-import java.math.BigDecimal;
+import com.handmade.ecommerce.core.model.Money;
 
 /**
  * Cart line item (individual product in cart).
@@ -17,8 +19,8 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "hm_cartline")
-public class Cartline extends AbstractJpaStateEntity {
-    
+public class Cartline extends AbstractJpaStateEntity{
+
     /**
      * Parent cart
      */
@@ -52,14 +54,19 @@ public class Cartline extends AbstractJpaStateEntity {
     /**
      * Unit price (price per item)
      */
-    @Column(name = "unit_price", precision = 19, scale = 4, nullable = false)
-    private BigDecimal unitPrice;
-    
-    /**
-     * Total price (quantity × unitPrice)
-     */
-    @Column(name = "total_price", precision = 19, scale = 4, nullable = false)
-    private BigDecimal totalPrice;
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "unit_price_amount")),
+        @AttributeOverride(name = "currencyCode", column = @Column(name = "unit_price_currency"))
+    })
+    private Money unitPrice;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "total_price_amount")),
+        @AttributeOverride(name = "currencyCode", column = @Column(name = "total_price_currency"))
+    })
+    private Money totalPrice;
     
     /**
      * Currency code
@@ -68,11 +75,43 @@ public class Cartline extends AbstractJpaStateEntity {
     private String currency;
     
     /**
-     * Calculate total price
+     * Seller-specific coupon code applied to this line
+     */
+    @Column(name = "seller_coupon_code")
+    private String sellerCouponCode;
+    
+    /**
+     * Discount amount from seller coupon
+     */
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "seller_discount_amount")),
+        @AttributeOverride(name = "currencyCode", column = @Column(name = "seller_discount_currency"))
+    })
+    private Money sellerDiscount;
+
+    /**
+     * Calculate total price: (unitPrice - sellerDiscount) * quantity
      */
     public void calculateTotalPrice() {
-        if (quantity != null && unitPrice != null) {
-            this.totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
+        if (unitPrice == null || quantity == null) {
+            return;
         }
+        
+        // Apply seller discount if present
+        Money effectivePrice = unitPrice;
+        if (sellerDiscount != null) {
+            effectivePrice = unitPrice.subtract(sellerDiscount);
+        }
+        
+        this.totalPrice = effectivePrice.multiply(new java.math.BigDecimal(quantity));
+    }
+
+    public void incrementQty() {
+        this.quantity++;
+    }
+
+    public void decrementQty() {
+        this.quantity--;
     }
 }

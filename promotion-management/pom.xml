@@ -9,27 +9,14 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>com.handmade.ecommerce.promotion</groupId>
+    <groupId>com.handmade.ecommerce.promotion-management</groupId>
     <artifactId>promotion-management</artifactId>
     <packaging>pom</packaging>
     <name>Promotion Management</name>
     <description>Promotion domain - discounts, coupons, campaigns, flash sales</description>
     <modules>
-        <module>promotion-api</module>
-        <module>promotion-service</module>
+        <module>coupon</module>
+        <module>promotion</module>
     </modules>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.handmade.ecommerce.promotion</groupId>
-                <artifactId>promotion-api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.handmade.ecommerce.promotion</groupId>
-                <artifactId>promotion-service</artifactId>
-                <version>${revision}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
 </project>

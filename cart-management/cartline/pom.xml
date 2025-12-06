@@ -8,14 +8,14 @@
 		<module>cartline-service</module>
 	</modules>
 	<parent>
-		<groupId>org.chenile</groupId>
-		<version>2.0.35</version>
-		<artifactId>chenile-parent</artifactId>
+		<groupId>com.handmade.ecommerce.cart-management</groupId>
+		<version>${revision}</version>
+		<artifactId>cart-management</artifactId>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<properties>
 		<cartline.version>${revision}</cartline.version>
-		<revision>0.0.1-SNAPSHOT</revision>
 	</properties>
 	
 	<groupId>com.handmade.ecommerce.cartline</groupId>

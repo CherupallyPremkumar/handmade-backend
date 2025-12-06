@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flows>
+    <flow id="cartline-flow" defaultFlow="true">
+        
+        <!-- Region-based routing for different pricing/tax/inventory systems -->
+        <region-router expression="currency">
+            
+            <!-- India (INR) Flow -->
+            <parallel-chain route="INR">
+                <!-- Parallel: Pricing + Inventory -->
+                <fetchPriceCommand/>
+                <checkInventoryCommand/>
+                
+                <!-- Sequential: Tax → Discounts → Total -->
+                <chain>
+                    <calculateTaxCommand/>
+                    <applyDiscountsCommand/>
+                    <calculateLineTotalCommand/>
+                </chain>
+            </parallel-chain>
+            
+            <!-- USA (USD) Flow -->
+            <parallel-chain route="USD">
+                <!-- Parallel: Pricing + Inventory -->
+                <fetchPriceCommand/>
+                <checkInventoryCommand/>
+                
+                <!-- Sequential: Tax → Total (no discounts) -->
+                <chain>
+                    <calculateTaxCommand/>
+                    <calculateLineTotalCommand/>
+                </chain>
+            </parallel-chain>
+            
+            <!-- Mexico (MXN) Flow -->
+            <parallel-chain route="MXN">
+                <!-- Parallel: Pricing + Inventory -->
+                <fetchPriceCommand/>
+                <checkInventoryCommand/>
+                
+                <!-- Sequential: Tax → Discounts → Total -->
+                <chain>
+                    <calculateTaxCommand/>
+                    <applyDiscountsCommand/>
+                    <calculateLineTotalCommand/>
+                </chain>
+            </parallel-chain>
+            
+        </region-router>
+        
+    </flow>
+</flows>

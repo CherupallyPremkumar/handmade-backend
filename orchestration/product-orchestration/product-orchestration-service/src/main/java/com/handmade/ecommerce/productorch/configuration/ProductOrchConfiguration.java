@@ -1,7 +1,6 @@
 package com.handmade.ecommerce.productorch.configuration;
 
-import com.handmade.ecommerce.command.CreateVariantCommand;
-import com.handmade.ecommerce.pricing.service.PricingService;
+import com.handmade.ecommerce.pricing.PricingService;
 import com.handmade.ecommerce.productorch.service.*;
 import com.handmade.ecommerce.productorch.service.impl.ProductOrchestrationServiceImpl;
 import com.handmade.ecommerce.variant.VaraiantService;

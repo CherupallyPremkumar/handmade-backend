@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.cart.model;
 
+import com.handmade.ecommerce.cartline.model.Cartline;
 import com.handmade.ecommerce.core.model.Money;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,24 +40,13 @@ public class Cart extends AbstractJpaStateEntity {
      */
     @Column(name = "user_id")
     private String userId;
-    
+
     /**
      * Session ID for guest carts
      * Used to track cart before login
      */
     @Column(name = "session_id")
     private String sessionId;
-    
-    /**
-     * Cart status
-     * ACTIVE - Currently being used
-     * CHECKED_OUT - Payment initiated
-     * ABANDONED - Not used for X days
-     * CONVERTED - Successfully converted to order
-     */
-    /**
-     * Total amount (calculated from cart lines)
-     */
 
     @Column(name = "tax_amount")
     private Money taxAmount;
@@ -71,10 +61,41 @@ public class Cart extends AbstractJpaStateEntity {
     private String currency;
     
     /**
+     * Applied coupon code (platform coupon)
+     */
+    @Column(name = "coupon_code")
+    private String couponCode;
+    
+    /**
+     * Platform discount amount from coupon
+     */
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "platform_discount_amount")),
+        @AttributeOverride(name = "currencyCode", column = @Column(name = "platform_discount_currency"))
+    })
+    private Money platformDiscount;
+    
+    /**
+     * Subtotal before discounts
+     */
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "subtotal_amount")),
+        @AttributeOverride(name = "currencyCode", column = @Column(name = "subtotal_currency"))
+    })
+    private Money subtotal;
+    
+    /**
+     * Shipping address ID
+     */
+    @Column(name = "shipping_address_id")
+    private String shippingAddressId;
+    
+    /**
      * Cart expiration date
      * Auto-clear abandoned carts after this date
      */
     @Column(name = "expires_at")
     private LocalDateTime expiresAt;
-
 }

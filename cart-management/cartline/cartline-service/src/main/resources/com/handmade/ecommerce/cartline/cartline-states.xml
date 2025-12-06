@@ -6,6 +6,14 @@
      these perms would be checked before the action is allowed.
 -->
 <states>
+
+	<event-information eventId='increment_qty' eventName='Increment Quantity' 
+                   meta-acls="user.normal,user.premium"
+                   meta-bodyType='com.handmade.ecommerce.command.cart.CartLineIncrementQtyPayLoad'/>
+<event-information eventId='decrement_qty' eventName='Decrement Quantity' 
+                   meta-acls="user.normal,user.premium"
+                   meta-bodyType='com.handmade.ecommerce.command.cart.CartLineDecrementQtyPayLoad'/>
+
 	<default-transition-action componentName="cartlineBaseTransitionAction"/>
     <add-state-tag tag="status" manualState="true"/>
     <add-transition-tag tag="on-action" eventIdTag="id" newStateIdTag="move-to"
@@ -15,16 +23,19 @@
 		<entry-action componentName="cartlineEntryAction"/>
 		<exit-action componentName="cartlineExitAction"/>
         <security-strategy componentName="stmSecurityStrategy"/>
-		<status id='OPENED' initialState='true'>
-			<on-action id='assign'  move-to='ASSIGNED'/>
+		<status id='CREATED' initialState='true'>
+		 <on-action id='increment_qty' componentName='incrementQtyCommandService' newStateId='CREATED'/>
+		 <on-action id='decrement_qty' componentName='decrementQtyCommandService' newStateId='CREATED'/>
+			<on-action id='delete' componentName='deleteCommandService' newStateId='DELETED'/>
+			<on-action id='update' componentName='updateCommandService' newStateId='CREATED'/>
+			<on-action id='close' componentName='closeCommandService' newStateId='VOID'/>
 		</status>
 
-		<status id='ASSIGNED'>
-			<on-action id='resolve' move-to='RESOLVED' />
+		<status id='DELETED'>
 		</status>
 
-        <status id='RESOLVED'>
-			<on-action id='close' move-to='CLOSED'/>
+        <status id='VOID'>
+			<on-action id='close' move-to='VOID'/>
         </status>
         <status id='CLOSED' />
 

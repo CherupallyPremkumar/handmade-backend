@@ -3,7 +3,7 @@ package com.handmade.ecommerce.productorch.service;
 import com.handmade.ecommerce.command.CreatePriceCommand;
 import com.handmade.ecommerce.command.CreateProductCommand;
 import com.handmade.ecommerce.command.CreateVariantCommand;
-import com.handmade.ecommerce.pricing.service.PricingService;
+import com.handmade.ecommerce.pricing.PricingService;
 import org.chenile.owiz.Command;
 
 /**

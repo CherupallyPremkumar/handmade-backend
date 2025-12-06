@@ -1,5 +1,9 @@
 package com.handmade.ecommerce.cartline.configuration;
 
+import com.handmade.ecommerce.cartline.service.cmds.CartLineEntryAction;
+import org.chenile.owiz.OrchExecutor;
+import org.chenile.owiz.config.impl.XmlOrchConfigurator;
+import org.chenile.owiz.impl.OrchExecutorImpl;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
@@ -7,6 +11,7 @@ import org.chenile.stm.spring.SpringBeanFactoryAdapter;
 import org.chenile.workflow.param.MinimalPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,10 +19,6 @@ import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.*;
 import com.handmade.ecommerce.cartline.model.Cartline;
-import com.handmade.ecommerce.cartline.service.cmds.AssignCartlineAction;
-import com.handmade.ecommerce.cartline.service.cmds.DefaultSTMTransitionAction;
-import com.handmade.ecommerce.cartline.service.cmds.CloseCartlineAction;
-import com.handmade.ecommerce.cartline.service.cmds.ResolveCartlineAction;
 import com.handmade.ecommerce.cartline.service.healthcheck.CartlineHealthChecker;
 import com.handmade.ecommerce.cartline.service.store.CartlineEntityStore;
 import org.chenile.workflow.api.WorkflowRegistry;
@@ -31,6 +32,11 @@ import org.chenile.core.context.ChenileExchange;
 @Configuration
 public class CartlineConfiguration {
 	private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/cartline/cartline-states.xml";
+
+
+	private static final String CREATE_LINE_FLOW="com/handmade/ecommerce/cartline/cartline-core.xml";
+	@Autowired
+	ApplicationContext applicationContext;
 	
 	@Bean BeanFactoryAdapter cartlineBeanFactoryAdapter() {
 		return new SpringBeanFactoryAdapter();
@@ -67,9 +73,10 @@ public class CartlineConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Cartline> cartlineEntryAction(@Qualifier("cartlineEntityStore") EntityStore<Cartline> entityStore,
-			@Qualifier("cartlineActionsInfoProvider") STMActionsInfoProvider cartlineInfoProvider){
-		return new GenericEntryAction<Cartline>(entityStore,cartlineInfoProvider);
+	@Bean @Autowired
+	CartLineEntryAction cartlineEntryAction(@Qualifier("cartlineEntityStore") EntityStore<Cartline> entityStore,
+													  @Qualifier("cartlineActionsInfoProvider") STMActionsInfoProvider cartlineInfoProvider){
+		return new CartLineEntryAction(entityStore,cartlineInfoProvider);
 	}
 	
 	@Bean GenericExitAction<Cartline> cartlineExitAction(){
@@ -110,25 +117,20 @@ public class CartlineConfiguration {
     }
 
 
-    // Create the specific transition actions here. Make sure that these actions are inheriting from
-    // AbstractSTMTransitionMachine (The sample classes provide an example of this). To automatically wire
-    // them into the STM use the convention of "cartline" + eventId for the method name. (cartline is the
-    // prefix passed to the TransitionActionResolver above.)
-    // This will ensure that these are detected automatically by the Workflow system.
-    // The payload types will be detected as well so that there is no need to introduce an <event-information/>
-    // segment in src/main/resources/com/handmade/cartline/cartline-states.xml
-
-    @Bean ResolveCartlineAction cartlineResolve() {
-        return new ResolveCartlineAction();
-    }
-
-    @Bean CloseCartlineAction cartlineClose() {
-        return new CloseCartlineAction();
-    }
-
-    @Bean AssignCartlineAction cartlineAssign() {
-        return new AssignCartlineAction();
-    }
+	@Bean
+	public OrchExecutor<Cartline> sellerOrchExecutor() throws Exception {
+		XmlOrchConfigurator<Cartline> xmlOrchConfigurator = new XmlOrchConfigurator<Cartline>();
+		xmlOrchConfigurator.setBeanFactoryAdapter(new org.chenile.owiz.BeanFactoryAdapter() {
+			@Override
+			public Object lookup(String componentName) {
+				return applicationContext.getBean(componentName);
+			}
+		});
+		xmlOrchConfigurator.setFilename(createLineFlow);
+		OrchExecutorImpl<Cartline> executor = new OrchExecutorImpl<Cartline>();
+		executor.setOrchConfigurator(xmlOrchConfigurator);
+		return executor;
+	}
 
 
     @Bean @Autowired Function<ChenileExchange, String[]> cartlineEventAuthoritiesSupplier(

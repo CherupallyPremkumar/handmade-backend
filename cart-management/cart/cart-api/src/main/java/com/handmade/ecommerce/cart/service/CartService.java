@@ -1,9 +1,5 @@
 package com.handmade.ecommerce.cart.service;
 
-import com.handmade.ecommerce.cart.model.AddCartItemRequest;
-import com.handmade.ecommerce.cart.model.Cart;
-import com.handmade.ecommerce.cart.model.UpdateCartItemRequest;
-
 /**
  * Cart service for managing shopping carts.
  * 

@@ -21,6 +21,11 @@
 			<artifactId>workflow-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.handmade.ecommerce.pricing</groupId>
+			<artifactId>pricing-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.chenile</groupId>
 			<artifactId>jpa-utils</artifactId>
 		</dependency>
@@ -28,6 +33,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.common</groupId>
+            <artifactId>command</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

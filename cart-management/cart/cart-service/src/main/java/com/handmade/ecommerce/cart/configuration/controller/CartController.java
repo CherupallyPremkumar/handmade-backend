@@ -42,17 +42,15 @@ public class CartController extends ControllerSupport{
 		return process(httpServletRequest,entity);
 	}
 
-	
+
 	@PatchMapping("/cart/{id}/{eventID}")
 	@BodyTypeSelector("cartBodyTypeSelector")
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<Cart>>> processById(
 			HttpServletRequest httpServletRequest,
 			@PathVariable String id,
 			@PathVariable String eventID,
-			@ChenileParamType(Object.class) 
-			@RequestBody String eventPayload){
-		return process(httpServletRequest,id,eventID,eventPayload);
+			@ChenileParamType(Object.class)
+			@RequestBody String eventPayload) {
+		return process(httpServletRequest, id, eventID, eventPayload);
 	}
-
-
 }

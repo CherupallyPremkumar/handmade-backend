@@ -1,31 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- An example states xml file that demonstrates the following features:
- 1. The progression of Cart from OPENED to CLOSED 
- 2. How to define and use a custom DSL to define the workflow.
+<!-- Cart State Machine Configuration
+ 1. The progression of Cart from CREATED to CLOSED 
+ 2. Event definitions for cart line operations
 -->
 <states>
-	<default-transition-action componentName="cartBaseTransitionAction"/>
-    <add-state-tag tag="status" manualState="true"/>
-    <add-transition-tag tag="on-action" eventIdTag="id" newStateIdTag="move-to"
-                    />
-
-	<flow id='CartFlow' default='true'>
-		<entry-action componentName="cartEntryAction"/>
-		<exit-action componentName="cartExitAction"/>
-		<status id='OPENED' initialState='true'>
-			<on-action id='assign'  move-to='ASSIGNED'/>
-		</status>
-
-		<status id='ASSIGNED'>
-			<on-action id='resolve' move-to='RESOLVED' />
-		</status>
-
-        <status id='RESOLVED'>
-			<on-action id='close' move-to='CLOSED'/>
-        </status>
-        <status id='CLOSED' />
-
-
-	</flow>
+	<!-- Event Information - Defines all events and their payload types -->
 	
+	<!-- Core Cart Line Operations -->
+	<event-information eventId='addCartLine' eventName='Add Cart Line' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.AddCartLinePayload'/>
+	<event-information eventId='deleteCartLine' eventName='Delete Cart Line' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.DeleteCartLinePayload'/>
+	<event-information eventId='incrementQty' eventName='Increment Quantity' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.CartLineIncrementQtyPayLoad'/>
+	<event-information eventId='decrementQty' eventName='Decrement Quantity' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.CartLineDecrementQtyPayLoad'/>
+	<event-information eventId='updateCartLine' eventName='Update Cart Line' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.UpdateCartLinePayload'/>
+	
+	<!-- Cart Management -->
+	<event-information eventId='clearCart' eventName='Clear All Items' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.ClearCartPayload'/>
+	<event-information eventId='mergeCart' eventName='Merge Guest Cart' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.MergeCartPayload'/>
+	
+	<!-- Shipping & Customer -->
+	<event-information eventId='addShipment' eventName='Add Shipping Address' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.AddShipmentPayload'/>
+	<event-information eventId='modifyCustomer' eventName='Modify Customer' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.ModifyCustomerPayload'/>
+	<event-information eventId='selectDelivery' eventName='Select Delivery Method' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.DeliveryOptionsPayload'/>
+	
+	<!-- Promotions & Discounts -->
+	<event-information eventId='applyCoupon' eventName='Apply Coupon Code' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.ApplyCouponPayload'/>
+	<event-information eventId='removeCoupon' eventName='Remove Coupon Code' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.RemoveCouponPayload'/>
+	
+	<!-- Save for Later -->
+	<event-information eventId='saveForLater' eventName='Save Item for Later' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.SaveForLaterPayload'/>
+	<event-information eventId='moveToCart' eventName='Move to Cart' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.MoveToCartPayload'/>
+	
+	<!-- Gift Options -->
+	<event-information eventId='addGiftOptions' eventName='Add Gift Options' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.GiftOptionsPayload'/>
+	
+	<!-- Checkout -->
+	<event-information eventId='checkout' eventName='Checkout Cart' meta-acls="user.normal,user.premium"
+	                   meta-bodyType='com.handmade.ecommerce.command.cart.CheckoutPayload'/>
+
+	<flow id='cart-flow' default='true'>
+		<security-strategy componentName="org.chenile.stm.test.basicflow.MockSecurityStrategy"/>
+		<entry-action componentName="org.chenile.stm.test.basicflow.EntryAction" />
+		<exit-action componentName="org.chenile.stm.test.basicflow.ExitAction" />
+
+		<manual-state id='CREATED' initialState='true' meta-mainPath="true">
+			<!-- Core Cart Line Operations -->
+			<on eventId='addCartLine' componentName='addCartLineCommandService' />
+			<on eventId='deleteCartLine' componentName='deleteCartLineCommandService' />
+			<on eventId='incrementQty' componentName='incrementCartLineQtyCommandService' />
+			<on eventId='decrementQty' componentName='decrementCartLineQtyCommandService' />
+			<on eventId='updateCartLine' componentName='updateCartLineCommandService' />
+			
+			<!-- Cart Management -->
+			<on eventId='clearCart' componentName='clearCartCommandService' newStateId='CREATED' />
+			<on eventId='mergeCart' componentName='mergeCartCommandService' newStateId='CREATED' />
+			
+			<!-- Shipping & Customer -->
+			<on eventId='addShipment' componentName='addShipmentCommandService' />
+			<on eventId='modifyCustomer' componentName='modifyCustomerCommandService' />
+			<on eventId='selectDelivery' componentName='selectDeliveryCommandService' />
+			
+			<!-- Promotions & Discounts -->
+			<on eventId='applyCoupon' componentName='applyCouponCommandService' />
+			<on eventId='removeCoupon' componentName='removeCouponCommandService' />
+			
+			<!-- Save for Later -->
+			<on eventId='saveForLater' componentName='saveForLaterCommandService' />
+		
+			<!-- Gift Options -->
+			<on eventId='addGiftOptions' componentName='addGiftOptionsCommandService' />
+			
+			<!-- Checkout & Close -->
+			<on eventId='checkout' componentName='checkoutCommandService' newStateId='CHECKING_OUT' />
+			<on eventId='close' newStateId='CLOSED' invokableOnlyFromStm='true'/>
+		</manual-state>
+
+		<manual-state id='CHECKING_OUT'  meta-mainPath="true">
+			<on eventId="confirmPayment" componentName='confirmPaymentCommandService'
+				newStateId='PAYMENT_CONFIRMED'   meta-mainPath="true"/>
+			<on eventId="declinePayment" componentName='declinePaymentCommandService'
+				newStateId='CREATED'   meta-mainPath="true"/>
+		</manual-state>
+
+		<manual-state id='PAYMENT_CONFIRMED'  meta-mainPath="true"/>
+		<manual-state id='CLOSED'/>
+	</flow>
+
 </states>

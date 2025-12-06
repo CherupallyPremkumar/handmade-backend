@@ -19,7 +19,11 @@
 			<groupId>com.handmade.ecommerce.cartline</groupId>
 			<artifactId>cartline-api</artifactId>
 		</dependency>
-	
+
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-proxy</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.chenile</groupId>
             <artifactId>workflow-service</artifactId>
@@ -62,7 +66,19 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.handmade.ecommerce.tax</groupId>
+            <artifactId>tax-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.inventory</groupId>
+            <artifactId>inventory-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

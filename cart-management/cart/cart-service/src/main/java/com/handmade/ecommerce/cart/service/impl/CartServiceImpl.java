@@ -1,12 +1,8 @@
 package com.handmade.ecommerce.cart.service.impl;
 
 import com.handmade.ecommerce.cart.configuration.dao.CartDao;
-import com.handmade.ecommerce.cart.model.AddCartItemRequest;
 import com.handmade.ecommerce.cart.model.Cart;
-import com.handmade.ecommerce.cart.model.UpdateCartItemRequest;
 import com.handmade.ecommerce.cart.service.CartService;
-import com.handmade.ecommerce.cartline.configuration.dao.CartlineDao;
-import com.handmade.ecommerce.cartline.model.Cartline;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.utils.entity.service.EntityStore;
@@ -16,11 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Cart service implementation (Amazon-style architecture)
@@ -65,21 +56,5 @@ public class CartServiceImpl extends StateEntityServiceImpl<Cart> implements Car
                 entity.getSessionId(), entity.getUserId());
         return super.create(entity);
     }
-
-
-    public Cart getOrCreateGuestCart(Cart cart) {
-        return cartDao.findBySessionId(cart.getSessionId())
-            .orElseGet(() -> createNewCart(cart));
-    }
-
-    private Cart createNewCart(Cart cart) {
-       return super.create(cart).getMutatedEntity();
-    }
-
-    private Cart makeCart() {
-        return new Cart();
-    }
-
-
 
 }

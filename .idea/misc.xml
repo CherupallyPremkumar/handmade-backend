@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/payment-management/payment-executor/pom.xml" />
         <option value="$PROJECT_DIR$/orchestration/pom.xml" />
         <option value="$PROJECT_DIR$/cart-management/pom.xml" />
+        <option value="$PROJECT_DIR$/promotion-management/coupon/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
