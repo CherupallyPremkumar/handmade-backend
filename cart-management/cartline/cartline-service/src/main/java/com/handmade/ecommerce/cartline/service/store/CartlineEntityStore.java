@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.cartline.service.store;
 
+import org.chenile.stm.State;
 import org.chenile.utils.entity.service.EntityStore;
 import com.handmade.ecommerce.cartline.model.Cartline;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CartlineEntityStore implements EntityStore<Cartline>{
         return null;
     }
 
-    public Cartline checkVariantExistsWithCreated(String cartId, String variantId ,String state) {
+    public Cartline checkVariantExistsWithCreated(String cartId, String variantId , State state) {
        Optional<Cartline> cartline=cartlineRepository.findByCartIdAndVariantIdAndState(cartId, variantId,state);
        return cartline.orElse(null);
     }

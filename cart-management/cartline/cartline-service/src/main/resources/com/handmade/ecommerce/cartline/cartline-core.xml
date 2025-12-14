@@ -3,50 +3,52 @@
     <flow id="cartline-flow" defaultFlow="true">
         
         <!-- Region-based routing for different pricing/tax/inventory systems -->
-        <region-router expression="currency">
+        <cart-line-chain>
+            <set-cartline-region-command-service/>
+         <region-router expression="region">
             
             <!-- India (INR) Flow -->
-            <parallel-chain route="INR">
+            <cart-line-route-chain route="INR">
                 <!-- Parallel: Pricing + Inventory -->
-                <fetchPriceCommand/>
-                <checkInventoryCommand/>
+                <fetch-price-command/>
+                <check-inventory-command/>
                 
                 <!-- Sequential: Tax → Discounts → Total -->
-                <chain>
-                    <calculateTaxCommand/>
-                    <applyDiscountsCommand/>
-                    <calculateLineTotalCommand/>
-                </chain>
-            </parallel-chain>
+                <cart-line-chain>
+                    <calculate-tax-command/>
+                    <apply-discounts-command/>
+                    <calculate-line-total-command/>
+                </cart-line-chain>
+            </cart-line-route-chain>
             
             <!-- USA (USD) Flow -->
-            <parallel-chain route="USD">
+            <cart-line-route-chain route="USD">
                 <!-- Parallel: Pricing + Inventory -->
-                <fetchPriceCommand/>
-                <checkInventoryCommand/>
+                <fetch-price-command/>
+                <check-inventory-command/>
                 
                 <!-- Sequential: Tax → Total (no discounts) -->
-                <chain>
-                    <calculateTaxCommand/>
-                    <calculateLineTotalCommand/>
-                </chain>
-            </parallel-chain>
+                <cart-line-cal-chain>
+                    <calculate-tax-command/>
+                    <calculate-line-total-command/>
+                </cart-line-cal-chain>
+            </cart-line-route-chain>
             
             <!-- Mexico (MXN) Flow -->
-            <parallel-chain route="MXN">
+            <cart-line-route-chain route="MXN">
                 <!-- Parallel: Pricing + Inventory -->
-                <fetchPriceCommand/>
-                <checkInventoryCommand/>
+                <fetch-price-command/>
+                <check-inventory-command/>
                 
                 <!-- Sequential: Tax → Discounts → Total -->
-                <chain>
-                    <calculateTaxCommand/>
-                    <applyDiscountsCommand/>
-                    <calculateLineTotalCommand/>
-                </chain>
-            </parallel-chain>
-            
+                <cart-line-chain>
+                    <calculate-tax-command/>
+                    <apply-discounts-command/>
+                    <calculate-line-total-command/>
+                </cart-line-chain>
+            </cart-line-route-chain>
         </region-router>
+        </cart-line-chain>
         
     </flow>
 </flows>

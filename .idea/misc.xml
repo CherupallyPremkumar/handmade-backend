@@ -23,6 +23,7 @@
         <option value="$PROJECT_DIR$/messaging-management/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/price/price-api/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/pricing-core/pom.xml" />
+        <option value="$PROJECT_DIR$/promotion-management/promotion/promotion-service/pom.xml" />
         <option value="$PROJECT_DIR$/security-management/pom.xml" />
         <option value="$PROJECT_DIR$/seller-management/gstin/pom.xml" />
       </set>

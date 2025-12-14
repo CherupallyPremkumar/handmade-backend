@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.core.model;
 
+import jakarta.persistence.*;
+
 import java.time.Instant;
 
 /**

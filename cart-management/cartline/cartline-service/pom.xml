@@ -66,17 +66,11 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>com.handmade.ecommerce.tax</groupId>
-            <artifactId>tax-api</artifactId>
+            <groupId>com.handmade.ecommerce.pricing</groupId>
+            <artifactId>pricing-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.handmade.ecommerce.inventory</groupId>
-            <artifactId>inventory-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

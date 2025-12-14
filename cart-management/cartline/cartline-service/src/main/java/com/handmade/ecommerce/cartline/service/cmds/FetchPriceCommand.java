@@ -24,11 +24,10 @@ public class FetchPriceCommand implements Command<Cartline> {
     public void execute(Cartline cartline) throws Exception {
         logger.info("Fetching price for variant: {}", cartline.getVariantId());
 
-        // Get current price (includes any discounts)
         Money pricing = pricingService.getCurrentPrice(cartline.getVariantId());
         cartline.setUnitPrice(pricing);
-        
+
         logger.info("Fetched price for variant {}: {}", 
-            cartline.getVariantId(), currentPrice);
+            cartline.getVariantId(), pricing);
     }
 }

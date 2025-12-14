@@ -6,6 +6,8 @@
 	<modules>
 		<module>pricing-api</module>
 		<module>price-service</module>
+		<module>pricing-inr</module>
+		<module>pricing-usd</module>
 	</modules>
 	<parent>
 		<groupId>com.handmade.ecommerce.pricing-engine</groupId>

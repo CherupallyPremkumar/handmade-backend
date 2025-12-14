@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.pricing.configuration;
 
+import com.handmade.ecommerce.pricing.model.Price;
 import com.handmade.ecommerce.pricing.service.cmds.*;
 import com.handmade.ecommerce.pricing.service.postSaveHooks.*;
 import org.chenile.stm.*;
@@ -15,8 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.*;
-import com.handmade.ecommerce.price.model.Price;
-import com.handmade.ecommerce.price.service.cmds.*;
 import com.handmade.ecommerce.pricing.service.healthcheck.PriceHealthChecker;
 import com.handmade.ecommerce.pricing.service.store.PriceEntityStore;
 import org.chenile.workflow.api.WorkflowRegistry;
@@ -25,7 +24,6 @@ import java.util.function.Function;
 import org.chenile.core.context.ChenileExchange;
 import org.chenile.workflow.service.activities.ActivityChecker;
 import org.chenile.workflow.service.activities.AreActivitiesComplete;
-import com.handmade.ecommerce.price.service.postSaveHooks.*;
 
 /**
  This is where you will instantiate all the required classes in Spring

@@ -1,9 +1,15 @@
 package com.handmade.ecommerce.cartline.configuration;
 
-import com.handmade.ecommerce.cartline.service.cmds.CartLineEntryAction;
+import com.handmade.ecommerce.cartline.service.CartlineService;
+import com.handmade.ecommerce.cartline.service.cmds.*;
+import com.handmade.ecommerce.cartline.service.impl.CartLineServiceImpl;
 import org.chenile.owiz.OrchExecutor;
 import org.chenile.owiz.config.impl.XmlOrchConfigurator;
+import org.chenile.owiz.impl.Chain;
 import org.chenile.owiz.impl.OrchExecutorImpl;
+import org.chenile.owiz.impl.ParallelChain;
+import org.chenile.owiz.impl.Router;
+import org.chenile.owiz.impl.ognl.OgnlRouter;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
@@ -64,13 +70,18 @@ public class CartlineConfiguration {
 		return new CartlineEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Cartline> _cartlineStateEntityService_(
+	@Bean @Autowired
+	CartlineService _cartlineStateEntityService_(
 			@Qualifier("cartlineEntityStm") STM<Cartline> stm,
 			@Qualifier("cartlineActionsInfoProvider") STMActionsInfoProvider cartlineInfoProvider,
 			@Qualifier("cartlineEntityStore") EntityStore<Cartline> entityStore){
-		return new StateEntityServiceImpl<>(stm, cartlineInfoProvider, entityStore);
+		return new CartLineServiceImpl(stm, cartlineInfoProvider, entityStore);
 	}
-	
+
+	@Bean
+	SetCartLineRegionCommandService setCartlineRegionCommandService(){
+		return new SetCartLineRegionCommandService();
+	}
 	// Now we start constructing the STM Components 
 	
 	@Bean @Autowired
@@ -89,6 +100,7 @@ public class CartlineConfiguration {
 		flowReader.setFilename(FLOW_DEFINITION_FILE);
 		return flowReader;
 	}
+
 	
 
 	@Bean CartlineHealthChecker cartlineHealthChecker(){
@@ -118,7 +130,7 @@ public class CartlineConfiguration {
 
 
 	@Bean
-	public OrchExecutor<Cartline> sellerOrchExecutor() throws Exception {
+	public OrchExecutor<Cartline> cartlineOrchExecutor() throws Exception {
 		XmlOrchConfigurator<Cartline> xmlOrchConfigurator = new XmlOrchConfigurator<Cartline>();
 		xmlOrchConfigurator.setBeanFactoryAdapter(new org.chenile.owiz.BeanFactoryAdapter() {
 			@Override
@@ -126,12 +138,80 @@ public class CartlineConfiguration {
 				return applicationContext.getBean(componentName);
 			}
 		});
-		xmlOrchConfigurator.setFilename(createLineFlow);
+		xmlOrchConfigurator.setFilename(CREATE_LINE_FLOW);
 		OrchExecutorImpl<Cartline> executor = new OrchExecutorImpl<Cartline>();
 		executor.setOrchConfigurator(xmlOrchConfigurator);
 		return executor;
 	}
 
+	@Bean
+	CalculateTaxCommand calculateTaxCommand()
+	{
+		return new CalculateTaxCommand();
+	}
+	@Bean
+	Router<Cartline> regionRouter(){
+		return new OgnlRouter<>();
+	}
+
+	@Bean
+	Chain<Cartline> cartLineRouteChain()
+	{
+		return new Chain<>();
+	}
+	@Bean
+	Chain<Cartline> cartLineCalChain()
+	{
+		return new Chain<>();
+	}
+
+	@Bean
+	FetchPriceCommand fetchPriceCommand(){
+		return new FetchPriceCommand();
+	}
+
+	@Bean
+	IncrementQtyCommandService incrementQtyCommandService(){
+		return new IncrementQtyCommandService();
+	}
+	@Bean
+	ApplyDiscountsCommand applyDiscountsCommand()
+	{
+		return new ApplyDiscountsCommand();
+	}
+
+	@Bean
+	CalculateLineTotalCommand calculateLineTotalCommand(){
+		return new CalculateLineTotalCommand();
+	}
+
+	@Bean
+	CheckInventoryCommand checkInventoryCommand(){
+		return new CheckInventoryCommand();
+	}
+
+	@Bean
+	DeleteCartLineCommandService deleteCartLineCommandService(){
+		return new DeleteCartLineCommandService();
+	}
+
+	@Bean
+	UpdateCartLineCommandService updateCartLineCommandService(){
+		return new UpdateCartLineCommandService();
+	}
+
+	@Bean
+	CloseCartLineCommandService closeCartLineCommandService(){
+		return new CloseCartLineCommandService();
+	}
+	@Bean
+	Chain<Cartline> cartLineChain(){
+		return new Chain<>();
+	}
+	@Bean
+	DecrementQtyCommandService decrementQtyCommandService(){
+		return new DecrementQtyCommandService();
+	}
 
     @Bean @Autowired Function<ChenileExchange, String[]> cartlineEventAuthoritiesSupplier(
         @Qualifier("cartlineActionsInfoProvider") STMActionsInfoProvider cartlineInfoProvider)

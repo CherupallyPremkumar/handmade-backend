@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.cartline.model;
 
+import com.handmade.ecommerce.core.model.Region;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,34 +27,27 @@ public class Cartline extends AbstractJpaStateEntity{
      */
     @Column(name = "cart_id", nullable = false)
     private String cartId;
-    
-    /**
-     * Product ID
-     */
+
+    @Column(name = "region", nullable = false, length = 3)
+    private String region;
+
+
     @Column(name = "product_id", nullable = false)
     private String variantId;
     
-    /**
-     * Seller ID (who sells this product)
-     */
+
     @Column(name = "seller_id", nullable = false)
     private String sellerId;
     
-    /**
-     * Product name (cached for display)
-     */
+
     @Column(name = "product_name")
     private String productName;
     
-    /**
-     * Quantity
-     */
+
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     
-    /**
-     * Unit price (price per item)
-     */
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "amount", column = @Column(name = "unit_price_amount")),
@@ -67,22 +61,15 @@ public class Cartline extends AbstractJpaStateEntity{
         @AttributeOverride(name = "currencyCode", column = @Column(name = "total_price_currency"))
     })
     private Money totalPrice;
-    
-    /**
-     * Currency code
-     */
-    @Column(name = "currency", length = 3, nullable = false)
-    private String currency;
-    
-    /**
-     * Seller-specific coupon code applied to this line
-     */
+
+
     @Column(name = "seller_coupon_code")
     private String sellerCouponCode;
+
+    @Column(name = "tax_amount")
+    private Money taxAmount;
     
-    /**
-     * Discount amount from seller coupon
-     */
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "amount", column = @Column(name = "seller_discount_amount")),
@@ -108,7 +95,7 @@ public class Cartline extends AbstractJpaStateEntity{
     }
 
     public void incrementQty() {
-        this.quantity++;
+
     }
 
     public void decrementQty() {

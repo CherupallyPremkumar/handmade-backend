@@ -29,12 +29,10 @@ public class ProductInventory extends Inventory {
     @Column(name = "manufacturing_date")
     private LocalDate manufacturingDate;
 
-    @Override
     public boolean isAvailable() {
         return !isExpired() && getAvailableQuantity() > 0;
     }
 
-    @Override
     public Integer getAvailableQuantity() {
         if (isExpired()) {
             return 0;

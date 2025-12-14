@@ -1,12 +1,14 @@
 package com.handmade.ecommerce.cart.service.cmds;
 
 import com.handmade.ecommerce.cart.model.Cart;
+import com.handmade.ecommerce.cartline.service.CartlineService;
 import com.handmade.ecommerce.command.cart.MergeCartPayload;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
 public class MergeCartCommandService extends BaseCartCommandService<MergeCartPayload> {
 
     private static final Logger logger = LoggerFactory.getLogger(MergeCartCommandService.class);
+
+    @Autowired
+    CartlineService cartlineService;
 
     @Override
     public void transitionTo(Cart cart, 
@@ -40,7 +45,7 @@ public class MergeCartCommandService extends BaseCartCommandService<MergeCartPay
             throw new IllegalArgumentException("Session ID mismatch");
         }
         
-        cartLineService.changeCart(cart.getId(), payload.getUserId());
+        cartlineService.mergeCart(cart.getId(), payload.getUserId());
       
         cart.setUserId(payload.getUserId());
         recalculateCartTotal(cart);

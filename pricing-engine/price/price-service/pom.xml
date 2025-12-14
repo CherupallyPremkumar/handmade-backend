@@ -72,6 +72,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Rules Module -->
+        <dependency>
+            <groupId>com.handmade.ecommerce.rules</groupId>
+            <artifactId>rules-service</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

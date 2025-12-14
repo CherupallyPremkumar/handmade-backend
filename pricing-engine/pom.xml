@@ -11,6 +11,8 @@
 
     <modules>
         <module>price</module>
+        <module>tax</module>
+        <module>rules</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.pricing-engine</groupId>

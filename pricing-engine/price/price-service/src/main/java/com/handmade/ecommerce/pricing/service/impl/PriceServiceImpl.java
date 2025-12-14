@@ -4,10 +4,14 @@ import com.handmade.ecommerce.command.CreatePriceCommand;
 import com.handmade.ecommerce.command.CreatePriceRuleCommand;
 import com.handmade.ecommerce.command.CreateRegionalPriceCommand;
 import com.handmade.ecommerce.core.model.Money;
-import com.handmade.ecommerce.pricing.model.*;
 import com.handmade.ecommerce.pricing.PricingService;
+import com.handmade.ecommerce.pricing.dto.*;
+import com.handmade.ecommerce.pricing.entity.*;
+import com.handmade.ecommerce.pricing.service.PricingStrategy;
 import com.handmade.ecommerce.pricing.service.factory.PricingStrategyFactory;
+import com.handmade.ecommerce.pricing.service.factory.RegionContext;
 import com.handmade.ecommerce.pricing.service.store.PriceEntityStore;
+import org.chenile.owiz.OrchExecutor;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
@@ -15,19 +19,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Scalable Amazon-style pricing service implementation
- * Uses plugin-based regional pricing strategies
+ * Uses OWIZ orchestration flow for pricing calculation
  * 
  * Design Patterns:
+ * - OWIZ for orchestration flow
  * - Strategy Pattern for regional pricing
  * - Factory Pattern for strategy selection
- * - Stream API for batch processing (scalable)
- * - Functional programming for immutability
- * - Separation of concerns (mapping methods)
  */
 public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements PricingService {
 
@@ -37,6 +40,9 @@ public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements P
 
     @Autowired
     private PricingStrategyFactory strategyFactory;
+
+    @Autowired
+    private OrchExecutor<PricingExchange> pricingOrchExecutor;
 
     public PriceServiceImpl(STM<Price> stm, STMActionsInfoProvider stmActionsInfoProvider,
             PriceEntityStore entityStore) {
@@ -78,8 +84,87 @@ public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements P
 
     @Override
     public CartPricing calculateCartPricing(PricingRequest request) {
-        // TODO: Implement cart pricing calculation
-        return null;
+        logger.info("Calculating cart pricing for {} items using OWIZ flow", request.getItems().size());
+
+        Money subtotal = null;
+        Money totalTax = null;
+        Money totalDiscount = null;
+
+        // Calculate price for each item using OWIZ flow
+        for (PricingItem item : request.getItems()) {
+            // Build context for OWIZ
+            PricingExchange exchange = new PricingExchange();
+            exchange.setVariantId(item.getVariantId());
+            exchange.setQuantity(item.getQuantity());
+            exchange.setRegionCode(RegionContext.getCurrentRegion());
+
+            // Execute OWIZ flow
+            pricingOrchExecutor.execute(exchange);
+
+            PriceCalculationResult itemResult = exchange.getResult();
+
+            // Aggregate totals
+            if (subtotal == null) {
+                subtotal = itemResult.getSubtotal();
+                totalTax = itemResult.getTax();
+                totalDiscount = itemResult.getDiscount();
+            } else {
+                subtotal = subtotal.add(itemResult.getSubtotal());
+                totalTax = totalTax.add(itemResult.getTax());
+                totalDiscount = totalDiscount.add(itemResult.getDiscount());
+            }
+        }
+
+        // Handle empty cart - get currency from region context
+        if (subtotal == null) {
+            String currency = RegionContext.getCurrentCurrency();
+            subtotal = new Money(BigDecimal.ZERO, currency);
+            totalTax = new Money(BigDecimal.ZERO, currency);
+            totalDiscount = new Money(BigDecimal.ZERO, currency);
+        }
+
+        // Calculate total
+        Money total = subtotal.add(totalTax);
+
+        // Build result
+        CartPricing result = new CartPricing();
+        result.setSubtotal(subtotal);
+        result.setTax(totalTax);
+        result.setTotal(total);
+        result.setDiscount(totalDiscount);
+        result.setShipping(new Money(BigDecimal.ZERO, subtotal.getCurrency()));
+
+        logger.info("Cart pricing calculated via OWIZ: subtotal={}, tax={}, total={}",
+                subtotal, totalTax, total);
+
+        return result;
+    }
+
+    /**
+     * Calculate complete price with full breakdown using OWIZ flow
+     * Delegates to the pricing orchestrator for the 6-step calculation
+     */
+    @Override
+    public PriceCalculationResult calculatePrice(PricingContext context) {
+        logger.info("Calculating price via OWIZ for variant: {} in region: {}",
+                context.getVariantId(), context.getRegionCode());
+
+        // Build exchange object
+        PricingExchange exchange = new PricingExchange();
+        exchange.setVariantId(context.getVariantId());
+        exchange.setProductId(context.getProductId());
+        exchange.setQuantity(context.getQuantity());
+        exchange.setRegionCode(context.getRegionCode());
+        exchange.setTargetCurrency(context.getTargetCurrency());
+        exchange.setCustomerId(context.getCustomerId());
+        exchange.setCustomerSegment(context.getCustomerSegment());
+
+        // Execute OWIZ flow (6 steps)
+        pricingOrchExecutor.execute(exchange);
+
+        logger.info("✅ Price calculated via OWIZ: total={}", exchange.getTotal());
+
+        return exchange.getResult();
     }
 
     /**
@@ -90,7 +175,7 @@ public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements P
         price.setVariantId(command.getVariantId());
         price.setListPrice(command.getListPrice());
         price.setCurrentPrice(command.getCurrentPrice());
-        price.setBaseCurrency(command.getCurrency() != null ? command.getCurrency() : "USD");
+        price.setBaseCurrency(command.getCurrency()); // Currency must be provided in command
 
         // Auto-calculate discount
         price.calculateDiscount();

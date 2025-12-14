@@ -8,6 +8,7 @@ import com.handmade.ecommerce.command.cart.CartLineDecrementQtyPayLoad;
 import com.handmade.ecommerce.command.cart.CartLineIncrementQtyPayLoad;
 import com.handmade.ecommerce.command.cart.UpdateCartLinePayload;
 import org.chenile.stm.STM;
+import org.chenile.stm.State;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.api.StateEntityService;
@@ -65,7 +66,7 @@ public abstract class BaseCartLineServiceImpl extends StateEntityServiceImpl<Car
     }
 
     private Cartline checkVariantWithCreated(String cartId, String variantId) {
-        return cartLineEntityStore.checkVariantExistsWithCreated(cartId,variantId,"CREATED");
+        return cartLineEntityStore.checkVariantExistsWithCreated(cartId,variantId,new State("CREATED","CartlineFlow"));
     }
 
 

@@ -9,7 +9,7 @@ import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class DecrementQtyCommandService extends AbstractSTMTransitionAction<Cartline, CartLineDecrementQtyPayLoad> {
+public class DecrementQtyCommandService extends AbstractSTMTransitionAction<Cartline, CartLineDecrementQtyPayLoad> {
 
     @Autowired
     private OrchExecutor<Cartline> cartlineOrchExecutor;

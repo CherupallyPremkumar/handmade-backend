@@ -15,7 +15,7 @@
         <module>paymentorder</module>
         <module>payment-executor</module>
         <module>risk</module>
-        <module>tax</module>
+        <!-- tax module moved to pricing-engine -->
         <module>gstin</module>
         <module>ein</module>
         <module>ledger</module>

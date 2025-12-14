@@ -27,12 +27,12 @@ public class VariantInventory extends Inventory {
     @Column(name = "max_stock_level")
     private Integer maxStockLevel;
 
-    @Override
+
     public boolean isAvailable() {
         return getAvailableQuantity() > 0;
     }
 
-    @Override
+
     public Integer getAvailableQuantity() {
         return Math.max(0, quantity - getReservedQuantity());
     }

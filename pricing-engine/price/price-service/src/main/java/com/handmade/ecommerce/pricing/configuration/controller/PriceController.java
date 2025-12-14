@@ -2,6 +2,7 @@ package com.handmade.ecommerce.pricing.configuration.controller;
 
 import java.util.Map;
 
+import com.handmade.ecommerce.pricing.model.Price;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.chenile.base.response.GenericResponse;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.chenile.workflow.dto.StateEntityServiceResponse;
-import com.handmade.ecommerce.price.model.Price;
 import org.chenile.security.model.SecurityConfig;
 
 @RestController

@@ -35,14 +35,7 @@ public class CreateProductCommand {
         this.description = description;
     }
 
-
-    public String getFeatureDescription() {
-        return featureDescription;
-    }
-
-    public void setFeatureDescription(String featureDescription) {
-        this.featureDescription = featureDescription;
-    }
+    
 
     public String getSalesDescription() {
         return salesDescription;

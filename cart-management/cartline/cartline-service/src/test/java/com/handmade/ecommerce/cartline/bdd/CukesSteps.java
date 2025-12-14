@@ -1,5 +1,10 @@
 package com.handmade.ecommerce.cartline.bdd;
 
+import com.handmade.ecommerce.cartline.model.Cartline;
+import com.handmade.ecommerce.cartline.service.CartlineService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -7,6 +12,10 @@ import org.springframework.test.context.ActiveProfiles;
 import com.handmade.ecommerce.cartline.SpringTestConfig;
 
 import cucumber.api.java.en.Given;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
 * This "steps" file's purpose is to hook up the SpringConfig to the test case.
@@ -16,9 +25,12 @@ import cucumber.api.java.en.Given;
 * This class requires a dummy method to keep Cucumber from erring out. (Cucumber needs at least
 * one step in a steps file)<br/>
 */
+
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = SpringTestConfig.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("unittest")
 public class CukesSteps {
-	@Given("dummy") public void dummy(){}
+
+
 }

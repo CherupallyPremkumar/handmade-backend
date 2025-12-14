@@ -48,7 +48,9 @@ public class CartServiceImpl extends StateEntityServiceImpl<Cart> implements Car
 
         if (existingCart != null) {
             logger.info("Found existing cart: {}", existingCart.getId());
-            return StateEntityServiceResponse<>(existingCart);
+            StateEntityServiceResponse<Cart> stateEntityServiceResponse=new StateEntityServiceResponse<>();
+            stateEntityServiceResponse.setMutatedEntity(existingCart);
+            return stateEntityServiceResponse;
         }
 
         // No existing cart - create new one through state machine

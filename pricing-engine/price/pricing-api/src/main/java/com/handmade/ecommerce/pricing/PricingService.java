@@ -2,9 +2,11 @@ package com.handmade.ecommerce.pricing;
 
 import com.handmade.ecommerce.command.CreatePriceCommand;
 import com.handmade.ecommerce.core.model.Money;
-import com.handmade.ecommerce.pricing.model.Price;
-import com.handmade.ecommerce.pricing.model.CartPricing;
-import com.handmade.ecommerce.pricing.model.PricingRequest;
+import com.handmade.ecommerce.pricing.entity.Price;
+import com.handmade.ecommerce.pricing.dto.CartPricing;
+import com.handmade.ecommerce.pricing.dto.PriceCalculationResult;
+import com.handmade.ecommerce.pricing.dto.PricingContext;
+import com.handmade.ecommerce.pricing.dto.PricingRequest;
 
 /**
  * Pricing Service Interface
@@ -24,10 +26,21 @@ public interface PricingService {
     Money getCurrentPrice(String variantId);
 
     /**
-     * Calculate complete cart pricing
+     * Calculate complete List of cart pricing
      * Includes: subtotal, discounts, tax, shipping
      * Calculated fresh every time (Amazon-style)
      */
     CartPricing calculateCartPricing(PricingRequest request);
 
+    /**
+     * Calculate complete price with full breakdown
+     * Follows the pricing flow:
+     * 1. Get base price
+     * 2. Check regional override
+     * 3. Convert currency
+     * 4. Apply price rules
+     * 5. Calculate tax
+     * 6. Build result
+     */
+    PriceCalculationResult calculatePrice(PricingContext context);
 }

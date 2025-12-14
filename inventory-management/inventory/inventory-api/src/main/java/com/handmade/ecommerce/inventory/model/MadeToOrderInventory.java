@@ -24,7 +24,7 @@ public class MadeToOrderInventory extends Inventory {
     @Column(name = "current_orders", nullable = false)
     private Integer currentOrders = 0;
 
-    @Override
+
     public boolean isAvailable() {
         if (maxConcurrentOrders == null) {
             return true; // Unlimited capacity
@@ -32,7 +32,6 @@ public class MadeToOrderInventory extends Inventory {
         return currentOrders < maxConcurrentOrders;
     }
 
-    @Override
     public Integer getAvailableQuantity() {
         if (maxConcurrentOrders == null) {
             return Integer.MAX_VALUE; // Infinite

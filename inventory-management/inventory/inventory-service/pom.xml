@@ -72,6 +72,13 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+            <!-- OpenWMS Core -->
+        <dependency>
+            <groupId>org.openwms</groupId>
+            <artifactId>org.openwms.core.util</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

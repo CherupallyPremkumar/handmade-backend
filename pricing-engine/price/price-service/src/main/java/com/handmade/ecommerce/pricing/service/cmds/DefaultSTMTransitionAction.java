@@ -1,11 +1,12 @@
 package com.handmade.ecommerce.pricing.service.cmds;
 
+import com.handmade.ecommerce.pricing.model.Price;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.param.MinimalPayload;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.price.model.Price;
+
 
 /**
     This class is invoked if no specific transition action is specified
