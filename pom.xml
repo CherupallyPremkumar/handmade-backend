@@ -23,7 +23,7 @@
     <!-- Supporting Subdomains -->
     <module>inventory-management</module>
     <module>payment-management</module>
-    <module>fulfillment-management</module>
+<!--    <module>fulfillment-management</module>-->
     <module>user-management</module>
     <module>tenant-management</module>
     <module>dispute-management</module>
@@ -41,10 +41,11 @@
     <module>content-management</module>
     <module>platform-audit-management</module>
     <module>orchestration</module>
-    <module>app-boot</module>
     <module>security-management</module>
     <module>search-management</module>
     <module>messaging-management</module>
+    <module>app-core</module>
+    <module>app-boot</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>

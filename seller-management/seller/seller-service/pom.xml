@@ -24,6 +24,17 @@
 			<groupId>com.handmade.ecommerce.seller</groupId>
 			<artifactId>seller-api</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.payment</groupId>
+            <artifactId>payment-api</artifactId>
+            <version>${product.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.common</groupId>
+            <artifactId>validation</artifactId>
+            <version>${revision}</version>
+        </dependency>
 	
 		<dependency>
 			<groupId>org.chenile</groupId>

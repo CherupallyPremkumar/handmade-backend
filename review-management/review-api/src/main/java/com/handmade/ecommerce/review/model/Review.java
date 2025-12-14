@@ -31,7 +31,7 @@ public abstract class Review {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "review_status", length = 20)
-    protected ReviewStatus reviewStatus;
+    protected String reviewStatus;
     
     @Column(name = "helpful_count")
     protected Integer helpfulCount;
@@ -52,25 +52,25 @@ public abstract class Review {
     public Review() {
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
-        this.reviewStatus = ReviewStatus.PENDING;
+        this.reviewStatus = String.valueOf(ReviewStatus.PENDING);
         this.helpfulCount = 0;
         this.verifiedPurchase = false;
     }
     
     // Common business methods
     public void approve() {
-        this.reviewStatus = ReviewStatus.APPROVED;
+        this.reviewStatus = String.valueOf(ReviewStatus.APPROVED);
         this.approvedAt = Instant.now();
         this.updatedAt = Instant.now();
     }
     
     public void reject() {
-        this.reviewStatus = ReviewStatus.REJECTED;
+        this.reviewStatus = String.valueOf(ReviewStatus.REJECTED);
         this.updatedAt = Instant.now();
     }
     
     public void flag() {
-        this.reviewStatus = ReviewStatus.FLAGGED;
+        this.reviewStatus = String.valueOf(ReviewStatus.FLAGGED);
         this.updatedAt = Instant.now();
     }
     
@@ -104,8 +104,8 @@ public abstract class Review {
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
     
-    public ReviewStatus getReviewStatus() { return reviewStatus; }
-    public void setReviewStatus(ReviewStatus reviewStatus) { this.reviewStatus = reviewStatus; }
+    public String getReviewStatus() { return reviewStatus; }
+    public void setReviewStatus(ReviewStatus reviewStatus) { this.reviewStatus = String.valueOf(reviewStatus); }
     
     public Integer getHelpfulCount() { return helpfulCount; }
     public void setHelpfulCount(Integer helpfulCount) { this.helpfulCount = helpfulCount; }

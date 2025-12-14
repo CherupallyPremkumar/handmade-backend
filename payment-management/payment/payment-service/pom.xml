@@ -19,6 +19,18 @@
 			<groupId>com.handmade.ecommerce.payment</groupId>
 			<artifactId>payment-api</artifactId>
 		</dependency>
+		<!-- Razorpay module dependency -->
+		<dependency>
+			<groupId>com.handmade.ecommerce.razorpay</groupId>
+			<artifactId>razorpay-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<!-- Stripe module dependency -->
+		<dependency>
+			<groupId>com.handmade.ecommerce.stripe</groupId>
+			<artifactId>stripe-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
 	
 		<dependency>
 			<groupId>org.chenile</groupId>
@@ -71,6 +83,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.common</groupId>
+            <artifactId>validation</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

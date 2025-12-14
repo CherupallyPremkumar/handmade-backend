@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: handmade-config
+data:
+  # Database Configuration
+  db.host: "postgres-staging-service"
+  db.name: "handmade_staging_db"
+  
+  # Logging Configuration
+  logging.level.root: "INFO"
+  logging.level.com.handmade: "DEBUG"
+  
+  # CORS Configuration
+  cors.allowed.origins: "https://staging.yourdomain.com,https://staging-admin.yourdomain.com"
+  
+  # Feature Flags
+  feature.payment.enabled: "true"
+  feature.reviews.enabled: "true"
+  feature.recommendations.enabled: "true"
+  
+  # Application Properties
+  application.yaml: |
+    spring:
+      application:
+        name: handmade-backend-staging
+      jpa:
+        hibernate:
+          ddl-auto: validate
+        show-sql: false
+        properties:
+          hibernate:
+            format_sql: true
+    
+    springdoc:
+      swagger-ui:
+        enabled: true
+        path: /swagger-ui.html
+      api-docs:
+        enabled: true

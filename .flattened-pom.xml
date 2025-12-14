@@ -18,22 +18,35 @@
     </license>
   </licenses>
   <modules>
+    <module>seller-management</module>
+    <module>artisan-management</module>
     <module>product-management</module>
-    <module>inventory-management</module>
-    <module>supplier-management</module>
-    <module>user-management</module>
-    <module>common-library</module>
-    <module>payment-management</module>
-    <module>pricing-engine</module>
-    <module>app-boot</module>
     <module>order-management</module>
+    <module>pricing-engine</module>
+    <module>customer-management</module>
+    <module>review-management</module>
+    <module>commission-management</module>
+    <module>promotion-management</module>
+    <module>inventory-management</module>
+    <module>payment-management</module>
+    <module>user-management</module>
     <module>tenant-management</module>
-    <module>fulfillment-management</module>
-    <module>platform-audit-management</module>
-    <module>messaging-management</module>
-    <module>platform-core-management</module>
-    <module>orchestration</module>
+    <module>dispute-management</module>
+    <module>analytics-management</module>
+    <module>catalog-management</module>
+    <module>shipping-management</module>
+    <module>financial-settlement</module>
     <module>event-management</module>
+    <module>common-library</module>
+    <module>notification-management</module>
+    <module>content-management</module>
+    <module>platform-audit-management</module>
+    <module>orchestration</module>
+    <module>security-management</module>
+    <module>search-management</module>
+    <module>messaging-management</module>
+    <module>app-core</module>
+    <module>app-boot</module>
   </modules>
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>

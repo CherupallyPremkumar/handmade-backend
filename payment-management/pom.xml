@@ -12,6 +12,19 @@
 
     <modules>
         <module>payment</module>
+        <module>paymentorder</module>
+        <module>payment-executor</module>
+        <module>risk</module>
+        <!-- tax module moved to pricing-engine -->
+        <module>gstin</module>
+        <module>ein</module>
+        <module>ledger</module>
+        <module>wallet</module>
+        <module>reconciliation</module>
+        <module>razorpay</module>
+        <module>stripe</module>
+        <module>cash</module>
+        <module>orchestrator</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.payment-management</groupId>

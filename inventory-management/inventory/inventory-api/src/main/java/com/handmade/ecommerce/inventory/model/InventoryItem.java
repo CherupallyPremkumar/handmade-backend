@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.inventory.model;
 
 import jakarta.persistence.*;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.utils.entity.model.ChenileEntity;
 import java.time.LocalDateTime;
 
@@ -13,11 +14,8 @@ import java.time.LocalDateTime;
         @Index(name = "idx_sku", columnList = "sku"),
         @Index(name = "idx_warehouse", columnList = "warehouse_id")
 })
-public class InventoryItem extends ChenileEntity {
+public class InventoryItem extends BaseJpaEntity {
 
-    @Id
-    @Column(name = "inventory_id", length = 50)
-    private String inventoryId;
 
     @Column(name = "sku", nullable = false, unique = true, length = 50)
     private String sku; // Product SKU reference
@@ -53,14 +51,6 @@ public class InventoryItem extends ChenileEntity {
     private LocalDateTime updatedAt;
 
     // Getters and Setters
-
-    public String getInventoryId() {
-        return inventoryId;
-    }
-
-    public void setInventoryId(String inventoryId) {
-        this.inventoryId = inventoryId;
-    }
 
     public String getSku() {
         return sku;
@@ -150,16 +140,7 @@ public class InventoryItem extends ChenileEntity {
         this.updatedAt = updatedAt;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 
     /**
      * Get total quantity (available + reserved)

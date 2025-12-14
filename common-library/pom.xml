@@ -4,7 +4,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>command</module>
-        <module>common</module>
+        <module>validation</module>
     </modules>
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
@@ -13,7 +13,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.handmade.ecommerce.common-library</groupId>
+    <groupId>com.handmade.ecommerce.common</groupId>
     <artifactId>common-library</artifactId>
     <name>common-library</name>
 

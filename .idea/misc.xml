@@ -5,7 +5,28 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/pricing-engine/price/pricing-api/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-management/tax/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-management/orchestrator/orchestrator-service/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-management/payment-executor/pom.xml" />
+        <option value="$PROJECT_DIR$/orchestration/pom.xml" />
+        <option value="$PROJECT_DIR$/cart-management/pom.xml" />
+        <option value="$PROJECT_DIR$/promotion-management/coupon/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/artisan-management/pom.xml" />
+        <option value="$PROJECT_DIR$/common-library/common/pom.xml" />
+        <option value="$PROJECT_DIR$/fulfillment-management/shipping/pom.xml" />
+        <option value="$PROJECT_DIR$/fulfillment-management/shipping/shipping-api/pom.xml" />
+        <option value="$PROJECT_DIR$/messaging-management/pom.xml" />
+        <option value="$PROJECT_DIR$/pricing-engine/price/price-api/pom.xml" />
+        <option value="$PROJECT_DIR$/pricing-engine/pricing-core/pom.xml" />
+        <option value="$PROJECT_DIR$/promotion-management/promotion/promotion-service/pom.xml" />
+        <option value="$PROJECT_DIR$/security-management/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/gstin/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">

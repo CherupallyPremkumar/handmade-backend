@@ -1,0 +1,80 @@
+@startuml payment-failure-retry-flow
+!theme plain
+
+title Payment System - Failure & Retry Mechanism
+
+participant "Payment\nService" as PaymentSvc
+participant "Payment\nExecutor" as Executor
+participant "Razorpay\nPSP" as Razorpay
+database "Database" as DB
+participant "Retry\nScheduler" as Scheduler
+
+== Initial Payment Attempt ==
+PaymentSvc -> Executor: execute(order)
+activate Executor
+
+Executor -> Razorpay: processPayment(order)
+activate Razorpay
+
+Razorpay -> Razorpay: Call Razorpay API
+
+note over Razorpay #lightcoral
+    Network timeout!
+end note
+
+Razorpay --> Executor: Exception
+deactivate Razorpay
+
+Executor -> DB: Update status=FAILED
+Executor -> DB: retryCount++\nlastError="Network timeout"
+
+Executor --> PaymentSvc: PaymentExecutionException
+deactivate Executor
+
+== Retry Mechanism ==
+note over Scheduler
+    Scheduled job runs
+    every minute
+end note
+
+Scheduler -> DB: Find FAILED orders\n(retryCount < 3)
+activate Scheduler
+DB --> Scheduler: List<PaymentOrder>
+
+loop For each failed order
+    Scheduler -> Executor: execute(order)
+    activate Executor
+    
+    Executor -> Razorpay: processPayment(order)
+    activate Razorpay
+    
+    alt Retry Succeeds
+        Razorpay --> Executor: Success
+        deactivate Razorpay
+        Executor -> DB: Update status=SUCCESS
+        note right #lightgreen
+            Payment recovered!
+        end note
+    else Retry Fails
+        Razorpay --> Executor: Exception
+        deactivate Razorpay
+        Executor -> DB: retryCount++
+        
+        alt retryCount >= 3
+            note over DB #yellow
+                Move to Dead Letter Queue
+                for manual investigation
+            end note
+        else retryCount < 3
+            note over DB #lightyellow
+                Will retry again
+                in next cycle
+            end note
+        end
+    end
+    deactivate Executor
+end
+
+deactivate Scheduler
+
+@enduml

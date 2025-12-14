@@ -1,0 +1,264 @@
+@startuml payment-service-orchestrator-flow
+!theme plain
+skinparam sequenceMessageAlign center
+
+title PaymentService Orchestrator - Hosted Payment Page Flow (Two-Phase) - Enhanced
+
+actor "Frontend" as Frontend
+participant "PaymentProcessing\nController" as Controller
+participant "RiskCheck\nService" as RiskCheck
+participant "PaymentProcessing\nServiceImpl\n(Orchestrator)" as Service
+participant "PaymentService" as PaymentSvc
+database "PaymentRepository" as PaymentRepo
+participant "PaymentOrder\nService" as OrderService
+database "PaymentOrder\nRepository" as OrderRepo
+participant "PaymentExecutor" as Executor
+participant "Razorpay/Stripe\nPaymentService" as PSP
+participant "Webhook\nController" as Webhook
+participant "WalletService" as Wallet
+participant "LedgerService" as Ledger
+participant "Notification\nService" as Notification
+participant "Analytics\nService" as Analytics
+
+== Phase 1: Registration (Synchronous) ==
+
+Frontend -> Controller: POST /v1/payments
+activate Controller
+
+note left of Frontend
+    **Request Payload:**
+    {
+      "checkoutId": "checkout-123",
+      "buyerId": "buyer-456",
+      "paymentOrders": [
+        {
+          "paymentOrderId": "uuid-001",
+          "sellerId": "seller-001",
+          "amount": "700.00",
+          "currency": "INR"
+        }
+      ]
+    }
+end note
+
+Controller -> Service: processPayment(request)
+activate Service
+
+' Risk Check - Critical for fraud detection
+Service -> RiskCheck: assessRisk(buyerId, amount, paymentOrders)
+activate RiskCheck
+RiskCheck --> Service: RiskAssessment (APPROVED/REJECTED)
+deactivate RiskCheck
+
+alt Risk Check REJECTED
+    Service --> Controller: 403 Forbidden (High Risk)
+    Controller --> Frontend: Payment Rejected
+    deactivate Service
+    deactivate Controller
+else Risk Check APPROVED
+    
+    ' Create Payment entity
+    Service -> PaymentSvc: createPayment(request)
+    activate PaymentSvc
+    PaymentSvc -> PaymentRepo: save(payment) [Status: CREATED]
+    activate PaymentRepo
+    PaymentRepo --> PaymentSvc: Payment saved
+    deactivate PaymentRepo
+    PaymentSvc --> Service: Payment created
+    deactivate PaymentSvc
+    
+    ' Process each PaymentOrder
+    loop For each PaymentOrder
+        Service -> Service: processPaymentOrder(payment, orderReq)
+        activate Service
+        
+        ' Idempotency check
+        Service -> OrderService: findById(paymentOrderId)
+        activate OrderService
+        OrderService -> OrderRepo: findById(paymentOrderId)
+        activate OrderRepo
+        OrderRepo --> OrderService: Optional<PaymentOrder>
+        deactivate OrderRepo
+        OrderService --> Service: Optional<PaymentOrder>
+        deactivate OrderService
+        
+        alt New Order
+            ' Create PaymentOrder
+            Service -> OrderService: createPaymentOrder(orderReq)
+            activate OrderService
+            OrderService -> OrderRepo: save(paymentOrder) [Status: NOT_STARTED]
+            activate OrderRepo
+            OrderRepo --> OrderService: Saved
+            deactivate OrderRepo
+            OrderService --> Service: PaymentOrder created
+            deactivate OrderService
+            
+            ' Create PSP checkout session
+            Service -> Executor: createCheckoutSession(paymentOrder)
+            activate Executor
+            
+            Executor -> PSP: createCheckoutSession(orderId, amount, currency)
+            activate PSP
+            PSP --> Executor: CheckoutSession(sessionId, checkoutUrl)
+            deactivate PSP
+            
+            Executor --> Service: CheckoutSession
+            deactivate Executor
+            
+            ' Update PaymentOrder status
+            Service -> OrderService: updateStatus(orderId, PENDING_USER_ACTION)
+            activate OrderService
+            OrderService -> OrderRepo: update(status, sessionId, checkoutUrl)
+            activate OrderRepo
+            OrderRepo --> OrderService: Updated
+            deactivate OrderRepo
+            OrderService --> Service: Updated
+            deactivate OrderService
+            
+        end
+        
+        Service --> Service: PaymentOrderResponse (with checkoutUrl)
+        deactivate Service
+    end
+    
+    ' Update Payment status to PROCESSING
+    Service -> PaymentSvc: updateStatus(paymentId, PROCESSING)
+    activate PaymentSvc
+    PaymentSvc -> PaymentRepo: update(status = PROCESSING)
+    activate PaymentRepo
+    PaymentRepo --> PaymentSvc: Updated
+    deactivate PaymentRepo
+    PaymentSvc --> Service: Updated
+    deactivate PaymentSvc
+    
+    ' Send analytics event
+    Service -> Analytics: trackPaymentInitiated(payment, paymentOrders)
+    activate Analytics
+    Analytics --> Service: Tracked
+    deactivate Analytics
+    
+    Service --> Controller: PaymentResponse (with checkoutUrl)
+    deactivate Service
+    
+    Controller --> Frontend: 200 OK + checkoutUrl
+    deactivate Controller
+    
+    Frontend -> Frontend: Redirect user to checkoutUrl
+end
+
+== Phase 2: Confirmation (Asynchronous Webhook) ==
+
+... User completes payment on PSP Page ...
+
+PSP -> Webhook: POST /webhooks/razorpay (or stripe)
+activate Webhook
+
+note right of PSP
+    **Webhook Payload:**
+    {
+      "event": "payment.captured",
+      "payload": {
+        "payment": { "id": "pay_123", "status": "captured" },
+        "order": { "receipt": "uuid-001" }
+      }
+    }
+end note
+
+' Validate webhook signature
+Webhook -> Webhook: validateWebhookSignature(payload, signature)
+activate Webhook
+deactivate Webhook
+
+' Find PaymentOrder
+Webhook -> OrderService: findById("uuid-001")
+activate OrderService
+OrderService -> OrderRepo: findById("uuid-001")
+activate OrderRepo
+OrderRepo --> OrderService: PaymentOrder
+deactivate OrderRepo
+OrderService --> Webhook: PaymentOrder
+deactivate OrderService
+
+alt Order Found & Not Already Success (Idempotency)
+    
+    ' Update PaymentOrder to EXECUTING
+    Webhook -> OrderService: updateStatus(orderId, EXECUTING)
+    activate OrderService
+    OrderService -> OrderRepo: update(status = EXECUTING)
+    activate OrderRepo
+    OrderRepo --> OrderService: Updated
+    deactivate OrderRepo
+    OrderService --> Webhook: Updated
+    deactivate OrderService
+    
+    ' Update PaymentOrder to SUCCESS
+    Webhook -> OrderService: updateStatus(orderId, SUCCESS)
+    activate OrderService
+    OrderService -> OrderRepo: update(status = SUCCESS, pspPaymentId)
+    activate OrderRepo
+    OrderRepo --> OrderService: Updated
+    deactivate OrderRepo
+    OrderService --> Webhook: Updated
+    deactivate OrderService
+    
+    ' Credit seller wallet
+    Webhook -> Wallet: credit(sellerId, amount)
+    activate Wallet
+    Wallet --> Webhook: Credited
+    deactivate Wallet
+    
+    ' Create ledger entry (double-entry accounting)
+    Webhook -> Ledger: createDoubleEntry(buyerId, sellerId, amount)
+    activate Ledger
+    Ledger --> Webhook: Recorded
+    deactivate Ledger
+    
+    ' Update Payment aggregate status
+    Webhook -> PaymentSvc: updatePaymentStatus(paymentId)
+    activate PaymentSvc
+    PaymentSvc -> PaymentSvc: checkAllOrdersStatus()
+    activate PaymentSvc
+    deactivate PaymentSvc
+    
+    alt All Orders SUCCESS
+        PaymentSvc -> PaymentRepo: update(status = COMPLETED)
+        activate PaymentRepo
+        PaymentRepo --> PaymentSvc: Updated
+        deactivate PaymentRepo
+    else Some Orders SUCCESS
+        PaymentSvc -> PaymentRepo: update(status = PARTIALLY_COMPLETED)
+        activate PaymentRepo
+        PaymentRepo --> PaymentSvc: Updated
+        deactivate PaymentRepo
+    end
+    PaymentSvc --> Webhook: Payment status updated
+    deactivate PaymentSvc
+    
+    ' Send notifications
+    Webhook -> Notification: notifySeller(sellerId, paymentSuccess)
+    activate Notification
+    Notification --> Webhook: Sent
+    deactivate Notification
+    
+    Webhook -> Notification: notifyBuyer(buyerId, paymentSuccess)
+    activate Notification
+    Notification --> Webhook: Sent
+    deactivate Notification
+    
+    ' Track analytics
+    Webhook -> Analytics: trackPaymentCompleted(paymentOrder)
+    activate Analytics
+    Analytics --> Webhook: Tracked
+    deactivate Analytics
+    
+else Order Already Success
+    note right of Webhook
+        Idempotency: Already processed
+        Return success without re-processing
+    end note
+end
+
+Webhook --> PSP: 200 OK
+deactivate Webhook
+
+@enduml

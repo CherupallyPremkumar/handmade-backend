@@ -9,10 +9,21 @@
     <file url="file://$PROJECT_DIR$/app-boot/build-package/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app-boot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/artisan-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/artisan-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cart/cart-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cart/cart-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cart/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cart/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cartline/cartline-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cartline/cartline-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cartline/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/cartline/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cart-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/catalog-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/catalog-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/src/main/java" charset="UTF-8" />
@@ -32,6 +43,7 @@
     <file url="file://$PROJECT_DIR$/common-library/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-library/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common-library/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-library/validation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/content-management/content-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/content-management/content-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/content-management/src/main/java" charset="UTF-8" />
@@ -81,10 +93,22 @@
     <file url="file://$PROJECT_DIR$/notification-management/notification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/product-orchestration-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/product-orchestration-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/productorch-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/productorch-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/product-orchestration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/productorch-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/productorch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/seller-orchestration-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/seller-orchestration-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/sellerorch-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/sellerorch-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestration/seller-orchestration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/sellerorch-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/src/main/java" charset="UTF-8" />
@@ -102,19 +126,81 @@
     <file url="file://$PROJECT_DIR$/order-management/orderline/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/cash/cash-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/cash/cash-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/cash/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/cash/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ein/ein-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ein/ein-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ein/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ein/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/gstin/gstin-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/gstin/gstin-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/gstin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/gstin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ledger/ledger-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ledger/ledger-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ledger/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/ledger/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/orchestrator/orchestrator-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/orchestrator/orchestrator-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/orchestrator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/orchestrator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/payment-executor/payment-executor-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/payment-executor/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/payment-executor/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/payment/payment-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/payment/payment-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/payment/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/payment/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/paymentorder/paymentorder-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/paymentorder/paymentorder-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/paymentorder/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/paymentorder/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/razorpay/razorpay-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/razorpay/razorpay-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/razorpay/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/razorpay/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/reconciliation/reconciliation-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/reconciliation/reconciliation-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/reconciliation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/reconciliation/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/risk/risk-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/risk/risk-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/risk/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/risk/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/stripe/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/stripe/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/stripe/stripe-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/stripe/stripe-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/tax/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/tax/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/tax/tax-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/tax/tax-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/wallet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/wallet/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/wallet/wallet-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/wallet/wallet-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-audit-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-inr/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/pricing-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/rules/rules-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/rules/rules-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/rules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/rules/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/tax/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/tax/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/tax/tax-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/tax/tax-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/product/product-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/product/product-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/product/src/main/java" charset="UTF-8" />
@@ -125,8 +211,14 @@
     <file url="file://$PROJECT_DIR$/product-management/variant/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/variant/variant-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/product-management/variant/variant-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/promotion-management/promotion-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/promotion-management/promotion-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/coupon/coupon-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/coupon/coupon-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/coupon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/coupon/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion/promotion-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion/promotion-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/promotion-management/promotion/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/promotion-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/promotion-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/review-management/review-api/src/main/java" charset="UTF-8" />

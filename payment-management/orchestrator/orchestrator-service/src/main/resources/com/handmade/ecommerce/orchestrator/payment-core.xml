@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flows>
+    <!-- 
+        Payment Initiation Flow (Hosted Payment Page - Figure 4)
+        
+        This flow orchestrates the "Pay-in" process up to the point of user redirection.
+        It corresponds to Steps 1-5 in Figure 4 of the Pragmatic Engineer guide.
+        
+        Key Enhancement: Idempotency check prevents double payment if user clicks "Pay" multiple times
+    -->
+    <flow id="initiate-payment-flow">
+        <payment-chain>
+            <!-- Step 1: Validate Request -->
+            <command id="validate-payment-request" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.ValidatePaymentRequest"/>
+            
+            <!-- Step 2: Idempotency Check (CRITICAL - Prevents Double Payment) -->
+            <command id="check-idempotency" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.CheckIdempotency"/>
+            
+            <!-- Step 3: Risk Assessment -->
+            <command id="risk-check-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.RiskCheckService"/>
+            
+            <!-- Step 4: Create Payment Entity -->
+            <command id="create-payment-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.CreatePaymentService"/>
+            
+            <!-- Step 5: Create PaymentOrders (one per seller) -->
+            <command id="create-payment-orders-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.CreatePaymentOrdersService"/>
+            
+            <!-- Step 6: Register with PSP (create checkout session) -->
+            <command id="payment-executor" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.PspRegistrationService"/>
+            
+            <!-- Step 7: Save PSP session details -->
+            <command id="persist-payment-token-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.PersistPaymentTokenService"/>
+            
+            <!-- Step 8: Build response with checkout URL -->
+            <command id="construct-checkout-response" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.ConstructCheckoutResponse"/>
+        </payment-chain>
+    </flow>
+
+    <!-- 
+        Webhook Processing Flow (Asynchronous Confirmation)
+        
+        This flow handles the callback from the PSP after user completes payment.
+        It corresponds to Step 9 in Figure 4 and implements the aggregated payment model.
+        
+        Key Enhancement: Distributes money from platform to individual sellers
+    -->
+    <flow id="process-webhook-flow">
+        <webhook-chain>
+
+            <!-- 1. Security & Parsing -->
+            <command id="verify-webhook-signature" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.VerifyWebhookSignature"/>
+
+            <command id="parse-webhook-payload"
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.ParseWebhookPayload"/>
+            <!-- 2. Idempotency & State Check -->
+            <command id="idempotency-check-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.WebhookIdempotencyCheck"/>
+
+            <!-- 3. Update Financial State -->
+            <command id="update-payment-status" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.UpdatePaymentStatus"/>
+            
+            <!-- 3. Distribution & Accounting -->
+            <command id="mark-payment-orders-ready" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.MarkPaymentOrdersReady"/>
+            
+            <!-- 5. Money Movement (Internal) -->
+            <command id="wallet-credit-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.WalletCreditService"/>
+            <command id="ledger-entry-service" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.LedgerEntryService"/>
+
+            <!-- 6. Finalization -->
+            <command id="notify-payment-completion" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.NotifyPaymentCompletion"/>
+            
+            <!-- 7. Analytics & Reporting -->
+            <command id="send-analytics" 
+                     class="com.handmade.ecommerce.orchestrator.service.cmd.SendAnalytics"/>
+        </webhook-chain>
+    </flow>
+</flows>

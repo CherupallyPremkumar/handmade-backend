@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.handmade.ecommerce.sellerorch</groupId>
+		<artifactId>sellerorch-parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>sellerorch-service</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Seller Orchestration Service Implementations</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.7</version> <!-- Or the latest stable version -->
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-proxy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.sellerorch</groupId>
+			<artifactId>sellerorch-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-mqtt</artifactId>
+			<version>1.3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.tax</groupId>
+			<artifactId>tax-api</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>owiz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.seller</groupId>
+			<artifactId>seller-service</artifactId>
+			<version>${revision}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

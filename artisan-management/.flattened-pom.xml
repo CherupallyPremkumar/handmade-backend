@@ -7,11 +7,11 @@
     <artifactId>handmade-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.procurement-Management</groupId>
-  <artifactId>procurement-Management</artifactId>
+  <groupId>com.handmade.ecommerce.artisan-management</groupId>
+  <artifactId>artisan-management</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>procurement-Management</name>
+  <name>Artisan Management</name>
   <url>http://maven.apache.org</url>
   <licenses>
     <license>
