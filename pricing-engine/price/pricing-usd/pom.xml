@@ -25,6 +25,7 @@
         <dependency>
             <groupId>com.handmade.ecommerce.core</groupId>
             <artifactId>app-core</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <!-- Spring Boot -->

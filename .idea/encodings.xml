@@ -25,6 +25,7 @@
     <file url="file://$PROJECT_DIR$/cart-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cart-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/catalog-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/catalog-scheduler/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/catalog-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/catalog-management/src/main/resources" charset="UTF-8" />
@@ -188,6 +189,7 @@
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-inr/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-usd/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/pricing-core/src/main/java" charset="UTF-8" />
@@ -249,6 +251,7 @@
     <file url="file://$PROJECT_DIR$/shipping-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/storefront-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/supplier-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/supplier-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/supplier-management/supplier/supplier-api/src/main/java" charset="UTF-8" />

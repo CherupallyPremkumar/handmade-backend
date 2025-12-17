@@ -23,4 +23,11 @@
   <properties>
     <build.version>${revision}</build.version>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.handmade.ecommerce</groupId>
+      <artifactId>storefront-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 </project>

@@ -7,23 +7,25 @@
         <groupId>com.handmade.ecommerce.catalog</groupId>
         <artifactId>catalog-management</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog-service</artifactId>
-    <packaging>jar</packaging>
-    <name>Catalog Service</name>
+    <artifactId>catalog-scheduler</artifactId>
+    <name>Catalog Scheduler</name>
+    <description>Background jobs for catalog maintenance (Smart Collections, etc)</description>
 
     <dependencies>
         <dependency>
             <groupId>com.handmade.ecommerce.catalog</groupId>
-            <artifactId>catalog-api</artifactId>
+            <artifactId>catalog-service</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.product</groupId>
-            <artifactId>product-api</artifactId>
-            <version>${revision}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
     </dependencies>
 </project>

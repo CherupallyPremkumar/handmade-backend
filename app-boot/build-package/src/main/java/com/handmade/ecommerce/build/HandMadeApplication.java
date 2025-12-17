@@ -16,14 +16,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @SpringBootApplication(scanBasePackages = {
-        "com.handmade.ecommerce.**","org.chenile.configuration.**",
+        "com.handmade.ecommerce.**", "com.handmade.storefront.**", "org.chenile.configuration.**",
 })
 
 @EntityScan("com.handmade.ecommerce.**")
 @EnableJpaRepositories("com.handmade.ecommerce.**")
-public class HandMadeApplication
-{
-    public static void main( String[] args ){
-        SpringApplication.run(HandMadeApplication.class,args);
+public class HandMadeApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(HandMadeApplication.class, args);
     }
 }

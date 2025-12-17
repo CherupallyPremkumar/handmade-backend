@@ -46,6 +46,7 @@
     <module>messaging-management</module>
     <module>app-core</module>
     <module>app-boot</module>
+    <module>storefront-api</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>
