@@ -42,7 +42,7 @@ public class CollectionRuleProcessor implements ItemProcessor<ExternalProductDto
         for (Collection collection : cachedCollections) {
             if (ruleEvaluator.matches(collection.getRuleExpression(), product)) {
                 CollectionProductMapping mapping = new CollectionProductMapping();
-                mapping.setCollectionId(collection.getCollectionId());
+                mapping.setCollectionId(collection.getId());
                 mapping.setProductId(product.getId());
                 mapping.setAddedBy("BATCH_JOB");
                 // mapping.setDisplayOrder(...) - could calculation logic be here

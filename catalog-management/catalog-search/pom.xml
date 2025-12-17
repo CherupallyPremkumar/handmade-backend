@@ -10,9 +10,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog-service</artifactId>
+    <artifactId>catalog-search</artifactId>
     <packaging>jar</packaging>
-    <name>Catalog Service</name>
+    <name>Catalog Search</name>
 
     <dependencies>
         <dependency>
@@ -25,24 +25,10 @@
             <artifactId>product-api</artifactId>
             <version>${revision}</version>
         </dependency>
-        
-        <!-- Test Dependencies -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
-            <version>1.19.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>1.19.3</version>
-            <scope>test</scope>
+            <groupId>com.handmade.ecommerce.catalog</groupId>
+            <artifactId>catalog-service</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 </project>

@@ -18,6 +18,7 @@
         <module>catalog-api</module>
         <module>catalog-service</module>
         <module>catalog-scheduler</module>
+        <module>catalog-search</module>
     </modules>
     <dependencyManagement>
         <dependencies>

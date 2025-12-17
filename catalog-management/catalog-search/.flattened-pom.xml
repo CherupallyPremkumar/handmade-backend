@@ -8,9 +8,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.catalog</groupId>
-  <artifactId>catalog-service</artifactId>
+  <artifactId>catalog-search</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Catalog Service</name>
+  <name>Catalog Search</name>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -29,21 +29,9 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>testcontainers</artifactId>
-      <version>1.19.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>1.19.3</version>
-      <scope>test</scope>
+      <groupId>com.handmade.ecommerce.catalog</groupId>
+      <artifactId>catalog-service</artifactId>
+      <version>${revision}</version>
     </dependency>
   </dependencies>
 </project>

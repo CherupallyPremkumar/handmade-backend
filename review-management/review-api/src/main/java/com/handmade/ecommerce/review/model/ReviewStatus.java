@@ -19,6 +19,9 @@ public enum ReviewStatus {
      * Review rejected (spam, inappropriate, etc.)
      */
     REJECTED,
+
+
+
     
     /**
      * Review flagged for admin attention

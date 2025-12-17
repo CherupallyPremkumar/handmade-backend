@@ -73,7 +73,7 @@ public class CollectionMaintenanceService {
         
         // 2. Clear existing mappings (Simple Strategy: Wipe and Rebuild)
         // Optimization: Use diffing in V2
-        mappingRepository.deleteByCollectionId(collection.getCollectionId());
+        mappingRepository.deleteByCollectionId(collection.getId());
 
         int addedCount = 0;
         for (ExternalProductDto product : products) {
@@ -86,7 +86,7 @@ public class CollectionMaintenanceService {
 
     private void createMapping(Collection collection, ExternalProductDto product, int order) {
         CollectionProductMapping mapping = new CollectionProductMapping();
-        mapping.setCollectionId(collection.getCollectionId());
+        mapping.setCollectionId(collection.getId());
         mapping.setProductId(product.getId());
         mapping.setDisplayOrder(order);
         mapping.setAddedBy("SYSTEM_JOB");
