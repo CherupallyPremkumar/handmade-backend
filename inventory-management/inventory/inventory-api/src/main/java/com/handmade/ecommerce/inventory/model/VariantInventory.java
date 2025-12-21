@@ -15,8 +15,8 @@ import lombok.Setter;
 @Setter
 public class VariantInventory extends Inventory {
 
-    @Column(name = "variant_id", nullable = false)
-    private Long variantId;
+    // Note: variantId is inherited from parent Inventory class as String
+    // No need to redeclare it here
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity = 0;
@@ -27,11 +27,9 @@ public class VariantInventory extends Inventory {
     @Column(name = "max_stock_level")
     private Integer maxStockLevel;
 
-
     public boolean isAvailable() {
         return getAvailableQuantity() > 0;
     }
-
 
     public Integer getAvailableQuantity() {
         return Math.max(0, quantity - getReservedQuantity());
