@@ -1,0 +1,47 @@
+# Local Profile - PostgreSQL Database
+# Activate with: --spring.profiles.active=local
+# Requires: DB_PASSWORD environment variable
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres?sslmode=require&currentSchema=homebase_dev
+    username: homebase
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate   # IMPORTANT: never use 'update' in prod
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: homebase_dev
+
+# Logging for local development
+logging:
+  level:
+    root: INFO
+    com.handmade.ecommerce: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.web: DEBUG
+
+# Chenile Security - Local Keycloak
+chenile:
+  security:
+    keycloak:
+      host: http://localhost:8082
+      port: 8080
+      base:
+        realm: handmade
+    client:
+      id: handmade-client
+      secret: local-secret
