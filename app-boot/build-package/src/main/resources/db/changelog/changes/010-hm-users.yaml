@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-create-hm-users-table
+      author: handmade-team
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: hm_users
+      changes:
+        - createTable:
+            tableName: hm_users
+            columns:
+              - column:
+                  name: id
+                  type: ${uuid_type}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP

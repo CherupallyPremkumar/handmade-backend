@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - property:
+      name: uuid_type
+      value: uuid
+      dbms: postgresql
+  - property:
+      name: uuid_type
+      value: uuid
+      dbms: h2
+  
+  - changeSet:
+      id: 001-enable-uuid-extension
+      author: handmade-team
+      dbms: postgresql
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          sqlCheck:
+            expectedResult: 1
+            sql: "SELECT count(*) FROM pg_extension WHERE extname = 'uuid-ossp'"
+      changes:
+        - sql: CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
