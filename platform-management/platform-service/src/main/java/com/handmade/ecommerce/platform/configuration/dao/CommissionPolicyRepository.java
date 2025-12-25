@@ -1,18 +1,30 @@
 package com.handmade.ecommerce.platform.configuration.dao;
 
-import com.handmade.ecommerce.platform.domain.entity.CommissionPolicy;
+import com.handmade.ecommerce.platform.domain.aggregate.CommissionPolicy;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository for CommissionPolicy
+ */
 @Repository
 public interface CommissionPolicyRepository extends JpaRepository<CommissionPolicy, String> {
     
-    // Find active policy: effectiveFrom <= Now AND (effectiveTo > Now OR effectiveTo IS NULL)
-    // Ordered by version desc to get the latest if multiple match (though logic should prevent overlap)
-    List<CommissionPolicy> findByPlatformIdOrderByPolicyVersionDesc(String platformId);
-
+    /**
+     * Find the currently active policy
+     */
+    @Query("SELECT cp FROM CommissionPolicy cp WHERE cp.isActive = true " +
+           "AND cp.effectiveFrom <= :now " +
+           "AND (cp.effectiveTo IS NULL OR cp.effectiveTo >= :now) " +
+           "ORDER BY cp.effectiveFrom DESC")
+    Optional<CommissionPolicy> findActivePolicy(LocalDateTime now);
+    
+    /**
+     * Find policy by name
+     */
+    Optional<CommissionPolicy> findByPolicyName(String policyName);
 }
