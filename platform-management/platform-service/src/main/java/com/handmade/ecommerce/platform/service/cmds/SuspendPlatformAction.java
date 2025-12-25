@@ -26,12 +26,12 @@ public class SuspendPlatformAction extends AbstractSTMTransitionAction<PlatformO
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.warn("Suspending platform: {} - Reason: {}", platform.getId(), payload.getReason());
+        logger.warn("Suspending platform: {} - Reason: {}", platform.id, payload.reason);
         
         // Update platform status
-        platform.getPlatformStatus().setSuspended(true);
-        platform.getPlatformStatus().setSuspensionReason(payload.getReason());
+        platform.platformStatus.suspended = true;
+        platform.platformStatus.suspensionReason = payload.reason;
         
-        logger.info("Platform {} suspended successfully", platform.getId());
+        logger.info("Platform {} suspended successfully", platform.id);
     }
 }

@@ -26,13 +26,11 @@ public class ReviseCommissionAction extends AbstractSTMTransitionAction<Platform
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.info("Revising commission policy for platform: {}", platform.getId());
+        logger.info("Revising commission policy for platform: {}", platform.id);
         
-        // Update commission policy
-        platform.getCommissionPolicy().setBaseCommissionRate(payload.getBaseCommissionRate());
-        platform.getCommissionPolicy().setProcessingFeeRate(payload.getProcessingFeeRate());
-        platform.getCommissionPolicy().setEffectiveFrom(payload.getEffectiveFrom());
+        // Update commission policy reference
+        platform.activeCommissionPolicyId = payload.newCommissionPolicyId;
         
-        logger.info("Commission policy revised for platform {}", platform.getId());
+        logger.info("Commission policy revised for platform {}", platform.id);
     }
 }

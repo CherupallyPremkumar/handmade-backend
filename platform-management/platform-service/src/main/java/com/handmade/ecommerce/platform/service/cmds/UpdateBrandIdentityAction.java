@@ -26,19 +26,19 @@ public class UpdateBrandIdentityAction extends AbstractSTMTransitionAction<Platf
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.info("Updating brand identity for platform: {}", platform.getId());
+        logger.info("Updating brand identity for platform: {}", platform.id);
         
         // Update brand identity
-        if (payload.getBrandName() != null) {
-            platform.getBrandIdentity().setBrandName(payload.getBrandName());
+        if (payload.brandName != null) {
+            platform.brandIdentity.brandName = payload.brandName;
         }
-        if (payload.getLogoUrl() != null) {
-            platform.getBrandIdentity().setLogoUrl(payload.getLogoUrl());
+        if (payload.logoUrl != null) {
+            platform.brandIdentity.logoUrl = payload.logoUrl;
         }
-        if (payload.getTagline() != null) {
-            platform.getBrandIdentity().setTagline(payload.getTagline());
+        if (payload.tagline != null) {
+            platform.brandIdentity.tagline = payload.tagline;
         }
         
-        logger.info("Brand identity updated for platform {}", platform.getId());
+        logger.info("Brand identity updated for platform {}", platform.id);
     }
 }

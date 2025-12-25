@@ -26,13 +26,13 @@ public class DeletePlatformAction extends AbstractSTMTransitionAction<PlatformOw
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.warn("Deleting platform: {} - Reason: {}", platform.getId(), payload.getReason());
+        logger.warn("Deleting platform: {} - Reason: {}", platform.id, payload.reason);
         
         // Soft delete - mark as deleted
-        platform.setDeleted(true);
-        platform.setDeletedAt(java.time.LocalDateTime.now());
-        platform.setDeletedBy(payload.getDeletedBy());
+        platform.deleted = true;
+        platform.deletedAt = java.time.LocalDateTime.now();
+        platform.deletedBy = payload.deletedBy;
         
-        logger.info("Platform {} deleted successfully", platform.getId());
+        logger.info("Platform {} deleted successfully", platform.id);
     }
 }

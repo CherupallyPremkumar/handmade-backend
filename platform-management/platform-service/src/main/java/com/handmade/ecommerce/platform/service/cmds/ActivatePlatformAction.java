@@ -26,12 +26,12 @@ public class ActivatePlatformAction extends AbstractSTMTransitionAction<Platform
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.info("Activating platform: {}", platform.getId());
+        logger.info("Activating platform: {}", platform.id);
         
         // Set platform as active
-        platform.getPlatformLifecycle().setActivatedAt(java.time.LocalDateTime.now());
+        platform.platformLifecycle.activatedAt = java.time.LocalDateTime.now();
         
         // Log activation
-        logger.info("Platform {} activated successfully", platform.getId());
+        logger.info("Platform {} activated successfully", platform.id);
     }
 }

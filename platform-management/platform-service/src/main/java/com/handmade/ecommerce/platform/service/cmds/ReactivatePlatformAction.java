@@ -26,12 +26,12 @@ public class ReactivatePlatformAction extends AbstractSTMTransitionAction<Platfo
                              STMInternalTransitionInvoker<?> stm,
                              Transition transition) throws Exception {
         
-        logger.info("Reactivating platform: {}", platform.getId());
+        logger.info("Reactivating platform: {}", platform.id);
         
         // Clear suspension status
-        platform.getPlatformStatus().setSuspended(false);
-        platform.getPlatformStatus().setSuspensionReason(null);
+        platform.platformStatus.suspended = false;
+        platform.platformStatus.suspensionReason = null;
         
-        logger.info("Platform {} reactivated successfully", platform.getId());
+        logger.info("Platform {} reactivated successfully", platform.id);
     }
 }
