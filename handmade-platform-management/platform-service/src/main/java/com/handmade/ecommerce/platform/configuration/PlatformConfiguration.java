@@ -176,6 +176,32 @@ public class PlatformConfiguration {
         return new DeletePlatformAction();
     }
 
+    // PostSaveHooks - one for each state
+    @Bean com.handmade.ecommerce.platform.service.defs.BOOTSTRAPPINGPlatformPostSaveHook
+            platformBOOTSTRAPPINGPostSaveHook(){
+        return new com.handmade.ecommerce.platform.service.defs.BOOTSTRAPPINGPlatformPostSaveHook();
+    }
+
+    @Bean com.handmade.ecommerce.platform.service.defs.ACTIVEPlatformPostSaveHook
+            platformACTIVEPostSaveHook(){
+        return new com.handmade.ecommerce.platform.service.defs.ACTIVEPlatformPostSaveHook();
+    }
+
+    @Bean com.handmade.ecommerce.platform.service.defs.SUSPENDEDPlatformPostSaveHook
+            platformSUSPENDEDPostSaveHook(){
+        return new com.handmade.ecommerce.platform.service.defs.SUSPENDEDPlatformPostSaveHook();
+    }
+
+    @Bean com.handmade.ecommerce.platform.service.defs.MAINTENANCEPlatformPostSaveHook
+            platformMAINTENANCEPostSaveHook(){
+        return new com.handmade.ecommerce.platform.service.defs.MAINTENANCEPlatformPostSaveHook();
+    }
+
+    @Bean com.handmade.ecommerce.platform.service.defs.DELETEDPlatformPostSaveHook
+            platformDELETEDPostSaveHook(){
+        return new com.handmade.ecommerce.platform.service.defs.DELETEDPlatformPostSaveHook();
+    }
+
 
     @Bean ConfigProviderImpl platformConfigProvider() {
         return new ConfigProviderImpl();
