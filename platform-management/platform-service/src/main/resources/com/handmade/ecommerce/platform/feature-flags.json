@@ -1,0 +1,14 @@
+{
+    "features": {
+        "DYNAMIC_PRICING": true,
+        "SELLER_ANALYTICS": true,
+        "ADVANCED_SEARCH": true,
+        "AI_RECOMMENDATIONS": false,
+        "BULK_OPERATIONS": true,
+        "EXPORT_DATA": true,
+        "CUSTOM_BRANDING": true,
+        "MULTI_CURRENCY": false,
+        "SUBSCRIPTION_PLANS": false,
+        "LOYALTY_PROGRAM": false
+    }
+}
