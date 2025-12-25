@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.platform.domain.aggregate;
 
+import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -83,9 +84,9 @@ public class CommissionPolicy extends BaseJpaEntity {
     
     /**
      * BUSINESS LOGIC: Calculate commission for an order
-     * This is the core domain logic
+     * Now uses type-safe SellerTier enum instead of String
      */
-    public BigDecimal calculateCommission(BigDecimal orderAmount, String sellerTier, BigDecimal monthlyVolume) {
+    public BigDecimal calculateCommission(BigDecimal orderAmount, SellerTier sellerTier, BigDecimal monthlyVolume) {
         if (orderAmount == null || orderAmount.compareTo(BigDecimal.ZERO) <= 0) {
             return BigDecimal.ZERO;
         }
