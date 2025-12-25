@@ -20,7 +20,7 @@
 	
 	<groupId>com.handmade.ecommerce.event</groupId>
 	<version>${revision}</version>
-	<artifactId>event-parent</artifactId>
+	<artifactId>handmade-event-parent</artifactId>
 	<name>All Modules that belong to the event </name>
 	<description>Modules execution project and Parent Pom</description>
 

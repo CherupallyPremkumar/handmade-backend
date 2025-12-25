@@ -18,7 +18,7 @@
     </modules>
 
     <groupId>com.handmade.ecommerce.event</groupId>
-    <artifactId>event-parent</artifactId>
+    <artifactId>handmade-event-parent</artifactId>
     <name>Event Management Parent</name>
 
     <properties>

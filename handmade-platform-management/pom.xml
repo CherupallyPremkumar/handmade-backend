@@ -22,7 +22,7 @@
 	
 	<groupId>com.handmade.ecommerce.platform</groupId>
 	<version>${revision}</version>
-	<artifactId>platform-parent</artifactId>
+	<artifactId>handmade-platform-parent</artifactId>
 	<name>All Modules that belong to the Platform </name>
 	<description>Modules execution project and Parent Pom</description>
 
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.handmade.ecommerce.platform</groupId>
 			<version>${revision}</version>
-			<artifactId>platform-domain</artifactId>
+			<artifactId>handmade-platform-domain</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.handmade.ecommerce.platform</groupId>
@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>com.handmade.ecommerce.platform</groupId>
 			<version>${revision}</version>
-			<artifactId>platform-api</artifactId>
+			<artifactId>handmade-platform-api</artifactId>
 		</dependency>
 	</dependencies>
 	</dependencyManagement>

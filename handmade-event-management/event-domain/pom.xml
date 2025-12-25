@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>com.handmade.ecommerce.event</groupId>
-        <artifactId>event-parent</artifactId>
+        <artifactId>handmade-event-parent</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>event-domain</artifactId>
+    <artifactId>handmade-event-domain</artifactId>
     <packaging>jar</packaging>
 
     <name>Event Domain</name>

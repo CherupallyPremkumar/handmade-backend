@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.platform</groupId>
-		<artifactId>platform-parent</artifactId>
+		<artifactId>handmade-platform-parent</artifactId>
 		<version>${revision}</version>
 	</parent>
-	<artifactId>platform-api</artifactId>
+	<artifactId>handmade-platform-api</artifactId>
 	<name>Platform Interface Layer</name>
 
 	<dependencies>

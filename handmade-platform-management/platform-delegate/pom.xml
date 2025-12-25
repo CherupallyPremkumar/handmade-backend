@@ -5,12 +5,12 @@
         <modelVersion>4.0.0</modelVersion>
         <parent>
                 <groupId>com.handmade.ecommerce.platform</groupId>
-                <artifactId>platform-parent</artifactId>
+                <artifactId>handmade-platform-parent</artifactId>
                 <version>${revision}</version>
                 <relativePath>../pom.xml</relativePath>
         </parent>
 
-        <artifactId>platform-delegate</artifactId>
+        <artifactId>handmade-platform-delegate</artifactId>
         <packaging>jar</packaging>
 
         <name>Platform Business Delegate - Allows Remote calls to the Platform Manager</name>
