@@ -1,0 +1,12 @@
+{
+    "maxSellersPerDay": 100,
+    "maxTransactionAmount": 1000000.00,
+    "globalRateLimit": 1000,
+    "maxProductsPerSeller": 10000,
+    "maxOrdersPerMinute": 500,
+    "maxFailedLoginAttempts": 5,
+    "maxApiCallsPerMinute": 100,
+    "maxConcurrentSessions": 3,
+    "maxFileUploadSizeMB": 50,
+    "maxBulkOperationSize": 1000
+}
