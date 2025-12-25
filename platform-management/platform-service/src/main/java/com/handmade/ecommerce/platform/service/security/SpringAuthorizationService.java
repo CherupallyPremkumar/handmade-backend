@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.infrastructure.security;
+package com.handmade.ecommerce.platform.service.security;
 
 import com.handmade.ecommerce.platform.application.port.out.AuthorizationService;
 import org.slf4j.Logger;

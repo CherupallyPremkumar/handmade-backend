@@ -1,6 +1,6 @@
-package com.handmade.ecommerce.platform.service;
+package com.handmade.ecommerce.platform.api;
 
-import com.handmade.ecommerce.platform.model.PlatformOwner;
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import org.chenile.workflow.api.StateEntityService;
 
 /**

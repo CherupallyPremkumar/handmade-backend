@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.infrastructure.messaging;
+package com.handmade.ecommerce.platform.service.messaging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

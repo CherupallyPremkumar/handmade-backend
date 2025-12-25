@@ -1,8 +1,8 @@
 package com.handmade.ecommerce.platform.configuration;
 
+import com.handmade.ecommerce.platform.api.PlatformManager;
 import com.handmade.ecommerce.platform.delegate.PlatformManagerClient;
 import com.handmade.ecommerce.platform.delegate.PlatformManagerClientImpl;
-import com.handmade.ecommerce.platform.service.PlatformService;
 import org.chenile.proxy.builder.ProxyBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +28,9 @@ public class PlatformDelegateConfiguration {
     }
 
     @Bean
-    public PlatformService platformServiceProxy() {
+    public PlatformManager platformServiceProxy() {
         return proxyBuilder.buildProxy(
-                PlatformService.class,
+                PlatformManager.class,
                 "platformService",
                 null,
                 baseUrl

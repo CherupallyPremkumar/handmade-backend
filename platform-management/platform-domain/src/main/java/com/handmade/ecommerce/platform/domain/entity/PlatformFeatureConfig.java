@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
+import org.chenile.jpautils.entity.BaseJpaEntity;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -8,10 +10,9 @@ import java.time.LocalDateTime;
  * Persisted as a JSON text blob for flexibility (Key-Value Extensions).
  * PURE DOMAIN MODEL (no persistence annotations).
  */
-public class PlatformFeatureConfig implements Serializable {
+public class PlatformFeatureConfig extends BaseJpaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
     private String platformId;
     private String configJson;
     private Long version; // Optimistic lock

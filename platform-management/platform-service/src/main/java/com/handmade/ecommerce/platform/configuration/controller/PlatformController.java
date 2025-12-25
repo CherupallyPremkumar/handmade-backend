@@ -2,6 +2,7 @@ package com.handmade.ecommerce.platform.configuration.controller;
 
 import java.util.Map;
 
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.chenile.base.response.GenericResponse;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.chenile.workflow.dto.StateEntityServiceResponse;
-import com.handmade.ecommerce.platform.model.PlatformOwner;
-import org.chenile.security.model.SecurityConfig;
 
 @RestController
 @ChenileController(value = "platformService", serviceName = "_platformStateEntityService_",
@@ -29,7 +28,6 @@ import org.chenile.security.model.SecurityConfig;
 public class PlatformController extends ControllerSupport{
 	
 	@GetMapping("/platform/{id}")
-    @SecurityConfig(authorities = {"some_premium_scope","test.premium"})
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<PlatformOwner>>> retrieve(
 			HttpServletRequest httpServletRequest,
 			@PathVariable String id){
@@ -37,7 +35,6 @@ public class PlatformController extends ControllerSupport{
 	}
 
 	@PostMapping("/platform")
-    @SecurityConfig(authorities = {"some_premium_scope","test.premium"})
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<PlatformOwner>>> create(
 			HttpServletRequest httpServletRequest,
 			@ChenileParamType(StateEntity.class)
@@ -48,7 +45,6 @@ public class PlatformController extends ControllerSupport{
 	
 	@PatchMapping("/platform/{id}/{eventID}")
 	@BodyTypeSelector("platformBodyTypeSelector")
-    @SecurityConfig(authoritiesSupplier = "platformEventAuthoritiesSupplier")
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<PlatformOwner>>> processById(
 			HttpServletRequest httpServletRequest,
 			@PathVariable String id,

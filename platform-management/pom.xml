@@ -5,7 +5,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>platform-domain</module>
-		<module>platform-application</module>
 		<module>platform-service</module>
 		<module>platform-api</module>
 		<module>platform-delegate</module>

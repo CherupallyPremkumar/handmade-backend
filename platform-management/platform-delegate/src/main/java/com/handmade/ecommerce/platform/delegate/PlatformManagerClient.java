@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.delegate;
 
-import com.handmade.ecommerce.platform.model.PlatformOwner;
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.dto.*;
 
 /**

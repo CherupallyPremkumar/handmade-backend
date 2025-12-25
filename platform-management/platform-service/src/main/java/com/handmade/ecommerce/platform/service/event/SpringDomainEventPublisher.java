@@ -1,7 +1,7 @@
-package com.handmade.ecommerce.platform.infrastructure.event;
+package com.handmade.ecommerce.platform.service.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.handmade.ecommerce.platform.infrastructure.messaging.DomainEventPublisher;
+import com.handmade.ecommerce.platform.service.messaging.DomainEventPublisher;
 import org.chenile.pubsub.ChenilePub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

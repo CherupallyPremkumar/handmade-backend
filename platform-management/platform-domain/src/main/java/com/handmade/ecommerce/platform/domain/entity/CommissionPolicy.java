@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
+import org.chenile.jpautils.entity.BaseJpaEntity;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,12 +12,9 @@ import java.time.LocalDateTime;
  * Rows are never updated, only inserted (event sourcing pattern).
  * PURE DOMAIN MODEL (no persistence annotations).
  */
-public class CommissionPolicy implements Serializable {
+public class CommissionPolicy  extends BaseJpaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // Domain Identity
-    private String id;
-    
     private String platformId;
     private Long policyVersion;
     private LocalDateTime effectiveFrom;

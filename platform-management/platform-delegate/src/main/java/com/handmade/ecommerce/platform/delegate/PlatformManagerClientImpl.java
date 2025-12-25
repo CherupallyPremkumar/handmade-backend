@@ -1,8 +1,11 @@
 package com.handmade.ecommerce.platform.delegate;
 
-import com.handmade.ecommerce.platform.model.PlatformOwner;
-import com.handmade.ecommerce.platform.dto.*;
-import com.handmade.ecommerce.platform.service.PlatformService;
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
+import com.handmade.ecommerce.platform.dto.ActivatePlatformPayload;
+import com.handmade.ecommerce.platform.dto.DeletePlatformPayload;
+import com.handmade.ecommerce.platform.dto.ReactivatePlatformPayload;
+import com.handmade.ecommerce.platform.dto.SuspendPlatformPayload;
+import com.handmade.ecommerce.platform.service.PlatformManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,7 @@ public class PlatformManagerClientImpl implements PlatformManagerClient {
     
     @Autowired
     @Qualifier("platformServiceProxy")
-    private PlatformService platformServiceProxy;
+    private PlatformManager platformServiceProxy;
 
     @Override
     public PlatformOwner createPlatform(PlatformOwner platform) {

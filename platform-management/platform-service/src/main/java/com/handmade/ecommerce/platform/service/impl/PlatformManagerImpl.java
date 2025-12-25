@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.service.impl;
 
-import com.handmade.ecommerce.platform.model.PlatformOwner;
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.service.PlatformManager;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
@@ -32,7 +32,7 @@ public class PlatformManagerImpl extends StateEntityServiceImpl<PlatformOwner> i
         // Set default state if not set
         if (platform.getCurrentState() == null) {
             // Platform starts in BOOTSTRAPPING state
-            platform.setCurrentStateId("BOOTSTRAPPING");
+            platform.setCurrentState("BOOTSTRAPPING");
         }
         return super.create(platform);
     }

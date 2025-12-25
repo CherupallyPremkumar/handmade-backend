@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.infrastructure.messaging;
+package com.handmade.ecommerce.platform.service.messaging;
 
 /**
  * Infrastructure interface for publishing domain events.

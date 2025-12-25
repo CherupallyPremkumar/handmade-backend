@@ -49,5 +49,9 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>platform-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>
