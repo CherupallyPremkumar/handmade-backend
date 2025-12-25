@@ -10,15 +10,14 @@
 		<module>platform-api</module>
 	</modules>
 	<parent>
-		<groupId>com.handmade.ecommerce.platform-core</groupId>
+		<groupId>com.handmade.ecommerce</groupId>
 		<version>${revision}</version>
-		<artifactId>platform-management</artifactId>
+		<artifactId>handmade-parent</artifactId>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<properties>
 		<platform.version>${revision}</platform.version>
-		<revision>0.0.1-SNAPSHOT</revision>
 	</properties>
 	
 	<groupId>com.handmade.ecommerce.platform</groupId>
