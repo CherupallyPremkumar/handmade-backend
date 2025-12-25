@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.service.defs;
 
-import com.handmade.ecommerce.platform.api.PlatformEventPublisher;
+import com.handmade.ecommerce.event.api.EventPublisher;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.domain.event.PlatformActivatedEvent;
 import org.chenile.workflow.model.TransientMap;
@@ -15,7 +15,7 @@ public class ACTIVEPlatformPostSaveHook implements PostSaveHook<PlatformOwner> {
     private static final String TOPIC = "platform.events";
     
     @Autowired
-    private PlatformEventPublisher platformEventPublisher;
+    private EventPublisher eventPublisher;
     
     @Override
     public void execute(PlatformOwner platform, TransientMap transientMap) {
@@ -29,7 +29,7 @@ public class ACTIVEPlatformPostSaveHook implements PostSaveHook<PlatformOwner> {
     
     private void publishEvent(PlatformOwner platform) {
         PlatformActivatedEvent event = new PlatformActivatedEvent(platform);
-        platformEventPublisher.publishEvent(TOPIC, event);
+        eventPublisher.publish(TOPIC, event);
         logger.info("Published PlatformActivatedEvent for platform {}", platform.id);
     }
 }

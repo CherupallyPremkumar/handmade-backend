@@ -8,8 +8,6 @@
 		<module>platform-service</module>
 		<module>platform-api</module>
 		<module>platform-delegate</module>
-		<module>invm-platform-starter</module>
-		<module>q-based-platform-starter</module>
 	</modules>
 	<parent>
 		<groupId>com.handmade.ecommerce</groupId>
