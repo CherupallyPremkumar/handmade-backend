@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce.platform-core</groupId>
-    <artifactId>platform-management</artifactId>
+    <groupId>com.handmade.ecommerce</groupId>
+    <artifactId>handmade-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
@@ -20,24 +20,36 @@
     </license>
   </licenses>
   <modules>
+    <module>platform-domain</module>
+    <module>platform-application</module>
+    <module>platform-infrastructure</module>
     <module>platform-api</module>
-    <module>platform-service</module>
+    <module>platform-delegate</module>
   </modules>
   <properties>
-    <platform.version>0.0.1-SNAPSHOT</platform.version>
-    <revision>0.0.1-SNAPSHOT</revision>
+    <platform.version>${revision}</platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>platform-service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>platform-domain</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.handmade.ecommerce.platform</groupId>
+        <artifactId>platform-application</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.handmade.ecommerce.platform</groupId>
+        <artifactId>platform-infrastructure</artifactId>
+        <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
         <artifactId>platform-api</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -8,6 +8,7 @@
 		<module>platform-application</module>
 		<module>platform-infrastructure</module>
 		<module>platform-api</module>
+		<module>platform-delegate</module>
 	</modules>
 	<parent>
 		<groupId>com.handmade.ecommerce</groupId>
