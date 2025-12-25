@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.configuration.model;
+package com.handmade.ecommerce.platform.domain.model;
 
 import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
 import java.math.BigDecimal;
@@ -6,10 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Commission Configuration Model
- * Loaded from JSON file (like chenile ProcessDef)
- */
 public class CommissionConfig {
     
     public List<PolicyConfig> commissionPolicies;
@@ -32,9 +28,6 @@ public class CommissionConfig {
         public String description;
     }
     
-    /**
-     * Find active policy
-     */
     public PolicyConfig getActivePolicy() {
         if (commissionPolicies == null) {
             return null;
@@ -49,9 +42,6 @@ public class CommissionConfig {
             .orElse(null);
     }
     
-    /**
-     * Find policy by ID
-     */
     public PolicyConfig getPolicyById(String policyId) {
         if (commissionPolicies == null) {
             return null;

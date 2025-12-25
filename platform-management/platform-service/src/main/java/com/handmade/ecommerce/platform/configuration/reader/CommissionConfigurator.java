@@ -2,7 +2,7 @@ package com.handmade.ecommerce.platform.configuration.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.handmade.ecommerce.platform.configuration.model.CommissionConfig;
+import com.handmade.ecommerce.platform.domain.model.CommissionConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
