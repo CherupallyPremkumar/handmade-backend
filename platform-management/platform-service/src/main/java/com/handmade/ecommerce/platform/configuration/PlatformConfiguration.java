@@ -1,6 +1,9 @@
 package com.handmade.ecommerce.platform.configuration;
 
 
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
+import com.handmade.ecommerce.platform.service.DefaultSTMTransitionAction;
+import com.handmade.ecommerce.platform.service.health.PlatformHealthChecker;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
@@ -14,9 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.*;
-import com.handmade.ecommerce.platform.model.PlatformOwner;
 import com.handmade.ecommerce.platform.service.cmds.*;
-import com.handmade.ecommerce.platform.service.healthcheck.PlatformHealthChecker;
 import com.handmade.ecommerce.platform.service.store.PlatformEntityStore;
 import org.chenile.workflow.api.WorkflowRegistry;
 import org.chenile.workflow.service.stmcmds.StmAuthoritiesBuilder;
@@ -108,7 +109,8 @@ public class PlatformConfiguration {
 	}
 	
 
-	@Bean PlatformHealthChecker platformHealthChecker(){
+	@Bean
+    PlatformHealthChecker platformHealthChecker(){
     	return new PlatformHealthChecker();
     }
 

@@ -13,7 +13,13 @@ public class DELETEDPlatformPostSaveHook implements PostSaveHook<PlatformOwner> 
     @Override
     public void execute(PlatformOwner platform, TransientMap transientMap) {
         logger.warn("Platform {} has been DELETED", platform.id);
+        
         platform.deleted = true;
         platform.deletedAt = java.time.LocalDateTime.now();
+        
+        String deletedBy = (String) transientMap.get("deletedBy");
+        if (deletedBy != null) {
+            platform.deletedBy = deletedBy;
+        }
     }
 }

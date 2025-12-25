@@ -13,5 +13,8 @@ public class ACTIVEPlatformPostSaveHook implements PostSaveHook<PlatformOwner> {
     @Override
     public void execute(PlatformOwner platform, TransientMap transientMap) {
         logger.info("Platform {} is now ACTIVE", platform.id);
+        
+        platform.suspended = false;
+        platform.suspensionReason = null;
     }
 }
