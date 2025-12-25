@@ -11,12 +11,15 @@
     </parent>
 
     <modules>
-        <module>event</module>
+        <module>event-api</module>
+        <module>event-domain</module>
+        <module>invm-event-starter</module>
+        <module>q-based-event-starter</module>
     </modules>
 
-    <groupId>com.handmade.ecommerce.event-management</groupId>
-    <artifactId>event-management</artifactId>
-    <name>event-management</name>
+    <groupId>com.handmade.ecommerce.event</groupId>
+    <artifactId>event-parent</artifactId>
+    <name>Event Management Parent</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
