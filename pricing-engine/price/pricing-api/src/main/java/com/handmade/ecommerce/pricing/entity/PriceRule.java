@@ -1,6 +1,8 @@
 package com.handmade.ecommerce.pricing.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.handmade.ecommerce.pricing.enums.AdjustmentType;
+import com.handmade.ecommerce.pricing.enums.PriceRuleType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

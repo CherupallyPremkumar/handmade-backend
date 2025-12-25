@@ -9,7 +9,6 @@
     </parent>
 
 
-    <groupId>com.handmade.ecommerce.app-core</groupId>
     <artifactId>app-core</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>

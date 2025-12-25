@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.pricing.service;
 
 import com.handmade.ecommerce.pricing.entity.Region;
-import com.handmade.ecommerce.pricing.entity.TaxRule;
+import com.handmade.ecommerce.rules.entity.TaxRule;
 
 import java.util.List;
 

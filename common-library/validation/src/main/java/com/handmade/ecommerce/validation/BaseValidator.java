@@ -9,7 +9,7 @@ public abstract class BaseValidator<T> implements Validator<T> {
 
     @Override
     public void validate(T object) {
-        if (!shouldValidate()) {
+        if (!shouldValidate(object)) {
             log.debug("{} - Skipping validation", getValidatorName());
             return;
         }

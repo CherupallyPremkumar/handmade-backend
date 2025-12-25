@@ -13,6 +13,10 @@
         <option value="$PROJECT_DIR$/cart-management/pom.xml" />
         <option value="$PROJECT_DIR$/promotion-management/coupon/pom.xml" />
         <option value="$PROJECT_DIR$/catalog-management/catalog-scheduler/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-infrastructure/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-delegate/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

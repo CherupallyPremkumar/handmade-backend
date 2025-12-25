@@ -20,6 +20,18 @@
   </licenses>
   <modules>
     <module>payment</module>
+    <module>paymentorder</module>
+    <module>payment-executor</module>
+    <module>risk</module>
+    <module>gstin</module>
+    <module>ein</module>
+    <module>ledger</module>
+    <module>wallet</module>
+    <module>reconciliation</module>
+    <module>razorpay</module>
+    <module>stripe</module>
+    <module>cash</module>
+    <module>orchestrator</module>
   </modules>
   <properties>
     <payment-management.version>${revision}</payment-management.version>

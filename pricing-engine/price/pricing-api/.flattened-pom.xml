@@ -3,14 +3,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce.variant</groupId>
-    <artifactId>variant-parent</artifactId>
+    <groupId>com.handmade.ecommerce.pricing</groupId>
+    <artifactId>pricing-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.variant</groupId>
-  <artifactId>variant-api</artifactId>
+  <groupId>com.handmade.ecommerce.pricing</groupId>
+  <artifactId>pricing-api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Variant API Model and Interfaces</name>
+  <name>Pricing API</name>
+  <description>Pricing domain models, enums, and service interfaces</description>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -19,22 +20,30 @@
   </licenses>
   <dependencies>
     <dependency>
-      <groupId>org.chenile</groupId>
-      <artifactId>workflow-api</artifactId>
+      <groupId>com.handmade.ecommerce.app-core</groupId>
+      <artifactId>app-core</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
       <groupId>org.chenile</groupId>
       <artifactId>jpa-utils</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.handmade.ecommerce.app-core</groupId>
-      <artifactId>app-core</artifactId>
-      <version>${revision}</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.handmade.ecommerce.price</groupId>
-      <artifactId>price-api</artifactId>
-      <version>${revision}</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.handmade.ecommerce.common-library</groupId>

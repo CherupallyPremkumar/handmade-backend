@@ -3,43 +3,36 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce</groupId>
-    <artifactId>handmade-parent</artifactId>
+    <groupId>com.handmade.ecommerce.rules</groupId>
+    <artifactId>rules-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce</groupId>
-  <artifactId>app-core</artifactId>
+  <groupId>com.handmade.ecommerce.rules</groupId>
+  <artifactId>rules-api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>app-core</name>
-  <url>http://maven.apache.org</url>
+  <name>Rules API - Interfaces and DTOs</name>
   <licenses>
     <license>
       <name>MIT License</name>
       <url>http://www.opensource.org/licenses/mit-license.php</url>
     </license>
   </licenses>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
-      <groupId>org.chenile</groupId>
-      <artifactId>chenile-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.chenile</groupId>
-      <artifactId>jpa-utils</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>com.handmade.ecommerce</groupId>
+      <artifactId>app-core</artifactId>
+      <version>${revision}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.handmade.ecommerce.app-core</groupId>
+      <artifactId>app-core</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

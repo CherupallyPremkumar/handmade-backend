@@ -12,7 +12,7 @@ import java.util.Date;
  * The PlatformOwner represents the single authoritative entity that owns and governs the marketplace.
  * Aggregate Root - PURE DOMAIN MODEL (no persistence annotations).
  */
-public class PlatformOwner implements StateEntity, Serializable {
+public class PlatformOwner implements AbstractStateEntity, Serializable {
     private static final long serialVersionUID = 1L;
     public static final String SINGLETON_ID = "PLATFORM_ROOT";
 

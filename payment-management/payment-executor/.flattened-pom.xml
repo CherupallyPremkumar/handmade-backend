@@ -3,15 +3,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce</groupId>
-    <artifactId>handmade-parent</artifactId>
+    <groupId>com.handmade.ecommerce.payment-management</groupId>
+    <artifactId>payment-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.common</groupId>
-  <artifactId>common-library</artifactId>
+  <groupId>com.handmade.ecommerce.payment-executor</groupId>
+  <artifactId>payment-executor</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>common-library</name>
+  <name>payment-executor</name>
+  <description>Payment Executor - PSP Integration Layer</description>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -19,18 +20,6 @@
     </license>
   </licenses>
   <modules>
-    <module>command</module>
-    <module>validation</module>
+    <module>payment-executor-api</module>
   </modules>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 </project>

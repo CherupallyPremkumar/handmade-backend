@@ -20,6 +20,8 @@
   </licenses>
   <modules>
     <module>price</module>
+    <module>tax</module>
+    <module>rules</module>
   </modules>
   <properties>
     <pricing-engine.version>${revision}</pricing-engine.version>

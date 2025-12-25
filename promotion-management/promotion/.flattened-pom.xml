@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce</groupId>
-    <artifactId>handmade-parent</artifactId>
+    <groupId>com.handmade.ecommerce.promotion-management</groupId>
+    <artifactId>promotion-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.promotion-management</groupId>
+  <groupId>com.handmade.ecommerce.promotion</groupId>
   <artifactId>promotion-management</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -20,7 +20,21 @@
     </license>
   </licenses>
   <modules>
-    <module>coupon</module>
-    <module>promotion</module>
+    <module>promotion-api</module>
+    <module>promotion-service</module>
   </modules>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.handmade.ecommerce.promotion</groupId>
+        <artifactId>promotion-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.handmade.ecommerce.promotion</groupId>
+        <artifactId>promotion-service</artifactId>
+        <version>${revision}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
