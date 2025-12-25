@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.configuration.reader;
+package com.handmade.ecommerce.platform.domain.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -12,10 +12,6 @@ import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Commission Configurator
- * Loads commission policies from JSON file (like chenile ProcessConfigurator)
- */
 @Component
 public class CommissionConfigurator {
     
@@ -29,9 +25,6 @@ public class CommissionConfigurator {
         loadConfiguration();
     }
     
-    /**
-     * Load commission configuration from JSON file
-     */
     private void loadConfiguration() {
         try {
             logger.info("Loading commission configuration from: {}", CONFIG_FILE);
@@ -47,7 +40,6 @@ public class CommissionConfigurator {
             logger.info("Successfully loaded {} commission policies", 
                 commissionConfig.commissionPolicies.size());
             
-            // Log active policy
             CommissionConfig.PolicyConfig activePolicy = commissionConfig.getActivePolicy();
             if (activePolicy != null) {
                 logger.info("Active commission policy: {} ({})", 
@@ -62,23 +54,14 @@ public class CommissionConfigurator {
         }
     }
     
-    /**
-     * Get active policy configuration
-     */
     public CommissionConfig.PolicyConfig getActivePolicy() {
         return commissionConfig.getActivePolicy();
     }
     
-    /**
-     * Get policy by ID
-     */
     public CommissionConfig.PolicyConfig getPolicyById(String policyId) {
         return commissionConfig.getPolicyById(policyId);
     }
     
-    /**
-     * Reload configuration (for hot-reload support)
-     */
     public void reload() {
         loadConfiguration();
     }
