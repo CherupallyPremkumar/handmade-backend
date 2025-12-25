@@ -177,29 +177,29 @@ public class PlatformConfiguration {
     }
 
     // PostSaveHooks - one for each state
-    @Bean com.handmade.ecommerce.platform.service.defs.BOOTSTRAPPINGPlatformPostSaveHook
+    @Bean BOOTSTRAPPINGPlatformPostSaveHook
             platformBOOTSTRAPPINGPostSaveHook(){
-        return new com.handmade.ecommerce.platform.service.defs.BOOTSTRAPPINGPlatformPostSaveHook();
+        return new BOOTSTRAPPINGPlatformPostSaveHook();
     }
 
-    @Bean com.handmade.ecommerce.platform.service.defs.ACTIVEPlatformPostSaveHook
+    @Bean ACTIVEPlatformPostSaveHook
             platformACTIVEPostSaveHook(){
-        return new com.handmade.ecommerce.platform.service.defs.ACTIVEPlatformPostSaveHook();
+        return new ACTIVEPlatformPostSaveHook();
     }
 
-    @Bean com.handmade.ecommerce.platform.service.defs.SUSPENDEDPlatformPostSaveHook
+    @Bean SUSPENDEDPlatformPostSaveHook
             platformSUSPENDEDPostSaveHook(){
-        return new com.handmade.ecommerce.platform.service.defs.SUSPENDEDPlatformPostSaveHook();
+        return new SUSPENDEDPlatformPostSaveHook();
     }
 
-    @Bean com.handmade.ecommerce.platform.service.defs.MAINTENANCEPlatformPostSaveHook
+    @Bean MAINTENANCEPlatformPostSaveHook
             platformMAINTENANCEPostSaveHook(){
-        return new com.handmade.ecommerce.platform.service.defs.MAINTENANCEPlatformPostSaveHook();
+        return new MAINTENANCEPlatformPostSaveHook();
     }
 
-    @Bean com.handmade.ecommerce.platform.service.defs.DELETEDPlatformPostSaveHook
+    @Bean DELETEDPlatformPostSaveHook
             platformDELETEDPostSaveHook(){
-        return new com.handmade.ecommerce.platform.service.defs.DELETEDPlatformPostSaveHook();
+        return new DELETEDPlatformPostSaveHook();
     }
 
 
