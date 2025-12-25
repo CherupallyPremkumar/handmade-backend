@@ -33,7 +33,8 @@
     
     <!-- Generic Subdomains -->
     <module>financial-settlement</module>
-    <module>event-management</module>
+    <module>handmade-event-management</module>
+    <module>handmade-platform-management</module>
     
     <!-- Infrastructure -->
     <module>common-library</module>
