@@ -8,7 +8,7 @@ import org.chenile.workflow.api.StateEntityService;
  * Similar to ProcessManager in chenile-process-management
  * This is the main service interface for platform management
  */
-public interface PlatformService extends StateEntityService<PlatformOwner> {
+public interface PlatformManager extends StateEntityService<PlatformOwner> {
     // All CRUD and state management methods are inherited from StateEntityService
     // Additional platform-specific methods can be added here if needed
 }
