@@ -1,17 +1,13 @@
 package com.handmade.ecommerce.platform.service.defs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.handmade.ecommerce.platform.PlatformEventPublisher;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.domain.event.PlatformDeletedEvent;
-import org.chenile.pubsub.ChenilePub;
 import org.chenile.workflow.model.TransientMap;
 import org.chenile.workflow.service.stmcmds.PostSaveHook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DELETEDPlatformPostSaveHook implements PostSaveHook<PlatformOwner> {
     
@@ -19,9 +15,7 @@ public class DELETEDPlatformPostSaveHook implements PostSaveHook<PlatformOwner> 
     private static final String TOPIC = "platform.events";
     
     @Autowired
-    private ChenilePub chenilePub;
-    
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private PlatformEventPublisher platformEventPublisher;
     
     @Override
     public void execute(PlatformOwner platform, TransientMap transientMap) {
@@ -39,18 +33,8 @@ public class DELETEDPlatformPostSaveHook implements PostSaveHook<PlatformOwner> 
     }
     
     private void publishEvent(PlatformOwner platform) {
-        try {
-            PlatformDeletedEvent event = new PlatformDeletedEvent(platform);
-            String eventJson = objectMapper.writeValueAsString(event);
-            
-            Map<String, Object> props = new HashMap<>();
-            props.put("eventType", "PlatformDeleted");
-            props.put("platformId", platform.id);
-            
-            chenilePub.asyncPublish(TOPIC, eventJson, props);
-            logger.info("Published PlatformDeletedEvent for platform {}", platform.id);
-        } catch (Exception e) {
-            logger.error("Failed to publish PlatformDeletedEvent", e);
-        }
+        PlatformDeletedEvent event = new PlatformDeletedEvent(platform);
+        platformEventPublisher.publishEvent(TOPIC, event);
+        logger.info("Published PlatformDeletedEvent for platform {}", platform.id);
     }
 }

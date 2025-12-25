@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.api;
+package com.handmade.ecommerce.platform;
 
 public interface PlatformEventPublisher {
     

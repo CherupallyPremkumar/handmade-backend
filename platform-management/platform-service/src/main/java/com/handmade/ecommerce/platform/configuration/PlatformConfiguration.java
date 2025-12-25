@@ -2,7 +2,7 @@ package com.handmade.ecommerce.platform.configuration;
 
 
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
-import com.handmade.ecommerce.platform.service.DefaultSTMTransitionAction;
+import com.handmade.ecommerce.platform.service.cmds.DefaultSTMTransitionAction;
 import com.handmade.ecommerce.platform.service.health.PlatformHealthChecker;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
@@ -22,13 +22,10 @@ import com.handmade.ecommerce.platform.service.store.PlatformEntityStore;
 import org.chenile.workflow.api.WorkflowRegistry;
 import org.chenile.workflow.service.stmcmds.StmAuthoritiesBuilder;
 
-import java.util.HashMap;
 import java.util.function.Function;
 import org.chenile.core.context.ChenileExchange;
-import org.chenile.stm.State;
 import org.chenile.workflow.service.activities.ActivityChecker;
 import org.chenile.workflow.service.activities.AreActivitiesComplete;
-import com.handmade.ecommerce.platform.service.defs.*;
 
 /**
  This is where you will instantiate all the required classes in Spring

@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.service;
+package com.handmade.ecommerce.platform.service.cmds;
 
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import org.chenile.orchestrator.process.model.Process;
