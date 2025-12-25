@@ -29,8 +29,8 @@ public class ReactivatePlatformAction extends AbstractSTMTransitionAction<Platfo
         logger.info("Reactivating platform: {}", platform.id);
         
         // Clear suspension status
-        platform.platformStatus.suspended = false;
-        platform.platformStatus.suspensionReason = null;
+        platform.suspended = false;
+        platform.suspensionReason = null;
         
         logger.info("Platform {} reactivated successfully", platform.id);
     }

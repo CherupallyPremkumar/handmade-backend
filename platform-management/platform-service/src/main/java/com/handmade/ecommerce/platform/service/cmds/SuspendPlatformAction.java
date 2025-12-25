@@ -28,9 +28,9 @@ public class SuspendPlatformAction extends AbstractSTMTransitionAction<PlatformO
         
         logger.warn("Suspending platform: {} - Reason: {}", platform.id, payload.reason);
         
-        // Update platform status
-        platform.platformStatus.suspended = true;
-        platform.platformStatus.suspensionReason = payload.reason;
+        // Update suspension status
+        platform.suspended = true;
+        platform.suspensionReason = payload.reason;
         
         logger.info("Platform {} suspended successfully", platform.id);
     }

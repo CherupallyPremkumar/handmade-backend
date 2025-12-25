@@ -28,10 +28,8 @@ public class ActivatePlatformAction extends AbstractSTMTransitionAction<Platform
         
         logger.info("Activating platform: {}", platform.id);
         
-        // Set platform as active
-        platform.platformLifecycle.activatedAt = java.time.LocalDateTime.now();
-        
-        // Log activation
+        // State is managed by STM - no need to set manually
+        // Just log activation
         logger.info("Platform {} activated successfully", platform.id);
     }
 }

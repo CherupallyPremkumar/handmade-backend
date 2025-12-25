@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
  * Platform Owner Aggregate Root
  * Represents the single authoritative entity that owns and governs the marketplace
  * Extends AbstractJpaStateEntity for state machine support (like chenile Process)
+ * 
+ * State management is inherited from AbstractJpaStateEntity:
+ * - state (flowId + stateId) - Current state in state machine
+ * - stateEntryTime - When entered current state
+ * - SLA tracking fields
  */
 @Entity
 @Table(name = "platform_owner")
@@ -40,14 +45,6 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     @Embedded
     public OperationalLimits operationalLimits;
 
-    // Platform Status
-    @Embedded
-    public PlatformStatus platformStatus;
-
-    // Lifecycle Tracking
-    @Embedded
-    public PlatformLifecycle platformLifecycle;
-
     // Active Policy References
     @Column(name = "active_commission_policy_id")
     public String activeCommissionPolicyId;
@@ -65,12 +62,17 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     @Column(name = "deleted_by")
     public String deletedBy;
 
+    // Suspension tracking (business logic, not state machine)
+    @Column(name = "suspended")
+    public boolean suspended = false;
+
+    @Column(name = "suspension_reason")
+    public String suspensionReason;
+
     /**
      * JPA Required No-Arg Constructor
      */
     public PlatformOwner() {
-        this.platformStatus = new PlatformStatus();
-        this.platformLifecycle = new PlatformLifecycle();
     }
 
     /**
@@ -90,9 +92,6 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
         platform.localizationPolicy = localizationPolicy;
         platform.complianceMandate = complianceMandate;
         platform.operationalLimits = operationalLimits;
-        platform.platformStatus = new PlatformStatus();
-        platform.platformLifecycle = new PlatformLifecycle();
-        platform.platformLifecycle.createdAt = LocalDateTime.now();
         return platform;
     }
 
@@ -108,7 +107,7 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
      * Check if platform allows write operations
      */
     public boolean allowsWrites() {
-        return !deleted && !platformStatus.suspended;
+        return !deleted && !suspended;
     }
 
     /**
