@@ -1,10 +1,14 @@
 package com.handmade.ecommerce.platform.dto;
 
-import org.chenile.workflow.param.MinimalPayload;
+import lombok.Data;
 
 /**
-    Customized Payload for the delete event.
-*/
-public class DeletePlatformPayload extends MinimalPayload{
-
+ * Payload for deleting platform
+ * Transition: Any state → DELETED
+ */
+@Data
+public class DeletePlatformPayload {
+    private String reason;
+    private String deletedBy;
+    private String notes;
 }

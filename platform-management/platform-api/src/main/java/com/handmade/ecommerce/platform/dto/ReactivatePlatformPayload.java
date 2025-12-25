@@ -1,10 +1,13 @@
 package com.handmade.ecommerce.platform.dto;
 
-import org.chenile.workflow.param.MinimalPayload;
+import lombok.Data;
 
 /**
-    Customized Payload for the reactivate event.
-*/
-public class ReactivatePlatformPayload extends MinimalPayload{
-
+ * Payload for reactivating platform
+ * Transition: SUSPENDED → ACTIVE
+ */
+@Data
+public class ReactivatePlatformPayload {
+    private String reactivatedBy;
+    private String notes;
 }
