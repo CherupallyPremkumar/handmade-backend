@@ -1,13 +1,13 @@
 package com.handmade.ecommerce.platform.starter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.handmade.ecommerce.platform.domain.event.PlatformActivatedEvent;
+import com.handmade.ecommerce.platform.api.PlatformEventPublisher;
 import org.chenile.core.event.EventProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class InVMPlatformEventPublisher {
+public class InVMPlatformEventPublisher implements PlatformEventPublisher {
     
     private final Logger logger = LoggerFactory.getLogger(InVMPlatformEventPublisher.class);
     
@@ -16,6 +16,7 @@ public class InVMPlatformEventPublisher {
     
     ObjectMapper objectMapper = new ObjectMapper();
     
+    @Override
     public void publishEvent(String topic, Object event) {
         logger.info("Publishing event to topic: {}", topic);
         try {
