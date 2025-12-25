@@ -1,12 +1,17 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.workflow.activities.model.ActivityLog;
 import java.io.Serializable;
 
 /**
  * Platform Activity Log - PURE DOMAIN MODEL
  */
-public class PlatformActivityLog implements ActivityLog, Serializable {
+@Entity
+@Table(name = "hm_platform_activity_log")
+public class PlatformActivityLog extends BaseJpaEntity implements ActivityLog, Serializable {
     private String id;
     public String activityName;
     public boolean activitySuccess;

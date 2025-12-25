@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
  * PURE DOMAIN MODEL (no persistence annotations).
  */
 @Entity
+@Table(name = "hm_platform_audit_log")
 public class PlatformAuditLog  extends BaseJpaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -99,6 +99,7 @@ public class PlatformConfiguration {
 
 
 
+
     @Bean @Autowired DefaultAutomaticStateComputation<PlatformOwner> platformDefaultAutoState(
     @Qualifier("platformTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver,
     @Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore){
