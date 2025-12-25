@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Platform Owner Aggregate Root
  * Represents the single authoritative entity that owns and governs the marketplace
- * Following chenile pattern: uses public fields instead of getters/setters
+ * Extends AbstractJpaStateEntity for state machine support (like chenile Process)
  */
 @Entity
 @Table(name = "platform_owner")
@@ -65,10 +65,6 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     @Column(name = "deleted_by")
     public String deletedBy;
 
-    // Chenile workflow support
-    @Transient
-    public org.chenile.workflow.model.TransientMap transientMap = new org.chenile.workflow.model.TransientMap();
-
     /**
      * JPA Required No-Arg Constructor
      */
@@ -98,6 +94,14 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
         platform.platformLifecycle = new PlatformLifecycle();
         platform.platformLifecycle.createdAt = LocalDateTime.now();
         return platform;
+    }
+
+    /**
+     * Override getPrefix for ID generation
+     */
+    @Override
+    protected String getPrefix() {
+        return "PLATFORM";
     }
 
     /**
