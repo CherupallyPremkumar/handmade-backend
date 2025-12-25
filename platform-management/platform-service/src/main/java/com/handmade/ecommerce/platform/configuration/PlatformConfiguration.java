@@ -28,7 +28,7 @@ import org.chenile.core.context.ChenileExchange;
 import org.chenile.stm.State;
 import org.chenile.workflow.service.activities.ActivityChecker;
 import org.chenile.workflow.service.activities.AreActivitiesComplete;
-import com.handmade.ecommerce.platform.service.postSaveHooks.*;
+import com.handmade.ecommerce.platform.service.defs.*;
 
 /**
  This is where you will instantiate all the required classes in Spring
@@ -200,25 +200,5 @@ public class PlatformConfiguration {
         return builder.build();
     }
 
-
-    @Bean CREATEDPlatformPostSaveHook
-        platformCREATEDPostSaveHook(){
-            return new CREATEDPlatformPostSaveHook();
-    }
-
-    @Bean ACTIVEPlatformPostSaveHook
-        platformACTIVEPostSaveHook(){
-            return new ACTIVEPlatformPostSaveHook();
-    }
-
-    @Bean SUSPENDEDPlatformPostSaveHook
-        platformSUSPENDEDPostSaveHook(){
-            return new SUSPENDEDPlatformPostSaveHook();
-    }
-
-    @Bean DELETEDPlatformPostSaveHook
-        platformDELETEDPostSaveHook(){
-            return new DELETEDPlatformPostSaveHook();
-    }
 
 }
