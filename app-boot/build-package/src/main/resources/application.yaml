@@ -40,6 +40,12 @@ spring:
   # Allow bean definition overriding (for Chenile framework)
   main:
     allow-bean-definition-overriding: ${ALLOW_BEAN_OVERRIDE:true}
+  
+  # Liquibase Configuration
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+    drop-first: false
 
 # Server Configuration
 server:

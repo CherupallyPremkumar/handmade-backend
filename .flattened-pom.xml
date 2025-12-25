@@ -18,38 +18,13 @@
     </license>
   </licenses>
   <modules>
-    <module>seller-management</module>
-    <module>artisan-management</module>
-    <module>product-management</module>
-    <module>order-management</module>
-    <module>pricing-engine</module>
-    <module>customer-management</module>
-    <module>review-management</module>
-    <module>commission-management</module>
-    <module>promotion-management</module>
-    <module>inventory-management</module>
-    <module>payment-management</module>
-    <module>user-management</module>
-    <module>tenant-management</module>
-    <module>dispute-management</module>
-    <module>analytics-management</module>
-    <module>catalog-management</module>
-    <module>shipping-management</module>
-    <module>financial-settlement</module>
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
-    <module>common-library</module>
-    <module>notification-management</module>
-    <module>content-management</module>
-    <module>platform-audit-management</module>
-    <module>orchestration</module>
-    <module>security-management</module>
-    <module>search-management</module>
-    <module>messaging-management</module>
-    <module>app-core</module>
     <module>app-boot</module>
   </modules>
   <properties>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
     <revision>0.0.1-SNAPSHOT</revision>
   </properties>
   <dependencies>

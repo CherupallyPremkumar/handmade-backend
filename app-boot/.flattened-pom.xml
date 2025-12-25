@@ -22,12 +22,7 @@
   </modules>
   <properties>
     <build.version>${revision}</build.version>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>com.handmade.ecommerce</groupId>
-      <artifactId>storefront-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-  </dependencies>
 </project>

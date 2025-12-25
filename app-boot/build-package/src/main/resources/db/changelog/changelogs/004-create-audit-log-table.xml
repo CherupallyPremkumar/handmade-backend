@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="004-create-audit-log-table" author="platform-team">
+        <comment>Create platform_audit_log table for tracking all platform changes</comment>
+        
+        <createTable tableName="platform_audit_log" schemaName="public">
+            <!-- Primary Key -->
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            
+            <!-- Platform Reference -->
+            <column name="platform_id" type="VARCHAR(255)"/>
+            
+            <!-- Event Information -->
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="occurred_at" type="TIMESTAMP"/>
+            
+            <!-- Actor Information -->
+            <column name="actor_id" type="VARCHAR(255)"/>
+            <column name="ip_address" type="VARCHAR(255)"/>
+            
+            <!-- Event Payload (JSON) -->
+            <column name="payload_json" type="VARCHAR(255)"/>
+            
+            <!-- Multi-tenancy -->
+            <column name="tenant" type="VARCHAR(255)"/>
+            
+            <!-- Audit Fields -->
+            <column name="created_time" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="last_modified_time" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(255)"/>
+            <column name="version" type="BIGINT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <!-- Indexes for efficient querying -->
+        <createIndex indexName="idx_audit_log_platform" tableName="platform_audit_log">
+            <column name="platform_id"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_audit_log_event_type" tableName="platform_audit_log">
+            <column name="event_type"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_audit_log_occurred_at" tableName="platform_audit_log">
+            <column name="occurred_at"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_audit_log_actor" tableName="platform_audit_log">
+            <column name="actor_id"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_audit_log_tenant" tableName="platform_audit_log">
+            <column name="tenant"/>
+        </createIndex>
+        
+        <rollback>
+            <dropTable tableName="platform_audit_log" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

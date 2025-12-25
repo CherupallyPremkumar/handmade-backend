@@ -1,13 +1,15 @@
-# Local Profile - PostgreSQL Database
+# Local Profile - H2 In-Memory Database
 # Activate with: --spring.profiles.active=local
-# Requires: DB_PASSWORD environment variable
+# No external dependencies required - perfect for local development
 
 spring:
+  application:
+    name: HandMade
   datasource:
-    url: jdbc:postgresql://localhost:5433/postgres?sslmode=require&currentSchema=homebase_dev
-    username: homebase
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:handmade;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
 
     hikari:
       maximum-pool-size: 5
@@ -16,15 +18,19 @@ spring:
       connection-timeout: 30000
       max-lifetime: 1800000
 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: validate   # IMPORTANT: never use 'update' in prod
+      ddl-auto: validate   # Use Liquibase for schema management
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        default_schema: homebase_dev
 
 # Logging for local development
 logging:
@@ -34,14 +40,28 @@ logging:
     org.hibernate.SQL: DEBUG
     org.springframework.web: DEBUG
 
-# Chenile Security - Local Keycloak
+# Chenile Security - Disabled for local
 chenile:
   security:
+    ignore: true  # Disable security for local development
     keycloak:
-      host: http://localhost:8082
+      host: http://localhost
       port: 8080
       base:
-        realm: handmade
+        realm: dummy
     client:
-      id: handmade-client
-      secret: local-secret
+      id: dummy
+      secret: dummy
+    login:
+      success-url: /
+      failure-url: /login
+
+# Platform Manager Configuration
+platform:
+  manager:
+    base-url: http://localhost:8080
+
+# Disable Chenile Security Configuration
+security:
+  config:
+    type: false

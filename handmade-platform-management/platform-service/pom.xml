@@ -6,14 +6,12 @@
 		<groupId>com.handmade.ecommerce.platform</groupId>
 		<artifactId>handmade-platform-parent</artifactId>
 		<version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>handmade-platform-service</artifactId>
 	<name>Platform Service Layer</name>
 
 	<dependencies>
-
-
-        <!-- Chenile Framework -->
         <dependency>
             <groupId>org.chenile</groupId>
             <artifactId>workflow-service</artifactId>

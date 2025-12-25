@@ -9,8 +9,12 @@
 	</parent>
 	<artifactId>handmade-platform-domain</artifactId>
 	<name>Platform Domain Model</name>
+    <properties>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+    </properties>
 
-	<dependencies>
+    <dependencies>
         <!-- JPA Entities -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
