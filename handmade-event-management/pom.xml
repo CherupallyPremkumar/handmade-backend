@@ -14,7 +14,7 @@
         <module>event-api</module>
         <module>event-domain</module>
         <module>invm-event-starter</module>
-        <module>q-based-event-starter</module>
+        <!-- <module>q-based-event-starter</module> TODO: Fix chenile-pub-sub version inheritance -->
     </modules>
 
     <groupId>com.handmade.ecommerce.event</groupId>

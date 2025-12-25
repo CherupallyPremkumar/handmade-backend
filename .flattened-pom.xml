@@ -36,7 +36,8 @@
     <module>catalog-management</module>
     <module>shipping-management</module>
     <module>financial-settlement</module>
-    <module>event-management</module>
+    <module>handmade-event-management</module>
+    <module>handmade-platform-management</module>
     <module>common-library</module>
     <module>notification-management</module>
     <module>content-management</module>

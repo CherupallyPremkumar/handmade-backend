@@ -3,14 +3,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.handmade.ecommerce.platform</groupId>
-    <artifactId>handmade-platform-parent</artifactId>
+    <groupId>com.handmade.ecommerce.event</groupId>
+    <artifactId>handmade-event-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.platform</groupId>
-  <artifactId>handmade-platform-api</artifactId>
+  <groupId>com.handmade.ecommerce.event</groupId>
+  <artifactId>invm-event-starter</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Platform Interface Layer</name>
+  <name>In VM Event Starter - for testing or small scalability</name>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -19,16 +19,13 @@
   </licenses>
   <dependencies>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
+      <groupId>com.handmade.ecommerce.event</groupId>
+      <artifactId>handmade-event-api</artifactId>
+      <version>${revision}</version>
     </dependency>
     <dependency>
       <groupId>org.chenile</groupId>
-      <artifactId>workflow-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.handmade.ecommerce.platform</groupId>
-      <artifactId>handmade-platform-domain</artifactId>
+      <artifactId>chenile-core</artifactId>
     </dependency>
   </dependencies>
 </project>

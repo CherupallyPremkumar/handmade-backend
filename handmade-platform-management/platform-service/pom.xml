@@ -8,30 +8,10 @@
 		<version>${revision}</version>
 	</parent>
 	<artifactId>handmade-platform-service</artifactId>
-	<name>Platform Infrastructure Layer</name>
+	<name>Platform Service Layer</name>
 
 	<dependencies>
-        <dependency>
-            <groupId>com.handmade.ecommerce.platform</groupId>
-            <artifactId>platform-application</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.handmade.ecommerce.platform</groupId>
-            <artifactId>platform-domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <!-- Persistence -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
+
 
         <!-- Chenile Framework -->
         <dependency>
@@ -42,15 +22,12 @@
 			<groupId>org.chenile</groupId>
 			<artifactId>chenile-http</artifactId>
 		</dependency>
-        
-        <!-- Event Management -->
         <dependency>
             <groupId>com.handmade.ecommerce.event</groupId>
-            <artifactId>event-api</artifactId>
+            <artifactId>handmade-event-api</artifactId>
             <version>${revision}</version>
         </dependency>
-        
-        <!-- Testing -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -58,7 +35,31 @@
         </dependency>
         <dependency>
             <groupId>com.handmade.ecommerce.platform</groupId>
-            <artifactId>platform-api</artifactId>
+            <artifactId>handmade-platform-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>cucumber-utils</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>cucumber-workflow-utils</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

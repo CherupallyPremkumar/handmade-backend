@@ -119,7 +119,7 @@ public class CommissionPolicy extends BaseJpaEntity {
     /**
      * Calculate total platform fees (commission + processing fee)
      */
-    public BigDecimal calculateTotalFees(BigDecimal orderAmount, String sellerTier, BigDecimal monthlyVolume) {
+    public BigDecimal calculateTotalFees(BigDecimal orderAmount, SellerTier sellerTier, BigDecimal monthlyVolume) {
         BigDecimal commission = calculateCommission(orderAmount, sellerTier, monthlyVolume);
         BigDecimal processingFee = calculateProcessingFee(orderAmount);
         return commission.add(processingFee);
@@ -128,17 +128,17 @@ public class CommissionPolicy extends BaseJpaEntity {
     /**
      * Get commission rate based on seller tier
      */
-    private BigDecimal getTierRate(String sellerTier) {
+    private BigDecimal getTierRate(SellerTier sellerTier) {
         if (sellerTier == null) {
             return baseCommissionRate;
         }
         
-        return switch (sellerTier.toUpperCase()) {
-            case "ARTISAN", "INDIVIDUAL_ARTISAN" -> artisanRate;
-            case "HOME_MAKER", "HOME_BASED_MAKER" -> homeMakerRate;
-            case "SMALL_BUSINESS" -> smallBusinessRate;
-            case "ENTERPRISE", "ENTERPRISE_SELLER" -> enterpriseRate;
-            default -> baseCommissionRate;
+        return switch (sellerTier) {
+            case INDIVIDUAL_ARTISAN -> artisanRate;
+            case HOME_BASED_MAKER -> homeMakerRate;
+            case SMALL_BUSINESS -> smallBusinessRate;
+            case ENTERPRISE_SELLER -> enterpriseRate;
+            case DROPSHIPPER -> baseCommissionRate; // Use base rate for dropshippers
         };
     }
     

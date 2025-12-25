@@ -6,9 +6,8 @@ import lombok.Data;
  * Payload for suspending platform
  * Transition: ACTIVE → SUSPENDED
  */
-@Data
 public class SuspendPlatformPayload {
-    private String reason;
-    private String suspendedBy;
-    private String notes;
+    public String suspensionReason;
+    public String suspendedBy;
+    public String notes;
 }

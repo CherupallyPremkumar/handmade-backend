@@ -59,10 +59,13 @@
     <file url="file://$PROJECT_DIR$/dispute-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dispute-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/event-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/event/event-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/event/event-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/event/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/event/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/invm-event-starter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/event-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/financial-settlement/src/main/java" charset="UTF-8" />
@@ -72,6 +75,18 @@
     <file url="file://$PROJECT_DIR$/fulfillment-management/shipping/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fulfillment-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/event-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/event-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/invm-event-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/q-based-event-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-delegate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/inventory-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/inventory-management/inventory/src/main/java" charset="UTF-8" />
@@ -186,6 +201,13 @@
     <file url="file://$PROJECT_DIR$/payment-management/wallet/wallet-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-management/wallet/wallet-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-audit-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/platform-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/platform-application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/platform-delegate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/platform-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/platform-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/price-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-api/src/main/java" charset="UTF-8" />

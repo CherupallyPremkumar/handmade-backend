@@ -8,9 +8,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
-  <artifactId>handmade-platform-api</artifactId>
+  <artifactId>handmade-platform-domain</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Platform Interface Layer</name>
+  <name>Platform Domain Model</name>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -19,16 +19,24 @@
   </licenses>
   <dependencies>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.chenile</groupId>
+      <artifactId>stm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.chenile</groupId>
+      <artifactId>jpa-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>org.chenile</groupId>
       <artifactId>workflow-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.handmade.ecommerce.platform</groupId>
-      <artifactId>handmade-platform-domain</artifactId>
     </dependency>
   </dependencies>
 </project>

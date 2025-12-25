@@ -1,12 +1,18 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import org.chenile.jpautils.entity.BaseJpaEntity;
+
 import java.io.Serializable;
 
 /**
  * Snapshot of what capabilities are currently active on the platform.
  * Immutable Value Object - PURE DOMAIN MODEL.
  */
-public class FeatureConfiguration implements Serializable {
+@Entity
+@Table(name = "hm_platform_feature_config")
+public class FeatureConfiguration extends BaseJpaEntity implements Serializable {
     private boolean isSellerRegistrationOpen;
     private boolean isCheckoutEnabled;
     private boolean isGuestCheckoutAllowed;

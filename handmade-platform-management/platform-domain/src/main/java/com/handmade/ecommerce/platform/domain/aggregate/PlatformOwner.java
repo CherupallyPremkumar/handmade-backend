@@ -111,6 +111,17 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     }
 
     /**
+     * Helper for State Machine OGNL condition
+     */
+    public boolean isBootstrapping() {
+        // Log the state for debugging purposes
+        org.chenile.stm.State s = getCurrentState();
+        System.out.println("DEBUG: isBootstrapping check. CurrentState: " + s + ", ID: " + (s != null ? s.getStateId() : "null"));
+        
+        return s == null || s.getStateId() == null || "BOOTSTRAPPING".equals(s.getStateId());
+    }
+
+    /**
      * Check if feature is enabled
      */
     public boolean isFeatureEnabled(String featureKey) {

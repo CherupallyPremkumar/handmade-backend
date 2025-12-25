@@ -5,7 +5,7 @@ import com.handmade.ecommerce.platform.dto.ActivatePlatformPayload;
 import com.handmade.ecommerce.platform.dto.DeletePlatformPayload;
 import com.handmade.ecommerce.platform.dto.ReactivatePlatformPayload;
 import com.handmade.ecommerce.platform.dto.SuspendPlatformPayload;
-import com.handmade.ecommerce.platform.service.PlatformManager;
+import com.handmade.ecommerce.platform.api.PlatformManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +62,6 @@ public class PlatformManagerClientImpl implements PlatformManagerClient {
     @Override
     public PlatformOwner getPlatform(String id) {
         logger.debug("Retrieving platform: {}", id);
-        return platformServiceProxy.retrieve(id);
+        return platformServiceProxy.retrieve(id).getMutatedEntity();
     }
 }

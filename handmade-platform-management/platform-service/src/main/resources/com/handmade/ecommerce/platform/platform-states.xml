@@ -2,7 +2,7 @@
 <states>
 <flow id='PLATFORM_FLOW' default="true">
 	<!-- Initial state check -->
-	<if id='isBootstrapping' condition="currentState == null || currentState.stateId == 'BOOTSTRAPPING'" then="bootstrapping" else="checkCurrentState" initialState="true">
+	<if id='isBootstrapping' condition="bootstrapping" then="bootstrapping" else="checkCurrentState" initialState="true">
 		<on eventId="bootstrapping" newStateId="BOOTSTRAPPING"/>
 		<on eventId="checkCurrentState" newStateId="ACTIVE"/>
 	</if>

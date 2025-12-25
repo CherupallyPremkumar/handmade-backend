@@ -3,6 +3,7 @@ package com.handmade.ecommerce.platform.service.defs;
 import com.handmade.ecommerce.event.api.EventPublisher;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.domain.event.PlatformDeletedEvent;
+import org.chenile.stm.State;
 import org.chenile.workflow.model.TransientMap;
 import org.chenile.workflow.service.stmcmds.PostSaveHook;
 import org.slf4j.Logger;
@@ -19,15 +20,19 @@ public class DELETEDPlatformPostSaveHook implements PostSaveHook<PlatformOwner> 
     
     @Override
     public void execute(PlatformOwner platform, TransientMap transientMap) {
-        logger.warn("Platform {} has been DELETED", platform.id);
+        logger.info("Platform {} transitioned to DELETED state", platform.id);
         
-        platform.deleted = true;
-        platform.deletedAt = java.time.LocalDateTime.now();
-        
-        String deletedBy = (String) transientMap.get("deletedBy");
-        if (deletedBy != null) {
-            platform.deletedBy = deletedBy;
+        // Handle case where transientMap might be null
+        if (transientMap != null) {
+            String deletedBy = (String) transientMap.get("deletedBy");
+            logger.info("Platform deleted by: {}", deletedBy);
+            if (deletedBy != null) {
+                platform.deletedBy = deletedBy;
+            }
         }
+        
+        // Additional cleanup logic can be added here
+        // For example: notify external systems, archive data, etc.
         
         publishEvent(platform);
     }

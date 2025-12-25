@@ -16,7 +16,7 @@ public interface PlatformRepository extends JpaRepository<PlatformOwner, String>
     /**
      * Find platform by name
      */
-    Optional<PlatformOwnerJpaEntity> findByName(String name);
+    Optional<PlatformOwner> findByName(String name);
     
     /**
      * Check if platform exists

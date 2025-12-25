@@ -19,4 +19,11 @@ import org.springframework.test.context.ActiveProfiles;
 @EnableJpaRepositories(basePackages = {"com.handmade.ecommerce.platform.configuration.dao"})
 @ActiveProfiles("unittest")
 public class SpringConfig extends SpringBootServletInitializer{
+    
+    @org.springframework.context.annotation.Bean
+    public com.handmade.ecommerce.event.api.EventPublisher eventPublisher() {
+        return (topic, event) -> {
+            System.out.println("Test Event Published: " + topic + " " + event);
+        };
+    }
 }

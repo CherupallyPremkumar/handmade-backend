@@ -7,11 +7,11 @@
     <artifactId>handmade-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.handmade.ecommerce.event-management</groupId>
-  <artifactId>event-management</artifactId>
+  <groupId>com.handmade.ecommerce.event</groupId>
+  <artifactId>handmade-event-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>event-management</name>
+  <name>Event Management Parent</name>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -19,7 +19,9 @@
     </license>
   </licenses>
   <modules>
-    <module>event</module>
+    <module>event-api</module>
+    <module>event-domain</module>
+    <module>invm-event-starter</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

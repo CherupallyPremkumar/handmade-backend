@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.platform.domain.entity;
 
+import jakarta.persistence.Entity;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * Distinct from Chenile's workflow ActivityLog - this is for specific domain audit requirements.
  * PURE DOMAIN MODEL (no persistence annotations).
  */
+@Entity
 public class PlatformAuditLog  extends BaseJpaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

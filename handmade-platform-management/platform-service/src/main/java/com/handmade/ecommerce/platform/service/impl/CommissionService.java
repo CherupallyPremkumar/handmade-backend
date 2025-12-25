@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.platform.service;
 
-import com.handmade.ecommerce.platform.configuration.model.CommissionConfig;
-import com.handmade.ecommerce.platform.configuration.reader.CommissionConfigurator;
+import com.handmade.ecommerce.platform.domain.config.model.CommissionConfig;
+import com.handmade.ecommerce.platform.domain.config.reader.CommissionConfigurator;
 import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

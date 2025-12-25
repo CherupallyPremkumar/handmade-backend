@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.platform.service.cmds;
 
-import com.handmade.ecommerce.platform.application.command.ReviseCommissionCommand;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
+import com.handmade.ecommerce.platform.dto.ReviseCommissionPayload;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
  * Revise Commission Action
  * Self-transition in ACTIVE state to update commission policy
  */
-public class ReviseCommissionAction extends AbstractSTMTransitionAction<PlatformOwner, ReviseCommissionCommand> {
+public class ReviseCommissionAction extends AbstractSTMTransitionAction<PlatformOwner, ReviseCommissionPayload> {
     
     private static final Logger logger = LoggerFactory.getLogger(ReviseCommissionAction.class);
     
     @Override
     public void transitionTo(PlatformOwner platform,
-                             ReviseCommissionCommand payload,
+                             ReviseCommissionPayload payload,
                              State startState,
                              String eventId,
                              State endState,

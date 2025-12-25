@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.domain.model;
+package com.handmade.ecommerce.platform.domain.config.model;
 
 import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
 import java.math.BigDecimal;

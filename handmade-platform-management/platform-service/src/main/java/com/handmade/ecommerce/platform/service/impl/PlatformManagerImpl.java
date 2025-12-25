@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.platform.service.impl;
 
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
-import com.handmade.ecommerce.platform.service.PlatformManager;
+import com.handmade.ecommerce.platform.api.PlatformManager;
 import org.chenile.stm.STM;
 import org.chenile.stm.impl.STMActionsInfoProvider;
 import org.chenile.utils.entity.service.EntityStore;
@@ -29,23 +29,10 @@ public class PlatformManagerImpl extends StateEntityServiceImpl<PlatformOwner> i
 
     @Override
     public StateEntityServiceResponse<PlatformOwner> create(PlatformOwner platform) {
-        // Set default state if not set
-        if (platform.getCurrentState() == null) {
-            // Platform starts in BOOTSTRAPPING state
-            platform.setCurrentState("BOOTSTRAPPING");
-        }
+        // Framework's GenericEntryAction will call entityStore.store() automatically
         return super.create(platform);
     }
 
-    @Override
-    public StateEntityServiceResponse<PlatformOwner> retrieve(String id) {
-        return super.retrieve(id);
-    }
-
-    @Override
-    public StateEntityServiceResponse<PlatformOwner> update(String id, PlatformOwner platform) {
-        return super.update(id, platform);
-    }
 
     @Override
     public StateEntityServiceResponse<PlatformOwner> processById(String id, String eventId, Object payload) {

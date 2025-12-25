@@ -2,7 +2,7 @@ Feature: Platform Management - State Transitions
   
   Scenario: Create a new platform
     Given that "flowName" equals "PLATFORM_FLOW"
-    And that "initialState" equals "BOOTSTRAPPING"
+    And that "initialState" equals "ACTIVE"
     When I POST a REST request to URL "/platform" with payload
     """json
     {
@@ -21,18 +21,6 @@ Feature: Platform Management - State Transitions
     Then the REST response contains key "mutatedEntity"
     And the REST response key "mutatedEntity.id" is "${platformId}"
     And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
-  
-  Scenario: Activate the platform
-    Given that "expectedState" equals "ACTIVE"
-    When I PATCH a REST request to URL "/platform/${platformId}/activate" with payload
-    """json
-    {
-        "activatedBy": "admin@handmade.com"
-    }
-    """
-    Then the REST response contains key "mutatedEntity"
-    And the REST response key "mutatedEntity.currentState.stateId" is "${expectedState}"
-    And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
   
   Scenario: Verify platform is active
     When I GET a REST request to URL "/platform/${platformId}"

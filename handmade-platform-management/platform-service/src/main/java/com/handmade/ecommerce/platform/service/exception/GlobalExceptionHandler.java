@@ -1,7 +1,6 @@
 package com.handmade.ecommerce.platform.api.exception;
 
 import com.handmade.ecommerce.platform.api.dto.response.ApiResponse;
-import com.handmade.ecommerce.platform.application.exception.PlatformAccessDeniedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -58,7 +57,7 @@ public class GlobalExceptionHandler {
         
         return ResponseEntity
             .status(HttpStatus.FORBIDDEN)
-            .body(ApiResponse.error(ex.getMessage()));
+            .body(ApiResponse.error(ex.getMessage(), HttpStatus.FORBIDDEN.value()));
     }
 
     /**
@@ -70,7 +69,7 @@ public class GlobalExceptionHandler {
         
         return ResponseEntity
             .status(HttpStatus.CONFLICT)
-            .body(ApiResponse.error(ex.getMessage()));
+            .body(ApiResponse.error(ex.getMessage(), HttpStatus.CONFLICT.value()));
     }
 
     /**
@@ -82,7 +81,7 @@ public class GlobalExceptionHandler {
         
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
-            .body(ApiResponse.error(ex.getMessage()));
+            .body(ApiResponse.error(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
     }
 
     /**
@@ -94,6 +93,6 @@ public class GlobalExceptionHandler {
         
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ApiResponse.error("An unexpected error occurred. Please try again later."));
+            .body(ApiResponse.error("An unexpected error occurred. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR.value()));
     }
 }

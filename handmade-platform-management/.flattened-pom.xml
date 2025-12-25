@@ -8,10 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
-  <artifactId>platform-parent</artifactId>
+  <artifactId>handmade-platform-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>All Modules that belong to the Platform</name>
+  <name>Platform-parent</name>
   <description>Modules execution project and Parent Pom</description>
   <licenses>
     <license>
@@ -21,8 +21,7 @@
   </licenses>
   <modules>
     <module>platform-domain</module>
-    <module>platform-application</module>
-    <module>platform-infrastructure</module>
+    <module>platform-service</module>
     <module>platform-api</module>
     <module>platform-delegate</module>
   </modules>
@@ -33,22 +32,12 @@
     <dependencies>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>platform-domain</artifactId>
+        <artifactId>handmade-platform-domain</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>platform-application</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>platform-infrastructure</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>platform-api</artifactId>
+        <artifactId>handmade-platform-api</artifactId>
         <version>${revision}</version>
       </dependency>
     </dependencies>

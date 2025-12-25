@@ -1,13 +1,16 @@
 package com.handmade.ecommerce.platform.configuration;
 
 
+import com.handmade.ecommerce.platform.api.PlatformManager;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.service.cmds.DefaultSTMTransitionAction;
 import com.handmade.ecommerce.platform.service.health.PlatformHealthChecker;
+import com.handmade.ecommerce.platform.service.impl.PlatformManagerImpl;
 import org.chenile.stm.*;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
 import org.chenile.stm.spring.SpringBeanFactoryAdapter;
+import org.chenile.workflow.api.StateEntityService;
 import org.chenile.workflow.param.MinimalPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +21,7 @@ import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.*;
 import com.handmade.ecommerce.platform.service.cmds.*;
+import com.handmade.ecommerce.platform.service.defs.*;
 import com.handmade.ecommerce.platform.service.store.PlatformEntityStore;
 import org.chenile.workflow.api.WorkflowRegistry;
 import org.chenile.workflow.service.stmcmds.StmAuthoritiesBuilder;
@@ -66,11 +70,12 @@ public class PlatformConfiguration {
 		return new PlatformEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PlatformOwner> _platformStateEntityService_(
+	@Bean @Autowired
+    StateEntityService<PlatformOwner> _platformStateEntityService_(
 			@Qualifier("platformEntityStm") STM<PlatformOwner> stm,
 			@Qualifier("platformActionsInfoProvider") STMActionsInfoProvider platformInfoProvider,
 			@Qualifier("platformEntityStore") EntityStore<PlatformOwner> entityStore){
-		return new StateEntityServiceImpl<>(stm, platformInfoProvider, entityStore);
+		return new PlatformManagerImpl(stm, platformInfoProvider, entityStore);
 	}
 	
 	// Now we start constructing the STM Components 
@@ -81,6 +86,16 @@ public class PlatformConfiguration {
     DefaultPostSaveHook<PlatformOwner> postSaveHook = new DefaultPostSaveHook<>(stmTransitionActionResolver);
     return postSaveHook;
     }
+
+	@Bean @Autowired GenericEntryAction<PlatformOwner> platformEntryAction(
+		@Qualifier("platformEntityStore") EntityStore<PlatformOwner> entityStore,
+		@Qualifier("platformActionsInfoProvider") STMActionsInfoProvider platformActionsInfoProvider,
+		@Qualifier("platformDefaultPostSaveHook") DefaultPostSaveHook<PlatformOwner> postSaveHook,
+		@Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore){
+		GenericEntryAction<PlatformOwner> entryAction = new GenericEntryAction<>(entityStore, platformActionsInfoProvider, postSaveHook);
+		stmFlowStore.setEntryAction(entryAction);
+		return entryAction;
+	}
 
 
 
