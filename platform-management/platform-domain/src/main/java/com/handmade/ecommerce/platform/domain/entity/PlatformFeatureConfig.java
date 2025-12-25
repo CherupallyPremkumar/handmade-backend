@@ -1,0 +1,43 @@
+package com.handmade.ecommerce.platform.domain.entity;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * Stores feature flags and configuration for the platform.
+ * Persisted as a JSON text blob for flexibility (Key-Value Extensions).
+ * PURE DOMAIN MODEL (no persistence annotations).
+ */
+public class PlatformFeatureConfig implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String id;
+    private String platformId;
+    private String configJson;
+    private Long version; // Optimistic lock
+    private LocalDateTime updatedAt;
+    
+    protected PlatformFeatureConfig() {}
+
+    public PlatformFeatureConfig(String platformId, String configJson) {
+        this.platformId = platformId;
+        this.configJson = configJson;
+        this.updatedAt = LocalDateTime.now();
+        this.version = 1L;
+    }
+
+    public String getPlatformId() { return platformId; }
+    public void setPlatformId(String platformId) { this.platformId = platformId; }
+
+    public String getConfigJson() { return configJson; }
+    public void setConfigJson(String configJson) { this.configJson = configJson; }
+
+    public Long getVersion() { return version; }
+    public void setVersion(Long version) { this.version = version; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+}

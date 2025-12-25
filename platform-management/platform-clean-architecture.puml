@@ -1,0 +1,396 @@
+@startuml Platform Management - Clean Architecture
+
+!define DOMAIN_COLOR #E8F5E9
+!define APPLICATION_COLOR #E3F2FD
+!define INFRASTRUCTURE_COLOR #FFF3E0
+!define API_COLOR #F3E5F5
+
+' Title
+title Platform Management - Clean Architecture & DDD
+
+' API Layer
+package "platform-api" API_COLOR {
+  class PlatformController {
+    + POST /api/platform/activate
+    + POST /api/platform/commission
+    + POST /api/platform/lock
+    + PUT /api/platform/brand
+    + POST /api/platform/legal-terms
+  }
+}
+
+' Application Layer
+package "platform-application" APPLICATION_COLOR {
+  
+  package "command" {
+    class ActivatePlatformCommand {
+      - operatorId: String
+      - reason: String
+    }
+    class ReviseCommissionCommand {
+      - operatorId: String
+      - newTakeRate: BigDecimal
+      - flatFee: BigDecimal
+      - currency: String
+      - reason: String
+    }
+    class LockPlatformCommand
+    class UpdateBrandIdentityCommand
+    class PublishLegalTermsCommand
+  }
+  
+  package "port.in" {
+    interface PlatformGovernanceUseCase {
+      + activatePlatform(command)
+      + reviseCommission(command)
+      + lockPlatform(command)
+      + updateBrandIdentity(command)
+      + publishLegalTerms(command)
+    }
+  }
+  
+  package "port.out" {
+    interface DomainEventPublisher {
+      + publish(event: Object)
+    }
+    interface AuthorizationService {
+      + hasPermission(operatorId, permission): boolean
+      + isPlatformAdmin(operatorId): boolean
+    }
+  }
+  
+  package "service" {
+    class PlatformGovernanceService {
+      - repository: PlatformOwnerRepository
+      - eventPublisher: DomainEventPublisher
+      - authService: AuthorizationService
+      --
+      + activatePlatform(command)
+      + reviseCommission(command)
+      + lockPlatform(command)
+      + updateBrandIdentity(command)
+      + publishLegalTerms(command)
+      --
+      Pattern: Authorize → Load → Execute → Persist → Publish
+    }
+  }
+  
+  package "exception" {
+    class PlatformAccessDeniedException
+  }
+}
+
+' Domain Layer (Pure - No Framework Dependencies)
+package "platform-domain" DOMAIN_COLOR {
+  
+  package "aggregate" {
+    class PlatformOwner <<Aggregate Root>> {
+      {static} + SINGLETON_ID: String
+      - id: String
+      - name: String
+      - lifecycleState: PlatformLifecycle
+      - brandIdentity: BrandIdentity
+      - corporateIdentity: CorporateIdentity
+      - complianceMandate: ComplianceMandate
+      - operationalLimits: OperationalLimits
+      - localizationPolicy: LocalizationPolicy
+      - domainEvents: List<Object>
+      --
+      {static} + bootstrap(...): PlatformOwner
+      + activate(operatorId)
+      + imposeSanctions(reason)
+      + rebrand(newBrand)
+      + reviseCommissionStructure(policy, operatorId)
+      + publishLegalTerms(termsUrl, privacyUrl)
+      + getDomainEvents(): List<Object>
+      + clearEvents()
+    }
+  }
+  
+  package "entity" {
+    class CommissionPolicy {
+      - id: String
+      - platformId: String
+      - policyVersion: Long
+      - globalTakeRate: BigDecimal
+      - flatTransactionFee: BigDecimal
+      - flatFeeCurrency: String
+      - effectiveFrom: LocalDateTime
+      - effectiveTo: LocalDateTime
+      - changeReason: String
+    }
+    class PlatformAuditLog
+    class PlatformActivityLog
+    class PlatformFeatureConfig
+    class FeatureConfiguration
+  }
+  
+  package "valueobject" {
+    class BrandIdentity <<Value Object>> {
+      - logoUrl: URI
+      - faviconUrl: URI
+      - primaryColorHex: String
+      - supportEmail: String
+    }
+    class CorporateIdentity <<Value Object>> {
+      - legalName: String
+      - taxId: String
+      - registrationNumber: String
+      - jurisdiction: String
+    }
+    class ComplianceMandate <<Value Object>> {
+      - requiresSellerKYC: boolean
+      - requiresTaxId: boolean
+      - allowedJurisdictions: List<String>
+    }
+    class OperationalLimits <<Value Object>> {
+      - maxTransactionAmount: BigDecimal
+      - maxSellersPerDay: Integer
+      - globalRateLimit: Integer
+    }
+    class LocalizationPolicy <<Value Object>> {
+      - primaryCurrency: String
+      - supportedCurrencies: String
+      - defaultLanguage: String
+      - supportedLanguages: String
+      - timezone: String
+    }
+    enum PlatformLifecycle {
+      PROVISIONING
+      LIVE
+      RESTRICTED
+      SUNSET
+    }
+    enum PlatformStatus
+  }
+  
+  package "event" {
+    class PlatformStatusChanged <<Domain Event>> {
+      - platformId: UUID
+      - oldState: PlatformLifecycle
+      - newState: PlatformLifecycle
+      - reason: String
+      - operatorId: String
+      - occurredAt: Instant
+    }
+    class CommissionStructureRevised <<Domain Event>>
+    class LegalTermsPublished <<Domain Event>>
+    class PlatformLockdownInitiated <<Domain Event>>
+  }
+  
+  package "repository" {
+    interface PlatformOwnerRepository <<Port>> {
+      + get(): Optional<PlatformOwner>
+      + save(owner: PlatformOwner)
+    }
+  }
+}
+
+' Infrastructure Layer
+package "platform-infrastructure" INFRASTRUCTURE_COLOR {
+  
+  package "persistence.entity" {
+    class PlatformOwnerJpaEntity {
+      @Entity
+      @Table(name = "platform_owner")
+      --
+      @Id
+      - id: String
+      @Column
+      - name: String
+      @Enumerated(EnumType.STRING)
+      - lifecycleState: String
+      @Embedded
+      - brandIdentity: BrandIdentityEmbeddable
+      @Embedded
+      - corporateIdentity: CorporateIdentityEmbeddable
+      @Column
+      - complianceRequiresKyc: Boolean
+      - complianceRequiresTaxId: Boolean
+      - complianceAllowedJurisdictions: String
+      - operational*: ...
+      - localization*: ...
+    }
+    class CommissionPolicyJpaEntity {
+      @Entity
+      @Table(name = "platform_commission_policy")
+    }
+  }
+  
+  package "persistence.embeddable" {
+    class BrandIdentityEmbeddable {
+      @Embeddable
+      --
+      @Column(name = "brand_logo_url")
+      - logoUrl: String
+      @Column(name = "brand_favicon_url")
+      - faviconUrl: String
+      @Column(name = "brand_primary_color")
+      - primaryColorHex: String
+      @Column(name = "brand_support_email")
+      - supportEmail: String
+    }
+    class CorporateIdentityEmbeddable {
+      @Embeddable
+    }
+  }
+  
+  package "persistence.mapper" {
+    class PlatformOwnerMapper <<Mapper>> {
+      {static} + toDomain(entity): PlatformOwner
+      {static} + toEntity(domain): PlatformOwnerJpaEntity
+    }
+  }
+  
+  package "persistence.jpa" {
+    interface PlatformOwnerJpaRepository {
+      <<Spring Data JPA>>
+      extends JpaRepository<PlatformOwnerJpaEntity, String>
+    }
+  }
+  
+  package "persistence.repository" {
+    class JpaPlatformOwnerRepository {
+      - jpaRepository: PlatformOwnerJpaRepository
+      - eventPublisher: DomainEventPublisher
+      --
+      + get(): Optional<PlatformOwner>
+      + save(owner: PlatformOwner)
+    }
+  }
+  
+  package "event" {
+    class SpringDomainEventPublisher {
+      - applicationEventPublisher: ApplicationEventPublisher
+      --
+      + publish(event: Object)
+    }
+  }
+  
+  package "security" {
+    class SpringAuthorizationService {
+      + hasPermission(operatorId, permission): boolean
+      + isPlatformAdmin(operatorId): boolean
+    }
+  }
+  
+  package "config" {
+    class JpaConfig {
+      @Configuration
+      @EnableJpaRepositories
+      @EntityScan
+    }
+  }
+}
+
+' Database
+database "H2 Database" {
+  entity "platform_owner" {
+    * id: VARCHAR(255) PK
+    --
+    name: VARCHAR(255)
+    lifecycle_state: VARCHAR(50)
+    brand_logo_url: VARCHAR(500)
+    brand_favicon_url: VARCHAR(500)
+    brand_primary_color: VARCHAR(50)
+    brand_support_email: VARCHAR(255)
+    corporate_legal_name: VARCHAR(500)
+    corporate_tax_id: VARCHAR(100)
+    compliance_requires_kyc: BOOLEAN
+    compliance_requires_tax_id: BOOLEAN
+    operational_max_transaction_amount: DECIMAL(15,2)
+    localization_primary_currency: VARCHAR(3)
+    ...
+  }
+  
+  entity "platform_commission_policy" {
+    * id: VARCHAR(255) PK
+    --
+    platform_id: VARCHAR(255) FK
+    policy_version: BIGINT
+    global_take_rate: DECIMAL(5,2)
+    flat_transaction_fee: DECIMAL(10,2)
+    flat_fee_currency: VARCHAR(3)
+    effective_from: TIMESTAMP
+    effective_to: TIMESTAMP
+    change_reason: VARCHAR(1000)
+  }
+}
+
+' Relationships
+
+' API → Application
+PlatformController --> PlatformGovernanceUseCase : uses
+PlatformController --> ActivatePlatformCommand : creates
+PlatformController --> ReviseCommissionCommand : creates
+
+' Application → Domain
+PlatformGovernanceService ..|> PlatformGovernanceUseCase : implements
+PlatformGovernanceService --> PlatformOwnerRepository : uses
+PlatformGovernanceService --> DomainEventPublisher : uses
+PlatformGovernanceService --> AuthorizationService : uses
+PlatformGovernanceService --> PlatformOwner : orchestrates
+
+' Domain Relationships
+PlatformOwner *-- BrandIdentity : contains
+PlatformOwner *-- CorporateIdentity : contains
+PlatformOwner *-- ComplianceMandate : contains
+PlatformOwner *-- OperationalLimits : contains
+PlatformOwner *-- LocalizationPolicy : contains
+PlatformOwner --> PlatformLifecycle : has
+PlatformOwner ..> PlatformStatusChanged : emits
+PlatformOwner ..> CommissionStructureRevised : emits
+PlatformOwner --> CommissionPolicy : references
+
+' Infrastructure → Domain
+JpaPlatformOwnerRepository ..|> PlatformOwnerRepository : implements
+SpringDomainEventPublisher ..|> DomainEventPublisher : implements
+SpringAuthorizationService ..|> AuthorizationService : implements
+
+' Infrastructure Internal
+JpaPlatformOwnerRepository --> PlatformOwnerJpaRepository : uses
+JpaPlatformOwnerRepository --> PlatformOwnerMapper : uses
+PlatformOwnerMapper --> PlatformOwner : converts to
+PlatformOwnerMapper --> PlatformOwnerJpaEntity : converts to
+PlatformOwnerJpaEntity *-- BrandIdentityEmbeddable : embeds
+PlatformOwnerJpaEntity *-- CorporateIdentityEmbeddable : embeds
+
+' Infrastructure → Database
+PlatformOwnerJpaRepository --> "platform_owner" : persists
+CommissionPolicyJpaEntity --> "platform_commission_policy" : persists
+
+' Notes
+note right of PlatformOwner
+  **Pure Domain Model**
+  - NO @Entity
+  - NO @Column
+  - NO JPA dependencies
+  - Only business logic
+end note
+
+note right of PlatformOwnerJpaEntity
+  **Infrastructure Persistence**
+  - JPA annotations
+  - Database mapping
+  - Separate from domain
+end note
+
+note bottom of PlatformGovernanceService
+  **Orchestration Pattern:**
+  1. Authorize (check permissions)
+  2. Load (get aggregate)
+  3. Execute (call domain method)
+  4. Persist (save aggregate)
+  5. Publish (emit events)
+end note
+
+note bottom of PlatformOwnerMapper
+  **Mapper Pattern:**
+  Bidirectional conversion
+  Domain ↔ JPA Entity
+  
+  Prevents ORM leakage
+  into domain layer
+end note
+
+@enduml
