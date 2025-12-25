@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.service.defs;
 
-import com.handmade.ecommerce.platform.PlatformEventPublisher;
+import com.handmade.ecommerce.platform.api.PlatformEventPublisher;
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.domain.event.PlatformSuspendedEvent;
 import org.chenile.workflow.model.TransientMap;
