@@ -3,6 +3,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Maven Flatten Plugin - Generated POMs
+.flattened-pom.xml
+*/.flattened-pom.xml
+**/.flattened-pom.xml
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
