@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.platform.service;
+package com.handmade.ecommerce.platform.service.impl;
 
 import com.handmade.ecommerce.platform.domain.config.reader.FeatureConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;

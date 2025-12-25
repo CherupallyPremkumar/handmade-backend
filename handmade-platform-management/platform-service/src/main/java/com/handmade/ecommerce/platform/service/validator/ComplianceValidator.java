@@ -22,28 +22,22 @@ public class ComplianceValidator {
         if (config.kycRequired && !request.kycVerified) {
             errors.add("KYC verification is required");
         }
-        
         if (config.taxIdRequired && (request.taxId == null || request.taxId.isBlank())) {
             errors.add("Tax ID is required");
         }
-        
         if (!config.isJurisdictionAllowed(request.country)) {
             errors.add("Seller jurisdiction '" + request.country + "' is not allowed");
         }
-        
         if (request.age != null && request.age < config.minimumAge) {
             errors.add("Seller must be at least " + config.minimumAge + " years old");
         }
-        
         if (config.requiresBusinessLicense(request.sellerTier) && 
             (request.businessLicense == null || request.businessLicense.isBlank())) {
             errors.add("Business license is required for " + request.sellerTier + " tier");
         }
-        
         if (errors.isEmpty()) {
             return ValidationResult.success();
         }
-        
         return ValidationResult.failure(errors);
     }
     
