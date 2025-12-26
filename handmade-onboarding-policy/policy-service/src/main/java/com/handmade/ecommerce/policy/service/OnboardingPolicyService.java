@@ -4,6 +4,7 @@ import com.handmade.ecommerce.policy.domain.aggregate.OnboardingPolicy;
 import com.handmade.ecommerce.policy.domain.entity.OnboardingPolicyRule;
 import com.handmade.ecommerce.policy.repository.OnboardingPolicyRepository;
 import com.handmade.ecommerce.policy.repository.OnboardingPolicyRuleRepository;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

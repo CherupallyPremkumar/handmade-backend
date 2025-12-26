@@ -44,7 +44,7 @@
 
         <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-delegate</artifactId>
+            <artifactId>seller-delegator</artifactId>
             <version>${revision}</version>
         </dependency>
 

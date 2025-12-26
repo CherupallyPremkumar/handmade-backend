@@ -45,5 +45,10 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>

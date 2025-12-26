@@ -1,10 +1,10 @@
-```java
 package com.handmade.ecommerce.policy.controller;
 
 import com.handmade.ecommerce.policy.domain.aggregate.OnboardingPolicy;
 import com.handmade.ecommerce.policy.domain.entity.OnboardingPolicyRule;
 import com.handmade.ecommerce.policy.exception.PolicyNotFoundException;
 import com.handmade.ecommerce.policy.service.OnboardingPolicyService;
+import com.handmade.ecommerce.policy.service.OnboardingPolicyResolver;
 import com.handmade.ecommerce.seller.domain.enums.SellerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -87,9 +87,9 @@ public class OnboardingPolicyController {
     /**
      * Exception handler for policy not found
      */
-    @ExceptionHandler(OnboardingPolicyResolver.PolicyNotFoundException.class)
+    @ExceptionHandler(PolicyNotFoundException.class)
     public ResponseEntity<ErrorResponse> handlePolicyNotFound(
-        OnboardingPolicyResolver.PolicyNotFoundException ex
+        PolicyNotFoundException ex
     ) {
         ErrorResponse error = new ErrorResponse("POLICY_NOT_FOUND", ex.getMessage());
         return ResponseEntity.status(404).body(error);

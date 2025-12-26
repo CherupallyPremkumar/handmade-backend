@@ -20,5 +20,7 @@
         <module>policy-domain</module>
         <module>policy-api</module>
         <module>policy-service</module>
+        <module>policy-delegator</module>
+        <module>policy-async</module>
     </modules>
 </project>

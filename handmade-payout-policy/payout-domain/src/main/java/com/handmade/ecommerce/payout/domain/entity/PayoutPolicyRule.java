@@ -2,9 +2,11 @@ package com.handmade.ecommerce.payout.domain.entity;
 
 import com.handmade.ecommerce.payout.domain.valueobject.PayoutFrequency;
 import org.chenile.jpautils.entity.BaseJpaEntity;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -60,7 +62,7 @@ public class PayoutPolicyRule extends BaseJpaEntity {
      * Eligibility criteria (JSONB)
      * e.g., {"min_sales": 1000, "account_age_days": 90, "min_rating": 4.5}
      */
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "eligibility_criteria", columnDefinition = "jsonb")
     private Map<String, Object> eligibilityCriteria;
     
@@ -68,7 +70,7 @@ public class PayoutPolicyRule extends BaseJpaEntity {
      * Rule-specific configuration (JSONB)
      * e.g., {"payout_day": "FRIDAY", "method": "ACH", "fee_percentage": 1.5}
      */
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "rule_config", columnDefinition = "jsonb")
     private Map<String, Object> ruleConfig;
     

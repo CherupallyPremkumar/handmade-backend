@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.commission.domain.aggregate;
 
-import com.handmade.ecommerce.commission.domain.valueobject.SellerTier;
+import com.handmade.ecommerce.seller.domain.enums.SellerType;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -86,16 +86,21 @@ public class CommissionPolicy extends BaseJpaEntity {
      * BUSINESS LOGIC: Calculate commission for an order
      * Now uses type-safe SellerTier enum instead of String
      */
-    public BigDecimal calculateCommission(BigDecimal orderAmount, SellerTier sellerTier, BigDecimal monthlyVolume) {
+
+    /**
+     * BUSINESS LOGIC: Calculate commission for an order
+     * Uses SellerType to determine the base rate
+     */
+    public BigDecimal calculateCommission(BigDecimal orderAmount, SellerType sellerType, BigDecimal monthlyVolume) {
         if (orderAmount == null || orderAmount.compareTo(BigDecimal.ZERO) <= 0) {
             return BigDecimal.ZERO;
         }
         
-        // 1. Get tier-based rate
-        BigDecimal tierRate = getTierRate(sellerTier);
+        // 1. Get type-based rate
+        BigDecimal typeRate = getTypeRate(sellerType);
         
         // 2. Apply volume discount if applicable
-        BigDecimal effectiveRate = applyVolumeDiscount(tierRate, monthlyVolume);
+        BigDecimal effectiveRate = applyVolumeDiscount(typeRate, monthlyVolume);
         
         // 3. Calculate commission
         BigDecimal commission = orderAmount.multiply(effectiveRate)
@@ -103,7 +108,7 @@ public class CommissionPolicy extends BaseJpaEntity {
         
         return commission;
     }
-    
+
     /**
      * Calculate processing fee (separate from commission)
      */
@@ -115,29 +120,29 @@ public class CommissionPolicy extends BaseJpaEntity {
         return orderAmount.multiply(processingFeeRate)
             .setScale(2, RoundingMode.HALF_UP);
     }
-    
+
     /**
      * Calculate total platform fees (commission + processing fee)
      */
-    public BigDecimal calculateTotalFees(BigDecimal orderAmount, SellerTier sellerTier, BigDecimal monthlyVolume) {
-        BigDecimal commission = calculateCommission(orderAmount, sellerTier, monthlyVolume);
+    public BigDecimal calculateTotalFees(BigDecimal orderAmount, SellerType sellerType, BigDecimal monthlyVolume) {
+        BigDecimal commission = calculateCommission(orderAmount, sellerType, monthlyVolume);
         BigDecimal processingFee = calculateProcessingFee(orderAmount);
         return commission.add(processingFee);
     }
     
     /**
-     * Get commission rate based on seller tier
+     * Get commission rate based on seller type
      */
-    private BigDecimal getTierRate(SellerTier sellerTier) {
-        if (sellerTier == null) {
+    private BigDecimal getTypeRate(SellerType sellerType) {
+        if (sellerType == null) {
             return baseCommissionRate;
         }
         
-        return switch (sellerTier) {
-            case INDIVIDUAL_ARTISAN -> artisanRate;
-            case HOME_BASED_MAKER -> homeMakerRate;
+        return switch (sellerType) {
+            case ARTISAN -> artisanRate;
+            case HOME_MAKER -> homeMakerRate;
             case SMALL_BUSINESS -> smallBusinessRate;
-            case ENTERPRISE_SELLER -> enterpriseRate;
+            case ENTERPRISE -> enterpriseRate;
             case DROPSHIPPER -> baseCommissionRate; // Use base rate for dropshippers
         };
     }

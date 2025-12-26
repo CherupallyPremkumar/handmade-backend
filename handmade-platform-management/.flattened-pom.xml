@@ -20,10 +20,11 @@
     </license>
   </licenses>
   <modules>
-    <module>platform-domain</module>
     <module>platform-service</module>
     <module>platform-api</module>
-    <module>platform-delegate</module>
+    <module>platform-domain</module>
+    <module>platform-delegator</module>
+    <module>platform-async</module>
   </modules>
   <properties>
     <platform.version>1.0-SNAPSHOT</platform.version>

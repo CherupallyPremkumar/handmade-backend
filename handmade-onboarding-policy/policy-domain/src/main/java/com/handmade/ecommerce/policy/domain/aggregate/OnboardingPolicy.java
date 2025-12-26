@@ -249,6 +249,14 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
         return regulatoryBasis;
     }
     
+    public PolicyStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PolicyStatus status) {
+        this.status = status;
+    }
+
     public void setRegulatoryBasis(String regulatoryBasis) {
         this.regulatoryBasis = regulatoryBasis;
     }

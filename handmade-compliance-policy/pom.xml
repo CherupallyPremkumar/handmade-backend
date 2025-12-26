@@ -20,5 +20,7 @@
         <module>compliance-domain</module>
         <module>compliance-api</module>
         <module>compliance-service</module>
+        <module>compliance-delegator</module>
+        <module>compliance-async</module>
     </modules>
 </project>

@@ -20,5 +20,7 @@
         <module>commission-domain</module>
         <module>commission-api</module>
         <module>commission-service</module>
+        <module>commission-delegator</module>
+        <module>commission-async</module>
     </modules>
 </project>

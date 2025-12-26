@@ -6,7 +6,8 @@
 	<modules>
 		<module>seller-domain</module>
 		<module>seller-api</module>
-		<module>seller-delegate</module>
+        <module>seller-delegator</module>
+        <module>seller-async</module>
 		<module>seller-service</module>
 	</modules>
 	<parent>

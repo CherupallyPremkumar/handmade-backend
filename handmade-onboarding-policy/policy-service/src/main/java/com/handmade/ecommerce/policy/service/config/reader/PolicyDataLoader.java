@@ -83,7 +83,7 @@ public class PolicyDataLoader implements CommandLineRunner {
         policy.setPolicyVersion((String) policyData.get("version"));
         policy.setCountryCode((String) policyData.get("countryCode"));
         policy.setSellerType(com.handmade.ecommerce.seller.domain.enums.SellerType.valueOf((String) policyData.get("sellerType")));
-        policy.setStatus(com.handmade.ecommerce.policy.PolicyStatus.valueOf((String) policyData.get("status")));
+        policy.setStatus(com.handmade.ecommerce.policy.domain.valueobject.PolicyStatus.valueOf((String) policyData.get("status")));
         policy.setEffectiveDate(java.time.LocalDate.parse((String) policyData.get("effectiveDate")));
         policy.setCreatedBy((String) policyData.get("createdBy"));
         policy.setCreatedAt(java.time.LocalDateTime.parse((String) policyData.get("createdAt")));

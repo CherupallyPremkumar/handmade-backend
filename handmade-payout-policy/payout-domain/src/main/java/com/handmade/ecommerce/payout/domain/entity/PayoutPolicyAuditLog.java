@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.payout.domain.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**

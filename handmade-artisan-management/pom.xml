@@ -1,6 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+		<module>artisan-domain</module>
+		<module>artisan-api</module>
+		<module>artisan-service</module>
+		<module>artisan-delegator</module>
+		<module>artisan-async</module>
+	</modules>
     <packaging>pom</packaging>
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
@@ -9,8 +16,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.handmade.ecommerce.artisan-management</groupId>
-    <artifactId>artisan-management</artifactId>
+    <groupId>com.handmade.ecommerce.artisan</groupId>
+    <artifactId>handmade-artisan-management</artifactId>
 
 
     <name>Artisan Management</name>

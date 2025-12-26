@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.commission.domain.config.model;
 
-import com.handmade.ecommerce.commission.domain.valueobject.SellerTier;
+import com.handmade.ecommerce.seller.domain.enums.SellerType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +18,7 @@ public class CommissionConfig {
         public LocalDateTime effectiveTo;
         public BigDecimal baseCommissionRate;
         public BigDecimal processingFeeRate;
-        public Map<SellerTier, BigDecimal> tierRates;
+        public Map<SellerType, BigDecimal> tierRates;
         public List<VolumeDiscount> volumeDiscounts;
     }
     

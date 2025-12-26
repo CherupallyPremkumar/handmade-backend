@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>com.handmade.ecommerce.platform</groupId>
-            <artifactId>handmade-platform-delegate</artifactId>
+            <artifactId>handmade-platform-delegator</artifactId>
             <version>${revision}</version>
         </dependency>
         

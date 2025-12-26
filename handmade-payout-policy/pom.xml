@@ -20,5 +20,7 @@
         <module>payout-domain</module>
         <module>payout-api</module>
         <module>payout-service</module>
+        <module>payout-delegator</module>
+        <module>payout-async</module>
     </modules>
 </project>

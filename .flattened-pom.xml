@@ -18,6 +18,12 @@
     </license>
   </licenses>
   <modules>
+    <module>handmade-artisan-management</module>
+    <module>handmade-cart-management</module>
+    <module>handmade-customer-management</module>
+    <module>handmade-dispute-management</module>
+    <module>handmade-fulfillment-management</module>
+    <module>handmade-inventory-management</module>
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
     <module>handmade-onboarding-policy</module>
@@ -29,7 +35,7 @@
     <module>handmade-stripe-integration</module>
     <module>handmade-seller-management</module>
     <module>handmade-workflow-orchestrator</module>
-    <module>app-boot</module>
+    <module>handmade-app-boot</module>
   </modules>
   <properties>
     <maven.compiler.target>17</maven.compiler.target>

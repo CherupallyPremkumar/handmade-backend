@@ -6,20 +6,26 @@
 
     <parent>
         <groupId>com.handmade.ecommerce.customer</groupId>
-        <artifactId>customer-management</artifactId>
+        <artifactId>handmade-customer-management</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>customer-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>Customer API Model and Interfaces</name>
+    <name>Customer API</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.chenile</groupId>
-            <artifactId>jpa-utils</artifactId>
+            <groupId>com.handmade.ecommerce.customer</groupId>
+            <artifactId>customer-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>

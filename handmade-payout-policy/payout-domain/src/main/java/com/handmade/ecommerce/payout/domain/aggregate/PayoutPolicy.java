@@ -2,9 +2,9 @@ package com.handmade.ecommerce.payout.domain.aggregate;
 
 import com.handmade.ecommerce.payout.domain.valueobject.PayoutFrequency;
 import com.handmade.ecommerce.seller.domain.enums.SellerType;
-import org.chenile.stm.model.AbstractJpaStateEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,8 +37,8 @@ public class PayoutPolicy extends AbstractJpaStateEntity {
      * Globally unique version identifier
      * Format: "YYYY.N-COUNTRY-TYPE" (e.g., "2024.1-US-INDIVIDUAL")
      */
-    @Column(name = "version", length = 50, nullable = false, unique = true)
-    private String version;
+    @Column(name = "policy_version", length = 50, nullable = false, unique = true)
+    private String policyVersion;
     
     /**
      * ISO 3166-1 alpha-2 country code
@@ -163,12 +163,12 @@ public class PayoutPolicy extends AbstractJpaStateEntity {
     
     // ========== GETTERS AND SETTERS ==========
     
-    public String getVersion() {
-        return version;
+    public String getPolicyVersion() {
+        return policyVersion;
     }
     
-    public void setVersion(String version) {
-        this.version = version;
+    public void setPolicyVersion(String policyVersion) {
+        this.policyVersion = policyVersion;
     }
     
     public String getCountryCode() {

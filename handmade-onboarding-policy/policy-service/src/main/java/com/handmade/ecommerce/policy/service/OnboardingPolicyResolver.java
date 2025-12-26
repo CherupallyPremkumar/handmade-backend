@@ -4,7 +4,7 @@ import com.handmade.ecommerce.seller.domain.enums.SellerType;
 import com.handmade.ecommerce.policy.domain.aggregate.OnboardingPolicy;
 import com.handmade.ecommerce.policy.exception.PolicyNotFoundException;
 import com.handmade.ecommerce.policy.repository.OnboardingPolicyRepository;
-import com.handmade.ecommerce.seller.domain.context.SellerContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +67,33 @@ public class OnboardingPolicyResolver {
      */
     public boolean hasActivePolicy(String countryCode, SellerType sellerType) {
         return policyRepository.hasActivePolicy(countryCode, sellerType, LocalDate.now());
+    }
+    /**
+     * Get policy by version
+     */
+    public OnboardingPolicy getPolicyByVersion(String version) {
+        return policyRepository.findByVersion(version)
+            .orElseThrow(() -> new PolicyNotFoundException("Policy version not found: " + version));
+    }
+
+    /**
+     * Check if onboarding is available for country
+     */
+    public boolean canOnboardInCountry(String country, SellerType sellerType) {
+        return hasActivePolicy(country, sellerType);
+    }
+
+    /**
+     * Get all active policies
+     */
+    public java.util.List<OnboardingPolicy> getAllActivePolicies() {
+        return policyRepository.findAllActivePolicies(java.time.LocalDate.now());
+    }
+
+    /**
+     * Get all draft policies
+     */
+    public java.util.List<OnboardingPolicy> getAllDraftPolicies() {
+        return policyRepository.findAllDraftPolicies();
     }
 }

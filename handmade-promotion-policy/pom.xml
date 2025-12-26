@@ -20,5 +20,7 @@
         <module>promotion-domain</module>
         <module>promotion-api</module>
         <module>promotion-service</module>
+        <module>promotion-delegator</module>
+        <module>promotion-async</module>
     </modules>
 </project>

@@ -81,4 +81,21 @@ public interface OnboardingPolicyRepository extends JpaRepository<OnboardingPoli
         @Param("sellerType") SellerType sellerType,
         @Param("today") LocalDate today
     );
+
+    /**
+     * Find all active policies effective as of today
+     */
+    @Query("""
+        SELECT p FROM OnboardingPolicy p
+        WHERE p.stateId = 'ACTIVE'
+          AND p.effectiveDate <= :today
+        ORDER BY p.effectiveDate DESC
+        """)
+    List<OnboardingPolicy> findAllActivePolicies(@Param("today") LocalDate today);
+
+    /**
+     * Find all draft policies
+     */
+    @Query("SELECT p FROM OnboardingPolicy p WHERE p.stateId = 'DRAFT'")
+    List<OnboardingPolicy> findAllDraftPolicies();
 }
