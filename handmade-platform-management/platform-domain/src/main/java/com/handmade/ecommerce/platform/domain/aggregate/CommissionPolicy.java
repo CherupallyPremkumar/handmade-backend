@@ -1,8 +1,11 @@
 package com.handmade.ecommerce.platform.domain.aggregate;
 
 import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.chenile.jpautils.entity.BaseJpaEntity;
-import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;

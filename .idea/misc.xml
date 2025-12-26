@@ -17,6 +17,15 @@
         <option value="$PROJECT_DIR$/platform-management/platform-infrastructure/pom.xml" />
         <option value="$PROJECT_DIR$/platform-management/platform-delegate/pom.xml" />
         <option value="$PROJECT_DIR$/platform-management/platform-service/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-delegate/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-api/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/seller-orchestration-api/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/seller-orchestration-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

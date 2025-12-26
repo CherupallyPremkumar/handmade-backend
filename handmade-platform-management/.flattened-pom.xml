@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.handmade.ecommerce</groupId>
     <artifactId>handmade-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
   <artifactId>handmade-platform-parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Platform-parent</name>
   <description>Modules execution project and Parent Pom</description>
@@ -26,19 +26,19 @@
     <module>platform-delegate</module>
   </modules>
   <properties>
-    <platform.version>${revision}</platform.version>
+    <platform.version>1.0-SNAPSHOT</platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
         <artifactId>handmade-platform-domain</artifactId>
-        <version>${revision}</version>
+        <version>1.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
         <artifactId>handmade-platform-api</artifactId>
-        <version>${revision}</version>
+        <version>1.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

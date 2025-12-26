@@ -1,0 +1,24 @@
+<!-- Promotion Policy State Machine - Manages promotion policy lifecycle -->
+<states>
+<flow id='PROMOTION_POLICY_FLOW' default="true">
+	<!-- Initial state: DRAFT -->
+	<manual-state id='DRAFT' initialState="true">
+		<on eventId="approve" newStateId="ACTIVE"/>
+		<on eventId="delete" newStateId='DELETED'/>
+		<on eventId="updatePolicy"/>
+	</manual-state>
+
+	<!-- Active State -->
+	<manual-state id="ACTIVE">
+		<on eventId="deprecate" newStateId="DEPRECATED"/>
+		<on eventId="updateDescription"/>
+		<on eventId="setEffectiveTo"/>
+	</manual-state>
+
+	<!-- Deprecated State -->
+	<manual-state id='DEPRECATED'/>
+
+	<!-- Deleted State -->
+	<manual-state id="DELETED"/>
+</flow>
+</states>

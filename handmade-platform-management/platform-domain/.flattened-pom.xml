@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.handmade.ecommerce.platform</groupId>
     <artifactId>handmade-platform-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
   <artifactId>handmade-platform-domain</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Platform Domain Model</name>
   <licenses>
     <license>
@@ -41,6 +41,11 @@
     <dependency>
       <groupId>org.chenile</groupId>
       <artifactId>workflow-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.handmade.ecommerce.seller</groupId>
+      <artifactId>seller-domain</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

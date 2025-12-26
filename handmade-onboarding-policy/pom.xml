@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>handmade-onboarding-policy</artifactId>
+    <packaging>pom</packaging>
+    <name>Onboarding Policy Management</name>
+    <description>Onboarding policy management for multi-country seller onboarding</description>
+
+    <modules>
+        <module>policy-domain</module>
+        <module>policy-api</module>
+        <module>policy-service</module>
+    </modules>
+</project>

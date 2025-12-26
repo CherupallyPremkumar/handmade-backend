@@ -1,0 +1,34 @@
+{
+    "kycRequired": true,
+    "taxIdRequired": true,
+    "minimumAge": 18,
+    "allowedJurisdictions": [
+        "US",
+        "CA",
+        "GB",
+        "AU",
+        "NZ",
+        "IE",
+        "DE",
+        "FR",
+        "IT",
+        "ES",
+        "NL",
+        "BE",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "CH",
+        "AT"
+    ],
+    "bannedCountries": [],
+    "requiresBusinessLicense": {
+        "SMALL_BUSINESS": true,
+        "ENTERPRISE_SELLER": true,
+        "INDIVIDUAL_ARTISAN": false,
+        "HOME_BASED_MAKER": false,
+        "DROPSHIPPER": true
+    },
+    "documentExpiryDays": 365
+}

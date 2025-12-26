@@ -38,5 +38,11 @@
             <groupId>org.chenile</groupId>
             <artifactId>workflow-api</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>

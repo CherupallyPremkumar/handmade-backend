@@ -35,6 +35,15 @@
 <!--    <module>financial-settlement</module>-->
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
+    <module>handmade-onboarding-policy</module>
+    <module>handmade-commission-policy</module>
+    <module>handmade-payout-policy</module>
+    <module>handmade-compliance-policy</module>
+    <module>handmade-promotion-policy</module>
+    <module>handmade-kyc-verification</module>
+    <module>handmade-stripe-integration</module>
+    <module>handmade-seller-management</module>
+    <module>handmade-workflow-orchestrator</module>
     
     <!-- Infrastructure -->
 <!--    <module>common-library</module>-->

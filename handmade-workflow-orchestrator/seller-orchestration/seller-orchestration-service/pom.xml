@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.handmade.ecommerce.orchestration</groupId>
+        <artifactId>seller-orchestration</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>seller-orchestration-service</artifactId>
+    <packaging>jar</packaging>
+    <name>Seller Orchestration Service</name>
+    <description>Implementation of seller workflows</description>
+
+    <dependencies>
+        <!-- API -->
+        <dependency>
+            <groupId>com.handmade.ecommerce.orchestration</groupId>
+            <artifactId>seller-orchestration-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>policy-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>platform-delegate</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-delegate</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.kyc</groupId>
+            <artifactId>kyc-delegate</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>stripe-delegate</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>
