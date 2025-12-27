@@ -1,6 +1,9 @@
 package com.handmade.ecommerce.orchestrator.seller.commands;
 
 import com.handmade.ecommerce.seller.delegate.SellerManagerClient;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
+import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.seller.dto.CreateSellerRequest;
 import org.chenile.owiz.Command;
 import org.springframework.stereotype.Component;
 
@@ -27,17 +30,20 @@ public class CreateSellerCommand implements Command<Map<String, Object>> {
         String email = (String) context.get("email");
         String businessName = (String) context.get("businessName");
         String countryCode = (String) context.get("countryCode");
-        String sellerType = (String) context.get("sellerType");
+        String sellerTypeStr = (String) context.get("sellerType");
+        
+        // Build request
+        CreateSellerRequest request = new CreateSellerRequest();
+        request.setEmail(email);
+        request.setBusinessName(businessName);
+        request.setCountryCode(countryCode);
+        request.setSellerType(SellerType.valueOf(sellerTypeStr));
         
         // Create seller in DRAFT state
-        String sellerId = sellerManagerClient.createSeller(
-            email, 
-            businessName, 
-            countryCode, 
-            sellerType
-        );
+        SellerAccount account = sellerManagerClient.registerSellerAccount(request);
         
         // Store sellerId in context for subsequent steps
-        context.put("sellerId", sellerId);
+        context.put("sellerId", account.getId());
+        context.put("sellerAccount", account);
     }
 }

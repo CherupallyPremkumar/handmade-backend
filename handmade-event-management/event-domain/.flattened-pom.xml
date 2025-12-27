@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.handmade.ecommerce.event</groupId>
     <artifactId>handmade-event-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.event</groupId>
   <artifactId>handmade-event-domain</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Event Domain</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>handmade-event-domain</name>
   <description>Domain event base classes</description>
   <licenses>
     <license>

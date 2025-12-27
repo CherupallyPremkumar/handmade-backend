@@ -5,13 +5,13 @@
   <parent>
     <groupId>com.handmade.ecommerce</groupId>
     <artifactId>handmade-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.platform</groupId>
   <artifactId>handmade-platform-parent</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Platform-parent</name>
+  <name>handmade-platform-parent</name>
   <description>Modules execution project and Parent Pom</description>
   <licenses>
     <license>
@@ -27,19 +27,19 @@
     <module>platform-async</module>
   </modules>
   <properties>
-    <platform.version>1.0-SNAPSHOT</platform.version>
+    <platform.version>${revision}</platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
         <artifactId>handmade-platform-domain</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>com.handmade.ecommerce.platform</groupId>
         <artifactId>handmade-platform-api</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

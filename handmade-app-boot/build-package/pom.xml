@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.handmade.ecommerce.build</groupId>
@@ -9,13 +9,13 @@
     </parent>
 
     <artifactId>build-package</artifactId>
-    <packaging>jar</packaging>
+    <name>build-package</name><packaging>jar</packaging>
 
     <properties>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starters -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -33,7 +33,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- Database -->
+        
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -44,8 +44,8 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
 
-        <!-- Chenile Framework -->
-        <!-- Platform Management - ACTIVE -->
+        
+        
         <dependency>
             <groupId>com.handmade.ecommerce.platform</groupId>
             <artifactId>handmade-platform-service</artifactId>
@@ -57,154 +57,154 @@
             <version>${revision}</version>
         </dependency>
         
-        <!-- Event Management - ACTIVE -->
+        
         <dependency>
             <groupId>com.handmade.ecommerce.event</groupId>
             <artifactId>invm-event-starter</artifactId>
             <version>${revision}</version>
         </dependency>
 
-        <!-- COMMENTED OUT - All other modules -->
-<!--        &lt;!&ndash; Core Domain Services &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.user</groupId>-->
-<!--            <artifactId>user-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.customer</groupId>-->
-<!--            <artifactId>customer-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.product</groupId>-->
-<!--            <artifactId>product-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.variant</groupId>-->
-<!--            <artifactId>variant-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.inventory</groupId>-->
-<!--            <artifactId>inventory-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.order</groupId>-->
-<!--            <artifactId>order-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.orderline</groupId>-->
-<!--            <artifactId>orderline-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.payment</groupId>-->
-<!--            <artifactId>payment-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.cart</groupId>-->
-<!--            <artifactId>cart-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+        
 
-<!--        &lt;!&ndash; Seller & Artisan Management &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.seller</groupId>-->
-<!--            <artifactId>seller-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.artisan</groupId>-->
-<!--            <artifactId>artisan-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Pricing & Promotions &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.price</groupId>-->
-<!--            <artifactId>price-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.promotion</groupId>-->
-<!--            <artifactId>promotion-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Shipping & Fulfillment &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.shipping</groupId>-->
-<!--            <artifactId>shipping-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Reviews & Ratings &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.review</groupId>-->
-<!--            <artifactId>review-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Multi-tenancy &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.tenant</groupId>-->
-<!--            <artifactId>tenant-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Newly Added Modules &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce</groupId>-->
-<!--            <artifactId>security-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce</groupId>-->
-<!--            <artifactId>commission-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.content</groupId>-->
-<!--            <artifactId>content-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.dispute</groupId>-->
-<!--            <artifactId>dispute-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.notification</groupId>-->
-<!--            <artifactId>notification-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.analytics</groupId>-->
-<!--            <artifactId>analytics-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.catalog</groupId>-->
-<!--            <artifactId>catalog-service</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
 
-<!--        &lt;!&ndash; Common Library &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce.common</groupId>-->
-<!--            <artifactId>common-api</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.handmade.ecommerce</groupId>-->
-<!--            <artifactId>storefront-api</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </dependencies>
 
     <build>

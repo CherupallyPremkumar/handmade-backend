@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-sellers
+      author: test
+      comment: Insert test data for seller_account
+      changes:
+        - insert:
+            tableName: seller_account
+            columns:
+              - column: {name: id, value: "SEL-001"}
+              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: email, value: "seller1@example.com"}
+              - column: {name: business_name, value: "Premium Leather Goods"}
+              - column: {name: verified, valueBoolean: true}
+              - column: {name: kyc_completed, valueBoolean: true}
+              - column: {name: suspended, valueBoolean: false}
+              - column: {name: deleted, valueBoolean: false}
+              - column: {name: can_create_listings, valueBoolean: true}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "seller-onboarding"}
+              - column: {name: created_at, valueDate: "2024-01-15T10:00:00"}
+        - insert:
+            tableName: seller_account
+            columns:
+              - column: {name: id, value: "SEL-002"}
+              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: email, value: "seller2@example.com"}
+              - column: {name: business_name, value: "Handmade Crafts Co"}
+              - column: {name: verified, valueBoolean: true}
+              - column: {name: kyc_completed, valueBoolean: true}
+              - column: {name: suspended, valueBoolean: false}
+              - column: {name: deleted, valueBoolean: false}
+              - column: {name: can_create_listings, valueBoolean: true}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "seller-onboarding"}
+              - column: {name: created_at, valueDate: "2024-01-16T10:00:00"}
+        - insert:
+            tableName: seller_account
+            columns:
+              - column: {name: id, value: "SEL-003"}
+              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: email, value: "seller3@example.com"}
+              - column: {name: business_name, value: "Artisan Goods"}
+              - column: {name: verified, valueBoolean: false}
+              - column: {name: kyc_completed, valueBoolean: false}
+              - column: {name: suspended, valueBoolean: false}
+              - column: {name: deleted, valueBoolean: false}
+              - column: {name: can_create_listings, valueBoolean: false}
+              - column: {name: state_id, value: "IDENTITY_VERIFICATION"}
+              - column: {name: flow_id, value: "seller-onboarding"}
+              - column: {name: created_at, valueDate: "2024-01-17T10:00:00"}
+        - insert:
+            tableName: seller_account
+            columns:
+              - column: {name: id, value: "SEL-004"}
+              - column: {name: platform_id, value: "PLATFORM_002"}
+              - column: {name: email, value: "seller4@example.com"}
+              - column: {name: business_name, value: "USA Crafts"}
+              - column: {name: verified, valueBoolean: true}
+              - column: {name: kyc_completed, valueBoolean: true}
+              - column: {name: suspended, valueBoolean: false}
+              - column: {name: deleted, valueBoolean: false}
+              - column: {name: can_create_listings, valueBoolean: true}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "seller-onboarding"}
+              - column: {name: created_at, valueDate: "2024-01-18T10:00:00"}

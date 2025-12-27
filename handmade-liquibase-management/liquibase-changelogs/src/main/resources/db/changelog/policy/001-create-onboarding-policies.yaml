@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: onboarding-policy
+      comment: Create onboarding_policies table
+      changes:
+        - createTable:
+            tableName: onboarding_policies
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: policy_version
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: country_code
+                  type: VARCHAR(2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: state_id
+                  type: VARCHAR(50)
+              - column:
+                  name: flow_id
+                  type: VARCHAR(50)
+              - column:
+                  name: effective_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deprecated_date
+                  type: DATE
+              - column:
+                  name: created_by
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approved_by
+                  type: VARCHAR(255)
+              - column:
+                  name: approved_at
+                  type: TIMESTAMP
+              - column:
+                  name: description
+                  type: TEXT

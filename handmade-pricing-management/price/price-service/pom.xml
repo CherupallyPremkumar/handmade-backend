@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.pricing</groupId>
@@ -12,7 +11,7 @@
 	<artifactId>pricing-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Price Service Implementations</name>
+	<name>pricing-service</name>
 
 	<dependencies>
 		<dependency>
@@ -32,7 +31,7 @@
             <groupId>org.chenile</groupId>
             <artifactId>chenile-security-api</artifactId>
         </dependency>
-        <!-- Test dependencies for security -->
+        
         <dependency>
             <groupId>org.chenile</groupId>
             <artifactId>cucumber-sec-utils</artifactId>
@@ -72,10 +71,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Rules Module -->
+        
         <dependency>
             <groupId>com.handmade.ecommerce.rules</groupId>
-            <artifactId>rules-service</artifactId>
+            <artifactId>handmade-rules-service</artifactId>
             <version>${revision}</version>
         </dependency>
 

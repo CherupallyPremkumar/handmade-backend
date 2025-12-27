@@ -9,8 +9,9 @@
   </parent>
   <groupId>com.handmade.ecommerce</groupId>
   <artifactId>handmade-parent</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <name>handmade-parent</name>
   <licenses>
     <license>
       <name>MIT License</name>
@@ -18,23 +19,10 @@
     </license>
   </licenses>
   <modules>
-    <module>handmade-artisan-management</module>
-    <module>handmade-cart-management</module>
-    <module>handmade-customer-management</module>
-    <module>handmade-dispute-management</module>
-    <module>handmade-fulfillment-management</module>
-    <module>handmade-inventory-management</module>
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
-    <module>handmade-onboarding-policy</module>
-    <module>handmade-commission-policy</module>
-    <module>handmade-payout-policy</module>
-    <module>handmade-compliance-policy</module>
-    <module>handmade-promotion-policy</module>
-    <module>handmade-kyc-verification</module>
-    <module>handmade-stripe-integration</module>
-    <module>handmade-seller-management</module>
-    <module>handmade-workflow-orchestrator</module>
+    <module>handmade-search-management</module>
+    <module>handmade-liquibase-management</module>
     <module>handmade-app-boot</module>
   </modules>
   <properties>

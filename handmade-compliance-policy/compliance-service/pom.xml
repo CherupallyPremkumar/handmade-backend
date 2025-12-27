@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,20 +8,20 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>compliance-service</artifactId>
-    <name>Compliance Service</name>
+    <artifactId>handmade-compliance-service</artifactId>
+    <name>handmade-compliance-service</name>
     <description>Compliance policy services and repositories</description>
 
     <dependencies>
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>compliance-domain</artifactId>
+            <artifactId>handmade-compliance-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>compliance-api</artifactId>
+            <artifactId>handmade-compliance-api</artifactId>
             <version>${revision}</version>
         </dependency>
 

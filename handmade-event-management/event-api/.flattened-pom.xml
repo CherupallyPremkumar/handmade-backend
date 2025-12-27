@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.handmade.ecommerce.event</groupId>
     <artifactId>handmade-event-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.handmade.ecommerce.event</groupId>
   <artifactId>handmade-event-api</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Event API</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>handmade-event-api</name>
   <description>Event Publisher interface</description>
   <licenses>
     <license>

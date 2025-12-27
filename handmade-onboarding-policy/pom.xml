@@ -11,16 +11,48 @@
         <version>${revision}</version>
     </parent>
 
+
+    <groupId>com.handmade.ecommerce.policy</groupId>
     <artifactId>handmade-onboarding-policy</artifactId>
     <packaging>pom</packaging>
-    <name>Onboarding Policy Management</name>
+    <name>handmade-onboarding-policy</name>
     <description>Onboarding policy management for multi-country seller onboarding</description>
 
     <modules>
-        <module>policy-domain</module>
-        <module>policy-api</module>
-        <module>policy-service</module>
-        <module>policy-delegator</module>
-        <module>policy-async</module>
+        <module>onboarding-domain</module>
+        <module>onboarding-api</module>
+        <module>onboarding-service</module>
+        <module>onboarding-delegator</module>
+        <module>onboarding-async</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.handmade.ecommerce.onboarding</groupId>
+                <artifactId>handmade-onboarding-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.onboarding</groupId>
+                <artifactId>handmade-onboarding-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.onboarding</groupId>
+                <artifactId>handmade-onboarding-service</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.onboarding</groupId>
+                <artifactId>handmade-onboarding-delegator</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.onboarding</groupId>
+                <artifactId>handmade-onboarding-async</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

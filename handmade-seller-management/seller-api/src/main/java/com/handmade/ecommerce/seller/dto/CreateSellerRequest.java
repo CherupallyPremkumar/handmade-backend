@@ -8,6 +8,8 @@ public class CreateSellerRequest {
     private String sellerName;
     private String email;
     private String businessName;
+    private String countryCode;
+    private com.handmade.ecommerce.seller.domain.enums.SellerType sellerType;
     private String taxId;
     private String bankAccountNumber;
     private String ifscCode;
@@ -77,5 +79,21 @@ public class CreateSellerRequest {
 
     public void setKycDocumentId(String kycDocumentId) {
         this.kycDocumentId = kycDocumentId;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public com.handmade.ecommerce.seller.domain.enums.SellerType getSellerType() {
+        return sellerType;
+    }
+
+    public void setSellerType(com.handmade.ecommerce.seller.domain.enums.SellerType sellerType) {
+        this.sellerType = sellerType;
     }
 }

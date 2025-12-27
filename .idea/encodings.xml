@@ -6,8 +6,10 @@
     <file url="file://$PROJECT_DIR$/analytics-management/analytics-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/analytics-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/analytics-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/catalog-management/catalog-scheduler/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commission-management/commission-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commission-management/commission-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commission-management/src/main/java" charset="UTF-8" />
@@ -35,8 +37,18 @@
     <file url="file://$PROJECT_DIR$/handmade-app-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-app-boot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-app-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-artisan-management/artisan-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-artisan-management/artisan-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-artisan-management/artisan-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-artisan-management/artisan-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-artisan-management/artisan-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-artisan-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-artisan-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-cart-management/cart-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-cart-management/cart-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-cart-management/cart-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-cart-management/cart-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-cart-management/cart-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-cart-management/cart/cart-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-cart-management/cart/cart-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-cart-management/cart/src/main/java" charset="UTF-8" />
@@ -54,6 +66,8 @@
     <file url="file://$PROJECT_DIR$/handmade-catalog-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-catalog-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-commission-policy/commission-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-commission-policy/commission-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-commission-policy/commission-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-commission-policy/commission-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-commission-policy/commission-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-commission-policy/src/main/java" charset="UTF-8" />
@@ -67,30 +81,50 @@
     <file url="file://$PROJECT_DIR$/handmade-common-library/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-common-library/validation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-compliance-policy/compliance-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-compliance-policy/compliance-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-compliance-policy/compliance-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-compliance-policy/compliance-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-compliance-policy/compliance-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-compliance-policy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-compliance-policy/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-customer-management/customer-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-customer-management/customer-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-customer-management/customer-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-customer-management/customer-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-customer-management/customer-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-customer-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-customer-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-dispute-management/dispute-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-dispute-management/dispute-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-dispute-management/dispute-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-dispute-management/dispute-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-dispute-management/dispute-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-dispute-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-dispute-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/event-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/event-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/handmade-event-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-event-management/handmade-event-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/invm-event-starter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/q-based-event-starter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-event-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/fulfillment-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/fulfillment-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/fulfillment-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/fulfillment-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/fulfillment-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/shipping/shipping-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/shipping/shipping-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/shipping/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/shipping/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-fulfillment-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory/inventory-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory/inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-inventory-management/inventory/src/main/java" charset="UTF-8" />
@@ -106,10 +140,23 @@
     <file url="file://$PROJECT_DIR$/handmade-kyc-verification/kyc-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-kyc-verification/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-kyc-verification/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-liquibase-management/liquibase-changelogs/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-liquibase-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-liquibase-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-notification-management/notification-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-notification-management/notification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-notification-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-notification-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/handmade-onboarding-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/handmade-onboarding-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/handmade-onboarding-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/handmade-onboarding-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/handmade-onboarding-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/onboarding-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/onboarding-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/onboarding-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/onboarding-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/onboarding-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/policy-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/policy-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-onboarding-policy/policy-service/src/main/java" charset="UTF-8" />
@@ -184,12 +231,16 @@
     <file url="file://$PROJECT_DIR$/handmade-payment-management/wallet/wallet-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payment-management/wallet/wallet-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payout-policy/payout-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-payout-policy/payout-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-payout-policy/payout-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payout-policy/payout-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payout-policy/payout-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payout-policy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-payout-policy/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-async/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-delegate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-platform-management/platform-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-platform-management/src/main/java" charset="UTF-8" />
@@ -223,6 +274,8 @@
     <file url="file://$PROJECT_DIR$/handmade-product-management/variant/variant-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-product-management/variant/variant-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-promotion-policy/promotion-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-promotion-policy/promotion-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-promotion-policy/promotion-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-promotion-policy/promotion-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-promotion-policy/promotion-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-promotion-policy/src/main/java" charset="UTF-8" />
@@ -231,6 +284,8 @@
     <file url="file://$PROJECT_DIR$/handmade-review-management/review-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-review-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-review-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-search-management/handmade-elasticsearch-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-search-management/handmade-query-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-search-management/search-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-search-management/search-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-search-management/src/main/java" charset="UTF-8" />
@@ -239,8 +294,15 @@
     <file url="file://$PROJECT_DIR$/handmade-security-management/security-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-security-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-security-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/handmade-seller-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/handmade-seller-async/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/handmade-seller-delegator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/handmade-seller-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/handmade-seller-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-async/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-delegate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-delegator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-seller-management/seller-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/handmade-seller-management/src/main/java" charset="UTF-8" />
@@ -295,6 +357,9 @@
     <file url="file://$PROJECT_DIR$/orchestration/sellerorch/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orchestration/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/orchestrator/orchestrator-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/payment-executor/payment-executor-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-management/payment-executor/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-audit-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-management/platform-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-management/platform-application/src/main/java" charset="UTF-8" />
@@ -303,6 +368,7 @@
     <file url="file://$PROJECT_DIR$/platform-management/platform-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pricing-engine/price/pricing-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/promotion-management/coupon/coupon-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/promotion-management/coupon/coupon-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/promotion-management/coupon/src/main/java" charset="UTF-8" />

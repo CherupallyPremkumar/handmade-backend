@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,13 +9,13 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>payment-executor-api</artifactId>
+    <artifactId>handmade-payment-executor-api</artifactId>
     <packaging>jar</packaging>
-    <name>payment-executor-api</name>
+    <name>handmade-payment-executor-api</name>
     <description>Payment Executor API - Interface and models for PSP integration</description>
 
     <dependencies>
-        <!-- Spring Framework -->
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>

@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -15,7 +12,7 @@
     <groupId>com.handmade.ecommerce.risk</groupId>
     <artifactId>risk</artifactId>
     <packaging>pom</packaging>
-    <name>Risk Module</name>
+    <name>risk</name>
     <description>Risk assessment and fraud detection module</description>
 
     <modules>
@@ -27,12 +24,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.handmade.ecommerce</groupId>
-                <artifactId>risk-api</artifactId>
+                <artifactId>handmade-risk-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.handmade.ecommerce.risk</groupId>
-                <artifactId>risk-service</artifactId>
+                <artifactId>handmade-risk-service</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>

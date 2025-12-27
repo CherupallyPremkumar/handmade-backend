@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,24 +8,24 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>risk-service</artifactId>
-    <name>Risk Service</name>
+    <artifactId>handmade-risk-service</artifactId>
+    <name>handmade-risk-service</name>
     <description>Risk assessment service implementation</description>
 
     <dependencies>
-        <!-- Risk API -->
+        
         <dependency>
             <groupId>com.handmade.ecommerce.risk</groupId>
-            <artifactId>risk-api</artifactId>
+            <artifactId>handmade-risk-api</artifactId>
             <version>${revision}</version>
         </dependency>
-        <!-- Spring Boot -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Logging -->
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

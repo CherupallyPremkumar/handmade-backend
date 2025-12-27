@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,21 +8,21 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>shipping-core</artifactId>
+    <artifactId>handmade-shipping-core</artifactId>
     <packaging>jar</packaging>
-    <name>Shipping Core - Plugin Interfaces</name>
+    <name>handmade-shipping-core</name>
 
     <dependencies>
-        <!-- Spring Boot -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Shipping API (domain models) -->
+        
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>shipping-api</artifactId>
+            <artifactId>handmade-shipping-api</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

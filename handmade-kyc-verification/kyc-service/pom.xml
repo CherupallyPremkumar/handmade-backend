@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -13,43 +10,37 @@
     </parent>
 
     <artifactId>kyc-service</artifactId>
-    <name>KYC Verification Service</name>
+    <name>kyc-service</name>
     <description>KYC verification service implementations</description>
 
     <dependencies>
-        <!-- KYC API -->
+        
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
             <artifactId>kyc-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
-        <!-- Spring Boot -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Lombok -->
+        
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Logging -->
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- Optional: Stripe SDK (for Phase 2) -->
-        <!-- Uncomment when ready to implement Stripe Identity
-        <dependency>
-            <groupId>com.stripe</groupId>
-            <artifactId>stripe-java</artifactId>
-            <version>24.0.0</version>
-        </dependency>
-        -->
+        
+        
     </dependencies>
 </project>

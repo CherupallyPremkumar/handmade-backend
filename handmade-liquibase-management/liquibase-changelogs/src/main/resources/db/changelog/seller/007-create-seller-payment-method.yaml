@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: seller-management
+      comment: Create seller_payment_method table
+      changes:
+        - createTable:
+            tableName: seller_payment_method
+            columns:
+              # Base JPA Entity fields
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              
+              # Payment Method fields
+              - column: {name: payment_info_id, type: VARCHAR(36), constraints: {nullable: false}}
+              - column: {name: external_provider, type: VARCHAR(50)}
+              - column: {name: external_method_id, type: VARCHAR(100)}
+              - column: {name: last4, type: VARCHAR(4)}
+              - column: {name: account_holder_name, type: VARCHAR(100)}
+              - column: {name: bank_name, type: VARCHAR(100)}
+              - column: {name: account_number, type: VARCHAR(50)}
+              - column: {name: ifsc_code, type: VARCHAR(20)}
+              - column: {name: swift_code, type: VARCHAR(50)}
+              - column: {name: paypal_email, type: VARCHAR(100)}
+              - column: {name: stripe_account_id, type: VARCHAR(100)}
+              - column: {name: upi_id, type: VARCHAR(50)}
+              - column: {name: is_primary, type: BOOLEAN, defaultValueBoolean: false}
+              - column: {name: status, type: VARCHAR(30), defaultValue: "PENDING_VERIFICATION"}
+              - column: {name: added_at, type: TIMESTAMP, constraints: {nullable: false}}
+              - column: {name: updated_at, type: TIMESTAMP}
+        
+        - createIndex:
+            indexName: idx_payment_method_payment_info_id
+            tableName: seller_payment_method
+            columns:
+              - column: {name: payment_info_id}

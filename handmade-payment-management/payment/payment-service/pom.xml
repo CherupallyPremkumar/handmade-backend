@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.payment</groupId>
@@ -9,26 +8,26 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>payment-service</artifactId>
+	<artifactId>handmade-payment-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Payment Service Implementations</name>
+	<name>handmade-payment-service</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.handmade.ecommerce.payment</groupId>
-			<artifactId>payment-api</artifactId>
+			<artifactId>handmade-payment-api</artifactId>
 		</dependency>
-		<!-- Razorpay module dependency -->
+		
 		<dependency>
 			<groupId>com.handmade.ecommerce.razorpay</groupId>
-			<artifactId>razorpay-api</artifactId>
+			<artifactId>handmade-razorpay-api</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<!-- Stripe module dependency -->
+		
 		<dependency>
 			<groupId>com.handmade.ecommerce.stripe</groupId>
-			<artifactId>stripe-api</artifactId>
+			<artifactId>handmade-stripe-api</artifactId>
 			<version>${revision}</version>
 		</dependency>
 	
@@ -45,7 +44,7 @@
             <groupId>org.chenile</groupId>
             <artifactId>chenile-security-api</artifactId>
         </dependency>
-        <!-- Test dependencies for security -->
+        
         <dependency>
             <groupId>org.chenile</groupId>
             <artifactId>cucumber-sec-utils</artifactId>

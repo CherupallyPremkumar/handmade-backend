@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.razorpay</groupId>
@@ -10,10 +8,10 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>razorpay-api</artifactId>
+	<artifactId>handmade-razorpay-api</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Razorpay API Interfaces and Models</name>
+	<name>handmade-razorpay-api</name>
 
 	<dependencies>
 		<dependency>
@@ -24,10 +22,10 @@
 			<groupId>org.chenile</groupId>
 			<artifactId>jpa-utils</artifactId>
 		</dependency>
-		<!-- Payment API for common DTOs -->
+		
 		<dependency>
 			<groupId>com.handmade.ecommerce.payment</groupId>
-			<artifactId>payment-api</artifactId>
+			<artifactId>handmade-payment-api</artifactId>
 			<version>${revision}</version>
 		</dependency>
 	</dependencies>

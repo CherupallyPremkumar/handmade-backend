@@ -16,14 +16,15 @@
 		<artifactId>handmade-parent</artifactId>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+
 	<properties>
 		<seller.version>${revision}</seller.version>
 	</properties>
 	
 	<groupId>com.handmade.ecommerce.seller</groupId>
 	<version>${revision}</version>
-	<artifactId>seller-parent</artifactId>
-	<name>All Modules that belong to the Seller </name>
+	<artifactId>handmade-seller-parent</artifactId>
+	<name>handmade-seller-parent</name>
 	<description>Modules execution project and Parent Pom</description>
 
 	<dependencyManagement>
@@ -31,12 +32,22 @@
 		<dependency>
 			<groupId>com.handmade.ecommerce.seller</groupId>
 			<version>${revision}</version>
-			<artifactId>seller-service</artifactId>
+			<artifactId>handmade-seller-service</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.handmade.ecommerce.seller</groupId>
 			<version>${revision}</version>
-			<artifactId>seller-api</artifactId>
+			<artifactId>handmade-seller-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.seller</groupId>
+			<artifactId>handmade-seller-domain</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.handmade.ecommerce.seller</groupId>
+			<artifactId>handmade-seller-async</artifactId>
+			<version>${revision}</version>
 		</dependency>
 	</dependencies>
 	</dependencyManagement>

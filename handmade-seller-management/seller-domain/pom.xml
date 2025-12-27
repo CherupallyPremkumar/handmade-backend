@@ -4,12 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.seller</groupId>
-		<artifactId>seller-parent</artifactId>
+		<artifactId>handmade-seller-parent</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>seller-domain</artifactId>
-	<name>Seller Domain Model</name>
+	<artifactId>handmade-seller-domain</artifactId>
+    <packaging>jar</packaging>
+	<name>handmade-seller-domain</name>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -38,8 +39,6 @@
             <groupId>org.chenile</groupId>
             <artifactId>workflow-api</artifactId>
         </dependency>
-        
-        <!-- Event Management -->
         <dependency>
             <groupId>com.handmade.ecommerce.event</groupId>
             <artifactId>handmade-event-domain</artifactId>

@@ -14,7 +14,7 @@
     <artifactId>handmade-event-domain</artifactId>
     <packaging>jar</packaging>
 
-    <name>Event Domain</name>
+    <name>handmade-event-domain</name>
     <description>Domain event base classes</description>
 
 </project>

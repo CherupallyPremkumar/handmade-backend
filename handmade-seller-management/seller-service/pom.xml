@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.handmade.ecommerce.seller</groupId>
-		<artifactId>seller-parent</artifactId>
+		<artifactId>handmade-seller-parent</artifactId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
@@ -13,16 +13,14 @@
         <product.version>${revision}</product.version>
     </properties>
 
-
-    <artifactId>seller-service</artifactId>
+    <artifactId>handmade-seller-service</artifactId>
 	<packaging>jar</packaging>
-
-	<name>Seller Service Implementations</name>
+	<name>handmade-seller-service</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.handmade.ecommerce.seller</groupId>
-			<artifactId>seller-api</artifactId>
+			<artifactId>handmade-seller-api</artifactId>
 		</dependency>
         <dependency>
             <groupId>com.handmade.ecommerce.payment</groupId>
@@ -37,11 +35,14 @@
         </dependency>
 
         <!-- KYC Verification Service -->
+        <!-- TODO: Uncomment when KYC delegate ProxyBuilder import is fixed -->
+        <!--
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
+            <groupId>com.handmade.ecommerce.kyc</groupId>
             <artifactId>kyc-service</artifactId>
             <version>${revision}</version>
         </dependency>
+        -->
 	
 		<dependency>
 			<groupId>org.chenile</groupId>

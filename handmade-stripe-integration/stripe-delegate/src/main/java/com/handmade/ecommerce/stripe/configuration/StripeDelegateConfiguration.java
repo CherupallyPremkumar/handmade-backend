@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.stripe.configuration;
 
 import com.handmade.ecommerce.stripe.api.StripeTaxService;
-import org.chenile.http.api.ProxyBuilder;
+import org.chenile.proxy.ProxyBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
