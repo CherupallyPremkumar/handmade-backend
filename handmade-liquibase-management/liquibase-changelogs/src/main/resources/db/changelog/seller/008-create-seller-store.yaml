@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: seller-management
+      comment: Create seller_store table (Seller aggregate)
+      changes:
+        - createTable:
+            tableName: seller_store
+            columns:
+              # Base JPA Entity fields
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              
+              # State Machine fields
+              - column: {name: state_entry_time, type: TIMESTAMP}
+              - column: {name: sla_yellow_date, type: TIMESTAMP}
+              - column: {name: sla_red_date, type: TIMESTAMP}
+              - column: {name: sla_tending_late, type: INT, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: INT, defaultValueNumeric: 0}
+              - column: {name: flow_id, type: VARCHAR(50)}
+              - column: {name: state_id, type: VARCHAR(50)}
+              
+              # Seller Store fields
+              - column: {name: seller_account_id, type: VARCHAR(36), constraints: {nullable: false}}
+              - column: {name: seller_code, type: VARCHAR(50), constraints: {nullable: false, unique: true}}
+              - column: {name: seller_name, type: VARCHAR(100), constraints: {nullable: false}}
+              - column: {name: display_name, type: VARCHAR(100)}
+              - column: {name: url_path, type: VARCHAR(100), constraints: {nullable: false, unique: true}}
+              - column: {name: logo_url, type: VARCHAR(255)}
+              - column: {name: currency, type: VARCHAR(10), constraints: {nullable: false}}
+              - column: {name: locale, type: VARCHAR(10)}
+              - column: {name: timezone, type: VARCHAR(50)}
+              - column: {name: support_email, type: VARCHAR(100)}
+              - column: {name: support_phone, type: VARCHAR(20)}
+              - column: {name: contact_person, type: VARCHAR(100)}
+              - column: {name: contact_email, type: VARCHAR(100)}
+              - column: {name: contact_phone, type: VARCHAR(20)}
+              - column: {name: configuration_id, type: VARCHAR(36)}
+              - column: {name: business_type, type: VARCHAR(50)}
+              - column: {name: rating, type: DOUBLE}
+              - column: {name: created_at, type: TIMESTAMP}
+              - column: {name: updated_at, type: TIMESTAMP}
+        
+        - createIndex:
+            indexName: idx_seller_store_account_id
+            tableName: seller_store
+            columns:
+              - column: {name: seller_account_id}

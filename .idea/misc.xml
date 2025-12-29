@@ -12,6 +12,30 @@
         <option value="$PROJECT_DIR$/orchestration/pom.xml" />
         <option value="$PROJECT_DIR$/cart-management/pom.xml" />
         <option value="$PROJECT_DIR$/promotion-management/coupon/pom.xml" />
+        <option value="$PROJECT_DIR$/catalog-management/catalog-scheduler/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-infrastructure/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-delegate/pom.xml" />
+        <option value="$PROJECT_DIR$/platform-management/platform-service/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-delegate/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-api/pom.xml" />
+        <option value="$PROJECT_DIR$/seller-management/seller-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/seller-orchestration-api/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-workflow-orchestrator/seller-orchestration/seller-orchestration-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/seller-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/handmade-seller-async/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/handmade-seller-delegator/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/handmade-seller-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-policy/onboarding-api/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-policy/onboarding-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-policy/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-management/onboarding-identity/identity-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-app-core/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -20,6 +44,7 @@
         <option value="$PROJECT_DIR$/common-library/common/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/shipping-api/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-common-library/pom.xml" />
         <option value="$PROJECT_DIR$/messaging-management/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/price/price-api/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/pricing-core/pom.xml" />
@@ -29,7 +54,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

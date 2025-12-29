@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: seller-management
+      comment: Create hm_seller_configuration table
+      changes:
+        - createTable:
+            tableName: hm_seller_configuration
+            columns:
+              # Base JPA Entity fields
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              
+              # Configuration fields
+              - column: {name: seller_id, type: VARCHAR(36), constraints: {nullable: false}}
+              - column: {name: auto_approve_orders, type: BOOLEAN, defaultValueBoolean: false}
+              - column: {name: allow_cod, type: BOOLEAN, defaultValueBoolean: false}
+              - column: {name: return_window_days, type: INT, defaultValueNumeric: 7}
+              - column: {name: tax_inclusive_pricing, type: BOOLEAN, defaultValueBoolean: true}
+              - column: {name: default_warehouse_id, type: VARCHAR(50)}
+        
+        - createIndex:
+            indexName: idx_seller_config_seller_id
+            tableName: hm_seller_configuration
+            columns:
+              - column: {name: seller_id}

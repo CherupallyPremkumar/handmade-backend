@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-seller-tax-info
+      author: test
+      comment: Insert test data for seller tax information
+      changes:
+        - insert:
+            tableName: seller_tax_info
+            columns:
+              - column: {name: id, value: "tax-001"}
+              - column: {name: seller_id, value: "acc-001"}
+              - column: {name: company_name, value: "Pottery Studio LLC"}
+              - column: {name: company_type, value: "LLC"}
+              - column: {name: business_registration_number, value: "BR123456"}
+              - column: {name: pan_number, value: "ABCDE1234F"}
+              - column: {name: gst_number, value: "29ABCDE1234F1Z5"}
+              - column: {name: tax_country, value: "US"}
+              - column: {name: tax_state, value: "NY"}
+              - column: {name: address_line1, value: "123 Pottery Lane"}
+              - column: {name: city, value: "Brooklyn"}
+              - column: {name: postal_code, value: "11201"}
+              - column: {name: is_active, valueBoolean: true}
+              - column: {name: is_verified, valueBoolean: true}
+              - column: {name: verification_date, valueDate: "2024-01-11T10:00:00"}
+              - column: {name: created_time, valueDate: "2024-01-10T09:00:00"}
+              - column: {name: created_at, valueDate: "2024-01-10T09:00:00"}
+        
+        - insert:
+            tableName: seller_tax_info
+            columns:
+              - column: {name: id, value: "tax-002"}
+              - column: {name: seller_id, value: "acc-002"}
+              - column: {name: company_name, value: "Organic Soap Co"}
+              - column: {name: company_type, value: "Corporation"}
+              - column: {name: business_registration_number, value: "BR789012"}
+              - column: {name: pan_number, value: "XYZAB5678C"}
+              - column: {name: tax_country, value: "US"}
+              - column: {name: tax_state, value: "CA"}
+              - column: {name: address_line1, value: "456 Soap Street"}
+              - column: {name: city, value: "Los Angeles"}
+              - column: {name: postal_code, value: "90001"}
+              - column: {name: is_active, valueBoolean: true}
+              - column: {name: is_verified, valueBoolean: true}
+              - column: {name: verification_date, valueDate: "2024-01-13T15:30:00"}
+              - column: {name: created_time, valueDate: "2024-01-12T11:30:00"}
+              - column: {name: created_at, valueDate: "2024-01-12T11:30:00"}

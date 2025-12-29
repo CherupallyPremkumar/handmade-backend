@@ -1,0 +1,264 @@
+@startuml platform-domain-model
+
+' Platform Management Domain Model - Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+package "Platform Management - Domain Model" {
+
+    ' Aggregate Root
+    class PlatformOwner <<Aggregate Root>> {
+        - id: String
+        - name: String
+        - tenant: String
+        - createdTime: LocalDateTime
+        - lastModifiedTime: LocalDateTime
+        - version: Long
+        
+        ' State Machine Fields
+        - stateId: String
+        - flowId: String
+        - stateEntryTime: LocalDateTime
+        - slaYellowDate: LocalDateTime
+        - slaRedDate: LocalDateTime
+        
+        ' Status Flags
+        - suspended: boolean
+        - suspensionReason: String
+        - deleted: boolean
+        - deletedAt: LocalDateTime
+        - deletedBy: String
+        
+        ' Configuration References
+        - activeCommissionPolicyId: String
+        - activeFeatureConfigId: String
+        
+        ' Embedded Value Objects
+        - brandIdentity: BrandIdentity
+        - corporateIdentity: CorporateIdentity
+        - localizationPolicy: LocalizationPolicy
+        - complianceMandate: ComplianceMandate
+        - operationalLimits: OperationalLimits
+        
+        ' Domain Methods
+        + create(name, configs): PlatformOwner
+        + activate(actorId): void
+        + suspend(reason, actorId): void
+        + reactivate(actorId): void
+        + delete(reason, actorId): void
+        + updateBrandIdentity(brand): void
+        + updateCorporateIdentity(corporate): void
+        + reviseCommission(policyId, effectiveFrom): void
+        + updateFeatureConfig(configId): void
+        + updateOperationalLimits(limits): void
+    }
+    
+    ' Value Objects
+    class BrandIdentity <<Value Object>> {
+        - primaryColorHex: String
+        - logoUrl: String
+        - faviconUrl: String
+        
+        + validate(): boolean
+        + equals(other): boolean
+    }
+    
+    class CorporateIdentity <<Value Object>> {
+        - legalBusinessName: String
+        - taxRegistrationId: String
+        - registeredAddress: String
+        - supportEmail: String
+        - supportPhoneNumber: String
+        
+        + validate(): boolean
+        + equals(other): boolean
+    }
+    
+    class LocalizationPolicy <<Value Object>> {
+        - primaryCurrency: String
+        - supportedCurrencies: List<String>
+        - timezone: String
+        - defaultLanguage: String
+        - supportedLanguages: List<String>
+        
+        + validate(): boolean
+        + equals(other): boolean
+    }
+    
+    class ComplianceMandate <<Value Object>> {
+        - requiresSellerKYC: boolean
+        - requiresTaxId: boolean
+        - allowedJurisdictions: List<String>
+        
+        + validate(): boolean
+        + isJurisdictionAllowed(jurisdiction): boolean
+    }
+    
+    class OperationalLimits <<Value Object>> {
+        - maxSellersPerDay: int
+        - maxTransactionAmount: BigDecimal
+        - globalRateLimit: int
+        
+        + validate(): boolean
+        + isWithinLimits(value): boolean
+    }
+    
+    ' Entities
+    class CommissionPolicy <<Entity>> {
+        - id: String
+        - policyName: String
+        - isActive: boolean
+        - effectiveFrom: LocalDateTime
+        - effectiveTo: LocalDateTime
+        - tenant: String
+        
+        ' Commission Rates
+        - baseCommissionRate: BigDecimal
+        - processingFeeRate: BigDecimal
+        - artisanRate: BigDecimal
+        - homeMakerRate: BigDecimal
+        - smallBusinessRate: BigDecimal
+        - enterpriseRate: BigDecimal
+        
+        ' Volume Discounts
+        - highVolumeThreshold: BigDecimal
+        - highVolumeDiscount: BigDecimal
+        
+        + calculateCommission(amount, sellerType): BigDecimal
+        + isActiveAt(date): boolean
+        + activate(): void
+        + deactivate(): void
+    }
+    
+    class FeatureConfiguration <<Entity>> {
+        - id: String
+        - platformId: String
+        - tenant: String
+        - updatedAt: LocalDateTime
+        
+        ' Feature Flags
+        - isSellerRegistrationOpen: boolean
+        - isCheckoutEnabled: boolean
+        - isGuestCheckoutAllowed: boolean
+        
+        ' Extensible Config
+        - configJson: String
+        
+        + toggleFeature(featureKey, enabled): void
+        + isFeatureEnabled(featureKey): boolean
+    }
+    
+    class PlatformAuditLog <<Entity>> {
+        - id: String
+        - platformId: String
+        - eventType: String
+        - occurredAt: LocalDateTime
+        - actorId: String
+        - ipAddress: String
+        - payloadJson: String
+        - tenant: String
+        
+        + create(event): PlatformAuditLog
+    }
+    
+    ' State Metadata
+    class StateMetadata <<Value Object>> {
+        - stateId: String
+        - flowId: String
+        - entryTime: LocalDateTime
+        
+        + getCurrentState(): String
+    }
+    
+    ' Relationships
+    PlatformOwner *-- "1" BrandIdentity : contains
+    PlatformOwner *-- "1" CorporateIdentity : contains
+    PlatformOwner *-- "1" LocalizationPolicy : contains
+    PlatformOwner *-- "1" ComplianceMandate : contains
+    PlatformOwner *-- "1" OperationalLimits : contains
+    PlatformOwner *-- "1" StateMetadata : has
+    
+    PlatformOwner --> "0..1" CommissionPolicy : references
+    PlatformOwner --> "0..1" FeatureConfiguration : references
+    PlatformOwner "1" -- "0..*" PlatformAuditLog : generates
+    
+    ' Domain Services
+    class PlatformManager <<Domain Service>> {
+        + createPlatform(command): PlatformOwner
+        + getPlatform(id): PlatformOwner
+        + activate(id, payload): PlatformOwner
+        + suspend(id, payload): PlatformOwner
+        + reactivate(id, payload): PlatformOwner
+        + delete(id, payload): PlatformOwner
+    }
+    
+    class CommissionService <<Domain Service>> {
+        + getActivePolicy(platformId): CommissionPolicy
+        + getAllPolicies(): List<CommissionPolicy>
+        + createPolicy(policy): CommissionPolicy
+        + activatePolicy(policyId): void
+    }
+    
+    PlatformManager ..> PlatformOwner : manages
+    CommissionService ..> CommissionPolicy : manages
+}
+
+' Repositories
+package "Infrastructure" {
+    interface PlatformRepository {
+        + save(platform): PlatformOwner
+        + findById(id): Optional<PlatformOwner>
+        + findByTenant(tenant): List<PlatformOwner>
+        + delete(platform): void
+    }
+    
+    interface CommissionPolicyRepository {
+        + save(policy): CommissionPolicy
+        + findById(id): Optional<CommissionPolicy>
+        + findActivePolicy(): Optional<CommissionPolicy>
+    }
+    
+    interface FeatureConfigRepository {
+        + save(config): FeatureConfiguration
+        + findByPlatformId(platformId): Optional<FeatureConfiguration>
+    }
+    
+    interface AuditLogRepository {
+        + save(log): PlatformAuditLog
+        + findByPlatformId(platformId): List<PlatformAuditLog>
+    }
+}
+
+PlatformRepository ..> PlatformOwner
+CommissionPolicyRepository ..> CommissionPolicy
+FeatureConfigRepository ..> FeatureConfiguration
+AuditLogRepository ..> PlatformAuditLog
+
+' Notes
+note right of PlatformOwner
+  **Aggregate Root**
+  - Maintains consistency boundary
+  - All modifications through this root
+  - Publishes domain events
+  - Uses Chenile State Machine
+end note
+
+note right of CommissionPolicy
+  **Entity**
+  - Independent lifecycle
+  - Multiple policies can exist
+  - Only one active at a time
+  - Time-bound activation
+end note
+
+note right of BrandIdentity
+  **Value Object**
+  - Immutable
+  - No identity
+  - Equality by value
+  - Part of aggregate
+end note
+
+@enduml

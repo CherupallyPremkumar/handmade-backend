@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: onboarding-policy
+      comment: Create onboarding_policy_rules table
+      changes:
+        - createTable:
+            tableName: onboarding_policy_rules
+            columns:
+              # Base JPA Entity fields
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              
+              # Policy Rule fields
+              - column: {name: policy_id, type: VARCHAR(255), constraints: {nullable: false}}
+              - column: {name: step_name, type: VARCHAR(100), constraints: {nullable: false}}
+              - column: {name: step_order, type: INT, constraints: {nullable: false}}
+              - column: {name: provider_name, type: VARCHAR(100)}
+              - column: {name: max_retries, type: INT}
+              - column: {name: sla_hours, type: INT}
+              - column: {name: configuration_json, type: TEXT}
+        
+        - addUniqueConstraint:
+            tableName: onboarding_policy_rules
+            columnNames: policy_id, step_name
+            constraintName: uk_policy_step_name
+        
+        - createIndex:
+            indexName: idx_policy_steps
+            tableName: onboarding_policy_rules
+            columns:
+              - column: {name: policy_id}
+              - column: {name: step_order}

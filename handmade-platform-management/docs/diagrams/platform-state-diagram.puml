@@ -1,0 +1,208 @@
+@startuml platform-state-machine
+
+' Platform Management State Machine Diagram
+
+skinparam state {
+    BackgroundColor<<DRAFT>> LightYellow
+    BackgroundColor<<ACTIVE>> LightGreen
+    BackgroundColor<<SUSPENDED>> Orange
+    BackgroundColor<<DELETED>> LightGray
+    BorderColor Black
+    FontStyle bold
+}
+
+skinparam note {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+}
+
+title Platform Lifecycle State Machine
+
+[*] --> DRAFT : create()
+
+state DRAFT <<DRAFT>> {
+    DRAFT : **Initial State**
+    DRAFT : Platform created but not active
+    DRAFT : --
+    DRAFT : **Allowed Actions:**
+    DRAFT : • activate
+    DRAFT : • updateBrandIdentity
+    DRAFT : • updateCorporateIdentity
+    DRAFT : • updateLocalization
+}
+
+state ACTIVE <<ACTIVE>> {
+    ACTIVE : **Operational State**
+    ACTIVE : Platform is live and accepting sellers
+    ACTIVE : --
+    ACTIVE : **Allowed Actions:**
+    ACTIVE : • suspend
+    ACTIVE : • updateBrandIdentity
+    ACTIVE : • updateCorporateIdentity
+    ACTIVE : • reviseCommission
+    ACTIVE : • updateFeatureConfig
+    ACTIVE : • updateOperationalLimits
+    ACTIVE : • publishLegalTerms
+    ACTIVE : • enterMaintenance
+}
+
+state SUSPENDED <<SUSPENDED>> {
+    SUSPENDED : **Paused State**
+    SUSPENDED : Platform temporarily unavailable
+    SUSPENDED : Existing sellers can operate
+    SUSPENDED : --
+    SUSPENDED : **Allowed Actions:**
+    SUSPENDED : • reactivate
+    SUSPENDED : • delete
+    SUSPENDED : • updateBrandIdentity
+    SUSPENDED : • updateCorporateIdentity
+    SUSPENDED : • reviseCommission
+    SUSPENDED : • updateFeatureConfig
+}
+
+state DELETED <<DELETED>> {
+    DELETED : **Terminal State**
+    DELETED : Platform soft deleted
+    DELETED : Recoverable within retention period
+    DELETED : --
+    DELETED : **No actions allowed**
+}
+
+' State Transitions
+DRAFT --> ACTIVE : activate\n[all configs valid]
+
+ACTIVE --> SUSPENDED : suspend\n[reason required]
+
+SUSPENDED --> ACTIVE : reactivate\n[actor authorized]
+
+SUSPENDED --> DELETED : delete\n[reason required]
+
+DELETED --> [*]
+
+' Guard Conditions
+note right of DRAFT
+  **Entry Conditions:**
+  • Platform name provided
+  • Corporate identity set
+  • Localization configured
+  
+  **Auto-behaviors:**
+  • Generate platform ID
+  • Set default configs
+  • Initialize state machine
+end note
+
+note right of ACTIVE
+  **Entry Conditions:**
+  • Commission policy assigned
+  • Feature config created
+  • Compliance rules set
+  
+  **Auto-behaviors:**
+  • Publish PLATFORM_ACTIVATED event
+  • Enable seller registration
+  • Start SLA tracking
+end note
+
+note right of SUSPENDED
+  **Entry Conditions:**
+  • Suspension reason provided
+  • Actor identified
+  
+  **Auto-behaviors:**
+  • Publish PLATFORM_SUSPENDED event
+  • Block new registrations
+  • Log suspension reason
+  • Record suspension timestamp
+end note
+
+note right of DELETED
+  **Entry Conditions:**
+  • Platform must be SUSPENDED
+  • Deletion reason provided
+  • Actor authorized
+  
+  **Auto-behaviors:**
+  • Publish PLATFORM_DELETED event
+  • Set deleted flag
+  • Record deletion timestamp
+  • Preserve audit trail
+end note
+
+' Action Guards
+note bottom of ACTIVE
+  **Transition Guards:**
+  
+  **suspend:**
+  • Must be in ACTIVE state
+  • Reason string (max 500 chars)
+  • Actor has ADMIN role
+  
+  **updateFeatureConfig:**
+  • Platform is ACTIVE or SUSPENDED
+  • Valid feature flags
+  • No conflicting settings
+end note
+
+note bottom of SUSPENDED
+  **Transition Guards:**
+  
+  **reactivate:**
+  • Must be in SUSPENDED state
+  • Suspension resolved
+  • Actor has ADMIN role
+  
+  **delete:**
+  • Must be in SUSPENDED state
+  • Reason string required
+  • Actor has SUPER_ADMIN role
+  • No active sellers (optional)
+end note
+
+' Events Published
+note left of DRAFT
+  **Events on Entry:**
+  PLATFORM_CREATED
+  
+  **Contains:**
+  • platformId
+  • name
+  • createdBy
+  • timestamp
+end note
+
+note left of ACTIVE
+  **Events on Entry:**
+  PLATFORM_ACTIVATED
+  
+  **Contains:**
+  • platformId
+  • activatedBy
+  • activeCommissionPolicyId
+  • activeFeatureConfigId
+  • timestamp
+end note
+
+note left of SUSPENDED
+  **Events on Entry:**
+  PLATFORM_SUSPENDED
+  
+  **Contains:**
+  • platformId
+  • reason
+  • suspendedBy
+  • timestamp
+end note
+
+note left of DELETED
+  **Events on Entry:**
+  PLATFORM_DELETED
+  
+  **Contains:**
+  • platformId
+  • reason
+  • deletedBy
+  • timestamp
+end note
+
+@enduml

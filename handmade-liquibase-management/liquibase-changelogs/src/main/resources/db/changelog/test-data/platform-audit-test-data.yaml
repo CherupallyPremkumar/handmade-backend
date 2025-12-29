@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-platform-audit
+      author: test
+      comment: Insert test data for platform audit logs
+      changes:
+        - insert:
+            tableName: hm_platform_audit_log
+            columns:
+              - column: {name: id, value: "audit-001"}
+              - column: {name: platform_id, value: "plat-001"}
+              - column: {name: event_type, value: "COMMISSION_UPDATED"}
+              - column: {name: payload_json, value: '{"old_rate": 0.05, "new_rate": 0.06}'}
+              - column: {name: actor_id, value: "admin-001"}
+              - column: {name: ip_address, value: "192.168.1.100"}
+              - column: {name: occurred_at, valueDate: "2024-01-15T10:30:00"}
+              - column: {name: created_time, valueDate: "2024-01-15T10:30:00"}
+        
+        - insert:
+            tableName: hm_platform_audit_log
+            columns:
+              - column: {name: id, value: "audit-002"}
+              - column: {name: platform_id, value: "plat-002"}
+              - column: {name: event_type, value: "PLATFORM_ACTIVATED"}
+              - column: {name: payload_json, value: '{"status": "ACTIVE"}'}
+              - column: {name: actor_id, value: "admin-002"}
+              - column: {name: ip_address, value: "192.168.1.101"}
+              - column: {name: occurred_at, valueDate: "2024-01-16T14:20:00"}
+              - column: {name: created_time, valueDate: "2024-01-16T14:20:00"}

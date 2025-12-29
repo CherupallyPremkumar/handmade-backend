@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Seller Store State Machine - Based on Amazon Storefront Operations
+States include: Setup, Product Approval, Active, Vacation Mode, Restricted
+-->
+<states>
+    <flow id='SELLER_STORE_FLOW' default="true">
+        
+        <!-- SETUP: Store being configured (tax, payment, branding) -->
+        <manual-state id='SETUP' initialState="true">
+            <on eventId="completeSetup" newStateId="PENDING_FIRST_LISTING"/>
+            <on eventId="delete" newStateId='DELETED'/>
+        </manual-state>
+
+        <!-- PENDING_FIRST_LISTING: Awaiting first product submission -->
+        <manual-state id='PENDING_FIRST_LISTING'>
+            <on eventId="submitFirstProduct" newStateId="FIRST_PRODUCT_REVIEW"/>
+        </manual-state>
+
+        <!-- FIRST_PRODUCT_REVIEW: First product under review -->
+        <manual-state id='FIRST_PRODUCT_REVIEW'>
+            <on eventId="approveFirstProduct" newStateId="ACTIVE"/>
+            <on eventId="rejectFirstProduct" newStateId="PENDING_FIRST_LISTING"/>
+        </manual-state>
+
+        <!-- ACTIVE: Store is live, accepting orders -->
+        <manual-state id="ACTIVE">
+            <!-- State transitions -->
+            <on eventId="enableVacationMode" newStateId="VACATION_MODE"/>
+            <on eventId="pauseListings" newStateId="PAUSED"/>
+            <on eventId="restrictCategories" newStateId="RESTRICTED"/>
+            <on eventId="closeStore" newStateId="CLOSED"/>
+            
+            <!-- Self-transitions for store updates -->
+            <on eventId="updateStorefront"/>
+            <on eventId="addTaxInfo"/>
+            <on eventId="updateTaxInfo"/>
+            <on eventId="addPaymentMethod"/>
+            <on eventId="updatePaymentMethod"/>
+            <on eventId="updateConfiguration"/>
+        </manual-state>
+
+        <!-- VACATION_MODE: Seller on vacation, listings hidden -->
+        <manual-state id='VACATION_MODE'>
+            <on eventId="disableVacationMode" newStateId="ACTIVE"/>
+            <on eventId="closeStore" newStateId="CLOSED"/>
+        </manual-state>
+
+        <!-- PAUSED: Temporarily not accepting new orders -->
+        <manual-state id='PAUSED'>
+            <on eventId="resumeListings" newStateId="ACTIVE"/>
+            <on eventId="closeStore" newStateId="CLOSED"/>
+        </manual-state>
+
+        <!-- RESTRICTED: Some categories restricted due to policy violations -->
+        <manual-state id='RESTRICTED'>
+            <on eventId="resolveRestrictions" newStateId="ACTIVE"/>
+            <on eventId="closeStore" newStateId="CLOSED"/>
+            
+            <!-- Self-transitions -->
+            <on eventId="removeRestrictedProducts"/>
+        </manual-state>
+
+        <!-- CLOSED: Store permanently closed -->
+        <manual-state id="CLOSED"/>
+
+        <!-- DELETED: Setup deleted before completion -->
+        <manual-state id="DELETED"/>
+    </flow>
+</states>

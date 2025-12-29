@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+
+    <groupId>com.handmade.ecommerce.policy</groupId>
+    <artifactId>handmade-onboarding-policy</artifactId>
+    <packaging>pom</packaging>
+    <name>handmade-onboarding-policy</name>
+    <description>Onboarding policy management for multi-country seller onboarding</description>
+
+    <modules>
+        <module>onboarding-domain</module>
+        <module>onboarding-api</module>
+        <module>onboarding-service</module>
+        <module>onboarding-delegator</module>
+        <module>onboarding-async</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-service</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-delegator</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-async</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

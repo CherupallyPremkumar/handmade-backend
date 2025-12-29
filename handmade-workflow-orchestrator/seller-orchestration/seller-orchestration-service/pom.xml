@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.handmade.ecommerce.orchestration</groupId>
+        <artifactId>seller-orchestration</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>handmade-seller-orchestration-service</artifactId>
+    <packaging>jar</packaging>
+    <name>handmade-seller-orchestration-service</name>
+    <description>Implementation of seller workflows</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.handmade.ecommerce.orchestration</groupId>
+            <artifactId>handmade-seller-orchestration-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>handmade-seller-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.onboarding</groupId>
+            <artifactId>handmade-onboarding-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.onboarding</groupId>
+            <artifactId>handmade-onboarding-identity-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.onboarding</groupId>
+            <artifactId>handmade-onboarding-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>handmade-event-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>handmade-event-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>handmade-seller-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>owiz</artifactId>
+            <version>2.0.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-http</artifactId>
+            <version>2.0.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-core</artifactId>
+            <version>2.0.35</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>

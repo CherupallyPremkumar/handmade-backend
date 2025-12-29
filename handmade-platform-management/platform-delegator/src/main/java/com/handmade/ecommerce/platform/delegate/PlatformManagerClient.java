@@ -1,0 +1,37 @@
+package com.handmade.ecommerce.platform.delegate;
+
+import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
+import com.handmade.ecommerce.platform.dto.*;
+import com.handmade.ecommerce.policy.ResolvedOnboardingPolicyView;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+/**
+ * Business Delegate for Platform Management
+ * Allows remote calls to the Platform Manager service
+ * Following the same delegation pattern as Chenile Process Management
+ */
+public interface PlatformManagerClient {
+
+    // Platform Lifecycle Operations
+    PlatformOwner createPlatform(PlatformOwner platform);
+
+    PlatformOwner activatePlatform(String id, ActivatePlatformPayload payload);
+
+    PlatformOwner suspendPlatform(String id, SuspendPlatformPayload payload);
+
+    PlatformOwner reactivatePlatform(String id, ReactivatePlatformPayload payload);
+
+    PlatformOwner deletePlatform(String id, DeletePlatformPayload payload);
+
+    // Generic Event Processing
+    PlatformOwner process(String id, String event, Object payload);
+
+    // Query Operations
+    PlatformOwner getPlatform(String id);
+
+    Optional<ResolvedOnboardingPolicyView> resolveOnboardingPolicy(String country, SellerType sellerType,
+            LocalDate effectiveDate);
+}

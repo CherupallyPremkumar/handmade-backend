@@ -1,0 +1,238 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.handmade.ecommerce.build:build-package >-------------
+[INFO] Building build-package 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.4:run (default-cli) > test-compile @ build-package >>>
+[WARNING] 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.20.0-GA during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (prepare-agent) @ build-package ---
+[INFO] argLine set to -javaagent:/Users/premkumar/.m2/repository/org/jacoco/org.jacoco.agent/0.8.11/org.jacoco.agent-0.8.11-runtime.jar=destfile=/Users/premkumar/Desktop/handmade/handmade-app-boot/build-package/target/jacoco.exec,excludes=**/*Driver*:java*/**:**/ietf/**:sun/**:jdk/**
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ build-package ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- flatten:1.1.0:flatten (flatten) @ build-package ---
+[INFO] Generating flattened POM of project com.handmade.ecommerce.build:build-package:jar:0.0.1-SNAPSHOT...
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ build-package ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ build-package ---
+[INFO] skip non existing resourceDirectory /Users/premkumar/Desktop/handmade/handmade-app-boot/build-package/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ build-package ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.4:run (default-cli) < test-compile @ build-package <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.4:run (default-cli) @ build-package ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2025-12-27 04:52:11 - Starting HandMadeApplication using Java 17.0.12 with PID 84996 (/Users/premkumar/Desktop/handmade/handmade-app-boot/build-package/target/classes started by premkumar in /Users/premkumar/Desktop/handmade/handmade-app-boot/build-package)
+2025-12-27 04:52:11 - No active profile set, falling back to 1 default profile: "default"
+2025-12-27 04:52:11 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-27 04:52:11 - Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2025-12-27 04:52:11 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-27 04:52:11 - Finished Spring Data repository scanning in 15 ms. Found 6 JPA repository interfaces.
+2025-12-27 04:52:11 - No MyBatis mapper was found in '[com.handmade.ecommerce.build]' package. Please check your configuration.
+2025-12-27 04:52:12 - Tomcat initialized with port 8080 (http)
+2025-12-27 04:52:12 - Starting service [Tomcat]
+2025-12-27 04:52:12 - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-12-27 04:52:12 - Initializing Spring embedded WebApplicationContext
+2025-12-27 04:52:12 - Root WebApplicationContext: initialization completed in 587 ms
+2025-12-27 04:52:12 - Set default schema name to PUBLIC
+2025-12-27 04:52:12 - Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2025-12-27 04:52:12 - Reading from PUBLIC.DATABASECHANGELOG
+2025-12-27 04:52:12 - Successfully acquired change log lock
+2025-12-27 04:52:12 - Using deploymentId: 6832732657
+2025-12-27 04:52:12 - Reading from PUBLIC.DATABASECHANGELOG
+Running Changeset: db/changelog/platform/001-create-platform-owner.yaml::1::platform-management
+2025-12-27 04:52:12 - Table platform_owner created
+2025-12-27 04:52:12 - ChangeSet db/changelog/platform/001-create-platform-owner.yaml::1::platform-management ran successfully in 2ms
+Running Changeset: db/changelog/platform/002-create-platform-audit-log.yaml::2::platform-management
+2025-12-27 04:52:12 - Table hm_platform_audit_log created
+2025-12-27 04:52:12 - Index idx_platform_audit_platform_id created
+2025-12-27 04:52:12 - Index idx_platform_audit_occurred_at created
+2025-12-27 04:52:12 - ChangeSet db/changelog/platform/002-create-platform-audit-log.yaml::2::platform-management ran successfully in 2ms
+Running Changeset: db/changelog/platform/003-create-platform-activity-log.yaml::3::platform-management
+2025-12-27 04:52:12 - Table hm_platform_activity_log created
+2025-12-27 04:52:12 - ChangeSet db/changelog/platform/003-create-platform-activity-log.yaml::3::platform-management ran successfully in 1ms
+Running Changeset: db/changelog/platform/004-create-platform-feature-config.yaml::4::platform-management
+2025-12-27 04:52:12 - Table hm_platform_feature_config created
+2025-12-27 04:52:12 - Index idx_platform_feature_platform_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/platform/004-create-platform-feature-config.yaml::4::platform-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/001-create-seller-account.yaml::1::seller-management
+2025-12-27 04:52:12 - Table seller_account created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/001-create-seller-account.yaml::1::seller-management ran successfully in 2ms
+Running Changeset: db/changelog/seller/002-create-seller-activity-log.yaml::2::seller-management
+2025-12-27 04:52:12 - Table hm_seller_activity created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/002-create-seller-activity-log.yaml::2::seller-management ran successfully in 0ms
+Running Changeset: db/changelog/seller/003-create-seller-tax-info.yaml::3::seller-management
+2025-12-27 04:52:12 - Table seller_tax_info created
+2025-12-27 04:52:12 - Index idx_tax_info_seller_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/003-create-seller-tax-info.yaml::3::seller-management ran successfully in 2ms
+Running Changeset: db/changelog/seller/003-create-seller-tax-info.yaml::4::seller-management
+2025-12-27 04:52:12 - Table seller_tax_documents created
+2025-12-27 04:52:12 - Index idx_tax_documents_tax_info_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/003-create-seller-tax-info.yaml::4::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/004-create-seller-tax-registration.yaml::5::seller-management
+2025-12-27 04:52:12 - Table seller_tax_registration created
+2025-12-27 04:52:12 - Index idx_tax_registration_tax_info_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/004-create-seller-tax-registration.yaml::5::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/004-create-seller-tax-registration.yaml::6::seller-management
+2025-12-27 04:52:12 - Table tax_registration_documents created
+2025-12-27 04:52:12 - Index idx_tax_reg_docs_registration_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/004-create-seller-tax-registration.yaml::6::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/005-create-seller-configuration.yaml::7::seller-management
+2025-12-27 04:52:12 - Table hm_seller_configuration created
+2025-12-27 04:52:12 - Index idx_seller_config_seller_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/005-create-seller-configuration.yaml::7::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/006-create-seller-payment-info.yaml::8::seller-management
+2025-12-27 04:52:12 - Table hm_seller_payment_info created
+2025-12-27 04:52:12 - Index idx_payment_info_seller_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/006-create-seller-payment-info.yaml::8::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/007-create-seller-payment-method.yaml::9::seller-management
+2025-12-27 04:52:12 - Table seller_payment_method created
+2025-12-27 04:52:12 - Index idx_payment_method_payment_info_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/007-create-seller-payment-method.yaml::9::seller-management ran successfully in 1ms
+Running Changeset: db/changelog/seller/008-create-seller-store.yaml::10::seller-management
+2025-12-27 04:52:12 - Table seller_store created
+2025-12-27 04:52:12 - Index idx_seller_store_account_id created
+2025-12-27 04:52:12 - ChangeSet db/changelog/seller/008-create-seller-store.yaml::10::seller-management ran successfully in 2ms
+Running Changeset: db/changelog/policy/001-create-onboarding-policies.yaml::1::onboarding-policy
+2025-12-27 04:52:12 - Table onboarding_policies created
+2025-12-27 04:52:12 - ChangeSet db/changelog/policy/001-create-onboarding-policies.yaml::1::onboarding-policy ran successfully in 1ms
+Running Changeset: db/changelog/policy/002-create-onboarding-policy-rules.yaml::2::onboarding-policy
+2025-12-27 04:52:12 - Table onboarding_policy_rules created
+2025-12-27 04:52:12 - Unique constraint added to onboarding_policy_rules(policy_id, step_name)
+2025-12-27 04:52:12 - Index idx_policy_steps created
+2025-12-27 04:52:12 - ChangeSet db/changelog/policy/002-create-onboarding-policy-rules.yaml::2::onboarding-policy ran successfully in 2ms
+Running Changeset: db/changelog/commission/001-create-commission-policy.yaml::1::commission-policy
+2025-12-27 04:52:12 - Table commission_policy created
+2025-12-27 04:52:12 - ChangeSet db/changelog/commission/001-create-commission-policy.yaml::1::commission-policy ran successfully in 2ms
+Running Changeset: db/changelog/payout/001-create-payout-policies.yaml::1::payout-policy
+2025-12-27 04:52:12 - Table payout_policies created
+2025-12-27 04:52:12 - Unique constraint added to payout_policies(country_code, seller_type, policy_version)
+2025-12-27 04:52:12 - Index idx_active_payout_policies created
+2025-12-27 04:52:12 - ChangeSet db/changelog/payout/001-create-payout-policies.yaml::1::payout-policy ran successfully in 2ms
+Running Changeset: db/changelog/payout/002-create-payout-policy-rules.yaml::2::payout-policy
+2025-12-27 04:52:12 - Table payout_policy_rules created
+2025-12-27 04:52:12 - Index idx_policy_rules created
+2025-12-27 04:52:12 - ChangeSet db/changelog/payout/002-create-payout-policy-rules.yaml::2::payout-policy ran successfully in 1ms
+Running Changeset: db/changelog/payout/003-create-payout-policy-audit-log.yaml::3::payout-policy
+2025-12-27 04:52:12 - Table payout_policy_audit_log created
+2025-12-27 04:52:12 - Index idx_audit_policy created
+2025-12-27 04:52:12 - Index idx_audit_user created
+2025-12-27 04:52:12 - ChangeSet db/changelog/payout/003-create-payout-policy-audit-log.yaml::3::payout-policy ran successfully in 2ms
+Running Changeset: db/changelog/compliance/001-create-compliance-policies.yaml::1::compliance-policy
+2025-12-27 04:52:12 - Table compliance_policies created
+2025-12-27 04:52:12 - Unique constraint added to compliance_policies(country_code, seller_type, version)
+2025-12-27 04:52:12 - Index idx_active_compliance_policies created
+2025-12-27 04:52:12 - ChangeSet db/changelog/compliance/001-create-compliance-policies.yaml::1::compliance-policy ran successfully in 2ms
+Running Changeset: db/changelog/promotion/001-create-promotion-policies.yaml::1::promotion-policy
+2025-12-27 04:52:12 - Table promotion_policies created
+2025-12-27 04:52:12 - Unique constraint added to promotion_policies(country_code, seller_type, version)
+2025-12-27 04:52:12 - Index idx_active_promotion_policies created
+2025-12-27 04:52:12 - ChangeSet db/changelog/promotion/001-create-promotion-policies.yaml::1::promotion-policy ran successfully in 2ms
+2025-12-27 04:52:12 - UPDATE SUMMARY
+2025-12-27 04:52:12 - Run:                         22
+2025-12-27 04:52:12 - Previously run:               0
+2025-12-27 04:52:12 - Filtered out:                 0
+2025-12-27 04:52:12 - -------------------------------
+2025-12-27 04:52:12 - Total change sets:           22
+2025-12-27 04:52:12 - Update summary generated
+2025-12-27 04:52:12 - Update command completed successfully.
+Liquibase: Update has been successful. Rows affected: 22
+2025-12-27 04:52:12 - Successfully released change log lock
+2025-12-27 04:52:12 - Command execution complete
+2025-12-27 04:52:12 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-27 04:52:12 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-12-27 04:52:12 - HHH000026: Second-level cache disabled
+2025-12-27 04:52:12 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-27 04:52:12 - HikariPool-1 - idleTimeout is less than 10000ms, setting to default 600000ms.
+2025-12-27 04:52:12 - HikariPool-1 - Starting...
+2025-12-27 04:52:12 - HikariPool-1 - Added connection conn1: url=jdbc:h2:mem:handmade user=SA
+2025-12-27 04:52:12 - HikariPool-1 - Start completed.
+2025-12-27 04:52:12 - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-27 04:52:13 - HHH000182: No default (no-argument) constructor for class: com.handmade.ecommerce.platform.domain.valueobject.BrandIdentity (class must be instantiated by Interceptor)
+2025-12-27 04:52:13 - HHH000182: No default (no-argument) constructor for class: com.handmade.ecommerce.platform.domain.valueobject.CorporateIdentity (class must be instantiated by Interceptor)
+2025-12-27 04:52:13 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-27 04:52:13 - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [payload_json] in table [hm_platform_audit_log]; found [character large object (Types#CLOB)], but expecting [varchar(255) (Types#VARCHAR)]
+2025-12-27 04:52:13 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [payload_json] in table [hm_platform_audit_log]; found [character large object (Types#CLOB)], but expecting [varchar(255) (Types#VARCHAR)]
+2025-12-27 04:52:13 - HikariPool-1 - Shutdown initiated...
+2025-12-27 04:52:13 - HikariPool-1 - Shutdown completed.
+2025-12-27 04:52:13 - Stopping service [Tomcat]
+2025-12-27 04:52:13 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-12-27 04:52:13 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [payload_json] in table [hm_platform_audit_log]; found [character large object (Types#CLOB)], but expecting [varchar(255) (Types#VARCHAR)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.handmade.ecommerce.build.HandMadeApplication.main(HandMadeApplication.java:19)
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [payload_json] in table [hm_platform_audit_log]; found [character large object (Types#CLOB)], but expecting [varchar(255) (Types#VARCHAR)]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 16 common frames omitted
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [payload_json] in table [hm_platform_audit_log]; found [character large object (Types#CLOB)], but expecting [varchar(255) (Types#VARCHAR)]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateColumnType(AbstractSchemaValidator.java:165)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:152)
+	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:295)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 20 common frames omitted
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.034 s
+[INFO] Finished at: 2025-12-27T04:52:13-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.4:run (default-cli) on project build-package: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

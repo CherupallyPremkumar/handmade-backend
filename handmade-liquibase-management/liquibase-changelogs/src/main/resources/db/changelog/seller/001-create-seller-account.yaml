@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      comment: Create seller_account table
+      changes:
+        - createTable:
+            tableName: seller_account
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: business_name
+                  type: VARCHAR(255)
+              - column:
+                  name: verified
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: kyc_completed
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: suspended
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: suspension_reason
+                  type: VARCHAR(500)
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: can_create_listings
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: state_id
+                  type: VARCHAR(50)
+              - column:
+                  name: flow_id
+                  type: VARCHAR(50)
+              - column:
+                  name: onboarding_policy_id
+                  type: VARCHAR(255)
+              - column:
+                  name: onboarding_policy_version
+                  type: VARCHAR(50)
+              - column:
+                  name: policy_locked_at
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP

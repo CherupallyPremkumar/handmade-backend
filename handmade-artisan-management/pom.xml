@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+		<module>artisan-domain</module>
+		<module>artisan-api</module>
+		<module>artisan-service</module>
+		<module>artisan-delegator</module>
+		<module>artisan-async</module>
+	</modules>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.handmade.ecommerce.artisan</groupId>
+    <artifactId>handmade-artisan-management</artifactId>
+
+
+    <name>handmade-artisan-management</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,53 @@
+{
+    "commissionPolicies": [
+        {
+            "policyId": "default-policy",
+            "policyName": "Default Commission Policy",
+            "isActive": true,
+            "effectiveFrom": "2024-01-01T00:00:00",
+            "baseCommissionRate": 0.0800,
+            "processingFeeRate": 0.0250,
+            "tierRates": {
+                "INDIVIDUAL_ARTISAN": 0.1000,
+                "HOME_BASED_MAKER": 0.0800,
+                "SMALL_BUSINESS": 0.0600,
+                "ENTERPRISE_SELLER": 0.0500,
+                "DROPSHIPPER": 0.0700
+            },
+            "volumeDiscounts": [
+                {
+                    "threshold": 100000.00,
+                    "discountRate": 0.0100,
+                    "description": "1% discount for sellers with >$100K monthly volume"
+                },
+                {
+                    "threshold": 500000.00,
+                    "discountRate": 0.0200,
+                    "description": "2% discount for sellers with >$500K monthly volume"
+                }
+            ]
+        },
+        {
+            "policyId": "premium-policy",
+            "policyName": "Premium Seller Policy",
+            "isActive": false,
+            "effectiveFrom": "2024-06-01T00:00:00",
+            "baseCommissionRate": 0.0500,
+            "processingFeeRate": 0.0200,
+            "tierRates": {
+                "INDIVIDUAL_ARTISAN": 0.0700,
+                "HOME_BASED_MAKER": 0.0600,
+                "SMALL_BUSINESS": 0.0500,
+                "ENTERPRISE_SELLER": 0.0400,
+                "DROPSHIPPER": 0.0550
+            },
+            "volumeDiscounts": [
+                {
+                    "threshold": 50000.00,
+                    "discountRate": 0.0050,
+                    "description": "0.5% discount for premium sellers with >$50K monthly volume"
+                }
+            ]
+        }
+    ]
+}

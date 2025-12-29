@@ -1,0 +1,76 @@
+[
+    {
+        "id": "search-seller-approvals",
+        "name": "search-seller-approvals",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "sellerId": {
+                "name": "Seller ID",
+                "columnName": "sellerId",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "businessName": {
+                "name": "Business Name",
+                "columnName": "businessName",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "platformId": {
+                "name": "Platform ID",
+                "columnName": "platformId",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "currentState": {
+                "name": "Current State",
+                "columnName": "currentState",
+                "columnType": "DropDown",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "email": {
+                "name": "Email",
+                "columnName": "email",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "verified": {
+                "name": "Verified",
+                "columnName": "verified",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "kycCompleted": {
+                "name": "KYC Completed",
+                "columnName": "kycCompleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "createdAt": {
+                "name": "Created At",
+                "columnName": "createdAt",
+                "columnType": "DateTime",
+                "filterable": true,
+                "sortable": true,
+                "betweenQuery": true,
+                "display": true
+            }
+        }
+    }
+]

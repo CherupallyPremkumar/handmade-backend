@@ -1,0 +1,104 @@
+[
+    {
+        "id": "search-sellers",
+        "name": "search-sellers",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "SELLER_ACCOUNT_FLOW",
+        "stateColumn": "state",
+        "columnMetadata": {
+            "sellerId": {
+                "name": "ID",
+                "columnName": "id",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "platformId": {
+                "name": "Platform ID",
+                "columnName": "platformId",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "email": {
+                "name": "Email",
+                "columnName": "email",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "businessName": {
+                "name": "Business Name",
+                "columnName": "businessName",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "verified": {
+                "name": "Verified",
+                "columnName": "verified",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "kycCompleted": {
+                "name": "KYC Completed",
+                "columnName": "kycCompleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "suspended": {
+                "name": "Suspended",
+                "columnName": "suspended",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "deleted": {
+                "name": "Deleted",
+                "columnName": "deleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "state": {
+                "name": "State",
+                "columnName": "state",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "createdAt": {
+                "name": "Created At",
+                "columnName": "createdAt",
+                "columnType": "DateTime",
+                "filterable": true,
+                "sortable": true,
+                "betweenQuery": true,
+                "display": true
+            },
+            "updatedAt": {
+                "name": "Updated At",
+                "columnName": "updatedAt",
+                "columnType": "DateTime",
+                "filterable": true,
+                "sortable": true,
+                "betweenQuery": true,
+                "display": true
+            }
+        }
+    }
+]

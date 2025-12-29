@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: payout-policy
+      comment: Create payout_policy_rules table
+      changes:
+        - createTable:
+            tableName: payout_policy_rules
+            columns:
+              # Base JPA Entity fields
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              
+              # Payout Policy Rule fields
+              - column: {name: policy_id, type: VARCHAR(255), constraints: {nullable: false}}
+              - column: {name: rule_name, type: VARCHAR(100), constraints: {nullable: false}}
+              - column: {name: rule_order, type: INT, constraints: {nullable: false}}
+              - column: {name: frequency, type: VARCHAR(20), constraints: {nullable: false}}
+              - column:
+                  name: threshold
+                  type: DECIMAL(19, 4)
+              - column: {name: hold_period_days, type: INT}
+              - column: {name: eligibility_criteria, type: JSONB}
+              - column: {name: rule_config, type: JSONB}
+        
+        - createIndex:
+            indexName: idx_policy_rules
+            tableName: payout_policy_rules
+            columns:
+              - column: {name: policy_id}
+              - column: {name: rule_order}

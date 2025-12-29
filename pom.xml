@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
   <parent>
@@ -9,51 +9,48 @@
   </parent>
 
   <modules>
-    <!-- Core Domains -->
-    <module>seller-management</module>
-    <module>artisan-management</module>
-    <module>product-management</module>
-    <module>order-management</module>
-    <module>pricing-engine</module>
-    <module>customer-management</module>
-    <module>review-management</module>
-    <module>commission-management</module>
-    <module>promotion-management</module>
-    
-    <!-- Supporting Subdomains -->
-    <module>inventory-management</module>
-    <module>payment-management</module>
-<!--    <module>fulfillment-management</module>-->
-    <module>user-management</module>
-    <module>tenant-management</module>
-    <module>dispute-management</module>
-    <module>analytics-management</module>
-    <module>catalog-management</module>
-    <module>shipping-management</module>
-    
-    <!-- Generic Subdomains -->
-    <module>financial-settlement</module>
-    <module>event-management</module>
-    
-    <!-- Infrastructure -->
-    <module>common-library</module>
-    <module>notification-management</module>
-    <module>content-management</module>
-    <module>platform-audit-management</module>
-    <module>orchestration</module>
-    <module>security-management</module>
-    <module>search-management</module>
-    <module>messaging-management</module>
-    <module>app-core</module>
-    <module>app-boot</module>
+    <module>handmade-liquibase-management</module>
+    <module>handmade-app-core</module>
+    <module>handmade-product-management</module>
+    <module>handmade-catalog-management</module>
+    <module>handmade-seller-management</module>
+    <module>handmade-onboarding-management</module>
+    <module>handmade-onboarding-policy</module>
+    <module> handmade-compliance-policy</module>
+    <module>handmade-payout-policy</module>
+    <module>handmade-workflow-orchestrator</module>
+    <module>handmade-event-management</module>
+    <module>handmade-platform-management</module>
+    <module>handmade-search-management</module>
+    <module>handmade-commission-policy</module>
+    <module>handmade-promotion-policy</module>
+    <module>handmade-pricing-management</module>
+    <module>handmade-payment-management</module>
+    <module>handmade-ledger-management</module>
+    <module>handmade-wallet-management</module>
+    <module>handmade-paymentorder-management</module>
+    <module>handmade-reconciliation-management</module>
+    <module>handmade-risk-management</module>
+    <module>handmade-payment-orchestrator</module>
+    <module>handmade-payment-executor</module>
+    <module>handmade-cash-management</module>
+    <module>handmade-razorpay-integration</module>
+    <module>handmade-gstin-management</module>
+    <module>handmade-ein-management</module>
+    <module>handmade-stripe-integration</module>
+    <module>handmade-kyc-verification</module>
+    <module>handmade-app-boot</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>
   <version>${revision}</version>
   <artifactId>handmade-parent</artifactId>
 
+  <name>handmade-parent</name>
   <properties>
-    <revision>0.0.1-SNAPSHOT</revision>
+    <revision>2.0.35</revision>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
   <dependencies>

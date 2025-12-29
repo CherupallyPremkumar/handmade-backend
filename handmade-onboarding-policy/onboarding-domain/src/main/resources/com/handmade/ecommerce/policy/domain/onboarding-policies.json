@@ -1,0 +1,211 @@
+{
+    "policies": [
+        {
+            "id": "pol_us_ind_2024_1",
+            "version": "2024.1-US-INDIVIDUAL",
+            "countryCode": "US",
+            "sellerType": "INDIVIDUAL",
+            "status": "ACTIVE",
+            "effectiveDate": "2024-01-01",
+            "deprecatedDate": null,
+            "createdBy": "system",
+            "createdAt": "2024-01-01T00:00:00",
+            "approvedBy": "compliance_officer_1",
+            "approvedAt": "2024-01-01T00:00:00",
+            "description": "Standard US individual seller onboarding policy. Requires identity verification via Stripe Identity, tax interview via Stripe Tax (SSN/EIN), and bank account verification via Stripe Connect.",
+            "regulatoryBasis": "IRS 1099-K reporting requirement (Form 1099-K for payments exceeding $600), FinCEN Customer Due Diligence (CDD) requirements under Bank Secrecy Act, Patriot Act KYC/AML compliance",
+            "rules": [
+                {
+                    "id": "rule_us_ind_identity",
+                    "stepName": "identity_verification",
+                    "stepOrder": 1,
+                    "required": true,
+                    "providerType": "stripe_identity",
+                    "providerConfig": {
+                        "verification_type": "document",
+                        "allowed_document_types": [
+                            "passport",
+                            "drivers_license",
+                            "id_card"
+                        ],
+                        "require_liveness": false,
+                        "country": "US"
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 24,
+                    "maxDurationDays": 7
+                },
+                {
+                    "id": "rule_us_ind_tax",
+                    "stepName": "tax_interview",
+                    "stepOrder": 2,
+                    "required": true,
+                    "providerType": "stripe_tax",
+                    "providerConfig": {
+                        "require_ssn": true,
+                        "require_ein": false,
+                        "business_type": "individual",
+                        "tax_form": "W9",
+                        "1099k_threshold": 600
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 24,
+                    "maxDurationDays": 30
+                },
+                {
+                    "id": "rule_us_ind_bank",
+                    "stepName": "bank_verification",
+                    "stepOrder": 3,
+                    "required": true,
+                    "providerType": "stripe_connect",
+                    "providerConfig": {
+                        "account_type": "individual",
+                        "verification_method": "instant",
+                        "require_routing_number": true,
+                        "require_account_number": true
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 24,
+                    "maxDurationDays": 14
+                }
+            ]
+        },
+        {
+            "id": "pol_in_ind_2024_1",
+            "version": "2024.1-IN-INDIVIDUAL",
+            "countryCode": "IN",
+            "sellerType": "INDIVIDUAL",
+            "status": "ACTIVE",
+            "effectiveDate": "2024-01-01",
+            "deprecatedDate": null,
+            "createdBy": "system",
+            "createdAt": "2024-01-01T00:00:00",
+            "approvedBy": "compliance_officer_1",
+            "approvedAt": "2024-01-01T00:00:00",
+            "description": "Standard India individual seller onboarding policy. Requires Aadhaar-based identity verification, PAN verification, and bank account verification via Razorpay. GST optional for sellers below ₹20 lakh annual revenue.",
+            "regulatoryBasis": "Prevention of Money Laundering Act (PMLA) 2002, RBI Master Direction on KYC, Income Tax Act 1961 (PAN requirement), GST Act 2017",
+            "rules": [
+                {
+                    "id": "rule_in_ind_identity",
+                    "stepName": "identity_verification",
+                    "stepOrder": 1,
+                    "required": true,
+                    "providerType": "digilocker",
+                    "providerConfig": {
+                        "verification_type": "aadhaar",
+                        "require_aadhaar": true,
+                        "require_pan": true,
+                        "ekyc_enabled": true,
+                        "country": "IN"
+                    },
+                    "maxRetries": 5,
+                    "retryDelayHours": 48,
+                    "maxDurationDays": 14
+                },
+                {
+                    "id": "rule_in_ind_bank",
+                    "stepName": "bank_verification",
+                    "stepOrder": 2,
+                    "required": true,
+                    "providerType": "razorpay",
+                    "providerConfig": {
+                        "account_type": "individual",
+                        "verification_method": "penny_drop",
+                        "require_ifsc": true,
+                        "require_account_number": true
+                    },
+                    "maxRetries": 5,
+                    "retryDelayHours": 48,
+                    "maxDurationDays": 14
+                },
+                {
+                    "id": "rule_in_ind_tax",
+                    "stepName": "tax_interview",
+                    "stepOrder": 3,
+                    "required": false,
+                    "providerType": "gst_verification",
+                    "providerConfig": {
+                        "require_gst": false,
+                        "gst_threshold": 2000000,
+                        "require_pan": true,
+                        "business_type": "individual"
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 72,
+                    "maxDurationDays": 30
+                }
+            ]
+        },
+        {
+            "id": "pol_de_ind_2024_1",
+            "version": "2024.1-DE-INDIVIDUAL",
+            "countryCode": "DE",
+            "sellerType": "INDIVIDUAL",
+            "status": "ACTIVE",
+            "effectiveDate": "2024-01-01",
+            "deprecatedDate": null,
+            "createdBy": "system",
+            "createdAt": "2024-01-01T00:00:00",
+            "approvedBy": "compliance_officer_1",
+            "approvedAt": "2024-01-01T00:00:00",
+            "description": "Standard Germany individual seller onboarding policy. Requires identity verification via Stripe Identity, VAT ID verification via EU tax service, and SEPA bank account verification. Strict EU AML/KYC compliance.",
+            "regulatoryBasis": "EU AML Directive 5 (2018/843), German Money Laundering Act (GwG), VAT Directive 2006/112/EC, BaFin regulations",
+            "rules": [
+                {
+                    "id": "rule_de_ind_identity",
+                    "stepName": "identity_verification",
+                    "stepOrder": 1,
+                    "required": true,
+                    "providerType": "stripe_identity",
+                    "providerConfig": {
+                        "verification_type": "document",
+                        "allowed_document_types": [
+                            "passport",
+                            "id_card",
+                            "residence_permit"
+                        ],
+                        "require_liveness": true,
+                        "country": "DE"
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 24,
+                    "maxDurationDays": 7
+                },
+                {
+                    "id": "rule_de_ind_tax",
+                    "stepName": "tax_interview",
+                    "stepOrder": 2,
+                    "required": true,
+                    "providerType": "eu_vat_service",
+                    "providerConfig": {
+                        "require_vat_id": true,
+                        "require_tax_id": true,
+                        "business_type": "individual",
+                        "vat_threshold": 22000,
+                        "country": "DE"
+                    },
+                    "maxRetries": 5,
+                    "retryDelayHours": 48,
+                    "maxDurationDays": 14
+                },
+                {
+                    "id": "rule_de_ind_bank",
+                    "stepName": "bank_verification",
+                    "stepOrder": 3,
+                    "required": true,
+                    "providerType": "sepa_verification",
+                    "providerConfig": {
+                        "account_type": "individual",
+                        "verification_method": "sepa_direct_debit",
+                        "require_iban": true,
+                        "require_bic": true,
+                        "sepa_mandate_required": true
+                    },
+                    "maxRetries": 3,
+                    "retryDelayHours": 24,
+                    "maxDurationDays": 14
+                }
+            ]
+        }
+    ]
+}
