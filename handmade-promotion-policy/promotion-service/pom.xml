@@ -3,25 +3,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-promotion-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-promotion-service</artifactId>
+    <artifactId>handmade-promotion-policy-service</artifactId>
     <name>handmade-promotion-service</name>
     <description>Promotion policy services and repositories</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-promotion-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-promotion-policy-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-promotion-api</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-promotion-policy-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -36,8 +36,14 @@
         </dependency>
         
         <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
+            <artifactId>handmade-seller-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 

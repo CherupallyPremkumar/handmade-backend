@@ -1,9 +1,9 @@
 package com.handmade.ecommerce.seller.service.store;
 
 import org.chenile.utils.entity.service.EntityStore;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import org.chenile.base.exception.NotFoundException;
-import com.handmade.ecommerce.seller.configuration.dao.SellerRepository;
+import com.handmade.ecommerce.seller.infrastructure.persistence.SellerRepository;
 
 import java.util.Optional;
 
@@ -29,6 +29,6 @@ public class SellerEntityStore implements EntityStore<Seller>{
 	}
 
     public boolean existsByContactEmail(String email) {
-
+        return sellerRepository.existsByContactEmail(email);
     }
 }

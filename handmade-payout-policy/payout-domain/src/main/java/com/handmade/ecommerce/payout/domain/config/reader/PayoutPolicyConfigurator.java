@@ -3,7 +3,7 @@ package com.handmade.ecommerce.payout.domain.config.reader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.handmade.ecommerce.payout.domain.config.model.PayoutPolicyConfig;
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;

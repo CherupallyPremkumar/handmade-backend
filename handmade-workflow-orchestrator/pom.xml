@@ -15,7 +15,6 @@
 
     <modules>
         <module>seller-orchestration</module>
-
-
+        <module>product-orchestration</module>
     </modules>
 </project>

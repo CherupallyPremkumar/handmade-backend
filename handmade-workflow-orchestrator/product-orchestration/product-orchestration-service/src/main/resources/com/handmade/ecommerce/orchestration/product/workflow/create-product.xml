@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flows>
+    <flow id="create-product" defaultFlow="true">
+        <product-creation-chain>
+            <create-product-command/>
+            <create-variant-command/>
+            <create-price-command/>
+            <create-inventory-command/>
+        </product-creation-chain>
+    </flow>
+</flows>

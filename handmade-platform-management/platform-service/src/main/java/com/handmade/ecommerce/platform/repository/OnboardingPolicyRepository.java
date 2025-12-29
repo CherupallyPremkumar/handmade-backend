@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.repository;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import com.handmade.ecommerce.platform.domain.policy.OnboardingPolicy;
 import com.handmade.ecommerce.platform.domain.policy.PolicyStatus;
 import org.springframework.data.jpa.repository.JpaRepository;

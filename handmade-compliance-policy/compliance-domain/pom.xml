@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-compliance-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-compliance-domain</artifactId>
+    <artifactId>handmade-compliance-policy-domain</artifactId>
     <name>handmade-compliance-domain</name>
     <description>Compliance policy domain entities</description>
 
@@ -33,6 +33,11 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

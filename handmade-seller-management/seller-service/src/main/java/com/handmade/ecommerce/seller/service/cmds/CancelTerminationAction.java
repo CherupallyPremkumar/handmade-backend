@@ -4,7 +4,7 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import org.chenile.workflow.param.MinimalPayload;
 
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class CancelTerminationAction extends AbstractSTMTransitionAction<Seller, MinimalPayload> {
 
     @Override
-    public void transitionTo(Seller seller, MinimalPayload payload, State startState, String eventId,
+    public void doTransition(Seller seller, MinimalPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Clear any termination-related data

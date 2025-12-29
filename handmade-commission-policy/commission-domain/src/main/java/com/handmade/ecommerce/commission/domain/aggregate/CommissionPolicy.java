@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.commission.domain.aggregate;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;

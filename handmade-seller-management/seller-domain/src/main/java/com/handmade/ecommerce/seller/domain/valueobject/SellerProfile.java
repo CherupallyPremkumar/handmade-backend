@@ -2,8 +2,6 @@ package com.handmade.ecommerce.seller.domain.valueobject;
 
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;
-import java.net.URI;
-import java.util.List;
 
 /**
  * Seller's public profile information

@@ -8,6 +8,7 @@
         <version>${revision}</version>
     </parent>
 
+    <groupId>com.handmade.ecommerce.policy</groupId>
     <artifactId>handmade-commission-policy</artifactId>
     <packaging>pom</packaging>
     <name>handmade-commission-policy</name>

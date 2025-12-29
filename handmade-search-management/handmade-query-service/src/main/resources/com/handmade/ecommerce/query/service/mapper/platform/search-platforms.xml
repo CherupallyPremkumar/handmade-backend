@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-platforms" resultType="map">
+        SELECT 
+            id as "id",
+            name as "name",
+            state_id as "state",
+            suspended as "suspended",
+            suspension_reason as "suspensionReason",
+            deleted as "deleted",
+            deleted_at as "deletedAt",
+            active_commission_policy_id as "activeCommissionPolicyId",
+            active_feature_config_id as "activeFeatureConfigId"
+        FROM platform_owner
+        WHERE 1=1
+        <if test="name != null">
+            AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+        <if test="suspended != null">
+            AND suspended = #{suspended}
+        </if>
+        <if test="deleted != null">
+            AND deleted = #{deleted}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY name ASC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-platforms-count" resultType="int">
+        SELECT COUNT(*)
+        FROM platform_owner
+        WHERE 1=1
+        <if test="name != null">
+            AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+        <if test="suspended != null">
+            AND suspended = #{suspended}
+        </if>
+        <if test="deleted != null">
+            AND deleted = #{deleted}
+        </if>
+    </select>
+</mapper>

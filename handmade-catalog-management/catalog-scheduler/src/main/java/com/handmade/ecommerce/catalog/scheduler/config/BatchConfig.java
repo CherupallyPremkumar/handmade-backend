@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.catalog.scheduler.config;
 
 import com.handmade.ecommerce.catalog.model.CollectionProductMapping;
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -22,7 +22,7 @@ public class BatchConfig {
 
     // Simple in-memory reader for demo. Real world: Use ItemReader<ExternalProductDto> with pagination
     @Bean
-    public ItemReader<ExternalProductDto> productItemReader(com.handmade.ecommerce.catalog.service.integration.ProductServiceClient client) {
+    public ItemReader<ExternalProductDto> productItemReader(com.handmade.ecommerce.product.service.ProductServiceClient client) {
         return new ListItemReader<>(client.getAllProducts());
     }
 

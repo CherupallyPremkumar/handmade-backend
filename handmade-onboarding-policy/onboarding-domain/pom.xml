@@ -12,9 +12,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>handmade-onboarding-domain</artifactId>
+    <artifactId>handmade-onboarding-policy-domain</artifactId>
     <packaging>jar</packaging>
-    <name>handmade-onboarding-domain</name>
+    <name>handmade-onboarding-policy-domain</name>
     <description>Onboarding policy domain entities</description>
 
     <dependencies>
@@ -42,10 +42,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Seller Domain (for SellerType enum) -->
         <dependency>
-            <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

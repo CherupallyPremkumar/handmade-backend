@@ -24,7 +24,18 @@ public class CollectionProductMapping extends BaseJpaEntity {
     @Column(name = "display_order")
     private Integer displayOrder;
 
+    @Column(name = "added_by", length = 50)
+    private String addedBy;
+
     // Getters and Setters
+
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
+    }
 
     public String getCollectionId() {
         return collectionId;

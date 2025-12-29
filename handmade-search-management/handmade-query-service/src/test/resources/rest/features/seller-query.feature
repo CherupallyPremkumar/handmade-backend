@@ -102,14 +102,15 @@ When I POST a REST request to URL "/q/search-sellers" with payload
 """
 {
 	"sortCriteria" :[
-		{"name":"businessName","ascendingOrder": true}
+		{"name":"business_name","ascendingOrder": true}
 	],
 	"pageNum": 2,
-	"numRowsInPage": 15
+	"numRowsInPage": 2
 }
 """
 Then the http status code is 200
 And the top level code is 200
 And success is true
 And the REST response key "currentPage" is "2"
-And the REST response key "numRowsInPage" is "15"
+And the REST response key "numRowsInPage" is "2"
+

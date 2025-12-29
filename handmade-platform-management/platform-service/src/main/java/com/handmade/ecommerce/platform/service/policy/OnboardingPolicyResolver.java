@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.service.policy;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import com.handmade.ecommerce.platform.domain.policy.OnboardingPolicy;
 import com.handmade.ecommerce.platform.repository.OnboardingPolicyRepository;
 import org.slf4j.Logger;

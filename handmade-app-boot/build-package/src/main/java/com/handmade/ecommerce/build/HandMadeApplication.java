@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @SpringBootApplication(scanBasePackages = {
-        "com.handmade.ecommerce.**", "org.chenile.configuration.**",
+        "com.handmade.ecommerce.**", "org.chenile.configuration.**","com.handmade.ecommerce.query.service.mapper"
 })
 @EntityScan("com.handmade.ecommerce.**")
 @EnableJpaRepositories("com.handmade.ecommerce.**")

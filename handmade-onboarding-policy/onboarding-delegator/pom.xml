@@ -9,31 +9,31 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>handmade-onboarding-delegator</artifactId>
+    <artifactId>handmade-onboarding-policy-delegator</artifactId>
     <packaging>jar</packaging>
 
-    <name>handmade-onboarding-delegator</name>
+    <name>handmade-onboarding-policy-delegator</name>
     <description>Business delegate for remote policy service calls</description>
 
     <dependencies>
         
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-onboarding-api</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
         
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-onboarding-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
         
         <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
+            <artifactId>handmade-seller-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -51,8 +51,8 @@
 
         
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-onboarding-service</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-service</artifactId>
             <version>${revision}</version>
         </dependency>
 

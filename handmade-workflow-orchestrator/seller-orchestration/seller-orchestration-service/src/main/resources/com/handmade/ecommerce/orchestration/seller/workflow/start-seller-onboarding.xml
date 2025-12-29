@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Chenile OWIZ: Start Seller Onboarding
+ENTRY POINT for "Become Seller"
+-->
+<flows>
+
+    <flow id="start-seller-onboarding" defaultFlow="true">
+        <start-seller-onboarding-chain>
+            <validate-start-onboarding-command/>
+            <check-existing-case-command/>
+            <existing-case-router expression="caseExists">
+                <return-existing-case-command route="true"/>
+                <new-case-chain route="false">
+                    <resolve-policy-command/>
+                    <create-case-command/>
+                    <lock-policy-to-case-command/>
+                    <return-new-case-command/>
+                </new-case-chain>
+            </existing-case-router>
+        </start-seller-onboarding-chain>
+    </flow>
+
+</flows>

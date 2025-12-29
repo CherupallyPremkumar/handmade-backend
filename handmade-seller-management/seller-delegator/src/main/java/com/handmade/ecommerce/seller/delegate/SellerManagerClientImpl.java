@@ -1,8 +1,10 @@
 package com.handmade.ecommerce.seller.delegate;
 
 import com.handmade.ecommerce.seller.api.SellerAccountService;
+import com.handmade.ecommerce.seller.api.SellerService;
 import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
+import com.handmade.ecommerce.seller.dto.CreateSellerRequest;
 import com.handmade.ecommerce.seller.dto.command.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,10 @@ public class SellerManagerClientImpl implements SellerManagerClient {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     @Autowired
+    @Qualifier("sellerServiceProxy")
+    private SellerService sellerServiceProxy;
+
+    @Autowired
     @Qualifier("sellerAccountServiceProxy")
     private SellerAccountService sellerAccountServiceProxy;
 
@@ -29,7 +35,7 @@ public class SellerManagerClientImpl implements SellerManagerClient {
     public SellerAccount registerSellerAccount(CreateSellerRequest request) {
         logger.info("Registering seller account via delegate: {}", request.getEmail());
         SellerAccount account = toSellerAccount(request);
-        return sellerAccountServiceProxy.create(account).getMutatedEntity();
+        return (SellerAccount) sellerAccountServiceProxy.create(account).getMutatedEntity();
     }
 
     @Override
@@ -71,7 +77,7 @@ public class SellerManagerClientImpl implements SellerManagerClient {
     @Override
     public SellerAccount processSellerAccountEvent(String accountId, String event, Object payload) {
         logger.debug("Processing event '{}' for seller account: {}", event, accountId);
-        return sellerAccountServiceProxy.processById(accountId, event, payload).getMutatedEntity();
+        return (SellerAccount) (Object) sellerServiceProxy.processById(accountId, event, payload).getMutatedEntity();
     }
 
     @Override
@@ -84,7 +90,7 @@ public class SellerManagerClientImpl implements SellerManagerClient {
     @Override
     public SellerAccount getSellerAccount(String accountId) {
         logger.debug("Retrieving seller account: {}", accountId);
-        return sellerAccountServiceProxy.retrieve(accountId).getMutatedEntity();
+        return (SellerAccount) (Object) sellerServiceProxy.retrieve(accountId).getMutatedEntity();
     }
 
     @Override
@@ -94,6 +100,12 @@ public class SellerManagerClientImpl implements SellerManagerClient {
         throw new UnsupportedOperationException("Seller store operations not yet implemented");
     }
     
+    @Override
+    public boolean existsByEmail(String email) {
+        logger.debug("Checking email existence in operational context: {}", email);
+        return sellerServiceProxy.existsByEmail(email);
+    }
+
     // ===== Helper Methods =====
     
     private SellerAccount toSellerAccount(CreateSellerRequest request) {

@@ -23,27 +23,54 @@
 			<artifactId>handmade-seller-api</artifactId>
 		</dependency>
         <dependency>
+            <groupId>com.handmade.ecommerce.orchestration</groupId>
+            <artifactId>handmade-seller-orchestration-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>handmade-event-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.handmade.ecommerce.payment</groupId>
-            <artifactId>payment-api</artifactId>
+            <artifactId>handmade-payment-api</artifactId>
             <version>${product.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.handmade.ecommerce.common</groupId>
-            <artifactId>validation</artifactId>
+            <artifactId>handmade-validation</artifactId>
             <version>${revision}</version>
         </dependency>
 
-        <!-- KYC Verification Service -->
-        <!-- TODO: Uncomment when KYC delegate ProxyBuilder import is fixed -->
-        <!--
+        <!-- Onboarding Policy Dependencies -->
         <dependency>
-            <groupId>com.handmade.ecommerce.kyc</groupId>
-            <artifactId>kyc-service</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-api</artifactId>
             <version>${revision}</version>
         </dependency>
-        -->
-	
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>kyc-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.gstin</groupId>
+            <artifactId>handmade-gstin-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.chenile</groupId>
             <artifactId>workflow-service</artifactId>

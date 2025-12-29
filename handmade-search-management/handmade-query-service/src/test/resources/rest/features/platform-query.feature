@@ -70,3 +70,16 @@ And the top level code is 200
 And success is true
 And the REST response key "numRowsInPage" is "5"
 And the REST response key "currentPage" is "1"
+
+Scenario: Get Seller Overview By ID
+When I POST a REST request to URL "/q/platform-seller-overview" with payload
+"""
+{
+	"filters": {
+		"sellerId": "SEL-001"
+	}
+}
+"""
+Then the http status code is 200
+And success is true
+

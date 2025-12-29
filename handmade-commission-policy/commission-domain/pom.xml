@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-commission-policy</artifactId>
         <version>${revision}</version>
     </parent>
@@ -43,8 +43,13 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
+            <artifactId>handmade-seller-domain</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

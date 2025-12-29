@@ -11,20 +11,8 @@
 
 
     <modules>
-        <module>payment</module>
-        <module>paymentorder</module>
-        <module>payment-executor</module>
-        <module>risk</module>
-        <!-- tax module moved to pricing-engine -->
-        <module>gstin</module>
-        <module>ein</module>
-        <module>ledger</module>
-        <module>wallet</module>
-        <module>reconciliation</module>
-        <module>razorpay</module>
-        <module>stripe</module>
-        <module>cash</module>
-        <module>orchestrator</module>
+        <module>payment-api</module>
+        <module>payment-service</module>
     </modules>
 
     <groupId>com.handmade.ecommerce.payment-management</groupId>
@@ -34,7 +22,24 @@
 
     <properties>
         <payment-management.version>${revision}</payment-management.version>
+        <payment.version>${revision}</payment.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Payment -->
+            <dependency>
+                <groupId>com.handmade.ecommerce.payment</groupId>
+                <artifactId>handmade-payment-service</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.payment</groupId>
+                <artifactId>handmade-payment-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>

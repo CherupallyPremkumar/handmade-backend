@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.platform.domain.policy;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.valueobject.SellerTier;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 import jakarta.persistence.*;
@@ -25,10 +25,7 @@ import java.time.LocalDateTime;
                   columnList = "country_code, seller_type, status, effective_date")
        })
 public class OnboardingPolicy extends BaseJpaEntity {
-    
-    @Id
-    @Column(name = "id", length = 255)
-    private String id;
+
     
     /**
      * Globally unique version identifier
@@ -48,7 +45,7 @@ public class OnboardingPolicy extends BaseJpaEntity {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "seller_type", length = 50, nullable = false)
-    private SellerType sellerType;
+    private SellerTier sellerType;
     
     /**
      * Policy lifecycle status
@@ -176,11 +173,11 @@ public class OnboardingPolicy extends BaseJpaEntity {
         this.countryCode = countryCode;
     }
     
-    public SellerType getSellerType() {
+    public SellerTier getSellerType() {
         return sellerType;
     }
     
-    public void setSellerType(SellerType sellerType) {
+    public void setSellerType(SellerTier sellerType) {
         this.sellerType = sellerType;
     }
     

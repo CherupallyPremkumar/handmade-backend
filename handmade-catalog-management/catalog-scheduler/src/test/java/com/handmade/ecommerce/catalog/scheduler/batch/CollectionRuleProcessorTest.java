@@ -2,7 +2,7 @@ package com.handmade.ecommerce.catalog.scheduler.batch;
 
 import com.handmade.ecommerce.catalog.model.Collection;
 import com.handmade.ecommerce.catalog.model.CollectionType;
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
 import com.handmade.ecommerce.catalog.service.rule.DynamicRuleEvaluator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

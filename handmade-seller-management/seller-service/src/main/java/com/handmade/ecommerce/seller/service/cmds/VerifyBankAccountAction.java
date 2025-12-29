@@ -4,13 +4,13 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import com.handmade.ecommerce.seller.dto.command.VerifyBankAccountPayload;
 
-public class VerifyBankAccountAction extends AbstractSTMTransitionAction<Seller, VerifyBankAccountPayload> {
+public class VerifyBankAccountAction extends AbstractSTMTransitionAction<SellerAccount, VerifyBankAccountPayload> {
 
     @Override
-    public void transitionTo(Seller seller, VerifyBankAccountPayload payload, State startState, String eventId,
+    public void doTransition(SellerAccount seller, VerifyBankAccountPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Validate bank account verification

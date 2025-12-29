@@ -1,24 +1,29 @@
 package com.handmade.ecommerce.platform.delegate;
 
+import com.handmade.ecommerce.platform.api.PlatformManager;
+import com.handmade.ecommerce.policy.ResolvedOnboardingPolicyView;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
+import java.time.LocalDate;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.dto.ActivatePlatformPayload;
 import com.handmade.ecommerce.platform.dto.DeletePlatformPayload;
 import com.handmade.ecommerce.platform.dto.ReactivatePlatformPayload;
 import com.handmade.ecommerce.platform.dto.SuspendPlatformPayload;
-import com.handmade.ecommerce.platform.api.PlatformManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * Implementation of Platform Manager Client
  * Delegates calls to remote Platform Service via Chenile Proxy
  */
 public class PlatformManagerClientImpl implements PlatformManagerClient {
-    
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     @Autowired
     @Qualifier("platformServiceProxy")
     private PlatformManager platformServiceProxy;
@@ -63,5 +68,15 @@ public class PlatformManagerClientImpl implements PlatformManagerClient {
     public PlatformOwner getPlatform(String id) {
         logger.debug("Retrieving platform: {}", id);
         return platformServiceProxy.retrieve(id).getMutatedEntity();
+    }
+
+    @Override
+    public Optional<ResolvedOnboardingPolicyView> resolveOnboardingPolicy(String country, SellerType sellerType,
+            LocalDate effectiveDate) {
+        logger.info("Resolving onboarding policy via platform delegate: country={}, sellerType={}", country,
+                sellerType);
+        // This usually delegates to a specific policy-aware service or returns a
+        // default view
+        return Optional.empty();
     }
 }
