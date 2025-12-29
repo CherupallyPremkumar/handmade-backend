@@ -9,44 +9,36 @@
   </parent>
 
   <modules>
-    
-    <!-- <module>handmade-seller-management</module> -->
-    <!-- <module>handmade-artisan-management</module>
-    <module>handmade-cart-management</module>
-    <module>handmade-customer-management</module>
-    <module>handmade-dispute-management</module>
-    <module>handmade-fulfillment-management</module>
-    <module>handmade-inventory-management</module>
+    <module>handmade-liquibase-management</module>
+    <module>handmade-app-core</module>
     <module>handmade-product-management</module>
-    <module>handmade-order-management</module>
-    <module>handmade-review-management</module>
-    
-    
-    <module>handmade-payment-management</module>
-    <module>handmade-user-management</module>
     <module>handmade-catalog-management</module>
-    <module>handmade-shipping-management</module>
-     -->
-    
+    <module>handmade-seller-management</module>
+    <module>handmade-onboarding-management</module>
+    <module>handmade-onboarding-policy</module>
+    <module> handmade-compliance-policy</module>
+    <module>handmade-payout-policy</module>
+    <module>handmade-workflow-orchestrator</module>
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
-    <!-- <module>handmade-onboarding-policy</module>
-    <module>handmade-commission-policy</module>
-    <module>handmade-payout-policy</module>
-    <module>handmade-compliance-policy</module>
-    <module>handmade-promotion-policy</module>
-    <module>handmade-kyc-verification</module>
-    <module>handmade-stripe-integration</module>
-    <module>handmade-workflow-orchestrator</module>
-    <module>handmade-pricing-management</module>
-    
-    
-    <module>handmade-common-library</module>
-
-    <module>handmade-notification-management</module>
-    <module>handmade-security-management</module> -->
     <module>handmade-search-management</module>
-    <module>handmade-liquibase-management</module>
+    <module>handmade-commission-policy</module>
+    <module>handmade-promotion-policy</module>
+    <module>handmade-pricing-management</module>
+    <module>handmade-payment-management</module>
+    <module>handmade-ledger-management</module>
+    <module>handmade-wallet-management</module>
+    <module>handmade-paymentorder-management</module>
+    <module>handmade-reconciliation-management</module>
+    <module>handmade-risk-management</module>
+    <module>handmade-payment-orchestrator</module>
+    <module>handmade-payment-executor</module>
+    <module>handmade-cash-management</module>
+    <module>handmade-razorpay-integration</module>
+    <module>handmade-gstin-management</module>
+    <module>handmade-ein-management</module>
+    <module>handmade-stripe-integration</module>
+    <module>handmade-kyc-verification</module>
     <module>handmade-app-boot</module>
   </modules>
 
@@ -54,8 +46,9 @@
   <version>${revision}</version>
   <artifactId>handmade-parent</artifactId>
 
-  <name>handmade-parent</name><properties>
-    <revision>0.0.1-SNAPSHOT</revision>
+  <name>handmade-parent</name>
+  <properties>
+    <revision>2.0.35</revision>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>

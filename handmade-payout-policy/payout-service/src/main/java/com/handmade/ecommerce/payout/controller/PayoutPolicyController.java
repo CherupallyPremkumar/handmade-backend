@@ -2,7 +2,7 @@ package com.handmade.ecommerce.payout.controller;
 
 import com.handmade.ecommerce.payout.domain.aggregate.PayoutPolicy;
 import com.handmade.ecommerce.payout.service.PayoutPolicyResolver;
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

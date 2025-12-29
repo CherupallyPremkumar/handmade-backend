@@ -1,12 +1,16 @@
 package com.handmade.ecommerce.policy.domain.aggregate;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import com.handmade.ecommerce.policy.domain.valueobject.PolicyStatus;
+import org.chenile.stm.State;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import com.handmade.ecommerce.policy.domain.entity.OnboardingPolicyRule;
 
 /**
  * Platform-owned onboarding policy aggregate root
@@ -30,19 +34,6 @@ import java.time.LocalDateTime;
        })
 public class OnboardingPolicy extends AbstractJpaStateEntity {
 
-    @Id
-    @Column(name = "id", length = 255)
-    private String id;
-    
-    /**
-     * Policy lifecycle status
-     * DRAFT: Being created, not yet active
-     * ACTIVE: Currently in use for new sellers
-     * DEPRECATED: No longer used for new sellers (existing sellers grandfathered)
-     */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20, nullable = false)
-    private PolicyStatus status;
 
     
     /**
@@ -79,6 +70,20 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
     @Column(name = "deprecated_date")
     private LocalDate deprecatedDate;
     
+    // ========== VERIFICATION REQUIREMENTS ==========
+    
+    @Column(name = "identity_verification_required")
+    private boolean identityVerificationRequired;
+    
+    @Column(name = "tax_verification_required")
+    private boolean taxVerificationRequired;
+    
+    @Column(name = "bank_verification_required")
+    private boolean bankVerificationRequired;
+    
+    @Column(name = "manual_approval_required")
+    private boolean manualApprovalRequired;
+    
     // ========== AUDIT FIELDS (Immutable after ACTIVE) ==========
     
     /**
@@ -105,20 +110,25 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
      */
     @Column(name = "approved_at")
     private LocalDateTime approvedAt;
+
+    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OnboardingPolicyRule> rules = new ArrayList<>();
     
     // ========== METADATA ==========
     
     /**
      * Human-readable description of this policy
      */
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "description")
     private String description;
     
     /**
      * Legal/regulatory basis for this policy
      * Examples: "IRS 1099-K requirement", "EU AML Directive 5"
      */
-    @Column(name = "regulatory_basis", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "regulatory_basis")
     private String regulatoryBasis;
     
     // ========== BUSINESS LOGIC ==========
@@ -127,7 +137,7 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
      * Check if this policy is currently active
      */
     public boolean isActive() {
-        return status == PolicyStatus.ACTIVE && 
+        return "ACTIVE".equals(getCurrentState().getStateId()) && 
                effectiveDate != null && 
                !effectiveDate.isAfter(LocalDate.now());
     }
@@ -136,34 +146,26 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
      * Approve this policy (requires compliance officer)
      */
     public void approve(String complianceOfficerId) {
-        if (this.status != PolicyStatus.DRAFT) {
+        if (!"DRAFT".equals(getCurrentState().getStateId())) {
             throw new IllegalStateException("Only DRAFT policies can be approved");
         }
         this.approvedBy = complianceOfficerId;
         this.approvedAt = LocalDateTime.now();
-        this.status = PolicyStatus.ACTIVE;
+        // State transition is normally handled by STM, but keeping this for now
+        // if manually called. In Chenile, you'd usually trigger an event.
     }
     
     /**
      * Deprecate this policy (no longer used for new sellers)
      */
     public void deprecate() {
-        if (this.status != PolicyStatus.ACTIVE) {
+        if (!"ACTIVE".equals(getCurrentState().getStateId())) {
             throw new IllegalStateException("Only ACTIVE policies can be deprecated");
         }
-        this.status = PolicyStatus.DEPRECATED;
         this.deprecatedDate = LocalDate.now();
     }
     
     // ========== GETTERS AND SETTERS ==========
-    
-    public String getId() {
-        return id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
     
     public String getPolicyVersion() {
         return policyVersion;
@@ -236,28 +238,82 @@ public class OnboardingPolicy extends AbstractJpaStateEntity {
     public void setApprovedAt(LocalDateTime approvedAt) {
         this.approvedAt = approvedAt;
     }
-    
-    public String getDescription() {
-        return description;
+
+    public boolean isIdentityVerificationRequired() {
+        return identityVerificationRequired;
     }
-    
-    public void setDescription(String description) {
-        this.description = description;
+
+    public void setIdentityVerificationRequired(boolean identityVerificationRequired) {
+        this.identityVerificationRequired = identityVerificationRequired;
+    }
+
+    public boolean isTaxVerificationRequired() {
+        return taxVerificationRequired;
+    }
+
+    public void setTaxVerificationRequired(boolean taxVerificationRequired) {
+        this.taxVerificationRequired = taxVerificationRequired;
+    }
+
+    public boolean isBankVerificationRequired() {
+        return bankVerificationRequired;
+    }
+
+    public void setBankVerificationRequired(boolean bankVerificationRequired) {
+        this.bankVerificationRequired = bankVerificationRequired;
+    }
+
+    public boolean isManualApprovalRequired() {
+        return manualApprovalRequired;
+    }
+
+    public void setManualApprovalRequired(boolean manualApprovalRequired) {
+        this.manualApprovalRequired = manualApprovalRequired;
     }
     
     public String getRegulatoryBasis() {
         return regulatoryBasis;
     }
-    
-    public PolicyStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PolicyStatus status) {
-        this.status = status;
-    }
 
     public void setRegulatoryBasis(String regulatoryBasis) {
         this.regulatoryBasis = regulatoryBasis;
+    }
+
+    public List<OnboardingPolicyRule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<OnboardingPolicyRule> rules) {
+        this.rules = rules;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public PolicyStatus getStatus() {
+        State state = this.getCurrentState();
+        if (state == null || state.getStateId() == null) return null;
+        try {
+            return PolicyStatus.valueOf(state.getStateId());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void setStatus(PolicyStatus status) {
+        if (status != null) {
+            State state = this.getCurrentState();
+            if (state == null) {
+                state = new State(status.name(), null);
+                this.setCurrentState(state);
+            } else {
+                state.setStateId(status.name());
+            }
+        }
     }
 }

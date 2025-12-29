@@ -11,17 +11,27 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-onboarding-api</artifactId>
+    <artifactId>handmade-onboarding-policy-api</artifactId>
     <packaging>jar</packaging>
-    <name>handmade-onboarding-api</name>
+    <name>handmade-onboarding-policy-api</name>
     <description>Onboarding policy entities and interfaces</description>
 
     <dependencies>
         <!-- Policy Domain -->
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-onboarding-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-domain</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>stm</artifactId>
         </dependency>
 
         <!-- Lombok -->

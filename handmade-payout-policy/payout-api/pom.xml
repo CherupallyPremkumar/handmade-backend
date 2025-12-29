@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-payout-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-payout-api</artifactId>
+    <artifactId>handmade-payout-policy-api</artifactId>
     <name>handmade-payout-api</name>
     <description>Payout policy entities and interfaces</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-payout-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-payout-policy-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 

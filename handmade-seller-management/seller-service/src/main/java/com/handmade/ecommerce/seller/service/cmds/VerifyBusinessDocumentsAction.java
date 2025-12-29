@@ -1,16 +1,10 @@
-package com.handmade.ecommerce.seller.service.cmds;
-
-import org.chenile.stm.STMInternalTransitionInvoker;
-import org.chenile.stm.State;
-import org.chenile.stm.model.Transition;
-import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import com.handmade.ecommerce.seller.dto.command.VerifyBusinessDocumentsPayload;
 
-public class VerifyBusinessDocumentsAction extends AbstractSTMTransitionAction<Seller, VerifyBusinessDocumentsPayload> {
+public class VerifyBusinessDocumentsAction extends AbstractSTMTransitionAction<SellerAccount, VerifyBusinessDocumentsPayload> {
 
     @Override
-    public void transitionTo(Seller seller, VerifyBusinessDocumentsPayload payload, State startState, String eventId,
+    public void doTransition(SellerAccount seller, VerifyBusinessDocumentsPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Validate verification result

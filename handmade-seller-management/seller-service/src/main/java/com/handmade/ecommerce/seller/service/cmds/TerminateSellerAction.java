@@ -4,13 +4,13 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import com.handmade.ecommerce.seller.dto.command.TerminateSellerPayload;
 
 public class TerminateSellerAction extends AbstractSTMTransitionAction<Seller, TerminateSellerPayload> {
 
     @Override
-    public void transitionTo(Seller seller, TerminateSellerPayload payload, State startState, String eventId,
+    public void doTransition(Seller seller, TerminateSellerPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Store termination comments

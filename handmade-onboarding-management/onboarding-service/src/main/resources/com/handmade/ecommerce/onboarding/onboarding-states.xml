@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="ONBOARDING_FLOW" default="true">
+
+        <!-- =========================
+             DRAFT → APPLICATION
+        ========================== -->
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="lockPolicy" newStateId="POLICY_LOCKED"/>
+        </manual-state>
+
+        <manual-state id="POLICY_LOCKED">
+            <on eventId="startApplication" newStateId="APPLICATION_IN_PROGRESS"/>
+        </manual-state>
+
+        <!-- =========================
+             APPLICATION DATA ENTRY
+        ========================== -->
+        <manual-state id="APPLICATION_IN_PROGRESS">
+            <on eventId="updateIdentity" newStateId="APPLICATION_IN_PROGRESS"/>
+            <on eventId="updateTax" newStateId="APPLICATION_IN_PROGRESS"/>
+            <on eventId="updateBank" newStateId="APPLICATION_IN_PROGRESS"/>
+            <on eventId="submitApplication" newStateId="SUBMISSION_READINESS_CHECK"/>
+        </manual-state>
+
+        <!-- =========================
+             READINESS DECISION (AUTO)
+        ========================== -->
+        <auto-state id="SUBMISSION_READINESS_CHECK"
+                    component="submissionReadinessCheck">
+            <on eventId="identityRequired" newStateId="IDENTITY_VERIFICATION"/>
+            <on eventId="taxRequired" newStateId="TAX_VERIFICATION"/>
+            <on eventId="bankRequired" newStateId="BANK_VERIFICATION"/>
+            <on eventId="allReady" newStateId="PENDING_APPROVAL"/>
+            <on eventId="notReady" newStateId="APPLICATION_IN_PROGRESS"/>
+        </auto-state>
+
+        <!-- =========================
+             IDENTITY (ASYNC)
+        ========================== -->
+        <manual-state id="IDENTITY_VERIFICATION">
+            <on eventId="identityVerified" newStateId="SUBMISSION_READINESS_CHECK"/>
+            <on eventId="identityRejected" newStateId="REJECTED"/>
+            <on eventId="requestMoreInfo" newStateId="IDENTITY_INFO_REQUESTED"/>
+        </manual-state>
+
+        <manual-state id="IDENTITY_INFO_REQUESTED">
+            <on eventId="submitAdditionalDocs" newStateId="SUBMISSION_READINESS_CHECK"/>
+            <on eventId="reject" newStateId="REJECTED"/>
+        </manual-state>
+
+        <!-- =========================
+             TAX
+        ========================== -->
+        <manual-state id="TAX_VERIFICATION">
+            <on eventId="taxVerified" newStateId="SUBMISSION_READINESS_CHECK"/>
+            <on eventId="reject" newStateId="REJECTED"/>
+        </manual-state>
+
+        <!-- =========================
+             BANK
+        ========================== -->
+        <manual-state id="BANK_VERIFICATION">
+            <on eventId="bankVerified" newStateId="SUBMISSION_READINESS_CHECK"/>
+            <on eventId="reject" newStateId="REJECTED"/>
+        </manual-state>
+
+        <!-- =========================
+             FINAL APPROVAL
+        ========================== -->
+        <manual-state id="PENDING_APPROVAL">
+            <on eventId="approve" newStateId="APPROVED"/>
+            <on eventId="reject" newStateId="REJECTED"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="provisionSeller" component="onboardingProvisionSellerAction"  newStateId="ACTIVE">
+            </on>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="expire" newStateId="EXPIRED"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED">
+            <on eventId="reapply" newStateId="POLICY_LOCKED"/>
+        </manual-state>
+
+        <manual-state id="REJECTED">
+            <on eventId="reapply" newStateId="POLICY_LOCKED"/>
+        </manual-state>
+
+    </flow>
+</states>

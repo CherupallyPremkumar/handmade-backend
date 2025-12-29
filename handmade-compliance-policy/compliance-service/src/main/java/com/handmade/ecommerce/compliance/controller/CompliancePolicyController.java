@@ -2,7 +2,7 @@ package com.handmade.ecommerce.compliance.controller;
 
 import com.handmade.ecommerce.compliance.domain.aggregate.CompliancePolicy;
 import com.handmade.ecommerce.compliance.service.CompliancePolicyResolver;
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

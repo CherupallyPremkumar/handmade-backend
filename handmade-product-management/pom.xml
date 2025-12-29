@@ -10,16 +10,19 @@
     </parent>
 
     <modules>
-        <module>product</module>
-        <module>variant</module>
+        <module>product-api</module>
+        <module>product-domain</module>
+        <module>product-delegator</module>
+        <module>product-service</module>
+        <module>product-async</module>
     </modules>
-    <groupId>com.handmade.ecommerce.product-catalog</groupId>
+    <groupId>com.handmade.ecommerce.product</groupId>
     <version>${revision}</version>
     <artifactId>product-management</artifactId>
     <name>product-management</name>
 
     <properties>
-        <prouct-catalog.version>${revision}</prouct-catalog.version>
+        <product.version>${revision}</product.version>
     </properties>
 
     <dependencies>

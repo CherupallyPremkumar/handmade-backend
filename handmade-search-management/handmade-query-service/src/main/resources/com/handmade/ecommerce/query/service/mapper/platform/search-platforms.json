@@ -1,0 +1,53 @@
+[
+    {
+        "id": "search-platforms",
+        "name": "search-platforms",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "PLATFORM_FLOW",
+        "stateColumn": "state",
+        "columnMetadata": {
+            "id": {
+                "name": "ID",
+                "columnName": "id",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "name": {
+                "name": "Name",
+                "columnName": "name",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "state": {
+                "name": "State",
+                "columnName": "state",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "suspended": {
+                "name": "Suspended",
+                "columnName": "suspended",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "deleted": {
+                "name": "Deleted",
+                "columnName": "deleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            }
+        }
+    }
+]

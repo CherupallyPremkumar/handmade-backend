@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-promotion-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-promotion-domain</artifactId>
+    <artifactId>handmade-promotion-policy-domain</artifactId>
     <name>handmade-promotion-domain</name>
     <description>Promotion policy domain entities</description>
 
@@ -31,6 +31,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-api</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>

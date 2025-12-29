@@ -4,10 +4,11 @@
 	<packaging>pom</packaging>
 	<modules>
 
+	<module>platform-core</module>
 	<module>platform-service</module>
 	<module>platform-api</module>
 	<module>platform-domain</module>
-        <module>platform-delegator</module>
+		<module>platform-delegator</module>
         <module>platform-async</module>
     </modules>
 	<parent>

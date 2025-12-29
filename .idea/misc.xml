@@ -32,6 +32,10 @@
         <option value="$PROJECT_DIR$/handmade-seller-management/handmade-seller-domain/pom.xml" />
         <option value="$PROJECT_DIR$/handmade-onboarding-policy/onboarding-api/pom.xml" />
         <option value="$PROJECT_DIR$/handmade-onboarding-policy/onboarding-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-seller-management/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-policy/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-onboarding-management/onboarding-identity/identity-service/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-app-core/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -40,6 +44,7 @@
         <option value="$PROJECT_DIR$/common-library/common/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/pom.xml" />
         <option value="$PROJECT_DIR$/fulfillment-management/shipping/shipping-api/pom.xml" />
+        <option value="$PROJECT_DIR$/handmade-common-library/pom.xml" />
         <option value="$PROJECT_DIR$/messaging-management/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/price/price-api/pom.xml" />
         <option value="$PROJECT_DIR$/pricing-engine/pricing-core/pom.xml" />

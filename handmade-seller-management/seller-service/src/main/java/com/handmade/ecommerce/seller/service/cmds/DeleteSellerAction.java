@@ -5,7 +5,7 @@ import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import com.handmade.ecommerce.seller.dto.command.DeleteSellerPayload;
 
 /**
@@ -13,16 +13,11 @@ import com.handmade.ecommerce.seller.dto.command.DeleteSellerPayload;
  <p>Use this class if you want to augment the common logic for this specific transition</p>
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
-public class DeleteSellerAction extends AbstractSTMTransitionAction<Seller,
+public class DeleteSellerAction extends AbstractSTMTransitionAction<Seller, DeleteSellerPayload> {
 
-    DeleteSellerPayload>{
-
-
-	@Override
-	public void transitionTo(Seller seller,
-            DeleteSellerPayload payload,
-            State startState, String eventId,
-			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
+    @Override
+    public void doTransition(Seller seller, DeleteSellerPayload payload, State startState, String eventId,
+            State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
             seller.transientMap.previousPayload = payload;
 	}
 

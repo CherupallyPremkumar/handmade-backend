@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.seller.domain.entity;
 
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import jakarta.persistence.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
@@ -11,6 +12,10 @@ import java.util.List;
 @Entity
 @Table(name = "hm_seller_payment_info")
 public class SellerPaymentInfo extends BaseJpaEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", insertable = false, updatable = false)
+    private Seller seller;
 
     @Column(name = "seller_id", nullable = false)
     private String sellerId;

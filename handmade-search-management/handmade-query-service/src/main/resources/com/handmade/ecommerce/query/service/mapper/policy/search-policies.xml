@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.policy">
+
+    <select id="search-policies" resultType="map">
+        SELECT 
+            id as "id",
+            policy_version as "policyVersion",
+            country_code as "countryCode",
+            seller_type as "sellerType",
+            status as "status",
+            state_id as "state",
+            effective_date as "effectiveDate",
+            deprecated_date as "deprecatedDate",
+            created_by as "createdBy",
+            created_at as "createdAt",
+            approved_by as "approvedBy",
+            approved_at as "approvedAt"
+        FROM onboarding_policies
+        WHERE 1=1
+        <if test="policyVersion != null">
+            AND policy_version = #{policyVersion}
+        </if>
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
+        </if>
+        <if test="sellerType != null">
+            AND seller_type = #{sellerType}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY created_at DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-policies-count" resultType="int">
+        SELECT COUNT(*)
+        FROM onboarding_policies
+        WHERE 1=1
+        <if test="policyVersion != null">
+            AND policy_version = #{policyVersion}
+        </if>
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
+        </if>
+        <if test="sellerType != null">
+            AND seller_type = #{sellerType}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+    </select>
+</mapper>

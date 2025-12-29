@@ -4,15 +4,15 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import com.handmade.ecommerce.seller.dto.command.SubmitApplicationPayload;
 
 import java.time.LocalDateTime;
 
-public class SubmitApplicationAction extends AbstractSTMTransitionAction<Seller, SubmitApplicationPayload> {
+public class SubmitApplicationAction extends AbstractSTMTransitionAction<SellerAccount, SubmitApplicationPayload> {
 
     @Override
-    public void transitionTo(Seller seller, SubmitApplicationPayload payload, State startState, String eventId,
+    public void doTransition(SellerAccount seller, SubmitApplicationPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Validate that seller has minimum required information
@@ -28,7 +28,7 @@ public class SubmitApplicationAction extends AbstractSTMTransitionAction<Seller,
         // emailService.sendApplicationSubmittedEmail(seller);
     }
     
-    private void validateSellerApplication(Seller seller) {
+    private void validateSellerApplication(SellerAccount seller) {
         if (seller.getSellerName() == null || seller.getSellerName().isEmpty()) {
             throw new IllegalStateException("Seller name is required");
         }

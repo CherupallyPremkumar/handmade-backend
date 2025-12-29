@@ -108,7 +108,7 @@ public class SellerOnboardingService {
         try {
             return policyResolver.hasActivePolicy(
                 countryCode, 
-                com.handmade.ecommerce.seller.domain.enums.SellerType.valueOf(sellerType)
+                com.handmade.ecommerce.platform.domain.enums.SellerType.valueOf(sellerType)
             );
         } catch (IllegalArgumentException e) {
             logger.warn("Invalid seller type: {}", sellerType);

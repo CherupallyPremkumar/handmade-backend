@@ -8,6 +8,7 @@
         <version>${revision}</version>
     </parent>
 
+    <groupId>com.handmade.ecommerce.policy</groupId>
     <artifactId>handmade-payout-policy</artifactId>
     <packaging>pom</packaging>
     <name>handmade-payout-policy</name>

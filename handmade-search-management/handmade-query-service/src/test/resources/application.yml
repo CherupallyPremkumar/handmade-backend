@@ -61,6 +61,6 @@ query:
     minimumIdle: '2'
     idleTimeout: '5000'
     jdbcUrl: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  mapperFiles: classpath*:com/handmade/ecommerce/query/service/mapper/*.xml
-  definitionFiles: classpath*:com/handmade/ecommerce/query/service/mapper/*.json
+  mapperFiles: classpath*:com/handmade/ecommerce/query/service/mapper/**/*.xml
+  definitionFiles: classpath*:com/handmade/ecommerce/query/service/mapper/**/*.json
 

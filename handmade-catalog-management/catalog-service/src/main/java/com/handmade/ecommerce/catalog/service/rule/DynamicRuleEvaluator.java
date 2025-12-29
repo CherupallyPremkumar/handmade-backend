@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.catalog.service.rule;
 
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;

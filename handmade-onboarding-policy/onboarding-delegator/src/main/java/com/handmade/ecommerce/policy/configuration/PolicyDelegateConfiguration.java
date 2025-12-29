@@ -1,19 +1,19 @@
 package com.handmade.ecommerce.policy.configuration;
 
-import com.handmade.ecommerce.policy.delegate.PolicyManagerClient;
-import com.handmade.ecommerce.policy.delegate.PolicyManagerClientImpl;
+import com.handmade.ecommerce.policy.delegate.OnboardingPolicyManagerClient;
+import com.handmade.ecommerce.policy.delegate.OnboardingPolicyManagerClientImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration for Policy Delegator
- * Sets up the PolicyManagerClient bean for remote service calls
+ * Sets up the OnboardingPolicyManagerClient bean for remote service calls
  */
 @Configuration
 public class PolicyDelegateConfiguration {
     
     @Bean
-    public PolicyManagerClient policyManagerClient() {
-        return new PolicyManagerClientImpl();
+    public OnboardingPolicyManagerClient onboardingPolicyManagerClient() {
+        return new OnboardingPolicyManagerClientImpl();
     }
 }

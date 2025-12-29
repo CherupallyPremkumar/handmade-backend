@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.seller.service.validation;
 
-import com.handmade.ecommerce.seller.dto.command.CreateSellerRequest;
+import com.handmade.ecommerce.seller.dto.CreateSellerRequest;
 import com.handmade.ecommerce.seller.dto.validation.ValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

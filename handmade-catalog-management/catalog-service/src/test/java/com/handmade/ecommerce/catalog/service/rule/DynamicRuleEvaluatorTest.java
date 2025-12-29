@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.catalog.service.rule;
 
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

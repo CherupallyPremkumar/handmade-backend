@@ -3,7 +3,7 @@ package com.handmade.ecommerce.catalog.scheduler.batch;
 import com.handmade.ecommerce.catalog.model.Collection;
 import com.handmade.ecommerce.catalog.model.CollectionProductMapping;
 import com.handmade.ecommerce.catalog.repository.CollectionRepository;
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
 import com.handmade.ecommerce.catalog.service.rule.DynamicRuleEvaluator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;

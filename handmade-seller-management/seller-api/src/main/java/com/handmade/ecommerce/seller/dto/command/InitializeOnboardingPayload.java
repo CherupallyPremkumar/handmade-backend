@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.seller.dto.command;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import lombok.Data;
 
 import java.io.Serializable;

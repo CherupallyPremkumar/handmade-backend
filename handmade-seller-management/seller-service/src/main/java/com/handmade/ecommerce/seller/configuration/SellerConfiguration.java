@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.seller.configuration;
 
-import com.handmade.ecommerce.seller.configuration.dao.SellerRepository;
+import com.handmade.ecommerce.seller.infrastructure.persistence.SellerRepository;
 import com.handmade.ecommerce.seller.service.cmds.*;
 import com.handmade.ecommerce.seller.service.postSaveHooks.ACTIVESellerPostSaveHook;
 import com.handmade.ecommerce.seller.service.postSaveHooks.CREATEDSellerPostSaveHook;
@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.chenile.utils.entity.service.EntityStore;
 import org.chenile.workflow.service.impl.StateEntityServiceImpl;
 import org.chenile.workflow.service.stmcmds.*;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 
 import com.handmade.ecommerce.seller.service.healthcheck.SellerHealthChecker;
 import com.handmade.ecommerce.seller.service.store.SellerEntityStore;
@@ -36,9 +36,9 @@ import org.chenile.workflow.service.activities.AreActivitiesComplete;
 */
 @Configuration
 public class SellerConfiguration {
-	private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/seller/seller-states.xml";
-	public static final String PREFIX_FOR_PROPERTIES = "Seller";
-    public static final String PREFIX_FOR_RESOLVER = "seller";
+	private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/seller/seller-store-states.xml";
+	public static final String PREFIX_FOR_PROPERTIES = "SellerStore";
+    public static final String PREFIX_FOR_RESOLVER = "sellerStore";
 
     @Bean BeanFactoryAdapter sellerBeanFactoryAdapter() {
 		return new SpringBeanFactoryAdapter();
@@ -69,11 +69,12 @@ public class SellerConfiguration {
 		return new SellerEntityStore(sellerRepository);
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Seller> _sellerStateEntityService_(
+	@Bean @Autowired SellerService _sellerService_(
 			@Qualifier("sellerEntityStm") STM<Seller> stm,
 			@Qualifier("sellerActionsInfoProvider") STMActionsInfoProvider sellerInfoProvider,
-			@Qualifier("sellerEntityStore") EntityStore<Seller> entityStore){
-		return new StateEntityServiceImpl<>(stm, sellerInfoProvider, entityStore);
+			@Qualifier("sellerEntityStore") EntityStore<Seller> entityStore,
+            SellerRepository sellerRepository){
+		return new SellerServiceImpl(stm, sellerInfoProvider, entityStore, sellerRepository);
 	}
 	
 	// Now we start constructing the STM Components 
@@ -184,122 +185,15 @@ public class SellerConfiguration {
         return new DeleteSellerAction();
     }
 
-    // New transition actions for seller lifecycle
-    @Bean
-    SubmitApplicationAction
-            sellerSubmitApplicationAction(){
-        return new SubmitApplicationAction();
-    }
-
-    @Bean
-    ApproveSellerAction
-            sellerApproveAction(){
-        return new ApproveSellerAction();
-    }
-
-    @Bean
-    RejectSellerAction
-            sellerRejectAction(){
-        return new RejectSellerAction();
-    }
-
-    @Bean
-    RequestTerminationAction
-            sellerRequestTerminationAction(){
-        return new RequestTerminationAction();
-    }
-
     @Bean
     TerminateSellerAction
             sellerTerminateAction(){
         return new TerminateSellerAction();
     }
 
-    @Bean
-    VerifyBusinessDocumentsAction
-            sellerVerifyBusinessDocumentsAction(){
-        return new VerifyBusinessDocumentsAction();
-    }
+    // --- Store Operations Actions ---
 
-    @Bean
-    VerifyBankAccountAction
-            sellerVerifyBankAccountAction(){
-        return new VerifyBankAccountAction();
-    }
-
-    @Bean
-    VerifyKYCAction
-            sellerVerifyKYCAction(){
-        return new VerifyKYCAction();
-    }
-
-    @Bean
-    RequestMoreInfoAction
-            sellerRequestMoreInfoAction(){
-        return new RequestMoreInfoAction();
-    }
-
-    @Bean
-    SubmitAdditionalInfoAction
-            sellerSubmitAdditionalInfoAction(){
-        return new SubmitAdditionalInfoAction();
-    }
-
-    @Bean
-    CancelTerminationAction
-            sellerCancelTerminationAction(){
-        return new CancelTerminationAction();
-    }
-
-    @Bean
-    ReapplyAction
-            sellerReapplyAction(){
-        return new ReapplyAction();
-    }
-
-    // ===== NEW AMAZON-WORKFLOW ACTIONS =====
-
-    @Bean
-    VerifyIdentityAction
-            sellerVerifyIdentityAction(){
-        return new VerifyIdentityAction();
-    }
-
-    @Bean
-    CompleteTaxInterviewAction
-            sellerCompleteTaxInterviewAction(){
-        return new CompleteTaxInterviewAction();
-    }
-
-    @Bean
-    FlagPerformanceIssueAction
-            sellerFlagPerformanceIssueAction(){
-        return new FlagPerformanceIssueAction();
-    }
-
-    @Bean
-    ResolveIssuesAction
-            sellerResolveIssuesAction(){
-        return new ResolveIssuesAction();
-    }
-
-    @Bean
-    RequestReinstatementAction
-            sellerRequestReinstatementAction(){
-        return new RequestReinstatementAction();
-    }
-
-    @Bean
-    ApproveReinstatementAction
-            sellerApproveReinstatementAction(){
-        return new ApproveReinstatementAction();
-    }
-
-    @Bean
-    RejectReinstatementAction
-            sellerRejectReinstatementAction(){
-        return new RejectReinstatementAction();
-    }
+    // TODO: Add store-specific actions (Vacation mode, Listing pause)
 
     @Bean
     DeactivateSellerAction

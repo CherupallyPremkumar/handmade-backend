@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.handmade.ecommerce</groupId>
-        <artifactId>handmade-stripe-integration</artifactId>
-        <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+	<parent>
+		<groupId>com.handmade.ecommerce</groupId>
+		<artifactId>handmade-stripe-integration</artifactId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
     <artifactId>stripe-service</artifactId>
     <name>stripe-service</name>
@@ -15,6 +15,16 @@
 
     <dependencies>
         
+        <dependency>
+            <groupId>com.handmade.ecommerce.onboarding</groupId>
+            <artifactId>handmade-onboarding-identity-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.onboarding</groupId>
+            <artifactId>handmade-onboarding-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
             <artifactId>stripe-api</artifactId>
@@ -25,7 +35,7 @@
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
-            <version>24.0.0</version>
+            <version>28.1.0</version>
         </dependency>
 
         
@@ -38,6 +48,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-http</artifactId>
+        </dependency>
 
         
         <dependency>
@@ -45,11 +59,19 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
 
         
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
 </project>

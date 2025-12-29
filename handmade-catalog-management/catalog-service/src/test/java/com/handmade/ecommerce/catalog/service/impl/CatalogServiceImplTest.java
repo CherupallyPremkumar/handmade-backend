@@ -2,8 +2,8 @@ package com.handmade.ecommerce.catalog.service.impl;
 
 import com.handmade.ecommerce.catalog.model.CatalogItem;
 import com.handmade.ecommerce.catalog.repository.CatalogItemRepository;
-import com.handmade.ecommerce.catalog.service.integration.ExternalProductDto;
-import com.handmade.ecommerce.catalog.service.integration.ProductServiceClient;
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
+import com.handmade.ecommerce.product.service.ProductServiceClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

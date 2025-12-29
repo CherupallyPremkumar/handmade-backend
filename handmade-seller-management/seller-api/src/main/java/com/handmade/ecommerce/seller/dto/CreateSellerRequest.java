@@ -1,4 +1,4 @@
-package com.handmade.ecommerce.seller.dto.command;
+package com.handmade.ecommerce.seller.dto;
 
 /**
  * Request DTO for creating a seller.
@@ -9,7 +9,7 @@ public class CreateSellerRequest {
     private String email;
     private String businessName;
     private String countryCode;
-    private com.handmade.ecommerce.seller.domain.enums.SellerType sellerType;
+    private com.handmade.ecommerce.platform.domain.enums.SellerType sellerType;
     private String taxId;
     private String bankAccountNumber;
     private String ifscCode;
@@ -89,11 +89,11 @@ public class CreateSellerRequest {
         this.countryCode = countryCode;
     }
 
-    public com.handmade.ecommerce.seller.domain.enums.SellerType getSellerType() {
+    public com.handmade.ecommerce.platform.domain.enums.SellerType getSellerType() {
         return sellerType;
     }
 
-    public void setSellerType(com.handmade.ecommerce.seller.domain.enums.SellerType sellerType) {
+    public void setSellerType(com.handmade.ecommerce.platform.domain.enums.SellerType sellerType) {
         this.sellerType = sellerType;
     }
 }

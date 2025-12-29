@@ -2,6 +2,7 @@ package com.handmade.ecommerce.platform.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Lob;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.workflow.activities.model.ActivityLog;
 import java.io.Serializable;
@@ -15,7 +16,9 @@ public class PlatformActivityLog extends BaseJpaEntity implements ActivityLog, S
     private String id;
     public String activityName;
     public boolean activitySuccess;
+    @Lob
     public String activityComment;
+
     @Override
     public String getName() {
         return activityName;
@@ -30,7 +33,12 @@ public class PlatformActivityLog extends BaseJpaEntity implements ActivityLog, S
     public String getComment() {
         return activityComment;
     }
-    
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

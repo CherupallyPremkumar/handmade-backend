@@ -4,15 +4,15 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import com.handmade.ecommerce.seller.dto.command.SubmitAdditionalInfoPayload;
 
 import java.time.LocalDateTime;
 
-public class SubmitAdditionalInfoAction extends AbstractSTMTransitionAction<Seller, SubmitAdditionalInfoPayload> {
+public class SubmitAdditionalInfoAction extends AbstractSTMTransitionAction<SellerAccount, SubmitAdditionalInfoPayload> {
 
     @Override
-    public void transitionTo(Seller seller, SubmitAdditionalInfoPayload payload, State startState, String eventId,
+    public void doTransition(SellerAccount seller, SubmitAdditionalInfoPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Store the additional information provided

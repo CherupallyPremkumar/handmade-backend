@@ -4,13 +4,13 @@ import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
 import com.handmade.ecommerce.seller.dto.command.VerifyKYCPayload;
 
-public class VerifyKYCAction extends AbstractSTMTransitionAction<Seller, VerifyKYCPayload> {
+public class VerifyKYCAction extends AbstractSTMTransitionAction<SellerAccount, VerifyKYCPayload> {
 
     @Override
-    public void transitionTo(Seller seller, VerifyKYCPayload payload, State startState, String eventId,
+    public void doTransition(SellerAccount seller, VerifyKYCPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Validate KYC verification

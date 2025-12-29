@@ -29,28 +29,28 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.handmade.ecommerce.onboarding</groupId>
-                <artifactId>handmade-onboarding-domain</artifactId>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-domain</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.handmade.ecommerce.onboarding</groupId>
-                <artifactId>handmade-onboarding-api</artifactId>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.handmade.ecommerce.onboarding</groupId>
-                <artifactId>handmade-onboarding-service</artifactId>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-service</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.handmade.ecommerce.onboarding</groupId>
-                <artifactId>handmade-onboarding-delegator</artifactId>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-delegator</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.handmade.ecommerce.onboarding</groupId>
-                <artifactId>handmade-onboarding-async</artifactId>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-onboarding-policy-async</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>

@@ -2,6 +2,7 @@ package com.handmade.ecommerce.platform.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Lob;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 import java.io.Serializable;
@@ -9,22 +10,25 @@ import java.time.LocalDateTime;
 
 /**
  * Immutable append-only log of ALL events on the Platform Aggregate.
- * Distinct from Chenile's workflow ActivityLog - this is for specific domain audit requirements.
+ * Distinct from Chenile's workflow ActivityLog - this is for specific domain
+ * audit requirements.
  * PURE DOMAIN MODEL (no persistence annotations).
  */
 @Entity
 @Table(name = "hm_platform_audit_log")
-public class PlatformAuditLog  extends BaseJpaEntity implements Serializable {
+public class PlatformAuditLog extends BaseJpaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String platformId;
     private String eventType; // e.g., COMMISSION_UPDATED
+    @Lob
     private String payloadJson;
     private String actorId;
     private String ipAddress;
     private LocalDateTime occurredAt;
 
-    protected PlatformAuditLog() {}
+    protected PlatformAuditLog() {
+    }
 
     public PlatformAuditLog(String platformId, String eventType, String payloadJson, String actorId, String ipAddress) {
         this.platformId = platformId;
@@ -34,14 +38,36 @@ public class PlatformAuditLog  extends BaseJpaEntity implements Serializable {
         this.ipAddress = ipAddress;
         this.occurredAt = LocalDateTime.now();
     }
-    
-    public String getPlatformId() { return platformId; }
-    public String getEventType() { return eventType; }
-    public String getPayloadJson() { return payloadJson; }
-    public String getActorId() { return actorId; }
-    public String getIpAddress() { return ipAddress; }
-    public LocalDateTime getOccurredAt() { return occurredAt; }
-    
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+
+    public String getPlatformId() {
+        return platformId;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public String getPayloadJson() {
+        return payloadJson;
+    }
+
+    public String getActorId() {
+        return actorId;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public LocalDateTime getOccurredAt() {
+        return occurredAt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

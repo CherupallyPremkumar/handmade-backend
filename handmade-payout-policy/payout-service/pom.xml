@@ -3,25 +3,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-payout-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-payout-service</artifactId>
+    <artifactId>handmade-payout-policy-service</artifactId>
     <name>handmade-payout-service</name>
     <description>Payout policy services and repositories</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-payout-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-payout-policy-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-payout-api</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-payout-policy-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -37,7 +37,7 @@
 
         <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
+            <artifactId>handmade-seller-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -45,6 +45,20 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>handmade-event-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.orchestration</groupId>
+            <artifactId>handmade-seller-orchestration-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>chenile-http</artifactId>
         </dependency>
     </dependencies>
 </project>

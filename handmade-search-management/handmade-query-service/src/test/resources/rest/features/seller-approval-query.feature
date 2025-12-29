@@ -103,11 +103,12 @@ When I POST a REST request to URL "/q/search-seller-approvals" with payload
 		{"name":"createdAt","ascendingOrder": false}
 	],
 	"pageNum": 2,
-	"numRowsInPage": 20
+	"numRowsInPage": 2
 }
 """
 Then the http status code is 200
 And the top level code is 200
 And success is true
 And the REST response key "currentPage" is "2"
-And the REST response key "numRowsInPage" is "20"
+And the REST response key "numRowsInPage" is "2"
+

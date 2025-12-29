@@ -6,6 +6,7 @@ import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.*;
 import java.util.Map;
+import com.handmade.ecommerce.policy.domain.aggregate.OnboardingPolicy;
 
 /**
  * Individual verification step within an onboarding policy
@@ -32,6 +33,10 @@ public class OnboardingPolicyRule extends BaseJpaEntity {
     /**
      * Reference to parent policy
      */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "policy_id", insertable = false, updatable = false)
+    private OnboardingPolicy policy;
+
     @Column(name = "policy_id", length = 255, nullable = false)
     private String policyId;
     

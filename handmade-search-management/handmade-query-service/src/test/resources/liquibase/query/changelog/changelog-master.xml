@@ -11,6 +11,6 @@
 	<include file="db/changelog/db.changelog-master.yaml"/>
 	
 	<!-- Include all test data from liquibase-changelogs module -->
-	<includeAll path="db/changelog/test-data/test-data.yaml"/>
+	<includeAll path="db/changelog/test-data"/>
 	
 </databaseChangeLog>

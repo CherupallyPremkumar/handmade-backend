@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.handmade.ecommerce</groupId>
+        <groupId>com.handmade.ecommerce.policy</groupId>
         <artifactId>handmade-compliance-policy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>handmade-compliance-api</artifactId>
+    <artifactId>handmade-compliance-policy-api</artifactId>
     <name>handmade-compliance-api</name>
     <description>Compliance policy entities and interfaces</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-compliance-domain</artifactId>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-compliance-policy-domain</artifactId>
             <version>${revision}</version>
         </dependency>
 

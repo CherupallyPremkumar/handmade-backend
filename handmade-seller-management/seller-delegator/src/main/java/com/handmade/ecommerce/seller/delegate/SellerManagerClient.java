@@ -2,6 +2,7 @@ package com.handmade.ecommerce.seller.delegate;
 
 import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import com.handmade.ecommerce.seller.domain.aggregate.SellerAccount;
+import com.handmade.ecommerce.seller.dto.CreateSellerRequest;
 import com.handmade.ecommerce.seller.dto.command.*;
 
 /**
@@ -78,4 +79,9 @@ public interface SellerManagerClient {
      * Retrieve seller store by ID
      */
     Seller getSeller(String sellerId);
+
+    /**
+     * Check if email exists in operational context
+     */
+    boolean existsByEmail(String email);
 }

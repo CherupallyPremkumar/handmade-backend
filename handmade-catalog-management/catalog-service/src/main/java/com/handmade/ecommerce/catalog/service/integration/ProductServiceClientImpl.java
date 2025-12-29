@@ -1,5 +1,7 @@
 package com.handmade.ecommerce.catalog.service.integration;
 
+import com.handmade.ecommerce.product.dto.ExternalProductDto;
+import com.handmade.ecommerce.product.service.ProductServiceClient;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Optional;

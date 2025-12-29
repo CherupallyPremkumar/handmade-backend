@@ -37,11 +37,10 @@
             <groupId>org.chenile</groupId>
             <artifactId>workflow-api</artifactId>
         </dependency>
-        
         <dependency>
-            <groupId>com.handmade.ecommerce.seller</groupId>
-            <artifactId>seller-domain</artifactId>
-            <version>${revision}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

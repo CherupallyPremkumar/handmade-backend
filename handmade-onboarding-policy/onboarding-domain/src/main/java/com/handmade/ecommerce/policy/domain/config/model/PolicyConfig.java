@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.policy.domain.config.model;
 
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.promotion.domain.config.model;
 
 import com.handmade.ecommerce.promotion.domain.valueobject.DiscountType;
-import com.handmade.ecommerce.seller.domain.enums.SellerType;
+import com.handmade.ecommerce.platform.domain.enums.SellerType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
