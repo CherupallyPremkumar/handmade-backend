@@ -41,3 +41,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+### Agents ###
+.agent/
+
+### IDE ###
+.idea/
