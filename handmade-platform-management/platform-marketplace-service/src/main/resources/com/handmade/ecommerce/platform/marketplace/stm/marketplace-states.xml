@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stm-configuration xmlns="http://www.chenile.org/stm"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.chenile.org/stm
+                   http://www.chenile.org/stm/stm-configuration.xsd">
+
+    <state-machine id="marketplace">
+        <description>Marketplace Lifecycle State Machine</description>
+        
+        <!-- States -->
+        <state id="DRAFT">
+            <description>Marketplace is being configured</description>
+        </state>
+        
+        <state id="ACTIVE">
+            <description>Marketplace is live and accepting transactions</description>
+        </state>
+        
+        <state id="SUSPENDED">
+            <description>Marketplace is temporarily suspended</description>
+        </state>
+        
+        <!-- Transitions -->
+        <transition from="DRAFT" to="ACTIVE" event="activate">
+            <description>Activate marketplace</description>
+            <action bean="activateMarketplaceAction"/>
+        </transition>
+        
+        <transition from="ACTIVE" to="SUSPENDED" event="suspend">
+            <description>Suspend marketplace</description>
+            <action bean="suspendMarketplaceAction"/>
+        </transition>
+        
+        <transition from="SUSPENDED" to="ACTIVE" event="reactivate">
+            <description>Reactivate marketplace</description>
+            <action bean="reactivateMarketplaceAction"/>
+        </transition>
+    </state-machine>
+</stm-configuration>

@@ -15,41 +15,41 @@ import org.springframework.stereotype.Component;
 @Component("buildPriceResultCommand")
 public class BuildPriceResultCommand implements Command<PricingExchange> {
 
-    private static final Logger logger = LoggerFactory.getLogger(BuildPriceResultCommand.class);
+        private static final Logger logger = LoggerFactory.getLogger(BuildPriceResultCommand.class);
 
-    @Override
-    public void execute(PricingExchange exchange) throws Exception {
-        logger.info("Step 6: Building price result");
+        @Override
+        public void execute(PricingExchange exchange) throws Exception {
+                logger.info("Step 6: Building price result");
 
-        Money discountedPrice = exchange.getDiscountedPrice();
-        Money taxAmount = exchange.getTaxAmount();
+                Money discountedPrice = exchange.getDiscountedPrice();
+                Money taxAmount = exchange.getTaxAmount();
 
-        // Calculate total
-        Money total = new Money(
-                discountedPrice.getAmount().add(taxAmount.getAmount()),
-                discountedPrice.getCurrency());
-        exchange.setTotal(total);
+                // Calculate total
+                Money total = new Money(
+                                discountedPrice.getAmount().add(taxAmount.getAmount()),
+                                discountedPrice.getCurrency());
+                exchange.setTotal(total);
 
-        // Build result
-        PriceCalculationResult result = PriceCalculationResult.builder()
-                .basePrice(exchange.getBasePrice())
-                .convertedPrice(exchange.getConvertedPrice())
-                .appliedRules(exchange.getAppliedRules())
-                .discount(exchange.getTotalDiscount())
-                .subtotal(discountedPrice)
-                .tax(taxAmount)
-                .total(total)
-                .currency(discountedPrice.getCurrency())
-                .taxDescription(exchange.getTaxDescription())
-                .build();
+                // Build result
+                PriceCalculationResult result = PriceCalculationResult.builder()
+                                .basePrice(exchange.getBasePrice())
+                                .convertedPrice(exchange.getConvertedPrice())
+                                .appliedRules(exchange.getAppliedRules())
+                                .discount(exchange.getTotalDiscount())
+                                .subtotal(discountedPrice)
+                                .tax(taxAmount)
+                                .total(total)
+                                .currency(discountedPrice.getCurrency().getCurrencyCode())
+                                .taxDescription(exchange.getTaxDescription())
+                                .build();
 
-        exchange.setResult(result);
+                exchange.setResult(result);
 
-        logger.info("✅ Price result built: base={}, discount={}, subtotal={}, tax={}, total={}",
-                exchange.getBasePrice(),
-                exchange.getTotalDiscount(),
-                discountedPrice,
-                taxAmount,
-                total);
-    }
+                logger.info("✅ Price result built: base={}, discount={}, subtotal={}, tax={}, total={}",
+                                exchange.getBasePrice(),
+                                exchange.getTotalDiscount(),
+                                discountedPrice,
+                                taxAmount,
+                                total);
+        }
 }

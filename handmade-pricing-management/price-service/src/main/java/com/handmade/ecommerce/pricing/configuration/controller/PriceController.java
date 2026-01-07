@@ -2,7 +2,7 @@ package com.handmade.ecommerce.pricing.configuration.controller;
 
 import java.util.Map;
 
-import com.handmade.ecommerce.pricing.model.Price;
+import com.handmade.ecommerce.pricing.entity.Price;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.chenile.base.response.GenericResponse;
@@ -24,39 +24,34 @@ import org.chenile.workflow.dto.StateEntityServiceResponse;
 import org.chenile.security.model.SecurityConfig;
 
 @RestController
-@ChenileController(value = "priceService", serviceName = "_priceStateEntityService_",
-		healthCheckerName = "priceHealthChecker")
-public class PriceController extends ControllerSupport{
-	
+@ChenileController(value = "priceService", serviceName = "_priceStateEntityService_", healthCheckerName = "priceHealthChecker")
+public class PriceController extends ControllerSupport {
+
 	@GetMapping("/price/{id}")
-    @SecurityConfig(authorities = {"some_premium_scope","test.premium"})
+	@SecurityConfig(authorities = { "some_premium_scope", "test.premium" })
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<Price>>> retrieve(
 			HttpServletRequest httpServletRequest,
-			@PathVariable String id){
-		return process(httpServletRequest,id);
+			@PathVariable String id) {
+		return process(httpServletRequest, id);
 	}
 
 	@PostMapping("/price")
-    @SecurityConfig(authorities = {"some_premium_scope","test.premium"})
+	@SecurityConfig(authorities = { "some_premium_scope", "test.premium" })
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<Price>>> create(
 			HttpServletRequest httpServletRequest,
-			@ChenileParamType(StateEntity.class)
-			@RequestBody Price entity){
-		return process(httpServletRequest,entity);
+			@ChenileParamType(StateEntity.class) @RequestBody Price entity) {
+		return process(httpServletRequest, entity);
 	}
 
-	
 	@PatchMapping("/price/{id}/{eventID}")
 	@BodyTypeSelector("priceBodyTypeSelector")
-    @SecurityConfig(authoritiesSupplier = "priceEventAuthoritiesSupplier")
+	@SecurityConfig(authoritiesSupplier = "priceEventAuthoritiesSupplier")
 	public ResponseEntity<GenericResponse<StateEntityServiceResponse<Price>>> processById(
 			HttpServletRequest httpServletRequest,
 			@PathVariable String id,
 			@PathVariable String eventID,
-			@ChenileParamType(Object.class) 
-			@RequestBody String eventPayload){
-		return process(httpServletRequest,id,eventID,eventPayload);
+			@ChenileParamType(Object.class) @RequestBody String eventPayload) {
+		return process(httpServletRequest, id, eventID, eventPayload);
 	}
-
 
 }

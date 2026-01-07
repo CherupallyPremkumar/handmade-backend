@@ -33,10 +33,10 @@ public class CheckRegionalOverrideCommand implements Command<PricingExchange> {
         }
 
         // TODO: Proper region code to ID mapping
-        Long regionId = (long) exchange.getRegionCode().hashCode();
+        String region = exchange.getRegionCode();
 
         RegionalPrice regionalPrice = priceEntityStore.getRegionalPrice(
-                exchange.getVariantId(), regionId);
+                exchange.getVariantId(), region);
 
         if (regionalPrice != null) {
             Money price = new Money(regionalPrice.getPriceAmount(), regionalPrice.getCurrency());

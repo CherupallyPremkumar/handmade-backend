@@ -19,36 +19,35 @@ import java.time.LocalDateTime;
 @Setter
 public class RegionalPrice extends BaseJpaEntity {
 
-    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "price_id", nullable = false)
     @JsonBackReference
     private Price price;
-    
-    @Column(name = "region_id", nullable = false)
-    private Long regionId;
-    
+
+    @Column(name = "region", nullable = false)
+    private String region;
+
     @Column(name = "currency", nullable = false, length = 3)
     private String currency;
-    
+
     @Column(name = "price_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal priceAmount;
-    
+
     @Column(name = "tax_rate", precision = 5, scale = 2)
     private BigDecimal taxRate;
-    
+
     @Column(name = "includes_tax", nullable = false)
     private Boolean includesTax = false;
-    
+
     @Column(name = "effective_from")
     private LocalDateTime effectiveFrom;
-    
+
     @Column(name = "effective_to")
     private LocalDateTime effectiveTo;
-    
+
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
-    
+
     /**
      * Get price with tax included
      */
@@ -62,7 +61,7 @@ public class RegionalPrice extends BaseJpaEntity {
         BigDecimal taxAmount = priceAmount.multiply(taxRate).divide(new BigDecimal("100"));
         return priceAmount.add(taxAmount);
     }
-    
+
     /**
      * Get price without tax
      */

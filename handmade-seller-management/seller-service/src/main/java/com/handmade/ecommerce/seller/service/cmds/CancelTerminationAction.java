@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class CancelTerminationAction extends AbstractSTMTransitionAction<Seller, MinimalPayload> {
 
     @Override
-    public void doTransition(Seller seller, MinimalPayload payload, State startState, String eventId,
+    public void transitionTo(Seller seller, MinimalPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Clear any termination-related data

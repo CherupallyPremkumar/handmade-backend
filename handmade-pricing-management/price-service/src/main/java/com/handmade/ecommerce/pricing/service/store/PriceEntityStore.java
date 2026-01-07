@@ -1,8 +1,8 @@
 package com.handmade.ecommerce.pricing.service.store;
 
 import org.chenile.utils.entity.service.EntityStore;
-import com.handmade.ecommerce.pricing.model.Price;
-import com.handmade.ecommerce.pricing.model.RegionalPrice;
+import com.handmade.ecommerce.pricing.entity.Price;
+import com.handmade.ecommerce.pricing.entity.RegionalPrice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.chenile.base.exception.NotFoundException;
 import com.handmade.ecommerce.pricing.configuration.dao.PriceRepository;
@@ -48,12 +48,12 @@ public class PriceEntityStore implements EntityStore<Price> {
 	 * @param regionId  Region ID
 	 * @return Regional price or null if not found
 	 */
-	public RegionalPrice getRegionalPrice(String variantId, Long regionId) {
+	public RegionalPrice getRegionalPrice(String variantId, String region) {
 		Price price = getPriceByVariantId(variantId);
 		LocalDateTime now = LocalDateTime.now();
 
 		return price.getRegionalPrices().stream()
-				.filter(rp -> rp.getRegionId().equals(regionId))
+				.filter(rp -> rp.getRegion().equals(region))
 				.filter(rp -> rp.getIsActive())
 				.filter(rp -> isEffective(rp, now))
 				.findFirst()

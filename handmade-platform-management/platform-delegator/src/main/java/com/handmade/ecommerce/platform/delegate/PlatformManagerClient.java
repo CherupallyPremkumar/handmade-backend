@@ -2,7 +2,6 @@ package com.handmade.ecommerce.platform.delegate;
 
 import com.handmade.ecommerce.platform.domain.aggregate.PlatformOwner;
 import com.handmade.ecommerce.platform.dto.*;
-import com.handmade.ecommerce.policy.ResolvedOnboardingPolicyView;
 import com.handmade.ecommerce.platform.domain.enums.SellerType;
 
 import java.time.LocalDate;
@@ -31,7 +30,4 @@ public interface PlatformManagerClient {
 
     // Query Operations
     PlatformOwner getPlatform(String id);
-
-    Optional<ResolvedOnboardingPolicyView> resolveOnboardingPolicy(String country, SellerType sellerType,
-            LocalDate effectiveDate);
 }

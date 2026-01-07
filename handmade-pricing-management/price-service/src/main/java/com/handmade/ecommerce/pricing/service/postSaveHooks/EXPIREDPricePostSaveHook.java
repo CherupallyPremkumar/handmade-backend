@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.pricing.service.postSaveHooks;
 
-import com.handmade.ecommerce.price.model.Price;
+import com.handmade.ecommerce.pricing.entity.Price;
 import org.chenile.workflow.model.TransientMap;
 import org.chenile.workflow.service.stmcmds.PostSaveHook;
 

@@ -1,0 +1,30 @@
+<!-- Commission Policy State Machine -->
+<states xmlns="http://www.chenile.org/stm">
+<flow id='COMMISSION_POLICY_FLOW' default="true">
+	<!-- Initial state: DRAFT -->
+	<manual-state id='DRAFT' initialState="true">
+		<!-- Transition: DRAFT → ACTIVE (approve policy) -->
+		<on eventId="approve" newStateId="ACTIVE" action="commissionPolicyApproveAction"/>
+		
+		<!-- Transition: DRAFT → DELETED -->
+		<on eventId="delete" newStateId='DELETED' action="commissionPolicyDeleteAction"/>
+		
+		<!-- Self-transitions for editing draft -->
+		<on eventId="addRule" action="commissionPolicyAddRuleAction"/>
+		<on eventId="updateRule" action="commissionPolicyUpdateRuleAction"/>
+		<on eventId="removeRule" action="commissionPolicyRemoveRuleAction"/>
+	</manual-state>
+
+	<!-- Active State - Policy is approved -->
+	<manual-state id="ACTIVE">
+		<!-- Transition: ACTIVE → DEPRECATED -->
+		<on eventId="deprecate" newStateId="DEPRECATED" action="commissionPolicyDeprecateAction"/>
+	</manual-state>
+
+	<!-- Deprecated State -->
+	<manual-state id='DEPRECATED'/>
+
+	<!-- Deleted State -->
+	<manual-state id="DELETED"/>
+</flow>
+</states>

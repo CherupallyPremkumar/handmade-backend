@@ -1,9 +1,6 @@
 package com.handmade.ecommerce.platform.delegate;
 
 import com.handmade.ecommerce.platform.api.PlatformManager;
-import com.handmade.ecommerce.policy.ResolvedOnboardingPolicyView;
-import com.handmade.ecommerce.platform.domain.enums.SellerType;
-import java.time.LocalDate;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,15 +65,5 @@ public class PlatformManagerClientImpl implements PlatformManagerClient {
     public PlatformOwner getPlatform(String id) {
         logger.debug("Retrieving platform: {}", id);
         return platformServiceProxy.retrieve(id).getMutatedEntity();
-    }
-
-    @Override
-    public Optional<ResolvedOnboardingPolicyView> resolveOnboardingPolicy(String country, SellerType sellerType,
-            LocalDate effectiveDate) {
-        logger.info("Resolving onboarding policy via platform delegate: country={}, sellerType={}", country,
-                sellerType);
-        // This usually delegates to a specific policy-aware service or returns a
-        // default view
-        return Optional.empty();
     }
 }

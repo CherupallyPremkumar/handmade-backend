@@ -1,8 +1,8 @@
 package com.handmade.ecommerce.pricing.service.impl;
 
-import com.handmade.ecommerce.command.CreatePriceCommand;
-import com.handmade.ecommerce.command.CreatePriceRuleCommand;
-import com.handmade.ecommerce.command.CreateRegionalPriceCommand;
+import com.handmade.ecommerce.pricing.command.CreatePriceCommand;
+import com.handmade.ecommerce.pricing.command.CreatePriceRuleCommand;
+import com.handmade.ecommerce.pricing.command.CreateRegionalPriceCommand;
 import com.handmade.ecommerce.core.model.Money;
 import com.handmade.ecommerce.pricing.PricingService;
 import com.handmade.ecommerce.pricing.dto.*;
@@ -99,7 +99,12 @@ public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements P
             exchange.setRegionCode(RegionContext.getCurrentRegion());
 
             // Execute OWIZ flow
-            pricingOrchExecutor.execute(exchange);
+            try {
+                pricingOrchExecutor.execute(exchange);
+            } catch (Exception e) {
+                logger.error("Error calculating price for variant: {}", item.getVariantId(), e);
+                throw new RuntimeException("Price calculation failed", e);
+            }
 
             PriceCalculationResult itemResult = exchange.getResult();
 
@@ -160,7 +165,12 @@ public class PriceServiceImpl extends StateEntityServiceImpl<Price> implements P
         exchange.setCustomerSegment(context.getCustomerSegment());
 
         // Execute OWIZ flow (6 steps)
-        pricingOrchExecutor.execute(exchange);
+        try {
+            pricingOrchExecutor.execute(exchange);
+        } catch (Exception e) {
+            logger.error("Error calculating price for variant: {}", context.getVariantId(), e);
+            throw new RuntimeException("Price calculation failed", e);
+        }
 
         logger.info("✅ Price calculated via OWIZ: total={}", exchange.getTotal());
 

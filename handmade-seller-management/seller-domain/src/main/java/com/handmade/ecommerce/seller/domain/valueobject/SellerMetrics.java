@@ -14,24 +14,27 @@ import java.time.LocalDateTime;
  */
 @Embeddable
 public class SellerMetrics implements Serializable {
-    
+
     // Sales metrics
     private Integer totalSales;
     private BigDecimal totalRevenue;
     private BigDecimal averageOrderValue;
-    private BigDecimal monthlyRevenue;  // Last 30 days
-    
+    private BigDecimal monthlyRevenue; // Last 30 days
+
     // Performance metrics (Amazon-style thresholds)
-    private BigDecimal orderDefectRate;       // Target: < 1%
-    private BigDecimal lateShipmentRate;      // Target: < 4%
-    private BigDecimal cancellationRate;      // Target: < 2.5%
-    private BigDecimal customerRating;        // 0-5 stars
+    private BigDecimal orderDefectRate; // Target: < 1%
+    private BigDecimal lateShipmentRate; // Target: < 4%
+    private BigDecimal cancellationRate; // Target: < 2.5%
+    private BigDecimal customerRating; // 0-5 stars
     private Integer totalReviews;
-    
+
+    private boolean hasPerformanceIssues;
+    private LocalDateTime lastPerformanceIssue;
+
     // Tier management
     @Enumerated(EnumType.STRING)
     private SellerTier tier;
-    
+
     // Timestamps
     private LocalDateTime lastOrderDate;
     private LocalDateTime joinedDate;
@@ -55,9 +58,10 @@ public class SellerMetrics implements Serializable {
      * Check if seller should be auto-suspended based on metrics
      */
     public boolean requiresAutoSuspension() {
-        return orderDefectRate.compareTo(new BigDecimal("0.01")) > 0  // > 1%
-            || lateShipmentRate.compareTo(new BigDecimal("0.04")) > 0  // > 4%
-            || (customerRating.compareTo(new BigDecimal("3.0")) < 0 && totalReviews > 10);  // < 3.0 stars with reviews
+        return orderDefectRate.compareTo(new BigDecimal("0.01")) > 0 // > 1%
+                || lateShipmentRate.compareTo(new BigDecimal("0.04")) > 0 // > 4%
+                || (customerRating.compareTo(new BigDecimal("3.0")) < 0 && totalReviews > 10); // < 3.0 stars with
+                                                                                               // reviews
     }
 
     /**
@@ -177,5 +181,21 @@ public class SellerMetrics implements Serializable {
 
     public void setLastMetricsUpdate(LocalDateTime lastMetricsUpdate) {
         this.lastMetricsUpdate = lastMetricsUpdate;
+    }
+
+    public boolean isHasPerformanceIssues() {
+        return hasPerformanceIssues;
+    }
+
+    public void setHasPerformanceIssues(boolean hasPerformanceIssues) {
+        this.hasPerformanceIssues = hasPerformanceIssues;
+    }
+
+    public LocalDateTime getLastPerformanceIssue() {
+        return lastPerformanceIssue;
+    }
+
+    public void setLastPerformanceIssue(LocalDateTime lastPerformanceIssue) {
+        this.lastPerformanceIssue = lastPerformanceIssue;
     }
 }

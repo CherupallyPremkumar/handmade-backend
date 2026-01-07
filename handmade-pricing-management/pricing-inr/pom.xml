@@ -20,6 +20,11 @@
             <groupId>com.handmade.ecommerce.pricing</groupId>
             <artifactId>pricing-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.pricing</groupId>
+            <artifactId>pricing-service</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         
         <dependency>

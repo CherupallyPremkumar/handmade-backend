@@ -10,7 +10,7 @@ import com.handmade.ecommerce.seller.dto.command.RequestTerminationPayload;
 public class RequestTerminationAction extends AbstractSTMTransitionAction<Seller, RequestTerminationPayload> {
 
     @Override
-    public void doTransition(Seller seller, RequestTerminationPayload payload, State startState, String eventId,
+    public void transitionTo(Seller seller, RequestTerminationPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
         
         // Store termination request details

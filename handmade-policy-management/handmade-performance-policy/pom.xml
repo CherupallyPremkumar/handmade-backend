@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.handmade.ecommerce.policy</groupId>
+    <artifactId>handmade-performance-policy</artifactId>
+    <packaging>pom</packaging>
+    <name>handmade-performance-policy</name>
+
+    <modules>
+        <module>performance-domain</module>
+        <module>performance-api</module>
+        <module>performance-service</module>
+        <module>performance-delegator</module>
+        <module>performance-async</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-performance-policy-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-performance-policy-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-performance-policy-service</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-performance-policy-delegator</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.handmade.ecommerce.policy</groupId>
+                <artifactId>handmade-performance-policy-async</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

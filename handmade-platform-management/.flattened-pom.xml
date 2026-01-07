@@ -24,6 +24,7 @@
     <module>platform-service</module>
     <module>platform-api</module>
     <module>platform-domain</module>
+    <module>platform-marketplace-service</module>
     <module>platform-delegator</module>
     <module>platform-async</module>
   </modules>

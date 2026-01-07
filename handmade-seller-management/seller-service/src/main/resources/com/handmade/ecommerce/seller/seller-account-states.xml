@@ -1,104 +1,150 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-SellerAccount State Machine - Based on Amazon Seller Central Workflow
-Multi-step verification: Identity → Tax → Bank → Product Approval
-Performance monitoring: Active → At Risk → Suspended → Deactivated
+Seller Account State Machine
+Purpose: Manages seller account verification and performance lifecycle
+Lifecycle: DRAFT → [Verifications] → ACTIVE → AT_RISK → SUSPENDED → DEACTIVATED
+
+States:
+- DRAFT: Initial registration started
+- IDENTITY_VERIFICATION: Upload ID, selfie, proof of address
+- IDENTITY_INFO_REQUESTED: Additional identity documents needed
+- TAX_VERIFICATION: Complete W-9/W-8, tax interview
+- BANK_VERIFICATION: Add bank account, verify micro-deposits
+- PENDING_APPROVAL: All verifications complete, awaiting admin approval
+- ACTIVE: Seller can list products and receive orders
+- AT_RISK: Performance issues detected (ODR > 1%, LSR > 4%, etc.)
+- SUSPENDED: Account temporarily suspended
+- PENDING_REINSTATEMENT: Seller appealing suspension
+- DEACTIVATED: Permanently closed (can reapply)
+- REJECTED: Application rejected during verification
+- DELETED: Draft deleted before submission (terminal state)
+
+Events:
+- submitApplication: Submit initial seller application
+- verifyIdentity: Identity verification successful
+- requestMoreInfo: Request additional identity documents
+- submitAdditionalDocs: Submit requested documents
+- completeTaxInterview: Tax verification complete
+- verifyBankAccount: Bank account verified
+- approve: Approve seller application
+- reject: Reject seller application
+- flagPerformanceIssue: Flag seller for performance issues
+- resolveIssues: Performance issues resolved
+- suspend: Suspend seller account
+- reactivate: Reactivate suspended account
+- deactivate: Permanently deactivate account
+- requestReinstatement: Request account reinstatement
+- approveReinstatement: Approve reinstatement request
+- rejectReinstatement: Reject reinstatement request
+- reapply: Reapply after rejection/deactivation
+- delete: Delete draft application
+- updateProfile: Update seller profile (self-transition)
+- updateBankingInfo: Update banking information (self-transition)
+- updateBusinessDetails: Update business details (self-transition)
+- updateTaxInfo: Update tax information (self-transition)
+- updateTier: Update seller tier (self-transition)
+- sendWarning: Send performance warning (self-transition)
+- updatePerformanceMetrics: Update metrics (self-transition)
 -->
 <states>
-    <flow id='SELLER_ACCOUNT_FLOW' default="true">
-        
-        <!-- Initial state check - auto-detect based on verification status -->
-        <if id='checkVerificationStatus' condition="hasStartedVerification" then="resumeVerification" else="startDraft" initialState="true">
-            <on eventId="resumeVerification" newStateId="IDENTITY_VERIFICATION"/>
-            <on eventId="startDraft" newStateId="DRAFT"/>
-        </if>
+	<flow id='SELLER_ACCOUNT_FLOW' default="true">
+		
+		<!-- Initial state check - auto-detect based on verification status -->
+		<if id='checkVerificationStatus' 
+		    condition="hasStartedVerification" 
+		    then="resumeVerification" 
+		    else="startDraft" 
+		    initialState="true">
+			<on eventId="resumeVerification" newStateId="IDENTITY_VERIFICATION"/>
+			<on eventId="startDraft" newStateId="DRAFT"/>
+		</if>
 
-        <!-- DRAFT: Initial registration started -->
-        <manual-state id='DRAFT'>
-            <on eventId="submitApplication" newStateId="IDENTITY_VERIFICATION"/>
-            <on eventId="delete" newStateId='DELETED'/>
-        </manual-state>
+		<!-- DRAFT: Initial registration started -->
+		<manual-state id='DRAFT'>
+			<on eventId="submitApplication" newStateId="IDENTITY_VERIFICATION"/>
+			<on eventId="delete" newStateId='DELETED'/>
+		</manual-state>
 
-        <!-- IDENTITY_VERIFICATION: Upload ID, selfie, proof of address -->
-        <manual-state id='IDENTITY_VERIFICATION'>
-            <on eventId="verifyIdentity" newStateId="TAX_VERIFICATION"/>
-            <on eventId="reject" newStateId="REJECTED"/>
-            <on eventId="requestMoreInfo" newStateId="IDENTITY_INFO_REQUESTED"/>
-        </manual-state>
+		<!-- IDENTITY_VERIFICATION: Upload ID, selfie, proof of address -->
+		<manual-state id='IDENTITY_VERIFICATION'>
+			<on eventId="verifyIdentity" newStateId="TAX_VERIFICATION"/>
+			<on eventId="reject" newStateId="REJECTED"/>
+			<on eventId="requestMoreInfo" newStateId="IDENTITY_INFO_REQUESTED"/>
+		</manual-state>
 
-        <!-- IDENTITY_INFO_REQUESTED: Additional identity documents needed -->
-        <manual-state id='IDENTITY_INFO_REQUESTED'>
-            <on eventId="submitAdditionalDocs" newStateId="IDENTITY_VERIFICATION"/>
-            <on eventId="reject" newStateId="REJECTED"/>
-        </manual-state>
-å
-        <!-- TAX_VERIFICATION: Complete W-9/W-8, tax interview -->
-        <manual-state id='TAX_VERIFICATION'>
-            <on eventId="completeTaxInterview" newStateId="BANK_VERIFICATION"/>
-            <on eventId="reject" newStateId="REJECTED"/>
-        </manual-state>
+		<!-- IDENTITY_INFO_REQUESTED: Additional identity documents needed -->
+		<manual-state id='IDENTITY_INFO_REQUESTED'>
+			<on eventId="submitAdditionalDocs" newStateId="IDENTITY_VERIFICATION"/>
+			<on eventId="reject" newStateId="REJECTED"/>
+		</manual-state>
 
-        <!-- BANK_VERIFICATION: Add bank account, verify micro-deposits -->
-        <manual-state id='BANK_VERIFICATION'>
-            <on eventId="verifyBankAccount" newStateId="PENDING_APPROVAL"/>
-            <on eventId="reject" newStateId="REJECTED"/>
-        </manual-state>
+		<!-- TAX_VERIFICATION: Complete W-9/W-8, tax interview -->
+		<manual-state id='TAX_VERIFICATION'>
+			<on eventId="completeTaxInterview" newStateId="BANK_VERIFICATION"/>
+			<on eventId="reject" newStateId="REJECTED"/>
+		</manual-state>
 
-        <!-- PENDING_APPROVAL: All verifications complete, awaiting admin approval -->
-        <manual-state id='PENDING_APPROVAL'>
-            <on eventId="approve" newStateId="ACTIVE"/>
-            <on eventId="reject" newStateId="REJECTED"/>
-        </manual-state>
+		<!-- BANK_VERIFICATION: Add bank account, verify micro-deposits -->
+		<manual-state id='BANK_VERIFICATION'>
+			<on eventId="verifyBankAccount" newStateId="PENDING_APPROVAL"/>
+			<on eventId="reject" newStateId="REJECTED"/>
+		</manual-state>
 
-        <!-- ACTIVE: Seller can list products and receive orders -->
-        <manual-state id="ACTIVE">
-            <!-- Performance-based transitions -->
-            <on eventId="flagPerformanceIssue" newStateId="AT_RISK"/>
-            <on eventId="suspend" newStateId="SUSPENDED"/>
-            
-            <!-- Self-transitions for updates -->
-            <on eventId="updateProfile"/>
-            <on eventId="updateBankingInfo"/>
-            <on eventId="updateBusinessDetails"/>
-            <on eventId="updateTaxInfo"/>
-            <on eventId="updateTier"/>
-        </manual-state>
+		<!-- PENDING_APPROVAL: All verifications complete, awaiting admin approval -->
+		<manual-state id='PENDING_APPROVAL'>
+			<on eventId="approve" newStateId="ACTIVE"/>
+			<on eventId="reject" newStateId="REJECTED"/>
+		</manual-state>
 
-        <!-- AT_RISK: Performance issues detected (ODR > 1%, LSR > 4%, etc.) -->
-        <manual-state id='AT_RISK'>
-            <on eventId="resolveIssues" newStateId="ACTIVE"/>
-            <on eventId="suspend" newStateId="SUSPENDED"/>
-            
-            <!-- Self-transitions -->
-            <on eventId="sendWarning"/>
-            <on eventId="updatePerformanceMetrics"/>
-        </manual-state>
+		<!-- ACTIVE: Seller can list products and receive orders -->
+		<manual-state id="ACTIVE">
+			<!-- Performance-based transitions -->
+			<on eventId="flagPerformanceIssue" newStateId="AT_RISK"/>
+			<on eventId="suspend" newStateId="SUSPENDED"/>
+			
+			<!-- Self-transitions for updates -->
+			<on eventId="updateProfile"/>
+			<on eventId="updateBankingInfo"/>
+			<on eventId="updateBusinessDetails"/>
+			<on eventId="updateTaxInfo"/>
+			<on eventId="updateTier"/>
+		</manual-state>
 
-        <!-- SUSPENDED: Account temporarily suspended -->
-        <manual-state id='SUSPENDED'>
-            <on eventId="reactivate" newStateId="ACTIVE"/>
-            <on eventId="deactivate" newStateId="DEACTIVATED"/>
-            <on eventId="requestReinstatement" newStateId="PENDING_REINSTATEMENT"/>
-        </manual-state>
+		<!-- AT_RISK: Performance issues detected (ODR > 1%, LSR > 4%, etc.) -->
+		<manual-state id='AT_RISK'>
+			<on eventId="resolveIssues" newStateId="ACTIVE"/>
+			<on eventId="suspend" newStateId="SUSPENDED"/>
+			
+			<!-- Self-transitions for monitoring -->
+			<on eventId="sendWarning"/>
+			<on eventId="updatePerformanceMetrics"/>
+		</manual-state>
 
-        <!-- PENDING_REINSTATEMENT: Seller appealing suspension -->
-        <manual-state id='PENDING_REINSTATEMENT'>
-            <on eventId="approveReinstatement" newStateId="ACTIVE"/>
-            <on eventId="rejectReinstatement" newStateId="DEACTIVATED"/>
-        </manual-state>
+		<!-- SUSPENDED: Account temporarily suspended -->
+		<manual-state id='SUSPENDED'>
+			<on eventId="reactivate" newStateId="ACTIVE"/>
+			<on eventId="deactivate" newStateId="DEACTIVATED"/>
+			<on eventId="requestReinstatement" newStateId="PENDING_REINSTATEMENT"/>
+		</manual-state>
 
-        <!-- DEACTIVATED: Permanently closed (can reapply) -->
-        <manual-state id='DEACTIVATED'>
-            <on eventId="reapply" newStateId="DRAFT"/>
-        </manual-state>
+		<!-- PENDING_REINSTATEMENT: Seller appealing suspension -->
+		<manual-state id='PENDING_REINSTATEMENT'>
+			<on eventId="approveReinstatement" newStateId="ACTIVE"/>
+			<on eventId="rejectReinstatement" newStateId="DEACTIVATED"/>
+		</manual-state>
 
-        <!-- REJECTED: Application rejected during verification -->
-        <manual-state id='REJECTED'>
-            <on eventId="reapply" newStateId="DRAFT"/>
-        </manual-state>
+		<!-- DEACTIVATED: Permanently closed (can reapply) -->
+		<manual-state id='DEACTIVATED'>
+			<on eventId="reapply" newStateId="DRAFT"/>
+		</manual-state>
 
-        <!-- DELETED: Draft deleted before submission -->
-        <manual-state id="DELETED"/>
-    </flow>
+		<!-- REJECTED: Application rejected during verification -->
+		<manual-state id='REJECTED'>
+			<on eventId="reapply" newStateId="DRAFT"/>
+		</manual-state>
+
+		<!-- DELETED: Draft deleted before submission (terminal state) -->
+		<manual-state id="DELETED" meta-endState="true"/>
+		
+	</flow>
 </states>

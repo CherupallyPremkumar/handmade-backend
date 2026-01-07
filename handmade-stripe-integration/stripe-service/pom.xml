@@ -16,13 +16,13 @@
     <dependencies>
         
         <dependency>
-            <groupId>com.handmade.ecommerce.onboarding</groupId>
-            <artifactId>handmade-onboarding-identity-domain</artifactId>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-identity-domain</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.onboarding</groupId>
-            <artifactId>handmade-onboarding-domain</artifactId>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-domain</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>

@@ -24,12 +24,7 @@
 			<artifactId>handmade-razorpay-api</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.handmade.ecommerce.stripe</groupId>
-			<artifactId>handmade-stripe-api</artifactId>
-			<version>${revision}</version>
-		</dependency>
+
 	
 		<dependency>
 			<groupId>org.chenile</groupId>

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 
 import org.chenile.utils.entity.service.EntityStore;
-import com.handmade.ecommerce.price.model.Price;
+import com.handmade.ecommerce.pricing.entity.Price;
 
 
 @Configuration

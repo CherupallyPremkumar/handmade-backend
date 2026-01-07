@@ -58,7 +58,7 @@ public class OnboardingService {
     }
     
     public void createCase(CreateCaseRequest request) {
-        SellerOnboardingCase case = new SellerOnboardingCase();
+        SellerAccount case = new SellerAccount();
         case.setCreatedAt(clock.instant());  // ✅ Testable
         case.setExpiresAt(clock.today().plusDays(30));
     }

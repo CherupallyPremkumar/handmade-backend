@@ -2,8 +2,9 @@ package com.handmade.ecommerce.catalog.search.controller;
 
 import com.handmade.ecommerce.catalog.search.model.CatalogEntry;
 import com.handmade.ecommerce.catalog.search.service.ProductSearchService;
-import com.handmade.ecommerce.catalog.search.service.SearchRequest;
-import com.handmade.ecommerce.catalog.search.service.SearchResponse;
+import com.handmade.ecommerce.search.api.model.SearchRequest;
+import com.handmade.ecommerce.search.api.model.SearchResponse;
+import com.handmade.ecommerce.search.api.model.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,10 @@ import java.util.List;
 @RequestMapping("/api/search")
 @CrossOrigin(origins = "*")
 public class SearchController {
-    
+
     @Autowired
     private ProductSearchService searchService;
-    
+
     /**
      * Full-text search for products
      * GET /api/search/products?q=handmade&categoryId=cat-001&page=0
@@ -28,24 +29,25 @@ public class SearchController {
             @RequestParam(required = false) String categoryId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int pageSize) {
-        
+
         java.util.Map<String, Object> filters = new java.util.HashMap<>();
         if (categoryId != null) {
             filters.put("categoryId", categoryId);
         }
 
-        com.handmade.ecommerce.search.api.model.SearchRequest request = com.handmade.ecommerce.search.api.model.SearchRequest.builder()
-            .query(q)
-            .filters(filters)
-            .pagination(com.handmade.ecommerce.search.api.model.Pagination.builder()
-                .page(page)
-                .size(pageSize)
-                .build())
-            .build();
-        
+        com.handmade.ecommerce.search.api.model.SearchRequest request = com.handmade.ecommerce.search.api.model.SearchRequest
+                .builder()
+                .query(q)
+                .filters(filters)
+                .pagination(com.handmade.ecommerce.search.api.model.Pagination.builder()
+                        .page(page)
+                        .size(pageSize)
+                        .build())
+                .build();
+
         return ResponseEntity.ok(searchService.search(request));
     }
-    
+
     /**
      * Get trending products
      * GET /api/search/trending

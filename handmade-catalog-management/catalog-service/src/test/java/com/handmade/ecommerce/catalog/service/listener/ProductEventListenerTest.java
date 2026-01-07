@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.catalog.service.listener;
 
-import com.handmade.ecommerce.catalog.event.external.InventoryChangedEvent;
-import com.handmade.ecommerce.catalog.event.external.ProductApprovedEvent;
+import com.handmade.ecommerce.product.event.InventoryChangedEvent;
+import com.handmade.ecommerce.product.event.ProductApprovedEvent;
 import com.handmade.ecommerce.catalog.service.CatalogService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

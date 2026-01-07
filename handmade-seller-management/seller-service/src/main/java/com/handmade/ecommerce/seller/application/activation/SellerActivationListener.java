@@ -1,8 +1,8 @@
 package com.handmade.ecommerce.seller.application.activation;
 
 import com.handmade.ecommerce.event.api.EventPublisher;
-import com.handmade.ecommerce.orchestration.seller.command.CreateSellerCommand;
-import com.handmade.ecommerce.orchestration.seller.event.SellerCreatedEvent;
+import com.handmade.ecommerce.seller.account.command.CreateSellerCommand;
+import com.handmade.ecommerce.seller.account.event.SellerCreatedEvent;
 import com.handmade.ecommerce.seller.api.SellerService;
 import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import org.chenile.http.annotation.ChenileController;

@@ -1,0 +1,35 @@
+<!-- Return Policy State Machine - Manages return policy lifecycle -->
+<states>
+<flow id='RETURN_POLICY_FLOW' default="true">
+	<!-- Initial state: DRAFT -->
+	<manual-state id='DRAFT' initialState="true">
+		<!-- Transition: DRAFT → ACTIVE (approve policy) -->
+		<on eventId="approve" newStateId="ACTIVE"/>
+		
+		<!-- Transition: DRAFT → DELETED (delete draft policy) -->
+		<on eventId="delete" newStateId='DELETED'/>
+		
+		<!-- Self-transitions for editing draft -->
+		<on eventId="updatePolicy"/>
+		<on eventId="addRule"/>
+		<on eventId="updateRule"/>
+		<on eventId="removeRule"/>
+	</manual-state>
+
+	<!-- Active State - Policy is approved and can be used -->
+	<manual-state id="ACTIVE">
+		<!-- Transition: ACTIVE → DEPRECATED (deprecate policy) -->
+		<on eventId="deprecate" newStateId="DEPRECATED"/>
+		
+		<!-- Self-transitions for metadata updates only -->
+		<on eventId="updateDescription"/>
+		<on eventId="setEffectiveTo"/>
+	</manual-state>
+
+	<!-- Deprecated State - Terminal state for active use -->
+	<manual-state id='DEPRECATED'/>
+
+	<!-- Deleted State - Draft policy was deleted -->
+	<manual-state id="DELETED"/>
+</flow>
+</states>

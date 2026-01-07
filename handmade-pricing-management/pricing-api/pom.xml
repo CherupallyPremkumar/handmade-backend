@@ -40,6 +40,11 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>app-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         
         <dependency>
@@ -56,6 +61,10 @@
             <groupId>com.handmade.ecommerce.rules</groupId>
             <artifactId>handmade-rules-api</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-api</artifactId>
         </dependency>
     </dependencies>
 

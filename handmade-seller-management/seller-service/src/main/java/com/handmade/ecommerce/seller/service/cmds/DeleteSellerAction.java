@@ -16,7 +16,7 @@ import com.handmade.ecommerce.seller.dto.command.DeleteSellerPayload;
 public class DeleteSellerAction extends AbstractSTMTransitionAction<Seller, DeleteSellerPayload> {
 
     @Override
-    public void doTransition(Seller seller, DeleteSellerPayload payload, State startState, String eventId,
+    public void transitionTo(Seller seller, DeleteSellerPayload payload, State startState, String eventId,
             State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
             seller.transientMap.previousPayload = payload;
 	}

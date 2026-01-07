@@ -1,0 +1,21 @@
+<!-- Payout Instruction State Machine -->
+<states xmlns="http://www.chenile.org/stm">
+<flow id='PAYOUT_INSTRUCTION_FLOW' default="true">
+	<!-- Initial state: REQUESTED -->
+	<manual-state id='REQUESTED' initialState="true">
+		<on eventId="process" newStateId="PROCESSING" action="payoutInitiateAction"/>
+		<on eventId="cancel" newStateId='CANCELLED'/>
+	</manual-state>
+
+	<!-- Processing with External Provider -->
+	<manual-state id="PROCESSING">
+		<on eventId="confirm" newStateId="COMPLETED" action="payoutCompleteAction"/>
+		<on eventId="fail" newStateId="FAILED" action="payoutFailAction"/>
+	</manual-state>
+
+	<!-- Terminal States -->
+	<manual-state id='COMPLETED'/>
+	<manual-state id='FAILED'/>
+	<manual-state id='CANCELLED'/>
+</flow>
+</states>

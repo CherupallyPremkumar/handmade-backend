@@ -14,31 +14,17 @@
     <module>handmade-product-management</module>
     <module>handmade-catalog-management</module>
     <module>handmade-seller-management</module>
-    <module>handmade-onboarding-management</module>
-    <module>handmade-onboarding-policy</module>
-    <module> handmade-compliance-policy</module>
-    <module>handmade-payout-policy</module>
+    <module>handmade-seller-account-management</module>
     <module>handmade-workflow-orchestrator</module>
     <module>handmade-event-management</module>
     <module>handmade-platform-management</module>
+    <module>handmade-policy-management</module>
     <module>handmade-search-management</module>
-    <module>handmade-commission-policy</module>
-    <module>handmade-promotion-policy</module>
     <module>handmade-pricing-management</module>
     <module>handmade-payment-management</module>
     <module>handmade-ledger-management</module>
     <module>handmade-wallet-management</module>
-    <module>handmade-paymentorder-management</module>
-    <module>handmade-reconciliation-management</module>
-    <module>handmade-risk-management</module>
-    <module>handmade-payment-orchestrator</module>
-    <module>handmade-payment-executor</module>
-    <module>handmade-cash-management</module>
-    <module>handmade-razorpay-integration</module>
-    <module>handmade-gstin-management</module>
-    <module>handmade-ein-management</module>
-    <module>handmade-stripe-integration</module>
-    <module>handmade-kyc-verification</module>
+    <module>handmade-finance-management</module>
     <module>handmade-app-boot</module>
   </modules>
 

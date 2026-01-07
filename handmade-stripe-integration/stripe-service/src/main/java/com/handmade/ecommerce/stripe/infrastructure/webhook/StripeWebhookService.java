@@ -130,7 +130,7 @@ public class StripeWebhookService {
 
         String status = registration.getStatus();
 
-        eventPublisher.publishEvent(new com.handmade.ecommerce.onboarding.domain.event.ExternalTaxUpdateEvent(
+        eventPublisher.publishEvent(new com.handmade.ecommerce.seller.account.domain.event.ExternalTaxUpdateEvent(
                 this, registration.getId(), status, entityId, entityType));
     }
 

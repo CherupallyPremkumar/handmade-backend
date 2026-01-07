@@ -5,8 +5,8 @@ import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.price.model.Price;
-import com.handmade.ecommerce.price.dto.ActivatePricePayload;
+import com.handmade.ecommerce.pricing.entity.Price;
+import org.chenile.workflow.param.MinimalPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -15,12 +15,12 @@ import com.handmade.ecommerce.price.dto.ActivatePricePayload;
 */
 public class ActivatePriceAction extends AbstractSTMTransitionAction<Price,
 
-    ActivatePricePayload>{
+    MinimalPayload>{
 
 
 	@Override
 	public void transitionTo(Price price,
-            ActivatePricePayload payload,
+            MinimalPayload payload,
             State startState, String eventId,
 			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
             price.transientMap.previousPayload = payload;

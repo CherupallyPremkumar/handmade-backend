@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-hm-offer-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: hm_offer
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: variant_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: region_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activation_reason
+                  type: varchar(255)
+              - column:
+                  name: suspension_reason
+                  type: varchar(255)
+              - column:
+                  name: offer_code
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+              - column:
+                  name: state
+                  type: varchar(50)
+                  defaultValue: DRAFT
+              - column:
+                  name: created_at
+                  type: datetime
+              - column:
+                  name: updated_at
+                  type: datetime
+        - addUniqueConstraint:
+            constraintName: uk_offer_seller_variant_region
+            tableName: hm_offer
+            columnNames: seller_id, variant_id, region_id

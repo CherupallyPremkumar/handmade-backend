@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.pricing.service.cmds;
 
-import com.handmade.ecommerce.pricing.model.Price;
+import com.handmade.ecommerce.pricing.entity.Price;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;

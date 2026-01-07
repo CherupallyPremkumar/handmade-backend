@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.seller.service.postSaveHooks;
 
-import com.handmade.ecommerce.seller.model.Seller;
+import com.handmade.ecommerce.seller.domain.aggregate.Seller;
 import org.chenile.workflow.model.TransientMap;
 import org.chenile.workflow.service.stmcmds.PostSaveHook;
 

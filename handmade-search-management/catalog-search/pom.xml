@@ -20,8 +20,8 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.search</groupId>
-            <artifactId>search-api</artifactId>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>handmade-search-api</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>

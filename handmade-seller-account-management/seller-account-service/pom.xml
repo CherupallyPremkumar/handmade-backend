@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.handmade.ecommerce.seller.account</groupId>
+		<artifactId>handmade-seller-account-parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>handmade-seller-account-service</artifactId>
+	<name>handmade-seller-account-service</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.handmade.ecommerce.seller.account</groupId>
+			<artifactId>handmade-seller-account-domain</artifactId>
+			<version>${revision}</version>
+		</dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.event</groupId>
+            <artifactId>handmade-event-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-identity-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-identity-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller.account</groupId><artifactId>handmade-seller-account-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.policy</groupId>
+            <artifactId>handmade-onboarding-policy-delegator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.platform</groupId>
+            <artifactId>handmade-platform-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-http</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>workflow-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>jpa-utils</artifactId>
+			<version>2.0.35</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

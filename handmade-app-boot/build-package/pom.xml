@@ -75,8 +75,8 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.onboarding</groupId>
-            <artifactId>handmade-onboarding-service</artifactId>
+            <groupId>com.handmade.ecommerce.seller.account</groupId>
+            <artifactId>handmade-seller-account-service</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
@@ -85,8 +85,7 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.orchestration</groupId>
-            <artifactId>handmade-seller-orchestration-service</artifactId>
+            <groupId>com.handmade.ecommerce.seller.account</groupId><artifactId>handmade-seller-account-service</artifactId>
             <version>${revision}</version>
         </dependency>
 

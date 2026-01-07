@@ -9,8 +9,10 @@ import java.time.LocalDateTime;
 
 /**
  * Platform Owner Aggregate Root
- * Represents the single authoritative entity that owns and governs the marketplace
- * Extends AbstractJpaStateEntity for state machine support (like chenile Process)
+ * Represents the single authoritative entity that owns and governs the
+ * marketplace
+ * Extends AbstractJpaStateEntity for state machine support (like chenile
+ * Process)
  * 
  * State management is inherited from AbstractJpaStateEntity:
  * - state (flowId + stateId) - Current state in state machine
@@ -34,21 +36,11 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     @Embedded
     public CorporateIdentity corporateIdentity;
 
-    // Localization & Compliance
-    @Embedded
-    public LocalizationPolicy localizationPolicy;
-
-    @Embedded
-    public ComplianceMandate complianceMandate;
-
     // Operational Configuration
     @Embedded
     public OperationalLimits operationalLimits;
 
-    // Active Policy References
-    @Column(name = "active_commission_policy_id")
-    public String activeCommissionPolicyId;
-
+    // Active Configuration References
     @Column(name = "active_feature_config_id")
     public String activeFeatureConfigId;
 
@@ -78,19 +70,15 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     /**
      * Factory method to bootstrap the platform
      */
-    public static PlatformOwner bootstrap(String name, 
-                                         BrandIdentity brandIdentity, 
-                                         CorporateIdentity corporateIdentity,
-                                         LocalizationPolicy localizationPolicy,
-                                         ComplianceMandate complianceMandate,
-                                         OperationalLimits operationalLimits) {
+    public static PlatformOwner bootstrap(String name,
+            BrandIdentity brandIdentity,
+            CorporateIdentity corporateIdentity,
+            OperationalLimits operationalLimits) {
         PlatformOwner platform = new PlatformOwner();
         platform.id = SINGLETON_ID;
         platform.name = name;
         platform.brandIdentity = brandIdentity;
         platform.corporateIdentity = corporateIdentity;
-        platform.localizationPolicy = localizationPolicy;
-        platform.complianceMandate = complianceMandate;
         platform.operationalLimits = operationalLimits;
         return platform;
     }
@@ -116,8 +104,9 @@ public class PlatformOwner extends AbstractJpaStateEntity implements Serializabl
     public boolean isBootstrapping() {
         // Log the state for debugging purposes
         org.chenile.stm.State s = getCurrentState();
-        System.out.println("DEBUG: isBootstrapping check. CurrentState: " + s + ", ID: " + (s != null ? s.getStateId() : "null"));
-        
+        System.out.println(
+                "DEBUG: isBootstrapping check. CurrentState: " + s + ", ID: " + (s != null ? s.getStateId() : "null"));
+
         return s == null || s.getStateId() == null || "BOOTSTRAPPING".equals(s.getStateId());
     }
 

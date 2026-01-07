@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.seller.service.impl;
 
-import com.handmade.ecommerce.seller.dto.command.CreateSellerRequest;
-import com.handmade.ecommerce.seller.service.SellerValidationService;
+import com.handmade.ecommerce.seller.dto.CreateSellerRequest;
+import com.handmade.ecommerce.seller.api.SellerValidationService;
 import com.handmade.ecommerce.seller.service.store.SellerEntityStore;
 import com.handmade.ecommerce.seller.service.validation.SellerValidationOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;

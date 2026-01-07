@@ -17,7 +17,7 @@ public class SuspendSellerAction extends AbstractSTMTransitionAction<Seller, Sus
 
 
 	@Override
-	public void doTransition(Seller seller,
+	public void transitionTo(Seller seller,
             SuspendSellerPayload payload,
             State startState, String eventId,
 			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {

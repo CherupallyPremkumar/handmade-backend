@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <event-information eventId='submit' eventName='submit offer'
+                       meta-bodyType="com.handmade.ecommerce.offer.dto.OfferTransitionPayload"/>
+    <event-information eventId='activate' eventName='activate offer'
+                       meta-bodyType="com.handmade.ecommerce.offer.dto.OfferTransitionPayload"/>
+    <event-information eventId='suspend' eventName='suspend offer'
+                       meta-bodyType="com.handmade.ecommerce.offer.dto.OfferTransitionPayload"/>
+    <event-information eventId='reactivate' eventName='reactivate offer'
+                       meta-bodyType="com.handmade.ecommerce.offer.dto.OfferTransitionPayload"/>
+    <event-information eventId='close' eventName='close offer'
+                       meta-bodyType="com.handmade.ecommerce.offer.dto.OfferTransitionPayload"/>
+
+    <event-information eventId='INVENTORY_READY' eventName='inventory is ready'/>
+    <event-information eventId='COMPLIANCE_READY' eventName='compliance is ready'/>
+
+    <flow id="offerFlow" default="true">
+
+        <!-- DRAFT -->
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="PENDING_ACTIVATION" componentName="defaultOfferSTMAction"/>
+        </manual-state>
+
+        <!-- PENDING_ACTIVATION -->
+        <manual-state id="PENDING_ACTIVATION">
+            <on eventId="INVENTORY_READY" newStateId="PENDING_ACTIVATION" componentName="reconcileOfferActivationAction"/>
+            <on eventId="COMPLIANCE_READY" newStateId="PENDING_ACTIVATION" componentName="reconcileOfferActivationAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateOfferAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+        </manual-state>
+
+        <!-- ACTIVE -->
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="suspendOfferAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+        </manual-state>
+
+        <!-- SUSPENDED -->
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="activateOfferAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+        </manual-state>
+
+        <!-- CLOSED (final) -->
+        <manual-state id="CLOSED" meta-endState="true"/>
+
+    </flow>
+
+</states>

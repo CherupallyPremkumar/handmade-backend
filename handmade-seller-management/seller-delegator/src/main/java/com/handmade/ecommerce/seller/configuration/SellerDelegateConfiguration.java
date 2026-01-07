@@ -1,6 +1,5 @@
 package com.handmade.ecommerce.seller.configuration;
 
-import com.handmade.ecommerce.seller.api.SellerAccountService;
 import com.handmade.ecommerce.seller.api.SellerService;
 import com.handmade.ecommerce.seller.delegate.SellerManagerClient;
 import com.handmade.ecommerce.seller.delegate.SellerManagerClientImpl;
@@ -17,10 +16,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SellerDelegateConfiguration {
-    
+
     @Autowired
     ProxyBuilder proxyBuilder;
-    
+
     @Value("${seller.manager.base-url:http://localhost:8080}")
     String baseUrl;
 
@@ -33,29 +32,14 @@ public class SellerDelegateConfiguration {
     }
 
     /**
-     * Creates Chenile proxy for SellerAccountService
-     * This proxy will handle remote service calls via HTTP
-     */
-    @Bean(name = "sellerAccountServiceProxy")
-    public SellerAccountService sellerAccountServiceProxy() {
-        return proxyBuilder.buildProxy(
-            SellerAccountService.class,
-            "sellerAccountService",
-            null,  
-            baseUrl
-        );
-    }
-
-    /**
      * Creates Chenile proxy for SellerService (store operations)
      */
     @Bean(name = "sellerServiceProxy")
     public SellerService sellerServiceProxy() {
         return proxyBuilder.buildProxy(
-            SellerService.class,
-            "sellerService",
-            null,
-            baseUrl
-        );
+                SellerService.class,
+                "sellerService",
+                null,
+                baseUrl);
     }
 }

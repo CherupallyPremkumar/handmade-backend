@@ -17,7 +17,7 @@ public class ReactivateSellerAction extends AbstractSTMTransitionAction<Seller, 
 
 
 	@Override
-	public void doTransition(Seller seller,
+	public void transitionTo(Seller seller,
             ReactivateSellerPayload payload,
             State startState, String eventId,
 			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
