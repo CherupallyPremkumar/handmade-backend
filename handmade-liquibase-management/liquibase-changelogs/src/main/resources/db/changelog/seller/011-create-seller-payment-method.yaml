@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      changes:
+        - createTable:
+            tableName: hm_seller_payment_method
+            columns:
+              - column: { name: id, type: varchar(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: seller_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: payment_info_id, type: varchar(36) }
+              - column: { name: external_provider, type: varchar(50) } # STRIPE, PAYPAL
+              - column: { name: external_method_id, type: varchar(255) }
+              - column: { name: last4, type: varchar(4) }
+              - column: { name: account_holder_name, type: varchar(255) }
+              - column: { name: bank_name, type: varchar(255) }
+              - column: { name: paypal_email, type: varchar(255) }
+              - column: { name: is_primary, type: boolean, defaultValueBoolean: false }
+              - column: { name: status, type: varchar(20), defaultValue: "ACTIVE" }
+              - column: { name: added_at, type: timestamp }
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }

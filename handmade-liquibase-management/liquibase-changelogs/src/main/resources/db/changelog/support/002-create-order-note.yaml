@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: support-operations
+      validCheckSum: ANY
+      comment: Create order_note table
+      changes:
+        - createTable:
+            tableName: hm_order_note
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: order_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: agent_id, type: VARCHAR(36) }
+              - column: { name: note_text, type: TEXT, constraints: { nullable: false } }
+              - column: { name: is_internal, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+        
+        - createIndex:
+            tableName: hm_order_note
+            indexName: idx_order_note_order_id
+            columns:
+              - column: { name: order_id }

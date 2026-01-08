@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inbound_shipment
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: destination_node_id
+                  type: varchar(36)
+                  # Warehouse ID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ship_from_address_id
+                  type: varchar(36)
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # WORKING, SHIPPED, IN_TRANSIT, DELIVERED, CHECKED_IN, RECEIVING, CLOSED
+              - column:
+                  name: label_prep_type
+                  type: varchar(50)
+                  # SELLER_LABEL, AMAZON_LABEL
+              - column:
+                  name: carrier_name
+                  type: varchar(100)
+              - column:
+                  name: tracking_number
+                  type: varchar(100)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0

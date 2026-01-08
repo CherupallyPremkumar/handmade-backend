@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inventory_availability
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fulfillment_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sku
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: available_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: reserved_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_availability
+            baseColumnNames: fulfillment_node_id
+            referencedTableName: hm_fulfillment_node
+            referencedColumnNames: id
+            constraintName: fk_ia_node
+        - createIndex:
+            tableName: hm_inventory_availability
+            indexName: idx_ia_node_sku
+            columns:
+              - column:
+                  name: fulfillment_node_id
+              - column:
+                  name: sku
+            unique: true

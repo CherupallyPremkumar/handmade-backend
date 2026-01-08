@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: frontend-core
+      validCheckSum: ANY
+      comment: Create hm_content_slot table for dynamic UI
+      changes:
+        - createTable:
+            tableName: hm_content_slot
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: slot_key, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
+              - column: { name: active_asset_id, type: VARCHAR(36) }
+              - column: { name: priority, type: INT, defaultValueNumeric: 0 }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: customer-management
+      changes:
+        - createTable:
+            tableName: hm_customer_wallet
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider_token
+                  type: varchar(255)
+                  # Token from Stripe/PayPal
+              - column:
+                  name: last_4_digits
+                  type: varchar(4)
+              - column:
+                  name: card_brand
+                  type: varchar(50)
+                  # VISA, MASTERCARD
+              - column:
+                  name: expiry_month
+                  type: int
+              - column:
+                  name: expiry_year
+                  type: int
+              - column:
+                  name: is_default
+                  type: boolean
+                  defaultValueBoolean: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_customer_wallet
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_wallet_cust

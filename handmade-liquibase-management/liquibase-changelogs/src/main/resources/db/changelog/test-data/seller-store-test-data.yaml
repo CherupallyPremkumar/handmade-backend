@@ -5,9 +5,10 @@ databaseChangeLog:
       comment: Insert test data for seller stores
       changes:
         - insert:
-            tableName: seller_store
+            tableName: hm_seller_store
             columns:
               - column: {name: id, value: "store-001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: seller_account_id, value: "acc-001"}
               - column: {name: seller_code, value: "ARTISAN001"}
               - column: {name: seller_name, value: "Handcrafted Pottery Studio"}
@@ -24,9 +25,10 @@ databaseChangeLog:
               - column: {name: created_time, valueDate: "2024-01-10T09:00:00"}
         
         - insert:
-            tableName: seller_store
+            tableName: hm_seller_store
             columns:
               - column: {name: id, value: "store-002"}
+              - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: seller_account_id, value: "acc-002"}
               - column: {name: seller_code, value: "HOMEMAKER001"}
               - column: {name: seller_name, value: "Organic Soap Creations"}

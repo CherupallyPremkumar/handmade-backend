@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: customer-management
+      changes:
+        - createTable:
+            tableName: hm_subscription
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: plan_type
+                  type: varchar(50)
+                  # MONTHLY, ANNUAL
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # ACTIVE, CANCELLED, GRACE_PERIOD
+              - column:
+                  name: start_date
+                  type: timestamp
+              - column:
+                  name: next_billing_date
+                  type: timestamp
+              - column:
+                  name: auto_renew
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_subscription
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_sub_cust

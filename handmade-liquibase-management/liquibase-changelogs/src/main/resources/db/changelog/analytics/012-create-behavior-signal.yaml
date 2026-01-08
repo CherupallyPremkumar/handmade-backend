@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12
+      author: personalization-team
+      comment: Create hm_user_behavior_signal table
+      changes:
+        - createTable:
+            tableName: hm_user_behavior_signal
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: user_id, type: VARCHAR(36) }
+              - column: { name: session_id, type: VARCHAR(100) }
+              - column: { name: product_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: dwell_time_seconds, type: INT }
+              - column: { name: interaction_type, type: VARCHAR(50) } # CLICK, HOVER, SCROLL, ADD_TO_CART
+              - column: { name: metadata, type: TEXT } # JSON string
+              - column: { name: captured_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: tenant, type: VARCHAR(255) }

@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-limit-engine
+      author: test
+      changes:
+        # 1. Define Limit: Max Products
+        - insert:
+            tableName: hm_limit_definition
+            columns:
+              - column: { name: id, value: "LIM-001" }
+              - column: { name: limit_key, value: "MAX_PRODUCTS_PER_SELLER" }
+              - column: { name: resource_type, value: "PRODUCT_COUNT" }
+              - column: { name: default_value, valueNumeric: 100 }
+              - column: { name: description, value: "Maximum number of active products." }
+              - column: { name: reset_period, value: "NONE" }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+
+        # 2. Scope: Free Tier = 500
+        - insert:
+            tableName: hm_limit_scope
+            columns:
+              - column: { name: id, value: "SCP-001" }
+              - column: { name: limit_id, value: "LIM-001" }
+              - column: { name: scope_json, value: '{"seller_tier": "FREE"}' }
+              - column: { name: override_value, valueNumeric: 500 }
+              - column: { name: priority, valueNumeric: 10 }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+
+        # 3. Scope: Gold Tier = 1,000,000
+        - insert:
+            tableName: hm_limit_scope
+            columns:
+              - column: { name: id, value: "SCP-002" }
+              - column: { name: limit_id, value: "LIM-001" }
+              - column: { name: scope_json, value: '{"seller_tier": "GOLD"}' }
+              - column: { name: override_value, valueNumeric: 1000000 }
+              - column: { name: priority, valueNumeric: 10 }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+
+        # 4. Counter (Sample Usage)
+        - insert:
+            tableName: hm_limit_counter
+            columns:
+              - column: { name: id, value: "CNT-001" }
+              - column: { name: entity_id, value: "seller-free-123" }
+              - column: { name: limit_key, value: "MAX_PRODUCTS_PER_SELLER" }
+              - column: { name: current_usage, valueNumeric: 50 }
+              - column: { name: created_time, valueDate: "2024-01-02T12:00:00" }

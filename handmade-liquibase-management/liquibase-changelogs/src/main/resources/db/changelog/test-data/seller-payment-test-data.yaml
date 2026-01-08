@@ -13,7 +13,6 @@ databaseChangeLog:
               - column: {name: currency, value: "USD"}
               - column: {name: is_default_active, valueBoolean: true}
               - column: {name: created_time, valueDate: "2024-01-10T09:00:00"}
-              - column: {name: created_at, valueDate: "2024-01-10T09:00:00"}
         
         - insert:
             tableName: hm_seller_payment_info
@@ -24,7 +23,6 @@ databaseChangeLog:
               - column: {name: currency, value: "USD"}
               - column: {name: is_default_active, valueBoolean: true}
               - column: {name: created_time, valueDate: "2024-01-12T11:30:00"}
-              - column: {name: created_at, valueDate: "2024-01-12T11:30:00"}
   
   - changeSet:
       id: test-data-payment-methods
@@ -32,9 +30,10 @@ databaseChangeLog:
       comment: Insert test data for payment methods
       changes:
         - insert:
-            tableName: seller_payment_method
+            tableName: hm_seller_payment_method
             columns:
               - column: {name: id, value: "method-001"}
+              - column: {name: seller_id, value: "acc-001"}
               - column: {name: payment_info_id, value: "pay-001"}
               - column: {name: external_provider, value: "STRIPE"}
               - column: {name: external_method_id, value: "pm_1234abcd"}
@@ -47,9 +46,10 @@ databaseChangeLog:
               - column: {name: added_at, valueDate: "2024-01-10T09:00:00"}
         
         - insert:
-            tableName: seller_payment_method
+            tableName: hm_seller_payment_method
             columns:
               - column: {name: id, value: "method-002"}
+              - column: {name: seller_id, value: "acc-002"}
               - column: {name: payment_info_id, value: "pay-002"}
               - column: {name: external_provider, value: "PAYPAL"}
               - column: {name: paypal_email, value: "payment@organicsoaps.com"}

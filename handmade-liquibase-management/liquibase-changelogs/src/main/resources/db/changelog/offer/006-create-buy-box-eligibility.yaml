@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: offer-management
+      changes:
+        - createTable:
+            tableName: hm_buy_box_eligibility
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: offer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: score
+                  type: decimal(5, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_eligible
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ineligibility_reason
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: evaluated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_buy_box_eligibility
+            indexName: idx_buybox_offer
+            columns:
+              - column:
+                  name: offer_id
+        - createIndex:
+            tableName: hm_buy_box_eligibility
+            indexName: idx_buybox_product
+            columns:
+              - column:
+                  name: product_id

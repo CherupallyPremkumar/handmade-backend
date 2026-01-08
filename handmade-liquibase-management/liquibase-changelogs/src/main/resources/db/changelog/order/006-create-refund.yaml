@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: order-management
+      changes:
+        - createTable:
+            tableName: hm_refund
+            # Links Return to Money
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: return_request_id
+                  type: varchar(36)
+              - column:
+                  name: transaction_id
+                  type: varchar(36)
+                  # Link to the Financial Ledger
+              - column:
+                  name: amount
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: refund_method
+                  type: varchar(50)
+                  # ORIGINAL_PAYMENT, STORE_CREDIT
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_refund
+            baseColumnNames: return_request_id
+            referencedTableName: hm_return_request
+            referencedColumnNames: id
+            constraintName: fk_ref_return

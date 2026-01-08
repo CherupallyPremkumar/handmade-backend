@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: experiment-engine
+      changes:
+        - createTable:
+            tableName: hm_experiment_definition
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: experiment_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: experiment_name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: status
+                  type: varchar(50) # ACTIVE, PAUSED, DRAFT, COMPLETED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50) # AB_TEST, FEATURE_FLAG
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_service
+                  type: varchar(100)
+              - column:
+                  name: start_time
+                  type: timestamp
+              - column:
+                  name: end_time
+                  type: timestamp
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - createIndex:
+            tableName: hm_experiment_definition
+            indexName: idx_exp_def_key
+            columns:
+              - column: {name: experiment_key}

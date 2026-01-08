@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-offer-logic
+      author: test
+      changes:
+        - insert:
+            tableName: hm_buy_box_eligibility
+            columns:
+              - column: {name: id, value: "bb-001"}
+              - column: {name: offer_id, value: "offer-001"}
+              - column: {name: product_id, value: "prod-001"}
+              - column: {name: score, valueNumeric: 0.95}
+              - column: {name: is_eligible, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_price_rule
+            columns:
+              - column: {name: id, value: "rule-001"}
+              - column: {name: name, value: "Summer Discount"}
+              - column: {name: rule_type, value: "PROMOTION"}
+              - column: {name: start_date, valueDate: "2024-06-01T00:00:00"}
+              - column: {name: is_active, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}

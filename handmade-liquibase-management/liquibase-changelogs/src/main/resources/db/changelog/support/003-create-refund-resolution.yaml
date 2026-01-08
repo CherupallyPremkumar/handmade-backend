@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: support-operations
+      validCheckSum: ANY
+      comment: Create refund_resolution table
+      changes:
+        - createTable:
+            tableName: hm_refund_resolution
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: claim_id, type: VARCHAR(50), constraints: { nullable: false, unique: true } }
+              - column: { name: order_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: claim_reason, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: claim_status, type: VARCHAR(50), constraints: { nullable: false } }
+              - column: { name: seller_response, type: TEXT }
+              - column: { name: resolution_decision, type: VARCHAR(50) }
+              - column:
+                  name: refund_amount
+                  type: decimal(19, 2)
+              - column: { name: currency, type: VARCHAR(3) }
+              - column: { name: resolved_at, type: TIMESTAMP }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+        
+        - createIndex:
+            tableName: hm_refund_resolution
+            indexName: idx_refund_res_order_id
+            columns:
+              - column: { name: order_id }
+        
+        - createIndex:
+            tableName: hm_refund_resolution
+            indexName: idx_refund_res_claim_id
+            columns:
+              - column: { name: claim_id }

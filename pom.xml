@@ -4,27 +4,27 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>org.chenile</groupId>
-    <version>2.0.35</version>
+    <version>1.4.2</version>
     <artifactId>chenile-parent</artifactId>
   </parent>
 
   <modules>
     <module>handmade-liquibase-management</module>
     <module>handmade-app-core</module>
-    <module>handmade-product-management</module>
-    <module>handmade-catalog-management</module>
-    <module>handmade-seller-management</module>
-    <module>handmade-seller-account-management</module>
-    <module>handmade-workflow-orchestrator</module>
-    <module>handmade-event-management</module>
-    <module>handmade-platform-management</module>
-    <module>handmade-policy-management</module>
+    <!-- <module>handmade-product-management</module> -->
+    <!-- <module>handmade-catalog-management</module> -->
+    <!-- <module>handmade-seller-management</module> -->
+    <!-- <module>handmade-seller-account-management</module> -->
+    <!-- <module>handmade-workflow-orchestrator</module> -->
+    <!-- <module>handmade-event-management</module> -->
+    <!-- <module>handmade-platform-management</module> -->
+    <!-- <module>handmade-policy-management</module> -->
     <module>handmade-search-management</module>
-    <module>handmade-pricing-management</module>
-    <module>handmade-payment-management</module>
-    <module>handmade-ledger-management</module>
-    <module>handmade-wallet-management</module>
-    <module>handmade-finance-management</module>
+    <!-- <module>handmade-pricing-management</module> -->
+    <!-- <module>handmade-payment-management</module> -->
+    <!-- <module>handmade-ledger-management</module> -->
+    <!-- <module>handmade-wallet-management</module> -->
+    <!-- <module>handmade-finance-management</module> -->
     <module>handmade-app-boot</module>
   </modules>
 

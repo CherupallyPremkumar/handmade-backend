@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_fulfillment_node
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
+                  # WAREHOUSE, STORE, VIRTUAL, 3PL
+                  constraints:
+                      nullable: false
+              # Address
+              - column:
+                  name: address_line1
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(100)
+              - column:
+                  name: state_code
+                  type: varchar(10)
+              - column:
+                  name: country_code
+                  type: varchar(3)
+              - column:
+                  name: postal_code
+                  type: varchar(20)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+  - changeSet:
+      id: 2
+      author: inventory-management
+      changes:
+        - addColumn:
+            tableName: hm_fulfillment_node
+            columns:
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+        - addForeignKeyConstraint:
+            baseTableName: hm_fulfillment_node
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_fn_seller
+        - createIndex:
+            tableName: hm_fulfillment_node
+            indexName: idx_fn_seller
+            columns:
+              - column:
+                  name: seller_id

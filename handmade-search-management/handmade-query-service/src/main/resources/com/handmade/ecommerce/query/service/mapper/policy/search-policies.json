@@ -9,100 +9,55 @@
                 "name": "ID",
                 "columnName": "id",
                 "columnType": "Text",
-                "filterable": true,
-                "sortable": true,
-                "display": true
+                "display": false
             },
-            "policyVersion": {
-                "name": "Policy Version",
-                "columnName": "policyVersion",
+            "policyKey": {
+                "name": "Policy Key",
+                "columnName": "policyKey",
                 "columnType": "Text",
                 "filterable": true,
                 "sortable": true,
                 "display": true
             },
-            "countryCode": {
-                "name": "Country Code",
-                "columnName": "countryCode",
+            "policyName": {
+                "name": "Policy Name",
+                "columnName": "policyName",
                 "columnType": "Text",
                 "filterable": true,
-                "sortable": true,
+                "likeQuery": true,
                 "display": true
             },
-            "sellerType": {
-                "name": "Seller Type",
-                "columnName": "sellerType",
+            "description": {
+                "name": "Description",
+                "columnName": "description",
+                "columnType": "Text",
+                "display": true
+            },
+            "defaultEffect": {
+                "name": "Default Effect",
+                "columnName": "defaultEffect",
+                "columnType": "Text",
+                "display": true
+            },
+            "ownerService": {
+                "name": "Owner Service",
+                "columnName": "ownerService",
                 "columnType": "Text",
                 "filterable": true,
-                "sortable": true,
                 "display": true
             },
-            "status": {
-                "name": "Status",
-                "columnName": "status",
-                "columnType": "DropDown",
+            "isActive": {
+                "name": "Active",
+                "columnName": "isActive",
+                "columnType": "CheckBox",
                 "filterable": true,
-                "sortable": true,
-                "display": true
-            },
-            "state": {
-                "name": "State",
-                "columnName": "state",
-                "columnType": "Text",
-                "filterable": true,
-                "sortable": true,
-                "display": true
-            },
-            "effectiveDate": {
-                "name": "Effective Date",
-                "columnName": "effectiveDate",
-                "columnType": "Date",
-                "filterable": true,
-                "sortable": true,
-                "betweenQuery": true,
-                "display": true
-            },
-            "deprecatedDate": {
-                "name": "Deprecated Date",
-                "columnName": "deprecatedDate",
-                "columnType": "Date",
-                "filterable": true,
-                "sortable": true,
-                "betweenQuery": true,
-                "display": true
-            },
-            "createdBy": {
-                "name": "Created By",
-                "columnName": "createdBy",
-                "columnType": "Text",
-                "filterable": true,
-                "sortable": true,
                 "display": true
             },
             "createdAt": {
-                "name": "Created At",
+                "name": "Created On",
                 "columnName": "createdAt",
-                "columnType": "DateTime",
-                "filterable": true,
+                "columnType": "Date",
                 "sortable": true,
-                "betweenQuery": true,
-                "display": true
-            },
-            "approvedBy": {
-                "name": "Approved By",
-                "columnName": "approvedBy",
-                "columnType": "Text",
-                "filterable": true,
-                "sortable": true,
-                "display": true
-            },
-            "approvedAt": {
-                "name": "Approved At",
-                "columnName": "approvedAt",
-                "columnType": "DateTime",
-                "filterable": true,
-                "sortable": true,
-                "betweenQuery": true,
                 "display": true
             }
         }

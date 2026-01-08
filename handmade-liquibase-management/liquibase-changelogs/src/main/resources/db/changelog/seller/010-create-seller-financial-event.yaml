@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      changes:
+        - createTable:
+            tableName: hm_seller_financial_event
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: varchar(36)
+                  # To group related events (e.g., all events for one order)
+              - column:
+                  name: type
+                  type: varchar(50)
+                  # ITEM_CHARGE, SHIPPING_CHARGE, COMMISSION, REFUND_COMMISSION
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: amount
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+              - column:
+                  name: posted_date
+                  type: timestamp
+              - column:
+                  name: settlement_id
+                  type: varchar(36)
+                  # Links to the Payout/Settlement Report
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_seller_financial_event
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_fe_seller
+        - createIndex:
+            tableName: hm_seller_financial_event
+            indexName: idx_fe_group
+            columns:
+              - column:
+                  name: group_id
+  - changeSet:
+      id: 2
+      author: seller-management
+      changes:
+        - addColumn:
+            tableName: hm_seller_financial_event
+            columns:
+              - column:
+                  name: order_id
+                  type: varchar(36)
+        - createIndex:
+            tableName: hm_seller_financial_event
+            indexName: idx_fe_order
+            columns:
+              - column:
+                  name: order_id

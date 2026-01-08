@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: pricing-engine
+      changes:
+        - createTable:
+            tableName: hm_pricing_priority
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rule_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priority_score
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: stacking_group
+                  type: varchar(50) # e.g. "DEFAULT", "EXCLUSIVE"
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_pricing_priority
+            baseColumnNames: rule_id
+            referencedTableName: hm_pricing_rule_definition
+            referencedColumnNames: id
+            constraintName: fk_price_prio_rule
+        - createIndex:
+            tableName: hm_pricing_priority
+            indexName: idx_price_prio_rule
+            columns:
+              - column: {name: rule_id}

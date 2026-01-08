@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inventory_ledger
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fulfillment_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sku
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity_change
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(50)
+                  # ORDER, RECEIPT, ADJUSTMENT, RETURN
+              - column:
+                  name: reference_id
+                  type: varchar(36)
+                  # OrderID, ShipmentID
+              - column:
+                  name: transaction_time
+                  type: timestamp
+                  constraints:
+                      nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_ledger
+            baseColumnNames: fulfillment_node_id
+            referencedTableName: hm_fulfillment_node
+            referencedColumnNames: id
+            constraintName: fk_il_node
+        - createIndex:
+            tableName: hm_inventory_ledger
+            indexName: idx_il_node_sku
+            columns:
+              - column:
+                  name: fulfillment_node_id
+              - column:
+                  name: sku
+            unique: false

@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-reviews
+      author: test
+      comment: Insert test data for Reviews domain
+      changes:
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "review-001" }
+              - column: { name: product_id, value: "prod-001" }
+              - column: { name: customer_id, value: "cust-001" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Great product!" }
+              - column: { name: review_text, value: "Loved the quality and finish." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: status, value: "APPROVED" }
+              - column: { name: helpful_votes, valueNumeric: 12 }
+              - column: { name: created_time, valueDate: "2024-01-15T10:00:00" }
+
+        - insert:
+            tableName: hm_product_review_vote
+            columns:
+              - column: { name: id, value: "vote-001" }
+              - column: { name: review_id, value: "review-001" }
+              - column: { name: customer_id, value: "cust-002" }
+              - column: { name: vote_type, value: "HELPFUL" }
+              - column: { name: created_time, valueDate: "2024-01-16T12:00:00" }
+
+        - insert:
+            tableName: hm_review_moderation_log
+            columns:
+              - column: { name: id, value: "mod-001" }
+              - column: { name: review_id, value: "review-001" }
+              - column: { name: moderator_id, value: "mod-user-1" }
+              - column: { name: action, value: "APPROVE" }
+              - column: { name: reason, value: "Meets guidelines" }
+              - column: { name: created_time, valueDate: "2024-01-15T11:00:00" }
+
+        - insert:
+            tableName: hm_review_aggregation_snapshot
+            columns:
+              - column: { name: id, value: "snap-001" }
+              - column: { name: product_id, value: "prod-001" }
+              - column:
+                  name: average_rating
+                  valueNumeric: 5.00
+              - column: { name: total_reviews, valueNumeric: 1 }
+              - column: { name: rating_distribution_json, value: '{"5": 1, "4": 0, "3": 0, "2": 0, "1": 0}' }
+              - column: { name: last_calculated_at, valueDate: "2024-01-16T00:00:00" }
+              - column: { name: created_time, valueDate: "2024-01-16T00:00:00" }

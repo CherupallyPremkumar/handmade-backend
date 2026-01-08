@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-orders
+      author: test
+      changes:
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ord-001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
+              - column: {name: customer_id, value: "cust-001"}
+              - column: {name: display_id, value: "111-0000001-1111111"}
+              - column: {name: order_date, valueDate: "2024-02-01T14:30:00"}
+              - column: {name: total_amount, valueNumeric: 33.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: status, value: "CONFIRMED"}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ord-line-001"}
+              - column: {name: order_id, value: "ord-001"}
+              - column: {name: offer_id, value: "offer-001"}
+              - column: {name: product_id, value: "prod-001"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 25.00}
+              # - column: {name: total_price, valueNumeric: 25.00} # Removed
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ord-line-002"}
+              - column: {name: order_id, value: "ord-001"}
+              - column: {name: offer_id, value: "offer-002"}
+              - column: {name: product_id, value: "prod-002"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 8.50}
+              # - column: {name: total_price, valueNumeric: 8.50} # Removed
+              - column: {name: tenant, value: "handmade-tenant"}

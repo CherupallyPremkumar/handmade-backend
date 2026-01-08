@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_classification
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: parent_id
+                  type: varchar(36)
+              - column:
+                  name: tax_code
+                  type: varchar(50)
+              - column:
+                  name: is_leaf
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity Fields
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+  - changeSet:
+      id: 2
+      author: catalog-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_classification
+            baseColumnNames: parent_id
+            referencedTableName: hm_classification
+            referencedColumnNames: id
+            constraintName: fk_classification_parent
+
+  - changeSet:
+      id: 3
+      author: catalog-management
+      changes:
+        - addColumn:
+            tableName: hm_catalog_item
+            columns:
+              - column:
+                  name: classification_id
+                  type: varchar(36)
+
+  - changeSet:
+      id: 4
+      author: catalog-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_catalog_item
+            baseColumnNames: classification_id
+            referencedTableName: hm_classification
+            referencedColumnNames: id
+            constraintName: fk_item_classification
+        - createIndex:
+            tableName: hm_catalog_item
+            indexName: idx_item_classification
+            columns:
+              - column:
+                  name: classification_id

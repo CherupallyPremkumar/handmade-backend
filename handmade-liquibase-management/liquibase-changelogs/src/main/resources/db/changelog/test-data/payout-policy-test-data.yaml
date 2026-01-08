@@ -5,7 +5,7 @@ databaseChangeLog:
       comment: Insert test data for payout policies
       changes:
         - insert:
-            tableName: payout_policies
+            tableName: hm_payout_policy
             columns:
               - column: {name: id, value: "payout-001"}
               - column: {name: policy_version, value: "v1.0-US-ARTISAN"}
@@ -21,7 +21,7 @@ databaseChangeLog:
               - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
         
         - insert:
-            tableName: payout_policies
+            tableName: hm_payout_policy
             columns:
               - column: {name: id, value: "payout-002"}
               - column: {name: policy_version, value: "v1.0-US-ENTERPRISE"}

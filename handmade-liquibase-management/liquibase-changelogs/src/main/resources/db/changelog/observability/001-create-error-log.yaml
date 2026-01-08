@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: infrastructure
+      validCheckSum: ANY
+      comment: Create hm_error_log table
+      changes:
+        - createTable:
+            tableName: hm_error_log
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: service_name, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: trace_id, type: VARCHAR(100) }
+              - column: { name: span_id, type: VARCHAR(100) }
+              - column: { name: error_message, type: TEXT, constraints: { nullable: false } }
+              - column: { name: stack_trace, type: TEXT }
+              - column: { name: severity, type: VARCHAR(20), defaultValue: "ERROR" }
+              - column: { name: environment, type: VARCHAR(20) }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

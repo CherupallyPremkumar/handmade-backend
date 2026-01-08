@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: order-management
+      changes:
+        - createTable:
+            tableName: hm_return_request
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # PENDING_APPROVAL, APPROVED, REJECTED, COMPLETED
+              - column:
+                  name: return_reason
+                  type: varchar(50)
+                  # DEFECTIVE, WRONG_ITEM, NO_LONGER_NEEDED
+              - column:
+                  name: customer_comments
+                  type: varchar(255)
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_return_request
+            baseColumnNames: order_id
+            referencedTableName: hm_order
+            referencedColumnNames: id
+            constraintName: fk_rr_order

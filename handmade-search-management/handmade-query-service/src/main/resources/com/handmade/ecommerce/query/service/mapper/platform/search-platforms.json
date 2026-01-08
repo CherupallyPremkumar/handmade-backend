@@ -4,48 +4,62 @@
         "name": "search-platforms",
         "paginated": true,
         "sortable": true,
-        "workflowName": "PLATFORM_FLOW",
-        "stateColumn": "state",
         "columnMetadata": {
             "id": {
                 "name": "ID",
                 "columnName": "id",
                 "columnType": "Text",
-                "filterable": true,
-                "sortable": true,
-                "display": true
+                "display": false
             },
             "name": {
-                "name": "Name",
+                "name": "Platform Name",
                 "columnName": "name",
                 "columnType": "Text",
                 "filterable": true,
-                "sortable": true,
                 "likeQuery": true,
-                "display": true
+                "display": true,
+                "sortable": true
             },
-            "state": {
-                "name": "State",
-                "columnName": "state",
+            "platformCode": {
+                "name": "Platform Code",
+                "columnName": "platformCode",
                 "columnType": "Text",
                 "filterable": true,
                 "sortable": true,
                 "display": true
             },
-            "suspended": {
-                "name": "Suspended",
-                "columnName": "suspended",
+            "countryCode": {
+                "name": "Country",
+                "columnName": "countryCode",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "currencyCode": {
+                "name": "Currency",
+                "columnName": "currencyCode",
+                "columnType": "Text",
+                "display": true
+            },
+            "marketplaceType": {
+                "name": "Type",
+                "columnName": "marketplaceType",
+                "columnType": "Text",
+                "display": true
+            },
+            "isActive": {
+                "name": "Active",
+                "columnName": "isActive",
                 "columnType": "CheckBox",
                 "filterable": true,
                 "sortable": true,
                 "display": true
             },
-            "deleted": {
-                "name": "Deleted",
-                "columnName": "deleted",
-                "columnType": "CheckBox",
-                "filterable": true,
-                "sortable": true,
+            "createdTime": {
+                "name": "Created On",
+                "columnName": "createdTime",
+                "columnType": "Date",
                 "display": true
             }
         }

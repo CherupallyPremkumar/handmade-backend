@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: legal-compliance
+      validCheckSum: ANY
+      comment: Create hm_privacy_policy_ack table
+      changes:
+        - createTable:
+            tableName: hm_privacy_policy_ack
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: user_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: version_accepted, type: VARCHAR(50) }
+              - column: { name: accepted_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: terms_type, type: VARCHAR(50) } # PRIVACY_POLICY, TERMS_OF_SERVICE
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

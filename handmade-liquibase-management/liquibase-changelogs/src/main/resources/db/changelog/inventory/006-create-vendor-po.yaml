@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_vendor_po
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: po_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: vendor_code
+                  type: varchar(50)
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # NEW, ACKNOWLEDGED, SHIPPED, CLOSED
+              - column:
+                  name: order_date
+                  type: timestamp
+              - column:
+                  name: delivery_window_start
+                  type: timestamp
+              - column:
+                  name: delivery_window_end
+                  type: timestamp
+              - column:
+                  name: destination_node_id
+                  type: varchar(36)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+  - changeSet:
+      id: 2
+      author: inventory-management
+      changes:
+        - addColumn:
+            tableName: hm_vendor_po
+            columns:
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+        - addForeignKeyConstraint:
+            baseTableName: hm_vendor_po
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_vpo_seller
+        - createIndex:
+            tableName: hm_vendor_po
+            indexName: idx_vpo_seller
+            columns:
+              - column:
+                  name: seller_id

@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_product_relationship
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: child_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50) # VARIATION, ACCESSORY, NEWER_VERSION, BUNDLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: metadata
+                  type: text # JSON: { "theme": "SIZE_COLOR", "details": "Blue/M" }
+              # BaseJpaEntity Fields
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+  - changeSet:
+      id: 2
+      author: catalog-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_relationship
+            baseColumnNames: parent_id
+            referencedTableName: hm_catalog_item
+            referencedColumnNames: id
+            constraintName: fk_cr_parent
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_relationship
+            baseColumnNames: child_id
+            referencedTableName: hm_catalog_item
+            referencedColumnNames: id
+            constraintName: fk_cr_child
+        - createIndex:
+            tableName: hm_product_relationship
+            indexName: idx_cr_parent_child
+            columns:
+              - column:
+                  name: parent_id
+              - column:
+                  name: child_id
+            unique: true

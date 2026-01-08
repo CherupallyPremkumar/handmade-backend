@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: risk-engine
+      changes:
+        - createTable:
+            tableName: hm_compliance_document
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: entity_type
+                  type: varchar(50)
+                  # SELLER, PRODUCT (e.g., safety cert)
+              - column:
+                  name: entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: doc_type
+                  type: varchar(50)
+                  # VAT_CERT, IDENTITY_PROOF, PRODUCT_SAFETY
+              - column:
+                  name: file_uri
+                  type: varchar(255)
+              - column:
+                  name: verification_status
+                  type: varchar(20)
+                  # PENDING, APPROVED, REJECTED, EXPIRED
+              - column: { name: expiry_date, type: timestamp }
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_compliance_document
+            indexName: idx_comp_doc_ent
+            columns:
+              - column: { name: entity_id }

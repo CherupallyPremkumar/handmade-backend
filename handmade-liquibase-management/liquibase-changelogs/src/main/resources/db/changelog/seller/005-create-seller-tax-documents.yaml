@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      comment: Create seller_tax_documents collection table
+      changes:
+        - createTable:
+            tableName: hm_seller_tax_documents
+            columns:
+              - column: {name: tax_info_id, type: VARCHAR(36), constraints: {nullable: false}}
+              - column: {name: document_url, type: VARCHAR(500)}
+        
+        - createIndex:
+            indexName: idx_tax_documents_tax_info_id
+            tableName: hm_seller_tax_documents
+            columns:
+              - column: {name: tax_info_id}

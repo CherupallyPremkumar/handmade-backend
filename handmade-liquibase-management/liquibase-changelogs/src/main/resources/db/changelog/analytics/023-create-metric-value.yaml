@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-team
+      changes:
+        - createTable:
+            tableName: hm_analytics_metric_value
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: metric_def_id, type: varchar(36), constraints: {nullable: false}}
+              - column: {name: dimension_key, type: varchar(255)} # e.g. "region:US" or "category:ELECTRONICS"
+              - column: {name: time_bucket, type: timestamp, constraints: {nullable: false}}
+              - column: {name: bucket_type, type: varchar(20)} # HOUR, DAY, MONTH
+              - column: {name: metric_value, type: "decimal(19, 4)", defaultValueNumeric: 0}
+              - column: {name: sample_count, type: int, defaultValueNumeric: 0} # For AVG calculations
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+
+        - addForeignKeyConstraint:
+            baseTableName: hm_analytics_metric_value
+            baseColumnNames: metric_def_id
+            referencedTableName: hm_analytics_metric_def
+            referencedColumnNames: id
+            constraintName: fk_amv_metric_def
+
+        - createIndex:
+            tableName: hm_analytics_metric_value
+            indexName: idx_amv_lookup
+            columns:
+              - column: {name: metric_def_id}
+              - column: {name: dimension_key}
+              - column: {name: time_bucket}

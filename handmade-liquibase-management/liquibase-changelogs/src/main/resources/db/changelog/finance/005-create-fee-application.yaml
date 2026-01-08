@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: finance-team
+      changes:
+        - createTable:
+            tableName: hm_fee_application
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transaction_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fee_definition_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}

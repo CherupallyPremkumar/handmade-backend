@@ -5,10 +5,10 @@ databaseChangeLog:
       comment: Insert test data for promotion policies
       changes:
         - insert:
-            tableName: promotion_policies
+            tableName: hm_promotion_policy
             columns:
               - column: {name: id, value: "promo-001"}
-              - column: {name: version, value: "v1.0-US-ARTISAN"}
+              - column: {name: policy_version, value: "v1.0-US-ARTISAN"}
               - column: {name: country_code, value: "US"}
               - column: {name: seller_type, value: "ARTISAN"}
               - column: {name: effective_from, valueDate: "2024-01-01"}
@@ -21,10 +21,10 @@ databaseChangeLog:
               - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
         
         - insert:
-            tableName: promotion_policies
+            tableName: hm_promotion_policy
             columns:
               - column: {name: id, value: "promo-002"}
-              - column: {name: version, value: "v1.0-US-ENTERPRISE"}
+              - column: {name: policy_version, value: "v1.0-US-ENTERPRISE"}
               - column: {name: country_code, value: "US"}
               - column: {name: seller_type, value: "ENTERPRISE"}
               - column: {name: effective_from, valueDate: "2024-01-01"}

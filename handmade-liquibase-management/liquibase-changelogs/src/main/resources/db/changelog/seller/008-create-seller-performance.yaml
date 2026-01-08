@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      changes:
+        - createTable:
+            tableName: hm_seller_performance
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: metric_name
+                  type: varchar(50)
+                  # ORDER_DEFECT_RATE, LATE_SHIPMENT_RATE, CANCEL_RATE
+              - column:
+                  name: metric_value
+                  type: decimal(10, 4)
+                  # Percentage value (e.g., 0.0150 for 1.5%)
+              - column:
+                  name: target_value
+                  type: decimal(10, 4)
+                  # The goal (e.g., < 0.0100)
+              - column:
+                  name: window_start_date
+                  type: timestamp
+              - column:
+                  name: window_end_date
+                  type: timestamp
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # HEALTHY, AT_RISK, CRITICAL
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_seller_performance
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_perf_seller

@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: localization-engine
+      changes:
+        - createTable:
+            tableName: hm_platform_region_policy
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: region_code
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_platform_region_policy
+            indexName: idx_plat_region_pol
+            columns:
+              - column: { name: platform_id }
+              - column: { name: region_code }

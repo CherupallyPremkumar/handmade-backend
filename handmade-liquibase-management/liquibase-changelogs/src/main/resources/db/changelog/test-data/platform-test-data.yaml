@@ -1,34 +1,35 @@
 databaseChangeLog:
   - changeSet:
-      id: test-data-platforms
+      id: test-data-marketplaces
       author: test
-      comment: Insert test data for platform_owner
       changes:
         - insert:
-            tableName: platform_owner
+            tableName: hm_platform
             columns:
-              - column: {name: id, value: "PLATFORM_001"}
-              - column: {name: name, value: "Handmade India"}
-              - column: {name: state_id, value: "ACTIVE"}
-              - column: {name: flow_id, value: "platform-lifecycle"}
-              - column: {name: suspended, valueBoolean: false}
-              - column: {name: deleted, valueBoolean: false}
-        - insert:
-            tableName: platform_owner
-            columns:
-              - column: {name: id, value: "PLATFORM_002"}
+              - column: {name: id, value: "PLT-US-001"}
+              - column: {name: platform_code, value: "HANDMADE_US"}
               - column: {name: name, value: "Handmade USA"}
-              - column: {name: state_id, value: "ACTIVE"}
-              - column: {name: flow_id, value: "platform-lifecycle"}
-              - column: {name: suspended, valueBoolean: false}
-              - column: {name: deleted, valueBoolean: false}
+              - column: {name: country_code, value: "US"}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: is_active, valueBoolean: true}
         - insert:
-            tableName: platform_owner
+            tableName: hm_platform
             columns:
-              - column: {name: id, value: "PLATFORM_003"}
+              - column: {name: id, value: "PLT-IN-001"}
+              - column: {name: platform_code, value: "HANDMADE_IN"}
+              - column: {name: name, value: "Handmade India"}
+              - column: {name: country_code, value: "IN"}
+              - column: {name: currency_code, value: "INR"}
+              - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: is_active, valueBoolean: true}
+        - insert:
+            tableName: hm_platform
+            columns:
+              - column: {name: id, value: "PLT-UK-001"}
+              - column: {name: platform_code, value: "HANDMADE_UK"}
               - column: {name: name, value: "Handmade UK"}
-              - column: {name: state_id, value: "SUSPENDED"}
-              - column: {name: flow_id, value: "platform-lifecycle"}
-              - column: {name: suspended, valueBoolean: true}
-              - column: {name: suspension_reason, value: "Compliance review"}
-              - column: {name: deleted, valueBoolean: false}
+              - column: {name: country_code, value: "GB"}
+              - column: {name: currency_code, value: "GBP"}
+              - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: is_active, valueBoolean: false}

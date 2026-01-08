@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-growth-ops
+      validCheckSum: ANY
+      comment: Create hm_seller_badge table
+      changes:
+        - createTable:
+            tableName: hm_seller_badge
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: seller_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: badge_code, type: VARCHAR(50), constraints: { nullable: false } } # TOP_SELLER, FAST_SHIPPER
+              - column: { name: awarded_at, type: TIMESTAMP }
+              - column: { name: expiry_date, type: DATE }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_seller_badge
+            indexName: idx_seller_badge_seller
+            columns:
+              - column: { name: seller_id }

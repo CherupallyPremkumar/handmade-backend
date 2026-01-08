@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: marketing-tech
+      validCheckSum: ANY
+      comment: Create hm_content_page table for managed CMS pages
+      changes:
+        - createTable:
+            tableName: hm_content_page
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: slug, type: VARCHAR(255), constraints: { nullable: false, unique: true } }
+              - column: { name: title, type: VARCHAR(255), constraints: { nullable: false } }
+              - column: { name: content_type, type: VARCHAR(50) } # FAQ, HELP, STATIC_PAGE
+              - column: { name: raw_content, type: TEXT }
+              - column: { name: status, type: VARCHAR(20), defaultValue: "DRAFT" } # DRAFT, PUBLISHED
+              - column: { name: meta_description, type: VARCHAR(500) }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

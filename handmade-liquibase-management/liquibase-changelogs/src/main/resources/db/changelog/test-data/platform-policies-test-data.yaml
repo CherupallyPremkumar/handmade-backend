@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: platform-policies-test-data
+      author: platform-policy-engine
+      changes:
+        - insert:
+            tableName: hm_platform_policy_product_eligibility
+            columns:
+              - column: { name: id, value: "POL-ELIG-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: seller_tier, value: "BRONZE" }
+              - column: { name: prohibited_keywords, value: "explosives, hazardous, counterfeit" }
+              - column: { name: is_active, valueBoolean: true }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_pricing
+            columns:
+              - column: { name: id, value: "POL-PRC-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: min_price_cap, valueNumeric: 0.99 }
+              - column: { name: max_price_cap, valueNumeric: 10000.00 }
+              - column: { name: currency_code, value: "USD" }
+              - column: { name: rounding_rule, value: "NEAREST_CENT" }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_fulfillment
+            columns:
+              - column: { name: id, value: "POL-FUL-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: allowed_channels, value: "FBA, MFN" }
+              - column: { name: max_weight, valueNumeric: 50.00 }
+              - column: { name: delivery_sla_days, valueNumeric: 5 }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_tax
+            columns:
+              - column: { name: id, value: "POL-TAX-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: region_code, value: "US" }
+              - column: { name: tax_calculation_model, value: "DESTINATION_BASED" }
+              - column: { name: is_tax_inclusive, valueBoolean: false }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_ads
+            columns:
+              - column: { name: id, value: "POL-ADS-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: min_budget, valueNumeric: 1.00 }
+              - column: { name: max_budget, valueNumeric: 500.00 }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_return
+            columns:
+              - column: { name: id, value: "POL-RET-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: window_days, valueNumeric: 30 }
+              - column: { name: return_shipping_payer, value: "BUYER" }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_warranty
+            columns:
+              - column: { name: id, value: "POL-WAR-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: duration_months, valueNumeric: 12 }
+              - column: { name: coverage_type, value: "LIMITED" }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_seller
+            columns:
+              - column: { name: id, value: "POL-SEL-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: max_skus_per_seller, valueNumeric: 1000 }
+              - column: { name: vacation_mode_allowed, valueBoolean: true }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_security
+            columns:
+              - column: { name: id, value: "POL-SEC-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: mfa_required, valueBoolean: true }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_platform_policy_experiment
+            columns:
+              - column: { name: id, value: "POL-EXP-001" }
+              - column: { name: platform_id, value: "PLT-US-001" }
+              - column: { name: experiment_id, value: "EXP-NEW-CHECKOUT" }
+              - column: { name: rollout_percentage, valueNumeric: 50 }
+              - column: { name: tenant, value: "handmade" }
+
+        - insert:
+            tableName: hm_feature_flag
+            columns:
+              - column: { name: id, value: "FEAT-ADS-ENABLED" }
+              - column: { name: flag_key, value: "FEATURE-ADS-ENABLED" }
+              - column: { name: is_enabled, valueBoolean: true }
+              - column: { name: tenant, value: "handmade" }

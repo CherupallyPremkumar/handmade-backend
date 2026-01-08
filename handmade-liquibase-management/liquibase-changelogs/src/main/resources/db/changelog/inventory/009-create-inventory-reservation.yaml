@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-ops
+      changes:
+        - createTable:
+            tableName: hm_inventory_reservation
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: inventory_item_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  defaultValue: "RESERVED"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_inventory_reservation
+            indexName: idx_inv_res_item
+            columns:
+              - column:
+                  name: inventory_item_id
+        - createIndex:
+            tableName: hm_inventory_reservation
+            indexName: idx_inv_res_order
+            columns:
+              - column:
+                  name: order_id

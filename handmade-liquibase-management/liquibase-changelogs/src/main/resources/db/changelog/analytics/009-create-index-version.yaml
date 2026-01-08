@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: infrastructure
+      comment: Create hm_search_index_version table
+      changes:
+        - createTable:
+            tableName: hm_search_index_version
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: index_name, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: version, type: VARCHAR(50), constraints: { nullable: false } }
+              - column: { name: status, type: VARCHAR(20) } # ACTIVE, INACTIVE, REINDEXING
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: tenant, type: VARCHAR(255) }

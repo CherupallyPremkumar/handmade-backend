@@ -64,11 +64,7 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.chenile</groupId>
-            <artifactId>cucumber-workflow-utils</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         
         <!-- Liquibase changelogs for test database -->
         <dependency>

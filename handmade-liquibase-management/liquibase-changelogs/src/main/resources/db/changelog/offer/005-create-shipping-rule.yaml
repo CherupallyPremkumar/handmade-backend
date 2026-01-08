@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: offer-management
+      changes:
+        - createTable:
+            tableName: hm_shipping_rule
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: template_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shipping_option
+                  type: varchar(50)
+                  # STANDARD, EXPEDITED, TWO_DAY
+              - column:
+                  name: cost_model
+                  type: varchar(50)
+                  # PER_ITEM, PER_WEIGHT, TIERED
+              - column:
+                  name: base_cost
+                  type: decimal(19, 4)
+              - column:
+                  name: per_item_cost
+                  type: decimal(19, 4)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_shipping_rule
+            baseColumnNames: template_id
+            referencedTableName: hm_shipping_template
+            referencedColumnNames: id
+            constraintName: fk_sr_template

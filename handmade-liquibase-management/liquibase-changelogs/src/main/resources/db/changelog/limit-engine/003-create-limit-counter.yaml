@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: limits-engine
+      changes:
+        - createTable:
+            tableName: hm_limit_counter
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: varchar(100) # Seller ID, User ID, etc.
+                  constraints:
+                    nullable: false
+              - column:
+                  name: limit_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: current_usage
+                  type: bigint
+                  defaultValueNumeric: 0
+              - column:
+                  name: reset_time
+                  type: timestamp
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - createIndex:
+            tableName: hm_limit_counter
+            indexName: idx_limit_cnt_entity
+            columns:
+              - column: {name: entity_id}
+              - column: {name: limit_key}

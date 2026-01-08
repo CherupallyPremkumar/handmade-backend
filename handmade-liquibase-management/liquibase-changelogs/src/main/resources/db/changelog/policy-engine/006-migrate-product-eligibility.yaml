@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: migrate-product-eligibility-001
+      author: policy-migration
+      comment: Migrate Product Eligibility policy to Policy Engine
+      changes:
+        # 1. Define the Policy Intent
+        - insert:
+            tableName: hm_policy_definition
+            columns:
+              - column: { name: id, value: "def-prod-elig-001" }
+              - column: { name: policy_key, value: "PRODUCT_ELIGIBILITY" }
+              - column: { name: policy_name, value: "Product Eligibility & Compliance" }
+              - column: { name: description, value: "Controls which products can be listed based on keywords and categories." }
+              - column: { name: default_effect, value: "ALLOW" }
+              - column: { name: owner_service, value: "catalog-service" }
+
+        # 2. Define the Rule (Prohibited Keywords)
+        - insert:
+            tableName: hm_policy_rule
+            columns:
+              - column: { name: id, value: "rule-prod-elig-001" }
+              - column: { name: policy_definition_id, value: "def-prod-elig-001" }
+              - column: { name: rule_name, value: "Block Prohibited Keywords" }
+              - column: { name: description, value: "Blocks listings containing profanity or restricted terms." }
+              - column: { name: condition_json, value: '{"contains_any": ["counterfeit", "replica", "weapon", "hazardous"]}' }
+              - column: { name: effect_json, value: '{"result": "DENY", "reason": "PROHIBITED_KEYWORD"}' }
+              - column: { name: priority, valueNumeric: 100 }
+
+        # 3. Define the Scope (Global Scope)
+        - insert:
+            tableName: hm_policy_scope
+            columns:
+              - column: { name: id, value: "scope-prod-elig-001" }
+              - column: { name: rule_id, value: "rule-prod-elig-001" }
+              - column: { name: scope_dimension, value: "GLOBAL" }
+              - column: { name: scope_value, value: "ALL" }

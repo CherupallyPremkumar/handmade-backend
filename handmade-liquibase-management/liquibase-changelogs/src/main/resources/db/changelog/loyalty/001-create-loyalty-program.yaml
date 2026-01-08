@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: marketing-tech
+      validCheckSum: ANY
+      comment: Create hm_loyalty_program table
+      changes:
+        - createTable:
+            tableName: hm_loyalty_program
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: program_name, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: tier_level, type: INT, defaultValueNumeric: 1 }
+              - column: { name: benefits_json, type: TEXT }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

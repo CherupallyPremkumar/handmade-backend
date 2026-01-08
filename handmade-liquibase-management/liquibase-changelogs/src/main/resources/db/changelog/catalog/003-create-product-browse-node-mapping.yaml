@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_product_browse_node_mapping
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: browse_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_primary
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: display_order
+                  type: int
+              # BaseJpaEntity Fields
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+  - changeSet:
+      id: 2
+      author: catalog-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_browse_node_mapping
+            baseColumnNames: browse_node_id
+            referencedTableName: hm_browse_node
+            referencedColumnNames: id
+            constraintName: fk_pbnm_browse_node
+        - createIndex:
+            tableName: hm_product_browse_node_mapping
+            indexName: idx_pbnm_product_node
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: browse_node_id
+            unique: true
+

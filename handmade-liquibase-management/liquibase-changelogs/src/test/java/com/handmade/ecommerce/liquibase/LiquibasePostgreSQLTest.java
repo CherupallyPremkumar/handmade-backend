@@ -23,198 +23,191 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 public class LiquibasePostgreSQLTest {
 
-    @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine")
-            .withDatabaseName("handmade_test")
-            .withUsername("test")
-            .withPassword("test");
+        @Container
+        static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine")
+                        .withDatabaseName("handmade_test")
+                        .withUsername("test")
+                        .withPassword("test");
 
-    @Test
-    public void testMainChangelogWithPostgreSQL() throws Exception {
-        // Get connection from Testcontainer
-        Connection connection = postgres.createConnection("");
+        @Test
+        public void testMainChangelogWithPostgreSQL() throws Exception {
+                // Get connection from Testcontainer
+                Connection connection = postgres.createConnection("");
 
-        // Initialize Liquibase
-        Database database = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                // Initialize Liquibase
+                Database database = DatabaseFactory.getInstance()
+                                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-        Liquibase liquibase = new Liquibase(
-                "db/changelog/db.changelog-master.yaml",
-                new ClassLoaderResourceAccessor(),
-                database);
+                Liquibase liquibase = new Liquibase(
+                                "db/changelog/db.changelog-master.yaml",
+                                new ClassLoaderResourceAccessor(),
+                                database);
 
-        // Execute all changelogs
-        liquibase.update("");
+                // Execute all changelogs
+                liquibase.update("");
 
-        // Verify tables were created
-        try (Statement stmt = connection.createStatement()) {
-            // Check platform tables
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM information_schema.tables " +
-                            "WHERE table_schema = 'public' AND table_name = 'platform_owner'");
-            assertTrue(rs.next());
-            assertEquals(1, rs.getInt(1), "platform_owner table should exist");
+                // Verify tables were created
+                try (Statement stmt = connection.createStatement()) {
+                        // Check platform tables
+                        ResultSet rs = stmt.executeQuery(
+                                        "SELECT COUNT(*) FROM information_schema.tables " +
+                                                        "WHERE table_schema = 'public' AND table_name = 'hm_platform'");
+                        assertTrue(rs.next());
+                        assertEquals(1, rs.getInt(1), "hm_platform table should exist");
 
-            // Check seller tables
-            rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM information_schema.tables " +
-                            "WHERE table_schema = 'public' AND table_name = 'seller_account'");
-            assertTrue(rs.next());
-            assertEquals(1, rs.getInt(1), "seller_account table should exist");
+                        // Check seller tables
+                        rs = stmt.executeQuery(
+                                        "SELECT COUNT(*) FROM information_schema.tables " +
+                                                        "WHERE table_schema = 'public' AND table_name = 'hm_seller_account'");
+                        assertTrue(rs.next());
+                        assertEquals(1, rs.getInt(1), "hm_seller_account table should exist");
 
-            // Check policy tables
-            rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM information_schema.tables " +
-                            "WHERE table_schema = 'public' AND table_name = 'onboarding_policies'");
-            assertTrue(rs.next());
-            assertEquals(1, rs.getInt(1), "onboarding_policies table should exist");
+                        // Verify Liquibase tracking table
+                        rs = stmt.executeQuery(
+                                        "SELECT COUNT(*) FROM databasechangelog");
+                        assertTrue(rs.next());
+                        int changesetCount = rs.getInt(1);
+                        assertTrue(changesetCount > 0, "Should have executed changesets");
+                        System.out.println("✅ Executed " + changesetCount + " changesets successfully");
+                }
 
-            // Verify Liquibase tracking table
-            rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM databasechangelog");
-            assertTrue(rs.next());
-            int changesetCount = rs.getInt(1);
-            assertTrue(changesetCount > 0, "Should have executed changesets");
-            System.out.println("✅ Executed " + changesetCount + " changesets successfully");
+                // Close resources
+                liquibase.close();
+                connection.close();
         }
 
-        // Close resources
-        liquibase.close();
-        connection.close();
-    }
+        @Test
+        @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
+        public void testChangelogWithTestData() throws Exception {
+                // Get connection from Testcontainer
+                Connection connection = postgres.createConnection("");
 
-    @Test
-    @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
-    public void testChangelogWithTestData() throws Exception {
-        // Get connection from Testcontainer
-        Connection connection = postgres.createConnection("");
+                // Initialize Liquibase
+                Database database = DatabaseFactory.getInstance()
+                                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-        // Initialize Liquibase
-        Database database = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                Liquibase liquibase = new Liquibase(
+                                "db/changelog/db.changelog-test.yaml",
+                                new ClassLoaderResourceAccessor(),
+                                database);
 
-        Liquibase liquibase = new Liquibase(
-                "db/changelog/db.changelog-test.yaml",
-                new ClassLoaderResourceAccessor(),
-                database);
+                // Execute changelogs with test data
+                liquibase.update("");
 
-        // Execute changelogs with test data
-        liquibase.update("");
+                // Verify test data was inserted
+                try (Statement stmt = connection.createStatement()) {
+                        // Check platform test data
+                        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM hm_platform");
+                        assertTrue(rs.next());
+                        int platformCount = rs.getInt(1);
+                        assertTrue(platformCount >= 3, "Should have at least 3 test platforms");
+                        System.out.println("✅ Loaded " + platformCount + " platform records");
 
-        // Verify test data was inserted
-        try (Statement stmt = connection.createStatement()) {
-            // Check platform test data
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM platform_owner");
-            assertTrue(rs.next());
-            int platformCount = rs.getInt(1);
-            assertTrue(platformCount >= 3, "Should have at least 3 test platforms");
-            System.out.println("✅ Loaded " + platformCount + " platform records");
+                        // Check seller test data
+                        rs = stmt.executeQuery("SELECT COUNT(*) FROM hm_seller_account");
+                        assertTrue(rs.next());
+                        int sellerCount = rs.getInt(1);
+                        assertTrue(sellerCount >= 4, "Should have at least 4 test sellers");
+                        System.out.println("✅ Loaded " + sellerCount + " seller records");
 
-            // Check seller test data
-            rs = stmt.executeQuery("SELECT COUNT(*) FROM seller_account");
-            assertTrue(rs.next());
-            int sellerCount = rs.getInt(1);
-            assertTrue(sellerCount >= 4, "Should have at least 4 test sellers");
-            System.out.println("✅ Loaded " + sellerCount + " seller records");
+                        // Check policy test data
 
-            // Check policy test data
-            rs = stmt.executeQuery("SELECT COUNT(*) FROM onboarding_policies");
-            assertTrue(rs.next());
-            int policyCount = rs.getInt(1);
-            assertTrue(policyCount >= 3, "Should have at least 3 test policies");
-            System.out.println("✅ Loaded " + policyCount + " policy records");
+                        assertTrue(rs.next());
+                        int policyCount = rs.getInt(1);
+                        assertTrue(policyCount >= 3, "Should have at least 3 test policies");
+                        System.out.println("✅ Loaded " + policyCount + " policy records");
 
-            // Verify specific test data
-            rs = stmt.executeQuery(
-                    "SELECT name FROM platform_owner WHERE id = 'PLATFORM_001'");
-            assertTrue(rs.next());
-            assertEquals("Handmade India", rs.getString(1));
-            System.out.println("✅ Test data integrity verified");
+                        // Verify specific test data
+                        rs = stmt.executeQuery(
+                                        "SELECT name FROM hm_platform WHERE id = 'PLT-IN-001'");
+                        assertTrue(rs.next());
+                        assertEquals("Handmade India", rs.getString(1));
+                        System.out.println("✅ Test data integrity verified");
+                }
+
+                // Close resources
+                liquibase.close();
+                connection.close();
         }
 
-        // Close resources
-        liquibase.close();
-        connection.close();
-    }
+        @Test
+        public void testRollbackCapability() throws Exception {
+                // Get connection from Testcontainer
+                Connection connection = postgres.createConnection("");
 
-    @Test
-    public void testRollbackCapability() throws Exception {
-        // Get connection from Testcontainer
-        Connection connection = postgres.createConnection("");
+                // Initialize Liquibase
+                Database database = DatabaseFactory.getInstance()
+                                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-        // Initialize Liquibase
-        Database database = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                Liquibase liquibase = new Liquibase(
+                                "db/changelog/db.changelog-test.yaml",
+                                new ClassLoaderResourceAccessor(),
+                                database);
 
-        Liquibase liquibase = new Liquibase(
-                "db/changelog/db.changelog-test.yaml",
-                new ClassLoaderResourceAccessor(),
-                database);
+                // Execute changelogs
+                liquibase.update("");
 
-        // Execute changelogs
-        liquibase.update("");
+                // Tag the current state
+                liquibase.tag("test-tag");
 
-        // Tag the current state
-        liquibase.tag("test-tag");
+                // Verify data exists
+                try (Statement stmt = connection.createStatement()) {
+                        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM hm_platform");
+                        assertTrue(rs.next());
+                        assertTrue(rs.getInt(1) > 0, "Should have platform data before rollback");
+                }
 
-        // Verify data exists
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM platform_owner");
-            assertTrue(rs.next());
-            assertTrue(rs.getInt(1) > 0, "Should have platform data before rollback");
+                // Rollback to tag (this will remove test data but keep schema)
+                liquibase.rollback("test-tag", "");
+
+                System.out.println("✅ Rollback capability verified");
+
+                // Close resources
+                liquibase.close();
+                connection.close();
         }
 
-        // Rollback to tag (this will remove test data but keep schema)
-        liquibase.rollback("test-tag", "");
+        @Test
+        @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
+        public void testIdempotency() throws Exception {
+                // Get connection from Testcontainer
+                Connection connection = postgres.createConnection("");
 
-        System.out.println("✅ Rollback capability verified");
+                // Initialize Liquibase
+                Database database = DatabaseFactory.getInstance()
+                                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-        // Close resources
-        liquibase.close();
-        connection.close();
-    }
+                Liquibase liquibase = new Liquibase(
+                                "db/changelog/db.changelog-test.yaml",
+                                new ClassLoaderResourceAccessor(),
+                                database);
 
-    @Test
-    @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
-    public void testIdempotency() throws Exception {
-        // Get connection from Testcontainer
-        Connection connection = postgres.createConnection("");
+                // Execute changelogs first time
+                liquibase.update("");
 
-        // Initialize Liquibase
-        Database database = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                int firstRunChangesets;
+                try (Statement stmt = connection.createStatement()) {
+                        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM databasechangelog");
+                        assertTrue(rs.next());
+                        firstRunChangesets = rs.getInt(1);
+                }
 
-        Liquibase liquibase = new Liquibase(
-                "db/changelog/db.changelog-test.yaml",
-                new ClassLoaderResourceAccessor(),
-                database);
+                // Execute changelogs second time (should be idempotent)
+                liquibase.update("");
 
-        // Execute changelogs first time
-        liquibase.update("");
+                int secondRunChangesets;
+                try (Statement stmt = connection.createStatement()) {
+                        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM databasechangelog");
+                        assertTrue(rs.next());
+                        secondRunChangesets = rs.getInt(1);
+                }
 
-        int firstRunChangesets;
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM databasechangelog");
-            assertTrue(rs.next());
-            firstRunChangesets = rs.getInt(1);
+                assertEquals(firstRunChangesets, secondRunChangesets,
+                                "Changelogs should be idempotent - no new changesets on second run");
+                System.out.println("✅ Idempotency verified - " + firstRunChangesets + " changesets");
+
+                // Close resources
+                liquibase.close();
+                connection.close();
         }
-
-        // Execute changelogs second time (should be idempotent)
-        liquibase.update("");
-
-        int secondRunChangesets;
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM databasechangelog");
-            assertTrue(rs.next());
-            secondRunChangesets = rs.getInt(1);
-        }
-
-        assertEquals(firstRunChangesets, secondRunChangesets,
-                "Changelogs should be idempotent - no new changesets on second run");
-        System.out.println("✅ Idempotency verified - " + firstRunChangesets + " changesets");
-
-        // Close resources
-        liquibase.close();
-        connection.close();
-    }
 }

@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: logistics-ops
+      validCheckSum: ANY
+      comment: Create hm_delivery_exception table
+      changes:
+        - createTable:
+            tableName: hm_delivery_exception
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: tracking_number, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: exception_time, type: TIMESTAMP, constraints: { nullable: false } }
+              - column: { name: exception_code, type: VARCHAR(50) } # WEATHER_DELAY, LOST_IN_TRANSIT, DAMAGED
+              - column: { name: description, type: VARCHAR(500) }
+              - column: { name: resolution_status, type: VARCHAR(20), defaultValue: "OPEN" } # OPEN, RESOLVED, CLOSED
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_delivery_exception
+            indexName: idx_exception_tracking
+            columns:
+              - column: { name: tracking_number }

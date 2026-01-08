@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-ops
+      changes:
+        - createTable:
+            tableName: hm_fulfillment_bin
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fulfillment_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bin_code
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: zone
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: aisle
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: shelf
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_fulfillment_bin
+            indexName: idx_fulfill_bin_node
+            columns:
+              - column:
+                  name: fulfillment_node_id
+              - column:
+                  name: bin_code

@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: trust-safety
+      changes:
+        - createTable:
+            tableName: hm_risk_signal
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: signal_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: risk_score
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: evidence_data
+                  type: text
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0

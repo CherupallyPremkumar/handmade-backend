@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: search-intelligence
+      comment: Create hm_product_popularity_signal table
+      changes:
+        - createTable:
+            tableName: hm_product_popularity_signal
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: product_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: views_count, type: BIGINT, defaultValueNumeric: 0 }
+              - column: { name: purchases_count, type: BIGINT, defaultValueNumeric: 0 }
+              - column: { name: wishlist_count, type: BIGINT, defaultValueNumeric: 0 }
+              - column: { name: trending_score, type: "DECIMAL(10, 4)", defaultValueNumeric: 0 }
+              - column: { name: last_updated, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: tenant, type: VARCHAR(255) }

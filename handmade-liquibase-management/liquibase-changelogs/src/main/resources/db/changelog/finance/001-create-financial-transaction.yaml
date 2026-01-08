@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: finance-management
+      changes:
+        - createTable:
+            tableName: hm_transaction
+            # The Double-Entry Ledger
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
+                  # PAYMENT, REFUND, CHARGE, PAYOUT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  # PENDING, SETTLED, FAILED
+              - column:
+                  name: reference_type
+                  type: varchar(50)
+                  # ORDER, SHIPMENT, REFUND
+              - column:
+                  name: reference_id
+                  type: varchar(36)
+                  # OrderID, RefundID
+              - column:
+                  name: posted_date
+                  type: timestamp
+                  constraints:
+                      nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_transaction
+            indexName: idx_trans_seller
+            columns:
+              - column:
+                  name: seller_id

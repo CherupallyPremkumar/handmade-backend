@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_vendor_po_line
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: po_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vendor_sku
+                  type: varchar(100)
+              - column:
+                  name: asin
+                  type: varchar(20)
+                  # Our catalog identifier
+              - column:
+                  name: quantity_ordered
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity_confirmed
+                  type: int
+              - column:
+                  name: quantity_received
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: unit_cost
+                  type: decimal(19, 4)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_vendor_po_line
+            baseColumnNames: po_id
+            referencedTableName: hm_vendor_po
+            referencedColumnNames: id
+            constraintName: fk_pol_po

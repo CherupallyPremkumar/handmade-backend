@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-engine
+      changes:
+        - createTable:
+            tableName: hm_ad_performance_daily
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: campaign_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: impressions
+                  type: bigint
+                  defaultValueNumeric: 0
+              - column:
+                  name: clicks
+                  type: bigint
+                  defaultValueNumeric: 0
+              - column:
+                  name: conversions
+                  type: bigint
+                  defaultValueNumeric: 0
+              - column:
+                  name: spend
+                  type: decimal(19, 4)
+                  defaultValueNumeric: 0.0000
+              - column:
+                  name: sales
+                  type: decimal(19, 4)
+                  defaultValueNumeric: 0.0000
+              - column:
+                  name: date_day
+                  type: date
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_ad_performance_daily
+            indexName: idx_ad_perf_day
+            columns:
+              - column: { name: date_day }
+        - createIndex:
+            tableName: hm_ad_performance_daily
+            indexName: idx_ad_perf_camp
+            columns:
+              - column: { name: campaign_id }

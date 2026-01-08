@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 3
       author: payout-policy
+      validCheckSum: ANY
       comment: Create payout_policy_audit_log table
       changes:
         - createTable:
@@ -17,6 +18,13 @@ databaseChangeLog:
               - column: {name: old_value, type: TEXT}
               - column: {name: new_value, type: TEXT}
               - column: {name: reason, type: TEXT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              # BaseJpaEntity
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT, defaultValueNumeric: 0}
         
         - createIndex:
             indexName: idx_audit_policy

@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-management
+      changes:
+        - createTable:
+            tableName: hm_seller_kyc
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: document_type
+                  type: varchar(50)
+                  # PASSPORT, DRIVERS_LICENSE, UTILITY_BILL, TAX_ID
+              - column:
+                  name: document_number
+                  type: varchar(100)
+              - column:
+                  name: s3_key
+                  type: varchar(255)
+                  # Path to the secure file storage
+              - column:
+                  name: verification_status
+                  type: varchar(50)
+                  # PENDING, VERIFIED, REJECTED
+                  defaultValue: PENDING
+              - column:
+                  name: rejection_reason
+                  type: varchar(255)
+              - column:
+                  name: verified_at
+                  type: timestamp
+              - column:
+                  name: verified_by
+                  type: varchar(255)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_seller_kyc
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_kyc_seller

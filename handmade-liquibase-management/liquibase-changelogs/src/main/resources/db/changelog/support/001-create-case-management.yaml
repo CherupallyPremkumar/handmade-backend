@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: support-operations
+      validCheckSum: ANY
+      comment: Create case_management table
+      changes:
+        - createTable:
+            tableName: hm_case_management
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: case_type, type: VARCHAR(50), constraints: { nullable: false } }
+              - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
+              - column: { name: priority, type: VARCHAR(20), defaultValue: "NORMAL", constraints: { nullable: false } }
+              - column: { name: subject, type: VARCHAR(255), constraints: { nullable: false } }
+              - column: { name: description, type: TEXT }
+              - column: { name: created_by_user_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: assigned_to, type: VARCHAR(36) }
+              - column: { name: related_entity_id, type: VARCHAR(36) }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+        
+        - createIndex:
+            tableName: hm_case_management
+            indexName: idx_case_user_id
+            columns:
+              - column: { name: created_by_user_id }
+        
+        - createIndex:
+            tableName: hm_case_management
+            indexName: idx_case_status
+            columns:
+              - column: { name: status }

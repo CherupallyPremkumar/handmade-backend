@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: cms-team
+      changes:
+        - createTable:
+            tableName: hm_cms_entry_version
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: entry_id, type: varchar(36), constraints: {nullable: false}}
+              - column: {name: version_number, type: int, constraints: {nullable: false}}
+              - column: {name: content_json, type: text} # The actual content payload
+              - column: {name: commit_message, type: varchar(500)}
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+
+        - addForeignKeyConstraint:
+            baseTableName: hm_cms_entry_version
+            baseColumnNames: entry_id
+            referencedTableName: hm_cms_entry
+            referencedColumnNames: id
+            constraintName: fk_version_entry
+
+        - createIndex:
+            tableName: hm_cms_entry_version
+            indexName: idx_cms_version_entry
+            columns:
+              - column: {name: entry_id}
+              - column: {name: version_number}
+            unique: true

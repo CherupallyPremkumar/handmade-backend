@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: logistics-ops
+      validCheckSum: ANY
+      comment: Create hm_warehouse_zone table
+      changes:
+        - createTable:
+            tableName: hm_warehouse_zone
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: warehouse_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: zone_code, type: VARCHAR(20), constraints: { nullable: false } } # A-1, B-2
+              - column: { name: zone_type, type: VARCHAR(50) } # RECEIVING, PICKING, PACKING, SHIPPING
+              - column:
+                  name: capacity_volume_cbm
+                  type: decimal(19, 4)
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_warehouse_zone
+            indexName: idx_zone_warehouse
+            columns:
+              - column: { name: warehouse_id }

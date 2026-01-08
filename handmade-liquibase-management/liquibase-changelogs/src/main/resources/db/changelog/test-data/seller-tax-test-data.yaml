@@ -5,7 +5,7 @@ databaseChangeLog:
       comment: Insert test data for seller tax information
       changes:
         - insert:
-            tableName: seller_tax_info
+            tableName: hm_seller_tax_info
             columns:
               - column: {name: id, value: "tax-001"}
               - column: {name: seller_id, value: "acc-001"}
@@ -23,10 +23,9 @@ databaseChangeLog:
               - column: {name: is_verified, valueBoolean: true}
               - column: {name: verification_date, valueDate: "2024-01-11T10:00:00"}
               - column: {name: created_time, valueDate: "2024-01-10T09:00:00"}
-              - column: {name: created_at, valueDate: "2024-01-10T09:00:00"}
         
         - insert:
-            tableName: seller_tax_info
+            tableName: hm_seller_tax_info
             columns:
               - column: {name: id, value: "tax-002"}
               - column: {name: seller_id, value: "acc-002"}
@@ -43,4 +42,3 @@ databaseChangeLog:
               - column: {name: is_verified, valueBoolean: true}
               - column: {name: verification_date, valueDate: "2024-01-13T15:30:00"}
               - column: {name: created_time, valueDate: "2024-01-12T11:30:00"}
-              - column: {name: created_at, valueDate: "2024-01-12T11:30:00"}

@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: customer-management
+      changes:
+        - createTable:
+            tableName: hm_wishlist_item
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: wishlist_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: added_date
+                  type: timestamp
+              - column:
+                  name: priority
+                  type: varchar(50)
+                  # LOW, MEDIUM, HIGH
+              - column:
+                  name: quantity_desired
+                  type: int
+                  defaultValueNumeric: 1
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_wishlist_item
+            baseColumnNames: wishlist_id
+            referencedTableName: hm_wishlist
+            referencedColumnNames: id
+            constraintName: fk_wli_wl

@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: infrastructure
+      comment: Create hm_notification_queue table
+      changes:
+        - createTable:
+            tableName: hm_notification_queue
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: recipient_id, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: recipient_type, type: VARCHAR(50) } # USER, SELLER
+              - column: { name: template_id, type: VARCHAR(100) }
+              - column: { name: channel, type: VARCHAR(20) } # EMAIL, SMS, PUSH
+              - column: { name: payload, type: TEXT } # JSON string
+              - column: { name: status, type: VARCHAR(20), defaultValue: "PENDING" }
+              - column: { name: retry_count, type: INT, defaultValueNumeric: 0 }
+              - column: { name: scheduled_at, type: TIMESTAMP }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: tenant, type: VARCHAR(255) }
