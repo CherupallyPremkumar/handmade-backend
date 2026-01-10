@@ -14,6 +14,7 @@
         <module>event-api</module>
         <module>event-domain</module>
         <module>invm-event-starter</module>
+<!--        <module>mqtt-event-starter</module>-->
         <!-- <module>q-based-event-starter</module> TODO: Fix chenile-pub-sub version inheritance -->
     </modules>
 
@@ -41,11 +42,16 @@
         <artifactId>invm-event-starter</artifactId>
         <version>${revision}</version>
     </dependency>
-    <!-- <dependency>
+    <dependency>
         <groupId>com.handmade.ecommerce.event</groupId>
-        <artifactId>q-based-event-starter</artifactId>
+        <artifactId>mqtt-event-starter</artifactId>
         <version>${revision}</version>
-    </dependency> -->
+    </dependency>
+    <dependency>
+        <groupId>org.chenile</groupId>
+        <artifactId>chenile-mqtt</artifactId>
+        <version>${chenile.version}</version>
+    </dependency>
 </dependencies>
 
 </dependencyManagement>

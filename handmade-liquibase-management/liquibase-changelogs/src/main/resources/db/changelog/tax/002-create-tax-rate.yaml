@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: tax-management
+      changes:
+        - createTable:
+            tableName: hm_tax_rate
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: jurisdiction_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tax_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tax_rate
+                  type: decimal(10,6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_category_id
+                  type: varchar(36)
+              - column:
+                  name: effective_from
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effective_to
+                  type: date
+              - column:
+                  name: is_compound
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: calculation_order
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_tax_rate_jurisdiction
+            tableName: hm_tax_rate
+            columns:
+              - column:
+                  name: jurisdiction_id
+              - column:
+                  name: effective_from
+        
+        - createIndex:
+            indexName: idx_tax_rate_active
+            tableName: hm_tax_rate
+            columns:
+              - column:
+                  name: is_active
+              - column:
+                  name: effective_from

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.handmade.ecommerce.analytics</groupId>
+        <artifactId>handmade-analytics-search</artifactId>
+        <version>2.0.35</version>
+    </parent>
+    
+    <artifactId>search-index</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>search-index</name>
+    
+    <modules>
+        <module>search-index-domain</module>
+        <module>search-index-api</module>
+        <module>search-index-service</module>
+        <module>search-index-infrastructure</module>
+        <module>search-index-delegator</module>
+        <module>search-index-async</module>
+    </modules>
+</project>

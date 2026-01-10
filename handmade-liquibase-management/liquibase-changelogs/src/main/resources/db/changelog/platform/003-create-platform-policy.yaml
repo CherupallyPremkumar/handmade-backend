@@ -24,7 +24,25 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: policy_value
-                  type: varchar(255)
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_version
+                  type: varchar(20)
+                  defaultValue: "1.0"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effective_from
+                  type: timestamp
+              - column:
+                  name: effective_to
+                  type: timestamp
+              - column:
+                  name: policy_status
+                  type: varchar(20)
+                  defaultValue: "ACTIVE"
                   constraints:
                     nullable: false
               - column:

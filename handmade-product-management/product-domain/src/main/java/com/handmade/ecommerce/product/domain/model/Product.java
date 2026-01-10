@@ -44,6 +44,15 @@ public class Product extends AbstractSeller
     @JoinColumn(name = "product_attribute_id")
     private ProductAttribute productAttribute;
 
+    @Column(name = "classification_id")
+    private String classificationId;
+
+    @Column(name = "parent_id")
+    private String parentId;
+
+    @Column(name = "variation_theme_id")
+    private String variationThemeId;
+
     // Image URLs (managed by separate image service)
     @Column(name = "primary_image_url", length = 500)
     private String primaryImageUrl;
@@ -208,6 +217,30 @@ public class Product extends AbstractSeller
 
     public void setActivities(List<ProductActivityLog> activities) {
         this.activities = activities;
+    }
+
+    public String getClassificationId() {
+        return classificationId;
+    }
+
+    public void setClassificationId(String classificationId) {
+        this.classificationId = classificationId;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getVariationThemeId() {
+        return variationThemeId;
+    }
+
+    public void setVariationThemeId(String variationThemeId) {
+        this.variationThemeId = variationThemeId;
     }
 
 }

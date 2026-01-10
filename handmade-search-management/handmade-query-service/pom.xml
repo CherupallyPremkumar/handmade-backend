@@ -60,13 +60,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
 
-        
-        <!-- Liquibase changelogs for test database -->
         <dependency>
             <groupId>com.handmade.ecommerce</groupId>
             <artifactId>liquibase-changelogs</artifactId>
@@ -74,7 +76,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

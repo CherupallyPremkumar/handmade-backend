@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: search-management
+      changes:
+        - createTable:
+            tableName: hm_search_query
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+              - column:
+                  name: session_id
+                  type: varchar(255)
+              - column:
+                  name: query_text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: normalized_query
+                  type: text
+              - column:
+                  name: result_count
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: search_context
+                  type: varchar(100)
+              - column:
+                  name: browse_node_id
+                  type: varchar(36)
+              - column:
+                  name: clicked_product_id
+                  type: varchar(36)
+              - column:
+                  name: clicked_position
+                  type: int
+              - column:
+                  name: converted_to_order
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+              - column:
+                  name: search_timestamp
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: response_time_ms
+                  type: int
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_search_customer
+            tableName: hm_search_query
+            columns:
+              - column:
+                  name: customer_id
+        
+        - createIndex:
+            indexName: idx_search_timestamp
+            tableName: hm_search_query
+            columns:
+              - column:
+                  name: search_timestamp

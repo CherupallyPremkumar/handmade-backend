@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: messaging-management
+      changes:
+        - createTable:
+            tableName: hm_seller_message
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: conversation_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sender_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sender_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message_text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: has_attachment
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: attachment_url
+                  type: varchar(2048)
+              - column:
+                  name: is_read
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: read_at
+                  type: timestamp
+              - column:
+                  name: sent_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_message_conversation
+            tableName: hm_seller_message
+            columns:
+              - column:
+                  name: conversation_id
+              - column:
+                  name: sent_at

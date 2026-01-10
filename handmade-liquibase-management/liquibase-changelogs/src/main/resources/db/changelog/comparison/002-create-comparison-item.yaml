@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: comparison-management
+      changes:
+        - createTable:
+            tableName: hm_comparison_item
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: comparison_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: display_order
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_comparison_item_comparison
+            tableName: hm_comparison_item
+            columns:
+              - column:
+                  name: comparison_id

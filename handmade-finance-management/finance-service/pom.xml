@@ -20,6 +20,11 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>handmade-stm-management</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>org.chenile</groupId>
             <artifactId>stm</artifactId>
         </dependency>

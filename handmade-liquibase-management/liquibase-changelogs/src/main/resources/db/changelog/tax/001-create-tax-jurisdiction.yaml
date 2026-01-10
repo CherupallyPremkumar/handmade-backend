@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: tax-management
+      changes:
+        - createTable:
+            tableName: hm_tax_jurisdiction
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: jurisdiction_code
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: jurisdiction_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: jurisdiction_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: state_province
+                  type: varchar(100)
+              - column:
+                  name: county
+                  type: varchar(100)
+              - column:
+                  name: city
+                  type: varchar(100)
+              - column:
+                  name: postal_code
+                  type: varchar(20)
+              - column:
+                  name: parent_jurisdiction_id
+                  type: varchar(36)
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_jurisdiction_code
+            tableName: hm_tax_jurisdiction
+            columns:
+              - column:
+                  name: jurisdiction_code
+        
+        - createIndex:
+            indexName: idx_jurisdiction_country
+            tableName: hm_tax_jurisdiction
+            columns:
+              - column:
+                  name: country_code
+              - column:
+                  name: state_province

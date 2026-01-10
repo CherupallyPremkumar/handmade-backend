@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+PaymentTransaction State Machine
+Purpose: Manage the lifecycle of PaymentTransaction entities
+Flow: PAYMENT_FLOW
+-->
+<states>
+    <event-information eventId='authorize_payment' 
+                       eventName='Authorize payment' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='capture_payment' 
+                       eventName='Capture payment' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='fail_payment' 
+                       eventName='Fail payment' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='void_payment' 
+                       eventName='Void payment' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="PAYMENT_FLOW" default="true">
+        <manual-state id="INIT" initialState="true">
+            <on eventId="authorize_payment" newStateId="AUTH_SUCCESS" componentName="paymentAuthAction"/>
+            <on eventId="fail_payment" newStateId="FAILED" componentName="paymentFailAction"/>
+        </manual-state>
+        <manual-state id="AUTH_SUCCESS">
+            <on eventId="capture_payment" newStateId="CAPTURED" componentName="paymentCaptureAction"/>
+            <on eventId="void_payment" newStateId="VOIDED" componentName="paymentVoidAction"/>
+        </manual-state>
+        <manual-state id="CAPTURED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="FAILED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="VOIDED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Orchestrated transaction pipelines
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+    <flow id="FRAUD_CASE_FLOW" triggerEvent="OPEN_CASE">
+        <!-- Step: checkBuyerHistory -->
+        <command id="checkBuyerHistory" componentName="buyerRiskProfileService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+        <!-- Step: checkSellerRating -->
+        <command id="checkSellerRating" componentName="sellerReputationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+        <!-- Step: applyRulesEngine -->
+        <command id="applyRulesEngine" componentName="fraudRulesEngine" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+        <!-- Step: escalateToManual -->
+        <command id="escalateToManual" componentName="manualReviewService" retryLimit="3" retryDelay="1000" timeoutMs="1000" onError="stop"/>
+    </flow>
+</flows>

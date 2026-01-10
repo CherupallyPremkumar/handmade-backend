@@ -15,7 +15,7 @@
             deleted as "deleted",
             can_create_listings as "canCreateListings",
             state_id as "state",
-            flow_id as "flow",
+            flow_id as "flowId",
             onboarding_policy_id as "onboardingPolicyId",
             onboarding_policy_version as "onboardingPolicyVersion",
             policy_locked_at as "policyLockedAt",

@@ -23,6 +23,21 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: description
+                  type: varchar(500)
+              - column:
+                  name: applicable_to
+                  type: varchar(20) # SELLER, BUYER, ADMIN
+              - column:
+                  name: compliance_version
+                  type: varchar(20) # 1.0, 2.0
+              - column:
+                  name: effective_from
+                  type: timestamp
+              - column:
+                  name: effective_to
+                  type: timestamp
+              - column:
                   name: is_mandatory
                   type: boolean
                   defaultValueBoolean: true

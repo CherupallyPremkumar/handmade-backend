@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: qa-management
+      changes:
+        - createTable:
+            tableName: hm_qa_vote
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: question_id
+                  type: varchar(36)
+              - column:
+                  name: answer_id
+                  type: varchar(36)
+              - column:
+                  name: vote_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: voted_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_qa_vote_question
+            tableName: hm_qa_vote
+            columns:
+              - column:
+                  name: question_id
+        
+        - createIndex:
+            indexName: idx_qa_vote_answer
+            tableName: hm_qa_vote
+            columns:
+              - column:
+                  name: answer_id
+        
+        - createIndex:
+            indexName: idx_qa_vote_customer
+            tableName: hm_qa_vote
+            columns:
+              - column:
+                  name: customer_id

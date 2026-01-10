@@ -25,7 +25,7 @@
     <dependency>
       <groupId>com.handmade.ecommerce.event</groupId>
       <artifactId>handmade-event-api</artifactId>
-      <version>${revision}</version>
+      <version>2.0.35</version>
     </dependency>
     <dependency>
       <groupId>org.chenile</groupId>

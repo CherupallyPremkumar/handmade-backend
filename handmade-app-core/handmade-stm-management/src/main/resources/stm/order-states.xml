@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Order State Machine
+Purpose: Manage the lifecycle of Order entities
+Flow: ORDER_FLOW
+-->
+<states>
+    <event-information eventId='cancel_order' 
+                       eventName='Cancel order' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='confirm_delivery' 
+                       eventName='Confirm delivery' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='mark_shipped' 
+                       eventName='Mark shipped' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='pay_order' 
+                       eventName='Pay order' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="ORDER_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="pay_order" newStateId="PAID" componentName="orderPaymentAction"/>
+            <on eventId="cancel_order" newStateId="CANCELLED" componentName="orderCancelAction"/>
+        </manual-state>
+        <manual-state id="PAID">
+            <on eventId="mark_shipped" newStateId="SHIPPED" componentName="orderShipAction"/>
+        </manual-state>
+        <manual-state id="SHIPPED">
+            <on eventId="confirm_delivery" newStateId="COMPLETED" componentName="orderCompleteAction"/>
+        </manual-state>
+        <manual-state id="COMPLETED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="CANCELLED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

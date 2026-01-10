@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: payment-management
+      changes:
+        - createTable:
+            tableName: hm_payment_capture
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: payment_authorization_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: capture_amount
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: provider_capture_id
+                  type: varchar(255)
+              - column:
+                  name: captured_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: settlement_batch_id
+                  type: varchar(36)
+              - column:
+                  name: settled_at
+                  type: timestamp
+              - column:
+                  name: failure_reason
+                  type: text
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_capture_auth
+            tableName: hm_payment_capture
+            columns:
+              - column:
+                  name: payment_authorization_id

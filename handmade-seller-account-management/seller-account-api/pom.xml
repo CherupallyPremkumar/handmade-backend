@@ -46,6 +46,10 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.chenile</groupId>
+			<artifactId>chenile-core</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

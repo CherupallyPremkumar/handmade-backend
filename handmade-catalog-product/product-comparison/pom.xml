@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.handmade.ecommerce.catalog</groupId>
+        <artifactId>handmade-catalog-product</artifactId>
+        <version>2.0.35</version>
+    </parent>
+    
+    <artifactId>product-comparison</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>product-comparison</name>
+    
+    <modules>
+        <module>product-comparison-domain</module>
+        <module>product-comparison-api</module>
+        <module>product-comparison-service</module>
+        <module>product-comparison-infrastructure</module>
+        <module>product-comparison-delegator</module>
+        <module>product-comparison-async</module>
+    </modules>
+</project>

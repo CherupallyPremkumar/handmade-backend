@@ -1,0 +1,116 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: promotion-management
+      changes:
+        - createTable:
+            tableName: hm_coupon
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: coupon_code
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: promotion_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount_value
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_discount_amount
+                  type: decimal(19,4)
+              - column:
+                  name: min_purchase_amount
+                  type: decimal(19,4)
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: valid_from
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valid_until
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_uses_per_customer
+                  type: int
+              - column:
+                  name: max_total_uses
+                  type: int
+              - column:
+                  name: current_uses
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: is_single_use
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: target_customer_id
+                  type: varchar(36)
+              - column:
+                  name: target_customer_segment
+                  type: varchar(100)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_coupon_code
+            tableName: hm_coupon
+            columns:
+              - column:
+                  name: coupon_code
+        
+        - createIndex:
+            indexName: idx_coupon_promotion
+            tableName: hm_coupon
+            columns:
+              - column:
+                  name: promotion_id
+              - column:
+                  name: status

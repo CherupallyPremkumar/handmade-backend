@@ -21,71 +21,86 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ReturnPolicyConfiguration {
-    private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/policy/return-policy-states.xml";
+    private static final String FLOW_DEFINITION_FILE = "stm/return-policy-states.xml";
     public static final String PREFIX_FOR_RESOLVER = "returnPolicy";
 
-    @Bean BeanFactoryAdapter returnPolicyBeanFactoryAdapter() {
+    @Bean
+    BeanFactoryAdapter returnPolicyBeanFactoryAdapter() {
         return new SpringBeanFactoryAdapter();
     }
-    
-    @Bean STMFlowStoreImpl returnPolicyFlowStore(
-            @Qualifier("returnPolicyBeanFactoryAdapter") BeanFactoryAdapter beanFactoryAdapter
-            ) throws Exception {
+
+    @Bean
+    STMFlowStoreImpl returnPolicyFlowStore(
+            @Qualifier("returnPolicyBeanFactoryAdapter") BeanFactoryAdapter beanFactoryAdapter) throws Exception {
         STMFlowStoreImpl stmFlowStore = new STMFlowStoreImpl();
         stmFlowStore.setBeanFactory(beanFactoryAdapter);
         return stmFlowStore;
     }
-    
-    @Bean @Autowired STM<ReturnPolicy> returnPolicyEntityStm(
+
+    @Bean
+    @Autowired
+    STM<ReturnPolicy> returnPolicyEntityStm(
             @Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception {
-        STMImpl<ReturnPolicy> stm = new STMImpl<>();        
+        STMImpl<ReturnPolicy> stm = new STMImpl<>();
         stm.setStmFlowStore(stmFlowStore);
         return stm;
     }
-    
-    @Bean @Autowired STMActionsInfoProvider returnPolicyActionsInfoProvider(
+
+    @Bean
+    @Autowired
+    STMActionsInfoProvider returnPolicyActionsInfoProvider(
             @Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
         STMActionsInfoProvider provider = new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("returnPolicy", provider);
         return provider;
     }
-    
-    @Bean @Autowired
+
+    @Bean
+    @Autowired
     ReturnPolicyManager _returnPolicyStateEntityService_(
             @Qualifier("returnPolicyEntityStm") STM<ReturnPolicy> stm,
             @Qualifier("returnPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("returnPolicyEntityStore") EntityStore<ReturnPolicy> entityStore) {
         return new ReturnPolicyManagerImpl(stm, infoProvider, entityStore);
     }
-    
-    @Bean @Autowired DefaultPostSaveHook<ReturnPolicy> returnPolicyDefaultPostSaveHook(
+
+    @Bean
+    @Autowired
+    DefaultPostSaveHook<ReturnPolicy> returnPolicyDefaultPostSaveHook(
             @Qualifier("returnPolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new DefaultPostSaveHook<>(stmTransitionActionResolver);
     }
 
-    @Bean @Autowired GenericEntryAction<ReturnPolicy> returnPolicyEntryAction(
+    @Bean
+    @Autowired
+    GenericEntryAction<ReturnPolicy> returnPolicyEntryAction(
             @Qualifier("returnPolicyEntityStore") EntityStore<ReturnPolicy> entityStore,
             @Qualifier("returnPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("returnPolicyDefaultPostSaveHook") DefaultPostSaveHook<ReturnPolicy> postSaveHook,
             @Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
-        GenericEntryAction<ReturnPolicy> entryAction = new GenericEntryAction<>(entityStore, infoProvider, postSaveHook);
+        GenericEntryAction<ReturnPolicy> entryAction = new GenericEntryAction<>(entityStore, infoProvider,
+                postSaveHook);
         stmFlowStore.setEntryAction(entryAction);
         return entryAction;
     }
 
     @Bean
-    XmlFlowReader returnPolicyFlowReader(@Qualifier("returnPolicyFlowStore") STMFlowStoreImpl flowStore) throws Exception {
+    XmlFlowReader returnPolicyFlowReader(@Qualifier("returnPolicyFlowStore") STMFlowStoreImpl flowStore)
+            throws Exception {
         XmlFlowReader flowReader = new XmlFlowReader(flowStore);
         flowReader.setFilename(FLOW_DEFINITION_FILE);
         return flowReader;
     }
-    
-    @Bean ReturnPolicyHealthChecker returnPolicyHealthChecker() {
+
+    @Bean
+    ReturnPolicyHealthChecker returnPolicyHealthChecker() {
         return new ReturnPolicyHealthChecker();
     }
 
-    @Bean STMTransitionAction<ReturnPolicy> defaultReturnPolicySTMTransitionAction() {
-        return (policy, payload, startState, eventId, endState, stm, transition) -> { };
+    @Bean
+    STMTransitionAction<ReturnPolicy> defaultReturnPolicySTMTransitionAction() {
+        return (policy, payload, startState, eventId, endState, stm, transition) -> {
+        };
     }
 
     @Bean
@@ -94,37 +109,47 @@ public class ReturnPolicyConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER, defaultAction, true);
     }
 
-    @Bean @Autowired StmBodyTypeSelector returnPolicyBodyTypeSelector(
+    @Bean
+    @Autowired
+    StmBodyTypeSelector returnPolicyBodyTypeSelector(
             @Qualifier("returnPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("returnPolicyTransitionActionResolver") STMTransitionActionResolver resolver) {
         return new StmBodyTypeSelector(infoProvider, resolver);
     }
 
-    @Bean ApproveReturnPolicyAction returnPolicyApproveAction() {
+    @Bean
+    ApproveReturnPolicyAction returnPolicyApproveAction() {
         return new ApproveReturnPolicyAction();
     }
 
-    @Bean DeleteReturnPolicyAction returnPolicyDeleteAction() {
+    @Bean
+    DeleteReturnPolicyAction returnPolicyDeleteAction() {
         return new DeleteReturnPolicyAction();
     }
 
-    @Bean DeprecateReturnPolicyAction returnPolicyDeprecateAction() {
+    @Bean
+    DeprecateReturnPolicyAction returnPolicyDeprecateAction() {
         return new DeprecateReturnPolicyAction();
     }
 
-    @Bean AddReturnRuleAction returnPolicyAddRuleAction() {
+    @Bean
+    AddReturnRuleAction returnPolicyAddRuleAction() {
         return new AddReturnRuleAction();
     }
 
-    @Bean UpdateReturnRuleAction returnPolicyUpdateRuleAction() {
+    @Bean
+    UpdateReturnRuleAction returnPolicyUpdateRuleAction() {
         return new UpdateReturnRuleAction();
     }
 
-    @Bean RemoveReturnRuleAction returnPolicyRemoveRuleAction() {
+    @Bean
+    RemoveReturnRuleAction returnPolicyRemoveRuleAction() {
         return new RemoveReturnRuleAction();
     }
 
-    @Bean @Autowired STMTransitionAction<ReturnPolicy> returnPolicyBaseTransitionAction(
+    @Bean
+    @Autowired
+    STMTransitionAction<ReturnPolicy> returnPolicyBaseTransitionAction(
             @Qualifier("returnPolicyTransitionActionResolver") STMTransitionActionResolver resolver,
             @Qualifier("returnPolicyActivityChecker") ActivityChecker activityChecker,
             @Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
@@ -134,7 +159,8 @@ public class ReturnPolicyConfiguration {
         return baseTransitionAction;
     }
 
-    @Bean ActivityChecker returnPolicyActivityChecker(@Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
+    @Bean
+    ActivityChecker returnPolicyActivityChecker(@Qualifier("returnPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
         return new ActivityChecker(stmFlowStore);
     }
 }

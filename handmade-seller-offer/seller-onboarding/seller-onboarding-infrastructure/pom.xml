@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.handmade.ecommerce.seller</groupId>
+        <artifactId>seller-onboarding</artifactId>
+        <version>2.0.35</version>
+    </parent>
+    
+    <artifactId>seller-onboarding-infrastructure</artifactId>
+    <packaging>jar</packaging>
+    
+    <name>seller-onboarding-infrastructure</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-onboarding-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-onboarding-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.handmade.ecommerce.support</groupId>
+        <artifactId>handmade-support-observability</artifactId>
+        <version>2.0.35</version>
+    </parent>
+    
+    <artifactId>event-service</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>event-service</name>
+    
+    <modules>
+        <module>event-service-domain</module>
+        <module>event-service-api</module>
+        <module>event-service-service</module>
+        <module>event-service-infrastructure</module>
+        <module>event-service-delegator</module>
+        <module>event-service-async</module>
+    </modules>
+</project>

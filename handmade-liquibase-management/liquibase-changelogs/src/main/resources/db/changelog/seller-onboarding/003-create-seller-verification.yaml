@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: 18
+      author: seller-onboarding
+      changes:
+        - createTable:
+            tableName: hm_seller_verification
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: verification_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider
+                  type: varchar(100)
+              - column:
+                  name: provider_verification_id
+                  type: varchar(255)
+              - column:
+                  name: verification_url
+                  type: varchar(2048)
+              - column:
+                  name: initiated_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_at
+                  type: timestamp
+              - column:
+                  name: expires_at
+                  type: timestamp
+              - column:
+                  name: verification_result
+                  type: text
+              - column:
+                  name: verified_by
+                  type: varchar(255)
+              - column:
+                  name: rejection_reason
+                  type: text
+              - column:
+                  name: retry_count
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_verification_seller
+            tableName: hm_seller_verification
+            columns:
+              - column:
+                  name: seller_id
+              - column:
+                  name: verification_type

@@ -78,17 +78,18 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.handmade.ecommerce.seller.account</groupId>
-            <artifactId>handmade-seller-account-service</artifactId>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-account-service</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.handmade.ecommerce.seller</groupId>
+            <artifactId>seller-account-async</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.handmade.ecommerce.orchestration</groupId>
             <artifactId>handmade-product-orchestration-service</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.handmade.ecommerce.seller.account</groupId><artifactId>handmade-seller-account-service</artifactId>
             <version>${revision}</version>
         </dependency>
         -->

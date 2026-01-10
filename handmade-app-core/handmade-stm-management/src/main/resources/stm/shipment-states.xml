@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Shipment State Machine
+Purpose: Manage the lifecycle of Shipment entities
+Flow: SHIPMENT_FLOW
+-->
+<states>
+    <event-information eventId='dispatch' 
+                       eventName='Dispatch' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='transit' 
+                       eventName='Transit' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='deliver' 
+                       eventName='Deliver' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='return' 
+                       eventName='Return' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="SHIPMENT_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="dispatch" newStateId="DISPATCHED" componentName="shipmentDispatchAction"/>
+            <on eventId="transit" newStateId="IN_TRANSIT" componentName="shipmentTransitAction"/>
+            <on eventId="deliver" newStateId="DELIVERED" componentName="shipmentDeliverAction"/>
+            <on eventId="return" newStateId="RETURNED" componentName="shipmentReturnAction"/>
+        </manual-state>
+        <manual-state id="DISPATCHED">
+            <on eventId="transit" newStateId="IN_TRANSIT" componentName="shipmentTransitAction"/>
+            <on eventId="deliver" newStateId="DELIVERED" componentName="shipmentDeliverAction"/>
+            <on eventId="return" newStateId="RETURNED" componentName="shipmentReturnAction"/>
+        </manual-state>
+        <manual-state id="IN_TRANSIT">
+            <on eventId="dispatch" newStateId="DISPATCHED" componentName="shipmentDispatchAction"/>
+            <on eventId="deliver" newStateId="DELIVERED" componentName="shipmentDeliverAction"/>
+            <on eventId="return" newStateId="RETURNED" componentName="shipmentReturnAction"/>
+        </manual-state>
+        <manual-state id="DELIVERED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="RETURNED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

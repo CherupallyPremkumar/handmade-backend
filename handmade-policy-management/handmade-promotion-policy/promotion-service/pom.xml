@@ -48,6 +48,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>handmade-stm-management</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>

@@ -1,8 +1,0 @@
-<!-- Settlement Account State Machine -->
-<states xmlns="http://www.chenile.org/stm">
-<flow id='SETTLEMENT_ACCOUNT_FLOW' default="true">
-	<manual-state id='ACTIVE' initialState="true">
-		<on eventId="SETTLE_ORDER" newStateId="ACTIVE" action="settleOrderAction"/>
-	</manual-state>
-</flow>
-</states>

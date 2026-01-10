@@ -31,7 +31,7 @@ import org.chenile.workflow.service.activities.AreActivitiesComplete;
 public class OnboardingConfiguration {
     @Autowired
     private IdentityVerificationService identityVerificationService;
-    private static final String ONBOARDING_FLOW_DEFINITION_FILE = "com.handmade.ecommerce.seller.account/onboarding-states.xml";
+    private static final String ONBOARDING_FLOW_DEFINITION_FILE = "stm/onboarding-states.xml";
     public static final String PREFIX_FOR_PROPERTIES = "Onboarding";
     public static final String PREFIX_FOR_RESOLVER = "onboarding";
 

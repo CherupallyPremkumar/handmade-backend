@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: pricing-management
+      changes:
+        - createTable:
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_price
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: alert_type
+                  type: varchar(50)
+                  defaultValue: PRICE_DROP
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: triggered_at
+                  type: timestamp
+              - column:
+                  name: notified_at
+                  type: timestamp
+              - column:
+                  name: expires_at
+                  type: timestamp
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_price_alert_customer
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: customer_id
+              - column:
+                  name: status
+        
+        - createIndex:
+            indexName: idx_price_alert_product
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: status

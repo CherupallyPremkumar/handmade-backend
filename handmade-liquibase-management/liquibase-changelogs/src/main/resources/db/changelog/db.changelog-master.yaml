@@ -94,7 +94,64 @@ databaseChangeLog:
   - include: { file: db/changelog/customer/006-create-wishlist.yaml }
   - include: { file: db/changelog/customer/007-create-wishlist-item.yaml }
 
-  # 11. Consolidated Analytics & Signals
+  # 11. Cart Domain
+  - include: { file: db/changelog/cart/001-create-cart.yaml }
+  - include: { file: db/changelog/cart/002-create-cart-item.yaml }
+  - include: { file: db/changelog/cart/003-create-cart-saved-for-later.yaml }
+
+  # 12. Payment Domain
+  - include: { file: db/changelog/payment/001-create-payment-transaction.yaml }
+  - include: { file: db/changelog/payment/002-create-payment-method.yaml }
+  - include: { file: db/changelog/payment/003-create-payment-authorization.yaml }
+  - include: { file: db/changelog/payment/004-create-payment-capture.yaml }
+  - include: { file: db/changelog/payment/005-create-payment-refund-transaction.yaml }
+
+  # 13. Promotion Domain
+  - include: { file: db/changelog/promotion/001-create-promotion.yaml }
+  - include: { file: db/changelog/promotion/002-create-promotion-rule.yaml }
+  - include: { file: db/changelog/promotion/003-create-coupon.yaml }
+  - include: { file: db/changelog/promotion/004-create-coupon-usage.yaml }
+  - include: { file: db/changelog/promotion/005-create-discount-application.yaml }
+
+  # 14. Search Domain
+  - include: { file: db/changelog/search/001-create-search-query.yaml }
+  - include: { file: db/changelog/search/002-create-search-result.yaml }
+  - include: { file: db/changelog/search/003-create-search-filter.yaml }
+  - include: { file: db/changelog/search/004-create-search-synonym.yaml }
+  - include: { file: db/changelog/search/005-create-search-redirect.yaml }
+
+  # 15. Product Q&A Domain
+  - include: { file: db/changelog/qa/001-create-product-question.yaml }
+  - include: { file: db/changelog/qa/002-create-product-answer.yaml }
+  - include: { file: db/changelog/qa/003-create-qa-vote.yaml }
+
+  # 16. Seller Onboarding Domain
+  - include: { file: db/changelog/seller-onboarding/001-create-seller-onboarding-case.yaml }
+  - include: { file: db/changelog/seller-onboarding/002-create-seller-onboarding-step.yaml }
+  - include: { file: db/changelog/seller-onboarding/003-create-seller-verification.yaml }
+
+  # 17. Pricing & Price Management
+  - include: { file: db/changelog/pricing/001-create-price-history.yaml }
+  - include: { file: db/changelog/pricing/002-create-price-alert.yaml }
+
+  # 18. Product Comparison
+  - include: { file: db/changelog/comparison/001-create-product-comparison.yaml }
+  - include: { file: db/changelog/comparison/002-create-comparison-item.yaml }
+
+  # 19. Seller Messaging
+  - include: { file: db/changelog/messaging/001-create-seller-conversation.yaml }
+  - include: { file: db/changelog/messaging/002-create-seller-message.yaml }
+
+  # 20. Tax Domain
+  - include: { file: db/changelog/tax/001-create-tax-jurisdiction.yaml }
+  - include: { file: db/changelog/tax/002-create-tax-rate.yaml }
+
+  # 21. Dispute Management
+  - include: { file: db/changelog/dispute/001-create-dispute.yaml }
+  - include: { file: db/changelog/dispute/002-create-dispute-evidence.yaml }
+  - include: { file: db/changelog/dispute/003-create-dispute-resolution.yaml }
+
+  # 22. Consolidated Analytics & Signals
   - include: { file: db/changelog/analytics/001-create-browse-history.yaml }
   - include: { file: db/changelog/analytics/002-create-recommendation.yaml }
   - include: { file: db/changelog/analytics/003-create-search-term-report.yaml }
@@ -114,25 +171,25 @@ databaseChangeLog:
   - include: { file: db/changelog/analytics/022-create-metric-definition.yaml }
   - include: { file: db/changelog/analytics/023-create-metric-value.yaml }
 
-  # 12. AdTech Domain
+  # 23. AdTech Domain
   - include: { file: db/changelog/adtech/001-create-ad-campaign.yaml }
   - include: { file: db/changelog/adtech/002-create-sponsored-product.yaml }
   - include: { file: db/changelog/adtech/003-create-ad-performance.yaml }
 
-  # 13. Risk & Compliance
+  # 24. Risk & Compliance
   - include: { file: db/changelog/risk/001-create-risk-signal.yaml }
   - include: { file: db/changelog/risk/002-create-fraud-case.yaml }
   - include: { file: db/changelog/risk/002-create-seller-trust-score.yaml }
   - include: { file: db/changelog/risk/003-create-compliance-document.yaml }
   - include: { file: db/changelog/risk/004-create-fraud-signal.yaml }
 
-  # 14. Event Infrastructure
+  # 25. Event Infrastructure
   - include: { file: db/changelog/event-infra/001-create-event-queue.yaml }
   - include: { file: db/changelog/event-infra/002-create-event-subscription.yaml }
   - include: { file: db/changelog/event-infra/003-create-job-scheduler.yaml }
   - include: { file: db/changelog/event-infra/004-create-workflow-task.yaml }
 
-  # 15. Notifications
+  # 26. Notifications
   - include: { file: db/changelog/notification/001-create-notification-template.yaml }
   - include: { file: db/changelog/notification/002-create-user-preference.yaml }
   - include: { file: db/changelog/notification/003-create-notification-log.yaml }
@@ -140,7 +197,7 @@ databaseChangeLog:
 
 
 
-  # 17. Localization & Regional Support
+  # 28. Localization & Regional Support
   - include: { file: db/changelog/localization/001-create-currency.yaml }
   - include: { file: db/changelog/localization/002-create-region.yaml }
   - include: { file: db/changelog/localization/003-create-platform-region-policy.yaml }
@@ -148,12 +205,12 @@ databaseChangeLog:
   - include: { file: db/changelog/localization/005-create-translation.yaml }
   - include: { file: db/changelog/localization/006-create-currency-conversion.yaml }
 
-  # 18. Support & CS
+  # 29. Support & CS
   - include: { file: db/changelog/support/001-create-case-management.yaml }
   - include: { file: db/changelog/support/002-create-order-note.yaml }
   - include: { file: db/changelog/support/003-create-refund-resolution.yaml }
   
-  # 19. Observability
+  # 30. Observability
   - include: { file: db/changelog/observability/001-create-error-log.yaml }
   - include: { file: db/changelog/observability/002-create-metrics-snapshot.yaml }
   - include: { file: db/changelog/observability/003-create-activity-stream.yaml }
@@ -161,7 +218,7 @@ databaseChangeLog:
 
 
 
-  # 21. Finance Domain
+  # 32. Finance Domain
   - include: { file: db/changelog/finance/001-create-financial-transaction.yaml }
   - include: { file: db/changelog/finance/002-create-payout.yaml }
   - include: { file: db/changelog/finance/003-create-fee-charge.yaml }
@@ -170,7 +227,7 @@ databaseChangeLog:
   - include: { file: db/changelog/finance/005-create-tax-calculation.yaml }
   - include: { file: db/changelog/finance/006-create-settlement-batch.yaml }
 
-  # 22. Content & CMS
+  # 33. Content & CMS
   - include: { file: db/changelog/cms/001-create-content-page.yaml }
   - include: { file: db/changelog/cms/002-create-content-asset.yaml }
   - include: { file: db/changelog/cms/003-create-content-slot.yaml }
@@ -180,32 +237,32 @@ databaseChangeLog:
   - include: { file: db/changelog/cms/012-create-cms-entry-version.yaml }
   - include: { file: db/changelog/cms/013-create-cms-asset-link.yaml }
 
-  # 23. Loyalty & Engagement
+  # 34. Loyalty & Engagement
   - include: { file: db/changelog/loyalty/001-create-loyalty-program.yaml }
   - include: { file: db/changelog/loyalty/002-create-loyalty-points.yaml }
   - include: { file: db/changelog/loyalty/003-create-referral-program.yaml }
 
-  # 24. Governance & Legal
+  # 35. Governance & Legal
   - include: { file: db/changelog/governance/001-create-privacy-policy-ack.yaml }
   - include: { file: db/changelog/governance/002-create-gdpr-request.yaml }
   - include: { file: db/changelog/governance/003-create-audit-snapshot.yaml }
 
-  # 25. SEO & Optimization
+  # 36. SEO & Optimization
   - include: { file: db/changelog/seo/001-create-url-mapping.yaml }
   - include: { file: db/changelog/seo/002-create-meta-tag.yaml }
 
-  # 26. Integration & External Systems
+  # 37. Integration & External Systems
   - include: { file: db/changelog/integration/001-create-external-vendor.yaml }
   - include: { file: db/changelog/integration/002-create-webhook.yaml }
   - include: { file: db/changelog/integration/003-create-etl-job.yaml }
 
-  # 27. Marketplace Trust & Reviews
+  # 38. Marketplace Trust & Reviews
   - include: { file: db/changelog/reviews/001-create-product-review.yaml }
   - include: { file: db/changelog/reviews/002-create-product-review-vote.yaml }
   - include: { file: db/changelog/reviews/003-create-review-moderation-log.yaml }
   - include: { file: db/changelog/reviews/004-create-review-aggregation-snapshot.yaml }
 
-  # 28. Fulfillment & Logistics
+  # 39. Fulfillment & Logistics
   - include: { file: db/changelog/logistics/001-create-carrier.yaml }
   - include: { file: db/changelog/logistics/002-create-shipping-label.yaml }
   - include: { file: db/changelog/logistics/003-create-delivery-attempt.yaml }
@@ -213,7 +270,7 @@ databaseChangeLog:
   - include: { file: db/changelog/logistics/005-create-warehouse-zone.yaml }
   - include: { file: db/changelog/logistics/006-create-route-plan.yaml }
 
-  # 29. Advanced Policy Engine
+  # 40. Advanced Policy Engine
   - include: { file: db/changelog/policy-engine/001-create-policy-definition.yaml }
   - include: { file: db/changelog/policy-engine/002-create-policy-rule.yaml }
   - include: { file: db/changelog/policy-engine/003-create-policy-scope.yaml }
@@ -221,20 +278,20 @@ databaseChangeLog:
   - include: { file: db/changelog/policy-engine/005-create-policy-evaluation-log.yaml }
   - include: { file: db/changelog/policy-engine/006-migrate-product-eligibility.yaml }
 
-  # 30. Advanced Experiment Engine
+  # 41. Advanced Experiment Engine
   - include: { file: db/changelog/experiment-engine/001-create-experiment-definition.yaml }
   - include: { file: db/changelog/experiment-engine/002-create-experiment-bucket.yaml }
   - include: { file: db/changelog/experiment-engine/003-create-experiment-audience.yaml }
   - include: { file: db/changelog/experiment-engine/004-create-experiment-assignment.yaml }
 
-  # 40. Unified Pricing Engine
+  # 51. Unified Pricing Engine
   - include: { file: db/changelog/pricing-engine/001-create-pricing-rule-definition.yaml }
   - include: { file: db/changelog/pricing-engine/002-create-pricing-rule-condition.yaml }
   - include: { file: db/changelog/pricing-engine/003-create-pricing-rule-action.yaml }
   - include: { file: db/changelog/pricing-engine/004-create-pricing-priority.yaml }
   - include: { file: db/changelog/pricing-engine/005-create-pricing-decision-log.yaml }
 
-  # 45. Limits & Quotas Engine
+  # 56. Limits & Quotas Engine
   - include: { file: db/changelog/limit-engine/001-create-limit-definition.yaml }
   - include: { file: db/changelog/limit-engine/002-create-limit-scope.yaml }
   - include: { file: db/changelog/limit-engine/003-create-limit-counter.yaml }

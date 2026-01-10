@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Orchestrated transaction pipelines
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+    <flow id="ONBOARDING_INIT_FLOW" triggerEvent="START_ONBOARDING">
+        <!-- Step: verifyKyc -->
+        <command id="verifyKyc" componentName="VerifyKycCommand" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+    </flow>
+    <flow id="ONBOARDING_RESUME_FLOW" triggerEvent="IDENTITY_VERIFIED">
+        <!-- Step: updateOnboardingState -->
+        <command id="updateOnboardingState" componentName="UpdateOnboardingStateCommand" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+    </flow>
+    <flow id="ONBOARDING_CONFIRM_FLOW" triggerEvent="CONFIRM_ONBOARDING">
+        <!-- Step: createSellerAccount -->
+        <command id="createSellerAccount" componentName="CreateSellerAccountCommand" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+        <!-- Step: sendWelcomeEmail -->
+        <command id="sendWelcomeEmail" componentName="SendWelcomeEmailCommand" retryLimit="3" retryDelay="1000" timeoutMs="2000" onError="stop"/>
+    </flow>
+</flows>

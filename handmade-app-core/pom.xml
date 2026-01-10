@@ -9,35 +9,19 @@
     </parent>
 
 
-    <artifactId>app-core</artifactId>
+    <artifactId>handmade-core-management</artifactId>
     <version>${revision}</version>
-    <packaging>jar</packaging>
-    <name>app-core</name>
+    <packaging>pom</packaging>
+    <name>handmade-core-management</name>
     <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>app-core</module>
+        <module>handmade-stm-management</module>
+        <module>handmade-owiz-workflows</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.chenile</groupId>
-            <artifactId>chenile-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.chenile</groupId>
-            <artifactId>jpa-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>

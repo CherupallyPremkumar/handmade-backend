@@ -13,6 +13,8 @@ databaseChangeLog:
               - column: { name: version_accepted, type: VARCHAR(50) }
               - column: { name: accepted_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
               - column: { name: terms_type, type: VARCHAR(50) } # PRIVACY_POLICY, TERMS_OF_SERVICE
+              - column: { name: policy_id, type: VARCHAR(50) }
+              - column: { name: status, type: VARCHAR(20) }
               # BaseJpaEntity
               - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
               - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }

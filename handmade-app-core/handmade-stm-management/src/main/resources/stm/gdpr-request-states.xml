@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+GdprRequest State Machine
+Purpose: Manage the lifecycle of GdprRequest entities
+Flow: GDPR_REQUEST_FLOW
+-->
+<states>
+    <event-information eventId='cancel_request' 
+                       eventName='Cancel request' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='complete_request' 
+                       eventName='Complete request' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='fail_request' 
+                       eventName='Fail request' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='start_processing' 
+                       eventName='Start processing' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="GDPR_REQUEST_FLOW" default="true">
+        <manual-state id="REQUESTED" initialState="true">
+            <on eventId="start_processing" newStateId="PROCESSING" componentName="gdprStartAction"/>
+        </manual-state>
+        <manual-state id="PROCESSING">
+            <on eventId="complete_request" newStateId="COMPLETED" componentName="gdprCompleteAction"/>
+            <on eventId="fail_request" newStateId="FAILED" componentName="gdprFailAction"/>
+            <on eventId="cancel_request" newStateId="CANCELLED" componentName="gdprCancelAction"/>
+        </manual-state>
+        <manual-state id="COMPLETED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="FAILED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="CANCELLED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.handmade.ecommerce.seller</groupId>
+        <artifactId>handmade-seller-offer</artifactId>
+        <version>${revision}</version>
+    </parent>
+    
+    <artifactId>seller-onboarding</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>seller-onboarding</name>
+    
+    <properties>
+        <seller.revision>${revision}</seller.revision>
+    </properties>
+
+    <modules>
+        <module>seller-onboarding-domain</module>
+        <module>seller-onboarding-api</module>
+        <module>seller-onboarding-service</module>
+        <module>seller-onboarding-infrastructure</module>
+        <module>seller-onboarding-delegator</module>
+        <module>seller-onboarding-async</module>
+    </modules>
+</project>

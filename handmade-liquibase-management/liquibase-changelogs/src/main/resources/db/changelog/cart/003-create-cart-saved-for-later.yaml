@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: cart-management
+      changes:
+        - createTable:
+            tableName: hm_cart_saved_for_later
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: offer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_name
+                  type: varchar(500)
+              - column:
+                  name: product_image_url
+                  type: varchar(2048)
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+              - column:
+                  name: unit_price
+                  type: decimal(19,4)
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: quantity
+                  type: int
+                  defaultValueNumeric: 1
+              - column:
+                  name: saved_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: text
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_saved_customer
+            tableName: hm_cart_saved_for_later
+            columns:
+              - column:
+                  name: customer_id
+        
+        - createIndex:
+            indexName: idx_saved_offer
+            tableName: hm_cart_saved_for_later
+            columns:
+              - column:
+                  name: offer_id

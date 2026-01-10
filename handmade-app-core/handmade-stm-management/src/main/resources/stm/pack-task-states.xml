@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+PackTask State Machine
+Purpose: Manage the lifecycle of PackTask entities
+Flow: PACK_TASK_FLOW
+-->
+<states>
+    <event-information eventId='mark_ready' 
+                       eventName='Mark ready' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='seal_box' 
+                       eventName='Seal box' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='start_packing' 
+                       eventName='Start packing' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="PACK_TASK_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="start_packing" newStateId="PACKING" componentName="packStartAction"/>
+        </manual-state>
+        <manual-state id="PACKING">
+            <on eventId="seal_box" newStateId="SEALED" componentName="packSealAction"/>
+        </manual-state>
+        <manual-state id="SEALED">
+            <on eventId="mark_ready" newStateId="SHIPPED" componentName="packReadyAction"/>
+        </manual-state>
+        <manual-state id="SHIPPED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

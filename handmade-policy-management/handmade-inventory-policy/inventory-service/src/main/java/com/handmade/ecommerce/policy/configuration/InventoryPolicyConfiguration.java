@@ -21,71 +21,86 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class InventoryPolicyConfiguration {
-    private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/policy/inventory-policy-states.xml";
+    private static final String FLOW_DEFINITION_FILE = "stm/inventory-policy-states.xml";
     public static final String PREFIX_FOR_RESOLVER = "inventoryPolicy";
 
-    @Bean BeanFactoryAdapter inventoryPolicyBeanFactoryAdapter() {
+    @Bean
+    BeanFactoryAdapter inventoryPolicyBeanFactoryAdapter() {
         return new SpringBeanFactoryAdapter();
     }
-    
-    @Bean STMFlowStoreImpl inventoryPolicyFlowStore(
-            @Qualifier("inventoryPolicyBeanFactoryAdapter") BeanFactoryAdapter beanFactoryAdapter
-            ) throws Exception {
+
+    @Bean
+    STMFlowStoreImpl inventoryPolicyFlowStore(
+            @Qualifier("inventoryPolicyBeanFactoryAdapter") BeanFactoryAdapter beanFactoryAdapter) throws Exception {
         STMFlowStoreImpl stmFlowStore = new STMFlowStoreImpl();
         stmFlowStore.setBeanFactory(beanFactoryAdapter);
         return stmFlowStore;
     }
-    
-    @Bean @Autowired STM<InventoryPolicy> inventoryPolicyEntityStm(
+
+    @Bean
+    @Autowired
+    STM<InventoryPolicy> inventoryPolicyEntityStm(
             @Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception {
-        STMImpl<InventoryPolicy> stm = new STMImpl<>();        
+        STMImpl<InventoryPolicy> stm = new STMImpl<>();
         stm.setStmFlowStore(stmFlowStore);
         return stm;
     }
-    
-    @Bean @Autowired STMActionsInfoProvider inventoryPolicyActionsInfoProvider(
+
+    @Bean
+    @Autowired
+    STMActionsInfoProvider inventoryPolicyActionsInfoProvider(
             @Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
         STMActionsInfoProvider provider = new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("inventoryPolicy", provider);
         return provider;
     }
-    
-    @Bean @Autowired
+
+    @Bean
+    @Autowired
     InventoryPolicyManager _inventoryPolicyStateEntityService_(
             @Qualifier("inventoryPolicyEntityStm") STM<InventoryPolicy> stm,
             @Qualifier("inventoryPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("inventoryPolicyEntityStore") EntityStore<InventoryPolicy> entityStore) {
         return new InventoryPolicyManagerImpl(stm, infoProvider, entityStore);
     }
-    
-    @Bean @Autowired DefaultPostSaveHook<InventoryPolicy> inventoryPolicyDefaultPostSaveHook(
+
+    @Bean
+    @Autowired
+    DefaultPostSaveHook<InventoryPolicy> inventoryPolicyDefaultPostSaveHook(
             @Qualifier("inventoryPolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new DefaultPostSaveHook<>(stmTransitionActionResolver);
     }
 
-    @Bean @Autowired GenericEntryAction<InventoryPolicy> inventoryPolicyEntryAction(
+    @Bean
+    @Autowired
+    GenericEntryAction<InventoryPolicy> inventoryPolicyEntryAction(
             @Qualifier("inventoryPolicyEntityStore") EntityStore<InventoryPolicy> entityStore,
             @Qualifier("inventoryPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("inventoryPolicyDefaultPostSaveHook") DefaultPostSaveHook<InventoryPolicy> postSaveHook,
             @Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
-        GenericEntryAction<InventoryPolicy> entryAction = new GenericEntryAction<>(entityStore, infoProvider, postSaveHook);
+        GenericEntryAction<InventoryPolicy> entryAction = new GenericEntryAction<>(entityStore, infoProvider,
+                postSaveHook);
         stmFlowStore.setEntryAction(entryAction);
         return entryAction;
     }
 
     @Bean
-    XmlFlowReader inventoryPolicyFlowReader(@Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl flowStore) throws Exception {
+    XmlFlowReader inventoryPolicyFlowReader(@Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl flowStore)
+            throws Exception {
         XmlFlowReader flowReader = new XmlFlowReader(flowStore);
         flowReader.setFilename(FLOW_DEFINITION_FILE);
         return flowReader;
     }
-    
-    @Bean InventoryPolicyHealthChecker inventoryPolicyHealthChecker() {
+
+    @Bean
+    InventoryPolicyHealthChecker inventoryPolicyHealthChecker() {
         return new InventoryPolicyHealthChecker();
     }
 
-    @Bean STMTransitionAction<InventoryPolicy> defaultInventoryPolicySTMTransitionAction() {
-        return (policy, payload, startState, eventId, endState, stm, transition) -> { };
+    @Bean
+    STMTransitionAction<InventoryPolicy> defaultInventoryPolicySTMTransitionAction() {
+        return (policy, payload, startState, eventId, endState, stm, transition) -> {
+        };
     }
 
     @Bean
@@ -94,37 +109,47 @@ public class InventoryPolicyConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER, defaultAction, true);
     }
 
-    @Bean @Autowired StmBodyTypeSelector inventoryPolicyBodyTypeSelector(
+    @Bean
+    @Autowired
+    StmBodyTypeSelector inventoryPolicyBodyTypeSelector(
             @Qualifier("inventoryPolicyActionsInfoProvider") STMActionsInfoProvider infoProvider,
             @Qualifier("inventoryPolicyTransitionActionResolver") STMTransitionActionResolver resolver) {
         return new StmBodyTypeSelector(infoProvider, resolver);
     }
 
-    @Bean ApproveInventoryPolicyAction inventoryPolicyApproveAction() {
+    @Bean
+    ApproveInventoryPolicyAction inventoryPolicyApproveAction() {
         return new ApproveInventoryPolicyAction();
     }
 
-    @Bean DeleteInventoryPolicyAction inventoryPolicyDeleteAction() {
+    @Bean
+    DeleteInventoryPolicyAction inventoryPolicyDeleteAction() {
         return new DeleteInventoryPolicyAction();
     }
 
-    @Bean DeprecateInventoryPolicyAction inventoryPolicyDeprecateAction() {
+    @Bean
+    DeprecateInventoryPolicyAction inventoryPolicyDeprecateAction() {
         return new DeprecateInventoryPolicyAction();
     }
 
-    @Bean AddInventoryRuleAction inventoryPolicyAddRuleAction() {
+    @Bean
+    AddInventoryRuleAction inventoryPolicyAddRuleAction() {
         return new AddInventoryRuleAction();
     }
 
-    @Bean UpdateInventoryRuleAction inventoryPolicyUpdateRuleAction() {
+    @Bean
+    UpdateInventoryRuleAction inventoryPolicyUpdateRuleAction() {
         return new UpdateInventoryRuleAction();
     }
 
-    @Bean RemoveInventoryRuleAction inventoryPolicyRemoveRuleAction() {
+    @Bean
+    RemoveInventoryRuleAction inventoryPolicyRemoveRuleAction() {
         return new RemoveInventoryRuleAction();
     }
 
-    @Bean @Autowired STMTransitionAction<InventoryPolicy> inventoryPolicyBaseTransitionAction(
+    @Bean
+    @Autowired
+    STMTransitionAction<InventoryPolicy> inventoryPolicyBaseTransitionAction(
             @Qualifier("inventoryPolicyTransitionActionResolver") STMTransitionActionResolver resolver,
             @Qualifier("inventoryPolicyActivityChecker") ActivityChecker activityChecker,
             @Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
@@ -134,7 +159,9 @@ public class InventoryPolicyConfiguration {
         return baseTransitionAction;
     }
 
-    @Bean ActivityChecker inventoryPolicyActivityChecker(@Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
+    @Bean
+    ActivityChecker inventoryPolicyActivityChecker(
+            @Qualifier("inventoryPolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
         return new ActivityChecker(stmFlowStore);
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+InboundShipment State Machine
+Purpose: Manage the lifecycle of InboundShipment entities
+Flow: INBOUND_SHIPMENT_FLOW
+-->
+<states>
+    <event-information eventId='ship' 
+                       eventName='Ship' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='receive' 
+                       eventName='Receive' 
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='reconcile' 
+                       eventName='Reconcile' 
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="INBOUND_SHIPMENT_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="ship" newStateId="IN_TRANSIT" componentName="inboundShipAction"/>
+            <on eventId="receive" newStateId="RECEIVED" componentName="inboundReceiveAction"/>
+            <on eventId="reconcile" newStateId="RECONCILED" componentName="inboundReconcileAction"/>
+        </manual-state>
+        <manual-state id="IN_TRANSIT">
+            <on eventId="receive" newStateId="RECEIVED" componentName="inboundReceiveAction"/>
+            <on eventId="reconcile" newStateId="RECONCILED" componentName="inboundReconcileAction"/>
+        </manual-state>
+        <manual-state id="RECEIVED">
+            <on eventId="ship" newStateId="IN_TRANSIT" componentName="inboundShipAction"/>
+            <on eventId="reconcile" newStateId="RECONCILED" componentName="inboundReconcileAction"/>
+        </manual-state>
+        <manual-state id="RECONCILED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

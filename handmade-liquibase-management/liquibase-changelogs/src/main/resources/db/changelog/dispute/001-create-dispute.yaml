@@ -1,0 +1,121 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dispute-management
+      changes:
+        - createTable:
+            tableName: hm_dispute
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: dispute_number
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_transaction_id
+                  type: varchar(36)
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dispute_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dispute_reason
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dispute_amount
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider_dispute_id
+                  type: varchar(255)
+              - column:
+                  name: opened_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: respond_by_date
+                  type: timestamp
+              - column:
+                  name: resolved_at
+                  type: timestamp
+              - column:
+                  name: resolution_type
+                  type: varchar(100)
+              - column:
+                  name: resolved_amount
+                  type: decimal(19,4)
+              - column:
+                  name: winner
+                  type: varchar(50)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_dispute_order
+            tableName: hm_dispute
+            columns:
+              - column:
+                  name: order_id
+        
+        - createIndex:
+            indexName: idx_dispute_seller
+            tableName: hm_dispute
+            columns:
+              - column:
+                  name: seller_id
+              - column:
+                  name: status
