@@ -7,8 +7,9 @@
     
     <parent>
         <groupId>com.handmade.ecommerce.platform</groupId>
-        <artifactId>handmade-platform-core</artifactId>
+        <artifactId>handmade-platform-governance</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     
     <artifactId>platform-core</artifactId>

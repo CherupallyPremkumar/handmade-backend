@@ -1,16 +1,17 @@
 package com.handmade.ecommerce.seller.onboarding.service.actions;
 
-import com.handmade.ecommerce.seller.onboarding.api.dto.StartOnboardingPayload;
+import com.handmade.ecommerce.seller.onboarding.dto.StartOnboardingPayload;
 import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingCase;
 import com.handmade.ecommerce.seller.onboarding.service.commands.OnboardingInitContext;
 import org.chenile.owiz.OrchExecutor;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
+import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class StartOnboardingAction extends DefaultSTMTransitionAction<StartOnboardingPayload> {
+public class StartOnboardingAction extends AbstractSTMTransitionAction<SellerOnboardingCase, StartOnboardingPayload> {
 
     @Autowired
     @Qualifier("onboardingInitExecutor")

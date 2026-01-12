@@ -1,13 +1,12 @@
 package com.handmade.ecommerce.seller.onboarding.repository;
 
-import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingStep;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
+import com.handmade.ecommerce.seller.onboarding.model.SellerOnboardingStep;
 import java.util.List;
 
-@Repository
-public interface SellerOnboardingStepRepository extends JpaRepository<SellerOnboardingStep, String> {
+/**
+ * Pure Domain Repository interface for SellerOnboardingStep
+ */
+public interface SellerOnboardingStepRepository {
     List<SellerOnboardingStep> findByOnboardingCaseId(String onboardingCaseId);
 
     List<SellerOnboardingStep> findByStepName(String stepName);

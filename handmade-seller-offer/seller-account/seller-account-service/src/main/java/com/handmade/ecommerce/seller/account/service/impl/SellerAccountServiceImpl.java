@@ -1,9 +1,10 @@
 package com.handmade.ecommerce.seller.account.service.impl;
 
+import com.handmade.ecommerce.seller.SellerAccountRepository;
 import com.handmade.ecommerce.seller.account.api.SellerAccountService;
 import com.handmade.ecommerce.seller.entity.SellerAccount;
-import com.handmade.ecommerce.seller.onboarding.api.event.OnboardingApprovedEvent;
-import com.handmade.ecommerce.seller.repository.SellerAccountRepository;
+
+import com.handmade.ecommerce.seller.onboarding.event.OnboardingApprovedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * Entry point for starting the onboarding flow.
  */
 @RestController
-@ChenileController(value = "sellerOnboardingController", serviceName = "sellerOnboardingService")
+@ChenileController(value = "sellerOnboardingController", serviceName = "_sellerOnboardingService_")
 public class SellerOnboardingController extends ControllerSupport {
 
     /**

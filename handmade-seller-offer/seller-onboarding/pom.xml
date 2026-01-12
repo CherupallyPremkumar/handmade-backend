@@ -26,6 +26,5 @@
         <module>seller-onboarding-service</module>
         <module>seller-onboarding-infrastructure</module>
         <module>seller-onboarding-delegator</module>
-        <module>seller-onboarding-async</module>
     </modules>
 </project>

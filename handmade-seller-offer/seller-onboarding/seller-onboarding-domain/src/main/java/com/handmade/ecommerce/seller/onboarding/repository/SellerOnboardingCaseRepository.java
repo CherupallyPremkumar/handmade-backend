@@ -1,32 +1,27 @@
 package com.handmade.ecommerce.seller.onboarding.repository;
 
-import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingCase;
+import com.handmade.ecommerce.seller.onboarding.model.SellerOnboardingCase;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 /**
- * Repository for SellerOnboardingCase
- * Generated from entity file
+ * Pure Domain Repository interface for SellerOnboardingCase
  */
-@Repository
-public interface SellerOnboardingCaseRepository extends JpaRepository<SellerOnboardingCase, String> {
-    
+public interface SellerOnboardingCaseRepository {
+
     List<SellerOnboardingCase> findBySellerId(String sellerId);
+
     List<SellerOnboardingCase> findByEmail(String email);
+
     List<SellerOnboardingCase> findByBusinessName(String businessName);
+
     List<SellerOnboardingCase> findByBusinessType(String businessType);
+
     List<SellerOnboardingCase> findByPhoneNumber(String phoneNumber);
 
     // STM State queries
-    @Query("SELECT e FROM SellerOnboardingCase e WHERE e.state.stateId = :stateId")
-    List<SellerOnboardingCase> findByStateId(@Param("stateId") String stateId);
+    List<SellerOnboardingCase> findByStateId(String stateId);
 
-    @Query("SELECT e FROM SellerOnboardingCase e WHERE e.state.flowId = :flowId")
-    List<SellerOnboardingCase> findByFlowId(@Param("flowId") String flowId);
+    List<SellerOnboardingCase> findByFlowId(String flowId);
 
-    @Query("SELECT e FROM SellerOnboardingCase e WHERE e.state.flowId = :flowId AND e.state.stateId = :stateId")
-    List<SellerOnboardingCase> findByFlowIdAndStateId(@Param("flowId") String flowId, @Param("stateId") String stateId);
+    List<SellerOnboardingCase> findByFlowIdAndStateId(String flowId, String stateId);
 }

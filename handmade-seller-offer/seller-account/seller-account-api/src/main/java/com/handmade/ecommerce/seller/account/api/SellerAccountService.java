@@ -1,6 +1,7 @@
 package com.handmade.ecommerce.seller.account.api;
 
-import com.handmade.ecommerce.seller.onboarding.api.event.OnboardingApprovedEvent;
+
+import com.handmade.ecommerce.seller.onboarding.event.OnboardingApprovedEvent;
 
 /**
  * Operational service for managing seller accounts after onboarding approval.

@@ -1,6 +1,8 @@
 package com.handmade.ecommerce.seller.onboarding.service.actions;
 
-import com.handmade.ecommerce.seller.onboarding.api.dto.ConfirmOnboardingPayload;
+import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
+
+import com.handmade.ecommerce.seller.onboarding.dto.ConfirmOnboardingPayload;
 import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingCase;
 import com.handmade.ecommerce.seller.onboarding.service.commands.OnboardingConfirmContext;
 import org.chenile.owiz.OrchExecutor;
@@ -10,7 +12,8 @@ import org.chenile.stm.model.Transition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class ConfirmOnboardingAction extends DefaultSTMTransitionAction<ConfirmOnboardingPayload> {
+public class ConfirmOnboardingAction
+        extends AbstractSTMTransitionAction<SellerOnboardingCase, ConfirmOnboardingPayload> {
 
     @Autowired
     @Qualifier("onboardingConfirmExecutor")

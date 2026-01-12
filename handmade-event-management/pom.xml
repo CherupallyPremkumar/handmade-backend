@@ -19,7 +19,7 @@
     </modules>
 
     <groupId>com.handmade.ecommerce.event</groupId>
-    <artifactId>handmade-event-parent</artifactId>
+    <artifactId>handmade-event-management</artifactId>
     <name>handmade-event-parent</name>
 
     <properties>

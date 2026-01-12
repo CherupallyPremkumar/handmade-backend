@@ -1,7 +1,6 @@
 package com.handmade.ecommerce.seller.account.async.listener;
 
-import com.handmade.ecommerce.seller.account.api.SellerAccountService;
-import com.handmade.ecommerce.seller.onboarding.api.event.OnboardingApprovedEvent;
+import com.handmade.ecommerce.seller.onboarding.event.OnboardingApprovedEvent;
 import org.chenile.http.annotation.EventsSubscribedTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

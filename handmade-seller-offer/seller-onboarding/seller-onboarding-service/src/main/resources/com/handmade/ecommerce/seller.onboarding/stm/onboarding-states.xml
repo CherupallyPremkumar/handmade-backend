@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+SellerOnboardingCase State Machine
+Purpose: Manage the lifecycle of SellerOnboardingCase entities
+Flow: onboarding
+-->
+<states>
+    <event-information eventId='start-onboarding' meta-acls="test.normal,test.premium"
+                       meta-bodyType='com.handmade.ecommerce.seller.onboarding.dto.StartOnboardingPayload'/>
+    <event-information eventId='identity-verified' meta-acls="test.normal,test.premium"
+                       meta-bodyType='com.handmade.ecommerce.seller.onboarding.dto.IdentityVerifiedPayload'/>
+    <event-information eventId='reject' meta-acls="test.normal,test.premium"
+                       meta-bodyType='com.handmade.ecommerce.seller.onboarding.dto.RejectOnboardingPayload'/>
+    <event-information eventId='submit-docs' meta-acls="test.normal,test.premium"
+                       meta-bodyType='com.handmade.ecommerce.seller.onboarding.dto.SubmitDocsPayload'/>
+    <event-information eventId='confirm-onboarding' meta-acls="test.normal,test.premium"
+                       meta-bodyType='com.handmade.ecommerce.seller.onboarding.dto.ConfirmOnboardingPayload'/>
+
+
+    <flow id="onboarding" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="start-onboarding" newStateId="INITIALIZED" componentName="startOnboardingAction"/>
+        </manual-state>
+        <manual-state id="INITIALIZED">
+            <on eventId="identity-verified" newStateId="VERIFIED_PENDING_DOCS" componentName="identityVerifiedAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectOnboardingAction"/>
+        </manual-state>
+        <manual-state id="VERIFIED_PENDING_DOCS">
+            <on eventId="confirm-onboarding" newStateId="COMPLETED" componentName="confirmOnboardingAction"/>
+            <on eventId="submit-docs" newStateId="VERIFIED_PENDING_DOCS" componentName="submitDocsAction"/>
+        </manual-state>
+        <manual-state id="COMPLETED" meta-endState="true">
+
+        </manual-state>
+        <manual-state id="REJECTED" meta-endState="true">
+
+        </manual-state>
+
+    </flow>
+</states>

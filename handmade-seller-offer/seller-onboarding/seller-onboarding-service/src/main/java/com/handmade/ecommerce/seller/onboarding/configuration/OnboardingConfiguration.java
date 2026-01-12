@@ -1,64 +1,63 @@
 package com.handmade.ecommerce.seller.onboarding.configuration;
 
-import com.handmade.ecommerce.seller.onboarding.api.SellerOnboardingService;
+import com.handmade.ecommerce.seller.onboarding.SellerOnboardingService;
 import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingCase;
+import com.handmade.ecommerce.seller.onboarding.repository.SellerOnboardingStepRepository;
+
 import org.chenile.stm.STM;
 import org.chenile.stm.action.STMTransitionAction;
 import org.chenile.stm.impl.*;
-import org.chenile.stm.impl.BeanFactoryAdapter;
 import org.chenile.stm.spring.SpringBeanFactoryAdapter;
+import org.chenile.workflow.param.MinimalPayload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
 import org.chenile.utils.entity.service.EntityStore;
-import org.chenile.workflow.api.WorkflowRegistry;
+import org.chenile.workflow.service.stmcmds.*;
+import com.handmade.ecommerce.seller.onboarding.service.actions.*;
+import com.handmade.ecommerce.seller.onboarding.service.commands.*;
 import com.handmade.ecommerce.seller.onboarding.service.health.SellerOnboardingHealthChecker;
 import com.handmade.ecommerce.seller.onboarding.service.impl.SellerOnboardingServiceImpl;
 import com.handmade.ecommerce.seller.onboarding.store.SellerOnboardingStoreImpl;
-import org.chenile.owiz.OrchExecutor;
+import org.chenile.workflow.api.WorkflowRegistry;
+import org.chenile.workflow.service.stmcmds.StmAuthoritiesBuilder;
+
+import java.util.function.Function;
+import org.chenile.core.context.ChenileExchange;
+import org.chenile.workflow.service.activities.ActivityChecker;
+import org.chenile.workflow.service.activities.AreActivitiesComplete;
+import org.chenile.stm.impl.BeanFactoryAdapter;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.chenile.owiz.config.impl.XmlOrchConfigurator;
 import org.chenile.owiz.impl.OrchExecutorImpl;
-import com.handmade.ecommerce.seller.onboarding.service.actions.*;
-import com.handmade.ecommerce.seller.onboarding.service.commands.*;
-import org.chenile.workflow.param.MinimalPayload;
-import org.chenile.workflow.service.stmcmds.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.chenile.owiz.OrchExecutor;
 
 /**
- * Onboarding Configuration
- * Manages the beans for Seller Onboarding State Machine and Service.
+ * Onboarding Configuration aligned with Platform pattern
  */
 @Configuration
+@EnableJpaRepositories(basePackages = "com.handmade.ecommerce.seller.onboarding.repository")
+@EntityScan(basePackages = "com.handmade.ecommerce.seller.onboarding.entity")
 public class OnboardingConfiguration {
-
-    private static final String ONBOARDING_FLOW_DEFINITION_FILE = "stm/onboarding-states.xml";
-    private static final String ONBOARDING_OWIZ_FILE = "owiz/seller-onboarding-flow-owiz.xml";
-    public static final String PREFIX_FOR_RESOLVER = "";
+    private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/seller.onboarding/stm/onboarding-states.xml";
+    private static final String ONBOARDING_OWIZ_FILE = "com/handmade/ecommerce/seller.onboarding/owiz/seller-onboarding-flow-owiz.xml";
+    public static final String PREFIX_FOR_PROPERTIES = "Onboarding";
+    public static final String PREFIX_FOR_RESOLVER = "onboarding";
+    private static final String ONBOARDING_INIT_FLOW = "ONBOARDING_INIT_FLOW";
+    private static final String ONBOARDING_RESUME_FLOW = "ONBOARDING_RESUME_FLOW";
+    private static final String ONBOARDING_CONFIRM_FLOW = "ONBOARDING_CONFIRM_FLOW";
 
     @Autowired
-    private org.springframework.context.ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Bean
-    public org.chenile.stm.impl.BeanFactoryAdapter onboardingStmBeanFactoryAdapter() {
+    BeanFactoryAdapter onboardingStmBeanFactoryAdapter() {
         return new SpringBeanFactoryAdapter();
-    }
-
-    @Bean
-    public org.chenile.owiz.BeanFactoryAdapter onboardingOwizBeanFactoryAdapter() {
-        return new org.chenile.owiz.BeanFactoryAdapter() {
-            @Override
-            public Object lookup(String componentName) {
-                return applicationContext.getBean(componentName);
-            }
-        };
-    }
-
-    @Bean
-    @Autowired
-    StmBodyTypeSelector sellerOnboardingBodyTypeSelector(
-            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider onboardingInfoProvider,
-            @Qualifier("onboardingTransitionActionResolver") STMTransitionActionResolver onboardingTransitionActionResolver) {
-        return new StmBodyTypeSelector(onboardingInfoProvider, onboardingTransitionActionResolver);
     }
 
     @Bean
@@ -71,8 +70,8 @@ public class OnboardingConfiguration {
 
     @Bean
     @Autowired
-    STM<SellerOnboardingCase> onboardingEntityStm(
-            @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception {
+    STM<SellerOnboardingCase> onboardingEntityStm(@Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore)
+            throws Exception {
         STMImpl<SellerOnboardingCase> stm = new STMImpl<>();
         stm.setStmFlowStore(stmFlowStore);
         return stm;
@@ -80,119 +79,177 @@ public class OnboardingConfiguration {
 
     @Bean
     @Autowired
-    SellerOnboardingService _sellerOnboardingService_(
-            @Qualifier("onboardingEntityStm") STM<SellerOnboardingCase> stm,
-            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider provider,
-            @Qualifier("onboardingEntityStore") EntityStore<SellerOnboardingCase> entityStore) {
-        return new SellerOnboardingServiceImpl(stm, provider, entityStore);
+    STMActionsInfoProvider onboardingActionsInfoProvider(
+            @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
+        STMActionsInfoProvider provider = new STMActionsInfoProvider(stmFlowStore);
+        WorkflowRegistry.addSTMActionsInfoProvider(PREFIX_FOR_RESOLVER, provider);
+        return provider;
     }
 
     @Bean
-    XmlFlowReader onboardingFlowReader(
-            @Qualifier("onboardingFlowStore") STMFlowStoreImpl flowStore) throws Exception {
-        XmlFlowReader flowReader = new XmlFlowReader(flowStore);
-        flowReader.setFilename(ONBOARDING_FLOW_DEFINITION_FILE);
-        return flowReader;
+    public EntityStore<SellerOnboardingCase> onboardingEntityStore() {
+        return new SellerOnboardingStoreImpl();
+    }
+
+    @Bean
+    @Autowired
+    SellerOnboardingService _sellerOnboardingService_(
+            @Qualifier("onboardingEntityStm") STM<SellerOnboardingCase> stm,
+            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider onboardingInfoProvider,
+            @Qualifier("onboardingEntityStore") EntityStore<SellerOnboardingCase> entityStore,
+            @Qualifier("onboardingResumeExecutor") OrchExecutor<OnboardingResumeContext> orchExecutor,
+            @Qualifier("onboardingStepRepository") SellerOnboardingStepRepository stepRepository) {
+        return new SellerOnboardingServiceImpl(stm, onboardingInfoProvider, entityStore, orchExecutor, stepRepository);
+    }
+
+    // Chenile STM Components
+
+    @Bean
+    @Autowired
+    DefaultPostSaveHook<SellerOnboardingCase> onboardingDefaultPostSaveHook(
+            @Qualifier("onboardingTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
+        return new DefaultPostSaveHook<>(stmTransitionActionResolver);
     }
 
     @Bean
     @Autowired
     GenericEntryAction<SellerOnboardingCase> onboardingEntryAction(
             @Qualifier("onboardingEntityStore") EntityStore<SellerOnboardingCase> entityStore,
-            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider provider,
+            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider onboardingActionsInfoProvider,
+            @Qualifier("onboardingDefaultPostSaveHook") DefaultPostSaveHook<SellerOnboardingCase> postSaveHook,
             @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
-        GenericEntryAction<SellerOnboardingCase> entryAction = new GenericEntryAction<>(entityStore, provider, null);
+        GenericEntryAction<SellerOnboardingCase> entryAction = new GenericEntryAction<>(entityStore,
+                onboardingActionsInfoProvider, postSaveHook);
         stmFlowStore.setEntryAction(entryAction);
         return entryAction;
     }
 
     @Bean
-    EntityStore<SellerOnboardingCase> onboardingEntityStore() {
-        return new SellerOnboardingStoreImpl();
-    }
-
-    @Bean
     @Autowired
-    STMActionsInfoProvider onboardingActionsInfoProvider(
+    DefaultAutomaticStateComputation<SellerOnboardingCase> onboardingDefaultAutoState(
+            @Qualifier("onboardingTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver,
             @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
-        STMActionsInfoProvider provider = new STMActionsInfoProvider(stmFlowStore);
-        WorkflowRegistry.addSTMActionsInfoProvider("onboarding", provider);
-        return provider;
+        DefaultAutomaticStateComputation<SellerOnboardingCase> autoState = new DefaultAutomaticStateComputation<>(
+                stmTransitionActionResolver);
+        stmFlowStore.setDefaultAutomaticStateComputation(autoState);
+        return autoState;
     }
 
     @Bean
-    GenericExitAction<SellerOnboardingCase> onboardingExitAction() {
-        return new GenericExitAction<SellerOnboardingCase>();
+    GenericExitAction<SellerOnboardingCase> onboardingExitAction(
+            @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
+        GenericExitAction<SellerOnboardingCase> exitAction = new GenericExitAction<>();
+        stmFlowStore.setExitAction(exitAction);
+        return exitAction;
     }
 
     @Bean
-    SellerOnboardingHealthChecker sellerOnboardingHealthChecker() {
+    XmlFlowReader onboardingFlowReader(@Qualifier("onboardingFlowStore") STMFlowStoreImpl flowStore) throws Exception {
+        XmlFlowReader flowReader = new XmlFlowReader(flowStore);
+        flowReader.setFilename(FLOW_DEFINITION_FILE);
+        return flowReader;
+    }
+
+    @Bean
+    SellerOnboardingHealthChecker onboardingHealthChecker() {
         return new SellerOnboardingHealthChecker();
     }
 
     @Bean
-    @Autowired
-    DefaultSTMTransitionAction<MinimalPayload> defaultOnboardingTransitionAction() {
-        return new DefaultSTMTransitionAction<>();
+    STMTransitionAction<SellerOnboardingCase> defaultOnboardingSTMTransitionAction() {
+        return new DefaultSTMTransitionAction<MinimalPayload>();
     }
 
     @Bean
-    @Autowired
     STMTransitionActionResolver onboardingTransitionActionResolver(
-            @Qualifier("defaultOnboardingTransitionAction") STMTransitionAction<SellerOnboardingCase> defaultSTMTransitionAction) {
-        return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER, defaultSTMTransitionAction);
+            @Qualifier("defaultOnboardingSTMTransitionAction") STMTransitionAction<SellerOnboardingCase> defaultSTMTransitionAction) {
+        return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER, defaultSTMTransitionAction, true);
     }
 
     @Bean
     @Autowired
-    STMTransitionAction<SellerOnboardingCase> sellerOnboardingSTMTransitionAction(
+    StmBodyTypeSelector onboardingBodyTypeSelector(
+            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider onboardingInfoProvider,
             @Qualifier("onboardingTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
-        return new BaseTransitionAction<>(stmTransitionActionResolver);
+        return new StmBodyTypeSelector(onboardingInfoProvider, stmTransitionActionResolver);
     }
 
-    // Onboarding Actions - Named to match eventId + "Action" convention exactly
     @Bean
+    @Autowired
+    STMTransitionAction<SellerOnboardingCase> onboardingBaseTransitionAction(
+            @Qualifier("onboardingTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver,
+            @Qualifier("onboardingActivityChecker") ActivityChecker activityChecker,
+            @Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
+        BaseTransitionAction<SellerOnboardingCase> baseTransitionAction = new BaseTransitionAction<>(
+                stmTransitionActionResolver);
+        baseTransitionAction.activityChecker = activityChecker;
+        stmFlowStore.setDefaultTransitionAction(baseTransitionAction);
+        return baseTransitionAction;
+    }
+
+    @Bean
+    ActivityChecker onboardingActivityChecker(@Qualifier("onboardingFlowStore") STMFlowStoreImpl stmFlowStore) {
+        return new ActivityChecker(stmFlowStore);
+    }
+
+    @Bean
+    AreActivitiesComplete onboardingActivitiesCompletionCheck(
+            @Qualifier("onboardingActivityChecker") ActivityChecker activityChecker) {
+        return new AreActivitiesComplete(activityChecker);
+    }
+
+    // Transition Actions - Naming convention: prefix + eventId + Action
+
+    @Bean(name = { "onboardingStartOnboardingAction", "startOnboardingAction" })
     public StartOnboardingAction startOnboardingAction() {
         return new StartOnboardingAction();
     }
 
-    @Bean
+    @Bean(name = { "onboardingIdentityVerifiedAction", "identityVerifiedAction" })
     public IdentityVerifiedAction identityVerifiedAction() {
         return new IdentityVerifiedAction();
     }
 
-    @Bean
+    @Bean(name = { "onboardingConfirmOnboardingAction", "confirmOnboardingAction" })
     public ConfirmOnboardingAction confirmOnboardingAction() {
         return new ConfirmOnboardingAction();
     }
 
-    @Bean
+    @Bean(name = { "onboardingRejectAction", "rejectOnboardingAction" })
     public RejectOnboardingAction rejectOnboardingAction() {
         return new RejectOnboardingAction();
     }
 
+    @Bean(name = { "onboardingSubmitDocsAction", "submitDocsAction" })
+    public SubmitDocsAction submitDocsAction() {
+        return new SubmitDocsAction();
+    }
+
+    // OWIZ Components
     @Bean
-    public UpdateOnboardingStateCommand updateOnboardingStateCommand() {
-        return new UpdateOnboardingStateCommand();
+    @Scope("prototype")
+    public org.chenile.owiz.impl.Chain<Object> owizChain() {
+        return new org.chenile.owiz.impl.Chain<>();
     }
 
     @Bean
-    public CreateSellerAccountCommand createSellerAccountCommand() {
-        return new CreateSellerAccountCommand();
-    }
-
-    // OWIZ Orchestration Commands
-    @Bean
-    public VerifyKycCommand verifyKycCommand() {
-        return new VerifyKycCommand();
+    @Scope("prototype")
+    public org.chenile.owiz.impl.ParallelChain<Object> owizParallelChain() {
+        return new org.chenile.owiz.impl.ParallelChain<>();
     }
 
     @Bean
-    public SendWelcomeEmailCommand sendWelcomeEmailCommand() {
-        return new SendWelcomeEmailCommand();
+    public org.chenile.owiz.BeanFactoryAdapter onboardingOwizBeanFactoryAdapter() {
+        return new org.chenile.owiz.BeanFactoryAdapter() {
+            @Override
+            public Object lookup(String componentName) {
+                if (componentName == null)
+                    return null;
+                return applicationContext.getBean(componentName);
+            }
+        };
     }
 
-    // OWIZ Infrastructure - Specialized Configurators
     @Bean
     public XmlOrchConfigurator<OnboardingInitContext> onboardingInitConfigurator(
             @Qualifier("onboardingOwizBeanFactoryAdapter") org.chenile.owiz.BeanFactoryAdapter adapter)
@@ -224,56 +281,70 @@ public class OnboardingConfiguration {
     }
 
     @Bean
-    public OrchExecutor<OnboardingInitContext> onboardingInitExecutor(
-            @Qualifier("onboardingInitConfigurator") XmlOrchConfigurator<OnboardingInitContext> configurator) {
-        return new OrchExecutor<OnboardingInitContext>() {
+    public OrchExecutor<OnboardingConfirmContext> onboardingConfirmExecutor(
+            @Qualifier("onboardingConfirmConfigurator") XmlOrchConfigurator<OnboardingConfirmContext> configurator) {
+        OrchExecutorImpl<OnboardingConfirmContext> executor = new OrchExecutorImpl<>() {
             @Override
-            public void execute(OnboardingInitContext context) throws Exception {
-                execute("ONBOARDING_INIT_FLOW", context);
-            }
-
-            @Override
-            public void execute(String flowId, OnboardingInitContext context) throws Exception {
-                OrchExecutorImpl<OnboardingInitContext> executor = new OrchExecutorImpl<>();
-                executor.setOrchConfigurator(configurator);
-                executor.execute(flowId, context);
+            public void execute(OnboardingConfirmContext context) throws Exception {
+                execute(ONBOARDING_CONFIRM_FLOW, context);
             }
         };
+        executor.setOrchConfigurator(configurator);
+        return executor;
+    }
+
+    @Bean
+    public OrchExecutor<OnboardingInitContext> onboardingInitExecutor(
+            @Qualifier("onboardingInitConfigurator") XmlOrchConfigurator<OnboardingInitContext> configurator) {
+        OrchExecutorImpl<OnboardingInitContext> executor = new OrchExecutorImpl<>() {
+            @Override
+            public void execute(OnboardingInitContext context) throws Exception {
+                execute(ONBOARDING_INIT_FLOW, context);
+            }
+        };
+        executor.setOrchConfigurator(configurator);
+        return executor;
     }
 
     @Bean
     public OrchExecutor<OnboardingResumeContext> onboardingResumeExecutor(
             @Qualifier("onboardingResumeConfigurator") XmlOrchConfigurator<OnboardingResumeContext> configurator) {
-        return new OrchExecutor<OnboardingResumeContext>() {
+        OrchExecutorImpl<OnboardingResumeContext> executor = new OrchExecutorImpl<>() {
             @Override
             public void execute(OnboardingResumeContext context) throws Exception {
-                execute("ONBOARDING_RESUME_FLOW", context);
-            }
-
-            @Override
-            public void execute(String flowId, OnboardingResumeContext context) throws Exception {
-                OrchExecutorImpl<OnboardingResumeContext> executor = new OrchExecutorImpl<>();
-                executor.setOrchConfigurator(configurator);
-                executor.execute(flowId, context);
+                execute(ONBOARDING_RESUME_FLOW, context);
             }
         };
+        executor.setOrchConfigurator(configurator);
+        return executor;
     }
 
     @Bean
-    public OrchExecutor<OnboardingConfirmContext> onboardingConfirmExecutor(
-            @Qualifier("onboardingConfirmConfigurator") XmlOrchConfigurator<OnboardingConfirmContext> configurator) {
-        return new OrchExecutor<OnboardingConfirmContext>() {
-            @Override
-            public void execute(OnboardingConfirmContext context) throws Exception {
-                execute("ONBOARDING_CONFIRM_FLOW", context);
-            }
+    public UpdateOnboardingStateCommand updateOnboardingStateCommand() {
+        return new UpdateOnboardingStateCommand();
+    }
 
-            @Override
-            public void execute(String flowId, OnboardingConfirmContext context) throws Exception {
-                OrchExecutorImpl<OnboardingConfirmContext> executor = new OrchExecutorImpl<>();
-                executor.setOrchConfigurator(configurator);
-                executor.execute(flowId, context);
-            }
-        };
+    @Bean
+    public CreateSellerAccountCommand createSellerAccountCommand() {
+        return new CreateSellerAccountCommand();
+    }
+
+    @Bean
+    public VerifyKycCommand verifyKycCommand() {
+        return new VerifyKycCommand();
+    }
+
+    @Bean
+    public SendWelcomeEmailCommand sendWelcomeEmailCommand() {
+        return new SendWelcomeEmailCommand();
+    }
+
+    @Bean
+    @Autowired
+    Function<ChenileExchange, String[]> onboardingEventAuthoritiesSupplier(
+            @Qualifier("onboardingActionsInfoProvider") STMActionsInfoProvider platformInfoProvider)
+            throws Exception {
+        StmAuthoritiesBuilder builder = new StmAuthoritiesBuilder(platformInfoProvider);
+        return builder.build();
     }
 }

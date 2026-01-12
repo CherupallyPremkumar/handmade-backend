@@ -8,7 +8,8 @@
     <parent>
         <groupId>com.handmade.ecommerce.seller</groupId>
         <artifactId>seller-account</artifactId>
-        <version>2.0.35</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     
     <artifactId>seller-account-delegator</artifactId>
@@ -20,7 +21,7 @@
         <dependency>
             <groupId>com.handmade.ecommerce.seller</groupId>
             <artifactId>seller-account-service</artifactId>
-            <version>2.0.35</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.chenile</groupId>

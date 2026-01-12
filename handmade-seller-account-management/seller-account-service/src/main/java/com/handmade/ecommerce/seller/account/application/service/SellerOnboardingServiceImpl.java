@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Implementation of the SellerOnboardingService.
  * Coordinates the onboarding flow using the OWIZ orchestration engine.
  */
-@Service("sellerOnboardingService")
+
 public class SellerOnboardingServiceImpl implements SellerOnboardingService {
 
     @Autowired

@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
-        <artifactId>search-management</artifactId>
+        <artifactId>handmade-search-management</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

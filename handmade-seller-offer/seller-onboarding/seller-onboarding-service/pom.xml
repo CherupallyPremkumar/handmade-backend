@@ -8,6 +8,7 @@
         <groupId>com.handmade.ecommerce.seller</groupId>
         <artifactId>seller-onboarding</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     
     <artifactId>seller-onboarding-service</artifactId>
@@ -40,10 +41,6 @@
             <groupId>com.handmade.ecommerce.seller</groupId>
             <artifactId>seller-onboarding-domain</artifactId>
             <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.handmade.ecommerce</groupId>
-            <artifactId>handmade-stm-management</artifactId>
         </dependency>
         <dependency>
             <groupId>org.chenile</groupId>

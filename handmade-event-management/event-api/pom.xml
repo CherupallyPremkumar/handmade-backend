@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>com.handmade.ecommerce.event</groupId>
-        <artifactId>handmade-event-parent</artifactId>
+        <artifactId>handmade-event-management</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>handmade-event-api</artifactId>
+    <artifactId>event-api</artifactId>
     <packaging>jar</packaging>
 
     <name>handmade-event-api</name>

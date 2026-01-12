@@ -11,6 +11,7 @@
   <modules>
     <module>handmade-liquibase-management</module>
     <module>handmade-app-core</module>
+    <module>handmade-event-management</module>
     
     <!-- Hierarchical Modules (11 High-Level Parents) -->
     <module>handmade-platform-governance</module>
@@ -30,16 +31,6 @@
     <module>handmade-app-boot</module>
   </modules>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.handmade.ecommerce</groupId>
-        <artifactId>handmade-stm-management</artifactId>
-        <version>${revision}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <groupId>com.handmade.ecommerce</groupId>
   <version>${revision}</version>
   <artifactId>handmade-parent</artifactId>
@@ -47,7 +38,6 @@
   <name>handmade-parent</name>
   <properties>
     <revision>2.0.35</revision>
-    <chenile.version>2.0.35</chenile.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>

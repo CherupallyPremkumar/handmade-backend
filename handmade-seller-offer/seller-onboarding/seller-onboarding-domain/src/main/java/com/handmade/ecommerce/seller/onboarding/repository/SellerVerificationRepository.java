@@ -1,16 +1,12 @@
 package com.handmade.ecommerce.seller.onboarding.repository;
 
-import com.handmade.ecommerce.seller.onboarding.entity.SellerVerification;
+import com.handmade.ecommerce.seller.onboarding.model.SellerVerification;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
- * Repository for SellerVerification
- * Generated from entity file
+ * Pure Domain Repository interface for SellerVerification
  */
-@Repository
-public interface SellerVerificationRepository extends JpaRepository<SellerVerification, String> {
+public interface SellerVerificationRepository {
 
     List<SellerVerification> findBySellerId(String sellerId);
 

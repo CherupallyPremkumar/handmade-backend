@@ -1,7 +1,7 @@
 package com.handmade.ecommerce.seller.onboarding.service.commands;
 
-import com.handmade.ecommerce.seller.onboarding.api.dto.StripeConfigResponse;
-import com.handmade.ecommerce.seller.onboarding.api.port.StripeIdentityAdapter;
+import com.handmade.ecommerce.seller.onboarding.dto.StripeConfigResponse;
+import com.handmade.ecommerce.seller.onboarding.port.StripeIdentityAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

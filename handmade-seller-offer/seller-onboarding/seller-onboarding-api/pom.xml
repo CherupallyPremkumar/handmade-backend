@@ -9,6 +9,7 @@
         <groupId>com.handmade.ecommerce.seller</groupId>
         <artifactId>seller-onboarding</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     
     <artifactId>seller-onboarding-api</artifactId>
@@ -18,10 +19,6 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.chenile</groupId>
-            <artifactId>workflow-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
@@ -29,6 +26,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-api</artifactId>
         </dependency>
     </dependencies>
 </project>

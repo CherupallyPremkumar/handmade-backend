@@ -1,6 +1,8 @@
 package com.handmade.ecommerce.seller.onboarding.service.actions;
 
-import com.handmade.ecommerce.seller.onboarding.api.dto.IdentityVerifiedPayload;
+import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
+
+import com.handmade.ecommerce.seller.onboarding.dto.IdentityVerifiedPayload;
 import com.handmade.ecommerce.seller.onboarding.entity.SellerOnboardingCase;
 import com.handmade.ecommerce.seller.onboarding.service.commands.OnboardingResumeContext;
 import org.chenile.owiz.OrchExecutor;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 
-public class IdentityVerifiedAction extends DefaultSTMTransitionAction<IdentityVerifiedPayload> {
+public class IdentityVerifiedAction extends AbstractSTMTransitionAction<SellerOnboardingCase, IdentityVerifiedPayload> {
 
     @Autowired
     @Qualifier("onboardingResumeExecutor")
