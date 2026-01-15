@@ -4,13 +4,14 @@
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
         <artifactId>handmade-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>user-management</artifactId>
+    <artifactId>handmade-stm-configuration</artifactId>
     <packaging>jar</packaging>
 
-    <name>user-management</name>
+    <name>handmade-stm-configuration</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -23,6 +24,10 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>stm</artifactId>
         </dependency>
     </dependencies>
 </project>
