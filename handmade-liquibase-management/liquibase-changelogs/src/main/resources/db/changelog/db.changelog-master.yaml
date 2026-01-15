@@ -8,12 +8,28 @@ databaseChangeLog:
   - include: { file: db/changelog/platform/006-create-platform-audit-log.yaml }
 
 
+  # 28. Localization & Regional Support
+  - include: { file: db/changelog/localization/001-create-currency.yaml }
+  - include: { file: db/changelog/localization/002-create-region.yaml }
+  - include: { file: db/changelog/localization/003-create-platform-region-policy.yaml }
+  - include: { file: db/changelog/localization/004-create-language.yaml }
+  - include: { file: db/changelog/localization/005-create-translation.yaml }
+  - include: { file: db/changelog/localization/006-create-currency-conversion.yaml }
+
 
   # 3. Identity & Access (IAM)
   - include: { file: db/changelog/iam/001-create-role.yaml }
   - include: { file: db/changelog/iam/002-create-permission.yaml }
   - include: { file: db/changelog/iam/003-create-role-permission.yaml }
   - include: { file: db/changelog/iam/004-create-user-role.yaml }
+
+  # 5. Product Domain
+  - include: { file: db/changelog/product/001-create-product.yaml }
+  - include: { file: db/changelog/product/002-create-product-attribute-value.yaml }
+  - include: { file: db/changelog/product/003-create-product-media.yaml }
+  - include: { file: db/changelog/product/004-create-product-tags.yaml }
+  - include: { file: db/changelog/product/005-create-product-browse-node.yaml }
+  - include: { file: db/changelog/product/006-create-product-rich-media.yaml }
 
   # 4. Catalog Management
   - include: { file: db/changelog/catalog/001-create-browse-node.yaml }
@@ -27,13 +43,6 @@ databaseChangeLog:
   - include: { file: db/changelog/catalog/009-create-browse-node-attribute-rule.yaml }
   - include: { file: db/changelog/catalog/010-create-taxonomy.yaml }
 
-  # 5. Product Domain
-  - include: { file: db/changelog/product/001-create-product.yaml }
-  - include: { file: db/changelog/product/002-create-product-attribute-value.yaml }
-  - include: { file: db/changelog/product/003-create-product-media.yaml }
-  - include: { file: db/changelog/product/004-create-product-tags.yaml }
-  - include: { file: db/changelog/product/005-create-product-browse-node.yaml }
-  - include: { file: db/changelog/product/006-create-product-rich-media.yaml }
 
   # 6. Seller Domain
   - include: { file: db/changelog/seller/001-create-seller-account.yaml }
@@ -76,15 +85,6 @@ databaseChangeLog:
   - include: { file: db/changelog/inventory/012-create-pack-task.yaml }
   - include: { file: db/changelog/inventory/013-create-inventory-position.yaml }
 
-  # 9. Order Domain
-  - include: { file: db/changelog/order/001-create-order.yaml }
-  - include: { file: db/changelog/order/002-create-order-line.yaml }
-  - include: { file: db/changelog/order/003-create-shipment.yaml }
-  - include: { file: db/changelog/order/004-create-shipment-item.yaml }
-  - include: { file: db/changelog/order/005-create-return-request.yaml }
-  - include: { file: db/changelog/order/006-create-refund.yaml }
-  - include: { file: db/changelog/order/007-link-financial-event-to-order.yaml }
-
   # 10. Customer Domain
   - include: { file: db/changelog/customer/001-create-customer-profile.yaml }
   - include: { file: db/changelog/customer/002-create-customer-address.yaml }
@@ -94,17 +94,28 @@ databaseChangeLog:
   - include: { file: db/changelog/customer/006-create-wishlist.yaml }
   - include: { file: db/changelog/customer/007-create-wishlist-item.yaml }
 
+  # 9. Order Domain
+  - include: { file: db/changelog/order/001-create-order.yaml }
+  - include: { file: db/changelog/order/002-create-order-line.yaml }
+  - include: { file: db/changelog/order/003-create-shipment.yaml }
+  - include: { file: db/changelog/order/004-create-shipment-item.yaml }
+  - include: { file: db/changelog/order/005-create-return-request.yaml }
+  - include: { file: db/changelog/order/006-create-refund.yaml }
+  - include: { file: db/changelog/order/007-link-financial-event-to-order.yaml }
+
+
   # 11. Cart Domain
   - include: { file: db/changelog/cart/001-create-cart.yaml }
   - include: { file: db/changelog/cart/002-create-cart-item.yaml }
   - include: { file: db/changelog/cart/003-create-cart-saved-for-later.yaml }
 
   # 12. Payment Domain
-  - include: { file: db/changelog/payment/001-create-payment-transaction.yaml }
   - include: { file: db/changelog/payment/002-create-payment-method.yaml }
+  - include: { file: db/changelog/payment/001-create-payment-transaction.yaml }
   - include: { file: db/changelog/payment/003-create-payment-authorization.yaml }
   - include: { file: db/changelog/payment/004-create-payment-capture.yaml }
   - include: { file: db/changelog/payment/005-create-payment-refund-transaction.yaml }
+  - include: { file: db/changelog/payment/006-create-payment-order.yaml }
 
   # 13. Promotion Domain
   - include: { file: db/changelog/promotion/001-create-promotion.yaml }
@@ -182,6 +193,7 @@ databaseChangeLog:
   - include: { file: db/changelog/risk/002-create-seller-trust-score.yaml }
   - include: { file: db/changelog/risk/003-create-compliance-document.yaml }
   - include: { file: db/changelog/risk/004-create-fraud-signal.yaml }
+  - include: { file: db/changelog/risk/005-create-compliance-policy.yaml }
 
   # 25. Event Infrastructure
   - include: { file: db/changelog/event-infra/001-create-event-queue.yaml }
@@ -197,13 +209,6 @@ databaseChangeLog:
 
 
 
-  # 28. Localization & Regional Support
-  - include: { file: db/changelog/localization/001-create-currency.yaml }
-  - include: { file: db/changelog/localization/002-create-region.yaml }
-  - include: { file: db/changelog/localization/003-create-platform-region-policy.yaml }
-  - include: { file: db/changelog/localization/004-create-language.yaml }
-  - include: { file: db/changelog/localization/005-create-translation.yaml }
-  - include: { file: db/changelog/localization/006-create-currency-conversion.yaml }
 
   # 29. Support & CS
   - include: { file: db/changelog/support/001-create-case-management.yaml }
@@ -226,6 +231,7 @@ databaseChangeLog:
   - include: { file: db/changelog/finance/005-create-fee-application.yaml }
   - include: { file: db/changelog/finance/005-create-tax-calculation.yaml }
   - include: { file: db/changelog/finance/006-create-settlement-batch.yaml }
+  - include: { file: db/changelog/finance/007-create-finance-profile.yaml }
 
   # 33. Content & CMS
   - include: { file: db/changelog/cms/001-create-content-page.yaml }
@@ -246,6 +252,7 @@ databaseChangeLog:
   - include: { file: db/changelog/governance/001-create-privacy-policy-ack.yaml }
   - include: { file: db/changelog/governance/002-create-gdpr-request.yaml }
   - include: { file: db/changelog/governance/003-create-audit-snapshot.yaml }
+  - include: { file: db/changelog/governance/004-create-audit-process.yaml }
 
   # 36. SEO & Optimization
   - include: { file: db/changelog/seo/001-create-url-mapping.yaml }

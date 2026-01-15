@@ -30,11 +30,7 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
-              - column:
-                  name: status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
+
               - column:
                   name: answer_count
                   type: int
@@ -52,15 +48,37 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
-              - column:
-                  name: moderation_status
-                  type: varchar(50)
+
               - column:
                   name: moderated_at
                   type: timestamp
               - column:
                   name: moderated_by
                   type: varchar(255)
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -89,7 +107,7 @@ databaseChangeLog:
               - column:
                   name: product_id
               - column:
-                  name: status
+                  name: state_id
         
         - createIndex:
             indexName: idx_question_customer
@@ -97,3 +115,20 @@ databaseChangeLog:
             columns:
               - column:
                   name: customer_id
+
+  - changeSet:
+      id: 2
+      author: qa-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_question
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_qa_question_product
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_question
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_qa_question_customer

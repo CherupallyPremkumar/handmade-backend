@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce PickTask State Machine
+Purpose: Manage picking tasks in the warehouse.
+Flow: PICK_TASK_FLOW
+-->
+<states>
+    <event-information eventId='assignPicker'  eventName='Assign picker'   meta-acls="fc.ops"/>
+    <event-information eventId='startPick'     eventName='Start pick'      meta-acls="fc.ops"/>
+    <event-information eventId='confirmPick'   eventName='Confirm pick'    meta-acls="fc.ops"/>
+    <event-information eventId='reportMissing' eventName='Report missing'  meta-acls="fc.ops"/>
+
+    <flow id="PICK_TASK_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="assignPicker" newStateId="ASSIGNED" componentName="pickAssignAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="startPick"     newStateId="IN_PROGRESS" componentName="pickStartAction"/>
+            <on eventId="reportMissing" newStateId="FAILED"      componentName="pickFailAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="confirmPick"   newStateId="PICKED" componentName="pickCompleteAction"/>
+            <on eventId="reportMissing" newStateId="FAILED" componentName="pickFailAction"/>
+        </manual-state>
+
+        <manual-state id="PICKED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+    </flow>
+</states>

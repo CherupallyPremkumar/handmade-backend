@@ -19,12 +19,6 @@ databaseChangeLog:
                     nullable: false
                     unique: true
               - column:
-                  name: status
-                  type: varchar(20)
-                  defaultValue: "OPEN"
-                  constraints:
-                    nullable: false
-              - column:
                   name: start_time
                   type: timestamp
                   constraints:
@@ -38,8 +32,28 @@ databaseChangeLog:
                   name: total_amount
                   type: decimal(12, 2)
                   defaultValueNumeric: 0.00
+              # AbstractJpaStateEntity (STM)
               - column:
-                  name: transaction_count
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
                   type: int
                   defaultValueNumeric: 0
               # BaseJpaEntity

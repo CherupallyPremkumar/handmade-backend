@@ -13,8 +13,36 @@ databaseChangeLog:
               - column: { name: template_id, type: VARCHAR(100) }
               - column: { name: channel, type: VARCHAR(20) } # EMAIL, SMS, PUSH
               - column: { name: payload, type: TEXT } # JSON string
-              - column: { name: status, type: VARCHAR(20), defaultValue: "PENDING" }
+
               - column: { name: retry_count, type: INT, defaultValueNumeric: 0 }
               - column: { name: scheduled_at, type: TIMESTAMP }
-              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
-              - column: { name: tenant, type: VARCHAR(255) }
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }

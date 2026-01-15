@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Seller account lifecycle orchestration that ties SELLER_ACCOUNT_FLOW, SELLER_STORE_FLOW, and SELLER_ONBOARDING_FLOW STMs.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: SELLER_ACCOUNT_OWIZ_FLOW
+    Trigger: REGISTER_SELLER
+
+    Expected STMs:
+    - SELLER_ACCOUNT_FLOW: REGISTERED -> KYC_PENDING -> ACTIVE / SUSPENDED / CLOSED
+    - SELLER_STORE_FLOW: DRAFT -> PENDING_APPROVAL -> LIVE / SUSPENDED / CLOSED
+    - SELLER_ONBOARDING_FLOW: APPLIED -> ... -> COMPLETED / REJECTED
+    -->
+    <flow id="SELLER_ACCOUNT_OWIZ_FLOW" triggerEvent="REGISTER_SELLER">
+        <!-- Create seller account entity and fire 'register_seller' STM event -->
+        <command id="createSellerAccount" componentName="sellerAccountCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Initialize onboarding case and start KYC (delegates to SELLER_ONBOARDING_OWIZ_FLOW or direct STM events) -->
+        <command id="startOnboarding" componentName="sellerAccountOnboardingService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Create initial seller store in DRAFT and link to account -->
+        <command id="createSellerStore" componentName="sellerStoreCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Optionally auto-submit store for approval once KYC and onboarding are complete -->
+        <command id="autoSubmitStore" componentName="sellerStoreAutoSubmitService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+    </flow>
+</flows>

@@ -14,8 +14,8 @@
             suspension_reason as "suspensionReason",
             deleted as "deleted",
             can_create_listings as "canCreateListings",
-            state_id as "state",
-            flow_id as "flowId",
+            stateId as "state",
+            flowId as "flowId",
             onboarding_policy_id as "onboardingPolicyId",
             onboarding_policy_version as "onboardingPolicyVersion",
             policy_locked_at as "policyLockedAt",
@@ -48,7 +48,7 @@
             AND deleted = #{deleted}
         </if>
         <if test="state != null">
-            AND state_id = #{state}
+            AND stateId = #{state}
         </if>
         <if test="sortColumn != null and sortOrder != null">
             ORDER BY ${sortColumn} ${sortOrder}
@@ -87,7 +87,7 @@
             AND deleted = #{deleted}
         </if>
         <if test="state != null">
-            AND state_id = #{state}
+            AND stateId = #{state}
         </if>
     </select>
 </mapper>

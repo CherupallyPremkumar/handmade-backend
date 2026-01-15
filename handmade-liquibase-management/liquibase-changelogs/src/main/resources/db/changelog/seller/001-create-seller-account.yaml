@@ -20,6 +20,11 @@ databaseChangeLog:
               - column: { name: can_create_listings, type: BOOLEAN, defaultValueBoolean: false }
               - column: { name: state_id, type: VARCHAR(50) }
               - column: { name: flow_id, type: VARCHAR(50) }
+              - column: { name: state_entry_time, type: TIMESTAMP }
+              - column: { name: sla_yellow_date, type: TIMESTAMP }
+              - column: { name: sla_red_date, type: TIMESTAMP }
+              - column: { name: sla_tending_late, type: INT, defaultValueNumeric: 0 }
+              - column: { name: sla_late, type: INT, defaultValueNumeric: 0 }
               - column: { name: onboarding_policy_id, type: VARCHAR(255) }
               - column: { name: onboarding_policy_version, type: VARCHAR(50) }
               - column: { name: policy_locked_at, type: TIMESTAMP }
@@ -30,3 +35,35 @@ databaseChangeLog:
               - column: { name: created_by, type: VARCHAR(255) }
               - column: { name: tenant, type: VARCHAR(255) }
               - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+  - changeSet:
+      id: 2
+      author: seller-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_seller_account
+            baseColumnNames: platform_id
+            referencedTableName: hm_platform
+            referencedColumnNames: id
+            constraintName: fk_seller_platform
+
+  - changeSet:
+      id: 3
+      author: seller-management
+      changes:
+        - createIndex:
+            indexName: idx_seller_state
+            tableName: hm_seller_account
+            columns:
+              - column: { name: state_id }
+        - createIndex:
+            indexName: idx_seller_flow
+            tableName: hm_seller_account
+            columns:
+              - column: { name: flow_id }
+        - createIndex:
+            indexName: idx_seller_platform_state
+            tableName: hm_seller_account
+            columns:
+              - column: { name: platform_id }
+              - column: { name: state_id }

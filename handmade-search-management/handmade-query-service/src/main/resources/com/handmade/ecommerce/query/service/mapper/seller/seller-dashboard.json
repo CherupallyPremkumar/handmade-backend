@@ -1,0 +1,54 @@
+[
+  {
+    "id": "seller-summary-stats",
+    "name": "seller-summary-stats",
+    "paginated": true,
+    "sortable": false,
+    "columnMetadata": {
+      "metric_type": {
+          "name": "metric_type",
+          "columnType": "Text"
+      },
+      "metric_group": {
+          "name": "metric_group",
+          "columnType": "Text"
+      },
+      "metric_count": {
+          "name": "metric_count",
+          "columnType": "Number"
+      },
+      "seller_id": {
+          "name": "seller_id",
+          "columnType": "Text",
+          "filterable": true,
+          "display": false
+      }
+    }
+  },
+  {
+    "id": "seller-sales-trends",
+    "name": "seller-sales-trends",
+    "paginated": true,
+    "sortable": true,
+    "columnMetadata": {
+      "sales_date": {
+          "name": "sales_date",
+          "columnType": "Text"
+      },
+      "daily_revenue": {
+          "name": "daily_revenue",
+          "columnType": "Number"
+      },
+      "order_count": {
+          "name": "order_count",
+          "columnType": "Number"
+      },
+      "seller_id": {
+          "name": "seller_id",
+          "columnType": "Text",
+          "filterable": true,
+          "display": false
+      }
+    }
+  }
+]

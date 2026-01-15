@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Subscription billing and renewal orchestration that drives SUBSCRIPTION_FLOW STM.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: SUBSCRIPTION_BILLING_FLOW
+    Trigger: RENEW_SUBSCRIPTION
+
+    Expected STM (SUBSCRIPTION_FLOW):
+    CREATED / TRIAL / ACTIVE / GRACE -> ACTIVE / EXPIRED / CANCELLED
+    -->
+    <flow id="SUBSCRIPTION_BILLING_FLOW" triggerEvent="RENEW_SUBSCRIPTION">
+        <!-- Load subscription and decide whether to attempt renewal (fires 'renew' or 'expire') -->
+        <command id="prepareRenewal" componentName="subscriptionRenewalPrepareService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Charge payment method via PAYMENT_FLOW and update subscription STM accordingly -->
+        <command id="chargeSubscription" componentName="subscriptionChargeService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+
+        <!-- If payment fails, move to GRACE and schedule retries; else keep ACTIVE -->
+        <command id="postRenewal" componentName="subscriptionPostRenewalService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Notify customer about renewal / failure -->
+        <command id="notifySubscriber" componentName="subscriptionNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+    </flow>
+</flows>

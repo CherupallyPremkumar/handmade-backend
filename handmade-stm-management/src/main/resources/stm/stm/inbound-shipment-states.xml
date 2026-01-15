@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce InboundShipment State Machine
+Purpose: Manage seller/FC inbound shipments to fulfilment centers.
+Flow: INBOUND_SHIPMENT_FLOW
+-->
+<states>
+    <event-information eventId='confirmPlan'  eventName='Confirm inbound plan' meta-acls="seller.self,fc.ops"/>
+    <event-information eventId='ship'          eventName='Ship'                 meta-acls="seller.self,fc.ops"/>
+    <event-information eventId='receive'       eventName='Receive'              meta-acls="fc.ops"/>
+    <event-information eventId='reconcile'     eventName='Reconcile'            meta-acls="fc.ops"/>
+    <event-information eventId='cancelPlan'   eventName='Cancel plan'          meta-acls="seller.self,fc.ops"/>
+
+    <flow id="INBOUND_SHIPMENT_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="confirmPlan" newStateId="PLANNED" componentName="inboundPlanConfirmAction"/>
+            <on eventId="cancelPlan"  newStateId="CANCELLED" componentName="inboundCancelAction"/>
+        </manual-state>
+
+        <manual-state id="PLANNED">
+            <on eventId="ship" newStateId="IN_TRANSIT" componentName="inboundShipAction"/>
+            <on eventId="cancelPlan" newStateId="CANCELLED" componentName="inboundCancelAction"/>
+        </manual-state>
+
+        <manual-state id="IN_TRANSIT">
+            <on eventId="receive" newStateId="RECEIVED" componentName="inboundReceiveAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED">
+            <on eventId="reconcile" newStateId="RECONCILED" componentName="inboundReconcileAction"/>
+        </manual-state>
+
+        <manual-state id="RECONCILED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

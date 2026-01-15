@@ -86,3 +86,20 @@ databaseChangeLog:
             columns:
               - column:
                   name: seller_id
+
+  - changeSet:
+      id: 3
+      author: inventory-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_fulfillment_node
+            baseColumnNames: platform_id
+            referencedTableName: hm_platform
+            referencedColumnNames: id
+            constraintName: fk_fn_platform
+        - createIndex:
+            tableName: hm_fulfillment_node
+            indexName: idx_fn_platform
+            columns:
+              - column:
+                  name: platform_id

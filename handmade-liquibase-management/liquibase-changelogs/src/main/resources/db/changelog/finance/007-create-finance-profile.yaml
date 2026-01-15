@@ -1,0 +1,115 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: finance-management
+      changes:
+        - createTable:
+            tableName: hm_finance_profile
+            # Seller Financial Profile with risk assessment
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: verification_status
+                  type: varchar(50)
+                  # PENDING, VERIFIED, REJECTED, SUSPENDED
+              - column:
+                  name: risk_level
+                  type: varchar(50)
+                  # LOW, MEDIUM, HIGH, CRITICAL
+              - column:
+                  name: credit_limit
+                  type: decimal(19, 4)
+              - column:
+                  name: available_credit
+                  type: decimal(19, 4)
+              - column:
+                  name: outstanding_balance
+                  type: decimal(19, 4)
+              - column:
+                  name: payment_terms_days
+                  type: int
+                  defaultValueNumeric: 30
+              - column:
+                  name: tax_status
+                  type: varchar(50)
+              - column:
+                  name: compliance_status
+                  type: varchar(50)
+              - column:
+                  name: last_review_date
+                  type: timestamp
+              - column:
+                  name: next_review_date
+                  type: timestamp
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+        - createIndex:
+            indexName: idx_finance_profile_seller
+            tableName: hm_finance_profile
+            columns:
+              - column:
+                  name: seller_id
+
+  - changeSet:
+      id: 2
+      author: finance-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_finance_profile
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_finance_profile_seller

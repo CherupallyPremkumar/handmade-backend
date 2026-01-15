@@ -11,7 +11,7 @@ databaseChangeLog:
               - column: {name: dimension_key, type: varchar(255)} # e.g. "region:US" or "category:ELECTRONICS"
               - column: {name: time_bucket, type: timestamp, constraints: {nullable: false}}
               - column: {name: bucket_type, type: varchar(20)} # HOUR, DAY, MONTH
-              - column: {name: metric_value, type: "decimal(19, 4)", defaultValueNumeric: 0}
+              - column: {name: metric_value, type: "DECIMAL(19, 4)", defaultValueNumeric: 0}
               - column: {name: sample_count, type: int, defaultValueNumeric: 0} # For AVG calculations
               # BaseJpaEntity
               - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}

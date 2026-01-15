@@ -1,0 +1,67 @@
+[
+  {
+    "id": "brand-facets",
+    "name": "brand-facets",
+    "paginated": false,
+    "columnMetadata": {
+      "facet_value": {
+        "name": "facet_value",
+        "columnType": "Text"
+      },
+      "facet_count": {
+        "name": "facet_count",
+        "columnType": "Number"
+      },
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text",
+        "filterable": true
+      }
+    }
+  },
+  {
+    "id": "price-facets",
+    "name": "price-facets",
+    "paginated": false,
+    "columnMetadata": {
+      "facet_value": {
+        "name": "facet_value",
+        "columnType": "Text"
+      },
+      "facet_count": {
+        "name": "facet_count",
+        "columnType": "Number"
+      },
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "brand": {
+        "name": "brand",
+        "columnType": "Text",
+        "filterable": true
+      }
+    }
+  },
+  {
+    "id": "rating-facets",
+    "name": "rating-facets",
+    "paginated": false,
+    "columnMetadata": {
+      "facet_value": {
+        "name": "facet_value",
+        "columnType": "Text"
+      },
+      "facet_count": {
+        "name": "facet_count",
+        "columnType": "Number"
+      },
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text",
+        "filterable": true
+      }
+    }
+  }
+]

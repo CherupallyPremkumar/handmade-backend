@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seller-catalog">
+
+    <!-- Search My Listings -->
+    <select id="search-my-listings" resultType="java.util.HashMap">
+        SELECT 
+            p.id as "id",
+            p.name as "name",
+            p.status as "status",
+            p.brand as "brand",
+            p.classification_id as "classification_id",
+            ia.total_quantity as "inventory_count",
+            ph.price as "current_price"
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        LEFT JOIN hm_inventory_availability ia ON ia.offer_id = o.id
+        LEFT JOIN hm_price_history ph ON ph.offer_id = o.id AND ph.effective_to IS NULL
+        WHERE o.seller_id = #{seller_id}
+        <if test="name != null">
+            AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="status != null">
+            AND p.status = #{status}
+        </if>
+        ${orderby}
+        ${pagination}
+    </select>
+
+    <select id="search-my-listings-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        WHERE o.seller_id = #{seller_id}
+        <if test="name != null">
+            AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="status != null">
+            AND p.status = #{status}
+        </if>
+    </select>
+
+    <!-- My Product Reviews -->
+    <select id="get-my-product-reviews" resultType="java.util.HashMap">
+        SELECT 
+            pr.id as "review_id",
+            p.name as "product_name",
+            pr.rating as "rating",
+            pr.comment as "comment",
+            pr.reviewer_name as "reviewer",
+            pr.created_at as "review_date"
+        FROM hm_product_review pr
+        JOIN hm_product p ON p.id = pr.product_id
+        JOIN hm_offer o ON o.product_id = p.id
+        WHERE o.seller_id = #{seller_id}
+        ORDER BY pr.created_at DESC
+        ${pagination}
+    </select>
+
+    <select id="get-my-product-reviews-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_product_review pr
+        JOIN hm_product p ON p.id = pr.product_id
+        JOIN hm_offer o ON o.product_id = p.id
+        WHERE o.seller_id = #{seller_id}
+    </select>
+
+</mapper>

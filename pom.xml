@@ -10,25 +10,12 @@
 
   <modules>
     <module>handmade-liquibase-management</module>
-    <module>handmade-app-core</module>
-    <module>handmade-event-management</module>
-    
-    <!-- Hierarchical Modules (11 High-Level Parents) -->
-    <module>handmade-platform-governance</module>
-    <module>handmade-catalog-product</module>
-    <module>handmade-seller-offer</module>
-    <module>handmade-inventory-logistics</module>
-    <module>handmade-customer-shopping</module>
-    <module>handmade-order-finance</module>
-    <module>handmade-promotion-pricing</module>
-    <module>handmade-analytics-search</module>
-    <module>handmade-content-localization</module>
-    <module>handmade-support-observability</module>
-    <module>handmade-integration</module>
-    
-    <!-- Keep these for now -->
+    <module>handmade-owiz-workflows</module>
+    <module>handmade-stm-management</module>
     <module>handmade-search-management</module>
     <module>handmade-app-boot</module>
+    <module>handmade-stm-configuration</module>
+    <module>handmade-entity-managemet</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>

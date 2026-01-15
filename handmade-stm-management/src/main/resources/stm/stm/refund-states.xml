@@ -1,0 +1,34 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Refund State Machine
+Purpose: Manage refunds raised from returns or service issues.
+Flow: REFUND_FLOW
+-->
+<states>
+    <event-information eventId='approveRefund'  eventName='Approve refund'  meta-acls="user.normal,user.admin"/>
+    <event-information eventId='rejectRefund'   eventName='Reject refund'   meta-acls="user.normal,user.admin"/>
+    <event-information eventId='initiateRefund' eventName='Initiate refund' meta-acls="user.normal,user.admin"/>
+    <event-information eventId='confirmRefund'  eventName='Confirm refund'  meta-acls="user.normal,user.admin"/>
+    <event-information eventId='failRefund'     eventName='Fail refund'     meta-acls="user.normal,user.admin"/>
+
+    <flow id="REFUND_FLOW" default="true">
+        <manual-state id="REQUESTED" initialState="true">
+            <on eventId="approveRefund" newStateId="APPROVED" componentName="refundApproveAction"/>
+            <on eventId="rejectRefund"  newStateId="REJECTED" componentName="refundRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="initiateRefund" newStateId="PROCESSING" componentName="refundPaymentAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="confirmRefund" newStateId="REFUNDED" componentName="refundSuccessAction"/>
+            <on eventId="failRefund"    newStateId="FAILED"   componentName="refundFailAction"/>
+        </manual-state>
+
+        <manual-state id="REFUNDED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="FAILED"   meta-endState="true"/>
+    </flow>
+</states>

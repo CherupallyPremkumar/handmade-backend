@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Permission State Machine
+Purpose: Manage lifecycle of IAM permissions from draft to deprecated.
+Flow: PERMISSION_FLOW
+Lifecycle: DRAFT -> ACTIVE -> DEPRECATED
+-->
+<states>
+    <!-- Permission Management Events -->
+    <event-information eventId="createPermission"      eventName="Create permission"      meta-acls="iam.admin"/>
+    <event-information eventId="activatePermission"    eventName="Activate permission"    meta-acls="iam.admin"/>
+    <event-information eventId="deprecatePermission"   eventName="Deprecate permission"   meta-acls="iam.admin"/>
+
+    <!--
+    Flow: PERMISSION_FLOW
+    Lifecycle: DRAFT -> ACTIVE -> DEPRECATED
+    -->
+    <flow id="PERMISSION_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activatePermission"   newStateId="ACTIVE"      componentName="permissionActivateAction"/>
+            <on eventId="deprecatePermission"  newStateId="DEPRECATED"  componentName="permissionDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deprecatePermission"  newStateId="DEPRECATED"  componentName="permissionDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

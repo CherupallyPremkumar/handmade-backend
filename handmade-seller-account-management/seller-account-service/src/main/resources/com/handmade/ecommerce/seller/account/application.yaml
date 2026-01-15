@@ -1,5 +1,0 @@
-
-stripe:
-    api_key:  ${STRIPE_API_KEY}
-    webhook_secret:   ${STRIPE_SECRET_KEY}
-    

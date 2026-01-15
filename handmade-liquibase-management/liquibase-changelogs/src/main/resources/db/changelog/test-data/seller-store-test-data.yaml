@@ -9,7 +9,7 @@ databaseChangeLog:
             columns:
               - column: {name: id, value: "store-001"}
               - column: {name: platform_id, value: "PLT-US-001"}
-              - column: {name: seller_account_id, value: "acc-001"}
+              - column: {name: seller_account_id, value: "SEL-001"}
               - column: {name: seller_code, value: "ARTISAN001"}
               - column: {name: seller_name, value: "Handcrafted Pottery Studio"}
               - column: {name: display_name, value: "Pottery Studio"}
@@ -29,7 +29,7 @@ databaseChangeLog:
             columns:
               - column: {name: id, value: "store-002"}
               - column: {name: platform_id, value: "PLT-US-001"}
-              - column: {name: seller_account_id, value: "acc-002"}
+              - column: {name: seller_account_id, value: "SEL-002"}
               - column: {name: seller_code, value: "HOMEMAKER001"}
               - column: {name: seller_name, value: "Organic Soap Creations"}
               - column: {name: display_name, value: "Organic Soaps"}

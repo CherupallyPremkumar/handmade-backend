@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Audit Process State Machine
+Purpose: Manage lifecycle of audit processes from initiation to publication.
+Flow: AUDIT_PROCESS_FLOW
+Lifecycle: INITIATED -> ASSIGNED -> IN_PROGRESS -> COMPLETED -> REVIEWED -> PUBLISHED
+-->
+<states>
+    <!-- Audit Process Events -->
+    <event-information eventId="initiateAudit"            eventName="Initiate audit"             meta-acls="audit.manager"/>
+    <event-information eventId="assignAuditor"            eventName="Assign auditor"             meta-acls="audit.manager"/>
+    <event-information eventId="completeAudit"            eventName="Complete audit"             meta-acls="auditor"/>
+    <event-information eventId="reviewAuditFindings"      eventName="Review audit findings"      meta-acls="audit.reviewer"/>
+    <event-information eventId="publishAuditReport"       eventName="Publish audit report"       meta-acls="audit.manager"/>
+
+    <!--
+    Flow: AUDIT_PROCESS_FLOW
+    Lifecycle: INITIATED -> ASSIGNED -> IN_PROGRESS -> COMPLETED -> REVIEWED -> PUBLISHED
+    -->
+    <flow id="AUDIT_PROCESS_FLOW" default="true">
+        <auto-state id="INITIATED" initialState="true">
+            <on eventId="assignAuditor"            newStateId="ASSIGNED"    componentName="auditAssignAuditorAction"/>
+        </auto-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="initiateAudit"            newStateId="IN_PROGRESS" componentName="auditStartAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="completeAudit"            newStateId="COMPLETED"   componentName="auditCompleteAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED">
+            <on eventId="reviewAuditFindings"      newStateId="REVIEWED"    componentName="auditReviewFindingsAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEWED">
+            <on eventId="publishAuditReport"       newStateId="PUBLISHED"   componentName="auditPublishReportAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED" meta-endState="true"/>
+    </flow>
+</states>

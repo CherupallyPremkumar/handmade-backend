@@ -24,7 +24,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: target_price
-                  type: decimal(19,4)
+                  type: "DECIMAL(19, 4)"
                   constraints:
                     nullable: false
               - column:
@@ -35,11 +35,7 @@ databaseChangeLog:
                   name: alert_type
                   type: varchar(50)
                   defaultValue: PRICE_DROP
-              - column:
-                  name: status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
+
               - column:
                   name: created_at
                   type: timestamp
@@ -54,6 +50,30 @@ databaseChangeLog:
               - column:
                   name: expires_at
                   type: timestamp
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -82,7 +102,7 @@ databaseChangeLog:
               - column:
                   name: customer_id
               - column:
-                  name: status
+                  name: state_id
         
         - createIndex:
             indexName: idx_price_alert_product
@@ -91,4 +111,4 @@ databaseChangeLog:
               - column:
                   name: product_id
               - column:
-                  name: status
+                  name: state_id

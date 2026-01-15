@@ -6,12 +6,20 @@ databaseChangeLog:
         - createTable:
             tableName: hm_currency
             columns:
+              # Primary Key (matches BaseJpaEntity)
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              # Business key - currency code
               - column:
                   name: currency_code
                   type: varchar(3)
                   constraints:
-                    primaryKey: true
                     nullable: false
+                    unique: true
               - column:
                   name: name
                   type: varchar(50)
@@ -25,7 +33,7 @@ databaseChangeLog:
                   name: is_active
                   type: boolean
                   defaultValueBoolean: true
-              # BaseJpaEntity
+              # BaseJpaEntity audit fields
               - column:
                   name: created_time
                   type: timestamp

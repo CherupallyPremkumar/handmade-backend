@@ -8,16 +8,49 @@ databaseChangeLog:
         - createTable:
             tableName: hm_role_permission
             columns:
-              - column: { name: role_id, type: VARCHAR(36), constraints: { nullable: false } }
-              - column: { name: permission_id, type: VARCHAR(36), constraints: { nullable: false } }
-              # BaseJpaEntity (Join tables also benefit from auditing)
-              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
-              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
-              - column: { name: last_modified_by, type: VARCHAR(255) }
-              - column: { name: created_by, type: VARCHAR(255) }
-              - column: { name: tenant, type: VARCHAR(255) }
-              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+              # Primary Key (matches BaseJpaEntity)
+              - column: 
+                  name: id
+                  type: VARCHAR(36)
+                  constraints: 
+                    primaryKey: true
+                    nullable: false
+              # Foreign key columns
+              - column: 
+                  name: role_id
+                  type: VARCHAR(36)
+                  constraints: 
+                    nullable: false
+              - column: 
+                  name: permission_id
+                  type: VARCHAR(36)
+                  constraints: 
+                    nullable: false
+              # BaseJpaEntity audit fields
+              - column: 
+                  name: created_time
+                  type: TIMESTAMP
+                  defaultValueComputed: "CURRENT_TIMESTAMP"
+              - column: 
+                  name: last_modified_time
+                  type: TIMESTAMP
+                  defaultValueComputed: "CURRENT_TIMESTAMP"
+              - column: 
+                  name: last_modified_by
+                  type: VARCHAR(255)
+              - column: 
+                  name: created_by
+                  type: VARCHAR(255)
+              - column: 
+                  name: tenant
+                  type: VARCHAR(255)
+              - column: 
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
         
-        - addPrimaryKey:
+        # Unique constraint on role_id + permission_id
+        - addUniqueConstraint:
             tableName: hm_role_permission
             columnNames: role_id, permission_id
+            constraintName: uk_role_permission

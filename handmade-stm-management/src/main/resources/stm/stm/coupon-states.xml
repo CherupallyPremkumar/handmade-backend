@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Coupon Definitions -->
+    <event-information eventId='activate' eventName='Activate coupon'
+                       meta-bodyType="com.handmade.ecommerce.promotion.dto.CouponPayload"/>
+    <event-information eventId='expire' eventName='Expire coupon'/>
+    <event-information eventId='redeem' eventName='Redeem coupon'
+                       meta-bodyType="com.handmade.ecommerce.promotion.dto.CouponPayload"/>
+    <event-information eventId='cancel' eventName='Cancel coupon'/>
+
+    <!-- Coupon Flow -->
+    <flow id="couponFlow" default="true">
+
+        <!-- ISSUED (Initial State) -->
+        <manual-state id="ISSUED" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateCouponAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="cancelCouponAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="defaultCouponSTMAction"/>
+        </manual-state>
+
+        <!-- ACTIVE -->
+        <manual-state id="ACTIVE">
+            <on eventId="redeem" newStateId="ACTIVE" componentName="redeemCouponAction"/> <!-- Self-loop for multiple uses -->
+            <on eventId="expire" newStateId="EXPIRED" componentName="defaultCouponSTMAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="cancelCouponAction"/>
+        </manual-state>
+
+        <!-- REDEEMED (Final state for single-use) -->
+        <manual-state id="REDEEMED" meta-endState="true"/>
+
+        <!-- EXPIRED (Final State) -->
+        <manual-state id="EXPIRED" meta-endState="true"/>
+
+        <!-- CANCELLED (Final State) -->
+        <manual-state id="CANCELLED" meta-endState="true"/>
+
+    </flow>
+
+</states>

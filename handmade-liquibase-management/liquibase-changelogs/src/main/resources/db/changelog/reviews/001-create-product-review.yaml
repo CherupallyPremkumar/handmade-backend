@@ -15,9 +15,17 @@ databaseChangeLog:
               - column: { name: title, type: VARCHAR(255) }
               - column: { name: review_text, type: TEXT }
               - column: { name: is_verified_purchase, type: BOOLEAN, defaultValueBoolean: false }
-              - column: { name: status, type: VARCHAR(20), defaultValue: "PENDING" } # PENDING, APPROVED, REJECTED
+
               - column: { name: helpful_votes, type: INT, defaultValueNumeric: 0 }
               - column: { name: images_json, type: TEXT }
+              # AbstractJpaStateEntity (STM)
+              - column: { name: flow_id, type: VARCHAR(255) }
+              - column: { name: state_id, type: VARCHAR(255) }
+              - column: { name: state_entry_time, type: TIMESTAMP }
+              - column: { name: sla_yellow_date, type: TIMESTAMP }
+              - column: { name: sla_red_date, type: TIMESTAMP }
+              - column: { name: sla_tending_late, type: INT, defaultValueNumeric: 0 }
+              - column: { name: sla_late, type: INT, defaultValueNumeric: 0 }
               # BaseJpaEntity
               - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
               - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
@@ -37,3 +45,20 @@ databaseChangeLog:
             indexName: idx_review_customer
             columns:
               - column: { name: customer_id }
+
+  - changeSet:
+      id: 2
+      author: trust-safety
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_review
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_review_product
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_review
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_review_customer

@@ -30,3 +30,20 @@ databaseChangeLog:
             tableName: hm_product_review_vote
             columnNames: review_id, customer_id
             constraintName: uq_vote_review_customer
+
+  - changeSet:
+      id: 2
+      author: trust-safety
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_review_vote
+            baseColumnNames: review_id
+            referencedTableName: hm_product_review
+            referencedColumnNames: id
+            constraintName: fk_review_vote_review
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_review_vote
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_review_vote_customer

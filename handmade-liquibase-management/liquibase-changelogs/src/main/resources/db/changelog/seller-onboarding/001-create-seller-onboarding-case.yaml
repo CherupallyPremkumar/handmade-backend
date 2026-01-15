@@ -34,11 +34,7 @@ databaseChangeLog:
               - column:
                   name: phone_number
                   type: varchar(50)
-              - column:
-                  name: onboarding_status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
+
               - column:
                   name: current_step
                   type: varchar(100)
@@ -69,7 +65,7 @@ databaseChangeLog:
               - column:
                   name: rejection_reason
                   type: text
-              # AbstractJpaStateEntity (Chenile STM)
+              # AbstractJpaStateEntity (STM)
               - column:
                   name: flow_id
                   type: varchar(255)
@@ -126,4 +122,4 @@ databaseChangeLog:
             tableName: hm_seller_onboarding_case
             columns:
               - column:
-                  name: onboarding_status
+                  name: state_id

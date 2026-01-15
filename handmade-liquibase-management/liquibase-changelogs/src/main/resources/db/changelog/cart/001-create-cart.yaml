@@ -20,12 +20,7 @@ databaseChangeLog:
               - column:
                   name: session_id
                   type: varchar(255)
-              - column:
-                  name: status
-                  type: varchar(50)
-                  defaultValue: ACTIVE
-                  constraints:
-                    nullable: false
+
               - column:
                   name: subtotal_amount
                   type: decimal(19,4)
@@ -66,6 +61,30 @@ databaseChangeLog:
               - column:
                   name: conversion_date
                   type: timestamp
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -94,7 +113,7 @@ databaseChangeLog:
               - column:
                   name: customer_id
               - column:
-                  name: status
+                  name: state_id
         
         - createIndex:
             indexName: idx_cart_session
@@ -102,3 +121,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: session_id
+
+  - changeSet:
+      id: 2
+      author: cart-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_cart
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_cart_customer

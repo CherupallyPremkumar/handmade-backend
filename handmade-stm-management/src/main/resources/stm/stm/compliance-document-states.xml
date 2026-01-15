@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Compliance Document Verification Flow -->
+    <flow id="complianceDocumentFlow" default="true">
+
+        <manual-state id="UPLOADED" initialState="true">
+            <on eventId="submit_review" newStateId="UNDER_REVIEW" componentName="submitDocAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="verify" newStateId="VERIFIED" componentName="verifyDocAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectDocAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFIED">
+             <on eventId="expire" newStateId="EXPIRED" componentName="expireDocAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED">
+            <on eventId="reupload" newStateId="UPLOADED" componentName="reuploadDocAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED">
+            <on eventId="renew" newStateId="UPLOADED" componentName="renewDocAction"/>
+        </manual-state>
+
+    </flow>
+    
+</states>

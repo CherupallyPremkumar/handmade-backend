@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin-marketplace-health">
+
+    <!-- Overall Marketplace Stats -->
+    <select id="admin-marketplace-stats" resultType="java.util.HashMap">
+        SELECT 
+            'SELLERS' as "metric_type",
+            stateId as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_seller_account
+        GROUP BY stateId
+        
+        UNION ALL
+        
+        SELECT 
+            'PRODUCTS' as "metric_type",
+            'TOTAL' as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_product
+        
+        UNION ALL
+        
+        SELECT 
+            'ORDERS' as "metric_type",
+            status as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_order
+        WHERE created_at &gt;= DATEADD('DAY', -30, CURRENT_TIMESTAMP())
+        GROUP BY status
+    </select>
+
+    <!-- Category Health: Product Distribution -->
+    <select id="admin-category-health" resultType="java.util.HashMap">
+        SELECT 
+            bn.id as "node_id",
+            bn.name as "node_name",
+            COUNT(pbn.product_id) as "product_count"
+        FROM hm_browse_node bn
+        LEFT JOIN hm_product_browse_node pbn ON pbn.browse_node_id = bn.id
+        GROUP BY bn.id, bn.name
+        ORDER BY product_count ASC
+    </select>
+
+    <!-- Count queries for Chenile framework -->
+    <select id="admin-marketplace-stats-count" resultType="int">
+        SELECT 0
+    </select>
+
+    <select id="admin-category-health-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_browse_node
+    </select>
+
+</mapper>

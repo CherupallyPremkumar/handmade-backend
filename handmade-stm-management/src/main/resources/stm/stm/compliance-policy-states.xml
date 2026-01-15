@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Compliance Policy State Machine
+Purpose: Manage lifecycle of compliance policies from draft to active/deprecated.
+Flow: COMPLIANCE_POLICY_FLOW
+Lifecycle: DRAFT -> REVIEW -> APPROVED -> ACTIVE -> DEPRECATED
+-->
+<states>
+    <!-- Compliance Policy Events -->
+    <event-information eventId="createCompliancePolicy"   eventName="Create compliance policy"    meta-acls="compliance.admin"/>
+    <event-information eventId="submitForReview"         eventName="Submit for review"          meta-acls="compliance.officer"/>
+    <event-information eventId="approvePolicy"           eventName="Approve policy"             meta-acls="compliance.governance"/>
+    <event-information eventId="rejectPolicy"            eventName="Reject policy"              meta-acls="compliance.governance"/>
+    <event-information eventId="activateCompliancePolicy" eventName="Activate compliance policy" meta-acls="compliance.governance"/>
+    <event-information eventId="deprecatePolicy"         eventName="Deprecate policy"           meta-acls="compliance.admin"/>
+
+    <!--
+    Flow: COMPLIANCE_POLICY_FLOW
+    Lifecycle: DRAFT -> REVIEW -> ACTIVE -> DEPRECATED
+    -->
+    <flow id="COMPLIANCE_POLICY_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submitForReview"         newStateId="REVIEW"      componentName="compliancePolicySubmitReviewAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approvePolicy"           newStateId="APPROVED"    componentName="compliancePolicyApproveAction"/>
+            <on eventId="rejectPolicy"            newStateId="REJECTED"    componentName="compliancePolicyRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activateCompliancePolicy" newStateId="ACTIVE"      componentName="compliancePolicyActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deprecatePolicy"         newStateId="DEPRECATED"  componentName="compliancePolicyDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED"    meta-endState="true"/>
+        <manual-state id="DEPRECATED"  meta-endState="true"/>
+    </flow>
+</states>

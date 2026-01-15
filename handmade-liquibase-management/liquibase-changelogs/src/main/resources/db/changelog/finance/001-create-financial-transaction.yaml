@@ -26,7 +26,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: amount
-                  type: decimal(19, 4)
+                  type: "DECIMAL(19, 4)"
                   constraints:
                     nullable: false
               - column:
@@ -34,10 +34,6 @@ databaseChangeLog:
                   type: varchar(3)
                   constraints:
                     nullable: false
-              - column:
-                  name: status
-                  type: varchar(50)
-                  # PENDING, SETTLED, FAILED
               - column:
                   name: reference_type
                   type: varchar(50)
@@ -51,6 +47,30 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                       nullable: false
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -77,3 +97,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: seller_id
+
+  - changeSet:
+      id: 2
+      author: finance-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_transaction
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_fin_transaction_seller

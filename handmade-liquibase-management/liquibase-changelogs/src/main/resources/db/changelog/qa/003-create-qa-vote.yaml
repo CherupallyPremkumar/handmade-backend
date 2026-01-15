@@ -74,3 +74,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: customer_id
+
+  - changeSet:
+      id: 4
+      author: qa-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_qa_vote
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_qa_vote_customer
+        - addForeignKeyConstraint:
+            baseTableName: hm_qa_vote
+            baseColumnNames: question_id
+            referencedTableName: hm_product_question
+            referencedColumnNames: id
+            constraintName: fk_qa_vote_question
+        - addForeignKeyConstraint:
+            baseTableName: hm_qa_vote
+            baseColumnNames: answer_id
+            referencedTableName: hm_product_answer
+            referencedColumnNames: id
+            constraintName: fk_qa_vote_answer

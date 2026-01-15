@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Seller KYC State Machine
+Purpose: Manage seller identity verification lifecycle.
+Flow: SELLER_KYC_FLOW
+-->
+<states>
+    <event-information eventId='submitKyc'        eventName='Submit KYC'        meta-acls="seller.self,seller.support"/>
+    <event-information eventId='startReview'      eventName='Start review'      meta-acls="seller.support,kyc.ops"/>
+    <event-information eventId='requestInfo'      eventName='Request info'      meta-acls="kyc.ops"/>
+    <event-information eventId='resubmitInfo'     eventName='Resubmit info'     meta-acls="seller.self"/>
+    <event-information eventId='verifyKyc'        eventName='Verify kyc'        meta-acls="kyc.ops"/>
+    <event-information eventId='rejectKyc'        eventName='Reject kyc'        meta-acls="kyc.ops"/>
+    <event-information eventId='revokeVerification' eventName='Revoke verification' meta-acls="kyc.ops"/>
+
+    <flow id="SELLER_KYC_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submitKyc" newStateId="SUBMITTED" componentName="kycSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="SUBMITTED">
+            <on eventId="startReview" newStateId="IN_REVIEW" componentName="kycStartReviewAction"/>
+        </manual-state>
+
+        <manual-state id="IN_REVIEW">
+            <on eventId="verifyKyc"   newStateId="VERIFIED"      componentName="kycVerifyAction"/>
+            <on eventId="rejectKyc"   newStateId="REJECTED"      componentName="kycRejectAction"/>
+            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="kycRequestInfoAction"/>
+        </manual-state>
+
+        <manual-state id="INFO_REQUESTED">
+            <on eventId="resubmitInfo" newStateId="IN_REVIEW" componentName="kycResubmitAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFIED">
+            <on eventId="revokeVerification" newStateId="REVOKED" componentName="kycRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="REVOKED"  meta-endState="true"/>
+    </flow>
+</states>

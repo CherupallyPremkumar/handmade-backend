@@ -1,0 +1,13 @@
+[
+  {
+    "id": "search-brands",
+    "name": "search-brands",
+    "paginated": false,
+    "columnMetadata": {
+      "brand": {
+        "name": "brand",
+        "columnType": "Text"
+      }
+    }
+  }
+]

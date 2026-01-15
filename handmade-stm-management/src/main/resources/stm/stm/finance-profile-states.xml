@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce FinanceProfile State Machine (Flipkart-style)
+Purpose: Manage seller finance / payout profile readiness.
+Flow: FINANCE_PROFILE_FLOW
+Lifecycle (high level):
+INIT -> BANK_LINKED -> TAX_VERIFIED -> READY -> DISABLED
+-->
+<states>
+    <!-- Finance profile events -->
+    <event-information eventId='create-profile'
+                       eventName='Create finance profile'
+                       meta-acls="finance.ops"
+                       meta-bodyType='com.handmade.ecommerce.finance.dto.CreateFinanceProfilePayload'/>
+
+    <event-information eventId='link-bank'
+                       eventName='Link bank account'
+                       meta-acls="finance.ops,payment.ops"
+                       meta-bodyType='com.handmade.ecommerce.finance.dto.LinkBankPayload'/>
+
+    <event-information eventId='verify-tax'
+                       eventName='Verify tax information'
+                       meta-acls="finance.ops,tax.ops"
+                       meta-bodyType='com.handmade.ecommerce.finance.dto.VerifyTaxPayload'/>
+
+    <event-information eventId='mark-ready'
+                       eventName='Mark finance profile ready'
+                       meta-acls="finance.ops"
+                       meta-bodyType='com.handmade.ecommerce.finance.dto.MarkFinanceReadyPayload'/>
+
+    <event-information eventId='disable-profile'
+                       eventName='Disable finance profile'
+                       meta-acls="finance.ops,risk.ops"
+                       meta-bodyType='com.handmade.ecommerce.finance.dto.DisableFinanceProfilePayload'/>
+
+    <flow id="FINANCE_PROFILE_FLOW" default="false">
+        <!-- Profile just created, no bank/tax linked yet -->
+        <manual-state id="INIT" initialState="true">
+            <on eventId="linkBank" newStateId="BANK_LINKED" componentName="linkBankAction"/>
+        </manual-state>
+
+        <!-- Bank account is linked but tax not verified yet -->
+        <manual-state id="BANK_LINKED">
+            <on eventId="verifyTax" newStateId="TAX_VERIFIED" componentName="verifyTaxAction"/>
+            <on eventId="disableProfile" newStateId="DISABLED" componentName="disableFinanceProfileAction"/>
+        </manual-state>
+
+        <!-- Bank + tax done, waiting for final READY mark -->
+        <manual-state id="TAX_VERIFIED">
+            <on eventId="markReady" newStateId="READY" componentName="markFinanceReadyAction"/>
+            <on eventId="disableProfile" newStateId="DISABLED" componentName="disableFinanceProfileAction"/>
+        </manual-state>
+
+        <!-- Ready for payouts -->
+        <manual-state id="READY" meta-endState="true">
+            <on eventId="disableProfile" newStateId="DISABLED" componentName="disableFinanceProfileAction"/>
+        </manual-state>
+
+        <!-- Disabled / blocked finance profile -->
+        <manual-state id="DISABLED" meta-endState="true"/>
+    </flow>
+</states>

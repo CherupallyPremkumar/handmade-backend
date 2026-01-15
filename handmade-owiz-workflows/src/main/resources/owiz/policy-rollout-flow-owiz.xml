@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Policy definition rollout orchestration that drives POLICY_DEFINITION_FLOW STM.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: POLICY_ROLLOUT_FLOW
+    Trigger: CREATE_OR_UPDATE_POLICY
+
+    Expected STM (POLICY_DEFINITION_FLOW):
+    DRAFT -> REVIEW -> READY_FOR_ACTIVATION -> ACTIVE -> DEPRECATED / REJECTED
+    -->
+    <flow id="POLICY_ROLLOUT_FLOW" triggerEvent="CREATE_OR_UPDATE_POLICY">
+        <!-- Persist policy changes and keep STM in DRAFT -->
+        <command id="savePolicyDraft" componentName="policyDraftService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Submit for governance review (fires 'submit_review') -->
+        <command id="submitForReview" componentName="policySubmitForReviewService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Run automated checks / simulations and then approve or reject -->
+        <command id="evaluatePolicy" componentName="policyEvaluationService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Activate policy in the engine (fires 'activate_policy') and optionally deprecate older versions -->
+        <command id="activatePolicy" componentName="policyActivateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+    </flow>
+</flows>

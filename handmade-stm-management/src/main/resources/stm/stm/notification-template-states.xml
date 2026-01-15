@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Notification Template State Machine
+Purpose: Manage lifecycle of notification templates from draft to deprecated.
+Flow: NOTIFICATION_TEMPLATE_FLOW
+Lifecycle: DRAFT -> TESTING -> ACTIVE -> DEPRECATED
+-->
+<states>
+    <!-- Notification Template Events -->
+    <event-information eventId="createTemplate"     eventName="Create template"     meta-acls="notification.admin"/>
+    <event-information eventId="activateTemplate"   eventName="Activate template"   meta-acls="notification.admin"/>
+    <event-information eventId="deprecateTemplate"  eventName="Deprecate template"  meta-acls="notification.admin"/>
+    <event-information eventId="testTemplate"       eventName="Test template"       meta-acls="notification.manager"/>
+
+    <!--
+    Flow: NOTIFICATION_TEMPLATE_FLOW
+    Lifecycle: DRAFT -> TESTING -> ACTIVE -> DEPRECATED
+    -->
+    <flow id="NOTIFICATION_TEMPLATE_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activateTemplate"   newStateId="ACTIVE"      componentName="notificationTemplateActivateAction"/>
+            <on eventId="testTemplate"       newStateId="TESTING"     componentName="notificationTemplateTestAction"/>
+        </manual-state>
+
+        <manual-state id="TESTING">
+            <on eventId="activateTemplate"   newStateId="ACTIVE"      componentName="notificationTemplateActivateAction"/>
+            <on eventId="testTemplate"       newStateId="TESTING"     componentName="notificationTemplateTestAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deprecateTemplate"  newStateId="DEPRECATED"  componentName="notificationTemplateDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce SellerStore State Machine
+Purpose: Manage marketplace store lifecycle.
+Flow: SELLER_STORE_FLOW
+-->
+<states>
+    <event-information eventId='submitStore'      eventName='Submit store for approval' meta-acls="seller.self"/>
+    <event-information eventId='approveStore'     eventName='Approve store'             meta-acls="seller.ops"/>
+    <event-information eventId='rejectStore'      eventName='Reject store'              meta-acls="seller.ops"/>
+    <event-information eventId='goLive'           eventName='Go live'                   meta-acls="seller.ops"/>
+    <event-information eventId='enterMaintenance' eventName='Enter maintenance'         meta-acls="seller.self,seller.ops"/>
+    <event-information eventId='resumeStore'      eventName='Resume store'              meta-acls="seller.self,seller.ops"/>
+    <event-information eventId='suspendStore'     eventName='Suspend store'             meta-acls="seller.ops"/>
+    <event-information eventId='closeStore'       eventName='Close store'               meta-acls="seller.ops"/>
+
+    <flow id="SELLER_STORE_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submitStore" newStateId="PENDING_APPROVAL" componentName="storeSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING_APPROVAL">
+            <on eventId="approveStore" newStateId="APPROVED" componentName="storeApproveAction"/>
+            <on eventId="rejectStore"  newStateId="REJECTED" componentName="storeRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="goLive" newStateId="LIVE" componentName="storeGoLiveAction"/>
+        </manual-state>
+
+        <manual-state id="LIVE">
+            <on eventId="enterMaintenance" newStateId="MAINTENANCE" componentName="storeEnterMaintenanceAction"/>
+            <on eventId="suspendStore"     newStateId="SUSPENDED"   componentName="storeSuspendAction"/>
+            <on eventId="closeStore"       newStateId="CLOSED"      componentName="storeCloseAction"/>
+        </manual-state>
+
+        <manual-state id="MAINTENANCE">
+            <on eventId="resumeStore" newStateId="LIVE" componentName="storeExitMaintenanceAction"/>
+            <on eventId="closeStore"  newStateId="CLOSED" componentName="storeCloseAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="resumeStore" newStateId="LIVE" componentName="storeExitMaintenanceAction"/>
+            <on eventId="closeStore"  newStateId="CLOSED" componentName="storeCloseAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="CLOSED"   meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "search-my-orders",
+    "name": "search-my-orders",
+    "paginated": true,
+    "sortable": true,
+    "columnMetadata": {
+      "order_id": { "name": "order_id", "columnType": "Text", "filterable": true },
+      "customer_name": { "name": "customer_name", "columnType": "Text" },
+      "order_status": { "name": "order_status", "columnType": "Text", "filterable": true },
+      "total_revenue": { "name": "total_revenue", "columnType": "Number" },
+      "order_date": { "name": "order_date", "columnType": "Date" },
+      "shipment_status": { "name": "shipment_status", "columnType": "Text" },
+      "tracking_id": { "name": "tracking_id", "columnType": "Text" },
+      "seller_id": { "name": "seller_id", "columnType": "Text", "filterable": true, "display": false }
+    }
+  }
+]

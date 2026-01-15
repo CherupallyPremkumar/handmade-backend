@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Order State Machine (Flipkart-style)
+Purpose: Manage the full lifecycle of customer orders.
+Flow: ORDER_FLOW
+Lifecycle:
+CREATED -> CONFIRMED -> PACKED -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED
+with side branches to CANCELLED and RETURN_REQUESTED.
+-->
+<states>
+    <!-- Event definitions -->
+    <event-information eventId='placeOrder'
+                       eventName='Place order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='confirmOrder'
+                       eventName='Confirm order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='packOrder'
+                       eventName='Pack order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='shipOrder'
+                       eventName='Ship order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='outForDelivery'
+                       eventName='Out for delivery'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='deliverOrder'
+                       eventName='Deliver order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='cancelOrder'
+                       eventName='Cancel order'
+                       meta-acls="user.normal,user.admin"/>
+    <event-information eventId='requestReturn'
+                       eventName='Request return'
+                       meta-acls="user.normal,user.admin"/>
+
+    <flow id="ORDER_FLOW" default="true">
+        <!-- New order just created, payment may or may not be complete yet -->
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="confirmOrder" newStateId="CONFIRMED" componentName="orderConfirmAction"/>
+            <on eventId="cancelOrder" newStateId="CANCELLED" componentName="orderCancelAction"/>
+        </manual-state>
+
+        <!-- Payment successful and seller has confirmed -->
+        <manual-state id="CONFIRMED">
+            <on eventId="packOrder" newStateId="PACKED" componentName="orderPackAction"/>
+            <on eventId="cancelOrder" newStateId="CANCELLED" componentName="orderCancelAction"/>
+        </manual-state>
+
+        <!-- Warehouse finished packing -->
+        <manual-state id="PACKED">
+            <on eventId="shipOrder" newStateId="SHIPPED" componentName="orderShipAction"/>
+            <!-- Some platforms still allow cancellation until handover to carrier -->
+            <on eventId="cancelOrder" newStateId="CANCELLED" componentName="orderCancelAction"/>
+        </manual-state>
+
+        <!-- Parcel handed over to carrier -->
+        <manual-state id="SHIPPED">
+            <on eventId="outForDelivery" newStateId="OUT_FOR_DELIVERY" componentName="orderOutForDeliveryAction"/>
+        </manual-state>
+
+        <!-- Last mile in progress -->
+        <manual-state id="OUT_FOR_DELIVERY">
+            <on eventId="deliverOrder" newStateId="DELIVERED" componentName="orderCompleteAction"/>
+        </manual-state>
+
+        <!-- Delivered to customer -->
+        <manual-state id="DELIVERED" meta-endState="true">
+            <!-- Return flows are modeled in RETURN_REQUEST_FLOW but we mark intent here -->
+            <on eventId="requestReturn" newStateId="RETURN_REQUESTED" componentName="orderReturnRequestAction"/>
+        </manual-state>
+
+        <!-- Order where customer has raised a return; actual logistics in ReturnRequest STM -->
+        <manual-state id="RETURN_REQUESTED" meta-endState="true"/>
+
+        <!-- Cancelled at any pre-delivery stage -->
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

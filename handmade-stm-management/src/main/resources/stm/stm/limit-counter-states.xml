@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <!-- Limit Counter Lifecycle -->
+    <flow id="limitCounterFlow" default="true">
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="limitSuspendAction"/>
+            <on eventId="exceed" newStateId="EXCEEDED" componentName="limitExceedAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="limitReactivateAction"/>
+        </manual-state>
+
+        <manual-state id="EXCEEDED">
+            <on eventId="reset" newStateId="ACTIVE" componentName="limitResetAction"/>
+        </manual-state>
+    </flow>
+</states>

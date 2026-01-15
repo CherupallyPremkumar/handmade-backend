@@ -34,10 +34,30 @@ databaseChangeLog:
               - column:
                   name: expiry_date
                   type: timestamp
+              # AbstractJpaStateEntity (STM)
               - column:
-                  name: status
-                  type: varchar(50)
-                  # ACTIVE, REDEEMED, EXPIRED
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time

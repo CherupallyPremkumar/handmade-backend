@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Product Answer Definitions -->
+    <event-information eventId='approve' eventName='Approve answer'
+                       meta-acls="qa.moderator"/>
+    <event-information eventId='reject' eventName='Reject answer'
+                       meta-acls="qa.moderator"/>
+    <event-information eventId='restore' eventName='Restore rejected answer'
+                       meta-acls="qa.moderator"/>
+
+    <!-- Product Answer Flow -->
+    <flow id="answerFlow" default="true">
+
+        <!-- PENDING (Initial State) -->
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="approve" newStateId="APPROVED" componentName="approveAnswerAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectAnswerAction"/>
+        </manual-state>
+
+        <!-- APPROVED (Publicly visible) -->
+        <manual-state id="APPROVED">
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectAnswerAction"/> <!-- If re-moderated -->
+        </manual-state>
+
+        <!-- REJECTED (Final state unless restored) -->
+        <manual-state id="REJECTED">
+            <on eventId="restore" newStateId="PENDING" componentName="restoreAnswerAction"/>
+        </manual-state>
+
+    </flow>
+
+</states>

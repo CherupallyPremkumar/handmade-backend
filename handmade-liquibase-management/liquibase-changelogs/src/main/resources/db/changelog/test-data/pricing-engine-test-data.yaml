@@ -16,13 +16,13 @@ databaseChangeLog:
               - column: { name: owner_service, value: "marketing-service" }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
 
-        # 2. Condition: Storewide (Empty or specific condition)
+        # 2. Condition: Region-specific (US)
         - insert:
             tableName: hm_pricing_rule_condition
             columns:
               - column: { name: id, value: "COND-001" }
               - column: { name: rule_id, value: "RULE-PRICE-001" }
-              - column: { name: condition_json, value: '{"cart_total_min": 0}' }
+              - column: { name: condition_json, value: '{"region": "US"}' }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
 
         # 3. Action: 10% Off

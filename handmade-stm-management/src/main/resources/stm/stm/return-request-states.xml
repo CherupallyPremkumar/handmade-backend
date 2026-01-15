@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce ReturnRequest State Machine
+Purpose: Manage customer returns from request to closure, decoupled from refund.
+Flow: RETURN_REQUEST_FLOW
+-->
+<states>
+    <event-information eventId='approveReturn'  eventName='Approve return'  meta-acls="user.normal,user.admin"/>
+    <event-information eventId='rejectReturn'   eventName='Reject return'   meta-acls="user.normal,user.admin"/>
+    <event-information eventId='schedulePickup' eventName='Schedule pickup' meta-acls="user.normal,user.admin"/>
+    <event-information eventId='pickupComplete' eventName='Pickup complete' meta-acls="user.normal,user.admin"/>
+    <event-information eventId='receiveItem'    eventName='Receive item'    meta-acls="user.normal,user.admin"/>
+    <event-information eventId='closeReturn'    eventName='Close return'    meta-acls="user.normal,user.admin"/>
+
+    <flow id="RETURN_REQUEST_FLOW" default="true">
+        <!-- Customer has just requested a return -->
+        <manual-state id="REQUESTED" initialState="true">
+            <on eventId="approveReturn" newStateId="APPROVED" componentName="returnApproveAction"/>
+            <on eventId="rejectReturn"  newStateId="REJECTED" componentName="returnRejectAction"/>
+        </manual-state>
+
+        <!-- Approved and waiting for pickup scheduling -->
+        <manual-state id="APPROVED">
+            <on eventId="schedulePickup" newStateId="PICKUP_SCHEDULED" componentName="returnSchedulePickupAction"/>
+        </manual-state>
+
+        <manual-state id="PICKUP_SCHEDULED">
+            <on eventId="pickupComplete" newStateId="IN_TRANSIT_TO_FC" componentName="returnPickupCompleteAction"/>
+        </manual-state>
+
+        <!-- Goods travelling back to fulfilment center -->
+        <manual-state id="IN_TRANSIT_TO_FC">
+            <on eventId="receiveItem" newStateId="RECEIVED" componentName="returnReceiveAction"/>
+        </manual-state>
+
+        <!-- Item received and inspected; refund handled by Refund STM -->
+        <manual-state id="RECEIVED">
+            <on eventId="closeReturn" newStateId="CLOSED" componentName="returnCloseAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED"   meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

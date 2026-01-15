@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Financial Transaction Lifecycle -->
+    <flow id="financialTransactionFlow" default="true">
+
+        <manual-state id="INITIATED" initialState="true">
+            <on eventId="process" newStateId="PENDING" componentName="processTransactionAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="completeTransactionAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failTransactionAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED"/>
+        <manual-state id="FAILED"/>
+
+    </flow>
+    
+</states>

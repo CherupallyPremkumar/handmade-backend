@@ -6,7 +6,7 @@
         SELECT 
             s.business_name as "businessName",
             s.email as "email",
-            s.state_id as "state",
+            s.stateId as "state",
             s.platform_id as "platformId",
             s.created_time as "joinedDate",
             s.verified as "verified",

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Platform bootstrap orchestration that drives PLATFORM_FLOW STM.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: PLATFORM_BOOTSTRAP_FLOW
+    Trigger: CREATE_PLATFORM
+
+    Expected STM (PLATFORM_FLOW):
+    DRAFT -> ACTIVE / READ_ONLY / SUSPENDED -> DECOMMISSIONED
+    -->
+    <flow id="PLATFORM_BOOTSTRAP_FLOW" triggerEvent="CREATE_PLATFORM">
+        <!-- Create platform entity and fire activate_platform STM event -->
+        <command id="createPlatform" componentName="platformCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Bootstrap default policies, limits, and configurations for this platform -->
+        <parallel id="bootstrapConfig">
+            <command id="bootstrapPolicies" componentName="platformPolicyBootstrapService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+            <command id="bootstrapLimits"   componentName="platformLimitsBootstrapService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+            <command id="bootstrapCatalog"  componentName="platformCatalogBootstrapService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+        </parallel>
+
+        <!-- Notify governance / ops about new platform creation -->
+        <command id="notifyPlatformCreated" componentName="platformNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+    </flow>
+</flows>

@@ -21,10 +21,6 @@ databaseChangeLog:
                   name: customer_id
                   type: varchar(36)
               - column:
-                  name: status
-                  type: varchar(50)
-                  # PENDING_APPROVAL, APPROVED, REJECTED, COMPLETED
-              - column:
                   name: return_reason
                   type: varchar(50)
                   # DEFECTIVE, WRONG_ITEM, NO_LONGER_NEEDED
@@ -41,6 +37,20 @@ databaseChangeLog:
               - column:
                   name: state_entry_time
                   type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time

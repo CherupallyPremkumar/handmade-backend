@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Payment Capture Definitions -->
+    <event-information eventId='succeed' eventName='Capture succeeded'
+                       meta-bodyType="com.handmade.ecommerce.payment.dto.PaymentPayload"/>
+    <event-information eventId='fail' eventName='Capture failed'
+                       meta-bodyType="com.handmade.ecommerce.payment.dto.PaymentPayload"/>
+
+    <!-- Payment Capture Flow -->
+    <flow id="captureFlow" default="true">
+
+        <!-- PENDING (Initial State) -->
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="succeed" newStateId="SUCCESS" componentName="successCaptureAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failCaptureAction"/>
+        </manual-state>
+
+        <!-- SUCCESS (Final State) -->
+        <manual-state id="SUCCESS" meta-endState="true"/>
+
+        <!-- FAILED (Final State) -->
+        <manual-state id="FAILED" meta-endState="true"/>
+
+    </flow>
+
+</states>

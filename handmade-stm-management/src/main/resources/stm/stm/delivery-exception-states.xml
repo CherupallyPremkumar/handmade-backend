@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <!-- Delivery Exception Lifecycle -->
+    <flow id="deliveryExceptionFlow" default="true">
+        <manual-state id="OPEN" initialState="true">
+            <on eventId="investigate" newStateId="INVESTIGATING" componentName="exceptionInvestigateAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="exceptionResolveAction"/>
+        </manual-state>
+
+        <manual-state id="INVESTIGATING">
+            <on eventId="resolve" newStateId="RESOLVED" componentName="exceptionResolveAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="exceptionCloseAction"/>
+        </manual-state>
+
+        <manual-state id="RESOLVED" meta-endState="true"/>
+        <manual-state id="CLOSED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+User Role Assignment State Machine
+Purpose: Manage lifecycle of user role assignments from pending to revoked/expired.
+Flow: USER_ROLE_FLOW
+Lifecycle: PENDING -> ACTIVE -> SUSPENDED -> EXPIRED/REVOKED
+-->
+<states>
+    <!-- User Role Assignment Events -->
+    <event-information eventId="assignRole"            eventName="Assign role"            meta-acls="iam.manager"/>
+    <event-information eventId="approveAssignment"     eventName="Approve assignment"     meta-acls="iam.approver"/>
+    <event-information eventId="rejectAssignment"      eventName="Reject assignment"      meta-acls="iam.approver"/>
+    <event-information eventId="suspendAssignment"     eventName="Suspend assignment"     meta-acls="iam.manager"/>
+    <event-information eventId="reactivateAssignment"  eventName="Reactivate assignment"  meta-acls="iam.manager"/>
+    <event-information eventId="expireAssignment"      eventName="Expire assignment"      meta-acls="system"/>
+    <event-information eventId="revokeAssignment"      eventName="Revoke assignment"      meta-acls="iam.manager"/>
+
+    <!--
+    Flow: USER_ROLE_FLOW
+    Lifecycle: PENDING -> ACTIVE -> SUSPENDED -> EXPIRED/REVOKED
+    -->
+    <flow id="USER_ROLE_FLOW" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="approveAssignment"    newStateId="ACTIVE"     componentName="userRoleApproveAction"/>
+            <on eventId="rejectAssignment"     newStateId="REJECTED"   componentName="userRoleRejectAction"/>
+            <on eventId="revokeAssignment"     newStateId="REVOKED"    componentName="userRoleRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspendAssignment"    newStateId="SUSPENDED"  componentName="userRoleSuspendAction"/>
+            <on eventId="expireAssignment"     newStateId="EXPIRED"    componentName="userRoleExpireAction"/>
+            <on eventId="revokeAssignment"     newStateId="REVOKED"    componentName="userRoleRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivateAssignment" newStateId="ACTIVE"     componentName="userRoleReactivateAction"/>
+            <on eventId="expireAssignment"     newStateId="EXPIRED"    componentName="userRoleExpireAction"/>
+            <on eventId="revokeAssignment"     newStateId="REVOKED"    componentName="userRoleRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED"  meta-endState="true"/>
+        <manual-state id="EXPIRED"   meta-endState="true"/>
+        <manual-state id="REVOKED"   meta-endState="true"/>
+    </flow>
+</states>

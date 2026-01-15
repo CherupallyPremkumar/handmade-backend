@@ -7,7 +7,7 @@
             s.id as "sellerId",
             s.business_name as "businessName",
             s.platform_id as "platformId",
-            s.state_id as "currentState",
+            s.stateId as "currentState",
             s.email as "email",
             s.verified as "verified",
             s.kyc_completed as "kycCompleted",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search-personalization">
+
+    <select id="search-recently-viewed" resultType="java.util.HashMap">
+        SELECT 
+            p.id as "id",
+            p.name as "name",
+            p.primary_image_url as "primary_image_url",
+            bh.viewed_at as "viewed_at"
+        FROM hm_browse_history bh
+        JOIN hm_product p ON p.id = bh.product_id
+        WHERE bh.user_id = #{user_id}
+        ORDER BY bh.viewed_at DESC
+    </select>
+
+    <select id="search-buy-it-again" resultType="java.util.HashMap">
+        SELECT DISTINCT
+            p.id as "id",
+            p.name as "name",
+            p.primary_image_url as "primary_image_url"
+        FROM hm_order_line ol
+        JOIN hm_order o ON o.id = ol.order_id
+        JOIN hm_product p ON p.id = ol.product_id
+        WHERE o.customer_id = #{user_id}
+        ORDER BY p.name ASC
+    </select>
+
+</mapper>

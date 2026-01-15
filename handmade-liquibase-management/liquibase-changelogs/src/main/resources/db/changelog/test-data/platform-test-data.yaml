@@ -12,6 +12,7 @@ databaseChangeLog:
               - column: {name: country_code, value: "US"}
               - column: {name: currency_code, value: "USD"}
               - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: status, value: "ACTIVE"}
               - column: {name: is_active, valueBoolean: true}
         - insert:
             tableName: hm_platform
@@ -22,6 +23,7 @@ databaseChangeLog:
               - column: {name: country_code, value: "IN"}
               - column: {name: currency_code, value: "INR"}
               - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: status, value: "ACTIVE"}
               - column: {name: is_active, valueBoolean: true}
         - insert:
             tableName: hm_platform
@@ -32,4 +34,5 @@ databaseChangeLog:
               - column: {name: country_code, value: "GB"}
               - column: {name: currency_code, value: "GBP"}
               - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: status, value: "INACTIVE"}
               - column: {name: is_active, valueBoolean: false}

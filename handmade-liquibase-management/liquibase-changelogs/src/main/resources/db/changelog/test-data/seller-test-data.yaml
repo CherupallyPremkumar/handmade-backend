@@ -8,7 +8,7 @@ databaseChangeLog:
             tableName: hm_seller_account
             columns:
               - column: {name: id, value: "SEL-001"}
-              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: email, value: "seller1@example.com"}
               - column: {name: business_name, value: "Premium Leather Goods"}
               - column: {name: verified, valueBoolean: true}
@@ -23,7 +23,7 @@ databaseChangeLog:
             tableName: hm_seller_account
             columns:
               - column: {name: id, value: "SEL-002"}
-              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: email, value: "seller2@example.com"}
               - column: {name: business_name, value: "Handmade Crafts Co"}
               - column: {name: verified, valueBoolean: true}
@@ -38,7 +38,7 @@ databaseChangeLog:
             tableName: hm_seller_account
             columns:
               - column: {name: id, value: "SEL-003"}
-              - column: {name: platform_id, value: "PLATFORM_001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: email, value: "seller3@example.com"}
               - column: {name: business_name, value: "Artisan Goods"}
               - column: {name: verified, valueBoolean: false}
@@ -53,7 +53,7 @@ databaseChangeLog:
             tableName: hm_seller_account
             columns:
               - column: {name: id, value: "SEL-004"}
-              - column: {name: platform_id, value: "PLATFORM_002"}
+              - column: {name: platform_id, value: "PLT-IN-001"}
               - column: {name: email, value: "seller4@example.com"}
               - column: {name: business_name, value: "USA Crafts"}
               - column: {name: verified, valueBoolean: true}

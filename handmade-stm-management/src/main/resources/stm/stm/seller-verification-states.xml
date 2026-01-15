@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Seller Verification Definitions -->
+    <event-information eventId='initiate' eventName='Initiate verification'
+                       meta-acls="user.seller,system.internal"/>
+    <event-information eventId='approve' eventName='Approve verification'
+                       meta-acls="admin.verification,system.internal"/>
+    <event-information eventId='reject' eventName='Reject verification'
+                       meta-acls="admin.verification,system.internal"/>
+
+    <!-- Seller Verification Flow -->
+    <flow id="sellerVerificationFlow" default="true">
+
+        <!-- PENDING (Initial State) -->
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="approve" newStateId="APPROVED" componentName="approveVerificationAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectVerificationAction"/>
+        </manual-state>
+
+        <!-- APPROVED (Success) -->
+        <manual-state id="APPROVED" meta-endState="true"/>
+
+        <!-- REJECTED (Failed) -->
+        <manual-state id="REJECTED">
+            <on eventId="initiate" newStateId="PENDING" componentName="retryVerificationAction"/>
+        </manual-state>
+
+    </flow>
+
+</states>

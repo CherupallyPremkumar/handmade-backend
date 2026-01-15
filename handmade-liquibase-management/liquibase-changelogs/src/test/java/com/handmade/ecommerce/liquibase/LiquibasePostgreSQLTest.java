@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests against real PostgreSQL database in Docker container
  */
 @Testcontainers
+// @org.junit.jupiter.api.Disabled("Docker not available in this environment")
 public class LiquibasePostgreSQLTest {
 
         @Container
@@ -77,7 +78,6 @@ public class LiquibasePostgreSQLTest {
         }
 
         @Test
-        @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
         public void testChangelogWithTestData() throws Exception {
                 // Get connection from Testcontainer
                 Connection connection = postgres.createConnection("");
@@ -112,6 +112,8 @@ public class LiquibasePostgreSQLTest {
 
                         // Check policy test data
 
+                        // Check policy test data
+                        rs = stmt.executeQuery("SELECT COUNT(*) FROM hm_platform_policy");
                         assertTrue(rs.next());
                         int policyCount = rs.getInt(1);
                         assertTrue(policyCount >= 3, "Should have at least 3 test policies");
@@ -168,7 +170,6 @@ public class LiquibasePostgreSQLTest {
         }
 
         @Test
-        @org.junit.jupiter.api.Disabled("Test data changelog works in H2 but has classpath issues in Testcontainers")
         public void testIdempotency() throws Exception {
                 // Get connection from Testcontainer
                 Connection connection = postgres.createConnection("");

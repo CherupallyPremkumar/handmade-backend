@@ -42,11 +42,7 @@ databaseChangeLog:
               - column:
                   name: expires_at
                   type: timestamp
-              - column:
-                  name: status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
+
               - column:
                   name: captured_amount
                   type: decimal(19,4)
@@ -57,6 +53,30 @@ databaseChangeLog:
               - column:
                   name: void_reason
                   type: varchar(500)
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time

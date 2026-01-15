@@ -36,24 +36,41 @@ databaseChangeLog:
               - column:
                   name: marketplace_type
                   type: varchar(20) # B2C, B2B
-                  defaultValue: "B2C"
                   constraints:
                     nullable: false
               - column:
                   name: description
                   type: varchar(500)
               - column:
-                  name: status
-                  type: varchar(20)
-                  defaultValue: "ACTIVE"
-                  constraints:
-                    nullable: false
-              - column:
                   name: is_active
                   type: boolean
                   defaultValueBoolean: true
                   constraints:
                     nullable: false
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time

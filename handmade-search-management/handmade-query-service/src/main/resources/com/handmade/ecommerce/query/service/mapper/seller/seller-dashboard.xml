@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seller-dashboard">
+
+    <!-- Summary Stats for Seller Dashboard -->
+    <select id="seller-summary-stats" resultType="java.util.HashMap">
+        SELECT 
+            'LISTINGS' as "metric_type",
+            p.status as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        WHERE o.seller_id = #{seller_id}
+        GROUP BY p.status
+        
+        UNION ALL
+        
+        SELECT 
+            'INVENTORY' as "metric_type",
+            'LOW_STOCK' as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_inventory_availability ia
+        JOIN hm_offer o ON o.id = ia.offer_id
+        WHERE o.seller_id = #{seller_id}
+        AND ia.total_quantity &lt;= 5
+        
+        UNION ALL
+        
+        SELECT 
+            'ORDERS' as "metric_type",
+            o.status as "metric_group",
+            COUNT(*) as "metric_count"
+        FROM hm_order o
+        JOIN hm_order_line ol ON ol.order_id = o.id
+        JOIN hm_offer off ON off.id = ol.offer_id
+        WHERE off.seller_id = #{seller_id}
+        AND o.created_at &gt;= DATEADD('DAY', -30, CURRENT_TIMESTAMP())
+        GROUP BY o.status
+    </select>
+
+    <!-- Weekly Sales Trends for Seller -->
+    <select id="seller-sales-trends" resultType="java.util.HashMap">
+        SELECT 
+            FORMATDATETIME(o.created_at, 'yyyy-MM-dd') as "sales_date",
+            SUM(ol.unit_price * ol.quantity) as "daily_revenue",
+            COUNT(DISTINCT o.id) as "order_count"
+        FROM hm_order o
+        JOIN hm_order_line ol ON ol.order_id = o.id
+        JOIN hm_offer off ON off.id = ol.offer_id
+        WHERE off.seller_id = #{seller_id}
+        AND o.created_at &gt;= DATEADD('DAY', -7, CURRENT_TIMESTAMP())
+        GROUP BY FORMATDATETIME(o.created_at, 'yyyy-MM-dd')
+        ORDER BY "sales_date" ASC
+    </select>
+
+
+    <!-- Count queries for Chenile framework -->
+    <select id="seller-summary-stats-count" resultType="int">
+        SELECT 0
+    </select>
+
+    <select id="seller-sales-trends-count" resultType="int">
+        SELECT 0
+    </select>
+
+</mapper>

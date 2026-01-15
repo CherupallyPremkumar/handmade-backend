@@ -27,3 +27,14 @@ databaseChangeLog:
             indexName: idx_mod_log_review
             columns:
               - column: { name: review_id }
+
+  - changeSet:
+      id: 2
+      author: trust-safety
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_review_moderation_log
+            baseColumnNames: review_id
+            referencedTableName: hm_product_review
+            referencedColumnNames: id
+            constraintName: fk_review_modlog_review

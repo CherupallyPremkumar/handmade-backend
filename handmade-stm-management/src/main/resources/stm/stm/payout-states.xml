@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Payout Lifecycle -->
+    <flow id="payoutFlow" default="true">
+
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="processPayoutAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="completePayoutAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failPayoutAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED"/>
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="PROCESSING" componentName="retryPayoutAction"/>
+        </manual-state>
+
+    </flow>
+    
+</states>

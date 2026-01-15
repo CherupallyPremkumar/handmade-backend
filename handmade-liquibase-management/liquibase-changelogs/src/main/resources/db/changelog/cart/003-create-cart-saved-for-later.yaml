@@ -89,3 +89,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: offer_id
+
+  - changeSet:
+      id: 4
+      author: cart-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_cart_saved_for_later
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_saved_customer
+        - addForeignKeyConstraint:
+            baseTableName: hm_cart_saved_for_later
+            baseColumnNames: offer_id
+            referencedTableName: hm_offer
+            referencedColumnNames: id
+            constraintName: fk_saved_offer
+        - addForeignKeyConstraint:
+            baseTableName: hm_cart_saved_for_later
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_saved_product

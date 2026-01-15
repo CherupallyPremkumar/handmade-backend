@@ -33,7 +33,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: discount_amount
-                  type: decimal(19,4)
+                  type: "DECIMAL(19, 4)"
                   constraints:
                     nullable: false
               - column:

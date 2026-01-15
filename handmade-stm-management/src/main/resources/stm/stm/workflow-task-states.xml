@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Workflow Task Flow -->
+    <flow id="workflowTaskFlow" default="true">
+
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="start" newStateId="RUNNING" componentName="startTaskAction"/>
+        </manual-state>
+
+        <manual-state id="RUNNING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="completeTaskAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failTaskAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED"/>
+        <manual-state id="FAILED"/>
+
+    </flow>
+    
+</states>

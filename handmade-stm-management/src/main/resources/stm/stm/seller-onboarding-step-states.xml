@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Seller Onboarding Step Definitions -->
+    <event-information eventId='complete' eventName='Complete step'
+                       meta-acls="user.seller"/>
+    <event-information eventId='skip' eventName='Skip step'
+                       meta-acls="user.seller"/>
+    <event-information eventId='fail' eventName='Fail step'
+                       meta-acls="system.internal"/>
+
+    <!-- Seller Onboarding Step Flow -->
+    <flow id="sellerOnboardingStepFlow" default="true">
+
+        <!-- PENDING (Initial State) -->
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="complete" newStateId="COMPLETED" componentName="completeOnboardingStepAction"/>
+            <on eventId="skip" newStateId="SKIPPED" componentName="skipOnboardingStepAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failOnboardingStepAction"/>
+        </manual-state>
+
+        <!-- COMPLETED (Success) -->
+        <manual-state id="COMPLETED" meta-endState="true"/>
+
+        <!-- SKIPPED (Optional steps) -->
+        <manual-state id="SKIPPED" meta-endState="true"/>
+
+        <!-- FAILED (Error) -->
+        <manual-state id="FAILED">
+            <on eventId="complete" newStateId="COMPLETED" componentName="retryOnboardingStepAction"/>
+        </manual-state>
+
+    </flow>
+
+</states>

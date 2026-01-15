@@ -23,11 +23,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: status
-                  type: varchar(20)
-                  # PENDING, PROCESSING, COMPLETED, FAILED
-                  defaultValue: "PENDING"
-              - column:
                   name: retry_count
                   type: int
                   defaultValueNumeric: 0
@@ -37,6 +32,30 @@ databaseChangeLog:
               - column:
                   name: error_message
                   type: text
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column: { name: created_time, type: timestamp }
               - column: { name: last_modified_time, type: timestamp }
@@ -48,4 +67,4 @@ databaseChangeLog:
             tableName: hm_event_queue
             indexName: idx_event_q_status
             columns:
-              - column: { name: status }
+              - column: { name: state_id }

@@ -13,10 +13,10 @@ databaseChangeLog:
               - column: { name: goal_type, type: VARCHAR(50), constraints: { nullable: false } } # MONTHLY_GMV, CANCELLATION_RATE
               - column:
                   name: target_value
-                  type: decimal(19, 4)
+                  type: "DECIMAL(19, 4)"
               - column:
                   name: current_value
-                  type: decimal(19, 4)
+                  type: "DECIMAL(19, 4)"
               - column: { name: start_date, type: DATE }
               - column: { name: end_date, type: DATE }
               - column: { name: status, type: VARCHAR(20) } # ACTIVE, ACHIEVED, FAILED

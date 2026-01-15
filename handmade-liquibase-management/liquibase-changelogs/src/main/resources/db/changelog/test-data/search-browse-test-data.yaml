@@ -1,0 +1,170 @@
+databaseChangeLog:
+  - changeSet:
+      id: search-browse-test-data
+      author: search-browse
+      changes:
+        # Update existing products with classifications
+        - update:
+            tableName: hm_product
+            columns:
+              - column: {name: classification_id, value: "cat-002"}
+            where: id = 'prod-001'
+        - update:
+            tableName: hm_product
+            columns:
+              - column: {name: classification_id, value: "cat-001"}
+            where: id = 'prod-002'
+
+        # Additional Products for richer search
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "prod-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Vintage Leather Journal"}
+              - column: {name: brand, value: "Artisan Leather"}
+              - column: {name: classification_id, value: "cat-001"}
+              - column: {name: status, value: "ACTIVE"}
+              - column: {name: tenant, value: "handmade-tenant"}
+              - column: {name: created_time, valueDate: "2024-01-12T11:00:00"}
+        
+        # Offers for prod-003
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "offer-003"}
+              - column: {name: product_id, value: "prod-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: platform_id, value: "PLT-US-001"}
+              - column: {name: seller_sku, value: "JOURNAL-001"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 200}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Price History (Primary Searchable Price source)
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-001"}
+              - column: {name: offer_id, value: "offer-001"}
+              - column: {name: product_id, value: "prod-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 25.00}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-002"}
+              - column: {name: offer_id, value: "offer-002"}
+              - column: {name: product_id, value: "prod-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: price, valueNumeric: 8.50}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-003"}
+              - column: {name: offer_id, value: "offer-003"}
+              - column: {name: product_id, value: "prod-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 45.00}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Browse Node Mappings
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-001"}
+              - column: {name: product_id, value: "prod-001"}
+              - column: {name: browse_node_id, value: "cat-002"} # Pottery
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-002"}
+              - column: {name: product_id, value: "prod-002"}
+              - column: {name: browse_node_id, value: "cat-001"} # Home & Garden
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Variation: Leather Journal (Small)
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "prod-003-sm"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: name, value: "Vintage Leather Journal - Small"}
+              - column: {name: brand, value: "Artisan Leather"}
+              - column: {name: classification_id, value: "cat-001"}
+              - column: {name: parent_id, value: "prod-003"}
+              - column: {name: is_published, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Browse History for Personalization
+        - insert:
+            tableName: hm_browse_history
+            columns:
+              - column: {name: id, value: "bh-001"}
+              - column: {name: user_id, value: "cust-001"}
+              - column: {name: product_id, value: "prod-001"}
+              - column: {name: viewed_at, valueDate: "2024-03-01T10:00:00"}
+        - insert:
+            tableName: hm_browse_history
+            columns:
+              - column: {name: id, value: "bh-002"}
+              - column: {name: user_id, value: "cust-001"}
+              - column: {name: product_id, value: "prod-002"}
+              - column: {name: viewed_at, valueDate: "2024-03-01T11:00:00"}
+
+        # Standalone product with no variants
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "standalone-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Standalone Artisan Vase"}
+              - column: {name: brand, value: "Pottery Studio"}
+              - column: {name: classification_id, value: "cat-002"}
+              - column: {name: is_published, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Standalone product offer
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "offer-standalone"}
+              - column: {name: platform_id, value: "PLT-US-001"}
+              - column: {name: product_id, value: "standalone-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: seller_sku, value: "VASE-001"}
+              - column: {name: available_quantity, valueNumeric: 5}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        # Standalone product price
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "price-standalone"}
+              - column: {name: offer_id, value: "offer-standalone"}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: amount, valueNumeric: 45.00}
+              - column: {name: price_type, value: "STANDARD"}
+              - column: {name: start_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}
+
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "hist-standalone"}
+              - column: {name: offer_id, value: "offer-standalone"}
+              - column: {name: product_id, value: "standalone-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 45.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}

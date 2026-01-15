@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Event Queue Processing Flow -->
+    <flow id="eventQueueFlow" default="true">
+
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="processEventAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="success" newStateId="COMPLETED" componentName="completeEventAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failEventAction"/>
+            <on eventId="retry" newStateId="PENDING" componentName="retryEventAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED"/>
+        <manual-state id="FAILED"/>
+
+    </flow>
+    
+</states>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Payment Refund Transaction Definitions -->
+    <event-information eventId='complete' eventName='Refund completed'
+                       meta-bodyType="com.handmade.ecommerce.payment.dto.PaymentPayload"/>
+    <event-information eventId='fail' eventName='Refund failed'
+                       meta-bodyType="com.handmade.ecommerce.payment.dto.PaymentPayload"/>
+
+    <!-- Payment Refund Transaction Flow -->
+    <flow id="refundTransactionFlow" default="true">
+
+        <!-- PENDING (Initial State) -->
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="complete" newStateId="COMPLETED" componentName="successRefundAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failRefundAction"/>
+        </manual-state>
+
+        <!-- COMPLETED (Final State) -->
+        <manual-state id="COMPLETED" meta-endState="true"/>
+
+        <!-- FAILED (Final State) -->
+        <manual-state id="FAILED" meta-endState="true"/>
+
+    </flow>
+
+</states>

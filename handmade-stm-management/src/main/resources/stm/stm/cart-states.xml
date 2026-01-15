@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Cart Event Definitions -->
+    <event-information eventId='checkout' eventName='proceed to checkout'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CartPayload"/>
+    <event-information eventId='convert' eventName='convert to order'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CartPayload"/>
+    <event-information eventId='abandon' eventName='abandon cart'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CartPayload"/>
+    <event-information eventId='recover' eventName='recover abandoned cart'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CartPayload"/>
+    <event-information eventId='merge' eventName='merge cart'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CartPayload"/>
+    <event-information eventId='expire' eventName='expire cart'/>
+
+    <!-- Cart Flow -->
+    <flow id="cartFlow" default="true">
+
+        <!-- ACTIVE (initial state) -->
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="checkout" newStateId="CHECKED_OUT" componentName="defaultCartSTMAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="defaultCartSTMAction"/>
+            <on eventId="merge" newStateId="MERGED" componentName="defaultCartSTMAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="defaultCartSTMAction"/>
+        </manual-state>
+
+        <!-- CHECKED_OUT -->
+        <manual-state id="CHECKED_OUT">
+            <on eventId="convert" newStateId="CONVERTED" componentName="convertCartAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="defaultCartSTMAction"/>
+        </manual-state>
+
+        <!-- ABANDONED -->
+        <manual-state id="ABANDONED">
+            <on eventId="recover" newStateId="ACTIVE" componentName="defaultCartSTMAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="defaultCartSTMAction"/>
+        </manual-state>
+
+        <!-- CONVERTED (final) -->
+        <manual-state id="CONVERTED" meta-endState="true"/>
+
+        <!-- MERGED (final) -->
+        <manual-state id="MERGED" meta-endState="true"/>
+
+        <!-- EXPIRED (final) -->
+        <manual-state id="EXPIRED" meta-endState="true"/>
+
+    </flow>
+
+</states>

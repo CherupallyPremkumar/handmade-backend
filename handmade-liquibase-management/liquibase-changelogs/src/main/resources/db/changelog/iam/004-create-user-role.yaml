@@ -6,6 +6,14 @@ databaseChangeLog:
         - createTable:
             tableName: hm_user_role
             columns:
+              # Primary Key (matches BaseJpaEntity)
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              # Foreign key and business columns
               - column:
                   name: user_id
                   type: varchar(36)
@@ -27,7 +35,7 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
-              # BaseJpaEntity
+              # BaseJpaEntity audit fields
               - column:
                   name: created_time
                   type: timestamp
@@ -47,6 +55,9 @@ databaseChangeLog:
                   name: version
                   type: bigint
                   defaultValueNumeric: 0
-        - addPrimaryKey:
+        
+        # Unique constraint on user_id + role_id (was composite PK)
+        - addUniqueConstraint:
             tableName: hm_user_role
             columnNames: user_id, role_id
+            constraintName: uk_user_role

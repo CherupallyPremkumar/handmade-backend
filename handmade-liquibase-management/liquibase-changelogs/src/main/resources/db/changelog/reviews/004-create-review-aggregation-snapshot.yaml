@@ -23,3 +23,10 @@ databaseChangeLog:
               - column: { name: created_by, type: VARCHAR(255) }
               - column: { name: tenant, type: VARCHAR(255) }
               - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - addForeignKeyConstraint:
+            baseTableName: hm_review_aggregation_snapshot
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_review_agg_product

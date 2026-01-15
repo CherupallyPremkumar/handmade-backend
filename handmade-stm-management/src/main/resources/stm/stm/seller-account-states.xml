@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce SellerAccount State Machine
+Purpose: Manage seller account lifecycle from registration to closure.
+Flow: SELLER_ACCOUNT_FLOW
+Lifecycle: REGISTERED -> KYC_PENDING -> ACTIVE -> SUSPENDED / CLOSED
+-->
+<states>
+    <event-information eventId="registerSeller"   eventName="Register seller"   meta-acls="seller.self"/>
+    <event-information eventId="submitKyc"       eventName="Submit KYC"       meta-acls="seller.self"/>
+    <event-information eventId="kycVerified"     eventName="KYC verified"     meta-acls="kyc.ops"/>
+    <event-information eventId="kycRejected"     eventName="KYC rejected"     meta-acls="kyc.ops"/>
+    <event-information eventId="activateSeller"  eventName="Activate seller"  meta-acls="seller.ops"/>
+    <event-information eventId="suspendSeller"   eventName="Suspend seller"   meta-acls="seller.ops"/>
+    <event-information eventId="reinstateSeller" eventName="Reinstate seller" meta-acls="seller.ops"/>
+    <event-information eventId="closeSeller"     eventName="Close seller"     meta-acls="seller.ops"/>
+
+    <flow id="SELLER_ACCOUNT_FLOW" default="true">
+        <!-- Initial registration; email verified but KYC not yet complete -->
+        <manual-state id="REGISTERED" initialState="true">
+            <on eventId="submitKyc" newStateId="KYC_PENDING" componentName="sellerSubmitKycAction"/>
+            <on eventId="closeSeller" newStateId="CLOSED" componentName="sellerCloseAction"/>
+        </manual-state>
+
+        <!-- Waiting for KYC outcome -->
+        <manual-state id="KYC_PENDING">
+            <on eventId="kycVerified" newStateId="ACTIVE"        componentName="sellerKycVerifiedAction"/>
+            <on eventId="kycRejected" newStateId="KYC_REJECTED"  componentName="sellerKycRejectedAction"/>
+            <on eventId="closeSeller" newStateId="CLOSED"        componentName="sellerCloseAction"/>
+        </manual-state>
+
+        <!-- Active sellers can be suspended or closed -->
+        <manual-state id="ACTIVE">
+            <on eventId="suspendSeller"   newStateId="SUSPENDED" componentName="sellerSuspendAction"/>
+            <on eventId="closeSeller"     newStateId="CLOSED"    componentName="sellerCloseAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reinstateSeller" newStateId="ACTIVE" componentName="sellerReinstateAction"/>
+            <on eventId="closeSeller"     newStateId="CLOSED" componentName="sellerCloseAction"/>
+        </manual-state>
+
+        <!-- KYC permanently rejected; account cannot go active without re-onboarding -->
+        <manual-state id="KYC_REJECTED" meta-endState="true"/>
+
+        <!-- Account permanently closed -->
+        <manual-state id="CLOSED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Price Alert Definitions -->
+    <event-information eventId='trigger' eventName='Trigger price alert'
+                       meta-acls="system.internal"/>
+    <event-information eventId='cancel' eventName='Cancel alert'
+                       meta-acls="user.customer"/>
+    <event-information eventId='expire' eventName='Expire alert'
+                       meta-acls="system.internal"/>
+
+    <!-- Price Alert Flow -->
+    <flow id="priceAlertFlow" default="true">
+
+        <!-- ACTIVE (Initial State) -->
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="trigger" newStateId="TRIGGERED" componentName="triggerPriceAlertAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="cancelPriceAlertAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="expirePriceAlertAction"/>
+        </manual-state>
+
+        <!-- TRIGGERED (Notification Sent) -->
+        <manual-state id="TRIGGERED" meta-endState="true"/>
+
+        <!-- CANCELLED (User Cancelled) -->
+        <manual-state id="CANCELLED" meta-endState="true"/>
+
+        <!-- EXPIRED (Time-based Expiration) -->
+        <manual-state id="EXPIRED" meta-endState="true"/>
+
+    </flow>
+
+</states>

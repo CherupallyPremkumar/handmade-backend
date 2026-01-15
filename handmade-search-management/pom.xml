@@ -14,9 +14,6 @@
     <name>handmade-search-management</name>
 
     <modules>
-        <module>search-core</module>
-        <module>search-api</module>
         <module>handmade-query-service</module>
-        <module>catalog-search</module>
     </modules>
 </project>

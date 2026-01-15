@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Seller Conversation Definitions -->
+    <event-information eventId='open' eventName='Open conversation'
+                       meta-acls="system.internal,user.customer"/>
+    <event-information eventId='reply' eventName='Reply to conversation'
+                       meta-acls="user.seller,user.customer"/>
+    <event-information eventId='close' eventName='Close conversation'
+                       meta-acls="user.seller,system.internal"/>
+    <event-information eventId='archive' eventName='Archive conversation'
+                       meta-acls="system.internal"/>
+
+    <!-- Conversation Flow -->
+    <flow id="sellerConversationFlow" default="true">
+
+        <!-- OPEN (Active Conversation) -->
+        <manual-state id="OPEN" initialState="true">
+            <on eventId="reply" newStateId="OPEN" componentName="replyConversationAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="closeConversationAction"/>
+        </manual-state>
+
+        <!-- CLOSED (Resolved) -->
+        <manual-state id="CLOSED">
+            <on eventId="reply" newStateId="OPEN" componentName="reopenConversationAction"/>
+            <on eventId="archive" newStateId="ARCHIVED" componentName="archiveConversationAction"/>
+        </manual-state>
+
+        <!-- ARCHIVED (Historical) -->
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+
+    </flow>
+
+</states>

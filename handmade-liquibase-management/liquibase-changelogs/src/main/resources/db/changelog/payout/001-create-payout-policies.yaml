@@ -22,8 +22,8 @@ databaseChangeLog:
               - column: {name: sla_red_date, type: TIMESTAMP}
               - column: {name: sla_tending_late, type: INT, defaultValueNumeric: 0}
               - column: {name: sla_late, type: INT, defaultValueNumeric: 0}
-              - column: {name: flow_id, type: VARCHAR(50)}
-              - column: {name: state_id, type: VARCHAR(50)}
+              - column: {name: flow_id, type: VARCHAR(255)}
+              - column: {name: state_id, type: VARCHAR(255)}
               
               # Policy Identity
               - column: {name: policy_version, type: VARCHAR(50), constraints: {nullable: false, unique: true}}

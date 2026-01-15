@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <!-- ETL Job Lifecycle -->
+    <flow id="etlJobFlow" default="true">
+        <manual-state id="INITIATED" initialState="true">
+            <on eventId="startJob" newStateId="RUNNING" componentName="etlStartAction"/>
+        </manual-state>
+
+        <manual-state id="RUNNING">
+            <on eventId="completeJob" newStateId="COMPLETED" componentName="etlCompleteAction"/>
+            <on eventId="failJob" newStateId="FAILED" componentName="etlFailAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true">
+            <on eventId="retryJob" newStateId="RUNNING" componentName="etlRetryAction"/>
+        </manual-state>
+    </flow>
+</states>

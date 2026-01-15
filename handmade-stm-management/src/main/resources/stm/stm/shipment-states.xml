@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Shipment State Machine
+Purpose: Manage physical shipment lifecycle with clear Flipkart-style milestones.
+Flow: SHIPMENT_FLOW
+-->
+<states>
+    <event-information eventId='createShipment' eventName='Create shipment' meta-acls="user.normal,user.admin"/>
+    <event-information eventId='dispatch'        eventName='Dispatch from warehouse' meta-acls="user.normal,user.admin"/>
+    <event-information eventId='markInTransit' eventName='Mark in transit'        meta-acls="user.normal,user.admin"/>
+    <event-information eventId='outForDelivery' eventName='Out for delivery'     meta-acls="user.normal,user.admin"/>
+    <event-information eventId='deliver'         eventName='Deliver'               meta-acls="user.normal,user.admin"/>
+    <event-information eventId='rto'             eventName='Return to origin'      meta-acls="user.normal,user.admin"/>
+    <event-information eventId='lost'            eventName='Lost in transit'       meta-acls="user.normal,user.admin"/>
+
+    <flow id="SHIPMENT_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="dispatch" newStateId="DISPATCHED" componentName="shipmentDispatchAction"/>
+        </manual-state>
+
+        <!-- Handover to carrier -->
+        <manual-state id="DISPATCHED">
+            <on eventId="markInTransit" newStateId="IN_TRANSIT" componentName="shipmentTransitAction"/>
+        </manual-state>
+
+        <!-- Line haul / hub movements -->
+        <manual-state id="IN_TRANSIT">
+            <on eventId="outForDelivery" newStateId="OUT_FOR_DELIVERY" componentName="shipmentOutForDeliveryAction"/>
+            <on eventId="rto"             newStateId="RTO"                componentName="shipmentRtoAction"/>
+            <on eventId="lost"           newStateId="LOST"               componentName="shipmentLostAction"/>
+        </manual-state>
+
+        <!-- Last mile -->
+        <manual-state id="OUT_FOR_DELIVERY">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="shipmentDeliverAction"/>
+            <on eventId="rto"     newStateId="RTO"        componentName="shipmentRtoAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED" meta-endState="true"/>
+        <manual-state id="RTO"       meta-endState="true"/>
+        <manual-state id="LOST"      meta-endState="true"/>
+    </flow>
+</states>

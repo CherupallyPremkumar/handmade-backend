@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Product publish orchestration that drives PRODUCT_FLOW STM.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: PRODUCT_PUBLISH_FLOW
+    Trigger: SUBMIT_PRODUCT
+
+    Expected STM (PRODUCT_FLOW):
+    DRAFT -> IN_REVIEW -> READY_FOR_PUBLISH -> LIVE / REJECTED / END_OF_LIFE
+    -->
+    <flow id="PRODUCT_PUBLISH_FLOW" triggerEvent="SUBMIT_PRODUCT">
+        <!-- Create or update product entity and fire 'submit' STM event -->
+        <command id="submitProduct" componentName="productSubmitService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Run content, image, and compliance validation; may fire 'approve' or 'reject' events -->
+        <parallel id="productValidation">
+            <command id="validateContent" componentName="productContentValidationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+            <command id="validateImages"  componentName="productImageValidationService"  retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+            <command id="validateCompliance" componentName="productComplianceValidationService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+        </parallel>
+
+        <!-- Approve product and move STM to READY_FOR_PUBLISH; then publish to LIVE -->
+        <command id="approveProduct" componentName="productApproveService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Publish to LIVE (fires 'publish' event) and trigger search index update -->
+        <command id="publishProduct" componentName="productPublishService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+    </flow>
+</flows>

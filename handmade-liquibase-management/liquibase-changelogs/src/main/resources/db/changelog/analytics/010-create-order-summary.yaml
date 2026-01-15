@@ -16,3 +16,17 @@ databaseChangeLog:
               - column: { name: currency_code, type: VARCHAR(3) }
               - column: { name: last_updated, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
               - column: { name: tenant, type: VARCHAR(255) }
+
+        - addForeignKeyConstraint:
+            baseTableName: hm_order_summary
+            baseColumnNames: region_code
+            referencedTableName: hm_region
+            referencedColumnNames: region_code
+            constraintName: fk_order_summary_region
+
+        - createIndex:
+            tableName: hm_order_summary
+            indexName: idx_order_summary_region_date
+            columns:
+              - column: { name: region_code }
+              - column: { name: summary_date }

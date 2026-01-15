@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Notification Queue Flow -->
+    <flow id="notificationQueueFlow" default="true">
+
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="send" newStateId="SENT" componentName="sendNotificationAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failNotificationAction"/>
+        </manual-state>
+
+        <manual-state id="SENT">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="deliverNotificationAction"/>
+            <on eventId="bounce" newStateId="BOUNCED" componentName="bounceNotificationAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+             <on eventId="retry" newStateId="PENDING" componentName="retryNotificationAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED"/>
+        <manual-state id="BOUNCED"/>
+
+    </flow>
+    
+</states>
