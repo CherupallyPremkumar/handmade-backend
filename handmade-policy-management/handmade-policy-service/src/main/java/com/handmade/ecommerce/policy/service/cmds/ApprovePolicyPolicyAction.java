@@ -1,0 +1,26 @@
+package com.handmade.ecommerce.policy.service.cmds;
+
+import org.chenile.stm.STMInternalTransitionInvoker;
+import org.chenile.stm.State;
+import org.chenile.stm.model.Transition;
+
+import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
+import com.handmade.ecommerce.policy.model.Policy;
+import com.handmade.ecommerce.policy.model. ApprovePolicyPolicyPayload;
+
+/**
+ Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
+ <p>Use this class if you want to augment the common logic for this specific transition</p>
+ <p>Use a customized payload if required instead of MinimalPayload</p>
+*/
+public class ApprovePolicyPolicyAction extends AbstractSTMTransitionAction<Policy,
+    ApprovePolicyPolicyPayload>{
+
+	@Override
+	public void transitionTo(Policy policy,
+            ApprovePolicyPolicyPayload payload,
+            State startState, String eventId,
+			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
+	}
+
+}

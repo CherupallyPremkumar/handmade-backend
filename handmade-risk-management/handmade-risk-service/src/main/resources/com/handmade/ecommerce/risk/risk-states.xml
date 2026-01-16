@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Risk Signal State Machine  
+Purpose: Manage lifecycle of risk signals from detection to resolution.
+Flow: RISK_SIGNAL_FLOW
+Lifecycle: NEW -> ANALYZING -> CONFIRMED/FALSE_POSITIVE -> RESOLVED
+-->
+<states>
+    <!-- Risk Signal Events -->
+    <event-information eventId="detectRiskSignal"        eventName="Detect risk signal"        meta-acls="system"/>
+    <event-information eventId="analyzeSignal"           eventName="Analyze signal"            meta-acls="risk.analyst"/>
+    <event-information eventId="confirmRisk"             eventName="Confirm risk"              meta-acls="risk.analyst"/>
+    <event-information eventId="markFalsePositive"       eventName="Mark false positive"       meta-acls="risk.analyst"/>
+    <event-information eventId="escalateSignal"          eventName="Escalate signal"           meta-acls="risk.analyst"/>
+    <event-information eventId="suppressSignal"          eventName="Suppress signal"           meta-acls="risk.manager"/>
+    <event-information eventId="resolveSignal"           eventName="Resolve signal"            meta-acls="risk.analyst"/>
+
+    <!--
+    Flow: RISK_SIGNAL_FLOW
+    Lifecycle: NEW -> ANALYZING -> CONFIRMED/FALSE_POSITIVE -> RESOLVED
+    -->
+    <flow id="RISK_SIGNAL_FLOW" default="true">
+        <auto-state id="NEW" initialState="true">
+            <on eventId="analyzeSignal"            newStateId="ANALYZING"      componentName="riskSignalAnalyzeAction"/>
+            <on eventId="suppressSignal"           newStateId="SUPPRESSED"     componentName="riskSignalSuppressAction"/>
+        </auto-state>
+
+        <manual-state id="ANALYZING">
+            <on eventId="confirmRisk"              newStateId="CONFIRMED"      componentName="riskSignalConfirmAction"/>
+            <on eventId="markFalsePositive"        newStateId="FALSE_POSITIVE" componentName="riskSignalFalsePositiveAction"/>
+            <on eventId="escalateSignal"           newStateId="ESCALATED"      componentName="riskSignalEscalateAction"/>
+            <on eventId="suppressSignal"           newStateId="SUPPRESSED"     componentName="riskSignalSuppressAction"/>
+        </manual-state>
+
+        <manual-state id="CONFIRMED">
+            <on eventId="resolveSignal"            newStateId="RESOLVED"       componentName="riskSignalResolveAction"/>
+            <on eventId="escalateSignal"           newStateId="ESCALATED"      componentName="riskSignalEscalateAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="resolveSignal"            newStateId="RESOLVED"       componentName="riskSignalResolveAction"/>
+        </manual-state>
+
+        <manual-state id="SUPPRESSED">
+            <on eventId="analyzeSignal"            newStateId="ANALYZING"      componentName="riskSignalAnalyzeAction"/>
+        </manual-state>
+
+        <manual-state id="FALSE_POSITIVE"  meta-endState="true"/>
+        <manual-state id="RESOLVED"        meta-endState="true"/>
+    </flow>
+</states>

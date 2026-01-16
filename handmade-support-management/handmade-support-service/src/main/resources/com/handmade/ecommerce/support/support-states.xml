@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Support Case Definitions -->
+    <event-information eventId='assign' eventName='Assign agent'
+                       meta-acls="support.admin"/>
+    <event-information eventId='respond' eventName='Add response'
+                       meta-acls="support.agent,user.customer"/>
+    <event-information eventId='resolve' eventName='Resolve case'
+                       meta-acls="support.agent"/>
+    <event-information eventId='reopen' eventName='Reopen case'
+                       meta-acls="user.customer,support.admin"/>
+
+    <!-- Support Case Flow -->
+    <flow id="supportCaseFlow" default="true">
+
+        <!-- NEW (Incoming) -->
+        <manual-state id="NEW" initialState="true">
+            <on eventId="assign" newStateId="IN_PROGRESS" componentName="assignCaseAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="resolveCaseAction"/>
+        </manual-state>
+
+        <!-- IN_PROGRESS (Being Worked On) -->
+        <manual-state id="IN_PROGRESS">
+            <on eventId="respond" newStateId="IN_PROGRESS" componentName="responseAddedAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="resolveCaseAction"/>
+        </manual-state>
+
+        <!-- RESOLVED (Completed) -->
+        <manual-state id="RESOLVED">
+            <on eventId="reopen" newStateId="IN_PROGRESS" componentName="reopenCaseAction"/>
+        </manual-state>
+
+    </flow>
+
+</states>

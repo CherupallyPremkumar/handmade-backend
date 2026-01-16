@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>pom</packaging>
+	<parent>
+        <groupId>com.handmade.ecommerce</groupId>
+        <artifactId>handmade-event-management</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+	
+	<groupId>com.handmade.ecommerce.scheduler</groupId>
+	<version>${revision}</version>
+	<artifactId>scheduler-parent</artifactId>
+	<name>All Modules that belong to the scheduler </name>
+	<description>Modules execution project and Parent Pom</description>
+
+	<dependencies>
+
+    </dependencies>
+</project>

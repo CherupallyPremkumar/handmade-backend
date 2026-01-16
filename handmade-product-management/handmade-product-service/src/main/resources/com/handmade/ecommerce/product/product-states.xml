@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Product State Machine
+Purpose: Manage product lifecycle from draft to live to end-of-life.
+Flow: PRODUCT_FLOW
+Lifecycle: DRAFT -> IN_REVIEW -> LIVE -> SUPPRESSED -> END_OF_LIFE
+-->
+<states>
+    <!-- Event metadata for API documentation -->
+    <event-information eventId='submit'
+                       eventName='submit product'
+                       meta-acls="catalog.editor,catalog.admin"
+                       meta-bodyType="com.handmade.ecommerce.catalog.product.dto.ProductPayload"/>
+    <event-information eventId='approve'
+                       eventName='approve product'
+                       meta-acls="catalog.admin"
+                       meta-bodyType="com.handmade.ecommerce.catalog.product.dto.ProductPayload"/>
+    <event-information eventId='reject'
+                       eventName='reject product'
+                       meta-acls="catalog.admin"/>
+    <event-information eventId='publish'
+                       eventName='publish product'
+                       meta-acls="catalog.admin"
+                       meta-bodyType="com.handmade.ecommerce.catalog.product.dto.ProductPayload"/>
+    <event-information eventId='suppress'
+                       eventName='suppress product'
+                       meta-acls="catalog.admin"/>
+    <event-information eventId='unsuppress'
+                       eventName='unsuppress product'
+                       meta-acls="catalog.admin"/>
+    <event-information eventId='retire'
+                       eventName='retire product'
+                       meta-acls="catalog.admin"/>
+
+    <flow id="PRODUCT_FLOW" default="true">
+        <entry-action componentName="productEntryAction"/>
+        <exit-action componentName="productExitAction"/>
+
+        <!-- DRAFT: Initial creation/editing -->
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit"
+                newStateId="IN_REVIEW"
+                componentName="onSubmitProductService"/>
+        </manual-state>
+
+        <!-- IN_REVIEW: Content, compliance, and catalog checks -->
+        <manual-state id="IN_REVIEW">
+            <on eventId="approve"
+                newStateId="READY_FOR_PUBLISH"
+                componentName="onApproveProductService"/>
+            <on eventId="reject"
+                newStateId="REJECTED"
+                componentName="onRejectProductService"/>
+        </manual-state>
+
+        <!-- READY_FOR_PUBLISH: All checks passed, waiting for explicit go-live -->
+        <manual-state id="READY_FOR_PUBLISH">
+            <on eventId="publish"
+                newStateId="LIVE"
+                componentName="onPublishProductService"/>
+        </manual-state>
+
+        <!-- LIVE: Visible in search and PDP -->
+        <manual-state id="LIVE">
+            <on eventId="suppress"
+                newStateId="SUPPRESSED"
+                componentName="onHideProductService"/>
+            <on eventId="retire"
+                newStateId="END_OF_LIFE"
+                componentName="onArchiveProductService"/>
+        </manual-state>
+
+        <!-- SUPPRESSED: Hidden for policy or temporary reasons, but can come back -->
+        <manual-state id="SUPPRESSED">
+            <on eventId="unsuppress"
+                newStateId="LIVE"
+                componentName="onUnhideProductService"/>
+            <on eventId="retire"
+                newStateId="END_OF_LIFE"
+                componentName="onArchiveProductService"/>
+        </manual-state>
+
+        <!-- REJECTED: Failed review, must be cloned or re-created -->
+        <manual-state id="REJECTED" meta-endState="true"/>
+
+        <!-- END_OF_LIFE: Permanently retired, never shown again -->
+        <manual-state id="END_OF_LIFE" meta-endState="true"/>
+    </flow>
+</states>

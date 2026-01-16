@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+
+    <!-- Ad Campaign Flow -->
+    <flow id="adCampaignFlow" default="true">
+
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="launch" newStateId="ACTIVE" componentName="launchAdCampaignAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="pauseAdCampaignAction"/>
+            <on eventId="end" newStateId="COMPLETED" componentName="endAdCampaignAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="resumeAdCampaignAction"/>
+            <on eventId="end" newStateId="COMPLETED" componentName="endAdCampaignAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED"/>
+
+    </flow>
+    
+</states>

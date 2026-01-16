@@ -8,14 +8,54 @@
     <artifactId>chenile-parent</artifactId>
   </parent>
 
-  <modules>
+    <modules>
     <module>handmade-liquibase-management</module>
     <module>handmade-owiz-workflows</module>
     <module>handmade-stm-management</module>
     <module>handmade-search-management</module>
-    <module>handmade-app-boot</module>
     <module>handmade-stm-configuration</module>
     <module>handmade-entity-managemet</module>
+    <module>handmade-product-management</module>
+    <module>handmade-order-management</module>
+    <module>handmade-payment-management</module>
+    <module>handmade-inventory-management</module>
+    <module>handmade-seller-management</module>
+    <module>handmade-cart-management</module>
+    <module>handmade-catalog-management</module>
+    <module>handmade-offer-management</module>
+    <module>handmade-pricing-management</module>
+    <module>handmade-promotion-management</module>
+    <module>handmade-logistics-management</module>
+    <module>handmade-shipping-management</module>
+    <module>handmade-tax-management</module>
+    <module>handmade-finance-management</module>
+    <module>handmade-settlement-management</module>
+    <module>handmade-customer-management</module>
+    <module>handmade-reviews-management</module>
+    <module>handmade-qa-management</module>
+    <module>handmade-loyalty-management</module>
+    <module>handmade-support-management</module>
+    <module>handmade-dispute-management</module>
+    <module>handmade-iam-management</module>
+    <module>handmade-notification-management</module>
+    <module>handmade-cms-management</module>
+    <module>handmade-seo-management</module>
+    <module>handmade-analytics-management</module>
+    <module>handmade-adtech-management</module>
+    <module>handmade-experiment-management</module>
+    <module>handmade-governance-management</module>
+    <module>handmade-risk-management</module>
+    <module>handmade-policy-management</module>
+    <module>handmade-localization-management</module>
+    <module>handmade-messaging-management</module>
+    <module>handmade-event-management</module>
+    <module>handmade-integration-management</module>
+    <module>handmade-limit-management</module>
+    <module>handmade-observability-management</module>
+    <module>handmade-platform-management</module>
+    <module>handmade-onboarding-management</module>
+    <module>handmade-comparison-management</module>
+      <module>handmade-app-boot</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>

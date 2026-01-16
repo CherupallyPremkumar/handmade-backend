@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Content Lifecycle -->
+    <flow id="contentFlow" default="true">
+
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.contentpage.service.cmds.PublishContentPageAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="com.handmade.ecommerce.contentpage.service.cmds.ArchiveContentPageAction"/>
+            <on eventId="unpublish" newStateId="DRAFT" componentName="com.handmade.ecommerce.contentpage.service.cmds.UnpublishContentPageAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED">
+            <on eventId="restore" newStateId="DRAFT" componentName="com.handmade.ecommerce.contentpage.service.cmds.RestoreContentPageAction"/>
+        </manual-state>
+
+    </flow>
+    
+</states>
