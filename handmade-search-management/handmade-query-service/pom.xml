@@ -78,6 +78,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.handmade.ecommerce</groupId>
+            <artifactId>handmade-stm-configuration</artifactId>
+            <version>${revision}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>

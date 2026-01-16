@@ -2,14 +2,15 @@ package com.handmade.ecommerce.domain.analytics;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_analytics_metric_def")
-public class MetricDefinition extends BaseJpaEntity {
+public class MetricDefinition extends AbstractJpaStateEntity {
 
     @Column(name = "metric_code", length = 100, nullable = false, unique = true)
     private String metricCode;

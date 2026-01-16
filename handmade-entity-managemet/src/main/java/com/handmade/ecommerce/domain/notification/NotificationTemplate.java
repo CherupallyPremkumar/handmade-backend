@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.notification;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
@@ -10,7 +10,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_notification_template")
-public class NotificationTemplate extends BaseJpaEntity {
+public class NotificationTemplate extends AbstractJpaStateEntity {
 
     @Column(name = "template_code", length = 100, nullable = false, unique = true)
     private String templateCode;

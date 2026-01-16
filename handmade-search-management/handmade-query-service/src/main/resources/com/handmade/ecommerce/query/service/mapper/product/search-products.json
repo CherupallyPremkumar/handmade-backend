@@ -4,6 +4,9 @@
     "name": "search-products",
     "paginated": true,
     "sortable": true,
+    "workflowName": "product",
+    "stateColumn": "state_id",
+    "flowColumn": "flow_id",
     "columnMetadata": {
       "id": {
         "name": "id",

@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.risk;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
@@ -10,7 +10,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_risk_signal")
-public class RiskSignal extends BaseJpaEntity {
+public class RiskSignal extends AbstractJpaStateEntity {
 
     @Column(name = "entity_id", length = 36, nullable = false)
     private String entityId;

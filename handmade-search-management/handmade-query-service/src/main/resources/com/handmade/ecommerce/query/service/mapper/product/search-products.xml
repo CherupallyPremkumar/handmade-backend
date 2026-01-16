@@ -11,6 +11,8 @@
             p.brand as "brand",
             p.primary_image_url as "primary_image_url",
             p.classification_id as "classification_id",
+            p.state_id as "state_id",
+            p.flow_id as "flow_id",
             MIN(ph.price) as "min_price",
             MAX(ph.price) as "max_price",
             COUNT(DISTINCT o.id) as "offer_count"
@@ -42,7 +44,7 @@
         <if test="max_price != null">
             AND ph.price &lt;= #{max_price}
         </if>
-        GROUP BY p.id, p.name, p.description, p.brand, p.primary_image_url, p.classification_id
+        GROUP BY p.id, p.name, p.description, p.brand, p.primary_image_url, p.classification_id, p.state_id, p.flow_id
         ${orderby}
         ${pagination}
     </select>

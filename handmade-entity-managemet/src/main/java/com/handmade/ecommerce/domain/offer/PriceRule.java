@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.offer;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.util.Date;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_price_rule")
-public class PriceRule extends BaseJpaEntity {
+public class PriceRule extends AbstractJpaStateEntity {
 
     @Column(name = "offer_id", length = 36, nullable = false)
     private String offerId;

@@ -10,6 +10,8 @@
             MIN(op.sale_price) as "minPrice",
             MAX(op.currency_code) as "currency",
             p.primary_image_url as "imageUrl",
+            p.state_id as "state_id",
+            p.flow_id as "flow_id",
             s.seller_name as "sellerName",
             COALESCE(ra.average_rating, 0) as "averageRating",
             COALESCE(ra.total_reviews, 0) as "totalReviews"
@@ -25,7 +27,7 @@
         <if test="sourceProductId != null">
             AND pr.source_product_id = #{sourceProductId}
         </if>
-        GROUP BY p.id, p.name, pr.score, p.primary_image_url, s.seller_name, ra.average_rating, ra.total_reviews
+        GROUP BY p.id, p.name, pr.score, p.primary_image_url, p.state_id, p.flow_id, s.seller_name, ra.average_rating, ra.total_reviews
         <if test="sortColumn != null and sortOrder != null">
             ORDER BY ${sortColumn} ${sortOrder}
         </if>

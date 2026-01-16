@@ -62,6 +62,14 @@ databaseChangeLog:
                   name: version
                   type: bigint
                   defaultValueNumeric: 0
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}
         - addForeignKeyConstraint:
             baseTableName: hm_seller_kyc
             baseColumnNames: seller_id

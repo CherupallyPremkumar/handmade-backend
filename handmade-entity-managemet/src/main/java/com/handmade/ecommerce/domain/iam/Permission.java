@@ -2,17 +2,18 @@ package com.handmade.ecommerce.domain.iam;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 /**
  * Permission - Access permission for specific operations
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_permission")
-public class Permission extends BaseJpaEntity {
+public class Permission extends AbstractJpaStateEntity {
 
     @Column(name = "name", length = 100, nullable = false, unique = true)
     private String name;

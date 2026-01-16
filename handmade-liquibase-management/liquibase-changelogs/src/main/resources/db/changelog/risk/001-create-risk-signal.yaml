@@ -35,6 +35,14 @@ databaseChangeLog:
               - column:
                   name: evidence_data
                   type: text
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}
               - column:
                   name: created_time
                   type: timestamp

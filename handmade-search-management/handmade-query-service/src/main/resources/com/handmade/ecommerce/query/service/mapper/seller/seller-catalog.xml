@@ -10,6 +10,8 @@
             p.status as "status",
             p.brand as "brand",
             p.classification_id as "classification_id",
+            p.state_id as "state_id",
+            p.flow_id as "flow_id",
             ia.total_quantity as "inventory_count",
             ph.price as "current_price"
         FROM hm_product p

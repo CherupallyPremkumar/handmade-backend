@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.notification;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.util.Date;
 
 @Entity
@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_notification_log")
-public class NotificationLog extends BaseJpaEntity {
+public class NotificationLog extends AbstractJpaStateEntity {
 
     @Column(name = "user_id", length = 36, nullable = false)
     private String userId;

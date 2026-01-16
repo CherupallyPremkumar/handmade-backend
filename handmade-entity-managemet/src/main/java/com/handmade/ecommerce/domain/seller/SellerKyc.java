@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.seller;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.util.Date;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_kyc")
-public class SellerKyc extends BaseJpaEntity {
+public class SellerKyc extends AbstractJpaStateEntity {
 
     @Column(name = "seller_id", length = 36, nullable = false, unique = true)
     private String sellerId;
