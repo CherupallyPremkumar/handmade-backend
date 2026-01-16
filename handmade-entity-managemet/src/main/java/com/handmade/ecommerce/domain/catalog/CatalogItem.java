@@ -10,10 +10,10 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "hm_catalog_item",
-       indexes = @Index(name = "idx_catalog_item_product_id", columnList = "product_id"))
+@Table(name = "hm_catalog_item", indexes = @Index(name = "idx_catalog_item_product_id", columnList = "product_id"))
 public class CatalogItem extends BaseJpaEntity {
 
     @Column(name = "product_id", length = 36, nullable = false, unique = true)
@@ -34,6 +34,7 @@ public class CatalogItem extends BaseJpaEntity {
     @Column(name = "visibility_end_date")
     private Date visibilityEndDate;
 
+    @Lob
     @Column(name = "merchandising_tags", columnDefinition = "TEXT")
     private String merchandisingTags; // JSON or CSV tags
 }

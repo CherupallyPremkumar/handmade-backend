@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_return_request")
@@ -17,18 +18,12 @@ public class ReturnRequest extends AbstractJpaStateEntity {
     @Column(name = "order_id", length = 36, nullable = false)
     private String orderId;
 
-    @Column(name = "order_line_id", length = 36, nullable = false)
-    private String orderLineId;
+    @Column(name = "customer_id", length = 36)
+    private String customerId;
 
-    @Column(name = "quantity_requested", nullable = false)
-    private Integer quantityRequested;
+    @Column(name = "return_reason", length = 50)
+    private String returnReason;
 
-    @Column(name = "reason", length = 50)
-    private String reason;
-
-    @Column(name = "customer_notes", columnDefinition = "TEXT")
-    private String customerNotes;
-
-    @Column(name = "seller_notes", columnDefinition = "TEXT")
-    private String sellerNotes;
+    @Column(name = "customer_comments", length = 255)
+    private String customerComments;
 }

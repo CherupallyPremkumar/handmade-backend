@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_payment_method")
@@ -38,7 +39,8 @@ public class PaymentMethod extends BaseJpaEntity {
     @Column(name = "card_exp_year")
     private Integer cardExpYear;
 
-    @Column(name = "billing_details", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "billing_details")
     private String billingDetails;
 
     @Column(name = "is_default")

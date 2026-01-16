@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_price_rule")
@@ -21,7 +22,8 @@ public class PriceRule extends BaseJpaEntity {
     @Column(name = "rule_type", length = 50, nullable = false)
     private String ruleType;
 
-    @Column(name = "rule_expression", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "rule_expression")
     private String ruleExpression;
 
     @Column(name = "priority")

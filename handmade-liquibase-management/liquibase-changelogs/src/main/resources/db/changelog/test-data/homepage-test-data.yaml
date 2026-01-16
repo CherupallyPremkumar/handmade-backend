@@ -10,12 +10,7 @@ databaseChangeLog:
               - column: { name: state_id, value: "ACTIVE" }
             where: state_id IS NULL
 
-        # Set price_type to SALE so they show up in Daily Deals
-        - update:
-            tableName: hm_offer_price
-            columns:
-              - column: { name: price_type, value: "SALE" }
-            where: price_type IS NULL
+
 
         # Update products with image URLs
         - update:

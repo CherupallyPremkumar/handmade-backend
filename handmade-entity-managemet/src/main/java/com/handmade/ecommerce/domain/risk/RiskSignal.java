@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_risk_signal")
@@ -23,6 +24,7 @@ public class RiskSignal extends BaseJpaEntity {
     @Column(name = "risk_score", nullable = false)
     private Integer riskScore;
 
-    @Column(name = "evidence_data", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "evidence_data")
     private String evidenceData;
 }

@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_browse_node")
@@ -20,6 +21,7 @@ public class BrowseNode extends BaseJpaEntity {
     @Column(name = "slug", length = 255, nullable = false, unique = true)
     private String slug;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 

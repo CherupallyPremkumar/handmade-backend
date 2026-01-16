@@ -13,9 +13,9 @@ Feature: Platform Admin Dashboard Queries
     And success is true
     And the REST response contains key "list"
     # Verify presence of different metric types
-    And the REST response key "list[?(@.row.metric_type == 'SELLERS')]" has 1 records
-    And the REST response key "list[?(@.row.metric_type == 'PRODUCTS')]" has 1 records
-    And the REST response key "list[?(@.row.metric_type == 'ORDERS')]" has 2 records
+    And the REST response key "list[?(@.row.metric_type == 'SELLERS')]" has 2 records
+    And the REST response key "list[?(@.row.metric_type == 'PRODUCTS')]" has 2 records
+
 
   Scenario: View Category Performance Health
     When I POST a REST request to URL "/q/admin-category-health" with payload

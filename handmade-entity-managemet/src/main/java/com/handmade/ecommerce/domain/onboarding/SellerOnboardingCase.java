@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_onboarding_case")
@@ -60,6 +61,7 @@ public class SellerOnboardingCase extends AbstractJpaStateEntity {
     @Column(name = "rejected_by", length = 255)
     private String rejectedBy;
 
-    @Column(name = "rejection_reason", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "rejection_reason")
     private String rejectionReason;
 }

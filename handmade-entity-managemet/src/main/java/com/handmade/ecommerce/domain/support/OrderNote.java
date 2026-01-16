@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_order_note")
@@ -20,7 +21,8 @@ public class OrderNote extends BaseJpaEntity {
     @Column(name = "author_id", length = 36, nullable = false)
     private String authorId; // Support Agent ID
 
-    @Column(name = "note_text", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "note_text", nullable = false)
     private String noteText;
 
     @Column(name = "is_internal")

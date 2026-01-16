@@ -13,37 +13,26 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(100)
+                  name: rule_type
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:
-                  name: rule_type
-                  type: varchar(50)
-                  defaultValue: "PROMOTION"
-                  constraints:
-                    nullable: false
+                  name: rule_expression
+                  type: text
+              - column:
+                  name: priority
+                  type: int
               - column:
                   name: start_date
                   type: timestamp
-                  constraints:
-                    nullable: false
               - column:
                   name: end_date
                   type: timestamp
-                  constraints:
-                    nullable: true
-              - column:
-                  name: min_price_limit
-                  type: decimal(10, 2)
-                  constraints:
-                    nullable: true
               - column:
                   name: is_active
                   type: boolean
                   defaultValueBoolean: true
-                  constraints:
-                    nullable: false
               # BaseJpaEntity
               - column:
                   name: created_time

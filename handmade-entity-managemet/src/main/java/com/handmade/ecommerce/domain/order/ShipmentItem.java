@@ -2,17 +2,18 @@ package com.handmade.ecommerce.domain.order;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.AbstractJpaStateEntity;
+import org.chenile.jpautils.entity.BaseJpaEntity;
 
 /**
- * ShipmentItem - Items in a shipment (STM-managed for item-level tracking)
+ * ShipmentItem - Items in a shipment
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_shipment_item")
-public class ShipmentItem extends AbstractJpaStateEntity {
+public class ShipmentItem extends BaseJpaEntity {
 
     @Column(name = "shipment_id", length = 36, nullable = false)
     private String shipmentId;

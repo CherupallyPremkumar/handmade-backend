@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_message")
@@ -24,7 +25,8 @@ public class SellerMessage extends BaseJpaEntity {
     @Column(name = "sender_type", length = 50, nullable = false)
     private String senderType; // CUSTOMER, SELLER, SUPPORT
 
-    @Column(name = "message_text", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "message_text", nullable = false)
     private String messageText;
 
     @Column(name = "has_attachment")

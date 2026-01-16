@@ -7,6 +7,7 @@ databaseChangeLog:
         - insert:
             tableName: hm_currency
             columns:
+              - column: { name: id, value: "CUR-USD" }
               - column: { name: currency_code, value: "USD" }
               - column: { name: name, value: "US Dollar" }
               - column: { name: symbol, value: "$" }
@@ -15,6 +16,7 @@ databaseChangeLog:
         - insert:
             tableName: hm_currency
             columns:
+              - column: { name: id, value: "CUR-GBP" }
               - column: { name: currency_code, value: "GBP" }
               - column: { name: name, value: "British Pound" }
               - column: { name: symbol, value: "£" }
@@ -23,6 +25,7 @@ databaseChangeLog:
         - insert:
             tableName: hm_region
             columns:
+              - column: { name: id, value: "REG-US" }
               - column: { name: region_code, value: "US" }
               - column: { name: name, value: "United States" }
               - column: { name: default_currency_code, value: "USD" }
@@ -31,6 +34,7 @@ databaseChangeLog:
         - insert:
             tableName: hm_region
             columns:
+              - column: { name: id, value: "REG-UK" }
               - column: { name: region_code, value: "UK" }
               - column: { name: name, value: "United Kingdom" }
               - column: { name: default_currency_code, value: "GBP" }

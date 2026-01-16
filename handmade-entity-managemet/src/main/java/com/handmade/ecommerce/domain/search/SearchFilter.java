@@ -9,26 +9,22 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_search_filter")
 public class SearchFilter extends BaseJpaEntity {
 
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
+    @Column(name = "search_query_id", length = 36, nullable = false)
+    private String searchQueryId;
 
-    @Column(name = "display_name", length = 100, nullable = false)
-    private String displayName;
-
-    @Column(name = "filter_type", length = 50)
+    @Column(name = "filter_type", length = 100, nullable = false)
     private String filterType; // RANGE, TERMS, BOOLEAN
 
-    @Column(name = "attribute_name", length = 100)
-    private String attributeName;
+    @Column(name = "filter_key", length = 255, nullable = false)
+    private String filterKey;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
-
-    @Column(name = "priority")
-    private Integer priority = 0;
+    @Lob
+    @Column(name = "filter_value", nullable = false)
+    private String filterValue;
 }

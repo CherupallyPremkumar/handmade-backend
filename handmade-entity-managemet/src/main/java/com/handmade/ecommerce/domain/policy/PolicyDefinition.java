@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_policy_definition")
@@ -17,6 +18,7 @@ public class PolicyDefinition extends AbstractJpaStateEntity {
     @Column(name = "policy_name", nullable = false)
     private String policyName;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 

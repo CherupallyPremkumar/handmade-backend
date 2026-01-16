@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_pricing_rule_definition")
@@ -18,12 +19,12 @@ public class PricingRuleDefinition extends AbstractJpaStateEntity {
     @Column(name = "rule_name")
     private String ruleName;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "description")
     private String description;
 
     @Column(name = "rule_type", length = 50, nullable = false)
     private String ruleType; // DISCOUNT, SURCHARGE, FEE, COMMISSION
-
 
     @Column(name = "owner_service", length = 100)
     private String ownerService;

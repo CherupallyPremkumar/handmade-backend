@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_catalog_item_attribute")
@@ -20,6 +21,15 @@ public class CatalogItemAttribute extends BaseJpaEntity {
     @Column(name = "attribute_id", length = 36, nullable = false)
     private String attributeId;
 
-    @Column(name = "attribute_value", columnDefinition = "TEXT")
-    private String attributeValue;
+    @Column(name = "value_text", length = 2048)
+    private String valueText;
+
+    @Column(name = "value_number", precision = 19, scale = 4)
+    private java.math.BigDecimal valueNumber;
+
+    @Column(name = "value_boolean")
+    private Boolean valueBoolean;
+
+    @Column(name = "value_date")
+    private java.util.Date valueDate;
 }

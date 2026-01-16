@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_search_term_report")
@@ -31,6 +32,7 @@ public class SearchTermReport extends BaseJpaEntity {
     private String reportPeriod = "DAILY";
 
     @Column(name = "report_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date reportDate;
 
     @Column(name = "created_at", nullable = false)

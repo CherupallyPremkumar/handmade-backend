@@ -14,6 +14,11 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
                   name: return_request_id
                   type: varchar(36)
               - column:
@@ -21,14 +26,20 @@ databaseChangeLog:
                   type: varchar(36)
                   # Link to the Financial Ledger
               - column:
-                  name: amount
+                  name: refund_amount
                   type: decimal(19, 4)
                   constraints:
                     nullable: false
               - column:
+                  name: currency_code
+                  type: varchar(3)
+              - column:
                   name: refund_method
                   type: varchar(50)
                   # ORIGINAL_PAYMENT, STORE_CREDIT
+              - column:
+                  name: reason
+                  type: text
               # AbstractJpaStateEntity (STM)
               - column:
                   name: flow_id

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_inventory_health")
@@ -21,7 +22,7 @@ public class InventoryHealth extends BaseJpaEntity {
     @Column(name = "product_id", length = 36, nullable = false)
     private String productId;
 
-    @Column(name = "sellable_quantity")
+    @Column(name = "qty_sellable")
     private Integer sellableQuantity = 0;
 
     @Column(name = "unsellable_quantity")

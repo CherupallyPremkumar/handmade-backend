@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_order_summary")
@@ -17,6 +18,7 @@ public class OrderSummary extends BaseJpaEntity {
     private String summaryType;
 
     @Column(name = "summary_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date summaryDate;
 
     @Column(name = "region_code", length = 2)

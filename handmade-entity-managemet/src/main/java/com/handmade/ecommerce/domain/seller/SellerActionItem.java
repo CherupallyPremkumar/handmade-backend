@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_action_item")
@@ -21,18 +22,15 @@ public class SellerActionItem extends BaseJpaEntity {
     @Column(name = "action_type", length = 50, nullable = false)
     private String actionType;
 
-    @Column(name = "title", length = 255)
-    private String title;
-
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", length = 500)
     private String description;
 
     @Column(name = "due_date")
     private Date dueDate;
 
-    @Column(name = "status", length = 50)
+    @Column(name = "status", length = 20)
     private String status;
 
-    @Column(name = "completed_date")
-    private Date completedDate;
+    @Column(name = "severity", length = 20)
+    private String severity;
 }

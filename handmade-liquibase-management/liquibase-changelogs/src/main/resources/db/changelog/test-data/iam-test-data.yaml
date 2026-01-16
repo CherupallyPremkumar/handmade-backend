@@ -20,12 +20,14 @@ databaseChangeLog:
             tableName: hm_role_permission
             columns:
               # No ID, No Tenant (Strict Join Table)
+              - column: {name: id, value: "rp-admin-read"}
               - column: {name: role_id, value: "role-admin"}
               - column: {name: permission_id, value: "perm-read-all"}
         - insert:
             tableName: hm_user_role
             columns:
               # No ID (Composite PK)
+              - column: {name: id, value: "ur-admin-01"}
               - column: {name: user_id, value: "usr-admin-01"}
               - column: {name: role_id, value: "role-admin"}
               - column: {name: tenant, value: "handmade-tenant"}

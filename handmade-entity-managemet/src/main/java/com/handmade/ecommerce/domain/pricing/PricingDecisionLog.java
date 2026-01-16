@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_pricing_decision_log")
@@ -20,7 +21,8 @@ public class PricingDecisionLog extends BaseJpaEntity {
     @Column(name = "final_price", precision = 19, scale = 4, nullable = false)
     private java.math.BigDecimal finalPrice;
 
-    @Column(name = "applied_rules_json", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "applied_rules_json", nullable = false)
     private String appliedRulesJson;
 
     @Column(name = "decision_time")

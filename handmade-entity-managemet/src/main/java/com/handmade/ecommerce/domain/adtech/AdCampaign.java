@@ -26,9 +26,11 @@ public class AdCampaign extends AbstractJpaStateEntity {
     private String campaignName;
 
     @Column(name = "start_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Column(name = "end_date")
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Column(name = "budget_type", length = 20, nullable = false)

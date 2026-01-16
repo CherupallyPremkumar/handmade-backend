@@ -9,6 +9,7 @@ databaseChangeLog:
             columns:
               - column: {name: id, value: "note-001"}
               - column: {name: order_id, value: "ord-001"}
+              - column: {name: author_id, value: "cust-001"}
               - column: {name: note_text, value: "Customer called to confirm shipping."}
               - column: {name: tenant, value: "handmade-tenant"}
         - insert:
@@ -19,7 +20,7 @@ databaseChangeLog:
               - column: {name: related_entity_id, value: "ord-001"}
               - column: {name: subject, value: "Late Delivery"}
               - column: {name: created_by_user_id, value: "cust-001"}
-              - column: {name: status, value: "OPEN"}
+              - column: {name: state_id, value: "OPEN"}
               - column: {name: priority, value: "MEDIUM"}
               - column: {name: tenant, value: "handmade-tenant"}
         # Marketing

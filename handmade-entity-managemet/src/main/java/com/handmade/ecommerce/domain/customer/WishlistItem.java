@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_wishlist_item")
@@ -24,9 +25,9 @@ public class WishlistItem extends BaseJpaEntity {
     @Column(name = "added_date", nullable = false)
     private Date addedDate;
 
-    @Column(name = "priority")
-    private Integer priority;
+    @Column(name = "priority", length = 50)
+    private String priority; // LOW, MEDIUM, HIGH
 
-    @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
+    @Column(name = "quantity_desired")
+    private Integer quantityDesired = 1;
 }

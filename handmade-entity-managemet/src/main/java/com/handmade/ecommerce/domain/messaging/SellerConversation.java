@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_conversation")
@@ -40,5 +41,5 @@ public class SellerConversation extends AbstractJpaStateEntity {
     private Date closedAt;
 
     @Column(name = "closed_by", length = 255)
-    private Date closedBy;
+    private String closedBy;
 }

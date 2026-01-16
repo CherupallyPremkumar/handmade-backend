@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_policy_rule")
@@ -18,12 +19,15 @@ public class PolicyRule extends BaseJpaEntity {
     @Column(name = "rule_name")
     private String ruleName;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Lob
     @Column(name = "condition_json", columnDefinition = "TEXT", nullable = false)
     private String conditionJson;
 
+    @Lob
     @Column(name = "effect_json", columnDefinition = "TEXT", nullable = false)
     private String effectJson;
 

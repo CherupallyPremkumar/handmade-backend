@@ -79,7 +79,7 @@ databaseChangeLog:
                   name: sla_late
                   type: int
                   defaultValueNumeric: 0
-              # BaseJpaEntity
+              - column:
                   name: provider_dispute_id
                   type: varchar(255)
               - column:

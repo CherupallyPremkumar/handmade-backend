@@ -10,10 +10,14 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_order")
 public class Order extends AbstractJpaStateEntity {
+
+    @Column(name = "platform_id", length = 36, nullable = false)
+    private String platformId;
 
     @Column(name = "customer_id", length = 36, nullable = false)
     private String customerId;

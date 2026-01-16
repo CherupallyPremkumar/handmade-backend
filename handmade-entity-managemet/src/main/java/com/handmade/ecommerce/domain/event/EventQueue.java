@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_event_queue")
@@ -15,11 +16,9 @@ public class EventQueue extends AbstractJpaStateEntity {
     @Column(name = "event_type", length = 100, nullable = false)
     private String eventType;
 
-    @Column(name = "payload", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "payload", nullable = false)
     private String payload;
-
-    @Column(name = "status", length = 20)
-    private String status = "PENDING";
 
     @Column(name = "retry_count")
     private Integer retryCount = 0;
@@ -27,6 +26,7 @@ public class EventQueue extends AbstractJpaStateEntity {
     @Column(name = "next_retry_time")
     private Date nextRetryTime;
 
-    @Column(name = "error_message", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "error_message")
     private String errorMessage;
 }

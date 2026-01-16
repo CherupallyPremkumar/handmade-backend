@@ -33,7 +33,8 @@ public class AnalyticsEvent extends BaseJpaEntity {
     @Column(name = "event_timestamp", nullable = false)
     private Date eventTimestamp;
 
-    @Column(name = "payload_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payload_json")
     private String payloadJson;
 
     @Column(name = "source", length = 50)

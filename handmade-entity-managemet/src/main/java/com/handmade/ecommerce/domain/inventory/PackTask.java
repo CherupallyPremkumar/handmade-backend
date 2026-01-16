@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_pack_task")

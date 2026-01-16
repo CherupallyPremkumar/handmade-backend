@@ -59,6 +59,14 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: exclusive
+                  type: boolean
+                  defaultValueBoolean: false
 
               # AbstractJpaStateEntity (Chenile STM)
               - column:

@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_fraud_case")
@@ -13,9 +14,6 @@ public class FraudCase extends AbstractJpaStateEntity {
 
     @Column(name = "reference_id", length = 36, nullable = false)
     private String referenceId; // ID of the entity under investigation
-
-    @Column(name = "status", length = 20, nullable = false)
-    private String status = "OPEN";
 
     @Column(name = "investigator_id", length = 36)
     private String investigatorId;

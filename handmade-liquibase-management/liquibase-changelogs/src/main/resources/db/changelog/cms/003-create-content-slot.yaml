@@ -9,9 +9,10 @@ databaseChangeLog:
             tableName: hm_content_slot
             columns:
               - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
-              - column: { name: slot_key, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
-              - column: { name: active_asset_id, type: VARCHAR(36) }
-              - column: { name: priority, type: INT, defaultValueNumeric: 0 }
+              - column: { name: slot_code, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
+              - column: { name: page_location, type: VARCHAR(100) }
+              - column: { name: content_page_id, type: VARCHAR(36) }
+              - column: { name: cms_entry_id, type: VARCHAR(36) }
               - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
               # BaseJpaEntity
               - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }

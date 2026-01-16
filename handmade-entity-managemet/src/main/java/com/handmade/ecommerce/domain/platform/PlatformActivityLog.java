@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_platform_activity_log")
@@ -30,7 +31,8 @@ public class PlatformActivityLog extends BaseJpaEntity {
     @Column(name = "activity_success")
     private Boolean activitySuccess;
 
-    @Column(name = "activity_comment", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "activity_comment")
     private String activityComment;
 
     @Column(name = "occurred_at")

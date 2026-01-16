@@ -20,9 +20,10 @@ databaseChangeLog:
             columns:
               - column: {name: id, value: "price-001"}
               - column: {name: offer_id, value: "offer-001"}
-              - column: {name: amount, valueNumeric: 25.00} # fixed
-              - column: {name: currency_code, value: "USD"} # fixed
-              - column: {name: start_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: list_price, valueNumeric: 25.00}
+              - column: {name: sale_price, valueNumeric: 20.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: sale_start_date, valueDate: "2024-01-01T00:00:00"}
               - column: {name: tenant, value: "handmade-tenant"}
         - insert:
             tableName: hm_offer
@@ -41,7 +42,8 @@ databaseChangeLog:
             columns:
               - column: {name: id, value: "price-002"}
               - column: {name: offer_id, value: "offer-002"}
-              - column: {name: amount, valueNumeric: 8.50} # fixed
-              - column: {name: currency_code, value: "USD"} # fixed
-              - column: {name: start_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: list_price, valueNumeric: 8.50}
+              - column: {name: sale_price, valueNumeric: 8.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: sale_start_date, valueDate: "2024-01-01T00:00:00"}
               - column: {name: tenant, value: "handmade-tenant"}

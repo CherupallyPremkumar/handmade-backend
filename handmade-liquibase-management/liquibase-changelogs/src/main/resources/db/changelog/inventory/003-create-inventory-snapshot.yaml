@@ -4,7 +4,7 @@ databaseChangeLog:
       author: inventory-management
       changes:
         - createTable:
-            tableName: hm_inventory_availability
+            tableName: hm_inventory_snapshot
             columns:
               - column:
                   name: id
@@ -14,6 +14,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: fulfillment_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
                   type: varchar(36)
                   constraints:
                     nullable: false
@@ -30,6 +35,15 @@ databaseChangeLog:
                   name: reserved_quantity
                   type: int
                   defaultValueNumeric: 0
+              - column:
+                  name: damaged_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: snapshot_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -51,14 +65,14 @@ databaseChangeLog:
                   type: bigint
                   defaultValueNumeric: 0
         - addForeignKeyConstraint:
-            baseTableName: hm_inventory_availability
+            baseTableName: hm_inventory_snapshot
             baseColumnNames: fulfillment_node_id
             referencedTableName: hm_fulfillment_node
             referencedColumnNames: id
-            constraintName: fk_ia_node
+            constraintName: fk_is_node
         - createIndex:
-            tableName: hm_inventory_availability
-            indexName: idx_ia_node_sku
+            tableName: hm_inventory_snapshot
+            indexName: idx_is_node_sku
             columns:
               - column:
                   name: fulfillment_node_id

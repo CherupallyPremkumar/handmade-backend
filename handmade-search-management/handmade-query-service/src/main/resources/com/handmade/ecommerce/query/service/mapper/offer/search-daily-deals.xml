@@ -7,9 +7,9 @@
             p.id as "productId",
             p.name as "productName",
             o.id as "offerId",
-            op.amount as "price",
+            op.sale_price as "price",
             op.currency_code as "currency",
-            op.price_type as "priceType",
+            'SALE' as "priceType",
             s.seller_name as "sellerName",
             p.primary_image_url as "imageUrl",
             COALESCE(ra.average_rating, 0) as "averageRating",
@@ -19,11 +19,11 @@
         JOIN hm_offer_price op ON op.offer_id = o.id
         JOIN hm_seller_store s ON s.id = p.seller_id
         LEFT JOIN hm_review_aggregation_snapshot ra ON ra.product_id = p.id
-        WHERE p.status = 'ACTIVE'
+        WHERE p.state_id = 'ACTIVE'
           AND o.state_id = 'ACTIVE'
-          AND op.price_type IN ('SALE', 'PROMOTION')
-          AND (op.start_date IS NULL OR op.start_date &lt;= CURRENT_TIMESTAMP)
-          AND (op.end_date IS NULL OR op.end_date &gt;= CURRENT_TIMESTAMP)
+          AND op.sale_price IS NOT NULL
+          AND (op.sale_start_date IS NULL OR op.sale_start_date &lt;= CURRENT_TIMESTAMP)
+          AND (op.sale_end_date IS NULL OR op.sale_end_date &gt;= CURRENT_TIMESTAMP)
         <if test="name != null">
             AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
         </if>
@@ -34,7 +34,7 @@
             ORDER BY ${sortColumn} ${sortOrder}
         </if>
         <if test="sortColumn == null">
-            ORDER BY op.amount ASC
+            ORDER BY op.sale_price ASC
         </if>
         <if test="numRowsInPage != null and startRow != null">
             LIMIT #{numRowsInPage} OFFSET #{startRow}
@@ -47,11 +47,11 @@
         JOIN hm_product p ON o.product_id = p.id
         JOIN hm_offer_price op ON op.offer_id = o.id
         JOIN hm_seller_store s ON s.id = p.seller_id
-        WHERE p.status = 'ACTIVE'
+        WHERE p.state_id = 'ACTIVE'
           AND o.state_id = 'ACTIVE'
-          AND op.price_type IN ('SALE', 'PROMOTION')
-          AND (op.start_date IS NULL OR op.start_date &lt;= CURRENT_TIMESTAMP)
-          AND (op.end_date IS NULL OR op.end_date &gt;= CURRENT_TIMESTAMP)
+          AND op.sale_price IS NOT NULL
+          AND (op.sale_start_date IS NULL OR op.sale_start_date &lt;= CURRENT_TIMESTAMP)
+          AND (op.sale_end_date IS NULL OR op.sale_end_date &gt;= CURRENT_TIMESTAMP)
         <if test="name != null">
             AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
         </if>

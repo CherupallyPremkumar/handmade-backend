@@ -13,7 +13,7 @@ databaseChangeLog:
               - column: {name: start_date, valueDate: "2024-06-01"}
               - column: {name: budget_type, value: "DAILY"}
               - column: {name: budget_amount, valueNumeric: 50.00}
-              - column: {name: status, value: "ACTIVE"}
+              - column: {name: state_id, value: "ACTIVE"}
               - column: {name: tenant, value: "handmade-tenant"}
         - insert:
             tableName: hm_sponsored_product

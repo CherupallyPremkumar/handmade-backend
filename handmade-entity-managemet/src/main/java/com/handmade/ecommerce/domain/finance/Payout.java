@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_payout")
@@ -18,9 +19,6 @@ public class Payout extends AbstractJpaStateEntity {
 
     @Column(name = "amount", precision = 19, scale = 4)
     private BigDecimal amount;
-
-    @Column(name = "status", length = 50)
-    private String status;
 
     @Column(name = "bank_reference_id", length = 100)
     private String bankReferenceId;

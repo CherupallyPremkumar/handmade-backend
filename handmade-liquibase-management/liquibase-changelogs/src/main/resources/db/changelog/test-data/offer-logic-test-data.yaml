@@ -16,7 +16,6 @@ databaseChangeLog:
             tableName: hm_price_rule
             columns:
               - column: {name: id, value: "rule-001"}
-              - column: {name: name, value: "Summer Discount"}
               - column: {name: rule_type, value: "PROMOTION"}
               - column: {name: start_date, valueDate: "2024-06-01T00:00:00"}
               - column: {name: is_active, valueBoolean: true}

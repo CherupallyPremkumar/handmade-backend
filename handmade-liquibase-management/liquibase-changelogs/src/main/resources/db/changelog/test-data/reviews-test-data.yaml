@@ -14,7 +14,7 @@ databaseChangeLog:
               - column: { name: title, value: "Great product!" }
               - column: { name: review_text, value: "Loved the quality and finish." }
               - column: { name: is_verified_purchase, valueBoolean: true }
-              - column: { name: status, value: "APPROVED" }
+              - column: { name: state_id, value: "APPROVED" }
               - column: { name: helpful_votes, valueNumeric: 12 }
               - column: { name: created_time, valueDate: "2024-01-15T10:00:00" }
 

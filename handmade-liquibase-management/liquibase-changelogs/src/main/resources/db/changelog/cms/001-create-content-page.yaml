@@ -10,9 +10,11 @@ databaseChangeLog:
             columns:
               - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
 
+              - column: { name: slug, type: VARCHAR(255), constraints: { nullable: false, unique: true } }
               - column: { name: title, type: VARCHAR(255), constraints: { nullable: false } }
               - column: { name: content_type, type: VARCHAR(50) } # FAQ, HELP, STATIC_PAGE
               - column: { name: raw_content, type: TEXT }
+              - column: { name: status, type: VARCHAR(20) }
 
               - column: { name: meta_description, type: VARCHAR(500) }
               

@@ -10,6 +10,7 @@ databaseChangeLog:
               - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
               - column: { name: job_name, type: VARCHAR(255) }
               - column: { name: source_system, type: VARCHAR(100) }
+              - column: { name: status, type: VARCHAR(20) }
 
               - column: { name: start_time, type: TIMESTAMP }
               - column: { name: end_time, type: TIMESTAMP }

@@ -24,29 +24,15 @@ databaseChangeLog:
                   name: promotion_id
                   type: varchar(36)
               - column:
-                  name: coupon_id
-                  type: varchar(36)
-              - column:
-                  name: discount_type
+                  name: coupon_code
                   type: varchar(50)
-                  constraints:
-                    nullable: false
               - column:
                   name: discount_amount
                   type: "DECIMAL(19, 4)"
                   constraints:
                     nullable: false
               - column:
-                  name: currency_code
-                  type: varchar(3)
-                  defaultValue: USD
-              - column:
-                  name: applied_at
-                  type: timestamp
-                  constraints:
-                    nullable: false
-              - column:
-                  name: applied_by
+                  name: description
                   type: varchar(255)
               # BaseJpaEntity
               - column:

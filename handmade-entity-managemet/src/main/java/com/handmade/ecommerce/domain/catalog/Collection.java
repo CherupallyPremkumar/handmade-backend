@@ -6,10 +6,12 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 import java.util.Date;
 
 /**
- * Collection - Curated product collections (e.g., "Summer Sale", "New Arrivals")
+ * Collection - Curated product collections (e.g., "Summer Sale", "New
+ * Arrivals")
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_collection")
@@ -21,6 +23,7 @@ public class Collection extends BaseJpaEntity {
     @Column(name = "slug", length = 255, nullable = false, unique = true)
     private String slug;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
@@ -48,6 +51,7 @@ public class Collection extends BaseJpaEntity {
     @Column(name = "auto_update")
     private Boolean autoUpdate = false;
 
+    @Lob
     @Column(name = "rule_expression", columnDefinition = "TEXT")
     private String ruleExpression;
 

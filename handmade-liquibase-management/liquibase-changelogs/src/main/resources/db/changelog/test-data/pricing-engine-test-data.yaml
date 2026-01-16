@@ -12,9 +12,10 @@ databaseChangeLog:
               - column: { name: rule_name, value: "Holiday Sale 2025" }
               - column: { name: description, value: "10% off storewide for holidays." }
               - column: { name: rule_type, value: "DISCOUNT" }
-              - column: { name: status, value: "ACTIVE" }
+              - column: { name: state_id, value: "ACTIVE" }
               - column: { name: owner_service, value: "marketing-service" }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "handmade-tenant" }
 
         # 2. Condition: Region-specific (US)
         - insert:
@@ -24,6 +25,7 @@ databaseChangeLog:
               - column: { name: rule_id, value: "RULE-PRICE-001" }
               - column: { name: condition_json, value: '{"region": "US"}' }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "handmade-tenant" }
 
         # 3. Action: 10% Off
         - insert:
@@ -34,6 +36,7 @@ databaseChangeLog:
               - column: { name: action_type, value: "PERCENTAGE_OFF" }
               - column: { name: value, valueNumeric: 10.00 }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "handmade-tenant" }
 
         # 4. Priority
         - insert:
@@ -44,6 +47,7 @@ databaseChangeLog:
               - column: { name: priority_score, valueNumeric: 100 }
               - column: { name: stacking_group, value: "DEFAULT" }
               - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "handmade-tenant" }
 
         # 5. Decision Log (Sample)
         - insert:
@@ -55,3 +59,4 @@ databaseChangeLog:
               - column: { name: final_price, valueNumeric: 90.00 }
               - column: { name: applied_rules_json, value: '["HOLIDAY_SALE_2025"]' }
               - column: { name: decision_time, valueDate: "2024-01-02T12:00:00" }
+              - column: { name: tenant, value: "handmade-tenant" }

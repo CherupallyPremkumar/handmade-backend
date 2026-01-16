@@ -44,7 +44,7 @@ databaseChangeLog:
                   name: postal_code
                   type: varchar(20)
               - column:
-                  name: country_code
+                  name: country
                   type: varchar(3)
               - column:
                   name: phone_number

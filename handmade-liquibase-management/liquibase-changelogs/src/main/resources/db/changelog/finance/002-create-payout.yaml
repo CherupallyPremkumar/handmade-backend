@@ -19,6 +19,9 @@ databaseChangeLog:
               - column:
                   name: amount
                   type: decimal(19, 4)
+              - column:
+                  name: status
+                  type: varchar(50)
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id

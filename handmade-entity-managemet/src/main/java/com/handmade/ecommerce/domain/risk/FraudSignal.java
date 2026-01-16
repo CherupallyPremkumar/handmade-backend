@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_fraud_signal")
@@ -28,7 +29,8 @@ public class FraudSignal extends BaseJpaEntity {
     @Column(name = "score", precision = 5, scale = 2)
     private BigDecimal score;
 
-    @Column(name = "metadata", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "metadata")
     private String metadata;
 
     @Column(name = "captured_at")

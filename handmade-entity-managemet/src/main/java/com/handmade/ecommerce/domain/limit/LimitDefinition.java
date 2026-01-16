@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_limit_definition")
@@ -20,12 +21,10 @@ public class LimitDefinition extends AbstractJpaStateEntity {
     @Column(name = "default_value")
     private Long defaultValue = 0L;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "description")
     private String description;
 
     @Column(name = "reset_period", length = 20)
     private String resetPeriod; // MONTHLY, DAILY, REALTIME
-
-    @Column(name = "status", length = 50)
-    private String status; // ACTIVE, PAUSED, DRAFT
 }

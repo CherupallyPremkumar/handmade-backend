@@ -5,10 +5,12 @@ import lombok.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 /**
- * ProductRelationship - Defines relationships between products (cross-sell, up-sell, etc.)
+ * ProductRelationship - Defines relationships between products (cross-sell,
+ * up-sell, etc.)
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product_relationship")

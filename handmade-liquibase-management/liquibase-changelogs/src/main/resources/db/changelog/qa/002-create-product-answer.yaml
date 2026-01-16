@@ -21,9 +21,6 @@ databaseChangeLog:
                   name: customer_id
                   type: varchar(36)
               - column:
-                  name: customer_name
-                  type: varchar(255)
-              - column:
                   name: seller_id
                   type: varchar(36)
               - column:
@@ -31,29 +28,18 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
-
               - column:
-                  name: helpful_votes
+                  name: upvote_count
                   type: int
                   defaultValueNumeric: 0
               - column:
-                  name: unhelpful_votes
+                  name: downvote_count
                   type: int
                   defaultValueNumeric: 0
               - column:
                   name: is_seller_answer
                   type: boolean
                   defaultValueBoolean: false
-              - column:
-                  name: is_verified_purchase
-                  type: boolean
-                  defaultValueBoolean: false
-              - column:
-                  name: answered_at
-                  type: timestamp
-                  constraints:
-                    nullable: false
-
               - column:
                   name: moderated_at
                   type: timestamp

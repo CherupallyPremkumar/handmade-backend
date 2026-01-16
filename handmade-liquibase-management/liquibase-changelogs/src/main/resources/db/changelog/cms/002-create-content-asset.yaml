@@ -12,6 +12,7 @@ databaseChangeLog:
               - column: { name: asset_url, type: VARCHAR(1000), constraints: { nullable: false } }
               - column: { name: asset_type, type: VARCHAR(50) } # BANNER, VIDEO, ICON
               - column: { name: alt_text, type: VARCHAR(255) }
+              - column: { name: file_size, type: BIGINT }
               # BaseJpaEntity
               - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
               - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }

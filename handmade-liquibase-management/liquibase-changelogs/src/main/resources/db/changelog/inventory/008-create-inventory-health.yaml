@@ -31,8 +31,28 @@ databaseChangeLog:
                   constraints:
                       nullable: false
               - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
                   name: qty_sellable
                   type: int
+              - column:
+                  name: unsellable_quantity
+                  type: int
+              - column:
+                  name: reserved_quantity
+                  type: int
+              - column:
+                  name: turnover_rate
+                  type: decimal(5, 2)
+              - column:
+                  name: days_of_supply
+                  type: int
+              - column:
+                  name: health_status
+                  type: varchar(50)
               - column:
                   name: age_0_60_days
                   type: int

@@ -25,6 +25,10 @@ databaseChangeLog:
               - column:
                   name: display_order
                   type: int
+              - column:
+                  name: is_featured
+                  type: boolean
+                  defaultValueBoolean: false
               # BaseJpaEntity Fields
               - column: {name: created_time, type: timestamp}
               - column: {name: last_modified_time, type: timestamp}

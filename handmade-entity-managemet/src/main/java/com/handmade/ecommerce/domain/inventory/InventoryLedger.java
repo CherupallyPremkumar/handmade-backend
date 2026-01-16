@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_inventory_ledger")
@@ -21,7 +22,7 @@ public class InventoryLedger extends BaseJpaEntity {
     @Column(name = "product_id", length = 36, nullable = false)
     private String productId;
 
-    @Column(name = "transaction_type", length = 50, nullable = false)
+    @Column(name = "reason", length = 50, nullable = false)
     private String transactionType; // RECEIVE, SHIP, ADJUST, DAMAGE, RETURN
 
     @Column(name = "quantity_change", nullable = false)
@@ -36,9 +37,10 @@ public class InventoryLedger extends BaseJpaEntity {
     @Column(name = "reference_id", length = 100)
     private String referenceId;
 
-    @Column(name = "notes", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "notes")
     private String notes;
 
-    @Column(name = "transaction_date", nullable = false)
+    @Column(name = "transaction_time", nullable = false)
     private Date transactionDate;
 }

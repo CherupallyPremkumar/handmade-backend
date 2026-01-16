@@ -9,11 +9,11 @@ databaseChangeLog:
               - column: {name: id, value: "ord-001"}
               - column: {name: platform_id, value: "PLT-US-001"}
               - column: {name: customer_id, value: "cust-001"}
-              - column: {name: display_id, value: "111-0000001-1111111"}
-              - column: {name: order_date, valueDate: "2024-02-01T14:30:00"}
-              - column: {name: total_amount, valueNumeric: 33.50}
+              - column: {name: order_number, value: "111-0000001-1111111"}
+              - column: {name: created_time, valueDate: "2024-02-01T14:30:00"}
+              - column: {name: total, valueNumeric: 33.50}
               - column: {name: currency_code, value: "USD"}
-              - column: {name: status, value: "CONFIRMED"}
+              - column: {name: state_id, value: "CONFIRMED"}
               - column: {name: tenant, value: "handmade-tenant"}
         - insert:
             tableName: hm_order_line
@@ -22,9 +22,10 @@ databaseChangeLog:
               - column: {name: order_id, value: "ord-001"}
               - column: {name: offer_id, value: "offer-001"}
               - column: {name: product_id, value: "prod-001"}
+              - column: {name: seller_id, value: "SEL-001"}
               - column: {name: quantity, valueNumeric: 1}
               - column: {name: unit_price, valueNumeric: 25.00}
-              # - column: {name: total_price, valueNumeric: 25.00} # Removed
+              - column: {name: line_total, valueNumeric: 25.00}
               - column: {name: tenant, value: "handmade-tenant"}
         - insert:
             tableName: hm_order_line
@@ -33,7 +34,8 @@ databaseChangeLog:
               - column: {name: order_id, value: "ord-001"}
               - column: {name: offer_id, value: "offer-002"}
               - column: {name: product_id, value: "prod-002"}
+              - column: {name: seller_id, value: "SEL-002"}
               - column: {name: quantity, valueNumeric: 1}
               - column: {name: unit_price, valueNumeric: 8.50}
-              # - column: {name: total_price, valueNumeric: 8.50} # Removed
+              - column: {name: line_total, valueNumeric: 8.50}
               - column: {name: tenant, value: "handmade-tenant"}

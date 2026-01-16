@@ -18,9 +18,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: refund_id
-                  type: varchar(36)
-              - column:
                   name: refund_amount
                   type: decimal(19,4)
                   constraints:
@@ -30,8 +27,8 @@ databaseChangeLog:
                   type: varchar(3)
                   defaultValue: USD
               - column:
-                  name: refund_reason
-                  type: varchar(500)
+                  name: reason
+                  type: text
               - column:
                   name: provider_refund_id
                   type: varchar(255)
@@ -105,9 +102,4 @@ databaseChangeLog:
               - column:
                   name: payment_transaction_id
         
-        - createIndex:
-            indexName: idx_refund_order
-            tableName: hm_payment_refund_transaction
-            columns:
-              - column:
-                  name: refund_id
+

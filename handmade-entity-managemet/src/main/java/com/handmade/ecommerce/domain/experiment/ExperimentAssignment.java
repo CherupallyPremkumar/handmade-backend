@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_experiment_assignment")
@@ -20,7 +21,8 @@ public class ExperimentAssignment extends BaseJpaEntity {
     @Column(name = "entity_id", length = 100, nullable = false)
     private String entityId;
 
-    @Column(name = "context_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "context_json")
     private String contextJson;
 
     @Column(name = "assigned_at", nullable = false)

@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_workflow_task")
@@ -20,12 +21,11 @@ public class WorkflowTask extends AbstractJpaStateEntity {
     @Column(name = "step_name", length = 100)
     private String stepName;
 
-    @Column(name = "status", length = 20)
-    private String status;
-
+    @Lob
     @Column(name = "input_data", columnDefinition = "TEXT")
     private String inputData;
 
+    @Lob
     @Column(name = "output_data", columnDefinition = "TEXT")
     private String outputData;
 }

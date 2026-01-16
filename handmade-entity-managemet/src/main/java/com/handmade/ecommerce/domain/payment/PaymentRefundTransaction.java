@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_payment_refund_transaction")
@@ -28,7 +29,8 @@ public class PaymentRefundTransaction extends AbstractJpaStateEntity {
     @Column(name = "provider_refund_id", length = 255)
     private String providerRefundId;
 
-    @Column(name = "reason", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "reason")
     private String reason;
 
     // Status managed by STM (PENDING, COMPLETED, FAILED)

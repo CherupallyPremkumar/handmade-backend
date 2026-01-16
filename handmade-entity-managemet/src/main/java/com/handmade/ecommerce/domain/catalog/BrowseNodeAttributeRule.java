@@ -5,10 +5,12 @@ import lombok.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 
 /**
- * BrowseNodeAttributeRule - Defines which attributes are required for products in a browse node
+ * BrowseNodeAttributeRule - Defines which attributes are required for products
+ * in a browse node
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_browse_node_attribute_rule")

@@ -41,7 +41,10 @@ databaseChangeLog:
                   type: varchar(50)
                   # US, EU, IN, GLOBAL, etc.
               - column:
-                  name: version
+                  name: status
+                  type: varchar(50)
+              - column:
+                  name: policy_version
                   type: varchar(50)
               - column:
                   name: effective_date
@@ -103,7 +106,7 @@ databaseChangeLog:
                   name: tenant
                   type: varchar(255)
               - column:
-                  name: db_version
+                  name: version
                   type: bigint
                   defaultValueNumeric: 0
 
@@ -123,5 +126,5 @@ databaseChangeLog:
 
         - addUniqueConstraint:
             tableName: hm_compliance_policy
-            columnNames: policy_code, version
+            columnNames: policy_code, policy_version
             constraintName: uk_policy_code_version

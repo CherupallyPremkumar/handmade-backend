@@ -20,28 +20,43 @@ databaseChangeLog:
               - column:
                   name: customer_id
                   type: varchar(36)
-              - column:
-                  name: display_id
-                  type: varchar(50)
-                  # Human readable (123-456789-000)
-              - column:
-                  name: order_date
-                  type: timestamp
                   constraints:
                     nullable: false
               - column:
-                  name: total_amount
+                  name: order_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: subtotal
                   type: "DECIMAL(19, 4)"
+              - column:
+                  name: tax
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: shipping_cost
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: discount
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: total
+                  type: "DECIMAL(19, 4)"
+                  constraints:
+                    nullable: false
               - column:
                   name: currency_code
                   type: varchar(3)
               - column:
-                  name: is_business_order
-                  type: boolean
-                  defaultValueBoolean: false
-              - column:
-                  name: purchase_order_number
+                  name: payment_method
                   type: varchar(50)
+              - column:
+                  name: shipping_address_id
+                  type: varchar(36)
+              - column:
+                  name: billing_address_id
+                  type: varchar(36)
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id
@@ -109,12 +124,6 @@ databaseChangeLog:
             columns:
               - column:
                   name: customer_id
-        - createIndex:
-            tableName: hm_order
-            indexName: idx_order_date
-            columns:
-              - column:
-                  name: order_date
         - createIndex:
             tableName: hm_order
             indexName: idx_order_status

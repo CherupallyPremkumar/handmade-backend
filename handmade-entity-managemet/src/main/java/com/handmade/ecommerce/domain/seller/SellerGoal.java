@@ -3,6 +3,7 @@ package com.handmade.ecommerce.domain.seller;
 import jakarta.persistence.*;
 import lombok.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_goal")
@@ -21,18 +23,20 @@ public class SellerGoal extends BaseJpaEntity {
     @Column(name = "goal_type", length = 50, nullable = false)
     private String goalType;
 
-    @Column(name = "target_value", length = 255)
-    private String targetValue;
+    @Column(name = "target_value", precision = 19, scale = 4)
+    private BigDecimal targetValue;
 
-    @Column(name = "current_value", length = 255)
-    private String currentValue;
+    @Column(name = "current_value", precision = 19, scale = 4)
+    private BigDecimal currentValue;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
     private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "status", length = 50)
+    @Column(name = "status", length = 20)
     private String status;
 }

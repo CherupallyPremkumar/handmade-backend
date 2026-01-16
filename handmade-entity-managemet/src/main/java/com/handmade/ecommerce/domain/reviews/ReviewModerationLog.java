@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_review_moderation_log")
@@ -26,6 +27,7 @@ public class ReviewModerationLog extends BaseJpaEntity {
     @Column(name = "reason")
     private String reason;
 
+    @Lob
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 }

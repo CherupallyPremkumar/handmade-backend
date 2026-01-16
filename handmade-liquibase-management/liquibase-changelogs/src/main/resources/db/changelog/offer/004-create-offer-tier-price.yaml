@@ -23,11 +23,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: max_quantity
+                  type: int
+              - column:
                   name: discount_percentage
                   type: decimal(5, 2)
               - column:
-                  name: fixed_price
+                  name: tier_price
                   type: decimal(19, 4)
+                  constraints:
+                    nullable: false
               # BaseJpaEntity
               - column:
                   name: created_time
@@ -54,14 +59,6 @@ databaseChangeLog:
             referencedTableName: hm_offer
             referencedColumnNames: id
             constraintName: fk_otp_offer
-        - addColumn:
-            tableName: hm_offer
-            columns:
-              - column:
-                  name: shipping_template_id
-                  type: varchar(36)
-        # Note: We add FK for shipping template later or now. Let's do it now.
-        # But wait, ordering matters. 003 runs before 004, so table exists.
         - addForeignKeyConstraint:
             baseTableName: hm_offer
             baseColumnNames: shipping_template_id

@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_cms_entry")
@@ -20,9 +21,6 @@ public class CMSEntry extends AbstractJpaStateEntity {
 
     @Column(name = "title", length = 255, nullable = false)
     private String title;
-
-    @Column(name = "status", length = 20)
-    private String status = "DRAFT";
 
     @Column(name = "publish_start")
     private Date publishStart;

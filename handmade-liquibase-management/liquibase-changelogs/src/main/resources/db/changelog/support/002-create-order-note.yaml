@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
               - column: { name: order_id, type: VARCHAR(36), constraints: { nullable: false } }
-              - column: { name: agent_id, type: VARCHAR(36) }
+              - column: { name: author_id, type: VARCHAR(36), constraints: { nullable: false } }
               - column: { name: note_text, type: TEXT, constraints: { nullable: false } }
               - column: { name: is_internal, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
               # BaseJpaEntity

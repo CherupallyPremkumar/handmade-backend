@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_experiment_bucket")
@@ -17,7 +18,8 @@ public class ExperimentBucket extends BaseJpaEntity {
     @Column(name = "variant_key", length = 50, nullable = false)
     private String variantKey; // CONTROL, TREATMENT_A
 
-    @Column(name = "payload_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payload_json")
     private String payloadJson;
 
     @Column(name = "allocation_weight")

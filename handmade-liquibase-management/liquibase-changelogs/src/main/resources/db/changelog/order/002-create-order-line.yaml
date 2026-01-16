@@ -29,6 +29,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
                   name: quantity
                   type: int
                   constraints:
@@ -36,8 +41,18 @@ databaseChangeLog:
               - column:
                   name: unit_price
                   type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: line_total
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
               - column:
                   name: tax_amount
+                  type: decimal(19, 4)
+              - column:
+                  name: discount_amount
                   type: decimal(19, 4)
               # AbstractJpaStateEntity (Chenile STM)
               - column:

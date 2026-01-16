@@ -91,6 +91,14 @@ databaseChangeLog:
               - column: {name: browse_node_id, value: "cat-001"} # Home & Garden
               - column: {name: is_primary, valueBoolean: true}
               - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-003"}
+              - column: {name: product_id, value: "prod-003"}
+              - column: {name: browse_node_id, value: "cat-001"} # Home & Garden
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "handmade-tenant"}
 
         # Variation: Leather Journal (Small)
         - insert:
@@ -152,9 +160,9 @@ databaseChangeLog:
               - column: {name: id, value: "price-standalone"}
               - column: {name: offer_id, value: "offer-standalone"}
               - column: {name: currency_code, value: "USD"}
-              - column: {name: amount, valueNumeric: 45.00}
-              - column: {name: price_type, value: "STANDARD"}
-              - column: {name: start_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: list_price, valueNumeric: 45.00}
+              - column: {name: sale_price, valueNumeric: 45.00}
+              - column: {name: sale_start_date, valueDate: "2024-01-01T00:00:00"}
               - column: {name: tenant, value: "handmade-tenant"}
 
         - insert:
@@ -167,4 +175,12 @@ databaseChangeLog:
               - column: {name: price, valueNumeric: 45.00}
               - column: {name: currency_code, value: "USD"}
               - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "handmade-tenant"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-004"}
+              - column: {name: product_id, value: "standalone-001"}
+              - column: {name: browse_node_id, value: "cat-002"} # Pottery
+              - column: {name: is_primary, valueBoolean: true}
               - column: {name: tenant, value: "handmade-tenant"}

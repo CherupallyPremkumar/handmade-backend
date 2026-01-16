@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_notification_log")
@@ -30,6 +31,7 @@ public class NotificationLog extends BaseJpaEntity {
     @Column(name = "sent_at", nullable = false)
     private Date sentAt;
 
-    @Column(name = "error_message", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "error_message")
     private String errorMessage;
 }

@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_payment_info")
@@ -17,18 +18,12 @@ public class SellerPaymentInfo extends BaseJpaEntity {
     @Column(name = "seller_id", length = 36, nullable = false, unique = true)
     private String sellerId;
 
-    @Column(name = "payment_provider", length = 100)
-    private String paymentProvider;
+    @Column(name = "preferred_method", length = 50)
+    private String preferredMethod;
 
-    @Column(name = "account_id", length = 255)
-    private String accountId;
+    @Column(name = "currency", length = 10)
+    private String currency;
 
-    @Column(name = "account_status", length = 50)
-    private String accountStatus;
-
-    @Column(name = "is_verified")
-    private Boolean isVerified = false;
-
-    @Column(name = "payout_schedule", length = 50)
-    private String payoutSchedule;
+    @Column(name = "is_default_active")
+    private Boolean isDefaultActive = true;
 }

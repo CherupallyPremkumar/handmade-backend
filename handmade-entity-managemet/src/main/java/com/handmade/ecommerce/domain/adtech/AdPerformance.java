@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_ad_performance")
@@ -20,6 +21,7 @@ public class AdPerformance extends BaseJpaEntity {
     private String sponsoredProductId;
 
     @Column(name = "report_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date reportDate;
 
     @Column(name = "impressions", nullable = false)

@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_policy_decision")
@@ -21,6 +22,7 @@ public class PolicyDecision extends BaseJpaEntity {
     @Column(name = "input_context_hash", length = 64)
     private String inputContextHash;
 
+    @Lob
     @Column(name = "input_context_json", columnDefinition = "TEXT")
     private String inputContextJson;
 

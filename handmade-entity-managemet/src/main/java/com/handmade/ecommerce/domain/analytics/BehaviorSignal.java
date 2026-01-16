@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_user_behavior_signal")
@@ -27,6 +28,7 @@ public class BehaviorSignal extends BaseJpaEntity {
     @Column(name = "interaction_type", length = 50)
     private String interactionType;
 
+    @Lob
     @Column(name = "metadata", columnDefinition = "TEXT")
     private String metadata;
 

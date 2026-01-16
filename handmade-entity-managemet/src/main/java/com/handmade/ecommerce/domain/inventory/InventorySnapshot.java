@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_inventory_snapshot")
@@ -30,6 +31,6 @@ public class InventorySnapshot extends BaseJpaEntity {
     @Column(name = "damaged_quantity")
     private Integer damagedQuantity = 0;
 
-    @Column(name = "snapshot_date", nullable = false)
+    @Column(name = "snapshot_time", nullable = false)
     private Date snapshotDate;
 }

@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_customer_address")
@@ -42,7 +43,7 @@ public class CustomerAddress extends BaseJpaEntity {
     private String country;
 
     @Column(name = "phone_number", length = 20)
-   private String phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "is_default")
     private Boolean isDefault = false;

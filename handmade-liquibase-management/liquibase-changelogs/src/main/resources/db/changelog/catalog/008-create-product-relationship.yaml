@@ -13,23 +13,23 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: parent_id
+                  name: product_id
                   type: varchar(36)
                   constraints:
                     nullable: false
               - column:
-                  name: child_id
+                  name: related_product_id
                   type: varchar(36)
                   constraints:
                     nullable: false
               - column:
-                  name: type
-                  type: varchar(50) # VARIATION, ACCESSORY, NEWER_VERSION, BUNDLE
+                  name: relationship_type
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:
-                  name: metadata
-                  type: text # JSON: { "theme": "SIZE_COLOR", "details": "Blue/M" }
+                  name: priority
+                  type: int
               # BaseJpaEntity Fields
               - column:
                   name: created_time
@@ -57,22 +57,22 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseTableName: hm_product_relationship
-            baseColumnNames: parent_id
-            referencedTableName: hm_catalog_item
+            baseColumnNames: product_id
+            referencedTableName: hm_product
             referencedColumnNames: id
-            constraintName: fk_cr_parent
+            constraintName: fk_pr_product
         - addForeignKeyConstraint:
             baseTableName: hm_product_relationship
-            baseColumnNames: child_id
-            referencedTableName: hm_catalog_item
+            baseColumnNames: related_product_id
+            referencedTableName: hm_product
             referencedColumnNames: id
-            constraintName: fk_cr_child
+            constraintName: fk_pr_related_product
         - createIndex:
             tableName: hm_product_relationship
-            indexName: idx_cr_parent_child
+            indexName: idx_pr_product_related
             columns:
               - column:
-                  name: parent_id
+                  name: product_id
               - column:
-                  name: child_id
+                  name: related_product_id
             unique: true

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_payment_transaction")
@@ -39,6 +40,7 @@ public class PaymentTransaction extends AbstractJpaStateEntity {
     @Column(name = "transaction_type", length = 50)
     private String transactionType; // PAYMENT, REFUND
 
-    @Column(name = "payment_gateway_response", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payment_gateway_response")
     private String paymentGatewayResponse;
 }

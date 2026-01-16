@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_experiment_definition")
@@ -18,11 +19,9 @@ public class ExperimentDefinition extends AbstractJpaStateEntity {
     @Column(name = "experiment_name")
     private String experimentName;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "description")
     private String description;
-
-    @Column(name = "status", length = 50, nullable = false)
-    private String status; // ACTIVE, PAUSED, DRAFT, COMPLETED
 
     @Column(name = "type", length = 50, nullable = false)
     private String type; // AB_TEST, FEATURE_FLAG

@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product")
@@ -20,15 +21,19 @@ public class Product extends AbstractJpaStateEntity {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Lob
     @Column(name = "sales_description", columnDefinition = "TEXT")
     private String salesDescription;
 
+    @Lob
     @Column(name = "feature_description", columnDefinition = "TEXT")
     private String featureDescription;
 
+    @Lob
     @Column(name = "details_description", columnDefinition = "TEXT")
     private String detailsDescription;
 
@@ -49,9 +54,6 @@ public class Product extends AbstractJpaStateEntity {
 
     @Column(name = "is_published")
     private Boolean isPublished = false;
-
-    @Column(name = "status", length = 50)
-    private String status;
 
     @Column(name = "primary_image_url", length = 2048)
     private String primaryImageUrl;

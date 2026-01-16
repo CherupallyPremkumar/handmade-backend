@@ -52,6 +52,13 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
         - createIndex:
             tableName: hm_search_term_report
             indexName: idx_search_term_date

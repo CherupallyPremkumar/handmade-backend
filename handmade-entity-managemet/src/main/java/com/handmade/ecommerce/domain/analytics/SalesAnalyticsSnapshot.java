@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_sales_analytics_snapshot")
@@ -29,5 +30,6 @@ public class SalesAnalyticsSnapshot extends BaseJpaEntity {
     private BigDecimal metricValue;
 
     @Column(name = "date_day")
+    @Temporal(TemporalType.DATE)
     private Date dateDay;
 }

@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_compliance_policy")
@@ -24,6 +25,7 @@ public class CompliancePolicy extends AbstractJpaStateEntity {
     @Column(name = "policy_code", length = 100, nullable = false)
     private String policyCode;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 

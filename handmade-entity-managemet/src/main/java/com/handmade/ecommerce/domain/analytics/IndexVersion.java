@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_search_index_version")
@@ -15,8 +16,8 @@ public class IndexVersion extends BaseJpaEntity {
     @Column(name = "index_name", length = 100, nullable = false)
     private String indexName;
 
-    @Column(name = "index_version_tag", length = 50, nullable = false)
-    private String indexVersionTag;
+    @Column(name = "index_version", length = 50, nullable = false)
+    private String indexVersion;
 
     @Column(name = "status", length = 20)
     private String status;

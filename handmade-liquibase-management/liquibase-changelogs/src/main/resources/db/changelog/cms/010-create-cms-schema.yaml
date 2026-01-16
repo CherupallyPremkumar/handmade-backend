@@ -10,6 +10,7 @@ databaseChangeLog:
               - column: {name: schema_code, type: varchar(100), constraints: {nullable: false, unique: true}}
               - column: {name: name, type: varchar(255), constraints: {nullable: false}}
               - column: {name: validation_json, type: text} # JSON Schema for content validation
+              - column: {name: is_active, type: boolean, defaultValueBoolean: true}
               # BaseJpaEntity
               - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
               - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}

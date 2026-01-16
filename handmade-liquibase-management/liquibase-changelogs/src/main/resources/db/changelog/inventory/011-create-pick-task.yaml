@@ -23,10 +23,15 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: assigned_to_user_id
+                  name: picker_user_id
                   type: varchar(36)
-                  constraints:
-                    nullable: true
+              - column:
+                  name: total_items
+                  type: int
+              - column:
+                  name: picked_items
+                  type: int
+                  defaultValueNumeric: 0
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id

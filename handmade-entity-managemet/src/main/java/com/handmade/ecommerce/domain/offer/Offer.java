@@ -3,13 +3,13 @@ package com.handmade.ecommerce.domain.offer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
-import java.util.Date;
 
 /**
  * Offer - Seller's offer/listing for a product managed by Chenile STM
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_offer")
@@ -40,7 +40,7 @@ public class Offer extends AbstractJpaStateEntity {
     private Integer availableQuantity = 0;
 
     @Column(name = "restock_date")
-    private Date restockDate;
+    private java.util.Date restockDate;
 
     @Column(name = "max_order_quantity")
     private Integer maxOrderQuantity;
@@ -51,7 +51,6 @@ public class Offer extends AbstractJpaStateEntity {
     @Column(name = "handling_time_days")
     private Integer handlingTimeDays;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
-
+    @Column(name = "shipping_template_id", length = 36)
+    private String shippingTemplateId;
 }

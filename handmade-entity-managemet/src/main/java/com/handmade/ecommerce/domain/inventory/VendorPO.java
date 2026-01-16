@@ -10,23 +10,33 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_vendor_po")
 public class VendorPO extends AbstractJpaStateEntity {
 
-    @Column(name = "seller_id", length = 36, nullable = false)
+    @Column(name = "seller_id", length = 36)
     private String sellerId;
 
-    @Column(name = "vendor_name", length = 255)
-    private String vendorName;
-
-    @Column(name = "po_number", length = 100, unique = true)
+    @Column(name = "po_number", length = 50, nullable = false, unique = true)
     private String poNumber;
 
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "vendor_code", length = 50)
+    private String vendorCode;
+
+    @Column(name = "status", length = 50)
+    private String status;
+
+    @Column(name = "order_date")
     private Date orderDate;
 
-    @Column(name = "expected_delivery_date")
-    private Date expectedDeliveryDate;
+    @Column(name = "delivery_window_start")
+    private Date deliveryWindowStart;
+
+    @Column(name = "delivery_window_end")
+    private Date deliveryWindowEnd;
+
+    @Column(name = "destination_node_id", length = 36)
+    private String destinationNodeId;
 }

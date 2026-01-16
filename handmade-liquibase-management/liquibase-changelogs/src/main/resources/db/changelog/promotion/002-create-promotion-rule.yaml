@@ -33,10 +33,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: rule_value
+                  name: value
                   type: text
                   constraints:
                     nullable: false
+              - column:
+                  name: description
+                  type: varchar(500)
               - column:
                   name: rule_priority
                   type: int

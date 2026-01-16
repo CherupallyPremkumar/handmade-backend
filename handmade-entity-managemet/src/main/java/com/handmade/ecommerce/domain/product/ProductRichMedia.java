@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product_rich_media")
@@ -26,6 +27,7 @@ public class ProductRichMedia extends BaseJpaEntity {
     @Column(name = "provider", length = 50)
     private String provider;
 
-    @Column(name = "config_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "config_json")
     private String configJson;
 }

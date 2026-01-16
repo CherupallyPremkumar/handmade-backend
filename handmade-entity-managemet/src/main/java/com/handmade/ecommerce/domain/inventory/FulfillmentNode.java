@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_fulfillment_node")
@@ -20,7 +21,7 @@ public class FulfillmentNode extends BaseJpaEntity {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "node_type", length = 50)
+    @Column(name = "type", length = 50)
     private String nodeType; // WAREHOUSE, DARK_STORE, PICKUP_POINT
 
     @Column(name = "address_line1", length = 255)
@@ -32,13 +33,13 @@ public class FulfillmentNode extends BaseJpaEntity {
     @Column(name = "city", length = 100)
     private String city;
 
-    @Column(name = "state", length = 100)
+    @Column(name = "state_code", length = 100)
     private String state;
 
     @Column(name = "postal_code", length = 20)
     private String postalCode;
 
-    @Column(name = "country", length = 2)
+    @Column(name = "country_code", length = 2)
     private String country;
 
     @Column(name = "latitude", precision = 10, scale = 7)

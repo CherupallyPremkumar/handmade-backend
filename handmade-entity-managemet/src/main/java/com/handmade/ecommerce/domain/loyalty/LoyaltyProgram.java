@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_loyalty_program")
@@ -17,7 +18,8 @@ public class LoyaltyProgram extends BaseJpaEntity {
     @Column(name = "tier_level")
     private Integer tierLevel = 1;
 
-    @Column(name = "benefits_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "benefits_json")
     private String benefitsJson;
 
     @Column(name = "is_active")

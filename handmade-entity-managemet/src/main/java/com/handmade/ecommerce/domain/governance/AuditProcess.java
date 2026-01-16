@@ -27,16 +27,15 @@ public class AuditProcess extends AbstractJpaStateEntity {
     @Column(name = "auditor_id", length = 36)
     private String auditorId;
 
-    @Column(name = "status", length = 50)
-    private String status; // Managed by STM, but kept for querying if needed
-
     @Column(name = "priority", length = 50)
     private String priority; // LOW, MEDIUM, HIGH, CRITICAL
 
-    @Column(name = "scope", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "scope")
     private String scope;
 
-    @Column(name = "findings", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "findings")
     private String findings;
 
     @Column(name = "risk_rating", length = 50)

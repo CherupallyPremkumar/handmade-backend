@@ -33,10 +33,26 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
+                  name: rack
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
                   name: shelf
                   type: varchar(20)
                   constraints:
                     nullable: true
+              - column:
+                  name: bin_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
               # BaseJpaEntity
               - column:
                   name: created_time

@@ -24,44 +24,27 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: payment_intent_id
-                  type: varchar(255)
-                  # External payment gateway intent ID
-              - column:
-                  name: total_amount
+                  name: amount
                   type: "DECIMAL(19, 4)"
                   constraints:
                     nullable: false
               - column:
                   name: currency_code
                   type: varchar(3)
-                  defaultValue: USD
+                  constraints:
+                    nullable: false
               - column:
-                  name: payment_method_type
-                  type: varchar(50)
-                  # CARD, WALLET, BANK_TRANSFER, etc.
+                  name: provider
+                  type: varchar(100)
               - column:
-                  name: capture_method
-                  type: varchar(50)
-                  # AUTOMATIC, MANUAL
-              - column:
-                  name: confirmation_method
-                  type: varchar(50)
-                  # AUTOMATIC, MANUAL
-              - column:
-                  name: requires_action
-                  type: boolean
-                  defaultValueBoolean: false
-              - column:
-                  name: client_secret
+                  name: provider_order_id
                   type: varchar(255)
               - column:
-                  name: return_url
-                  type: varchar(500)
-              - column:
-                  name: metadata
+                  name: payment_link
                   type: text
-                  # JSON metadata
+              - column:
+                  name: callback_url
+                  type: text
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id
@@ -126,7 +109,7 @@ databaseChangeLog:
             tableName: hm_payment_order
             columns:
               - column:
-                  name: payment_intent_id
+                  name: provider_order_id
 
   - changeSet:
       id: 2

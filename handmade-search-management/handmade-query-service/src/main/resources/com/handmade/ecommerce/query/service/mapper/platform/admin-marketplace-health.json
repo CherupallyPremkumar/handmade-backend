@@ -2,7 +2,7 @@
   {
     "id": "admin-marketplace-stats",
     "name": "admin-marketplace-stats",
-    "paginated": true,
+    "paginated": false,
     "sortable": false,
     "columnMetadata": {
       "metric_type": {

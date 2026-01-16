@@ -18,26 +18,20 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: provider_token
-                  type: varchar(255)
-                  # Token from Stripe/PayPal
+                  name: balance
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
               - column:
-                  name: last_4_digits
-                  type: varchar(4)
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
               - column:
-                  name: card_brand
-                  type: varchar(50)
-                  # VISA, MASTERCARD
-              - column:
-                  name: expiry_month
-                  type: int
-              - column:
-                  name: expiry_year
-                  type: int
-              - column:
-                  name: is_default
+                  name: is_active
                   type: boolean
-                  defaultValueBoolean: false
+                  defaultValueBoolean: true
               # BaseJpaEntity
               - column:
                   name: created_time

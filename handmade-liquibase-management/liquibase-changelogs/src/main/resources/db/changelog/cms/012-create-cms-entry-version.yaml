@@ -11,6 +11,7 @@ databaseChangeLog:
               - column: {name: version_number, type: int, constraints: {nullable: false}}
               - column: {name: content_json, type: text} # The actual content payload
               - column: {name: commit_message, type: varchar(500)}
+              - column: {name: is_active, type: boolean, defaultValueBoolean: false}
               # BaseJpaEntity
               - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
               - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}

@@ -58,6 +58,12 @@ databaseChangeLog:
               - column:
                   name: tax_code
                   type: varchar(50)
+              - column:
+                  name: handling_time_days
+                  type: int
+              - column:
+                  name: shipping_template_id
+                  type: varchar(36)
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id

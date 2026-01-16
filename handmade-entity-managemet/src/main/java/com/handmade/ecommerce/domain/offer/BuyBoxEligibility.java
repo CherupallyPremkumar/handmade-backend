@@ -9,23 +9,27 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_buy_box_eligibility")
 public class BuyBoxEligibility extends BaseJpaEntity {
 
-    @Column(name = "offer_id", length = 36, nullable = false, unique = true)
+    @Column(name = "offer_id", length = 36, nullable = false)
     private String offerId;
 
-    @Column(name = "is_eligible")
-    private Boolean isEligible = false;
+    @Column(name = "product_id", length = 36, nullable = false)
+    private String productId;
 
-    @Column(name = "eligibility_score")
-    private Integer eligibilityScore;
+    @Column(name = "is_eligible", nullable = false)
+    private Boolean isEligible = true;
 
-    @Column(name = "ineligibility_reason", columnDefinition = "TEXT")
+    @Column(name = "score", precision = 5, scale = 4, nullable = false)
+    private java.math.BigDecimal score;
+
+    @Column(name = "ineligibility_reason", length = 255)
     private String ineligibilityReason;
 
-    @Column(name = "is_buy_box_winner")
-    private Boolean isBuyBoxWinner = false;
+    @Column(name = "evaluated_at", nullable = false)
+    private java.util.Date evaluatedAt;
 }

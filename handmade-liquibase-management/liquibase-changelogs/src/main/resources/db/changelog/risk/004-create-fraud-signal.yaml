@@ -15,4 +15,10 @@ databaseChangeLog:
               - column: { name: score, type: "DECIMAL(5, 2)" }
               - column: { name: metadata, type: TEXT } # JSON string
               - column: { name: captured_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
               - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

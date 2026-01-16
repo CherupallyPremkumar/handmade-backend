@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_content_page")
@@ -20,6 +21,7 @@ public class ContentPage extends AbstractJpaStateEntity {
     @Column(name = "content_type", length = 50)
     private String contentType; // FAQ, HELP, STATIC_PAGE
 
+    @Lob
     @Column(name = "raw_content", columnDefinition = "TEXT")
     private String rawContent;
 

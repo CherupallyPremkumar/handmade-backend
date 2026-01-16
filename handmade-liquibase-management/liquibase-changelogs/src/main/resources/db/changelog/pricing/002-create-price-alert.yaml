@@ -25,31 +25,16 @@ databaseChangeLog:
               - column:
                   name: target_price
                   type: "DECIMAL(19, 4)"
-                  constraints:
-                    nullable: false
               - column:
-                  name: currency_code
-                  type: varchar(3)
-                  defaultValue: USD
+                  name: current_price
+                  type: "DECIMAL(19, 4)"
               - column:
-                  name: alert_type
-                  type: varchar(50)
-                  defaultValue: PRICE_DROP
-
+                  name: email
+                  type: varchar(255)
               - column:
-                  name: created_at
-                  type: timestamp
-                  constraints:
-                    nullable: false
-              - column:
-                  name: triggered_at
-                  type: timestamp
-              - column:
-                  name: notified_at
-                  type: timestamp
-              - column:
-                  name: expires_at
-                  type: timestamp
+                  name: notification_sent
+                  type: boolean
+                  defaultValueBoolean: false
               # AbstractJpaStateEntity (STM)
               - column:
                   name: flow_id

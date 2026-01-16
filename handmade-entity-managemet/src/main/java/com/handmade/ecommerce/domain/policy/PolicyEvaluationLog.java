@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_policy_evaluation_log")
@@ -26,6 +27,7 @@ public class PolicyEvaluationLog extends BaseJpaEntity {
     @Column(name = "contribution", length = 50)
     private String contribution; // DECISIVE, OVERRIDDEN, IRRELEVANT
 
+    @Lob
     @Column(name = "rule_output_json", columnDefinition = "TEXT")
     private String ruleOutputJson;
 }

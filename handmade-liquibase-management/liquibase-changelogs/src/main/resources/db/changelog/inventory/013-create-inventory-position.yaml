@@ -8,7 +8,9 @@ databaseChangeLog:
             columns:
               - column: { name: id, type: varchar(36), constraints: { primaryKey: true, nullable: false } }
               - column: { name: warehouse_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: bin_id, type: varchar(36), constraints: { nullable: false } }
               - column: { name: product_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: is_primary_location, type: boolean, defaultValueBoolean: false }
               - column: { name: quantity_on_hand, type: int, defaultValueNumeric: 0 }
               - column: { name: quantity_reserved, type: int, defaultValueNumeric: 0 }
               - column: { name: quantity_available, type: int, defaultValueNumeric: 0 }

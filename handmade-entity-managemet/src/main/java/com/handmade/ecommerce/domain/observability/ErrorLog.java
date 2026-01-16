@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_error_log")
@@ -20,10 +21,12 @@ public class ErrorLog extends BaseJpaEntity {
     @Column(name = "span_id", length = 100)
     private String spanId;
 
-    @Column(name = "error_message", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "error_message", nullable = false)
     private String errorMessage;
 
-    @Column(name = "stack_trace", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "stack_trace")
     private String stackTrace;
 
     @Column(name = "severity", length = 20)

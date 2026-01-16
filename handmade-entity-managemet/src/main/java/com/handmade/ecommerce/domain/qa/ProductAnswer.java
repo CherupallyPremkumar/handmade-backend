@@ -10,6 +10,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product_answer")
@@ -24,7 +25,8 @@ public class ProductAnswer extends AbstractJpaStateEntity {
     @Column(name = "customer_id", length = 36)
     private String customerId;
 
-    @Column(name = "answer_text", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "answer_text", nullable = false)
     private String answerText;
 
     @Column(name = "is_seller_answer")

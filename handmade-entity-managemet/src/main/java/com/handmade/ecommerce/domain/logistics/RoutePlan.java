@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_route_plan")
@@ -22,10 +23,12 @@ public class RoutePlan extends BaseJpaEntity {
     @Column(name = "vehicle_id", length = 36)
     private String vehicleId;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "route_date", nullable = false)
     private Date routeDate;
 
-    @Column(name = "planned_stops_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "planned_stops_json")
     private String plannedStopsJson;
 
     @Column(name = "status", length = 20)

@@ -11,31 +11,47 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_verification")
 public class SellerVerification extends AbstractJpaStateEntity {
 
-    @Column(name = "case_id", length = 36, nullable = false)
-    private String caseId;
+    @Column(name = "seller_id", length = 36, nullable = false)
+    private String sellerId;
 
-    @Column(name = "verification_type", length = 50, nullable = false)
+    @Column(name = "verification_type", length = 100, nullable = false)
     private String verificationType; // IDENTITY, ADDRESS, BUSINESS_LICENSE
 
-    @Column(name = "document_url", length = 255)
-    private String documentUrl;
+    @Column(name = "provider", length = 100)
+    private String provider; // MANUAL, STRIPE_IDENTITY, THIRD_PARTY
 
-    @Column(name = "verification_provider", length = 100)
-    private String verificationProvider; // MANUAL, STRIPE_IDENTITY, THIRD_PARTY
+    @Column(name = "provider_verification_id", length = 255)
+    private String providerVerificationId;
 
-    // verificationStatus managed by STM (PENDING, APPROVED, REJECTED)
+    @Column(name = "verification_url", length = 2048)
+    private String verificationUrl;
 
-    @Column(name = "verified_at")
-    private Date verifiedAt;
+    @Column(name = "initiated_at", nullable = false)
+    private Date initiatedAt;
 
-    @Column(name = "verified_by", length = 100)
+    @Column(name = "completed_at")
+    private Date completedAt;
+
+    @Column(name = "expires_at")
+    private Date expiresAt;
+
+    @Lob
+    @Column(name = "verification_result")
+    private String verificationResult;
+
+    @Column(name = "verified_by", length = 255)
     private String verifiedBy;
 
-    @Column(name = "provider_response", columnDefinition = "TEXT")
-    private String providerResponse;
+    @Lob
+    @Column(name = "rejection_reason")
+    private String rejectionReason;
+
+    @Column(name = "retry_count")
+    private Integer retryCount = 0;
 }

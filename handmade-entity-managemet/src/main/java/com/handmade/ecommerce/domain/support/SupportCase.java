@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_case_management")
@@ -23,6 +24,7 @@ public class SupportCase extends AbstractJpaStateEntity {
     @Column(name = "subject", length = 255, nullable = false)
     private String subject;
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 

@@ -37,7 +37,7 @@ databaseChangeLog:
                   type: varchar(3)
                   defaultValue: USD
               - column:
-                  name: used_at
+                  name: usage_date
                   type: timestamp
                   constraints:
                     nullable: false

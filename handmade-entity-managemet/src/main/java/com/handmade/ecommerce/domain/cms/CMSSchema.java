@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_cms_schema")
@@ -17,8 +18,9 @@ public class CMSSchema extends BaseJpaEntity {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "schema_definition", columnDefinition = "TEXT")
-    private String schemaDefinition;
+    @Lob
+    @Column(name = "validation_json", columnDefinition = "TEXT")
+    private String validationJson; // JSON Schema for content validation
 
     @Column(name = "is_active")
     private Boolean isActive = true;

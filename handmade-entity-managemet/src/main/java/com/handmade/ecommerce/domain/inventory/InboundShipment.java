@@ -10,12 +10,13 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_inbound_shipment")
 public class InboundShipment extends AbstractJpaStateEntity {
 
-    @Column(name = "fulfillment_node_id", length = 36, nullable = false)
+    @Column(name = "destination_node_id", length = 36, nullable = false)
     private String fulfillmentNodeId;
 
     @Column(name = "seller_id", length = 36, nullable = false)
@@ -30,7 +31,7 @@ public class InboundShipment extends AbstractJpaStateEntity {
     @Column(name = "actual_arrival_date")
     private Date actualArrivalDate;
 
-    @Column(name = "carrier", length = 100)
+    @Column(name = "carrier_name", length = 100)
     private String carrier;
 
     @Column(name = "tracking_number", length = 255)

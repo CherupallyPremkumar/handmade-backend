@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_settlement_batch")
@@ -15,9 +16,6 @@ public class SettlementBatch extends AbstractJpaStateEntity {
 
     @Column(name = "batch_reference", length = 100, nullable = false, unique = true)
     private String batchReference;
-
-    @Column(name = "status", length = 20)
-    private String status = "OPEN";
 
     @Column(name = "start_time", nullable = false)
     private Date startTime;
@@ -27,7 +25,4 @@ public class SettlementBatch extends AbstractJpaStateEntity {
 
     @Column(name = "total_amount", precision = 12, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
-
-    @Column(name = "transaction_count")
-    private Integer transactionCount = 0;
 }

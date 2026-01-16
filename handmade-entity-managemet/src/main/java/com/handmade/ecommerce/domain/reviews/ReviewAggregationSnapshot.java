@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_review_aggregation_snapshot")
@@ -25,6 +26,7 @@ public class ReviewAggregationSnapshot extends BaseJpaEntity {
     @Column(name = "total_reviews")
     private Integer totalReviews = 0;
 
+    @Lob
     @Column(name = "rating_distribution_json", columnDefinition = "TEXT")
     private String ratingDistributionJson;
 

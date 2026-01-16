@@ -28,13 +28,6 @@ databaseChangeLog:
               - column:
                   name: transaction_type
                   type: varchar(50)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
               - column:
                   name: amount
                   type: "DECIMAL(19, 4)"
@@ -45,48 +38,38 @@ databaseChangeLog:
                   type: varchar(3)
                   defaultValue: USD
               - column:
-                  name: payment_provider
+                  name: provider
                   type: varchar(100)
               - column:
                   name: provider_transaction_id
                   type: varchar(255)
               - column:
-                  name: provider_response
+                  name: payment_gateway_response
                   type: text
+              # AbstractJpaStateEntity (Chenile STM)
               - column:
-                  name: authorization_code
-                  type: varchar(100)
+                  name: flow_id
+                  type: varchar(255)
               - column:
-                  name: card_last_four
-                  type: varchar(4)
+                  name: state_id
+                  type: varchar(255)
               - column:
-                  name: card_brand
-                  type: varchar(50)
-              - column:
-                  name: billing_address_id
-                  type: varchar(36)
-              - column:
-                  name: initiated_at
+                  name: state_entry_time
                   type: timestamp
               - column:
-                  name: completed_at
+                  name: sla_yellow_date
                   type: timestamp
               - column:
-                  name: failed_at
+                  name: sla_red_date
                   type: timestamp
               - column:
-                  name: failure_reason
-                  type: text
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
               - column:
-                  name: risk_score
-                  type: "DECIMAL(5, 2)"
-              - column:
-                  name: is_disputed
-                  type: boolean
-                  defaultValueBoolean: false
-              - column:
-                  name: dispute_id
-                  type: varchar(36)
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
               # BaseJpaEntity
               - column:
                   name: created_time

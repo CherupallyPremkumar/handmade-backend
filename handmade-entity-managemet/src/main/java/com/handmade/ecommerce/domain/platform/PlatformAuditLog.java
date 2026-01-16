@@ -10,11 +10,12 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_platform_audit_log", indexes = {
-    @Index(name = "idx_platform_audit_platform_id", columnList = "platform_id"),
-    @Index(name = "idx_platform_audit_occurred_at", columnList = "occurred_at")
+        @Index(name = "idx_platform_audit_platform_id", columnList = "platform_id"),
+        @Index(name = "idx_platform_audit_occurred_at", columnList = "occurred_at")
 })
 public class PlatformAuditLog extends BaseJpaEntity {
 
@@ -27,7 +28,8 @@ public class PlatformAuditLog extends BaseJpaEntity {
     @Column(name = "event_status", length = 20)
     private String eventStatus;
 
-    @Column(name = "payload_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payload_json")
     private String payloadJson;
 
     @Column(name = "actor_id", length = 255)

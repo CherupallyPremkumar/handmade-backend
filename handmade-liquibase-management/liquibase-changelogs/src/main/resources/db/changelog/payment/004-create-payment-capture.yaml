@@ -13,12 +13,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: payment_authorization_id
+                  name: authorization_id
                   type: varchar(36)
                   constraints:
                     nullable: false
               - column:
-                  name: capture_amount
+                  name: captured_amount
                   type: decimal(19,4)
                   constraints:
                     nullable: false
@@ -94,4 +94,4 @@ databaseChangeLog:
             tableName: hm_payment_capture
             columns:
               - column:
-                  name: payment_authorization_id
+                  name: authorization_id

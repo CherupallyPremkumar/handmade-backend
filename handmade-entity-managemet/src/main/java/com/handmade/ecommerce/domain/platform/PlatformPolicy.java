@@ -6,10 +6,12 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 import java.util.Date;
 
 /**
- * Platform Policy - Policies applicable to a platform (Return Window, Cancellation SLA, etc.)
+ * Platform Policy - Policies applicable to a platform (Return Window,
+ * Cancellation SLA, etc.)
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_platform_policy")
@@ -22,7 +24,8 @@ public class PlatformPolicy extends BaseJpaEntity {
     @Column(name = "policy_type", length = 50, nullable = false)
     private String policyType; // RETURN_WINDOW, CANCELLATION_SLA
 
-    @Column(name = "policy_value", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "policy_value", nullable = false)
     private String policyValue;
 
     @Column(name = "policy_version", length = 20, nullable = false)

@@ -2,7 +2,6 @@ package com.handmade.ecommerce.domain.qa;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
 import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.util.Date;
 
@@ -11,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product_question")
@@ -22,7 +22,8 @@ public class ProductQuestion extends AbstractJpaStateEntity {
     @Column(name = "customer_id", length = 36, nullable = false)
     private String customerId;
 
-    @Column(name = "question_text", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "question_text", nullable = false)
     private String questionText;
 
     @Column(name = "is_public")

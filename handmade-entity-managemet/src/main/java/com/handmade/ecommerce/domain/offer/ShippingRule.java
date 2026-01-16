@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_shipping_rule")
@@ -18,24 +19,15 @@ public class ShippingRule extends BaseJpaEntity {
     @Column(name = "template_id", length = 36, nullable = false)
     private String templateId;
 
-    @Column(name = "region_code", length = 10)
-    private String regionCode;
+    @Column(name = "shipping_option", length = 50)
+    private String shippingOption;
 
-    @Column(name = "postal_code_pattern", length = 100)
-    private String postalCodePattern;
+    @Column(name = "cost_model", length = 50)
+    private String costModel;
 
-    @Column(name = "shipping_rate", precision = 19, scale = 4)
-    private BigDecimal shippingRate;
+    @Column(name = "base_cost", precision = 19, scale = 4)
+    private BigDecimal baseCost;
 
-    @Column(name = "additional_item_rate", precision = 19, scale = 4)
-    private BigDecimal additionalItemRate;
-
-    @Column(name = "min_delivery_days")
-    private Integer minDeliveryDays;
-
-    @Column(name = "max_delivery_days")
-    private Integer maxDeliveryDays;
-
-    @Column(name = "is_active")
-    private Boolean isActive = true;
+    @Column(name = "per_item_cost", precision = 19, scale = 4)
+    private BigDecimal perItemCost;
 }

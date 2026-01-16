@@ -39,6 +39,18 @@ databaseChangeLog:
                   name: quantity_in_case
                   type: int
               - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: damaged_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: condition_type
+                  type: varchar(50)
+              - column:
                   name: prep_details
                   type: varchar(255)
                   # POLYBAGGING, BUBBLEWRAP

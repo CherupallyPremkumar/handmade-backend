@@ -32,5 +32,6 @@ public class AdPerformanceDaily extends BaseJpaEntity {
     private BigDecimal sales;
 
     @Column(name = "date_day")
+    @Temporal(TemporalType.DATE)
     private Date dateDay;
 }

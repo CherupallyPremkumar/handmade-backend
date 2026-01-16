@@ -13,6 +13,16 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: fulfillment_node_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
                   name: inventory_item_id
                   type: varchar(36)
                   constraints:
@@ -25,6 +35,11 @@ databaseChangeLog:
               - column:
                   name: quantity
                   type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reservation_date
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:

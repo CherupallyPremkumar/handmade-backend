@@ -9,26 +9,24 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "hm_taxonomy")
+@Table(name = "hm_classification")
 public class Taxonomy extends BaseJpaEntity {
 
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "code", length = 100, nullable = false, unique = true)
+    @Column(name = "code", length = 255, nullable = false, unique = true)
     private String code;
-
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
 
     @Column(name = "parent_id", length = 36)
     private String parentId;
 
-    @Column(name = "level")
-    private Integer level;
+    @Column(name = "tax_code", length = 50)
+    private String taxCode;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
+    @Column(name = "is_leaf")
+    private Boolean isLeaf = true;
 }

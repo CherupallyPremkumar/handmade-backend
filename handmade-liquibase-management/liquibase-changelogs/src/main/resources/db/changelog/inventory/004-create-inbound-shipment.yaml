@@ -50,10 +50,19 @@ databaseChangeLog:
                   name: sla_late
                   type: int
                   defaultValueNumeric: 0
-              # BaseJpaEntity
+              - column:
                   name: label_prep_type
                   type: varchar(50)
                   # SELLER_LABEL, AMAZON_LABEL
+              - column:
+                  name: shipment_reference
+                  type: varchar(100)
+              - column:
+                  name: expected_arrival_date
+                  type: timestamp
+              - column:
+                  name: actual_arrival_date
+                  type: timestamp
               - column:
                   name: carrier_name
                   type: varchar(100)

@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_dispute_evidence")
@@ -17,18 +18,19 @@ public class DisputeEvidence extends BaseJpaEntity {
     @Column(name = "dispute_id", length = 36, nullable = false)
     private String disputeId;
 
-    @Column(name = "uploader_id", length = 36, nullable = false)
-    private String uploaderId; // Customer or Seller ID
+    @Column(name = "submitted_by", length = 255, nullable = false)
+    private String submittedBy;
 
-    @Column(name = "uploader_type", length = 50, nullable = false)
-    private String uploaderType; // CUSTOMER, SELLER, SUPPORT
+    @Column(name = "submitter_role", length = 50, nullable = false)
+    private String submitterRole; // CUSTOMER, SELLER, SUPPORT
 
-    @Column(name = "file_url", length = 2048, nullable = false)
-    private String fileUrl;
+    @Column(name = "document_url", length = 2048, nullable = false)
+    private String documentUrl;
 
-    @Column(name = "file_type", length = 50)
-    private String fileType; // IMAGE, PDF, TEXT
+    @Column(name = "evidence_type", length = 100, nullable = false)
+    private String evidenceType; // IMAGE, PDF, TEXT
 
+    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 }

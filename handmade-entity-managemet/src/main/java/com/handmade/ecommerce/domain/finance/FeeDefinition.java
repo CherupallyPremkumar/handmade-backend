@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_fee_definition")
@@ -20,7 +21,8 @@ public class FeeDefinition extends BaseJpaEntity {
     @Column(name = "fee_type", length = 50)
     private String feeType = "REFERRAL";
 
-    @Column(name = "calculation_logic", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "calculation_logic")
     private String calculationLogic; // JSON or script
 
     @Column(name = "is_active", nullable = false)

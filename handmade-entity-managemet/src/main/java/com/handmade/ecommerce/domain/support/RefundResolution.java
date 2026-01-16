@@ -4,29 +4,44 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * RefundResolution - Tracks decisions made regarding refund requests
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_refund_resolution")
 public class RefundResolution extends BaseJpaEntity {
 
-    @Column(name = "refund_request_id", length = 36, nullable = false)
-    private String refundRequestId;
+    @Column(name = "claim_id", length = 50, nullable = false, unique = true)
+    private String claimId;
 
-    @Column(name = "resolution_status", length = 50, nullable = false)
-    private String resolutionStatus; // APPROVED, REJECTED, MANUAL_REVIEW
+    @Column(name = "order_id", length = 36, nullable = false)
+    private String orderId;
 
-    @Column(name = "approved_amount", precision = 19, scale = 4)
-    private BigDecimal approvedAmount;
+    @Column(name = "claim_reason", length = 100, nullable = false)
+    private String claimReason;
 
-    @Column(name = "rejection_reason", length = 500)
-    private String rejectionReason;
+    @Column(name = "claim_status", length = 50, nullable = false)
+    private String claimStatus;
 
-    @Column(name = "processed_by", length = 36)
-    private String processedBy; // System or Agent ID
+    @Lob
+    @Column(name = "seller_response")
+    private String sellerResponse;
+
+    @Column(name = "resolution_decision", length = 50)
+    private String resolutionDecision;
+
+    @Column(name = "refund_amount", precision = 19, scale = 2)
+    private BigDecimal refundAmount;
+
+    @Column(name = "currency", length = 3)
+    private String currency;
+
+    @Column(name = "resolved_at")
+    private Date resolvedAt;
 }

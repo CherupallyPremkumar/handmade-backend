@@ -11,30 +11,34 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_price_history")
 public class PriceHistory extends BaseJpaEntity {
 
+    @Column(name = "offer_id", length = 36, nullable = false)
+    private String offerId;
+
     @Column(name = "product_id", length = 36, nullable = false)
     private String productId;
 
-    @Column(name = "variant_id", length = 36)
-    private String variantId;
+    @Column(name = "seller_id", length = 36, nullable = false)
+    private String sellerId;
 
-    @Column(name = "old_price", precision = 19, scale = 4)
-    private BigDecimal oldPrice;
+    @Column(name = "price", precision = 19, scale = 4, nullable = false)
+    private BigDecimal price;
 
-    @Column(name = "new_price", precision = 19, scale = 4, nullable = false)
-    private BigDecimal newPrice;
+    @Column(name = "currency_code", length = 3)
+    private String currencyCode = "USD";
 
-    @Column(name = "change_reason", length = 255)
+    @Column(name = "change_reason", length = 500)
     private String changeReason;
 
-    @Column(name = "change_source", length = 50)
-    private String changeSource; // MANUAL, PROMOTION, BULK_UPDATE
+    @Column(name = "changed_by", length = 255)
+    private String changedBy;
 
-    @Column(name = "effective_from")
+    @Column(name = "effective_from", nullable = false)
     private Date effectiveFrom;
 
     @Column(name = "effective_to")

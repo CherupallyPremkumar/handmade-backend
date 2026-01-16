@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_metrics_snapshot")
@@ -22,7 +23,8 @@ public class MetricsSnapshot extends BaseJpaEntity {
     @Column(name = "unit", length = 20)
     private String unit;
 
-    @Column(name = "dimensions", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "dimensions")
     private String dimensions;
 
     @Column(name = "captured_at")

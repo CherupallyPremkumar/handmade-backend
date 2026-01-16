@@ -9,10 +9,11 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "hm_platform_feature_config",
-       uniqueConstraints = @UniqueConstraint(name = "uq_plat_feat_cfg", columnNames = {"platform_id", "feature_code"}))
+@Table(name = "hm_platform_feature_config", uniqueConstraints = @UniqueConstraint(name = "uq_plat_feat_cfg", columnNames = {
+        "platform_id", "feature_code" }))
 public class PlatformFeatureConfig extends BaseJpaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +26,7 @@ public class PlatformFeatureConfig extends BaseJpaEntity {
     @Column(name = "is_enabled", nullable = false)
     private Boolean isEnabled = false;
 
-    @Column(name = "config_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "config_json")
     private String configJson;
 }

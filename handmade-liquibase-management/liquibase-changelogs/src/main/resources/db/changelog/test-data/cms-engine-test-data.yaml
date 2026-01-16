@@ -11,7 +11,7 @@ databaseChangeLog:
               - column: {name: schema_code, value: "BLOG_POST"}
               - column: {name: name, value: "Blog Post"}
               - column: {name: validation_json, value: '{"type": "object", "properties": {"body": {"type": "string"}}}'}
-              - column: {name: tenant, value: "default"}
+              - column: {name: tenant, value: "handmade-tenant"}
 
         # CMS Entry (Hello World)
         - insert:
@@ -21,9 +21,9 @@ databaseChangeLog:
               - column: {name: schema_id, value: "sch-001"}
               - column: {name: slug, value: "hello-world"}
               - column: {name: title, value: "Hello World"}
-              - column: {name: status, value: "PUBLISHED"}
+              - column: {name: state_id, value: "PUBLISHED"}
               - column: {name: active_version_id, value: "ver-001"}
-              - column: {name: tenant, value: "default"}
+              - column: {name: tenant, value: "handmade-tenant"}
 
         # Entry Version (v1)
         - insert:
@@ -34,4 +34,4 @@ databaseChangeLog:
               - column: {name: version_number, valueNumeric: 1}
               - column: {name: content_json, value: '{"body": "This is my first post!"}'}
               - column: {name: commit_message, value: "Initial commit"}
-              - column: {name: tenant, value: "default"}
+              - column: {name: tenant, value: "handmade-tenant"}

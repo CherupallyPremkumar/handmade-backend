@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_payment_order")
@@ -33,9 +34,11 @@ public class PaymentOrder extends AbstractJpaStateEntity {
     @Column(name = "provider_order_id", length = 255)
     private String providerOrderId;
 
-    @Column(name = "payment_link", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payment_link")
     private String paymentLink;
 
-    @Column(name = "callback_url", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "callback_url")
     private String callbackUrl;
 }

@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_tax_rate")
@@ -28,9 +29,11 @@ public class TaxRate extends BaseJpaEntity {
     @Column(name = "product_category_id", length = 36)
     private String productCategoryId;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "effective_from", nullable = false)
     private Date effectiveFrom;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "effective_to")
     private Date effectiveTo;
 

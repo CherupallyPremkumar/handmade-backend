@@ -46,7 +46,7 @@ databaseChangeLog:
               - column: {name: suspended, valueBoolean: false}
               - column: {name: deleted, valueBoolean: false}
               - column: {name: can_create_listings, valueBoolean: false}
-              - column: {name: state_id, value: "IDENTITY_VERIFICATION"}
+              - column: {name: state_id, value: "ACTIVE"}
               - column: {name: flow_id, value: "seller-onboarding"}
               - column: {name: created_time, valueDate: "2024-01-17T10:00:00"}
         - insert:

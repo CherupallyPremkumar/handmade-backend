@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_transaction")
@@ -24,9 +25,6 @@ public class FinancialTransaction extends AbstractJpaStateEntity {
 
     @Column(name = "currency_code", length = 3, nullable = false)
     private String currencyCode;
-
-    @Column(name = "status", length = 50)
-    private String status;
 
     @Column(name = "reference_type", length = 50)
     private String referenceType;

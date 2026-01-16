@@ -13,7 +13,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: coupon_code
+                  name: code
                   type: varchar(100)
                   constraints:
                     nullable: false
@@ -50,24 +50,28 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: valid_until
+                  name: expiration_date
                   type: timestamp
                   constraints:
                     nullable: false
               - column:
-                  name: max_uses_per_customer
+                  name: per_customer_limit
                   type: int
               - column:
-                  name: max_total_uses
+                  name: usage_limit
                   type: int
               - column:
-                  name: current_uses
+                  name: usage_count
                   type: int
                   defaultValueNumeric: 0
               - column:
                   name: is_single_use
                   type: boolean
                   defaultValueBoolean: false
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
               - column:
                   name: target_customer_id
                   type: varchar(36)
@@ -124,7 +128,7 @@ databaseChangeLog:
             tableName: hm_coupon
             columns:
               - column:
-                  name: coupon_code
+                  name: code
         
         - createIndex:
             indexName: idx_coupon_promotion

@@ -6,6 +6,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_experiment_audience")
@@ -17,7 +18,8 @@ public class ExperimentAudience extends BaseJpaEntity {
     @Column(name = "rule_name", length = 100)
     private String ruleName;
 
-    @Column(name = "rule_json", columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(name = "rule_json", nullable = false)
     private String ruleJson;
 
     @Column(name = "priority")

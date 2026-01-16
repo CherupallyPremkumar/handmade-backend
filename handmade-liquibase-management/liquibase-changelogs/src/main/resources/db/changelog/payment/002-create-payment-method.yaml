@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: method_type
+                  name: payment_type
                   type: varchar(50)
                   constraints:
                     nullable: false
@@ -26,20 +26,23 @@ databaseChangeLog:
                   name: provider
                   type: varchar(100)
               - column:
-                  name: provider_method_id
+                  name: provider_payment_method_id
                   type: varchar(255)
               - column:
                   name: card_brand
                   type: varchar(50)
               - column:
-                  name: card_last_four
+                  name: card_last4
                   type: varchar(4)
               - column:
-                  name: card_expiry_month
+                  name: card_exp_month
                   type: int
               - column:
-                  name: card_expiry_year
+                  name: card_exp_year
                   type: int
+              - column:
+                  name: billing_details
+                  type: text
               - column:
                   name: cardholder_name
                   type: varchar(255)

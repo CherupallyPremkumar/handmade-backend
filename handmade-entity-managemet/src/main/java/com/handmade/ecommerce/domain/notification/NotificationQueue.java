@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_notification_queue")
@@ -24,11 +25,9 @@ public class NotificationQueue extends AbstractJpaStateEntity {
     @Column(name = "channel", length = 20)
     private String channel; // EMAIL, SMS, PUSH
 
-    @Column(name = "payload", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "payload")
     private String payload;
-
-    @Column(name = "status", length = 20)
-    private String status = "PENDING";
 
     @Column(name = "retry_count")
     private Integer retryCount = 0;

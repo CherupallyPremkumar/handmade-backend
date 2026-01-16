@@ -303,11 +303,11 @@ databaseChangeLog:
   - include: { file: db/changelog/test-data/catalog-test-data.yaml }
   - include: { file: db/changelog/test-data/product-test-data.yaml }
   - include: { file: db/changelog/test-data/search-browse-test-data.yaml }
-  - include: { file: db/changelog/test-data/ui-queries-test-data.yaml }
 
-  # 4. Inventory & Offer
+  # 4. Inventory & Offer (Load offers BEFORE ui-queries to satisfy foreign keys)
   - include: { file: db/changelog/test-data/inventory-depth-test-data.yaml }
   - include: { file: db/changelog/test-data/offer-test-data.yaml }
+  - include: { file: db/changelog/test-data/ui-queries-test-data.yaml }
   - include: { file: db/changelog/test-data/offer-logic-test-data.yaml }
 
   # 5. Transactional (Order, Finance, Trust, CS, Marketing)

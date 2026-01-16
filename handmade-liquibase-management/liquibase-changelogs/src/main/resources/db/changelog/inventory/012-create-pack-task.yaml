@@ -23,10 +23,25 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: shipment_id
+                  name: order_id
                   type: varchar(36)
                   constraints:
-                    nullable: true
+                    nullable: false
+              - column:
+                  name: packer_user_id
+                  type: varchar(36)
+              - column:
+                  name: packaging_type
+                  type: varchar(50)
+              - column:
+                  name: weight_grams
+                  type: int
+              - column:
+                  name: dimensions_cm
+                  type: varchar(50)
+              - column:
+                  name: shipment_id
+                  type: varchar(36)
               # AbstractJpaStateEntity (Chenile STM)
               - column:
                   name: flow_id

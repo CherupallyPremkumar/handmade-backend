@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_translation")
@@ -20,6 +21,7 @@ public class Translation extends BaseJpaEntity {
     @Column(name = "translation_key", length = 255, nullable = false)
     private String translationKey;
 
+    @Lob
     @Column(name = "translation_value", columnDefinition = "TEXT", nullable = false)
     private String translationValue;
 

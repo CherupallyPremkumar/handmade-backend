@@ -14,4 +14,10 @@ databaseChangeLog:
               - column: { name: wishlist_count, type: BIGINT, defaultValueNumeric: 0 }
               - column: { name: trending_score, type: "DECIMAL(10, 4)", defaultValueNumeric: 0 }
               - column: { name: last_updated, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
               - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

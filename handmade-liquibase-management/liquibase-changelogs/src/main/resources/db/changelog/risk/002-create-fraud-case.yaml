@@ -42,6 +42,7 @@ databaseChangeLog:
                   type: int
                   defaultValueNumeric: 0
               # BaseJpaEntity
+              - column:
                   name: investigator_id
                   type: varchar(36)
               - column:

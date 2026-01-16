@@ -10,7 +10,7 @@ databaseChangeLog:
               - column: {name: seller_id, value: "store-001"} # Required
               - column: {name: name, value: "Handmade Ceramic Mug"}
               # - column: {name: sku, value: "MUG-001"} # Removed
-              - column: {name: status, value: "ACTIVE"}
+              - column: {name: state_id, value: "ACTIVE"}
               # - column: {name: product_type, value: "PHYSICAL"} # Removed
               - column: {name: brand, value: "Pottery Studio"}
               - column: {name: tenant, value: "handmade-tenant"}
@@ -22,7 +22,7 @@ databaseChangeLog:
               - column: {name: seller_id, value: "store-002"} # Required
               - column: {name: name, value: "Organic Lavender Soap"}
               # - column: {name: sku, value: "SOAP-LAV-001"} # Removed
-              - column: {name: status, value: "ACTIVE"}
+              - column: {name: state_id, value: "ACTIVE"}
               # - column: {name: product_type, value: "PHYSICAL"} # Removed
               - column: {name: brand, value: "Organic Soaps"}
               - column: {name: tenant, value: "handmade-tenant"}

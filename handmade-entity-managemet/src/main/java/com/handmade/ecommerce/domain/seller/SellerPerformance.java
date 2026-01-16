@@ -5,34 +5,37 @@ import lombok.*;
 import org.chenile.jpautils.entity.BaseJpaEntity;
 import java.math.BigDecimal;
 
+import java.util.Date;
+
 /**
  * SellerPerformance - Seller performance metrics and ratings
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_seller_performance")
 public class SellerPerformance extends BaseJpaEntity {
 
-    @Column(name = "seller_id", length = 36, nullable = false, unique = true)
+    @Column(name = "seller_id", length = 36, nullable = false)
     private String sellerId;
 
-    @Column(name = "overall_rating", precision = 3, scale = 2)
-    private BigDecimal overallRating;
+    @Column(name = "metric_name", length = 50)
+    private String metricName;
 
-    @Column(name = "total_reviews")
-    private Long totalReviews = 0L;
+    @Column(name = "metric_value", precision = 10, scale = 4)
+    private BigDecimal metricValue;
 
-    @Column(name = "order_fulfillment_rate", precision = 5, scale = 2)
-    private BigDecimal orderFulfillmentRate;
+    @Column(name = "target_value", precision = 10, scale = 4)
+    private BigDecimal targetValue;
 
-    @Column(name = "on_time_delivery_rate", precision = 5, scale = 2)
-    private BigDecimal onTimeDeliveryRate;
+    @Column(name = "window_start_date")
+    private Date windowStartDate;
 
-    @Column(name = "cancellation_rate", precision = 5, scale = 2)
-    private BigDecimal cancellationRate;
+    @Column(name = "window_end_date")
+    private Date windowEndDate;
 
-    @Column(name = "defect_rate", precision = 5, scale = 2)
-    private BigDecimal defectRate;
+    @Column(name = "status", length = 50)
+    private String status;
 }

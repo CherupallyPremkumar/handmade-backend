@@ -9,6 +9,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_product_review")
@@ -26,18 +27,17 @@ public class ProductReview extends AbstractJpaStateEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "review_text", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "review_text")
     private String reviewText;
 
     @Column(name = "is_verified_purchase")
     private Boolean isVerifiedPurchase = false;
 
-    @Column(name = "status", length = 20)
-    private String status; // Managed by STM
-
     @Column(name = "helpful_votes")
     private Integer helpfulVotes = 0;
 
-    @Column(name = "images_json", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "images_json")
     private String imagesJson;
 }
