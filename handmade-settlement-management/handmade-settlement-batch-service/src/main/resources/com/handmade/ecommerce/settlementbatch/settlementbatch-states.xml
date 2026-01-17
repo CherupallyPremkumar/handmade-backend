@@ -2,21 +2,21 @@
 <states>
     <flow id="settlementBatchFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="process" newStateId="PROCESSING" componentName="settlementBatchProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.ProcessSettlementBatchAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="settlementBatchCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="settlementBatchFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.CompleteSettlementBatchAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.FailSettlementBatchAction"/>
         </manual-state>
 
         <manual-state id="FAILED">
-            <on eventId="retry" newStateId="PENDING" componentName="settlementBatchRetryAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="settlementBatchCancelAction"/>
+            <on eventId="retry" newStateId="PENDING" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.RetrySettlementBatchAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.CancelSettlementBatchAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED">
-            <on eventId="reconcile" newStateId="RECONCILED" componentName="settlementBatchReconcileAction"/>
+            <on eventId="reconcile" newStateId="RECONCILED" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.ReconcileSettlementBatchAction"/>
         </manual-state>
 
         <manual-state id="RECONCILED" meta-endState="true"/>

@@ -17,6 +17,6 @@
         <module>handmade-product-answer-service</module>
         <module>handmade-product-question-service</module>
         <module>handmade-qa-api</module>
-        <module>handmade-qa-service</module>
+
     </modules>
 </project>

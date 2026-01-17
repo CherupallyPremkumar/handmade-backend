@@ -20,6 +20,6 @@
         <module>handmade-payment-transaction-service</module>
         <module>handmade-payment-order-service</module>
         <module>handmade-payment-api</module>
-        <module>handmade-payment-service</module>
+
     </modules>
 </project>

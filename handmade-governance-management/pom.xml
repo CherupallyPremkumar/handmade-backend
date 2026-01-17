@@ -17,6 +17,5 @@
         <module>handmade-gdpr-request-service</module>
         <module>handmade-audit-process-service</module>
         <module>handmade-governance-api</module>
-        <module>handmade-governance-service</module>
     </modules>
 </project>

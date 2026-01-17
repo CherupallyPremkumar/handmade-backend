@@ -2,12 +2,12 @@
 <states>
     <flow id="payoutFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="process" newStateId="PROCESSING" componentName="payoutProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.payout.service.cmds.ProcessPayoutAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="payoutCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="payoutFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.payout.service.cmds.CompletePayoutAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.payout.service.cmds.FailPayoutAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

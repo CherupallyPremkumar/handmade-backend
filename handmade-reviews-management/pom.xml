@@ -16,6 +16,6 @@
     <modules>
         <module>handmade-product-review-service</module>
         <module>handmade-reviews-api</module>
-        <module>handmade-reviews-service</module>
+
     </modules>
 </project>

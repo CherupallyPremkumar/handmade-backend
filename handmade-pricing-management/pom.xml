@@ -17,6 +17,6 @@
         <module>handmade-pricing-rule-definition-service</module>
         <module>handmade-price-alert-service</module>
         <module>handmade-pricing-api</module>
-        <module>handmade-pricing-service</module>
+
     </modules>
 </project>

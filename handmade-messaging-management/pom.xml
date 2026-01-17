@@ -16,6 +16,5 @@
     <modules>
         <module>handmade-seller-conversation-service</module>
         <module>handmade-messaging-api</module>
-        <module>handmade-messaging-service</module>
     </modules>
 </project>

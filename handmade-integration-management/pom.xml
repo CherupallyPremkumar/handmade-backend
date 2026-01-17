@@ -16,6 +16,5 @@
     <modules>
         <module>handmade-etl-job-service</module>
         <module>handmade-integration-api</module>
-        <module>handmade-integration-service</module>
     </modules>
 </project>

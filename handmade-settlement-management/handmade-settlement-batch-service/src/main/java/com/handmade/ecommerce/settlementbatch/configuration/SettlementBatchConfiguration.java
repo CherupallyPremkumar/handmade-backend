@@ -122,27 +122,27 @@ public class SettlementBatchConfiguration {
     // segment in src/main/resources/com/handmade/settlementbatch/settlementbatch-states.xml
 
     @Bean ReconcileSettlementBatchAction
-            settlementbatchReconcile(){
+            reconcileSettlementBatchAction(){
         return new ReconcileSettlementBatchAction();
     }
     @Bean CancelSettlementBatchAction
-            settlementbatchCancel(){
+            cancelSettlementBatchAction(){
         return new CancelSettlementBatchAction();
     }
     @Bean RetrySettlementBatchAction
-            settlementbatchRetry(){
+            retrySettlementBatchAction(){
         return new RetrySettlementBatchAction();
     }
     @Bean FailSettlementBatchAction
-            settlementbatchFail(){
+            failSettlementBatchAction(){
         return new FailSettlementBatchAction();
     }
     @Bean CompleteSettlementBatchAction
-            settlementbatchComplete(){
+            completeSettlementBatchAction(){
         return new CompleteSettlementBatchAction();
     }
     @Bean ProcessSettlementBatchAction
-            settlementbatchProcess(){
+            processSettlementBatchAction(){
         return new ProcessSettlementBatchAction();
     }
 

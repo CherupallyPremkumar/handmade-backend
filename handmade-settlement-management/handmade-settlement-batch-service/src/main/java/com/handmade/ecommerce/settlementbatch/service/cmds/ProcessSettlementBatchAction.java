@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.settlement.model.SettlementBatch;
-import com.handmade.ecommerce.settlement.model. ProcessSettlementBatchPayload;
+import com.handmade.ecommerce.settlement.dto.ProcessSettlementBatchPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.settlement.model. ProcessSettlementBatchPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ProcessSettlementBatchAction extends AbstractSTMTransitionAction<SettlementBatch,
-    ProcessSettlementBatchPayload>{
+               ProcessSettlementBatchPayload>{
 
 	@Override
 	public void transitionTo(SettlementBatch settlementbatch,

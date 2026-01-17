@@ -26,6 +26,5 @@
         <module>handmade-inbound-shipment-item-service</module>
         <module>handmade-inbound-shipment-service</module>
         <module>handmade-inventory-api</module>
-        <module>handmade-inventory-service</module>
     </modules>
 </project>

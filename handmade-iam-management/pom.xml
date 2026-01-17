@@ -18,6 +18,5 @@
         <module>handmade-role-service</module>
         <module>handmade-user-role-service</module>
         <module>handmade-iam-api</module>
-        <module>handmade-iam-service</module>
     </modules>
 </project>

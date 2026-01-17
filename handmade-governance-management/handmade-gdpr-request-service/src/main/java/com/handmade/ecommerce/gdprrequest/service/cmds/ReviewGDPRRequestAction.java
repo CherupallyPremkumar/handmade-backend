@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.governance.model.GDPRRequest;
-import com.handmade.ecommerce.governance.model. ReviewGDPRRequestPayload;
+import com.handmade.ecommerce.governance.dto.ReviewGDPRRequestPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.governance.model. ReviewGDPRRequestPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ReviewGDPRRequestAction extends AbstractSTMTransitionAction<GDPRRequest,
-    ReviewGDPRRequestPayload>{
+               ReviewGDPRRequestPayload>{
 
 	@Override
 	public void transitionTo(GDPRRequest gdprrequest,

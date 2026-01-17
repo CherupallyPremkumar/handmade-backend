@@ -17,6 +17,5 @@
         <module>handmade-limit-counter-service</module>
         <module>handmade-limit-definition-service</module>
         <module>handmade-limit-api</module>
-        <module>handmade-limit-service</module>
     </modules>
 </project>

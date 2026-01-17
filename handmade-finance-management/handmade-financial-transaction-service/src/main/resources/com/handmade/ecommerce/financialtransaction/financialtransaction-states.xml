@@ -2,12 +2,12 @@
 <states>
     <flow id="financialTransactionFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="process" newStateId="PROCESSING" componentName="financialTransactionProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.financialtransaction.service.cmds.ProcessFinancialTransactionAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="financialTransactionCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="financialTransactionFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.financialtransaction.service.cmds.CompleteFinancialTransactionAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.financialtransaction.service.cmds.FailFinancialTransactionAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

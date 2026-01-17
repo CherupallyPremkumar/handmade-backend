@@ -19,6 +19,5 @@
         <module>handmade-compliance-policy-service</module>
         <module>handmade-compliance-document-service</module>
         <module>handmade-risk-api</module>
-        <module>handmade-risk-service</module>
     </modules>
 </project>

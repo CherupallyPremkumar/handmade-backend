@@ -17,6 +17,5 @@
         <module>handmade-translation-service</module>
         <module>handmade-platform-region-policy-service</module>
         <module>handmade-localization-api</module>
-        <module>handmade-localization-service</module>
     </modules>
 </project>

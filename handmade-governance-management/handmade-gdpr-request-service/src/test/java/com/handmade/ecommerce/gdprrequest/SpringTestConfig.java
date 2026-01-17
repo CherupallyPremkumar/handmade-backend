@@ -2,6 +2,7 @@ package com.handmade.ecommerce.gdprrequest;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import com.handmade.ecommerce.gdprrequest.model.Gdprrequest;
 @PropertySource("classpath:com/handmade/ecommerce/gdprrequest/TestService.properties")
 @SpringBootApplication(scanBasePackages = { "org.chenile.configuration", "com.handmade.ecommerce.gdprrequest.configuration" })
 @ActiveProfiles("unittest")
+@EntityScan(basePackages = { "com.handmade.ecommerce.governance.model" })
 public class SpringTestConfig extends SpringBootServletInitializer{
 	
 }

@@ -19,6 +19,6 @@
         <module>handmade-delivery-exception-service</module>
         <module>handmade-delivery-attempt-service</module>
         <module>handmade-logistics-api</module>
-        <module>handmade-logistics-service</module>
+
     </modules>
 </project>

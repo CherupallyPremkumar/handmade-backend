@@ -14,11 +14,9 @@
     <name>handmade-finance-management</name>
 
     <modules>
-        <module>handmade-settlement-batch-service</module>
         <module>handmade-payout-service</module>
         <module>handmade-financial-transaction-service</module>
         <module>handmade-finance-profile-service</module>
         <module>handmade-finance-api</module>
-        <module>handmade-finance-service</module>
     </modules>
 </project>

@@ -2,12 +2,12 @@
 <states>
     <flow id="auditProcessFlow" default="true">
         <manual-state id="INITIATED" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="auditProcessStartAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.auditprocess.service.cmds.StartAuditProcessAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="complete" newStateId="COMPLETED" componentName="auditProcessCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="auditProcessFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.auditprocess.service.cmds.CompleteAuditProcessAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.auditprocess.service.cmds.FailAuditProcessAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

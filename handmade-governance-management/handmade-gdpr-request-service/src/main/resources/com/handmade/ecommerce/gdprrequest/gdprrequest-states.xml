@@ -2,21 +2,21 @@
 <states>
     <flow id="gdprRequestFlow" default="true">
         <manual-state id="SUBMITTED" initialState="true">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="gdprRequestReviewAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ReviewGdprRequestAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="gdprRequestApproveAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="gdprRequestRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ApproveGdprRequestAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.RejectGdprRequestAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="process" newStateId="PROCESSING" componentName="gdprRequestProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ProcessGdprRequestAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="gdprRequestCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="gdprRequestFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.CompleteGdprRequestAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.FailGdprRequestAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

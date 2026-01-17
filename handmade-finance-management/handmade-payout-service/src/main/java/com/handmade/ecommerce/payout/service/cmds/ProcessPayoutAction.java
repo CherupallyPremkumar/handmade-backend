@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.finance.model.Payout;
-import com.handmade.ecommerce.finance.model. ProcessPayoutPayload;
+import com.handmade.ecommerce.finance.dto.ProcessPayoutPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.finance.model. ProcessPayoutPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ProcessPayoutAction extends AbstractSTMTransitionAction<Payout,
-    ProcessPayoutPayload>{
+               ProcessPayoutPayload>{
 
 	@Override
 	public void transitionTo(Payout payout,

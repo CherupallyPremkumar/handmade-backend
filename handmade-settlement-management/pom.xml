@@ -16,6 +16,6 @@
     <modules>
         <module>handmade-settlement-batch-service</module>
         <module>handmade-settlement-api</module>
-        <module>handmade-settlement-service</module>
+
     </modules>
 </project>

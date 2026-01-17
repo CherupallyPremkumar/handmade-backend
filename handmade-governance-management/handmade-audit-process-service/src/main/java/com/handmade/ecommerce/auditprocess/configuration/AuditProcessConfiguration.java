@@ -122,15 +122,15 @@ public class AuditProcessConfiguration {
     // segment in src/main/resources/com/handmade/auditprocess/auditprocess-states.xml
 
     @Bean FailAuditProcessAction
-            auditprocessFail(){
+            failAuditProcessAction(){
         return new FailAuditProcessAction();
     }
     @Bean CompleteAuditProcessAction
-            auditprocessComplete(){
+            completeAuditProcessAction(){
         return new CompleteAuditProcessAction();
     }
     @Bean StartAuditProcessAction
-            auditprocessStart(){
+            startAuditProcessAction(){
         return new StartAuditProcessAction();
     }
 

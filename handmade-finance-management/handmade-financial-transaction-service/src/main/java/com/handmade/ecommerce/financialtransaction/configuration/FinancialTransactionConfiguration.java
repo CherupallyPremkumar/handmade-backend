@@ -122,15 +122,15 @@ public class FinancialTransactionConfiguration {
     // segment in src/main/resources/com/handmade/financialtransaction/financialtransaction-states.xml
 
     @Bean FailFinancialTransactionAction
-            financialtransactionFail(){
+            failFinancialTransactionAction(){
         return new FailFinancialTransactionAction();
     }
     @Bean CompleteFinancialTransactionAction
-            financialtransactionComplete(){
+            completeFinancialTransactionAction(){
         return new CompleteFinancialTransactionAction();
     }
     @Bean ProcessFinancialTransactionAction
-            financialtransactionProcess(){
+	processFinancialTransactionAction(){
         return new ProcessFinancialTransactionAction();
     }
 
