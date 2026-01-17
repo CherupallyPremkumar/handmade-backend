@@ -14,7 +14,9 @@
     <name>handmade-seller-management</name>
 
     <modules>
+        <module>handmade-seller-store-service</module>
+        <module>handmade-seller-kyc-service</module>
+        <module>handmade-seller-account-service</module>
         <module>handmade-seller-api</module>
-        <module>handmade-seller-service</module>
     </modules>
 </project>

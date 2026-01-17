@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Standard E-commerce Promotion State Machine
-Purpose: Manage lifecycle of platform or seller-funded promotions.
-Flow: PROMOTION_FLOW
-Lifecycle: DRAFT -> SCHEDULED -> ACTIVE -> PAUSED -> EXPIRED / CANCELLED
--->
 <states>
-    <event-information eventId="createPromotion"  eventName="Create promotion"  meta-acls="promo.ops"/>
-    <event-information eventId="schedulePromotion" eventName="Schedule promotion" meta-acls="promo.ops"/>
-    <event-information eventId="activatePromotion" eventName="Activate promotion" meta-acls="promo.ops"/>
-    <event-information eventId="pausePromotion"    eventName="Pause promotion"    meta-acls="promo.ops"/>
-    <event-information eventId="resumePromotion"   eventName="Resume promotion"   meta-acls="promo.ops"/>
-    <event-information eventId="expirePromotion"   eventName="Expire promotion"   meta-acls="promo.ops"/>
-    <event-information eventId="cancelPromotion"   eventName="Cancel promotion"   meta-acls="promo.ops"/>
-
-    <flow id="PROMOTION_FLOW" default="true">
+    <flow id="promotionFlow" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="schedulePromotion" newStateId="SCHEDULED" componentName="promotionScheduleAction"/>
-            <on eventId="cancelPromotion"   newStateId="CANCELLED" componentName="promotionCancelAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="promotionSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="promotionApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="promotionRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="schedule" newStateId="SCHEDULED" componentName="promotionScheduleAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="promotionActivateAction"/>
         </manual-state>
 
         <manual-state id="SCHEDULED">
-            <on eventId="activatePromotion" newStateId="ACTIVE" componentName="promotionActivateAction"/>
-            <on eventId="cancelPromotion"   newStateId="CANCELLED" componentName="promotionCancelAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="promotionActivateFromScheduledAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="pausePromotion"  newStateId="PAUSED"   componentName="promotionPauseAction"/>
-            <on eventId="expirePromotion" newStateId="EXPIRED"  componentName="promotionExpireAction"/>
-            <on eventId="cancelPromotion" newStateId="CANCELLED" componentName="promotionCancelAction"/>
+            <on eventId="pause" newStateId="PAUSED" componentName="promotionPauseAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="promotionExpireAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelFromActiveAction"/>
         </manual-state>
 
         <manual-state id="PAUSED">
-            <on eventId="resumePromotion" newStateId="ACTIVE"   componentName="promotionResumeAction"/>
-            <on eventId="expirePromotion" newStateId="EXPIRED"  componentName="promotionExpireAction"/>
-            <on eventId="cancelPromotion" newStateId="CANCELLED" componentName="promotionCancelAction"/>
+            <on eventId="resume" newStateId="ACTIVE" componentName="promotionResumeAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelFromPausedAction"/>
         </manual-state>
 
-        <manual-state id="EXPIRED"   meta-endState="true"/>
+        <manual-state id="EXPIRED" meta-endState="true"/>
         <manual-state id="CANCELLED" meta-endState="true"/>
     </flow>
 </states>

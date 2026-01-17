@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="settlementBatchFlow" default="true">
+        <manual-state id="OPEN" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="settlementBatchProcessAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="close" newStateId="CLOSED" componentName="settlementBatchCloseAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="settlementBatchFailAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+    </flow>
+</states>

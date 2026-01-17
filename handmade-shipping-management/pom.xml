@@ -14,6 +14,7 @@
     <name>handmade-shipping-management</name>
 
     <modules>
+        <module>handmade-shipment-service</module>
         <module>handmade-shipping-api</module>
         <module>handmade-shipping-service</module>
     </modules>

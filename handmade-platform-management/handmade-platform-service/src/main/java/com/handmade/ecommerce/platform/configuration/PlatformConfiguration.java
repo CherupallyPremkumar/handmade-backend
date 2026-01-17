@@ -121,41 +121,41 @@ public class PlatformConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/platform/platform-states.xml
 
-    @Bean SuspendPlatformPlatformAction
-            platformSuspendPlatform(){
-        return new SuspendPlatformPlatformAction();
+    @Bean SuspendPlatformAction
+            platformSuspend(){
+        return new SuspendPlatformAction();
     }
-    @Bean EnableReadOnlyPlatformAction
-            platformEnableReadOnly(){
-        return new EnableReadOnlyPlatformAction();
+    @Bean DeactivatePlatformAction
+            platformDeactivate(){
+        return new DeactivatePlatformAction();
     }
-    @Bean DecommissionPlatformAction
-            platformDecommission(){
-        return new DecommissionPlatformAction();
+    @Bean SubmitPlatformAction
+            platformSubmit(){
+        return new SubmitPlatformAction();
     }
-    @Bean ActivatePlatformPlatformAction
-            platformActivatePlatform(){
-        return new ActivatePlatformPlatformAction();
+    @Bean ArchivePlatformAction
+            platformArchive(){
+        return new ArchivePlatformAction();
     }
-    @Bean DecommissionPlatformAction
-            platformDecommission(){
-        return new DecommissionPlatformAction();
+    @Bean ReactivatePlatformAction
+            platformReactivate(){
+        return new ReactivatePlatformAction();
     }
-    @Bean ResumePlatformPlatformAction
-            platformResumePlatform(){
-        return new ResumePlatformPlatformAction();
+    @Bean DeactivatePlatformAction
+            platformDeactivate(){
+        return new DeactivatePlatformAction();
     }
-    @Bean DecommissionPlatformAction
-            platformDecommission(){
-        return new DecommissionPlatformAction();
+    @Bean ApprovePlatformAction
+            platformApprove(){
+        return new ApprovePlatformAction();
     }
-    @Bean ResumePlatformPlatformAction
-            platformResumePlatform(){
-        return new ResumePlatformPlatformAction();
+    @Bean RejectPlatformAction
+            platformReject(){
+        return new RejectPlatformAction();
     }
-    @Bean DecommissionPlatformAction
-            platformDecommission(){
-        return new DecommissionPlatformAction();
+    @Bean ActivatePlatformAction
+            platformActivate(){
+        return new ActivatePlatformAction();
     }
 
 

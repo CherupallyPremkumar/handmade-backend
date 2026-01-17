@@ -121,45 +121,53 @@ public class PromotionConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/promotion/promotion-states.xml
 
-    @Bean CancelPromotionPromotionAction
-            promotionCancelPromotion(){
-        return new CancelPromotionPromotionAction();
+    @Bean ResumePromotionAction
+            promotionResume(){
+        return new ResumePromotionAction();
     }
-    @Bean ExpirePromotionPromotionAction
-            promotionExpirePromotion(){
-        return new ExpirePromotionPromotionAction();
+    @Bean CancelPromotionAction
+            promotionCancel(){
+        return new CancelPromotionAction();
     }
-    @Bean ResumePromotionPromotionAction
-            promotionResumePromotion(){
-        return new ResumePromotionPromotionAction();
+    @Bean CancelPromotionAction
+            promotionCancel(){
+        return new CancelPromotionAction();
     }
-    @Bean CancelPromotionPromotionAction
-            promotionCancelPromotion(){
-        return new CancelPromotionPromotionAction();
+    @Bean ExpirePromotionAction
+            promotionExpire(){
+        return new ExpirePromotionAction();
     }
-    @Bean ExpirePromotionPromotionAction
-            promotionExpirePromotion(){
-        return new ExpirePromotionPromotionAction();
+    @Bean PausePromotionAction
+            promotionPause(){
+        return new PausePromotionAction();
     }
-    @Bean PausePromotionPromotionAction
-            promotionPausePromotion(){
-        return new PausePromotionPromotionAction();
+    @Bean SubmitPromotionAction
+            promotionSubmit(){
+        return new SubmitPromotionAction();
     }
-    @Bean CancelPromotionPromotionAction
-            promotionCancelPromotion(){
-        return new CancelPromotionPromotionAction();
+    @Bean ApprovePromotionAction
+            promotionApprove(){
+        return new ApprovePromotionAction();
     }
-    @Bean SchedulePromotionPromotionAction
-            promotionSchedulePromotion(){
-        return new SchedulePromotionPromotionAction();
+    @Bean RejectPromotionAction
+            promotionReject(){
+        return new RejectPromotionAction();
     }
-    @Bean CancelPromotionPromotionAction
-            promotionCancelPromotion(){
-        return new CancelPromotionPromotionAction();
+    @Bean SchedulePromotionAction
+            promotionSchedule(){
+        return new SchedulePromotionAction();
     }
-    @Bean ActivatePromotionPromotionAction
-            promotionActivatePromotion(){
-        return new ActivatePromotionPromotionAction();
+    @Bean ActivatePromotionAction
+            promotionActivate(){
+        return new ActivatePromotionAction();
+    }
+    @Bean CancelPromotionAction
+            promotionCancel(){
+        return new CancelPromotionAction();
+    }
+    @Bean ActivatePromotionAction
+            promotionActivate(){
+        return new ActivatePromotionAction();
     }
 
 

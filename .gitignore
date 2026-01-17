@@ -22,6 +22,9 @@ walkthrough.md
 *.iml
 *.ipr
 
+
+**.py
+
 ### Eclipse ###
 .apt_generated
 .classpath

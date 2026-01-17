@@ -1,6 +1,6 @@
 package com.handmade.ecommerce.scheduler.configuration.dao;
 
-import com.handmade.ecommerce.scheduler.model.Scheduler;
+import com.handmade.ecommerce.event.model.Scheduler;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

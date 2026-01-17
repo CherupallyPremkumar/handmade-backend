@@ -21,9 +21,6 @@ public class Role extends AbstractJpaStateEntity {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "tenant_id", length = 36)
-    private String tenantId;
-
     // Relationships
     @ManyToMany
     @JoinTable(name = "hm_role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))

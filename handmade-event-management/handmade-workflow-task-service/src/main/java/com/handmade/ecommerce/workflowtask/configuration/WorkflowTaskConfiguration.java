@@ -122,11 +122,11 @@ public class WorkflowTaskConfiguration {
     // segment in src/main/resources/com/handmade/workflowtask/workflowtask-states.xml
 
     @Bean FailWorkflowTaskAction
-            workflowtaskFail(){
+            failWorkflowTaskAction(){
         return new FailWorkflowTaskAction();
     }
     @Bean CompleteWorkflowTaskAction
-            workflowtaskComplete(){
+            completeWorkflowTaskAction(){
         return new CompleteWorkflowTaskAction();
     }
 

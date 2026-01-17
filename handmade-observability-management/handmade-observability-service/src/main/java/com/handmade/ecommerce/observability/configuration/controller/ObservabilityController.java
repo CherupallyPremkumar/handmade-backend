@@ -1,10 +1,7 @@
 package com.handmade.ecommerce.observability.configuration.controller;
 
-import java.util.Map;
-
 import jakarta.servlet.http.HttpServletRequest;
 import org.chenile.base.response.GenericResponse;
-import com.handmade.ecommerce.observability.model.Observability;
 import org.chenile.http.annotation.ChenileController;
 import org.chenile.http.handler.ControllerSupport;
 import org.springframework.http.ResponseEntity;

@@ -2,8 +2,8 @@ Feature: Tests the order Workflow Service using a REST client. This is done only
 first testcase. Order service exists and is under test.
 It helps to create a order and manages the state of the order as documented in states xml
 Scenario: Create a new order
-Given that "flowName" equals "ORDER_FLOW"
-And that "initialState" equals "CREATED"
+Given that "flowName" equals "orderFlow"
+And that "initialState" equals "PENDING"
 When I POST a REST request to URL "/order" with payload
 """json
 {
@@ -22,9 +22,9 @@ Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
- Scenario: Send the confirmOrder event to the order with comments
- Given that "comment" equals "Comment for confirmOrder"
- And that "event" equals "confirmOrder"
+ Scenario: Send the confirm event to the order with comments
+ Given that "comment" equals "Comment for confirm"
+ And that "event" equals "confirm"
 When I PATCH a REST request to URL "/order/${id}/${event}" with payload
 """json
 {
@@ -36,9 +36,9 @@ And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "CONFIRMED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the cancelOrder event to the order with comments
- Given that "comment" equals "Comment for cancelOrder"
- And that "event" equals "cancelOrder"
+ Scenario: Send the cancel event to the order with comments
+ Given that "comment" equals "Comment for cancel"
+ And that "event" equals "cancel"
 When I PATCH a REST request to URL "/order/${id}/${event}" with payload
 """json
 {

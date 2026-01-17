@@ -14,6 +14,9 @@
     <name>handmade-onboarding-management</name>
 
     <modules>
+        <module>handmade-seller-verification-service</module>
+        <module>handmade-seller-onboarding-step-service</module>
+        <module>handmade-seller-onboarding-case-service</module>
         <module>handmade-onboarding-api</module>
         <module>handmade-onboarding-service</module>
     </modules>

@@ -1,0 +1,119 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-create-return-item
+      author: system
+      changes:
+        - createTable:
+            tableName: hm_return_item
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_line_id
+                  type: VARCHAR(36)
+              - column:
+                  name: sku
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: return_reason
+                  type: VARCHAR(500)
+              - column:
+                  name: customer_id
+                  type: VARCHAR(36)
+              - column:
+                  name: fulfillment_node_id
+                  type: VARCHAR(36)
+              - column:
+                  name: inspection_result
+                  type: VARCHAR(50)
+              - column:
+                  name: inspected_by
+                  type: VARCHAR(36)
+              - column:
+                  name: requested_at
+                  type: TIMESTAMP
+              - column:
+                  name: received_at
+                  type: TIMESTAMP
+              - column:
+                  name: restocked_at
+                  type: TIMESTAMP
+              - column:
+                  name: state_id
+                  type: VARCHAR(50)
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_return_item
+            baseColumnNames: fulfillment_node_id
+            referencedTableName: hm_fulfillment_node
+            referencedColumnNames: id
+            constraintName: fk_return_item_node
+        - createIndex:
+            tableName: hm_return_item
+            indexName: idx_return_item_order
+            columns:
+              - column:
+                  name: order_id
+        - createIndex:
+            tableName: hm_return_item
+            indexName: idx_return_item_sku
+            columns:
+              - column:
+                  name: sku
+        - createIndex:
+            tableName: hm_return_item
+            indexName: idx_return_item_state
+            columns:
+              - column:
+                  name: state_id

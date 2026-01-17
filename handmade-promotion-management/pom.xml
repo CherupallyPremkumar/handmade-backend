@@ -14,6 +14,7 @@
     <name>handmade-promotion-management</name>
 
     <modules>
+        <module>handmade-coupon-service</module>
         <module>handmade-promotion-api</module>
         <module>handmade-promotion-service</module>
     </modules>

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.product.model.Product;
-import com.handmade.ecommerce.product.model. PublishProductPayload;
+import com.handmade.ecommerce.product.model.PublishProductPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}

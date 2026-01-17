@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="paymentTransactionFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="paymentTransactionProcessAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="paymentTransactionCancelAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="succeed" newStateId="SUCCESS" componentName="paymentTransactionSucceedAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="paymentTransactionFailAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="PENDING" componentName="paymentTransactionRetryAction"/>
+        </manual-state>
+
+        <manual-state id="SUCCESS" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

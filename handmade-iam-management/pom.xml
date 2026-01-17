@@ -14,6 +14,9 @@
     <name>handmade-iam-management</name>
 
     <modules>
+        <module>handmade-permission-service</module>
+        <module>handmade-role-service</module>
+        <module>handmade-user-role-service</module>
         <module>handmade-iam-api</module>
         <module>handmade-iam-service</module>
     </modules>

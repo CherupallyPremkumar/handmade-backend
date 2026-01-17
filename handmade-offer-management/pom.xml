@@ -14,6 +14,7 @@
     <name>handmade-offer-management</name>
 
     <modules>
+        <module>handmade-price-rule-service</module>
         <module>handmade-offer-api</module>
         <module>handmade-offer-service</module>
     </modules>

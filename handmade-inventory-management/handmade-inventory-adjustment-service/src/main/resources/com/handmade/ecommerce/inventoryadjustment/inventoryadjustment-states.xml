@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="inventoryAdjustmentFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="PENDING_APPROVAL" componentName="inventoryAdjustmentSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING_APPROVAL">
+            <on eventId="approve" newStateId="APPROVED" componentName="inventoryAdjustmentApproveAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="inventoryAdjustmentRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="apply" newStateId="APPLIED" componentName="inventoryAdjustmentApplyAction"/>
+        </manual-state>
+
+        <manual-state id="APPLIED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

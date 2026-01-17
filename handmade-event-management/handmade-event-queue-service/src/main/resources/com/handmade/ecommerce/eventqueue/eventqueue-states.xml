@@ -2,13 +2,13 @@
 <states>
     <flow id="eventQueueFlow" default="true">
         <manual-state id="NEW" initialState="true">
-            <on eventId="process" newStateId="PROCESSING" componentName="eventQueueProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.eventqueue.service.cmds.ProcessEventQueueAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="eventQueueCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="eventQueueFailAction"/>
-            <on eventId="retry" newStateId="NEW" componentName="eventQueueRetryAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.eventqueue.service.cmds.CompleteEventQueueAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.eventqueue.service.cmds.FailEventQueueAction"/>
+            <on eventId="retry" newStateId="NEW" componentName="com.handmade.ecommerce.eventqueue.service.cmds.RetryEventQueueAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

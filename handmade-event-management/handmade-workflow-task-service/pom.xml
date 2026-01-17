@@ -12,7 +12,7 @@
 	<artifactId>handmade-workflow-task-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Workflowtask Service Implementations</name>
+	<name>handmade-workflow-task-service</name>
 
 	<dependencies>
 		<dependency>

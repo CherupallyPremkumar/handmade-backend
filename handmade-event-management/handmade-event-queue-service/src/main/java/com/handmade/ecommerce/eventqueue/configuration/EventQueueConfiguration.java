@@ -122,19 +122,19 @@ public class EventQueueConfiguration {
     // segment in src/main/resources/com/handmade/eventqueue/eventqueue-states.xml
 
     @Bean ProcessEventQueueAction
-            eventqueueProcess(){
+            processEventQueueAction(){
         return new ProcessEventQueueAction();
     }
     @Bean FailEventQueueAction
-            eventqueueFail(){
+            failEventQueueAction(){
         return new FailEventQueueAction();
     }
     @Bean CompleteEventQueueAction
-            eventqueueComplete(){
+            completeEventQueueAction(){
         return new CompleteEventQueueAction();
     }
     @Bean RetryEventQueueAction
-            eventqueueRetry(){
+            retryEventQueueAction(){
         return new RetryEventQueueAction();
     }
 

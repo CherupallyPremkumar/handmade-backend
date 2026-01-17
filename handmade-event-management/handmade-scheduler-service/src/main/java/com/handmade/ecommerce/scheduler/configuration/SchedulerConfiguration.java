@@ -1,9 +1,9 @@
 package com.handmade.ecommerce.scheduler.configuration;
 
+import com.handmade.ecommerce.event.service.SchedulerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.handmade.ecommerce.scheduler.service.SchedulerService;
 import com.handmade.ecommerce.scheduler.service.impl.SchedulerServiceImpl;
 import com.handmade.ecommerce.scheduler.service.healthcheck.SchedulerHealthChecker;
 

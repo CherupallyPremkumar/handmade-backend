@@ -1,48 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-
-    <event-information eventId='submit' eventName='submit offer'
-                       meta-bodyType="com.handmade.ecommerce.seller.offer.dto.OfferPayload"/>
-    <event-information eventId='activate' eventName='activate offer'
-                       meta-bodyType="com.handmade.ecommerce.seller.offer.dto.OfferPayload"/>
-    <event-information eventId='suspend' eventName='suspend offer'
-                       meta-bodyType="com.handmade.ecommerce.seller.offer.dto.OfferPayload"/>
-    <event-information eventId='reactivate' eventName='reactivate offer'
-                       meta-bodyType="com.handmade.ecommerce.seller.offer.dto.OfferPayload"/>
-    <event-information eventId='close' eventName='close offer'
-                       meta-bodyType="com.handmade.ecommerce.seller.offer.dto.OfferPayload"/>
-
-    <event-information eventId='INVENTORYReady' eventName='inventory is ready'/>
-    <event-information eventId='COMPLIANCEReady' eventName='compliance is ready'/>
-
     <flow id="offerFlow" default="true">
-
-        <!-- DRAFT -->
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submit" newStateId="PENDING_ACTIVATION" componentName="defaultOfferSTMAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="offerSubmitAction"/>
         </manual-state>
 
-        <!-- PENDING_ACTIVATION -->
-        <manual-state id="PENDING_ACTIVATION">
-            <on eventId="activate" newStateId="ACTIVE" componentName="activateOfferAction"/>
-            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="offerApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="offerRejectAction"/>
         </manual-state>
 
-        <!-- ACTIVE -->
+        <manual-state id="APPROVED">
+            <on eventId="schedule" newStateId="SCHEDULED" componentName="offerScheduleAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="offerActivateAction"/>
+        </manual-state>
+
+        <manual-state id="SCHEDULED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="offerActivateFromScheduledAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="offerCancelAction"/>
+        </manual-state>
+
         <manual-state id="ACTIVE">
-            <on eventId="suspend" newStateId="SUSPENDED" componentName="suspendOfferAction"/>
-            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+            <on eventId="pause" newStateId="PAUSED" componentName="offerPauseAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="offerExpireAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="offerCancelFromActiveAction"/>
         </manual-state>
 
-        <!-- SUSPENDED -->
-        <manual-state id="SUSPENDED">
-            <on eventId="reactivate" newStateId="ACTIVE" componentName="activateOfferAction"/>
-            <on eventId="close" newStateId="CLOSED" componentName="defaultOfferSTMAction"/>
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="offerResumeAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="offerCancelFromPausedAction"/>
         </manual-state>
 
-        <!-- CLOSED (final) -->
-        <manual-state id="CLOSED" meta-endState="true"/>
-
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
     </flow>
-
 </states>

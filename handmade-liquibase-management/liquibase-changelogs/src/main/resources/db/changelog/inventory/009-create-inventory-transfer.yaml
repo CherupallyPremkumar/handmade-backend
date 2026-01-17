@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-inventory-transfer
+      author: system
+      changes:
+        - createTable:
+            tableName: hm_inventory_transfer
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transfer_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sku
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_node_id
+                  type: VARCHAR(36)
+              - column:
+                  name: source_bin_id
+                  type: VARCHAR(36)
+              - column:
+                  name: destination_node_id
+                  type: VARCHAR(36)
+              - column:
+                  name: destination_bin_id
+                  type: VARCHAR(36)
+              - column:
+                  name: quantity_requested
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity_received
+                  type: DECIMAL(19,4)
+              - column:
+                  name: initiated_by
+                  type: VARCHAR(36)
+              - column:
+                  name: dispatched_at
+                  type: TIMESTAMP
+              - column:
+                  name: received_at
+                  type: TIMESTAMP
+              - column:
+                  name: state_id
+                  type: VARCHAR(50)
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_transfer
+            baseColumnNames: source_node_id
+            referencedTableName: hm_fulfillment_node
+            referencedColumnNames: id
+            constraintName: fk_inv_transfer_src_node
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_transfer
+            baseColumnNames: destination_node_id
+            referencedTableName: hm_fulfillment_node
+            referencedColumnNames: id
+            constraintName: fk_inv_transfer_dest_node
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_transfer
+            baseColumnNames: source_bin_id
+            referencedTableName: hm_fulfillment_bin
+            referencedColumnNames: id
+            constraintName: fk_inv_transfer_src_bin
+        - addForeignKeyConstraint:
+            baseTableName: hm_inventory_transfer
+            baseColumnNames: destination_bin_id
+            referencedTableName: hm_fulfillment_bin
+            referencedColumnNames: id
+            constraintName: fk_inv_transfer_dest_bin
+        - createIndex:
+            tableName: hm_inventory_transfer
+            indexName: idx_inv_transfer_sku
+            columns:
+              - column:
+                  name: sku
+        - createIndex:
+            tableName: hm_inventory_transfer
+            indexName: idx_inv_transfer_state
+            columns:
+              - column:
+                  name: state_id

@@ -2,8 +2,8 @@
 <states>
     <flow id="workflowTaskFlow" default="true">
         <manual-state id="STARTED" initialState="true">
-            <on eventId="complete" newStateId="COMPLETED" componentName="workflowTaskCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="workflowTaskFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.workflowtask.service.cmds.CompleteWorkflowTaskAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.workflowtask.service.cmds.FailWorkflowTaskAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

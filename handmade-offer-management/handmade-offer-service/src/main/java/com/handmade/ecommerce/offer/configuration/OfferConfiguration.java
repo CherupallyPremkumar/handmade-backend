@@ -121,33 +121,53 @@ public class OfferConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/offer/offer-states.xml
 
-    @Bean SuspendOfferAction
-            offerSuspend(){
-        return new SuspendOfferAction();
+    @Bean ResumeOfferAction
+            offerResume(){
+        return new ResumeOfferAction();
     }
-    @Bean CloseOfferAction
-            offerClose(){
-        return new CloseOfferAction();
+    @Bean CancelOfferAction
+            offerCancel(){
+        return new CancelOfferAction();
+    }
+    @Bean CancelOfferAction
+            offerCancel(){
+        return new CancelOfferAction();
+    }
+    @Bean ExpireOfferAction
+            offerExpire(){
+        return new ExpireOfferAction();
+    }
+    @Bean PauseOfferAction
+            offerPause(){
+        return new PauseOfferAction();
     }
     @Bean SubmitOfferAction
             offerSubmit(){
         return new SubmitOfferAction();
     }
+    @Bean ApproveOfferAction
+            offerApprove(){
+        return new ApproveOfferAction();
+    }
+    @Bean RejectOfferAction
+            offerReject(){
+        return new RejectOfferAction();
+    }
+    @Bean ScheduleOfferAction
+            offerSchedule(){
+        return new ScheduleOfferAction();
+    }
     @Bean ActivateOfferAction
             offerActivate(){
         return new ActivateOfferAction();
     }
-    @Bean CloseOfferAction
-            offerClose(){
-        return new CloseOfferAction();
+    @Bean CancelOfferAction
+            offerCancel(){
+        return new CancelOfferAction();
     }
-    @Bean ReactivateOfferAction
-            offerReactivate(){
-        return new ReactivateOfferAction();
-    }
-    @Bean CloseOfferAction
-            offerClose(){
-        return new CloseOfferAction();
+    @Bean ActivateOfferAction
+            offerActivate(){
+        return new ActivateOfferAction();
     }
 
 

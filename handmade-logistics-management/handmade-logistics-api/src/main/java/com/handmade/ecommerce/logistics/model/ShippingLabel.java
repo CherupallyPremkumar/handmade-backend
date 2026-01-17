@@ -2,7 +2,7 @@ package com.handmade.ecommerce.logistics.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.math.BigDecimal;
 
 /**
@@ -10,10 +10,11 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_shipping_label")
-public class ShippingLabel extends BaseJpaEntity {
+public class ShippingLabel extends AbstractJpaStateEntity {
 
     @Column(name = "shipment_id", length = 36, nullable = false)
     private String shipmentId;

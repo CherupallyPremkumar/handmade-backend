@@ -33,12 +33,12 @@ When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
 """
 Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "PENDING_ACTIVATION"
+And the REST response key "mutatedEntity.currentState.stateId" is "REVIEW"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the activate event to the offer with comments
- Given that "comment" equals "Comment for activate"
- And that "event" equals "activate"
+ Scenario: Send the approve event to the offer with comments
+ Given that "comment" equals "Comment for approve"
+ And that "event" equals "approve"
 When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
 """json
 {
@@ -47,12 +47,12 @@ When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
 """
 Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "ACTIVE"
+And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the suspend event to the offer with comments
- Given that "comment" equals "Comment for suspend"
- And that "event" equals "suspend"
+ Scenario: Send the schedule event to the offer with comments
+ Given that "comment" equals "Comment for schedule"
+ And that "event" equals "schedule"
 When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
 """json
 {
@@ -61,7 +61,21 @@ When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
 """
 Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "SUSPENDED"
+And the REST response key "mutatedEntity.currentState.stateId" is "SCHEDULED"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
+ Scenario: Send the cancel event to the offer with comments
+ Given that "comment" equals "Comment for cancel"
+ And that "event" equals "cancel"
+When I PATCH a REST request to URL "/offer/${id}/${event}" with payload
+"""json
+{
+    "comment": "${comment}"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
 

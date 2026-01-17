@@ -23,11 +23,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
-              - column:
-                  name: tenant_id
-                  type: varchar(36)
-                  constraints:
-                    nullable: true
               # BaseJpaEntity
               - column:
                   name: created_time

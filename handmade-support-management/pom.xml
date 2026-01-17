@@ -14,7 +14,7 @@
     <name>handmade-support-management</name>
 
     <modules>
+        <module>handmade-support-case-service</module>
         <module>handmade-support-api</module>
-        <module>handmade-support-service</module>
     </modules>
 </project>

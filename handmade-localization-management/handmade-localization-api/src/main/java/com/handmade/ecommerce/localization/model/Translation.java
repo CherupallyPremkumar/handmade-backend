@@ -2,7 +2,7 @@ package com.handmade.ecommerce.localization.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 
 /**
  * Translation - Translated content for different languages
@@ -13,7 +13,7 @@ import org.chenile.jpautils.entity.BaseJpaEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_translation")
-public class Translation extends BaseJpaEntity {
+public class Translation extends AbstractJpaStateEntity {
 
     @Column(name = "language_id", length = 36, nullable = false)
     private String languageId;

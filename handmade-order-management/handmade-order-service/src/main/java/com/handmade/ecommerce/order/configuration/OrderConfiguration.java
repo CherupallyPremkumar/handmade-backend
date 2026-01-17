@@ -121,41 +121,57 @@ public class OrderConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/order/order-states.xml
 
-    @Bean ConfirmOrderOrderAction
-            orderConfirmOrder(){
-        return new ConfirmOrderOrderAction();
+    @Bean ApproveReturnOrderAction
+            orderApproveReturn(){
+        return new ApproveReturnOrderAction();
     }
-    @Bean CancelOrderOrderAction
-            orderCancelOrder(){
-        return new CancelOrderOrderAction();
+    @Bean RejectReturnOrderAction
+            orderRejectReturn(){
+        return new RejectReturnOrderAction();
     }
-    @Bean RequestReturnOrderAction
-            orderRequestReturn(){
-        return new RequestReturnOrderAction();
+    @Bean CompleteOrderAction
+            orderComplete(){
+        return new CompleteOrderAction();
     }
-    @Bean CancelOrderOrderAction
-            orderCancelOrder(){
-        return new CancelOrderOrderAction();
+    @Bean ReturnOrderAction
+            orderReturn(){
+        return new ReturnOrderAction();
     }
-    @Bean PackOrderOrderAction
-            orderPackOrder(){
-        return new PackOrderOrderAction();
+    @Bean CancelOrderAction
+            orderCancel(){
+        return new CancelOrderAction();
     }
-    @Bean DeliverOrderOrderAction
-            orderDeliverOrder(){
-        return new DeliverOrderOrderAction();
+    @Bean PayOrderAction
+            orderPay(){
+        return new PayOrderAction();
     }
-    @Bean ShipOrderOrderAction
-            orderShipOrder(){
-        return new ShipOrderOrderAction();
+    @Bean RefundOrderAction
+            orderRefund(){
+        return new RefundOrderAction();
     }
-    @Bean CancelOrderOrderAction
-            orderCancelOrder(){
-        return new CancelOrderOrderAction();
+    @Bean CancelOrderAction
+            orderCancel(){
+        return new CancelOrderAction();
     }
-    @Bean OutForDeliveryOrderAction
-            orderOutForDelivery(){
-        return new OutForDeliveryOrderAction();
+    @Bean ShipOrderAction
+            orderShip(){
+        return new ShipOrderAction();
+    }
+    @Bean ProcessOrderAction
+            orderProcess(){
+        return new ProcessOrderAction();
+    }
+    @Bean ConfirmOrderAction
+            orderConfirm(){
+        return new ConfirmOrderAction();
+    }
+    @Bean CancelOrderAction
+            orderCancel(){
+        return new CancelOrderAction();
+    }
+    @Bean DeliverOrderAction
+            orderDeliver(){
+        return new DeliverOrderAction();
     }
 
 

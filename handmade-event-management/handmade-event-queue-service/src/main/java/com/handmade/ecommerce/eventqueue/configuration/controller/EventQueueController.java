@@ -1,7 +1,5 @@
 package com.handmade.ecommerce.eventqueue.configuration.controller;
 
-import java.util.Map;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.chenile.base.response.GenericResponse;

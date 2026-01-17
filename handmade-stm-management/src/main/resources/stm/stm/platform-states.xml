@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Standard E-commerce Platform State Machine
-Purpose: Manage lifecycle of marketplace platforms (e.g. IN, US), including activation and suspension.
-Flow: PLATFORM_FLOW
-Lifecycle: DRAFT -> ACTIVE -> SUSPENDED / READ_ONLY -> DECOMMISSIONED
--->
 <states>
-    <event-information eventId="createPlatform"   eventName="Create platform"   meta-acls="platform.ops"/>
-    <event-information eventId="activatePlatform" eventName="Activate platform" meta-acls="platform.ops"/>
-    <event-information eventId="suspendPlatform"  eventName="Suspend platform"  meta-acls="platform.ops"/>
-    <event-information eventId="enableReadOnly"  eventName="Enable read-only"  meta-acls="platform.ops"/>
-    <event-information eventId="resumePlatform"   eventName="Resume platform"   meta-acls="platform.ops"/>
-    <event-information eventId="decommission"      eventName="Decommission"      meta-acls="platform.ops"/>
-
-    <flow id="PLATFORM_FLOW" default="true">
+    <flow id="platformFlow" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="activatePlatform" newStateId="ACTIVE" componentName="platformActivateAction"/>
-            <on eventId="decommission"      newStateId="DECOMMISSIONED" componentName="platformDecommissionAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="platformSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="platformApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="platformRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="platformActivateAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="suspendPlatform" newStateId="SUSPENDED"  componentName="platformSuspendAction"/>
-            <on eventId="enableReadOnly" newStateId="READ_ONLY"  componentName="platformReadOnlyAction"/>
-            <on eventId="decommission"     newStateId="DECOMMISSIONED" componentName="platformDecommissionAction"/>
-        </manual-state>
-
-        <manual-state id="READ_ONLY">
-            <on eventId="resumePlatform"  newStateId="ACTIVE"      componentName="platformResumeAction"/>
-            <on eventId="decommission"     newStateId="DECOMMISSIONED" componentName="platformDecommissionAction"/>
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="platformSuspendAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="platformDeactivateAction"/>
         </manual-state>
 
         <manual-state id="SUSPENDED">
-            <on eventId="resumePlatform"  newStateId="ACTIVE"      componentName="platformResumeAction"/>
-            <on eventId="decommission"     newStateId="DECOMMISSIONED" componentName="platformDecommissionAction"/>
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="platformReactivateAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="platformDeactivateFromSuspendedAction"/>
         </manual-state>
 
-        <manual-state id="DECOMMISSIONED" meta-endState="true"/>
+        <manual-state id="INACTIVE">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="platformArchiveAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED" meta-endState="true"/>
     </flow>
 </states>

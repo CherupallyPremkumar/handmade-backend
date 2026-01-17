@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="vendorPOLineFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="receive" newStateId="RECEIVED" componentName="vendorPOLineReceiveAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="vendorPOLineCancelAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

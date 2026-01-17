@@ -14,6 +14,17 @@
     <name>handmade-inventory-management</name>
 
     <modules>
+        <module>handmade-cycle-count-service</module>
+        <module>handmade-return-item-service</module>
+        <module>handmade-inventory-transfer-service</module>
+        <module>handmade-inventory-adjustment-service</module>
+        <module>handmade-vendor-po-line-service</module>
+        <module>handmade-vendor-po-service</module>
+        <module>handmade-pick-task-service</module>
+        <module>handmade-pack-task-service</module>
+        <module>handmade-inventory-reservation-service</module>
+        <module>handmade-inbound-shipment-item-service</module>
+        <module>handmade-inbound-shipment-service</module>
         <module>handmade-inventory-api</module>
         <module>handmade-inventory-service</module>
     </modules>

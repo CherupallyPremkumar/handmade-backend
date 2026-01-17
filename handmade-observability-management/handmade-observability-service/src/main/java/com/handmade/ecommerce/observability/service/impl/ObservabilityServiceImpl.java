@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import com.handmade.ecommerce.observability.model.Observability;
 import com.handmade.ecommerce.observability.service.ObservabilityService;
 
 import com.handmade.ecommerce.observability.configuration.dao.ObservabilityRepository;

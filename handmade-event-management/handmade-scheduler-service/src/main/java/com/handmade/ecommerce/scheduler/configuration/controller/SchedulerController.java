@@ -1,10 +1,8 @@
 package com.handmade.ecommerce.scheduler.configuration.controller;
 
-import java.util.Map;
-
+import com.handmade.ecommerce.event.model.Scheduler;
 import jakarta.servlet.http.HttpServletRequest;
 import org.chenile.base.response.GenericResponse;
-import com.handmade.ecommerce.scheduler.model.Scheduler;
 import org.chenile.http.annotation.ChenileController;
 import org.chenile.http.handler.ControllerSupport;
 import org.springframework.http.ResponseEntity;

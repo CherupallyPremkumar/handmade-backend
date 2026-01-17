@@ -14,6 +14,9 @@
     <name>handmade-notification-management</name>
 
     <modules>
+        <module>handmade-notification-template-service</module>
+        <module>handmade-notification-log-service</module>
+        <module>handmade-notification-queue-service</module>
         <module>handmade-notification-api</module>
         <module>handmade-notification-service</module>
     </modules>

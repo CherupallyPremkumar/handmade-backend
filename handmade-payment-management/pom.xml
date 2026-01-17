@@ -14,6 +14,11 @@
     <name>handmade-payment-management</name>
 
     <modules>
+        <module>handmade-payment-refund-transaction-service</module>
+        <module>handmade-payment-capture-service</module>
+        <module>handmade-payment-authorization-service</module>
+        <module>handmade-payment-transaction-service</module>
+        <module>handmade-payment-order-service</module>
         <module>handmade-payment-api</module>
         <module>handmade-payment-service</module>
     </modules>

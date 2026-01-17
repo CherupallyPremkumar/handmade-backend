@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="returnItemFlow" default="true">
+        <manual-state id="REQUESTED" initialState="true">
+            <on eventId="approve" newStateId="APPROVED" componentName="returnItemApproveAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="returnItemRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="receive" newStateId="IN_TRANSIT" componentName="returnItemReceiveAction"/>
+        </manual-state>
+
+        <manual-state id="IN_TRANSIT">
+            <on eventId="arrive" newStateId="RECEIVED" componentName="returnItemArriveAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED">
+            <on eventId="inspect" newStateId="INSPECTED" componentName="returnItemInspectAction"/>
+        </manual-state>
+
+        <manual-state id="INSPECTED">
+            <on eventId="restock" newStateId="RESTOCKED" componentName="returnItemRestockAction"/>
+            <on eventId="dispose" newStateId="DISPOSED" componentName="returnItemDisposeAction"/>
+        </manual-state>
+
+        <manual-state id="RESTOCKED" meta-endState="true"/>
+        <manual-state id="DISPOSED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

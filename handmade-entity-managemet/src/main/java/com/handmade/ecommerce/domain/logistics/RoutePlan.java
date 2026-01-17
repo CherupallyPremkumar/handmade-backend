@@ -2,7 +2,7 @@ package com.handmade.ecommerce.domain.logistics;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.chenile.jpautils.entity.BaseJpaEntity;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "hm_route_plan")
-public class RoutePlan extends BaseJpaEntity {
+public class RoutePlan extends AbstractJpaStateEntity {
 
     @Column(name = "driver_id", length = 36, nullable = false)
     private String driverId;

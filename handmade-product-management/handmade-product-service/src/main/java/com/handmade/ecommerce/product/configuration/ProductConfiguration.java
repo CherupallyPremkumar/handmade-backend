@@ -121,6 +121,26 @@ public class ProductConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/product/product-states.xml
 
+    @Bean DiscontinueProductAction
+            productDiscontinue(){
+        return new DiscontinueProductAction();
+    }
+    @Bean UnpublishProductAction
+            productUnpublish(){
+        return new UnpublishProductAction();
+    }
+    @Bean SubmitProductAction
+            productSubmit(){
+        return new SubmitProductAction();
+    }
+    @Bean DiscontinueProductAction
+            productDiscontinue(){
+        return new DiscontinueProductAction();
+    }
+    @Bean RepublishProductAction
+            productRepublish(){
+        return new RepublishProductAction();
+    }
     @Bean ApproveProductAction
             productApprove(){
         return new ApproveProductAction();
@@ -129,29 +149,9 @@ public class ProductConfiguration {
             productReject(){
         return new RejectProductAction();
     }
-    @Bean SubmitProductAction
-            productSubmit(){
-        return new SubmitProductAction();
-    }
     @Bean PublishProductAction
             productPublish(){
         return new PublishProductAction();
-    }
-    @Bean RetireProductAction
-            productRetire(){
-        return new RetireProductAction();
-    }
-    @Bean UnsuppressProductAction
-            productUnsuppress(){
-        return new UnsuppressProductAction();
-    }
-    @Bean RetireProductAction
-            productRetire(){
-        return new RetireProductAction();
-    }
-    @Bean SuppressProductAction
-            productSuppress(){
-        return new SuppressProductAction();
     }
 
 

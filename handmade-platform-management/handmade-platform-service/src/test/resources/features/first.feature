@@ -2,7 +2,7 @@ Feature: Tests the platform Workflow Service using a REST client. This is done o
 first testcase. Platform service exists and is under test.
 It helps to create a platform and manages the state of the platform as documented in states xml
 Scenario: Create a new platform
-Given that "flowName" equals "PLATFORM_FLOW"
+Given that "flowName" equals "platformFlow"
 And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/platform" with payload
 """json
@@ -22,9 +22,37 @@ Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
- Scenario: Send the activatePlatform event to the platform with comments
- Given that "comment" equals "Comment for activatePlatform"
- And that "event" equals "activatePlatform"
+ Scenario: Send the submit event to the platform with comments
+ Given that "comment" equals "Comment for submit"
+ And that "event" equals "submit"
+When I PATCH a REST request to URL "/platform/${id}/${event}" with payload
+"""json
+{
+    "comment": "${comment}"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "REVIEW"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
+ Scenario: Send the approve event to the platform with comments
+ Given that "comment" equals "Comment for approve"
+ And that "event" equals "approve"
+When I PATCH a REST request to URL "/platform/${id}/${event}" with payload
+"""json
+{
+    "comment": "${comment}"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
+ Scenario: Send the activate event to the platform with comments
+ Given that "comment" equals "Comment for activate"
+ And that "event" equals "activate"
 When I PATCH a REST request to URL "/platform/${id}/${event}" with payload
 """json
 {
@@ -36,9 +64,9 @@ And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "ACTIVE"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the suspendPlatform event to the platform with comments
- Given that "comment" equals "Comment for suspendPlatform"
- And that "event" equals "suspendPlatform"
+ Scenario: Send the suspend event to the platform with comments
+ Given that "comment" equals "Comment for suspend"
+ And that "event" equals "suspend"
 When I PATCH a REST request to URL "/platform/${id}/${event}" with payload
 """json
 {

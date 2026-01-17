@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="cycleCountFlow" default="true">
+        <manual-state id="PLANNED" initialState="true">
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="cycleCountStartAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="complete" newStateId="COMPLETED" componentName="cycleCountCompleteAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED">
+            <on eventId="detectVariance" newStateId="VARIANCE_FOUND" componentName="cycleCountDetectVarianceAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="cycleCountApproveAction"/>
+        </manual-state>
+
+        <manual-state id="VARIANCE_FOUND">
+            <on eventId="approveVariance" newStateId="APPROVED" componentName="cycleCountApproveVarianceAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="adjust" newStateId="ADJUSTED" componentName="cycleCountAdjustAction"/>
+        </manual-state>
+
+        <manual-state id="ADJUSTED" meta-endState="true"/>
+    </flow>
+</states>

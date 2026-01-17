@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <!-- Experiment Lifecycle -->
+    <flow id="experimentFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.experiment.service.cmds.ActivateExperimentDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="com.handmade.ecommerce.experiment.service.cmds.PauseExperimentDefinitionAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.experiment.service.cmds.CompleteExperimentDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="com.handmade.ecommerce.experiment.service.cmds.ResumeExperimentDefinitionAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.experiment.service.cmds.CompleteExperimentDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+    </flow>
+</states>

@@ -14,6 +14,10 @@
     <name>handmade-logistics-management</name>
 
     <modules>
+        <module>handmade-shipping-label-service</module>
+        <module>handmade-route-plan-service</module>
+        <module>handmade-delivery-exception-service</module>
+        <module>handmade-delivery-attempt-service</module>
         <module>handmade-logistics-api</module>
         <module>handmade-logistics-service</module>
     </modules>
