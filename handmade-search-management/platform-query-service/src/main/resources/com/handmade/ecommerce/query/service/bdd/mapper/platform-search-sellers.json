@@ -1,0 +1,114 @@
+[
+    {
+        "id": "platform-search-sellers",
+        "name": "platform-search-sellers",
+        "description": "Comprehensive search and filtering of all seller accounts for platform-level management",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "HM_SELLER_ACCOUNT_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "sellerId": {
+                "name": "ID",
+                "columnName": "id",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "platformId": {
+                "name": "Platform ID",
+                "columnName": "platformId",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "email": {
+                "name": "Email",
+                "columnName": "email",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "businessName": {
+                "name": "Business Name",
+                "columnName": "businessName",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "verified": {
+                "name": "Verified",
+                "columnName": "verified",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "kycCompleted": {
+                "name": "KYC Completed",
+                "columnName": "kycCompleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "suspended": {
+                "name": "Suspended",
+                "columnName": "suspended",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "deleted": {
+                "name": "Deleted",
+                "columnName": "deleted",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "state": {
+                "name": "State",
+                "columnName": "state",
+                "columnType": "Text",
+                "filterable": true,
+                "sortable": true,
+                "display": true
+            },
+            "createdAt": {
+                "name": "Created At",
+                "columnName": "createdAt",
+                "columnType": "DateTime",
+                "filterable": true,
+                "sortable": true,
+                "betweenQuery": true,
+                "display": true
+            },
+            "updatedAt": {
+                "name": "Updated At",
+                "columnName": "updatedAt",
+                "columnType": "DateTime",
+                "filterable": true,
+                "sortable": true,
+                "betweenQuery": true,
+                "display": true
+            }
+        }
+    }
+]

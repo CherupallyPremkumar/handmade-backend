@@ -1,0 +1,90 @@
+[
+    {
+        "id": "search-payout-policies",
+        "name": "search-payout-policies",
+        "description": "Search and manage seller payout and disbursement policies by region",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "Policy ID",
+                "columnType": "Text"
+            },
+            "policyVersion": {
+                "name": "Version",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "countryCode": {
+                "name": "Country",
+                "columnType": "Text"
+            },
+            "sellerType": {
+                "name": "Seller Type",
+                "columnType": "Text"
+            },
+            "status": {
+                "name": "Status",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "effectiveFrom": {
+                "name": "Effective From",
+                "columnType": "Date"
+            },
+            "createdAt": {
+                "name": "Created At",
+                "columnType": "DateTime"
+            },
+            "createdBy": {
+                "name": "Created By",
+                "columnType": "Text"
+            },
+            "approvedAt": {
+                "name": "Approved At",
+                "columnType": "DateTime"
+            },
+            "approvedBy": {
+                "name": "Approved By",
+                "columnType": "Text"
+            },
+            "stateId": {
+                "name": "State ID",
+                "columnType": "Text"
+            }
+        }
+    },
+    {
+        "id": "search-payout-policies-stats",
+        "name": "search-payout-policies-stats",
+        "description": "Aggregate statistics of payout policies grouped by operational state",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "stateId": {
+                "name": "Status",
+                "columnType": "Text"
+            },
+            "count": {
+                "name": "Count",
+                "columnType": "Number"
+            }
+        }
+    }
+]

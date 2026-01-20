@@ -1,0 +1,84 @@
+[
+    {
+        "id": "search-recommendations",
+        "name": "search-recommendations",
+        "description": "Contextual product recommendations based on relevance and cross-sell opportunity",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "productId": {
+                "name": "Product ID",
+                "columnName": "productId",
+                "columnType": "Text",
+                "display": false
+            },
+            "name": {
+                "name": "Product Name",
+                "columnName": "productName",
+                "columnType": "Text",
+                "filterable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "score": {
+                "name": "Relevance Score",
+                "columnName": "score",
+                "columnType": "Number",
+                "sortable": true,
+                "display": true
+            },
+            "recommendationType": {
+                "name": "Type",
+                "columnName": "recommendationType",
+                "columnType": "Text",
+                "display": true
+            },
+            "minPrice": {
+                "name": "Starting Price",
+                "columnName": "minPrice",
+                "columnType": "Number",
+                "display": true
+            },
+            "currency": {
+                "name": "Currency",
+                "columnName": "currency",
+                "columnType": "Text",
+                "display": true
+            },
+            "imageUrl": {
+                "name": "Image",
+                "columnName": "imageUrl",
+                "columnType": "Text",
+                "display": true
+            },
+            "sellerName": {
+                "name": "Seller",
+                "columnName": "sellerName",
+                "columnType": "Text",
+                "filterable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "averageRating": {
+                "name": "Rating",
+                "columnName": "averageRating",
+                "columnType": "Number",
+                "display": true
+            },
+            "totalReviews": {
+                "name": "Reviews",
+                "columnName": "totalReviews",
+                "columnType": "Number",
+                "display": true
+            }
+        }
+    }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "browse-nodes",
+    "name": "browse-nodes",
+    "description": "Hierarchical product taxonomy nodes for browsing categories and subcategories",
+    "paginated": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "id": {
+        "name": "id",
+        "columnType": "Text"
+      },
+      "name": {
+        "name": "name",
+        "columnType": "Text"
+      },
+      "slug": {
+        "name": "slug",
+        "columnType": "Text"
+      },
+      "parent_id": {
+        "name": "parent_id",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "level": {
+        "name": "level",
+        "columnType": "Number"
+      },
+      "product_count": {
+        "name": "product_count",
+        "columnType": "Number"
+      }
+    }
+  }
+]

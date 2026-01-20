@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-payout-policies" resultType="java.util.HashMap">
+        SELECT 
+            id as "id",
+            policy_version as "policyVersion",
+            applicable_region as "countryCode",
+            policy_code as "sellerType",
+            state_id as "status",
+            state_id as "stateId",
+            flow_id as "flowId",
+            effective_date as "effectiveFrom",
+            created_by as "createdBy",
+            created_time as "createdAt",
+            approved_by as "approvedBy",
+            approval_date as "approvedAt"
+        FROM hm_compliance_policy
+        WHERE policy_type = 'PAYOUT'
+          AND tenant = #{tenantId}
+        <if test="policyVersion != null">
+            AND policy_version = #{policyVersion}
+        </if>
+        <if test="status != null">
+            AND state_id = #{status}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY created_time DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-payout-policies-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_compliance_policy
+        WHERE policy_type = 'PAYOUT'
+          AND tenant = #{tenantId}
+        <if test="policyVersion != null">
+            AND policy_version = #{policyVersion}
+        </if>
+        <if test="status != null">
+            AND state_id = #{status}
+        </if>
+    </select>
+
+    <select id="search-payout-policies-stats" resultType="java.util.HashMap">
+        SELECT 
+            state_id as "stateId",
+            COUNT(*) as "count"
+        FROM hm_compliance_policy
+        FROM hm_compliance_policy
+        WHERE policy_type = 'PAYOUT'
+          AND tenant = #{tenantId}
+        GROUP BY state_id
+    </select>
+</mapper>

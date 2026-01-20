@@ -1,0 +1,22 @@
+[
+  {
+    "id": "search-brands",
+    "name": "search-brands",
+    "description": "Distinct brand names available in the catalog for filtering and browse nodes",
+    "paginated": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "brand": {
+        "name": "brand",
+        "columnType": "Text"
+      }
+    }
+  }
+]

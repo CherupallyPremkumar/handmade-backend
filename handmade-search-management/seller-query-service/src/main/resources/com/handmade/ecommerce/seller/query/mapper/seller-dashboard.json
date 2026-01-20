@@ -1,0 +1,72 @@
+[
+  {
+    "id": "seller-summary-stats",
+    "name": "seller-summary-stats",
+    "description": "High-level performance summary for a seller dashboard, including order and revenue counts",
+    "paginated": true,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "metric_type": {
+        "name": "metric_type",
+        "columnType": "Text"
+      },
+      "metric_group": {
+        "name": "metric_group",
+        "columnType": "Text"
+      },
+      "metric_count": {
+        "name": "metric_count",
+        "columnType": "Number"
+      },
+      "seller_id": {
+        "name": "seller_id",
+        "columnType": "Text",
+        "filterable": true,
+        "display": false
+      }
+    }
+  },
+  {
+    "id": "seller-sales-trends",
+    "name": "seller-sales-trends",
+    "description": "Historical sales performance trends for a seller, aggregated by date",
+    "paginated": true,
+    "sortable": true,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "sales_date": {
+        "name": "sales_date",
+        "columnType": "Text"
+      },
+      "daily_revenue": {
+        "name": "daily_revenue",
+        "columnType": "Number"
+      },
+      "order_count": {
+        "name": "order_count",
+        "columnType": "Number"
+      },
+      "seller_id": {
+        "name": "seller_id",
+        "columnType": "Text",
+        "filterable": true,
+        "display": false
+      }
+    }
+  }
+]

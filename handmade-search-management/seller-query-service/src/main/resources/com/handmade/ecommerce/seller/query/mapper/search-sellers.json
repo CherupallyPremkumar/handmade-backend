@@ -1,0 +1,63 @@
+[
+    {
+        "id": "search-sellers",
+        "name": "search-sellers",
+        "description": "Search and filter seller accounts for platform administrators",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "HM_SELLER_ACCOUNT_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "id",
+                "columnType": "Text",
+                "display": false
+            },
+            "businessName": {
+                "name": "businessName",
+                "columnType": "Text",
+                "filterable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "email": {
+                "name": "email",
+                "columnType": "Text",
+                "filterable": true,
+                "likeQuery": true,
+                "display": true
+            },
+            "status": {
+                "name": "status",
+                "columnType": "DropDown",
+                "filterable": true,
+                "display": true
+            },
+            "verified": {
+                "name": "verified",
+                "columnType": "CheckBox",
+                "display": true
+            },
+            "kycCompleted": {
+                "name": "kycCompleted",
+                "columnType": "CheckBox",
+                "display": true
+            },
+            "platformId": {
+                "name": "platformId",
+                "columnType": "DropDown",
+                "filterable": true,
+                "display": true
+            }
+        }
+    }
+]

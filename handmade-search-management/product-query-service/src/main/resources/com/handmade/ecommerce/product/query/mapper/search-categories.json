@@ -1,0 +1,22 @@
+[
+  {
+    "id": "search-categories",
+    "name": "search-categories",
+    "description": "List of available product classifications (categories) for catalog search and discovery",
+    "paginated": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text"
+      }
+    }
+  }
+]

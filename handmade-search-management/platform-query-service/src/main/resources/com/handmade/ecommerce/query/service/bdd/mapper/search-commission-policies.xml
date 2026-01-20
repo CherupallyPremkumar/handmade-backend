@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-commission-policies" resultType="java.util.HashMap">
+        SELECT 
+            id as "id",
+            rule_name as "ruleName",
+            description as "description",
+            rule_key as "ruleKey",
+            state_id as "stateId",
+            flow_id as "flowId",
+            start_time as "effectiveFrom",
+            end_time as "effectiveTo",
+            created_time as "createdTime"
+        FROM hm_pricing_rule_definition
+        WHERE rule_type = 'COMMISSION'
+          AND tenant = #{tenantId}
+        <if test="ruleName != null">
+            AND LOWER(rule_name) LIKE LOWER(CONCAT('%', #{ruleName}, '%'))
+        </if>
+        <if test="stateId != null">
+            AND state_id = #{stateId}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY created_time DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-commission-policies-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_pricing_rule_definition
+        WHERE rule_type = 'COMMISSION'
+          AND tenant = #{tenantId}
+        <if test="ruleName != null">
+            AND LOWER(rule_name) LIKE LOWER(CONCAT('%', #{ruleName}, '%'))
+        </if>
+        <if test="stateId != null">
+            AND state_id = #{stateId}
+        </if>
+    </select>
+
+    <select id="search-commission-policies-stats" resultType="java.util.HashMap">
+        SELECT 
+            state_id as "stateId",
+            COUNT(*) as "count"
+        FROM hm_pricing_rule_definition
+        FROM hm_pricing_rule_definition
+        WHERE rule_type = 'COMMISSION'
+          AND tenant = #{tenantId}
+        GROUP BY state_id
+    </select>
+</mapper>

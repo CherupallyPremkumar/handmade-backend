@@ -1,0 +1,27 @@
+[
+    {
+        "id": "sellers-by-state",
+        "name": "sellers-by-state",
+        "description": "Distribution of sellers across different lifecycle states for analytics",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "stateId": {
+                "name": "stateId",
+                "columnType": "Text"
+            },
+            "count": {
+                "name": "count",
+                "columnType": "Number"
+            }
+        }
+    }
+]

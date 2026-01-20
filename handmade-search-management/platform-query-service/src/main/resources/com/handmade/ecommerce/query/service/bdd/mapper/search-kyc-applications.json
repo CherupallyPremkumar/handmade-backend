@@ -1,0 +1,62 @@
+[
+    {
+        "id": "search-kyc-applications",
+        "name": "search-kyc-applications",
+        "description": "Manage and review Know Your Customer (KYC) applications for seller verification",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "KYC_APPLICATION_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "Application ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "sellerId": {
+                "name": "Seller ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "businessName": {
+                "name": "Business Name",
+                "filterable": true,
+                "sortable": true
+            },
+            "email": {
+                "name": "Email",
+                "filterable": true,
+                "sortable": true
+            },
+            "documentType": {
+                "name": "Doc Type",
+                "filterable": true,
+                "sortable": true
+            },
+            "documentNumber": {
+                "name": "Doc #",
+                "filterable": true,
+                "sortable": true
+            },
+            "stateId": {
+                "name": "Status",
+                "filterable": true,
+                "sortable": true
+            },
+            "createdTime": {
+                "name": "Submitted Date",
+                "filterable": false,
+                "sortable": true
+            }
+        }
+    }
+]

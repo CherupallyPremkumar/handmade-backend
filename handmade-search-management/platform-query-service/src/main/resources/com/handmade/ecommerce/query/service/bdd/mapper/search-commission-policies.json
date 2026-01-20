@@ -1,0 +1,74 @@
+[
+    {
+        "id": "search-commission-policies",
+        "name": "search-commission-policies",
+        "description": "Query and manage sales commission policies and fee structures",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "Policy ID",
+                "columnType": "Text"
+            },
+            "ruleName": {
+                "name": "Policy Name",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "description": {
+                "name": "Description",
+                "columnType": "Text"
+            },
+            "stateId": {
+                "name": "Status",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "effectiveFrom": {
+                "name": "Effective From",
+                "columnType": "Date"
+            },
+            "endTime": {
+                "name": "Effective To",
+                "columnType": "Date"
+            },
+            "createdTime": {
+                "name": "Created Time",
+                "columnType": "Date"
+            }
+        }
+    },
+    {
+        "id": "search-commission-policies-stats",
+        "name": "search-commission-policies-stats",
+        "description": "Aggregate statistics of commission policies by their current operational state",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "stateId": {
+                "name": "Status",
+                "columnType": "Text"
+            },
+            "count": {
+                "name": "Count",
+                "columnType": "Number"
+            }
+        }
+    }
+]

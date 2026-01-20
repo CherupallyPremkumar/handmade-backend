@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.product">
+
+    <select id="search-new-arrivals" resultType="map">
+        SELECT 
+            p.id as "productId",
+            p.name as "productName",
+            p.created_time as "createdTime",
+            MIN(op.sale_price) as "minPrice",
+            MAX(op.currency_code) as "currency",
+            p.primary_image_url as "imageUrl",
+            s.seller_name as "sellerName",
+            COALESCE(ra.average_rating, 0) as "averageRating",
+            COALESCE(ra.total_reviews, 0) as "totalReviews"
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        JOIN hm_offer_price op ON op.offer_id = o.id
+        JOIN hm_seller_store s ON s.seller_account_id = p.seller_id
+        LEFT JOIN hm_review_aggregation_snapshot ra ON ra.product_id = p.id
+        WHERE p.tenant = #{tenantId}
+          AND p.state_id = 'ACTIVE'
+          AND o.state_id = 'ACTIVE'
+          AND (op.sale_end_date IS NULL OR op.sale_end_date &gt;= CURRENT_TIMESTAMP)
+        <if test="name != null">
+            AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        GROUP BY p.id, p.name, p.created_time, p.primary_image_url, s.seller_name, ra.average_rating, ra.total_reviews
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY p.created_time DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-new-arrivals-count" resultType="int">
+        SELECT COUNT(DISTINCT p.id)
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        JOIN hm_offer_price op ON op.offer_id = o.id
+        WHERE p.tenant = #{tenantId}
+          AND p.state_id = 'ACTIVE'
+          AND o.state_id = 'ACTIVE'
+          AND (op.sale_end_date IS NULL OR op.sale_end_date &gt;= CURRENT_TIMESTAMP)
+        <if test="name != null">
+            AND LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+    </select>
+</mapper>

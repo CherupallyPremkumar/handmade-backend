@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://aws-0-us-west-2.pooler.supabase.com:5432/postgres
+    username: postgres.jwbwaqplzdkhoyvxfvds
+    password: "Prem@9030249458"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      max-lifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:com/handmade/ecommerce/db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: false
+    parameters:
+      # Optional: set some liquibase context/params if needed
+      test-data: false # Maybe don't load test data in real DB?
+
+# Query Service Configuration - Overriding to use same DB
+query:
+  datasource:
+    jdbcUrl: jdbc:postgresql://aws-0-us-west-2.pooler.supabase.com:5432/postgres
+    username: postgres.jwbwaqplzdkhoyvxfvds
+    password: "Prem@9030249458"
+    driverClassName: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    maximumPoolSize: 10
+    minimumIdle: 2
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

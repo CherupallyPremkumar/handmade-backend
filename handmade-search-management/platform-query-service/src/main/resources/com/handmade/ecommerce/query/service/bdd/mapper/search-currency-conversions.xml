@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-currency-conversions" resultType="map">
+        SELECT 
+            id as "id",
+            from_currency as "baseCurrency",
+            to_currency as "targetCurrency",
+            exchange_rate as "rate",
+            effective_date as "effectiveFrom",
+            'MANUAL' as "source"
+        FROM hm_currency_conversion
+        FROM hm_currency_conversion
+        WHERE tenant = #{tenantId}
+        <if test="baseCurrency != null">
+            AND from_currency = #{baseCurrency}
+        </if>
+        <if test="targetCurrency != null">
+            AND to_currency = #{targetCurrency}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY effective_date DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-currency-conversions-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_currency_conversion
+        FROM hm_currency_conversion
+        WHERE tenant = #{tenantId}
+        <if test="baseCurrency != null">
+            AND from_currency = #{baseCurrency}
+        </if>
+        <if test="targetCurrency != null">
+            AND to_currency = #{targetCurrency}
+        </if>
+    </select>
+</mapper>

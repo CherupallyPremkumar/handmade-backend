@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search-sellers">
+    <select id="search-sellers" resultType="java.util.HashMap">
+        SELECT
+            id,
+            business_name as "businessName",
+            email,
+            state_id as "state",
+            state_id as "status",
+            platform_id as "platformId",
+            flow_id as "flowId",
+            verified,
+            kyc_completed as "kycCompleted",
+            suspended,
+            deleted,
+            onboarding_policy_id as "onboardingPolicyId",
+            onboarding_policy_version as "onboardingPolicyVersion",
+            policy_locked_at as "policyLockedAt",
+            created_time as "createdAt",
+            last_modified_time as "updatedAt"
+        FROM hm_seller_account
+        WHERE deleted = false
+          AND tenant = #{tenantId}
+        <if test="email != null">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        <if test="businessName != null">
+            AND business_name LIKE CONCAT('%', #{businessName}, '%')
+        </if>
+        <if test="status != null">
+            AND state_id = #{status}
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+        <if test="platformId != null">
+            AND platform_id = #{platformId}
+        </if>
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        ${orderby}
+        ${pagination}
+    </select>
+
+    <select id="search-sellers-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_seller_account
+        WHERE deleted = false
+          AND tenant = #{tenantId}
+        <if test="email != null">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        <if test="businessName != null">
+            AND business_name LIKE CONCAT('%', #{businessName}, '%')
+        </if>
+        <if test="status != null">
+            AND state_id = #{status}
+        </if>
+        <if test="state != null">
+            AND state_id = #{state}
+        </if>
+        <if test="platformId != null">
+            AND platform_id = #{platformId}
+        </if>
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+    </select>
+</mapper>

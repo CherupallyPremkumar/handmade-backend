@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-audit-logs" resultType="map">
+        SELECT 
+            id as "id",
+            occurred_at as "performedAt",
+            actor_id as "performedBy",
+            event_type as "action",
+            payload_json as "changes",
+            platform_id as "platformId",
+            ip_address as "ipAddress",
+            event_status as "eventStatus"
+        FROM hm_platform_audit_log
+        FROM hm_platform_audit_log
+        WHERE tenant = #{tenantId}
+        <if test="performedBy != null">
+            AND actor_id = #{performedBy}
+        </if>
+        <if test="action != null">
+            AND event_type = #{action}
+        </if>
+        <if test="platformId != null">
+            AND platform_id = #{platformId}
+        </if>
+        <if test="entityId != null">
+            AND id = #{entityId}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY occurred_at DESC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-audit-logs-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_platform_audit_log
+        FROM hm_platform_audit_log
+        WHERE tenant = #{tenantId}
+        <if test="performedBy != null">
+            AND actor_id = #{performedBy}
+        </if>
+        <if test="action != null">
+            AND event_type = #{action}
+        </if>
+        <if test="platformId != null">
+            AND platform_id = #{platformId}
+        </if>
+        <if test="entityId != null">
+            AND id = #{entityId}
+        </if>
+    </select>
+</mapper>

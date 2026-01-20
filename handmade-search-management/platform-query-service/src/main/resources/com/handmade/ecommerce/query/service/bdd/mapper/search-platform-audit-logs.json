@@ -1,0 +1,61 @@
+[
+    {
+        "id": "search-platform-audit-logs",
+        "name": "search-platform-audit-logs",
+        "description": "Immutable audit trail of security and configuration events for compliance",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "ID",
+                "columnName": "id",
+                "columnType": "Text",
+                "filterable": false,
+                "display": false
+            },
+            "occurredAt": {
+                "name": "Timestamp",
+                "columnName": "occurred_at",
+                "columnType": "DateTime",
+                "filterable": true,
+                "display": true
+            },
+            "eventType": {
+                "name": "Action",
+                "columnName": "event_type",
+                "columnType": "Text",
+                "filterable": true,
+                "display": true
+            },
+            "platformId": {
+                "name": "Platform ID",
+                "columnName": "platform_id",
+                "columnType": "Text",
+                "filterable": true,
+                "display": true
+            },
+            "actorId": {
+                "name": "Performed By",
+                "columnName": "actor_id",
+                "columnType": "Text",
+                "filterable": true,
+                "display": true
+            },
+            "payloadJson": {
+                "name": "Details",
+                "columnName": "payload_json",
+                "columnType": "Text",
+                "filterable": false,
+                "display": true
+            }
+        }
+    }
+]

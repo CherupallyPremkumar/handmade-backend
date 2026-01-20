@@ -1,0 +1,75 @@
+[
+    {
+        "id": "search-disputes",
+        "name": "search-disputes",
+        "description": "Retrieve and filter customer-seller disputes for resolution by platform mediation",
+        "workflowName": "DISPUTE_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "Dispute ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "disputeNumber": {
+                "name": "Dispute #",
+                "filterable": true,
+                "sortable": true
+            },
+            "orderId": {
+                "name": "Order ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "sellerId": {
+                "name": "Seller ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "customerId": {
+                "name": "Customer ID",
+                "filterable": true,
+                "sortable": true
+            },
+            "disputeType": {
+                "name": "Type",
+                "filterable": true,
+                "sortable": true
+            },
+            "disputeReason": {
+                "name": "Reason",
+                "filterable": true,
+                "sortable": true
+            },
+            "disputeAmount": {
+                "name": "Amount",
+                "filterable": false,
+                "sortable": true
+            },
+            "currencyCode": {
+                "name": "Currency",
+                "filterable": true,
+                "sortable": false
+            },
+            "stateId": {
+                "name": "State",
+                "filterable": true,
+                "sortable": true
+            },
+            "createdTime": {
+                "name": "Opened Date",
+                "filterable": false,
+                "sortable": true
+            }
+        }
+    }
+]

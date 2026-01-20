@@ -12,7 +12,7 @@
     <!-- 1. Infrastructure & Configuration -->
     <module>handmade-liquibase-management</module>
     <module>handmade-owiz-workflows</module>
-    <module>handmade-stm-management</module>
+    <!-- <module>handmade-stm-management</module> -->
     <module>handmade-entity-managemet</module>
 
     <!-- 2. Core Domains (Product, Catalog, Seller) -->
@@ -76,6 +76,7 @@
 
     <!-- 11. Application Boot (ALWAYS LAST) -->
     <module>handmade-app-boot</module>
+      <module>handmade-search-management/query-boot</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>

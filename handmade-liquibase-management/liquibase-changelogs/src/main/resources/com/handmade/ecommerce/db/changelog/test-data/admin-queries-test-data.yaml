@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: admin-queries-test-data
+      author: antigravity
+      changes:
+        # Onboarding Policy Data
+        - insert:
+            tableName: hm_compliance_policy
+            columns:
+              - column: {name: id, value: "POL-ONB-001"}
+              - column: {name: policy_name, value: "US Individual Onboarding"}
+              - column: {name: policy_type, value: "ONBOARDING"}
+              - column: {name: policy_code, value: "ONB-US-IND"}
+              - column: {name: policy_version, value: "V1"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: applicable_region, value: "US"}
+              - column: {name: effective_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Payout Policy Data
+        - insert:
+            tableName: hm_compliance_policy
+            columns:
+              - column: {name: id, value: "POL-PAY-001"}
+              - column: {name: policy_name, value: "Global Payout Policy"}
+              - column: {name: policy_type, value: "PAYOUT"}
+              - column: {name: policy_code, value: "PAY-GLOBAL"}
+              - column: {name: policy_version, value: "V1"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: applicable_region, value: "GLOBAL"}
+              - column: {name: effective_date, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Commission Policy Data (Pricing Rule Definition)
+        - insert:
+            tableName: hm_pricing_rule_definition
+            columns:
+              - column: {name: id, value: "COM-001"}
+              - column: {name: rule_key, value: "COMM-STD"}
+              - column: {name: rule_type, value: "COMMISSION"}
+              - column: {name: rule_name, value: "Standard Marketplace Fee"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: start_time, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # KYC Application Data
+        - insert:
+            tableName: hm_seller_kyc
+            columns:
+              - column: {name: id, value: "KYC-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: state_id, value: "SUBMITTED"}
+              - column: {name: flow_id, value: "sellerKycFlow"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Dispute Data
+        - insert:
+            tableName: hm_dispute
+            columns:
+              - column: {name: id, value: "DSP-001"}
+              - column: {name: dispute_number, value: "DSP-NUM-001"}
+              - column: {name: order_id, value: "ORD-101"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: dispute_type, value: "PRODUCT_DEFECTIVE"}
+              - column: {name: dispute_reason, value: "The ceramic vase arrived with a large crack."}
+              - column: {name: dispute_amount, valueNumeric: 25.00}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: opened_at, valueDate: "2026-01-15T10:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Recent Orders for Revenue Trends (Jan 2026)
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-2026-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: order_number, value: "ORD-TREND-001"}
+              - column: {name: state_id, value: "COMPLETED"}
+              - column: {name: total, valueNumeric: 1910.0}
+              - column: {name: created_time, valueDate: "2026-01-15T10:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

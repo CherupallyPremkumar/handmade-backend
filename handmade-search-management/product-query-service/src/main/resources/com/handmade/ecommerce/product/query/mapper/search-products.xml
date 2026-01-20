@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search-products">
+    
+    <!-- Main Product Search Query with Aggregated Price -->
+    <select id="search-products" resultType="java.util.HashMap">
+        SELECT 
+            p.id as "id",
+            p.name as "name",
+            p.description as "description",
+            p.brand as "brand",
+            p.primary_image_url as "primary_image_url",
+            p.classification_id as "classification_id",
+            p.state_id as "stateId",
+            p.flow_id as "flowId",
+            MIN(ph.price) as "min_price",
+            MAX(ph.price) as "max_price",
+            COUNT(DISTINCT o.id) as "offer_count"
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        JOIN hm_price_history ph ON ph.offer_id = o.id
+        <if test="browse_node_id != null">
+            JOIN hm_product_browse_node pbn ON pbn.product_id = p.id
+        </if>
+        WHERE p.tenant = #{tenantId}
+          AND ph.effective_to IS NULL
+        <if test="name != null">
+            AND (LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%')) OR LOWER(p.description) LIKE LOWER(CONCAT('%', #{name}, '%')) OR LOWER(p.brand) LIKE LOWER(CONCAT('%', #{name}, '%')))
+        </if>
+        <if test="brand != null">
+            AND p.brand IN 
+            <foreach item="item" index="index" collection="brand" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="classification_id != null">
+            AND p.classification_id = #{classification_id}
+        </if>
+        <if test="browse_node_id != null">
+            AND pbn.browse_node_id = #{browse_node_id}
+        </if>
+        <if test="min_price != null">
+            AND ph.price &gt;= #{min_price}
+        </if>
+        <if test="max_price != null">
+            AND ph.price &lt;= #{max_price}
+        </if>
+        GROUP BY p.id, p.name, p.description, p.brand, p.primary_image_url, p.classification_id, p.state_id, p.flow_id
+        ${orderby}
+        ${pagination}
+    </select>
+
+    <!-- Count Query for Pagination -->
+    <select id="search-products-count" resultType="int">
+        SELECT COUNT(DISTINCT p.id)
+        FROM hm_product p
+        JOIN hm_offer o ON o.product_id = p.id
+        JOIN hm_price_history ph ON ph.offer_id = o.id
+        <if test="browse_node_id != null">
+            JOIN hm_product_browse_node pbn ON pbn.product_id = p.id
+        </if>
+        WHERE p.tenant = #{tenantId}
+          AND ph.effective_to IS NULL
+        <if test="name != null">
+            AND (LOWER(p.name) LIKE LOWER(CONCAT('%', #{name}, '%')) OR LOWER(p.description) LIKE LOWER(CONCAT('%', #{name}, '%')) OR LOWER(p.brand) LIKE LOWER(CONCAT('%', #{name}, '%')))
+        </if>
+        <if test="brand != null">
+            AND p.brand IN 
+            <foreach item="item" index="index" collection="brand" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="classification_id != null">
+            AND p.classification_id = #{classification_id}
+        </if>
+        <if test="browse_node_id != null">
+            AND pbn.browse_node_id = #{browse_node_id}
+        </if>
+        <if test="min_price != null">
+            AND ph.price &gt;= #{min_price}
+        </if>
+        <if test="max_price != null">
+            AND ph.price &lt;= #{max_price}
+        </if>
+    </select>
+
+</mapper>

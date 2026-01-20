@@ -1,0 +1,56 @@
+[
+    {
+        "id": "search-currency-conversions",
+        "name": "search-currency-conversions",
+        "description": "Search historical and current currency exchange rates and manual conversion rules",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "ID",
+                "columnType": "Text",
+                "display": false
+            },
+            "baseCurrency": {
+                "name": "Base Currency",
+                "columnName": "from_currency",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "targetCurrency": {
+                "name": "Target Currency",
+                "columnName": "to_currency",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "rate": {
+                "name": "Rate",
+                "columnName": "exchange_rate",
+                "columnType": "Number",
+                "display": true
+            },
+            "effectiveFrom": {
+                "name": "Effective From",
+                "columnName": "effective_date",
+                "columnType": "Date",
+                "display": true,
+                "sortable": true
+            },
+            "source": {
+                "name": "Source",
+                "columnType": "Text",
+                "display": true
+            }
+        }
+    }
+]

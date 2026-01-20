@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handmade.ecommerce.query.service.mapper.platform">
+
+    <select id="search-platforms" resultType="map">
+        SELECT 
+            id as "id",
+            name as "name",
+            platform_code as "platformCode",
+            country_code as "countryCode",
+            currency_code as "currencyCode",
+            marketplace_type as "marketplaceType",
+            is_active as "isActive",
+            flow_id as "flowId",
+            state_id as "stateId",
+            logo_url as "logoUrl",
+            primary_color as "primaryColor",
+            secondary_color as "secondaryColor",
+            legal_name as "legalName",
+            tax_id as "taxId",
+            registration_number as "registrationNumber",
+            address as "address",
+            email as "email",
+            phone as "phone",
+            max_sellers as "maxSellers",
+            max_orders as "maxOrders",
+            max_marketplaces as "maxMarketplaces",
+            activated_at as "activatedAt",
+            created_time as "createdTime",
+            created_by as "createdBy"
+        FROM hm_platform
+        FROM hm_platform
+        WHERE tenant = #{tenantId}
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="name != null">
+            AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="platformCode != null">
+            AND platform_code = #{platformCode}
+        </if>
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
+        </if>
+        <if test="isActive != null">
+            AND is_active = #{isActive}
+        </if>
+        <if test="sortColumn != null and sortOrder != null">
+            ORDER BY ${sortColumn} ${sortOrder}
+        </if>
+        <if test="sortColumn == null">
+            ORDER BY name ASC
+        </if>
+        <if test="numRowsInPage != null and startRow != null">
+            LIMIT #{numRowsInPage} OFFSET #{startRow}
+        </if>
+    </select>
+
+    <select id="search-platforms-count" resultType="int">
+        SELECT COUNT(*)
+        FROM hm_platform
+        FROM hm_platform
+        WHERE tenant = #{tenantId}
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="name != null">
+            AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
+        </if>
+        <if test="platformCode != null">
+            AND platform_code = #{platformCode}
+        </if>
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
+        </if>
+        <if test="isActive != null">
+            AND is_active = #{isActive}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,72 @@
+[
+    {
+        "id": "search-audit-logs",
+        "name": "search-audit-logs",
+        "description": "Comprehensive audit trail for platform entities including changes and performed actions",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "ID",
+                "columnType": "Text",
+                "display": false
+            },
+            "performedAt": {
+                "name": "Performed At",
+                "columnName": "performedAt",
+                "columnType": "Date",
+                "display": true,
+                "sortable": true
+            },
+            "performedBy": {
+                "name": "Performed By",
+                "columnName": "performedBy",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "action": {
+                "name": "Action",
+                "columnName": "action",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "entityType": {
+                "name": "Entity Type",
+                "columnName": "entityType",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "entityId": {
+                "name": "Entity ID",
+                "columnName": "entityId",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "platformId": {
+                "name": "Platform",
+                "columnName": "platformId",
+                "columnType": "Text",
+                "display": true,
+                "filterable": true
+            },
+            "changes": {
+                "name": "Changes",
+                "columnName": "changes",
+                "columnType": "Text",
+                "display": true
+            }
+        }
+    }
+]

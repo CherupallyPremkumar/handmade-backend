@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: demo-data-reviews
-      author: antigravity
+      author: premkumar (generated)
       changes:
         - delete:
             tableName: hm_product_review

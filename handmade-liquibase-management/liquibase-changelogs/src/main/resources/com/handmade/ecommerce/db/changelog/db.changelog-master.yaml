@@ -304,3 +304,57 @@ databaseChangeLog:
   - include: { file: limit-engine/001-create-limit-definition.yaml, relativeToChangelogFile: true }
   - include: { file: limit-engine/002-create-limit-scope.yaml, relativeToChangelogFile: true }
   - include: { file: limit-engine/003-create-limit-counter.yaml, relativeToChangelogFile: true }
+
+  - include: { file: test-data/platform-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/platform-governance-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/platform-audit-test-data.yaml, relativeToChangelogFile: true }
+
+  - include: { file: test-data/infra-deep-dive-test-data.yaml, relativeToChangelogFile: true }
+
+  # 2. Users (IAM, Customer, Seller Account)
+  - include: { file: test-data/iam-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/customer-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-store-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-tax-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-payment-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-growth-test-data.yaml, relativeToChangelogFile: true }
+
+  # 3. Catalog & Product
+  - include: { file: test-data/catalog-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/product-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/search-browse-test-data.yaml, relativeToChangelogFile: true }
+
+  # 4. Inventory & Offer (Load offers BEFORE ui-queries to satisfy foreign keys)
+  - include: { file: test-data/inventory-depth-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/offer-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/offer-logic-test-data.yaml, relativeToChangelogFile: true }
+
+  # 5. Transactional (Order, Finance, Trust, CS, Marketing, Payment)
+  - include: { file: test-data/order-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/payment-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/finance-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/qa-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/support-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/risk-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/seller-onboarding-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/notification-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/finance-audit-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/trust-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/cs-marketing-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/adtech-test-data.yaml, relativeToChangelogFile: true }
+
+  # 6. Policies (Originals)
+
+  - include: { file: test-data/reviews-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/logistics-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/policy-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/experiment-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/pricing-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/limit-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/analytics-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/cms-engine-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/homepage-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/ui-queries-test-data.yaml, relativeToChangelogFile: true }
+  - include: { file: test-data/admin-queries-test-data.yaml, relativeToChangelogFile: true }
+

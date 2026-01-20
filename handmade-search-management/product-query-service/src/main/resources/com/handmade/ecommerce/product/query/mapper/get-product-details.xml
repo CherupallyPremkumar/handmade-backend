@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="get-product-details">
+
+    <select id="get-product-details" resultType="java.util.HashMap">
+        SELECT 
+            p.id as "id",
+            p.name as "name",
+            p.description as "description",
+            p.brand as "brand",
+            p.primary_image_url as "primary_image_url",
+            p.parent_id as "parent_id",
+            ra.average_rating as "average_rating",
+            ra.total_reviews as "total_reviews",
+            ph.price as "price",
+            ph.currency_code as "currency_code",
+            o.seller_id as "seller_id",
+            o.available_quantity as "available_quantity"
+        FROM hm_product p
+        LEFT JOIN hm_review_aggregation_snapshot ra ON ra.product_id = p.id
+        LEFT JOIN hm_offer o ON o.product_id = p.id
+        LEFT JOIN hm_price_history ph ON ph.offer_id = o.id AND ph.effective_to IS NULL
+        WHERE p.id = #{id}
+          AND p.tenant = #{tenantId}
+        LIMIT 1
+    </select>
+
+    <select id="get-product-variants" resultType="java.util.HashMap">
+        SELECT 
+            p.id as "id",
+            p.name as "name",
+            p.primary_image_url as "primary_image_url",
+            ph.price as "price"
+        FROM hm_product p
+        LEFT JOIN hm_offer o ON o.product_id = p.id
+        LEFT JOIN hm_price_history ph ON ph.offer_id = o.id AND ph.effective_to IS NULL
+        WHERE p.tenant = #{tenantId}
+          AND (p.parent_id = (SELECT COALESCE(parent_id, id) FROM hm_product WHERE id = #{id} AND tenant = #{tenantId})
+               OR p.id = (SELECT COALESCE(parent_id, id) FROM hm_product WHERE id = #{id} AND tenant = #{tenantId}))
+    </select>
+
+</mapper>

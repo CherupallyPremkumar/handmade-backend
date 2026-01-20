@@ -1,0 +1,40 @@
+[
+    {
+        "id": "recent-activity",
+        "name": "recent-activity",
+        "description": "List of recent system events and actions across the seller platform",
+        "paginated": true,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "id",
+                "columnType": "Text",
+                "display": false
+            },
+            "eventType": {
+                "name": "eventType",
+                "columnType": "Text"
+            },
+            "status": {
+                "name": "status",
+                "columnType": "Text"
+            },
+            "performedBy": {
+                "name": "performedBy",
+                "columnType": "Text"
+            },
+            "occurredAt": {
+                "name": "occurredAt",
+                "columnType": "Date"
+            }
+        }
+    }
+]

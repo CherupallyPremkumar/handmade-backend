@@ -1,0 +1,145 @@
+[
+  {
+    "id": "admin-marketplace-stats",
+    "name": "admin-marketplace-stats",
+    "description": "Consolidated marketplace metrics across sellers, products, disputes, and orders",
+    "paginated": false,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "metric_type": {
+        "name": "metric_type",
+        "columnType": "Text"
+      },
+      "metric_group": {
+        "name": "metric_group",
+        "columnType": "Text"
+      },
+      "metric_count": {
+        "name": "metric_count",
+        "columnType": "Number"
+      }
+    }
+  },
+  {
+    "id": "admin-category-health",
+    "name": "admin-category-health",
+    "description": "Product distribution and health metrics across browse nodes/categories",
+    "paginated": true,
+    "sortable": true,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "node_id": {
+        "name": "node_id",
+        "columnType": "Text"
+      },
+      "node_name": {
+        "name": "node_name",
+        "columnType": "Text",
+        "filterable": true,
+        "likeQuery": true
+      },
+      "product_count": {
+        "name": "product_count",
+        "columnType": "Number"
+      }
+    }
+  },
+  {
+    "id": "admin-system-health",
+    "name": "admin-system-health",
+    "description": "Operational status and health of backend platform services",
+    "paginated": false,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "service": {
+        "name": "service",
+        "columnType": "Text"
+      },
+      "status": {
+        "name": "status",
+        "columnType": "Text"
+      }
+    }
+  },
+  {
+    "id": "admin-revenue-by-platform",
+    "name": "admin-revenue-by-platform",
+    "description": "Breakdown of gross revenue and order volume by platform",
+    "paginated": false,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "platformId": {
+        "name": "Platform ID",
+        "columnType": "Text"
+      },
+      "revenue": {
+        "name": "Revenue",
+        "columnType": "Number"
+      },
+      "orderCount": {
+        "name": "Orders",
+        "columnType": "Number"
+      }
+    }
+  },
+  {
+    "id": "admin-revenue-trends",
+    "name": "admin-revenue-trends",
+    "description": "Monthly revenue growth and performance trends per platform for the current year",
+    "paginated": false,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "month": {
+        "name": "Month",
+        "columnType": "Text"
+      },
+      "platformId": {
+        "name": "Platform ID",
+        "columnType": "Text"
+      },
+      "revenue": {
+        "name": "Revenue",
+        "columnType": "Number"
+      }
+    }
+  }
+]

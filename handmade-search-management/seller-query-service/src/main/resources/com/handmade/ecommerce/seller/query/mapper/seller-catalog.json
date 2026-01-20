@@ -1,0 +1,106 @@
+[
+  {
+    "id": "search-my-listings",
+    "name": "search-my-listings",
+    "description": "Retrieve and filter product listings owned by the authenticated seller",
+    "paginated": true,
+    "sortable": true,
+    "workflowName": "HM_PRODUCT_FLOW",
+    "stateColumn": "state_id",
+    "flowColumn": "flow_id",
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "id": {
+        "name": "id",
+        "columnType": "Text"
+      },
+      "name": {
+        "name": "name",
+        "columnType": "Text",
+        "filterable": true,
+        "likeQuery": true
+      },
+      "status": {
+        "name": "status",
+        "columnType": "Text",
+        "filterable": true
+      },
+      "brand": {
+        "name": "brand",
+        "columnType": "Text"
+      },
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text"
+      },
+      "inventory_count": {
+        "name": "inventory_count",
+        "columnType": "Number"
+      },
+      "current_price": {
+        "name": "current_price",
+        "columnType": "Number"
+      },
+      "seller_id": {
+        "name": "seller_id",
+        "columnType": "Text",
+        "filterable": true,
+        "display": false
+      }
+    }
+  },
+  {
+    "id": "get-my-product-reviews",
+    "name": "get-my-product-reviews",
+    "description": "Get all customer reviews for products belonging to the seller",
+    "paginated": true,
+    "sortable": false,
+    "columnMetadata": {
+      "tenantId": {
+        "name": "tenantId",
+        "columnType": "Text",
+        "filterable": true,
+        "required": true,
+        "injected": true,
+        "display": false
+      },
+      "review_id": {
+        "name": "review_id",
+        "columnType": "Text"
+      },
+      "product_name": {
+        "name": "product_name",
+        "columnType": "Text"
+      },
+      "rating": {
+        "name": "rating",
+        "columnType": "Number"
+      },
+      "comment": {
+        "name": "comment",
+        "columnType": "Text"
+      },
+      "reviewer": {
+        "name": "reviewer",
+        "columnType": "Text"
+      },
+      "review_date": {
+        "name": "review_date",
+        "columnType": "Date"
+      },
+      "seller_id": {
+        "name": "seller_id",
+        "columnType": "Text",
+        "filterable": true,
+        "display": false
+      }
+    }
+  }
+]

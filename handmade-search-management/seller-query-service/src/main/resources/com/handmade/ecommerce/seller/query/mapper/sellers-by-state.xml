@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellers-by-state">
+    <select id="sellers-by-state" resultType="java.util.HashMap">
+        SELECT
+            state_id as "stateId",
+            COUNT(*) as "count"
+        FROM hm_seller_account
+        WHERE deleted = false
+          AND tenant = #{tenantId}
+        GROUP BY state_id
+    </select>
+</mapper>

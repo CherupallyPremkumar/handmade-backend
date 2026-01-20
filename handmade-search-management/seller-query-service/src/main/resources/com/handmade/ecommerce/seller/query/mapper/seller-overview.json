@@ -1,0 +1,32 @@
+[
+    {
+        "id": "seller-overview",
+        "name": "seller-overview",
+        "description": "General profile and account details for a specific seller",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "id",
+                "columnType": "Text",
+                "display": false
+            },
+            "businessName": {
+                "name": "businessName",
+                "columnType": "Text"
+            },
+            "email": {
+                "name": "email",
+                "columnType": "Text"
+            }
+        }
+    }
+]

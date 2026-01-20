@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seller-overview">
+    <select id="seller-overview" resultType="java.util.HashMap">
+        SELECT
+            id,
+            business_name as "businessName",
+            email,
+            state_id as "state",
+            state_id as "status",
+            platform_id as "platformId",
+            verified,
+            verified as "isVerified",
+            kyc_completed as "kycCompleted",
+            kyc_completed as "isKycCompleted",
+            suspended,
+            deleted,
+            created_time as "createdAt",
+            created_time as "joinedDate"
+        FROM hm_seller_account
+        WHERE id = #{id}
+          AND deleted = false
+    </select>
+
+    <select id="seller-overview-count" resultType="int">
+        SELECT COUNT(*) FROM hm_seller_account WHERE id = #{id}
+    </select>
+</mapper>

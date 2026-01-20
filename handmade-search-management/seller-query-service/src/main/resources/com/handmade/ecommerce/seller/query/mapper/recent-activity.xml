@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recent-activity">
+    <select id="recent-activity" resultType="java.util.HashMap">
+        SELECT
+            id,
+            event_type as "eventType",
+            event_status as "status",
+            actor_id as "performedBy",
+            occurred_at as "occurredAt",
+            payload_json as "payload"
+        FROM hm_platform_audit_log
+        WHERE tenant = #{tenantId}
+        ORDER BY occurred_at DESC
+        ${pagination}
+    </select>
+    <select id="recent-activity-count" resultType="int">
+        SELECT COUNT(*) FROM hm_platform_audit_log
+        WHERE tenant = #{tenantId}
+    </select>
+</mapper>

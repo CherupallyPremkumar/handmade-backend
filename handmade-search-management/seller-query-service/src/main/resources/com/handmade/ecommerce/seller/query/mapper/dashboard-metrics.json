@@ -1,0 +1,39 @@
+[
+    {
+        "id": "dashboard-metrics",
+        "name": "dashboard-metrics",
+        "description": "Aggregate seller metrics for the platform overview dashboard",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "totalSellers": {
+                "name": "totalSellers",
+                "columnType": "Number"
+            },
+            "activeSellers": {
+                "name": "activeSellers",
+                "columnType": "Number"
+            },
+            "verifiedSellers": {
+                "name": "verifiedSellers",
+                "columnType": "Number"
+            },
+            "pendingKyc": {
+                "name": "pendingKyc",
+                "columnType": "Number"
+            },
+            "pendingApprovals": {
+                "name": "pendingApprovals",
+                "columnType": "Number"
+            }
+        }
+    }
+]

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dashboard-metrics">
+    <select id="dashboard-metrics" resultType="java.util.HashMap">
+        SELECT
+            COUNT(*) as "totalSellers",
+            SUM(CASE WHEN state_id = 'ACTIVE' THEN 1 ELSE 0 END) as "activeSellers",
+            SUM(CASE WHEN verified = true THEN 1 ELSE 0 END) as "verifiedSellers",
+            SUM(CASE WHEN kyc_completed = false THEN 1 ELSE 0 END) as "pendingKyc",
+            SUM(CASE WHEN state_id = 'PENDING' OR state_id = 'MANUAL_REVIEW' THEN 1 ELSE 0 END) as "pendingApprovals"
+        FROM hm_seller_account
+        WHERE deleted = false
+          AND tenant = #{tenantId}
+    </select>
+</mapper>

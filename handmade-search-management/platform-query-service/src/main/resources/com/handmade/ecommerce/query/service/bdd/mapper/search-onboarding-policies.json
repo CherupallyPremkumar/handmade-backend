@@ -1,0 +1,93 @@
+[
+    {
+        "id": "search-onboarding-policies",
+        "name": "search-onboarding-policies",
+        "description": "Search and manage seller onboarding compliance policies by region and version",
+        "paginated": true,
+        "sortable": true,
+        "workflowName": "ONBOARDING_POLICY_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "Policy ID",
+                "columnType": "Text"
+            },
+            "policyVersion": {
+                "name": "Version",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "countryCode": {
+                "name": "Country",
+                "columnType": "Text"
+            },
+            "sellerType": {
+                "name": "Seller Type",
+                "columnType": "Text"
+            },
+            "status": {
+                "name": "Status",
+                "columnType": "Text",
+                "filterable": true
+            },
+            "effectiveDate": {
+                "name": "Effective From",
+                "columnType": "Date"
+            },
+            "createdAt": {
+                "name": "Created At",
+                "columnType": "DateTime"
+            },
+            "createdBy": {
+                "name": "Created By",
+                "columnType": "Text"
+            },
+            "approvedAt": {
+                "name": "Approved At",
+                "columnType": "DateTime"
+            },
+            "approvedBy": {
+                "name": "Approved By",
+                "columnType": "Text"
+            },
+            "stateId": {
+                "name": "State ID",
+                "columnType": "Text"
+            }
+        }
+    },
+    {
+        "id": "search-onboarding-policies-stats",
+        "name": "search-onboarding-policies-stats",
+        "description": "Aggregate statistics of onboarding policies grouped by their lifecycle state",
+        "paginated": false,
+        "sortable": false,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "stateId": {
+                "name": "Status",
+                "columnType": "Text"
+            },
+            "count": {
+                "name": "Count",
+                "columnType": "Number"
+            }
+        }
+    }
+]

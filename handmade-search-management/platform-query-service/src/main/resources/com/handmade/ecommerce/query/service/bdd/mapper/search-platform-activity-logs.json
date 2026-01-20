@@ -1,0 +1,54 @@
+[
+    {
+        "id": "search-platform-activity-logs",
+        "name": "search-platform-activity-logs",
+        "description": "Track and monitor high-level system and backend service activities",
+        "paginated": true,
+        "sortable": true,
+        "columnMetadata": {
+            "tenantId": {
+                "name": "tenantId",
+                "columnType": "Text",
+                "filterable": true,
+                "required": true,
+                "injected": true,
+                "display": false
+            },
+            "id": {
+                "name": "ID",
+                "columnName": "id",
+                "columnType": "Text",
+                "filterable": false,
+                "display": false
+            },
+            "createdTime": {
+                "name": "Timestamp",
+                "columnName": "created_time",
+                "columnType": "DateTime",
+                "filterable": true,
+                "display": true
+            },
+            "activityName": {
+                "name": "Activity",
+                "columnName": "activity_name",
+                "columnType": "Text",
+                "filterable": true,
+                "display": true
+            },
+            "activitySuccess": {
+                "name": "Success",
+                "columnName": "activity_success",
+                "columnType": "CheckBox",
+                "filterable": true,
+                "display": true
+            },
+            "activityComment": {
+                "name": "Comment",
+                "columnName": "activity_comment",
+                "columnType": "Text",
+                "filterable": false,
+                "display": true
+            }
+        }
+    }
+]

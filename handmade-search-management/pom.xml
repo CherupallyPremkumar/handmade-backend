@@ -14,6 +14,10 @@
     <name>handmade-search-management</name>
 
     <modules>
-        <module>handmade-query-service</module>
+        <module>query-infrastructure</module>
+        <module>platform-query-service</module>
+        <module>seller-query-service</module>
+        <module>product-query-service</module>
+        <module>query-boot</module>
     </modules>
 </project>
