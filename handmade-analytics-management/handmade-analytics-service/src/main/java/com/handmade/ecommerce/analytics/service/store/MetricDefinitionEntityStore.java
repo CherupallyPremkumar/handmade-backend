@@ -8,7 +8,11 @@ import com.handmade.ecommerce.analytics.configuration.dao.MetricDefinitionReposi
 import java.util.Optional;
 
 public class MetricDefinitionEntityStore implements EntityStore<MetricDefinition>{
-    @Autowired private MetricDefinitionRepository analyticsRepository;
+     private MetricDefinitionRepository analyticsRepository;
+
+	public MetricDefinitionEntityStore(MetricDefinitionRepository analyticsRepository) {
+		this.analyticsRepository = analyticsRepository;
+	}
 
 	@Override
 	public void store(MetricDefinition entity) {

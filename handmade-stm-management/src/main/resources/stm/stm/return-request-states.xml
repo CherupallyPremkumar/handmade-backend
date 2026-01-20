@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="returnRequestFlow" default="true">
+    <flow id="HM_RETURN_REQUEST_FLOW" default="true">
         <manual-state id="SUBMITTED" initialState="true">
             <on eventId="review" newStateId="UNDER_REVIEW" componentName="returnRequestReviewAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="returnRequestCancelAction"/>

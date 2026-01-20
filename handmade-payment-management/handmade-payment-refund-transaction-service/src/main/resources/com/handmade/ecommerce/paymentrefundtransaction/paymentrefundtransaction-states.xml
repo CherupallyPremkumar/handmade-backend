@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.payment.dto.CancelPaymentRefundTransactionPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.payment.dto.CompletePaymentRefundTransactionPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.payment.dto.FailPaymentRefundTransactionPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.payment.dto.ProcessPaymentRefundTransactionPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.payment.dto.RetryPaymentRefundTransactionPayload"/>
+
     <flow id="paymentRefundTransactionFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="process" newStateId="PROCESSING" componentName="paymentRefundTransactionProcessAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="paymentRefundTransactionCancelAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.paymentrefundtransaction.service.cmds.ProcessPaymentRefundTransactionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.paymentrefundtransaction.service.cmds.CancelPaymentRefundTransactionAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="complete" newStateId="COMPLETED" componentName="paymentRefundTransactionCompleteAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="paymentRefundTransactionFailAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.paymentrefundtransaction.service.cmds.CompletePaymentRefundTransactionAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.paymentrefundtransaction.service.cmds.FailPaymentRefundTransactionAction"/>
         </manual-state>
 
         <manual-state id="FAILED">
-            <on eventId="retry" newStateId="PENDING" componentName="paymentRefundTransactionRetryAction"/>
+            <on eventId="retry" newStateId="PENDING" componentName="com.handmade.ecommerce.paymentrefundtransaction.service.cmds.RetryPaymentRefundTransactionAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>
         <manual-state id="CANCELLED" meta-endState="true"/>
     </flow>
 </states>
+

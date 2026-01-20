@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.governance.dto.ReviewGDPRRequestPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.governance.dto.ProcessGDPRRequestPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.governance.dto.ApproveGDPRRequestPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.governance.dto.RejectGDPRRequestPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.governance.dto.CompleteGDPRRequestPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.governance.dto.FailGDPRRequestPayload"/>
+
     <flow id="gdprRequestFlow" default="true">
         <manual-state id="SUBMITTED" initialState="true">
             <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ReviewGdprRequestAction"/>

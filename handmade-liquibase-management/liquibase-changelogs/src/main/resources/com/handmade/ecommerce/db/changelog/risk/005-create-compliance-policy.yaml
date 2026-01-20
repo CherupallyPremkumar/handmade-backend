@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: risk-management
+      validCheckSum: ANY
+      changes:
+        - createTable:
+            tableName: hm_compliance_policy
+            # Compliance policy lifecycle (separate from compliance_document)
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: policy_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  # KYC, AML, GDPR, TAX_COMPLIANCE, DATA_PROTECTION
+              - column:
+                  name: policy_code
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: enforcement_level
+                  type: varchar(50)
+                  # MANDATORY, RECOMMENDED, OPTIONAL
+              - column:
+                  name: applicable_region
+                  type: varchar(50)
+                  # US, EU, IN, GLOBAL, etc.
+              - column:
+                  name: policy_version
+                  type: varchar(50)
+              - column:
+                  name: effective_date
+                  type: timestamp
+              - column:
+                  name: expiration_date
+                  type: timestamp
+              - column:
+                  name: policy_document_url
+                  type: varchar(500)
+              - column:
+                  name: approval_required
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: approved_by
+                  type: varchar(255)
+              - column:
+                  name: approval_date
+                  type: timestamp
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+        - createIndex:
+            indexName: idx_compliance_policy_code
+            tableName: hm_compliance_policy
+            columns:
+              - column:
+                  name: policy_code
+
+        - createIndex:
+            indexName: idx_compliance_policy_type
+            tableName: hm_compliance_policy
+            columns:
+              - column:
+                  name: policy_type
+
+        - addUniqueConstraint:
+            tableName: hm_compliance_policy
+            columnNames: policy_code, policy_version
+            constraintName: uk_policy_code_version

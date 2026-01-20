@@ -25,7 +25,6 @@ import org.chenile.workflow.api.WorkflowRegistry;
 @Configuration
 public class ProductConfiguration {
 	private static final String FLOW_DEFINITION_FILE = "com/handmade/ecommerce/product/product-states.xml";
-	public static final String PREFIX_FOR_PROPERTIES = "Product";
     public static final String PREFIX_FOR_RESOLVER = "product";
 
     @Bean BeanFactoryAdapter productBeanFactoryAdapter() {
@@ -40,13 +39,13 @@ public class ProductConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Product> productEntityStm(@Qualifier("productFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Product> productEntityStm(@Qualifier("productFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Product> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider productActionsInfoProvider(@Qualifier("productFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider productActionsInfoProvider(@Qualifier("productFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("product",provider);
         return provider;
@@ -56,7 +55,7 @@ public class ProductConfiguration {
 		return new ProductEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Product> _productStateEntityService_(
+	@Bean StateEntityServiceImpl<Product> _productStateEntityService_(
 			@Qualifier("productEntityStm") STM<Product> stm,
 			@Qualifier("productActionsInfoProvider") STMActionsInfoProvider productInfoProvider,
 			@Qualifier("productEntityStore") EntityStore<Product> entityStore){
@@ -65,7 +64,7 @@ public class ProductConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Product> productEntryAction(@Qualifier("productEntityStore") EntityStore<Product> entityStore,
+	@Bean GenericEntryAction<Product> productEntryAction(@Qualifier("productEntityStore") EntityStore<Product> entityStore,
 			@Qualifier("productActionsInfoProvider") STMActionsInfoProvider productInfoProvider,
             @Qualifier("productFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Product> entryAction =  new GenericEntryAction<Product>(entityStore,productInfoProvider);
@@ -101,13 +100,13 @@ public class ProductConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector productBodyTypeSelector(
+    @Bean StmBodyTypeSelector productBodyTypeSelector(
     @Qualifier("productActionsInfoProvider") STMActionsInfoProvider productInfoProvider,
     @Qualifier("productTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(productInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Product> productBaseTransitionAction(
+    @Bean STMTransitionAction<Product> productBaseTransitionAction(
         @Qualifier("productTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,35 +121,32 @@ public class ProductConfiguration {
     // segment in src/main/resources/com/handmade/product/product-states.xml
 
     @Bean DiscontinueProductAction
-            productDiscontinue(){
+            discontinueProductAction(){
         return new DiscontinueProductAction();
     }
     @Bean UnpublishProductAction
-            productUnpublish(){
+            unpublishProductAction(){
         return new UnpublishProductAction();
     }
     @Bean SubmitProductAction
-            productSubmit(){
+            submitProductAction(){
         return new SubmitProductAction();
     }
-    @Bean DiscontinueProductAction
-            productDiscontinue(){
-        return new DiscontinueProductAction();
-    }
+
     @Bean RepublishProductAction
-            productRepublish(){
+            republishProductAction(){
         return new RepublishProductAction();
     }
     @Bean ApproveProductAction
-            productApprove(){
+            approveProductAction(){
         return new ApproveProductAction();
     }
     @Bean RejectProductAction
-            productReject(){
+            rejectProductAction(){
         return new RejectProductAction();
     }
     @Bean PublishProductAction
-            productPublish(){
+            publishProductAction(){
         return new PublishProductAction();
     }
 

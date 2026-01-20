@@ -40,13 +40,13 @@ public class RiskSignalConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<RiskSignal> risksignalEntityStm(@Qualifier("risksignalFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<RiskSignal> risksignalEntityStm(@Qualifier("risksignalFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<RiskSignal> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider risksignalActionsInfoProvider(@Qualifier("risksignalFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider risksignalActionsInfoProvider(@Qualifier("risksignalFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("risksignal",provider);
         return provider;
@@ -56,7 +56,7 @@ public class RiskSignalConfiguration {
 		return new RiskSignalEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<RiskSignal> _risksignalStateEntityService_(
+	@Bean StateEntityServiceImpl<RiskSignal> _risksignalStateEntityService_(
 			@Qualifier("risksignalEntityStm") STM<RiskSignal> stm,
 			@Qualifier("risksignalActionsInfoProvider") STMActionsInfoProvider risksignalInfoProvider,
 			@Qualifier("risksignalEntityStore") EntityStore<RiskSignal> entityStore){
@@ -65,7 +65,7 @@ public class RiskSignalConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<RiskSignal> risksignalEntryAction(@Qualifier("risksignalEntityStore") EntityStore<RiskSignal> entityStore,
+	@Bean GenericEntryAction<RiskSignal> risksignalEntryAction(@Qualifier("risksignalEntityStore") EntityStore<RiskSignal> entityStore,
 			@Qualifier("risksignalActionsInfoProvider") STMActionsInfoProvider risksignalInfoProvider,
             @Qualifier("risksignalFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<RiskSignal> entryAction =  new GenericEntryAction<RiskSignal>(entityStore,risksignalInfoProvider);
@@ -101,13 +101,13 @@ public class RiskSignalConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector risksignalBodyTypeSelector(
+    @Bean StmBodyTypeSelector risksignalBodyTypeSelector(
     @Qualifier("risksignalActionsInfoProvider") STMActionsInfoProvider risksignalInfoProvider,
     @Qualifier("risksignalTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(risksignalInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<RiskSignal> risksignalBaseTransitionAction(
+    @Bean STMTransitionAction<RiskSignal> risksignalBaseTransitionAction(
         @Qualifier("risksignalTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,31 +122,24 @@ public class RiskSignalConfiguration {
     // segment in src/main/resources/com/handmade/risksignal/risksignal-states.xml
 
     @Bean ReviewRiskSignalAction
-            risksignalReview(){
+            reviewRiskSignalAction(){
         return new ReviewRiskSignalAction();
     }
     @Bean DismissRiskSignalAction
-            risksignalDismiss(){
+            dismissRiskSignalAction(){
         return new DismissRiskSignalAction();
     }
-    @Bean MitigateRiskSignalAction
-            risksignalMitigate(){
-        return new MitigateRiskSignalAction();
-    }
     @Bean EscalateRiskSignalAction
-            risksignalEscalate(){
+            escalateRiskSignalAction(){
         return new EscalateRiskSignalAction();
     }
     @Bean ConfirmRiskSignalAction
-            risksignalConfirm(){
+            confirmRiskSignalAction(){
         return new ConfirmRiskSignalAction();
     }
-    @Bean DismissRiskSignalAction
-            risksignalDismiss(){
-        return new DismissRiskSignalAction();
-    }
+
     @Bean MitigateRiskSignalAction
-            risksignalMitigate(){
+            mitigateRiskSignalAction(){
         return new MitigateRiskSignalAction();
     }
 

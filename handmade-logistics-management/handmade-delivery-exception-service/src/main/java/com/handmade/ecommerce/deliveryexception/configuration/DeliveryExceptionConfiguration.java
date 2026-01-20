@@ -40,13 +40,13 @@ public class DeliveryExceptionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<DeliveryException> deliveryexceptionEntityStm(@Qualifier("deliveryexceptionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<DeliveryException> deliveryexceptionEntityStm(@Qualifier("deliveryexceptionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<DeliveryException> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider deliveryexceptionActionsInfoProvider(@Qualifier("deliveryexceptionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider deliveryexceptionActionsInfoProvider(@Qualifier("deliveryexceptionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("deliveryexception",provider);
         return provider;
@@ -56,7 +56,7 @@ public class DeliveryExceptionConfiguration {
 		return new DeliveryExceptionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<DeliveryException> _deliveryexceptionStateEntityService_(
+	@Bean StateEntityServiceImpl<DeliveryException> _deliveryexceptionStateEntityService_(
 			@Qualifier("deliveryexceptionEntityStm") STM<DeliveryException> stm,
 			@Qualifier("deliveryexceptionActionsInfoProvider") STMActionsInfoProvider deliveryexceptionInfoProvider,
 			@Qualifier("deliveryexceptionEntityStore") EntityStore<DeliveryException> entityStore){
@@ -65,7 +65,7 @@ public class DeliveryExceptionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<DeliveryException> deliveryexceptionEntryAction(@Qualifier("deliveryexceptionEntityStore") EntityStore<DeliveryException> entityStore,
+	@Bean GenericEntryAction<DeliveryException> deliveryexceptionEntryAction(@Qualifier("deliveryexceptionEntityStore") EntityStore<DeliveryException> entityStore,
 			@Qualifier("deliveryexceptionActionsInfoProvider") STMActionsInfoProvider deliveryexceptionInfoProvider,
             @Qualifier("deliveryexceptionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<DeliveryException> entryAction =  new GenericEntryAction<DeliveryException>(entityStore,deliveryexceptionInfoProvider);
@@ -101,13 +101,13 @@ public class DeliveryExceptionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector deliveryexceptionBodyTypeSelector(
+    @Bean StmBodyTypeSelector deliveryexceptionBodyTypeSelector(
     @Qualifier("deliveryexceptionActionsInfoProvider") STMActionsInfoProvider deliveryexceptionInfoProvider,
     @Qualifier("deliveryexceptionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(deliveryexceptionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<DeliveryException> deliveryexceptionBaseTransitionAction(
+    @Bean STMTransitionAction<DeliveryException> deliveryexceptionBaseTransitionAction(
         @Qualifier("deliveryexceptionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,25 +122,22 @@ public class DeliveryExceptionConfiguration {
     // segment in src/main/resources/com/handmade/deliveryexception/deliveryexception-states.xml
 
     @Bean AcknowledgeDeliveryExceptionAction
-            deliveryexceptionAcknowledge(){
+            acknowledgeDeliveryExceptionAction(){
         return new AcknowledgeDeliveryExceptionAction();
     }
     @Bean InvestigateDeliveryExceptionAction
-            deliveryexceptionInvestigate(){
+            investigateDeliveryExceptionAction(){
         return new InvestigateDeliveryExceptionAction();
     }
     @Bean ResolveDeliveryExceptionAction
-            deliveryexceptionResolve(){
+            resolveDeliveryExceptionAction(){
         return new ResolveDeliveryExceptionAction();
     }
     @Bean EscalateDeliveryExceptionAction
-            deliveryexceptionEscalate(){
+            escalateDeliveryExceptionAction(){
         return new EscalateDeliveryExceptionAction();
     }
-    @Bean ResolveDeliveryExceptionAction
-            deliveryexceptionResolve(){
-        return new ResolveDeliveryExceptionAction();
-    }
+
 
 
 }

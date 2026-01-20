@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-payments
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_payment_refund_transaction
+        - delete:
+            tableName: hm_payment_capture
+        - delete:
+            tableName: hm_payment_authorization
+        - delete:
+            tableName: hm_payment_transaction
+        - delete:
+            tableName: hm_payment_order
+        - delete:
+            tableName: hm_payment_method
+
+        # Payment Methods
+        - insert:
+            tableName: hm_payment_method
+            columns:
+              - column: {name: id, value: "PM-001"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: payment_type, value: "CREDIT_CARD"}
+              - column: {name: provider, value: "STRIPE"}
+              - column: {name: card_last4, value: "4242"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Payment Orders (matching hm_payment_order schema)
+        - insert:
+            tableName: hm_payment_order
+            columns:
+              - column: {name: id, value: "PAY-ORD-001"}
+              - column: {name: order_id, value: "ORD-001"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: amount, valueNumeric: 32.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "CREATED"}
+              - column: {name: flow_id, value: "HM_PAYMENT_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payment_order
+            columns:
+              - column: {name: id, value: "PAY-ORD-002"}
+              - column: {name: order_id, value: "ORD-002"}
+              - column: {name: customer_id, value: "CUST-002"}
+              - column: {name: amount, valueNumeric: 48.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "CREATED"}
+              - column: {name: flow_id, value: "HM_PAYMENT_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Payment Transactions (matching hm_payment_transaction schema)
+        - insert:
+            tableName: hm_payment_transaction
+            columns:
+              - column: {name: id, value: "TXN-001"}
+              - column: {name: order_id, value: "ORD-001"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: payment_method_id, value: "PM-001"}
+              - column: {name: transaction_type, value: "AUTHORIZE"}
+              - column: {name: amount, valueNumeric: 32.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_PAYMENT_TRANSACTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payment_transaction
+            columns:
+              - column: {name: id, value: "TXN-002"}
+              - column: {name: order_id, value: "ORD-002"}
+              - column: {name: customer_id, value: "CUST-002"}
+              - column: {name: payment_method_id, value: "PM-001"}
+              - column: {name: transaction_type, value: "AUTHORIZE"}
+              - column: {name: amount, valueNumeric: 48.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_PAYMENT_TRANSACTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Payment Authorizations
+        - insert:
+            tableName: hm_payment_authorization
+            columns:
+              - column: {name: id, value: "AUTH-001"}
+              - column: {name: payment_transaction_id, value: "TXN-001"}
+              - column: {name: authorization_code, value: "AUTH_CODE_001"}
+              - column: {name: authorized_amount, valueNumeric: 32.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: authorized_at, valueDate: "2026-01-19T10:00:00"}
+              - column: {name: state_id, value: "AUTHORIZED"}
+              - column: {name: flow_id, value: "HM_PAYMENT_AUTHORIZATION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payment_authorization
+            columns:
+              - column: {name: id, value: "AUTH-002"}
+              - column: {name: payment_transaction_id, value: "TXN-002"}
+              - column: {name: authorization_code, value: "AUTH_CODE_002"}
+              - column: {name: authorized_amount, valueNumeric: 48.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: authorized_at, valueDate: "2026-01-19T10:00:00"}
+              - column: {name: state_id, value: "AUTHORIZED"}
+              - column: {name: flow_id, value: "HM_PAYMENT_AUTHORIZATION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

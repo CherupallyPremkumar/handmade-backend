@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.limit.model.LimitDefinition;
-import com.handmade.ecommerce.limit.model. DeprecateLimitDefinitionPayload;
+import com.handmade.ecommerce.limit.dto.DeprecateLimitDefinitionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.limit.model. DeprecateLimitDefinitionPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class DeprecateLimitDefinitionAction extends AbstractSTMTransitionAction<LimitDefinition,
-    DeprecateLimitDefinitionPayload>{
+               DeprecateLimitDefinitionPayload>{
 
 	@Override
 	public void transitionTo(LimitDefinition limitdefinition,

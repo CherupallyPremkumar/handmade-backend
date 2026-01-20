@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="compliancePolicyFlow" default="true">
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.risk.dto.ActivateCompliancePolicyPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.risk.dto.ApproveCompliancePolicyPayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.risk.dto.DeprecateCompliancePolicyPayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.risk.dto.ReactivateCompliancePolicyPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.risk.dto.RejectCompliancePolicyPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.risk.dto.SubmitCompliancePolicyPayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.risk.dto.SuspendCompliancePolicyPayload"/>
+
+    <flow id="HM_COMPLIANCE_POLICY_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submit" newStateId="REVIEW" componentName="compliancePolicySubmitAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.SubmitCompliancePolicyAction"/>
         </manual-state>
 
         <manual-state id="REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="compliancePolicyApproveAction"/>
-            <on eventId="reject" newStateId="DRAFT" componentName="compliancePolicyRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.ApproveCompliancePolicyAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.RejectCompliancePolicyAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="activate" newStateId="ACTIVE" componentName="compliancePolicyActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.ActivateCompliancePolicyAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="suspend" newStateId="SUSPENDED" componentName="compliancePolicySuspendAction"/>
-            <on eventId="deprecate" newStateId="DEPRECATED" componentName="compliancePolicyDeprecateAction"/>
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.SuspendCompliancePolicyAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.DeprecateCompliancePolicyAction"/>
         </manual-state>
 
         <manual-state id="SUSPENDED">
-            <on eventId="reactivate" newStateId="ACTIVE" componentName="compliancePolicyReactivateAction"/>
-            <on eventId="deprecate" newStateId="DEPRECATED" componentName="compliancePolicyDeprecateFromSuspendedAction"/>
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.ReactivateCompliancePolicyAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="com.handmade.ecommerce.compliancepolicy.service.cmds.DeprecateCompliancePolicyAction"/>
         </manual-state>
 
         <manual-state id="DEPRECATED" meta-endState="true"/>

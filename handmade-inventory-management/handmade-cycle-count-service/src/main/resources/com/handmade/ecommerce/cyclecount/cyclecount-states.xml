@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="cycleCountFlow" default="true">
+    <event-information eventId="adjust" meta-bodyType="com.handmade.ecommerce.inventory.dto.AdjustCycleCountPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApproveCycleCountPayload"/>
+    <event-information eventId="approveVariance" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApproveVarianceCycleCountPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.inventory.dto.CompleteCycleCountPayload"/>
+    <event-information eventId="detectVariance" meta-bodyType="com.handmade.ecommerce.inventory.dto.DetectVarianceCycleCountPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.inventory.dto.StartCycleCountPayload"/>
+
+    <flow id="HM_CYCLE_COUNT_FLOW" default="true">
         <manual-state id="PLANNED" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="cycleCountStartAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.cyclecount.service.cmds.StartCycleCountAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="complete" newStateId="COMPLETED" componentName="cycleCountCompleteAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.cyclecount.service.cmds.CompleteCycleCountAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED">
-            <on eventId="detectVariance" newStateId="VARIANCE_FOUND" componentName="cycleCountDetectVarianceAction"/>
-            <on eventId="approve" newStateId="APPROVED" componentName="cycleCountApproveAction"/>
+            <on eventId="detectVariance" newStateId="VARIANCE_FOUND" componentName="com.handmade.ecommerce.cyclecount.service.cmds.DetectVarianceCycleCountAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.cyclecount.service.cmds.ApproveCycleCountAction"/>
         </manual-state>
 
         <manual-state id="VARIANCE_FOUND">
-            <on eventId="approveVariance" newStateId="APPROVED" componentName="cycleCountApproveVarianceAction"/>
+            <on eventId="approveVariance" newStateId="APPROVED" componentName="com.handmade.ecommerce.cyclecount.service.cmds.ApproveVarianceCycleCountAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="adjust" newStateId="ADJUSTED" componentName="cycleCountAdjustAction"/>
+            <on eventId="adjust" newStateId="ADJUSTED" componentName="com.handmade.ecommerce.cyclecount.service.cmds.AdjustCycleCountAction"/>
         </manual-state>
 
         <manual-state id="ADJUSTED" meta-endState="true"/>

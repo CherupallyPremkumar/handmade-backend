@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.risk.model.ComplianceDocument;
-import com.handmade.ecommerce.risk.model. ExpireComplianceDocumentPayload;
+import com.handmade.ecommerce.risk.dto.ExpireComplianceDocumentPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.risk.model. ExpireComplianceDocumentPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ExpireComplianceDocumentAction extends AbstractSTMTransitionAction<ComplianceDocument,
-    ExpireComplianceDocumentPayload>{
+               ExpireComplianceDocumentPayload>{
 
 	@Override
 	public void transitionTo(ComplianceDocument compliancedocument,

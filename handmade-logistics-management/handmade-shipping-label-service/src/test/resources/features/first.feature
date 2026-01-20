@@ -7,14 +7,17 @@ And that "initialState" equals "CREATED"
 When I POST a REST request to URL "/shippinglabel" with payload
 """json
 {
-    "description": "Description"
+    "shipmentId": "shipment-001",
+    "carrierId": "carrier-001",
+    "trackingNumber": "TRACK-99999",
+    "status": "GENERATED"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.trackingNumber" is "TRACK-99999"
 
 Scenario: Retrieve the shippinglabel that just got created
 When I GET a REST request to URL "/shippinglabel/${id}"
@@ -62,3 +65,40 @@ When I PATCH a REST request to URL "/shippinglabel/${id}/invalid" with payload
 Then the REST response does not contain key "mutatedEntity"
 And the http status code is 422
 
+
+Scenario: Create another shippinglabel for Use test
+Given that "flowName" equals "shippingLabelFlow"
+And that "initialState" equals "CREATED"
+When I POST a REST request to URL "/shippinglabel" with payload
+"""json
+{
+    "shipmentId": "shipment-002",
+    "carrierId": "carrier-002",
+    "trackingNumber": "TRACK-22222",
+    "status": "GENERATED"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And store "$.payload.mutatedEntity.id" from response to "useId"
+And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
+And the REST response key "mutatedEntity.trackingNumber" is "TRACK-22222"
+
+Scenario: Print the second shippinglabel
+When I PATCH a REST request to URL "/shippinglabel/${useId}/print" with payload
+"""json
+{
+    "comment": "Printing for use"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.currentState.stateId" is "PRINTED"
+
+Scenario: Use the second shippinglabel
+When I PATCH a REST request to URL "/shippinglabel/${useId}/use" with payload
+"""json
+{
+    "comment": "Using label"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.currentState.stateId" is "USED"

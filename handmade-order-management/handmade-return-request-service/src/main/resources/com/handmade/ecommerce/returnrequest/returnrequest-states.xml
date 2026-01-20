@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="accept" meta-bodyType="com.handmade.ecommerce.order.dto.AcceptReturnRequestPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.order.dto.ApproveReturnRequestPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.order.dto.CancelReturnRequestPayload"/>
+    <event-information eventId="inspect" meta-bodyType="com.handmade.ecommerce.order.dto.InspectReturnRequestPayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.order.dto.ReceiveReturnRequestPayload"/>
+    <event-information eventId="refund" meta-bodyType="com.handmade.ecommerce.order.dto.RefundReturnRequestPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.order.dto.RejectReturnRequestPayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.order.dto.ReviewReturnRequestPayload"/>
+    <event-information eventId="ship" meta-bodyType="com.handmade.ecommerce.order.dto.ShipReturnRequestPayload"/>
+
     <flow id="returnRequestFlow" default="true">
         <manual-state id="SUBMITTED" initialState="true">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="returnRequestReviewAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="returnRequestCancelAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.returnrequest.service.cmds.ReviewReturnRequestAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.CancelReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="returnRequestApproveAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="returnRequestRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.ApproveReturnRequestAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.RejectReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="ship" newStateId="IN_TRANSIT" componentName="returnRequestShipAction"/>
+            <on eventId="ship" newStateId="IN_TRANSIT" componentName="com.handmade.ecommerce.returnrequest.service.cmds.ShipReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="IN_TRANSIT">
-            <on eventId="receive" newStateId="RECEIVED" componentName="returnRequestReceiveAction"/>
+            <on eventId="receive" newStateId="RECEIVED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.ReceiveReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="RECEIVED">
-            <on eventId="inspect" newStateId="INSPECTED" componentName="returnRequestInspectAction"/>
+            <on eventId="inspect" newStateId="INSPECTED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.InspectReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="INSPECTED">
-            <on eventId="accept" newStateId="ACCEPTED" componentName="returnRequestAcceptAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="returnRequestRejectAfterInspectionAction"/>
+            <on eventId="accept" newStateId="ACCEPTED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.AcceptReturnRequestAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.RejectReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="ACCEPTED">
-            <on eventId="refund" newStateId="REFUNDED" componentName="returnRequestRefundAction"/>
+            <on eventId="refund" newStateId="REFUNDED" componentName="com.handmade.ecommerce.returnrequest.service.cmds.RefundReturnRequestAction"/>
         </manual-state>
 
         <manual-state id="REFUNDED" meta-endState="true"/>

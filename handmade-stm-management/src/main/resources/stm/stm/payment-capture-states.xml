@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="paymentCaptureFlow" default="true">
+    <flow id="HM_PAYMENT_CAPTURE_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="process" newStateId="PROCESSING" componentName="paymentCaptureProcessAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="paymentCaptureCancelAction"/>

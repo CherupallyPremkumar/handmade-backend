@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: logistics-ops
+      validCheckSum: ANY
+      comment: Create hm_shipping_label table
+      changes:
+        - createTable:
+            tableName: hm_shipping_label
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: shipment_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: carrier_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: tracking_number, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
+              - column: { name: label_image_url, type: VARCHAR(1000) }
+              - column: { name: label_format, type: VARCHAR(20) } # PDF, ZPL, PNG
+              - column:
+                  name: shipping_cost
+                  type: decimal(19, 4)
+              # AbstractJpaStateEntity (STM)
+              - column: { name: flow_id, type: VARCHAR(255) }
+              - column: { name: state_id, type: VARCHAR(255) }
+              - column: { name: state_entry_time, type: TIMESTAMP }
+              - column: { name: sla_yellow_date, type: TIMESTAMP }
+              - column: { name: sla_red_date, type: TIMESTAMP }
+              - column: { name: sla_tending_late, type: INT, defaultValueNumeric: 0 }
+              - column: { name: sla_late, type: INT, defaultValueNumeric: 0 }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_shipping_label
+            indexName: idx_label_shipment
+            columns:
+              - column: { name: shipment_id }
+        
+        - createIndex:
+            tableName: hm_shipping_label
+            indexName: idx_label_tracking
+            columns:
+              - column: { name: tracking_number }

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.onboarding.model.SellerOnboardingCase;
-import com.handmade.ecommerce.onboarding.model. RequestInfoSellerOnboardingCasePayload;
+import com.handmade.ecommerce.onboarding.dto.RequestInfoSellerOnboardingCasePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.onboarding.model. RequestInfoSellerOnboardingCaseP
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RequestInfoSellerOnboardingCaseAction extends AbstractSTMTransitionAction<SellerOnboardingCase,
-    RequestInfoSellerOnboardingCasePayload>{
+               RequestInfoSellerOnboardingCasePayload>{
 
 	@Override
 	public void transitionTo(SellerOnboardingCase selleronboardingcase,

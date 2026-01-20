@@ -40,13 +40,13 @@ public class VendorPOLineConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<VendorPOLine> vendorpolineEntityStm(@Qualifier("vendorpolineFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<VendorPOLine> vendorpolineEntityStm(@Qualifier("vendorpolineFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<VendorPOLine> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider vendorpolineActionsInfoProvider(@Qualifier("vendorpolineFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider vendorpolineActionsInfoProvider(@Qualifier("vendorpolineFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("vendorpoline",provider);
         return provider;
@@ -56,7 +56,7 @@ public class VendorPOLineConfiguration {
 		return new VendorPOLineEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<VendorPOLine> _vendorpolineStateEntityService_(
+	@Bean StateEntityServiceImpl<VendorPOLine> _vendorpolineStateEntityService_(
 			@Qualifier("vendorpolineEntityStm") STM<VendorPOLine> stm,
 			@Qualifier("vendorpolineActionsInfoProvider") STMActionsInfoProvider vendorpolineInfoProvider,
 			@Qualifier("vendorpolineEntityStore") EntityStore<VendorPOLine> entityStore){
@@ -65,7 +65,7 @@ public class VendorPOLineConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<VendorPOLine> vendorpolineEntryAction(@Qualifier("vendorpolineEntityStore") EntityStore<VendorPOLine> entityStore,
+	@Bean GenericEntryAction<VendorPOLine> vendorpolineEntryAction(@Qualifier("vendorpolineEntityStore") EntityStore<VendorPOLine> entityStore,
 			@Qualifier("vendorpolineActionsInfoProvider") STMActionsInfoProvider vendorpolineInfoProvider,
             @Qualifier("vendorpolineFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<VendorPOLine> entryAction =  new GenericEntryAction<VendorPOLine>(entityStore,vendorpolineInfoProvider);
@@ -101,13 +101,13 @@ public class VendorPOLineConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector vendorpolineBodyTypeSelector(
+    @Bean StmBodyTypeSelector vendorpolineBodyTypeSelector(
     @Qualifier("vendorpolineActionsInfoProvider") STMActionsInfoProvider vendorpolineInfoProvider,
     @Qualifier("vendorpolineTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(vendorpolineInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<VendorPOLine> vendorpolineBaseTransitionAction(
+    @Bean STMTransitionAction<VendorPOLine> vendorpolineBaseTransitionAction(
         @Qualifier("vendorpolineTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

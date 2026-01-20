@@ -40,13 +40,13 @@ public class SellerStoreConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerStore> sellerstoreEntityStm(@Qualifier("sellerstoreFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerStore> sellerstoreEntityStm(@Qualifier("sellerstoreFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerStore> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider sellerstoreActionsInfoProvider(@Qualifier("sellerstoreFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider sellerstoreActionsInfoProvider(@Qualifier("sellerstoreFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("sellerstore",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerStoreConfiguration {
 		return new SellerStoreEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerStore> _sellerstoreStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerStore> _sellerstoreStateEntityService_(
 			@Qualifier("sellerstoreEntityStm") STM<SellerStore> stm,
 			@Qualifier("sellerstoreActionsInfoProvider") STMActionsInfoProvider sellerstoreInfoProvider,
 			@Qualifier("sellerstoreEntityStore") EntityStore<SellerStore> entityStore){
@@ -65,7 +65,7 @@ public class SellerStoreConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerStore> sellerstoreEntryAction(@Qualifier("sellerstoreEntityStore") EntityStore<SellerStore> entityStore,
+	@Bean GenericEntryAction<SellerStore> sellerstoreEntryAction(@Qualifier("sellerstoreEntityStore") EntityStore<SellerStore> entityStore,
 			@Qualifier("sellerstoreActionsInfoProvider") STMActionsInfoProvider sellerstoreInfoProvider,
             @Qualifier("sellerstoreFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerStore> entryAction =  new GenericEntryAction<SellerStore>(entityStore,sellerstoreInfoProvider);
@@ -101,13 +101,13 @@ public class SellerStoreConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector sellerstoreBodyTypeSelector(
+    @Bean StmBodyTypeSelector sellerstoreBodyTypeSelector(
     @Qualifier("sellerstoreActionsInfoProvider") STMActionsInfoProvider sellerstoreInfoProvider,
     @Qualifier("sellerstoreTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(sellerstoreInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerStore> sellerstoreBaseTransitionAction(
+    @Bean STMTransitionAction<SellerStore> sellerstoreBaseTransitionAction(
         @Qualifier("sellerstoreTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

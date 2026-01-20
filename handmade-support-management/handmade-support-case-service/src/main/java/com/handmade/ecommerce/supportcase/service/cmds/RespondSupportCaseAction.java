@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.support.model.SupportCase;
-import com.handmade.ecommerce.support.model. RespondSupportCasePayload;
+import com.handmade.ecommerce.support.dto.RespondSupportCasePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.support.model. RespondSupportCasePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RespondSupportCaseAction extends AbstractSTMTransitionAction<SupportCase,
-    RespondSupportCasePayload>{
+               RespondSupportCasePayload>{
 
 	@Override
 	public void transitionTo(SupportCase supportcase,

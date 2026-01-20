@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.onboarding.model.SellerVerification;
-import com.handmade.ecommerce.onboarding.model. SubmitSellerVerificationPayload;
+import com.handmade.ecommerce.onboarding.dto.SubmitSellerVerificationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.onboarding.model. SubmitSellerVerificationPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SubmitSellerVerificationAction extends AbstractSTMTransitionAction<SellerVerification,
-    SubmitSellerVerificationPayload>{
+               SubmitSellerVerificationPayload>{
 
 	@Override
 	public void transitionTo(SellerVerification sellerverification,

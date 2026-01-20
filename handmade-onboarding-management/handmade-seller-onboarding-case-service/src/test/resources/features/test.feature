@@ -1,304 +1,175 @@
 Feature: Testcase ID 
 Tests the selleronboardingcase Workflow Service using a REST client. Selleronboardingcase service exists and is under test.
 It helps to create a selleronboardingcase and manages the state of the selleronboardingcase as documented in states xml
+
 Scenario: Create a new selleronboardingcase
 Given that "flowName" equals "sellerOnboardingCaseFlow"
 And that "initialState" equals "INITIATED"
 When I POST a REST request to URL "/selleronboardingcase" with payload
 """json
 {
-    "description": "Description"
+    "sellerId": "seller-001",
+    "email": "seller1@example.com",
+    "businessName": "Handmade Treasures",
+    "startedAt": "2026-01-19T10:00:00Z"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.businessName" is "Handmade Treasures"
 
 Scenario: Retrieve the selleronboardingcase that just got created
 When I GET a REST request to URL "/selleronboardingcase/${id}"
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
-Scenario: Send the start event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for start"
-And that "event" equals "start"
+Scenario: Send the start event to the selleronboardingcase
+Given that "event" equals "start"
 When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Starting onboarding"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the cancel event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for cancel"
-And that "event" equals "cancel"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Feature: Testcase ID 
-Tests the selleronboardingcase Workflow Service using a REST client. Selleronboardingcase service exists and is under test.
-It helps to create a selleronboardingcase and manages the state of the selleronboardingcase as documented in states xml
-Scenario: Create a new selleronboardingcase
-Given that "flowName" equals "sellerOnboardingCaseFlow"
-And that "initialState" equals "INITIATED"
-When I POST a REST request to URL "/selleronboardingcase" with payload
-"""json
-{
-    "description": "Description"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And store "$.payload.mutatedEntity.id" from response to "id"
-And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
 
-Scenario: Retrieve the selleronboardingcase that just got created
-When I GET a REST request to URL "/selleronboardingcase/${id}"
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
-
-Scenario: Send the start event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for start"
-And that "event" equals "start"
+Scenario: Send the submit event to the selleronboardingcase
+Given that "event" equals "submit"
 When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Submitting documents"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the submit event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for submit"
-And that "event" equals "submit"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "SUBMITTED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the review event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for review"
-And that "event" equals "review"
+
+Scenario: Send the review event to the selleronboardingcase
+Given that "event" equals "review"
 When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Reviewing application"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "UNDER_REVIEW"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the approve event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for approve"
-And that "event" equals "approve"
+
+Scenario: Send the approve event to the selleronboardingcase
+Given that "event" equals "approve"
 When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Approving application"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the activate event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for activate"
-And that "event" equals "activate"
+
+Scenario: Send the activate event to the selleronboardingcase
+Given that "event" equals "activate"
 When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Activating seller account"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "ACTIVE"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Feature: Testcase ID 
-Tests the selleronboardingcase Workflow Service using a REST client. Selleronboardingcase service exists and is under test.
-It helps to create a selleronboardingcase and manages the state of the selleronboardingcase as documented in states xml
-Scenario: Create a new selleronboardingcase
+
+Scenario: Create another case for rejection test
 Given that "flowName" equals "sellerOnboardingCaseFlow"
 And that "initialState" equals "INITIATED"
 When I POST a REST request to URL "/selleronboardingcase" with payload
 """json
 {
-    "description": "Description"
+    "sellerId": "seller-002",
+    "email": "seller2@example.com",
+    "businessName": "Rejected Works",
+    "startedAt": "2026-01-19T11:00:00Z"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And store "$.payload.mutatedEntity.id" from response to "id"
-And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+Then success is true
+And store "$.payload.mutatedEntity.id" from response to "id2"
 
-Scenario: Retrieve the selleronboardingcase that just got created
-When I GET a REST request to URL "/selleronboardingcase/${id}"
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
+Scenario: Move second case to UNDER_REVIEW
+When I PATCH a REST request to URL "/selleronboardingcase/${id2}/start" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/selleronboardingcase/${id2}/submit" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/selleronboardingcase/${id2}/review" with payload
+"""json
+{}
+"""
+Then success is true
 
-Scenario: Send the start event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for start"
-And that "event" equals "start"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
+Scenario: Reject the second case
+Given that "event" equals "reject"
+When I PATCH a REST request to URL "/selleronboardingcase/${id2}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Rejecting due to missing info"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the submit event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for submit"
-And that "event" equals "submit"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "SUBMITTED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the review event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for review"
-And that "event" equals "review"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "UNDER_REVIEW"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the reject event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for reject"
-And that "event" equals "reject"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "REJECTED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Feature: Testcase ID 
-Tests the selleronboardingcase Workflow Service using a REST client. Selleronboardingcase service exists and is under test.
-It helps to create a selleronboardingcase and manages the state of the selleronboardingcase as documented in states xml
-Scenario: Create a new selleronboardingcase
+
+Scenario: Move to INFO_REQUESTED test
 Given that "flowName" equals "sellerOnboardingCaseFlow"
 And that "initialState" equals "INITIATED"
 When I POST a REST request to URL "/selleronboardingcase" with payload
 """json
 {
-    "description": "Description"
+    "sellerId": "seller-003",
+    "email": "seller3@example.com",
+    "businessName": "Info Needed",
+    "startedAt": "2026-01-19T12:00:00Z"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And store "$.payload.mutatedEntity.id" from response to "id"
-And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
-
-Scenario: Retrieve the selleronboardingcase that just got created
-When I GET a REST request to URL "/selleronboardingcase/${id}"
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
-
-Scenario: Send the start event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for start"
-And that "event" equals "start"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
+And store "$.payload.mutatedEntity.id" from response to "id3"
+And I PATCH a REST request to URL "/selleronboardingcase/${id3}/start" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/selleronboardingcase/${id3}/submit" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/selleronboardingcase/${id3}/review" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/selleronboardingcase/${id3}/requestInfo" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Need more docs"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the submit event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for submit"
-And that "event" equals "submit"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "SUBMITTED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the review event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for review"
-And that "event" equals "review"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "UNDER_REVIEW"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the requestInfo event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for requestInfo"
-And that "event" equals "requestInfo"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
 And the REST response key "mutatedEntity.currentState.stateId" is "INFO_REQUESTED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the cancel event to the selleronboardingcase with comments
-Given that "comment" equals "Comment for cancel"
-And that "event" equals "cancel"
-When I PATCH a REST request to URL "/selleronboardingcase/${id}/${event}" with payload
+
+Scenario: Provide info and move back to UNDER_REVIEW
+When I PATCH a REST request to URL "/selleronboardingcase/${id3}/provideInfo" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Here are the docs"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+Then success is true
+And the REST response key "mutatedEntity.currentState.stateId" is "UNDER_REVIEW"

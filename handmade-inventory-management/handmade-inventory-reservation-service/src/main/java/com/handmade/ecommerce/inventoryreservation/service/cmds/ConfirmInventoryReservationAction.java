@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.InventoryReservation;
-import com.handmade.ecommerce.inventory.model. ConfirmInventoryReservationPayload;
+import com.handmade.ecommerce.inventory.dto.ConfirmInventoryReservationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. ConfirmInventoryReservationPayloa
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ConfirmInventoryReservationAction extends AbstractSTMTransitionAction<InventoryReservation,
-    ConfirmInventoryReservationPayload>{
+               ConfirmInventoryReservationPayload>{
 
 	@Override
 	public void transitionTo(InventoryReservation inventoryreservation,

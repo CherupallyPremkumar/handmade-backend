@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.iam.model.UserRole;
-import com.handmade.ecommerce.iam.model. ReactivateUserRolePayload;
+import com.handmade.ecommerce.iam.dto.ReactivateUserRolePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.iam.model. ReactivateUserRolePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ReactivateUserRoleAction extends AbstractSTMTransitionAction<UserRole,
-    ReactivateUserRolePayload>{
+               ReactivateUserRolePayload>{
 
 	@Override
 	public void transitionTo(UserRole userrole,

@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="translationFlow" default="true">
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.localization.dto.ApproveTranslationPayload"/>
+    <event-information eventId="archive" meta-bodyType="com.handmade.ecommerce.localization.dto.ArchiveTranslationPayload"/>
+    <event-information eventId="publish" meta-bodyType="com.handmade.ecommerce.localization.dto.PublishTranslationPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.localization.dto.RejectTranslationPayload"/>
+    <event-information eventId="submitForReview" meta-bodyType="com.handmade.ecommerce.localization.dto.SubmitForReviewTranslationPayload"/>
+    <event-information eventId="unpublish" meta-bodyType="com.handmade.ecommerce.localization.dto.UnpublishTranslationPayload"/>
+
+    <flow id="HM_TRANSLATION_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submitForReview" newStateId="REVIEW" componentName="translationSubmitForReviewAction"/>
+            <on eventId="submitForReview" newStateId="REVIEW" componentName="com.handmade.ecommerce.translation.service.cmds.SubmitForReviewTranslationAction"/>
         </manual-state>
 
         <manual-state id="REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="translationApproveAction"/>
-            <on eventId="reject" newStateId="DRAFT" componentName="translationRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.translation.service.cmds.ApproveTranslationAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.translation.service.cmds.RejectTranslationAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="publish" newStateId="PUBLISHED" componentName="translationPublishAction"/>
+            <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.translation.service.cmds.PublishTranslationAction"/>
         </manual-state>
 
         <manual-state id="PUBLISHED">
-            <on eventId="archive" newStateId="ARCHIVED" componentName="translationArchiveAction"/>
-            <on eventId="unpublish" newStateId="APPROVED" componentName="translationUnpublishAction"/>
+            <on eventId="archive" newStateId="ARCHIVED" componentName="com.handmade.ecommerce.translation.service.cmds.ArchiveTranslationAction"/>
+            <on eventId="unpublish" newStateId="APPROVED" componentName="com.handmade.ecommerce.translation.service.cmds.UnpublishTranslationAction"/>
         </manual-state>
 
         <manual-state id="ARCHIVED" meta-endState="true"/>

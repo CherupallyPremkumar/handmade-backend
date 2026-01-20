@@ -40,13 +40,13 @@ public class FraudCaseConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<FraudCase> fraudcaseEntityStm(@Qualifier("fraudcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<FraudCase> fraudcaseEntityStm(@Qualifier("fraudcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<FraudCase> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider fraudcaseActionsInfoProvider(@Qualifier("fraudcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider fraudcaseActionsInfoProvider(@Qualifier("fraudcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("fraudcase",provider);
         return provider;
@@ -56,7 +56,7 @@ public class FraudCaseConfiguration {
 		return new FraudCaseEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<FraudCase> _fraudcaseStateEntityService_(
+	@Bean StateEntityServiceImpl<FraudCase> _fraudcaseStateEntityService_(
 			@Qualifier("fraudcaseEntityStm") STM<FraudCase> stm,
 			@Qualifier("fraudcaseActionsInfoProvider") STMActionsInfoProvider fraudcaseInfoProvider,
 			@Qualifier("fraudcaseEntityStore") EntityStore<FraudCase> entityStore){
@@ -65,7 +65,7 @@ public class FraudCaseConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<FraudCase> fraudcaseEntryAction(@Qualifier("fraudcaseEntityStore") EntityStore<FraudCase> entityStore,
+	@Bean GenericEntryAction<FraudCase> fraudcaseEntryAction(@Qualifier("fraudcaseEntityStore") EntityStore<FraudCase> entityStore,
 			@Qualifier("fraudcaseActionsInfoProvider") STMActionsInfoProvider fraudcaseInfoProvider,
             @Qualifier("fraudcaseFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<FraudCase> entryAction =  new GenericEntryAction<FraudCase>(entityStore,fraudcaseInfoProvider);
@@ -101,13 +101,13 @@ public class FraudCaseConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector fraudcaseBodyTypeSelector(
+    @Bean StmBodyTypeSelector fraudcaseBodyTypeSelector(
     @Qualifier("fraudcaseActionsInfoProvider") STMActionsInfoProvider fraudcaseInfoProvider,
     @Qualifier("fraudcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(fraudcaseInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<FraudCase> fraudcaseBaseTransitionAction(
+    @Bean STMTransitionAction<FraudCase> fraudcaseBaseTransitionAction(
         @Qualifier("fraudcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,27 +122,24 @@ public class FraudCaseConfiguration {
     // segment in src/main/resources/com/handmade/fraudcase/fraudcase-states.xml
 
     @Bean AssignFraudCaseAction
-            fraudcaseAssign(){
+            assignFraudCaseAction(){
         return new AssignFraudCaseAction();
     }
-    @Bean ResolveFraudCaseAction
-            fraudcaseResolve(){
-        return new ResolveFraudCaseAction();
-    }
+
     @Bean EscalateFraudCaseAction
-            fraudcaseEscalate(){
+            escalateFraudCaseAction(){
         return new EscalateFraudCaseAction();
     }
     @Bean CloseFraudCaseAction
-            fraudcaseClose(){
+            fraudCaseAction(){
         return new CloseFraudCaseAction();
     }
     @Bean InvestigateFraudCaseAction
-            fraudcaseInvestigate(){
+            investigateFraudCaseAction(){
         return new InvestigateFraudCaseAction();
     }
     @Bean ResolveFraudCaseAction
-            fraudcaseResolve(){
+            resolveFraudCaseAction(){
         return new ResolveFraudCaseAction();
     }
 

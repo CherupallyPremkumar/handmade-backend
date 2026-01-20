@@ -8,31 +8,44 @@ Feature: Tests the dispute Workflow Service using a REST client. This is done on
     When I POST a REST request to URL "/dispute" with payload
 """json
 {
-    "description": "Description"
+    "disputeNumber": "DISP-2026-001",
+    "orderId": "ORD-555",
+    "customerId": "CUST-999",
+    "sellerId": "SELL-777",
+    "disputeType": "ITEM_NOT_RECEIVED",
+    "disputeReason": "Package never arrived despite delivery confirmation",
+    "disputeAmount": 150.00,
+    "openedAt": "2026-01-19T10:00:00Z"
 }
 """
-    Then the REST response contains key "mutatedEntity"
+    Then success is true
+    And the REST response contains key "mutatedEntity"
     And store "$.payload.mutatedEntity.id" from response to "id"
     And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
     And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-    And the REST response key "mutatedEntity.description" is "Description"
+    And the REST response key "mutatedEntity.disputeNumber" is "DISP-2026-001"
 
   Scenario: Retrieve the dispute that just got created
     When I GET a REST request to URL "/dispute/${id}"
-    Then the REST response contains key "mutatedEntity"
+    Then success is true
+    And the REST response contains key "mutatedEntity"
     And the REST response key "mutatedEntity.id" is "${id}"
     And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
   Scenario: Send the resolve event to the dispute with comments
-    Given that "comment" equals "Comment for resolve"
+    Given that "comment" equals "Buyer refunded after investigation"
     And that "event" equals "resolve"
     When I PATCH a REST request to URL "/dispute/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "${comment}",
+    "resolutionType": "REFUNDED",
+    "resolvedAmount": 150.00,
+    "winner": "BUYER"
 }
 """
-    Then the REST response contains key "mutatedEntity"
+    Then success is true
+    And the REST response contains key "mutatedEntity"
     And the REST response key "mutatedEntity.id" is "${id}"
     And the REST response key "mutatedEntity.currentState.stateId" is "RESOLVED"
     And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -47,4 +60,3 @@ Feature: Tests the dispute Workflow Service using a REST client. This is done on
 """
     Then the REST response does not contain key "mutatedEntity"
     And the http status code is 422
-

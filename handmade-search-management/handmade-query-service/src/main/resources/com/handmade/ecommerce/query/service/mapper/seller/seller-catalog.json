@@ -4,7 +4,7 @@
     "name": "search-my-listings",
     "paginated": true,
     "sortable": true,
-    "workflowName": "product",
+    "workflowName": "HM_PRODUCT_FLOW",
     "stateColumn": "state_id",
     "flowColumn": "flow_id",
     "columnMetadata": {

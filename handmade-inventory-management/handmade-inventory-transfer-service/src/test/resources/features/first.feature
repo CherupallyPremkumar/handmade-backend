@@ -7,14 +7,16 @@ And that "initialState" equals "CREATED"
 When I POST a REST request to URL "/inventorytransfer" with payload
 """json
 {
-    "description": "Description"
+    "transferType": "NODE_TO_NODE",
+    "sku": "SKU-123",
+    "quantityRequested": 50.0
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.sku" is "SKU-123"
 
 Scenario: Retrieve the inventorytransfer that just got created
 When I GET a REST request to URL "/inventorytransfer/${id}"

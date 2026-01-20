@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="abandon" meta-bodyType="com.handmade.ecommerce.notification.dto.AbandonNotificationQueuePayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.notification.dto.CancelNotificationQueuePayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.notification.dto.FailNotificationQueuePayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.notification.dto.RetryNotificationQueuePayload"/>
+    <event-information eventId="send" meta-bodyType="com.handmade.ecommerce.notification.dto.SendNotificationQueuePayload"/>
+    <event-information eventId="succeed" meta-bodyType="com.handmade.ecommerce.notification.dto.SucceedNotificationQueuePayload"/>
+
     <flow id="notificationQueueFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="send" newStateId="SENDING" componentName="notificationQueueSendAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="notificationQueueCancelAction"/>
+            <on eventId="send" newStateId="SENDING" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.SendNotificationQueueAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.CancelNotificationQueueAction"/>
         </manual-state>
 
         <manual-state id="SENDING">
-            <on eventId="succeed" newStateId="SENT" componentName="notificationQueueSucceedAction"/>
-            <on eventId="fail" newStateId="FAILED" componentName="notificationQueueFailAction"/>
+            <on eventId="succeed" newStateId="SENT" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.SucceedNotificationQueueAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.FailNotificationQueueAction"/>
         </manual-state>
 
         <manual-state id="FAILED">
-            <on eventId="retry" newStateId="PENDING" componentName="notificationQueueRetryAction"/>
-            <on eventId="abandon" newStateId="ABANDONED" componentName="notificationQueueAbandonAction"/>
+            <on eventId="retry" newStateId="PENDING" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.RetryNotificationQueueAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="com.handmade.ecommerce.notificationqueue.service.cmds.AbandonNotificationQueueAction"/>
         </manual-state>
 
         <manual-state id="SENT" meta-endState="true"/>

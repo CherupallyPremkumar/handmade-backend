@@ -11,8 +11,8 @@
             p.brand as "brand",
             p.primary_image_url as "primary_image_url",
             p.classification_id as "classification_id",
-            p.state_id as "state_id",
-            p.flow_id as "flow_id",
+            p.state_id as "stateId",
+            p.flow_id as "flowId",
             MIN(ph.price) as "min_price",
             MAX(ph.price) as "max_price",
             COUNT(DISTINCT o.id) as "offer_count"

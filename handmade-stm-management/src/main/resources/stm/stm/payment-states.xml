@@ -21,7 +21,7 @@ Flow: PAYMENT_FLOW
                        eventName='Void payment'
                        meta-acls="user.normal,user.admin"/>
 
-    <flow id="PAYMENT_FLOW" default="true">
+    <flow id="HM_PAYMENT_FLOW" default="true">
         <!-- Payment intent created, not yet sent to PSP -->
         <manual-state id="INIT" initialState="true">
             <on eventId="authorizePayment" newStateId="AUTH_PENDING" componentName="paymentAuthAction"/>

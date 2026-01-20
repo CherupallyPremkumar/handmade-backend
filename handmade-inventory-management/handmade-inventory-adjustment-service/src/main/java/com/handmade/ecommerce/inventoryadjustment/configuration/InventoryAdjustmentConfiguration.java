@@ -40,13 +40,13 @@ public class InventoryAdjustmentConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<InventoryAdjustment> inventoryadjustmentEntityStm(@Qualifier("inventoryadjustmentFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<InventoryAdjustment> inventoryadjustmentEntityStm(@Qualifier("inventoryadjustmentFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<InventoryAdjustment> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider inventoryadjustmentActionsInfoProvider(@Qualifier("inventoryadjustmentFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider inventoryadjustmentActionsInfoProvider(@Qualifier("inventoryadjustmentFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("inventoryadjustment",provider);
         return provider;
@@ -56,7 +56,7 @@ public class InventoryAdjustmentConfiguration {
 		return new InventoryAdjustmentEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<InventoryAdjustment> _inventoryadjustmentStateEntityService_(
+	@Bean StateEntityServiceImpl<InventoryAdjustment> _inventoryadjustmentStateEntityService_(
 			@Qualifier("inventoryadjustmentEntityStm") STM<InventoryAdjustment> stm,
 			@Qualifier("inventoryadjustmentActionsInfoProvider") STMActionsInfoProvider inventoryadjustmentInfoProvider,
 			@Qualifier("inventoryadjustmentEntityStore") EntityStore<InventoryAdjustment> entityStore){
@@ -65,7 +65,7 @@ public class InventoryAdjustmentConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<InventoryAdjustment> inventoryadjustmentEntryAction(@Qualifier("inventoryadjustmentEntityStore") EntityStore<InventoryAdjustment> entityStore,
+	@Bean GenericEntryAction<InventoryAdjustment> inventoryadjustmentEntryAction(@Qualifier("inventoryadjustmentEntityStore") EntityStore<InventoryAdjustment> entityStore,
 			@Qualifier("inventoryadjustmentActionsInfoProvider") STMActionsInfoProvider inventoryadjustmentInfoProvider,
             @Qualifier("inventoryadjustmentFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<InventoryAdjustment> entryAction =  new GenericEntryAction<InventoryAdjustment>(entityStore,inventoryadjustmentInfoProvider);
@@ -101,13 +101,13 @@ public class InventoryAdjustmentConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector inventoryadjustmentBodyTypeSelector(
+    @Bean StmBodyTypeSelector inventoryadjustmentBodyTypeSelector(
     @Qualifier("inventoryadjustmentActionsInfoProvider") STMActionsInfoProvider inventoryadjustmentInfoProvider,
     @Qualifier("inventoryadjustmentTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(inventoryadjustmentInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<InventoryAdjustment> inventoryadjustmentBaseTransitionAction(
+    @Bean STMTransitionAction<InventoryAdjustment> inventoryadjustmentBaseTransitionAction(
         @Qualifier("inventoryadjustmentTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

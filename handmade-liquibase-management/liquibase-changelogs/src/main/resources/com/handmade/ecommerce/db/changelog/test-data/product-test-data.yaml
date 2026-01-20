@@ -1,0 +1,141 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-products
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_product
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Artisan Hand-Thrown Turquoise Mug"}
+              - column: {name: description, value: "A unique, hand-thrown ceramic mug with a deep turquoise glaze. Microwave and dishwasher safe."}
+              - column: {name: brand, value: "Pottery Studio"}
+              - column: {name: primary_image_url, value: "https://images.handmade.com/prod-001.jpg"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-05T10:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-05T10:00:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: name, value: "Hand-Woven Organic Silk Scarf"}
+              - column: {name: description, value: "Luxurious hand-woven silk scarf using natural dyes. Ethically sourced from local artisans."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-06T11:30:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-06T11:30:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: name, value: "Reclaimed Oak Side Table"}
+              - column: {name: description, value: "Solid reclaimed oak side table with a minimalist design. Hand-finished with natural oils."}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-10T09:15:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-10T09:15:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-004"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Rustic Speckled Pasta Bowl"}
+              - column: {name: description, value: "Hand-crafted pasta bowl with a speckled white glaze. Perfect for daily use or special occasions."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-12T14:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-12T14:00:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-005"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: name, value: "Vegetable-Tanned Leather Tote"}
+              - column: {name: description, value: "Durable tote bag made from premium vegetable-tanned leather. Gets better with age."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-15T16:45:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-15T16:45:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-006"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: name, value: "Sandalwood & Bergamot Soy Candle"}
+              - column: {name: description, value: "Hand-poured soy wax candle with essential oils. Long-burning and eco-friendly."}
+              - column: {name: brand, value: "Serene Soy Candles"}
+              - column: {name: primary_image_url, value: "https://images.handmade.com/prod-006.jpg"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-20T10:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-20T10:00:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-007"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: name, value: "Walnut End-Grain Cutting Board"}
+              - column: {name: description, value: "Professional-grade cutting board made from sustainably sourced walnut. Knife-friendly."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-22T08:30:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-22T08:30:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-008"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: name, value: "Hand-Blown Amber Glass Vase"}
+              - column: {name: description, value: "Exquisite hand-blown glass vase with a warm amber tint. A centerpiece for any home."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-25T13:15:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-25T13:15:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-009"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: name, value: "Chunky Knit Wool Throw"}
+              - column: {name: description, value: "Soft and warm chunky knit throw made from 100% Merino wool. Hand-knitted in small batches."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-28T17:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-28T17:00:00"}
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-010"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: name, value: "Botanical Linocut Art Print"}
+              - column: {name: description, value: "Limited edition linocut print featuring local flora. Hand-printed on heavy archival paper."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-30T11:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-30T11:00:00"}

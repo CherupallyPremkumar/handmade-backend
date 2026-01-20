@@ -40,13 +40,13 @@ public class ContentPageConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ContentPage> contentpageEntityStm(@Qualifier("contentpageFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ContentPage> contentpageEntityStm(@Qualifier("contentpageFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ContentPage> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider contentpageActionsInfoProvider(@Qualifier("contentpageFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider contentpageActionsInfoProvider(@Qualifier("contentpageFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("contentpage",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ContentPageConfiguration {
 		return new ContentPageEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ContentPage> _contentpageStateEntityService_(
+	@Bean StateEntityServiceImpl<ContentPage> _contentpageStateEntityService_(
 			@Qualifier("contentpageEntityStm") STM<ContentPage> stm,
 			@Qualifier("contentpageActionsInfoProvider") STMActionsInfoProvider contentpageInfoProvider,
 			@Qualifier("contentpageEntityStore") EntityStore<ContentPage> entityStore){
@@ -65,7 +65,7 @@ public class ContentPageConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ContentPage> contentpageEntryAction(@Qualifier("contentpageEntityStore") EntityStore<ContentPage> entityStore,
+	@Bean GenericEntryAction<ContentPage> contentpageEntryAction(@Qualifier("contentpageEntityStore") EntityStore<ContentPage> entityStore,
 			@Qualifier("contentpageActionsInfoProvider") STMActionsInfoProvider contentpageInfoProvider,
             @Qualifier("contentpageFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ContentPage> entryAction =  new GenericEntryAction<ContentPage>(entityStore,contentpageInfoProvider);
@@ -101,13 +101,13 @@ public class ContentPageConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector contentpageBodyTypeSelector(
+    @Bean StmBodyTypeSelector contentpageBodyTypeSelector(
     @Qualifier("contentpageActionsInfoProvider") STMActionsInfoProvider contentpageInfoProvider,
     @Qualifier("contentpageTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(contentpageInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ContentPage> contentpageBaseTransitionAction(
+    @Bean STMTransitionAction<ContentPage> contentpageBaseTransitionAction(
         @Qualifier("contentpageTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

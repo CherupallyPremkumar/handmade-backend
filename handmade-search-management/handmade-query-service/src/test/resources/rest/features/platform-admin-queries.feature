@@ -13,8 +13,8 @@ Feature: Platform Admin Dashboard Queries
     And success is true
     And the REST response contains key "list"
     # Verify presence of different metric types
-    And the REST response key "list[?(@.row.metric_type == 'SELLERS')]" has 2 records
-    And the REST response key "list[?(@.row.metric_type == 'PRODUCTS')]" has 2 records
+    And the REST response key "payload.list[?(@.row.metric_type == 'SELLERS')]" has 2 records
+    And the REST response key "payload.list[?(@.row.metric_type == 'PRODUCTS')]" has 2 records
 
 
   Scenario: View Category Performance Health
@@ -25,6 +25,6 @@ Feature: Platform Admin Dashboard Queries
     Then the http status code is 200
     And success is true
     # cat-002 (Pottery) should have 2 products (prod-001, standalone-001)
-    And the REST response key "list[?(@.row.node_id == 'cat-002')].row.product_count" is 2
+    And the REST response key "payload.list[?(@.row.node_id == 'cat-002')].row.product_count" is 2
     # cat-001 (Home & Garden) should have 2 products (prod-002, prod-003)
-    And the REST response key "list[?(@.row.node_id == 'cat-001')].row.product_count" is 2
+    And the REST response key "payload.list[?(@.row.node_id == 'cat-001')].row.product_count" is 2

@@ -40,13 +40,13 @@ public class NotificationTemplateConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<NotificationTemplate> notificationtemplateEntityStm(@Qualifier("notificationtemplateFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<NotificationTemplate> notificationtemplateEntityStm(@Qualifier("notificationtemplateFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<NotificationTemplate> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider notificationtemplateActionsInfoProvider(@Qualifier("notificationtemplateFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider notificationtemplateActionsInfoProvider(@Qualifier("notificationtemplateFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("notificationtemplate",provider);
         return provider;
@@ -56,7 +56,7 @@ public class NotificationTemplateConfiguration {
 		return new NotificationTemplateEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<NotificationTemplate> _notificationtemplateStateEntityService_(
+	@Bean StateEntityServiceImpl<NotificationTemplate> _notificationtemplateStateEntityService_(
 			@Qualifier("notificationtemplateEntityStm") STM<NotificationTemplate> stm,
 			@Qualifier("notificationtemplateActionsInfoProvider") STMActionsInfoProvider notificationtemplateInfoProvider,
 			@Qualifier("notificationtemplateEntityStore") EntityStore<NotificationTemplate> entityStore){
@@ -65,7 +65,7 @@ public class NotificationTemplateConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<NotificationTemplate> notificationtemplateEntryAction(@Qualifier("notificationtemplateEntityStore") EntityStore<NotificationTemplate> entityStore,
+	@Bean GenericEntryAction<NotificationTemplate> notificationtemplateEntryAction(@Qualifier("notificationtemplateEntityStore") EntityStore<NotificationTemplate> entityStore,
 			@Qualifier("notificationtemplateActionsInfoProvider") STMActionsInfoProvider notificationtemplateInfoProvider,
             @Qualifier("notificationtemplateFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<NotificationTemplate> entryAction =  new GenericEntryAction<NotificationTemplate>(entityStore,notificationtemplateInfoProvider);
@@ -101,13 +101,13 @@ public class NotificationTemplateConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector notificationtemplateBodyTypeSelector(
+    @Bean StmBodyTypeSelector notificationtemplateBodyTypeSelector(
     @Qualifier("notificationtemplateActionsInfoProvider") STMActionsInfoProvider notificationtemplateInfoProvider,
     @Qualifier("notificationtemplateTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(notificationtemplateInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<NotificationTemplate> notificationtemplateBaseTransitionAction(
+    @Bean STMTransitionAction<NotificationTemplate> notificationtemplateBaseTransitionAction(
         @Qualifier("notificationtemplateTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,35 +122,28 @@ public class NotificationTemplateConfiguration {
     // segment in src/main/resources/com/handmade/notificationtemplate/notificationtemplate-states.xml
 
     @Bean DeprecateNotificationTemplateAction
-            notificationtemplateDeprecate(){
+            deprecateNotificationTemplateAction(){
         return new DeprecateNotificationTemplateAction();
     }
     @Bean DeactivateNotificationTemplateAction
-            notificationtemplateDeactivate(){
+            deactivateNotificationTemplateAction(){
         return new DeactivateNotificationTemplateAction();
     }
     @Bean SubmitNotificationTemplateAction
-            notificationtemplateSubmit(){
+            submitNotificationTemplateAction(){
         return new SubmitNotificationTemplateAction();
     }
-    @Bean DeprecateNotificationTemplateAction
-            notificationtemplateDeprecate(){
-        return new DeprecateNotificationTemplateAction();
-    }
-    @Bean ActivateNotificationTemplateAction
-            notificationtemplateActivate(){
-        return new ActivateNotificationTemplateAction();
-    }
+
     @Bean ApproveNotificationTemplateAction
-            notificationtemplateApprove(){
+            approveNotificationTemplateAction(){
         return new ApproveNotificationTemplateAction();
     }
     @Bean RejectNotificationTemplateAction
-            notificationtemplateReject(){
+            rejectNotificationTemplateAction(){
         return new RejectNotificationTemplateAction();
     }
     @Bean ActivateNotificationTemplateAction
-            notificationtemplateActivate(){
+            activateNotificationTemplateAction(){
         return new ActivateNotificationTemplateAction();
     }
 

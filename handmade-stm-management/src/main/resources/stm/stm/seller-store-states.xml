@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="sellerStoreFlow" default="true">
+    <flow id="HM_SELLER_STORE_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
             <on eventId="submit" newStateId="REVIEW" componentName="sellerStoreSubmitAction"/>
         </manual-state>

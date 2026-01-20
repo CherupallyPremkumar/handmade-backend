@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.analytics.configuration;
 
+import com.handmade.ecommerce.analytics.configuration.dao.MetricDefinitionRepository;
 import com.handmade.ecommerce.analytics.service.healthcheck.MetricDefinitionHealthChecker;
 import com.handmade.ecommerce.analytics.service.store.MetricDefinitionEntityStore;
 import org.chenile.stm.*;
@@ -40,23 +41,24 @@ public class MetricDefinitionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<MetricDefinition> analyticsEntityStm(@Qualifier("analyticsFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<MetricDefinition> analyticsEntityStm(@Qualifier("analyticsFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<MetricDefinition> stm = new STMImpl<>();
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider analyticsActionsInfoProvider(@Qualifier("analyticsFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider analyticsActionsInfoProvider(@Qualifier("analyticsFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("analytics",provider);
         return provider;
 	}
 	
-	@Bean EntityStore<MetricDefinition> analyticsEntityStore() {
-		return new MetricDefinitionEntityStore();
+	@Bean
+    EntityStore<MetricDefinition> analyticsEntityStore(MetricDefinitionRepository metricDefinitionRepository) {
+		return new MetricDefinitionEntityStore(metricDefinitionRepository);
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<MetricDefinition> _analyticsStateEntityService_(
+	@Bean StateEntityServiceImpl<MetricDefinition> _analyticsStateEntityService_(
 			@Qualifier("analyticsEntityStm") STM<MetricDefinition> stm,
 			@Qualifier("analyticsActionsInfoProvider") STMActionsInfoProvider analyticsInfoProvider,
 			@Qualifier("analyticsEntityStore") EntityStore<MetricDefinition> entityStore){
@@ -65,7 +67,7 @@ public class MetricDefinitionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<MetricDefinition> analyticsEntryAction(@Qualifier("analyticsEntityStore") EntityStore<MetricDefinition> entityStore,
+	@Bean GenericEntryAction<MetricDefinition> analyticsEntryAction(@Qualifier("analyticsEntityStore") EntityStore<MetricDefinition> entityStore,
 			@Qualifier("analyticsActionsInfoProvider") STMActionsInfoProvider analyticsInfoProvider,
             @Qualifier("analyticsFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<MetricDefinition> entryAction =  new GenericEntryAction<MetricDefinition>(entityStore,analyticsInfoProvider);
@@ -102,13 +104,13 @@ public class MetricDefinitionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector analyticsBodyTypeSelector(
+    @Bean StmBodyTypeSelector analyticsBodyTypeSelector(
     @Qualifier("analyticsActionsInfoProvider") STMActionsInfoProvider analyticsInfoProvider,
     @Qualifier("analyticsTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(analyticsInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<MetricDefinition> analyticsBaseTransitionAction(
+    @Bean STMTransitionAction<MetricDefinition> analyticsBaseTransitionAction(
         @Qualifier("analyticsTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

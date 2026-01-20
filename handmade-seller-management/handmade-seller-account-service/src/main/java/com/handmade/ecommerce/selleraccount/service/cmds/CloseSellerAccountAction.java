@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.seller.model.SellerAccount;
-import com.handmade.ecommerce.seller.model. CloseSellerAccountPayload;
+import com.handmade.ecommerce.seller.dto.CloseSellerAccountPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.seller.model. CloseSellerAccountPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class CloseSellerAccountAction extends AbstractSTMTransitionAction<SellerAccount,
-    CloseSellerAccountPayload>{
+               CloseSellerAccountPayload>{
 
 	@Override
 	public void transitionTo(SellerAccount selleraccount,

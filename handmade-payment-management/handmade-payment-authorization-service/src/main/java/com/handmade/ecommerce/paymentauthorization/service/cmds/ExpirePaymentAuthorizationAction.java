@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.payment.model.PaymentAuthorization;
-import com.handmade.ecommerce.payment.model. ExpirePaymentAuthorizationPayload;
+import com.handmade.ecommerce.payment.dto.ExpirePaymentAuthorizationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.payment.model. ExpirePaymentAuthorizationPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ExpirePaymentAuthorizationAction extends AbstractSTMTransitionAction<PaymentAuthorization,
-    ExpirePaymentAuthorizationPayload>{
+               ExpirePaymentAuthorizationPayload>{
 
 	@Override
 	public void transitionTo(PaymentAuthorization paymentauthorization,

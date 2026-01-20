@@ -40,13 +40,13 @@ public class ReturnItemConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ReturnItem> returnitemEntityStm(@Qualifier("returnitemFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ReturnItem> returnitemEntityStm(@Qualifier("returnitemFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ReturnItem> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider returnitemActionsInfoProvider(@Qualifier("returnitemFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider returnitemActionsInfoProvider(@Qualifier("returnitemFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("returnitem",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ReturnItemConfiguration {
 		return new ReturnItemEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ReturnItem> _returnitemStateEntityService_(
+	@Bean StateEntityServiceImpl<ReturnItem> _returnitemStateEntityService_(
 			@Qualifier("returnitemEntityStm") STM<ReturnItem> stm,
 			@Qualifier("returnitemActionsInfoProvider") STMActionsInfoProvider returnitemInfoProvider,
 			@Qualifier("returnitemEntityStore") EntityStore<ReturnItem> entityStore){
@@ -65,7 +65,7 @@ public class ReturnItemConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ReturnItem> returnitemEntryAction(@Qualifier("returnitemEntityStore") EntityStore<ReturnItem> entityStore,
+	@Bean GenericEntryAction<ReturnItem> returnitemEntryAction(@Qualifier("returnitemEntityStore") EntityStore<ReturnItem> entityStore,
 			@Qualifier("returnitemActionsInfoProvider") STMActionsInfoProvider returnitemInfoProvider,
             @Qualifier("returnitemFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ReturnItem> entryAction =  new GenericEntryAction<ReturnItem>(entityStore,returnitemInfoProvider);
@@ -101,13 +101,13 @@ public class ReturnItemConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector returnitemBodyTypeSelector(
+    @Bean StmBodyTypeSelector returnitemBodyTypeSelector(
     @Qualifier("returnitemActionsInfoProvider") STMActionsInfoProvider returnitemInfoProvider,
     @Qualifier("returnitemTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(returnitemInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ReturnItem> returnitemBaseTransitionAction(
+    @Bean STMTransitionAction<ReturnItem> returnitemBaseTransitionAction(
         @Qualifier("returnitemTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

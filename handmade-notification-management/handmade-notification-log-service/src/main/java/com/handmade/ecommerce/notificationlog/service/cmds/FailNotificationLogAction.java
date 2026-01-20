@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.notification.model.NotificationLog;
-import com.handmade.ecommerce.notification.model. FailNotificationLogPayload;
+import com.handmade.ecommerce.notification.dto.FailNotificationLogPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.notification.model. FailNotificationLogPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class FailNotificationLogAction extends AbstractSTMTransitionAction<NotificationLog,
-    FailNotificationLogPayload>{
+               FailNotificationLogPayload>{
 
 	@Override
 	public void transitionTo(NotificationLog notificationlog,

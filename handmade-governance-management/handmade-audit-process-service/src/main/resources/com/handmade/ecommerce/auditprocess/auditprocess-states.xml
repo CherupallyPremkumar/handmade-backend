@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.governance.dto.StartAuditProcessPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.governance.dto.CompleteAuditProcessPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.governance.dto.FailAuditProcessPayload"/>
+
     <flow id="auditProcessFlow" default="true">
         <manual-state id="INITIATED" initialState="true">
             <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.auditprocess.service.cmds.StartAuditProcessAction"/>

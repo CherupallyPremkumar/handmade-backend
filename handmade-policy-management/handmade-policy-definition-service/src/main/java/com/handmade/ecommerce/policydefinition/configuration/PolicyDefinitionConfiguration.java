@@ -40,13 +40,13 @@ public class PolicyDefinitionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PolicyDefinition> policydefinitionEntityStm(@Qualifier("policydefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PolicyDefinition> policydefinitionEntityStm(@Qualifier("policydefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PolicyDefinition> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider policydefinitionActionsInfoProvider(@Qualifier("policydefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider policydefinitionActionsInfoProvider(@Qualifier("policydefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("policydefinition",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PolicyDefinitionConfiguration {
 		return new PolicyDefinitionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PolicyDefinition> _policydefinitionStateEntityService_(
+	@Bean StateEntityServiceImpl<PolicyDefinition> _policydefinitionStateEntityService_(
 			@Qualifier("policydefinitionEntityStm") STM<PolicyDefinition> stm,
 			@Qualifier("policydefinitionActionsInfoProvider") STMActionsInfoProvider policydefinitionInfoProvider,
 			@Qualifier("policydefinitionEntityStore") EntityStore<PolicyDefinition> entityStore){
@@ -65,7 +65,7 @@ public class PolicyDefinitionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PolicyDefinition> policydefinitionEntryAction(@Qualifier("policydefinitionEntityStore") EntityStore<PolicyDefinition> entityStore,
+	@Bean GenericEntryAction<PolicyDefinition> policydefinitionEntryAction(@Qualifier("policydefinitionEntityStore") EntityStore<PolicyDefinition> entityStore,
 			@Qualifier("policydefinitionActionsInfoProvider") STMActionsInfoProvider policydefinitionInfoProvider,
             @Qualifier("policydefinitionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PolicyDefinition> entryAction =  new GenericEntryAction<PolicyDefinition>(entityStore,policydefinitionInfoProvider);
@@ -101,13 +101,13 @@ public class PolicyDefinitionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector policydefinitionBodyTypeSelector(
+    @Bean StmBodyTypeSelector policydefinitionBodyTypeSelector(
     @Qualifier("policydefinitionActionsInfoProvider") STMActionsInfoProvider policydefinitionInfoProvider,
     @Qualifier("policydefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(policydefinitionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PolicyDefinition> policydefinitionBaseTransitionAction(
+    @Bean STMTransitionAction<PolicyDefinition> policydefinitionBaseTransitionAction(
         @Qualifier("policydefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,36 +121,26 @@ public class PolicyDefinitionConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/policydefinition/policydefinition-states.xml
 
-    @Bean SuspendPolicyDefinitionAction
-            policydefinitionSuspend(){
+    @Bean SuspendPolicyDefinitionAction suspendPolicyDefinitionAction(){
         return new SuspendPolicyDefinitionAction();
     }
-    @Bean DeprecatePolicyDefinitionAction
-            policydefinitionDeprecate(){
-        return new DeprecatePolicyDefinitionAction();
-    }
-    @Bean SubmitPolicyDefinitionAction
-            policydefinitionSubmit(){
+
+    @Bean SubmitPolicyDefinitionAction submitPolicyDefinitionAction(){
         return new SubmitPolicyDefinitionAction();
     }
-    @Bean DeprecatePolicyDefinitionAction
-            policydefinitionDeprecate(){
+    @Bean DeprecatePolicyDefinitionAction deprecatePolicyDefinitionAction(){
         return new DeprecatePolicyDefinitionAction();
     }
-    @Bean RepublishPolicyDefinitionAction
-            policydefinitionRepublish(){
+    @Bean RepublishPolicyDefinitionAction republishPolicyDefinitionAction(){
         return new RepublishPolicyDefinitionAction();
     }
-    @Bean ApprovePolicyDefinitionAction
-            policydefinitionApprove(){
+    @Bean ApprovePolicyDefinitionAction approvePolicyDefinitionAction(){
         return new ApprovePolicyDefinitionAction();
     }
-    @Bean RejectPolicyDefinitionAction
-            policydefinitionReject(){
+    @Bean RejectPolicyDefinitionAction rejectPolicyDefinitionAction(){
         return new RejectPolicyDefinitionAction();
     }
-    @Bean PublishPolicyDefinitionAction
-            policydefinitionPublish(){
+    @Bean PublishPolicyDefinitionAction publishPolicyDefinitionAction(){
         return new PublishPolicyDefinitionAction();
     }
 

@@ -40,13 +40,13 @@ public class SellerKycConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerKyc> sellerkycEntityStm(@Qualifier("sellerkycFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerKyc> sellerkycEntityStm(@Qualifier("sellerkycFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerKyc> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider sellerkycActionsInfoProvider(@Qualifier("sellerkycFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider sellerkycActionsInfoProvider(@Qualifier("sellerkycFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("sellerkyc",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerKycConfiguration {
 		return new SellerKycEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerKyc> _sellerkycStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerKyc> _sellerkycStateEntityService_(
 			@Qualifier("sellerkycEntityStm") STM<SellerKyc> stm,
 			@Qualifier("sellerkycActionsInfoProvider") STMActionsInfoProvider sellerkycInfoProvider,
 			@Qualifier("sellerkycEntityStore") EntityStore<SellerKyc> entityStore){
@@ -65,7 +65,7 @@ public class SellerKycConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerKyc> sellerkycEntryAction(@Qualifier("sellerkycEntityStore") EntityStore<SellerKyc> entityStore,
+	@Bean GenericEntryAction<SellerKyc> sellerkycEntryAction(@Qualifier("sellerkycEntityStore") EntityStore<SellerKyc> entityStore,
 			@Qualifier("sellerkycActionsInfoProvider") STMActionsInfoProvider sellerkycInfoProvider,
             @Qualifier("sellerkycFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerKyc> entryAction =  new GenericEntryAction<SellerKyc>(entityStore,sellerkycInfoProvider);
@@ -101,13 +101,13 @@ public class SellerKycConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector sellerkycBodyTypeSelector(
+    @Bean StmBodyTypeSelector sellerkycBodyTypeSelector(
     @Qualifier("sellerkycActionsInfoProvider") STMActionsInfoProvider sellerkycInfoProvider,
     @Qualifier("sellerkycTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(sellerkycInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerKyc> sellerkycBaseTransitionAction(
+    @Bean STMTransitionAction<SellerKyc> sellerkycBaseTransitionAction(
         @Qualifier("sellerkycTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

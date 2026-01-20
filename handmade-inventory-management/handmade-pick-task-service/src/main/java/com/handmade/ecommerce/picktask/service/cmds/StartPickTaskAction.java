@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.PickTask;
-import com.handmade.ecommerce.inventory.model. StartPickTaskPayload;
+import com.handmade.ecommerce.inventory.dto.StartPickTaskPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. StartPickTaskPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class StartPickTaskAction extends AbstractSTMTransitionAction<PickTask,
-    StartPickTaskPayload>{
+               StartPickTaskPayload>{
 
 	@Override
 	public void transitionTo(PickTask picktask,

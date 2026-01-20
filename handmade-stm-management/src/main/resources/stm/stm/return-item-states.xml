@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="returnItemFlow" default="true">
+    <flow id="HM_RETURN_ITEM_FLOW" default="true">
         <manual-state id="REQUESTED" initialState="true">
             <on eventId="approve" newStateId="APPROVED" componentName="returnItemApproveAction"/>
             <on eventId="reject" newStateId="REJECTED" componentName="returnItemRejectAction"/>

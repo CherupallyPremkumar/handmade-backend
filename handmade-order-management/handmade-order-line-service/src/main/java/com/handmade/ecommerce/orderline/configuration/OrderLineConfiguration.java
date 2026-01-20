@@ -40,13 +40,13 @@ public class OrderLineConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<OrderLine> orderlineEntityStm(@Qualifier("orderlineFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<OrderLine> orderlineEntityStm(@Qualifier("orderlineFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<OrderLine> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider orderlineActionsInfoProvider(@Qualifier("orderlineFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider orderlineActionsInfoProvider(@Qualifier("orderlineFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("orderline",provider);
         return provider;
@@ -56,7 +56,7 @@ public class OrderLineConfiguration {
 		return new OrderLineEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<OrderLine> _orderlineStateEntityService_(
+	@Bean StateEntityServiceImpl<OrderLine> _orderlineStateEntityService_(
 			@Qualifier("orderlineEntityStm") STM<OrderLine> stm,
 			@Qualifier("orderlineActionsInfoProvider") STMActionsInfoProvider orderlineInfoProvider,
 			@Qualifier("orderlineEntityStore") EntityStore<OrderLine> entityStore){
@@ -65,7 +65,7 @@ public class OrderLineConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<OrderLine> orderlineEntryAction(@Qualifier("orderlineEntityStore") EntityStore<OrderLine> entityStore,
+	@Bean GenericEntryAction<OrderLine> orderlineEntryAction(@Qualifier("orderlineEntityStore") EntityStore<OrderLine> entityStore,
 			@Qualifier("orderlineActionsInfoProvider") STMActionsInfoProvider orderlineInfoProvider,
             @Qualifier("orderlineFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<OrderLine> entryAction =  new GenericEntryAction<OrderLine>(entityStore,orderlineInfoProvider);
@@ -101,13 +101,13 @@ public class OrderLineConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector orderlineBodyTypeSelector(
+    @Bean StmBodyTypeSelector orderlineBodyTypeSelector(
     @Qualifier("orderlineActionsInfoProvider") STMActionsInfoProvider orderlineInfoProvider,
     @Qualifier("orderlineTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(orderlineInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<OrderLine> orderlineBaseTransitionAction(
+    @Bean STMTransitionAction<OrderLine> orderlineBaseTransitionAction(
         @Qualifier("orderlineTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,39 +122,36 @@ public class OrderLineConfiguration {
     // segment in src/main/resources/com/handmade/orderline/orderline-states.xml
 
     @Bean CompleteOrderLineAction
-            orderlineComplete(){
+            completeOrderLineAction(){
         return new CompleteOrderLineAction();
     }
     @Bean ReturnOrderLineAction
-            orderlineReturn(){
+            returnOrderLineAction(){
         return new ReturnOrderLineAction();
     }
-    @Bean CancelOrderLineAction
-            orderlineCancel(){
-        return new CancelOrderLineAction();
-    }
+
     @Bean PickOrderLineAction
-            orderlinePick(){
+            pickOrderLineAction(){
         return new PickOrderLineAction();
     }
     @Bean PackOrderLineAction
-            orderlinePack(){
+            packOrderLineAction(){
         return new PackOrderLineAction();
     }
     @Bean CancelOrderLineAction
-            orderlineCancel(){
+            cancelOrderLineAction(){
         return new CancelOrderLineAction();
     }
     @Bean AllocateOrderLineAction
-            orderlineAllocate(){
+            allocateOrderLineAction(){
         return new AllocateOrderLineAction();
     }
     @Bean ShipOrderLineAction
-            orderlineShip(){
+            shipOrderLineAction(){
         return new ShipOrderLineAction();
     }
     @Bean DeliverOrderLineAction
-            orderlineDeliver(){
+    deliverOrderLineAction(){
         return new DeliverOrderLineAction();
     }
 

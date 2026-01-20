@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="paymentAuthorizationFlow" default="true">
+    <flow id="HM_PAYMENT_AUTHORIZATION_FLOW" default="true">
         <manual-state id="AUTHORIZED" initialState="true">
             <on eventId="capture" newStateId="CAPTURED" componentName="paymentAuthorizationCaptureAction"/>
             <on eventId="void" newStateId="VOIDED" componentName="paymentAuthorizationVoidAction"/>

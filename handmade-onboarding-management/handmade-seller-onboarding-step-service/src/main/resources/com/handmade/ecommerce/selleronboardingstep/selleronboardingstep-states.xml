@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.onboarding.dto.CompleteSellerOnboardingStepPayload"/>
+    <event-information eventId="skip" meta-bodyType="com.handmade.ecommerce.onboarding.dto.SkipSellerOnboardingStepPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.onboarding.dto.StartSellerOnboardingStepPayload"/>
+
     <flow id="sellerOnboardingStepFlow" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="sellerOnboardingStepStartAction"/>
-            <on eventId="skip" newStateId="SKIPPED" componentName="sellerOnboardingStepSkipAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.selleronboardingstep.service.cmds.StartSellerOnboardingStepAction"/>
+            <on eventId="skip" newStateId="SKIPPED" componentName="com.handmade.ecommerce.selleronboardingstep.service.cmds.SkipSellerOnboardingStepAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="complete" newStateId="COMPLETED" componentName="sellerOnboardingStepCompleteAction"/>
-            <on eventId="skip" newStateId="SKIPPED" componentName="sellerOnboardingStepSkipFromProgressAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.selleronboardingstep.service.cmds.CompleteSellerOnboardingStepAction"/>
+            <on eventId="skip" newStateId="SKIPPED" componentName="com.handmade.ecommerce.selleronboardingstep.service.cmds.SkipSellerOnboardingStepAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

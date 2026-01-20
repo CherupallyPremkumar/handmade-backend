@@ -1,20 +1,24 @@
 Feature: Tests the compliancedocument Workflow Service using a REST client. This is done only for the
 first testcase. Compliancedocument service exists and is under test.
 It helps to create a compliancedocument and manages the state of the compliancedocument as documented in states xml
+
 Scenario: Create a new compliancedocument
 Given that "flowName" equals "complianceDocumentFlow"
 And that "initialState" equals "SUBMITTED"
 When I POST a REST request to URL "/compliancedocument" with payload
 """json
 {
-    "description": "Description"
+    "entityId": "entity-test-001",
+    "entityType": "SELLER",
+    "docType": "IDENTITY_PROOF",
+    "fileUri": "https://example.com/docs/id.pdf"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.entityId" is "entity-test-001"
 
 Scenario: Retrieve the compliancedocument that just got created
 When I GET a REST request to URL "/compliancedocument/${id}"
@@ -22,9 +26,9 @@ Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
- Scenario: Send the review event to the compliancedocument with comments
- Given that "comment" equals "Comment for review"
- And that "event" equals "review"
+Scenario: Send the review event to the compliancedocument with comments
+Given that "comment" equals "Comment for review"
+And that "event" equals "review"
 When I PATCH a REST request to URL "/compliancedocument/${id}/${event}" with payload
 """json
 {
@@ -36,9 +40,9 @@ And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "UNDER_REVIEW"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the approve event to the compliancedocument with comments
- Given that "comment" equals "Comment for approve"
- And that "event" equals "approve"
+Scenario: Send the approve event to the compliancedocument with comments
+Given that "comment" equals "Comment for approve"
+And that "event" equals "approve"
 When I PATCH a REST request to URL "/compliancedocument/${id}/${event}" with payload
 """json
 {
@@ -50,9 +54,9 @@ And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
- Scenario: Send the expire event to the compliancedocument with comments
- Given that "comment" equals "Comment for expire"
- And that "event" equals "expire"
+Scenario: Send the expire event to the compliancedocument with comments
+Given that "comment" equals "Comment for expire"
+And that "event" equals "expire"
 When I PATCH a REST request to URL "/compliancedocument/${id}/${event}" with payload
 """json
 {
@@ -64,9 +68,7 @@ And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "EXPIRED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
 
-
-
-Scenario: Send an invalid event to compliancedocument . This will err out.
+Scenario: Send an invalid event to compliancedocument. This will err out.
 When I PATCH a REST request to URL "/compliancedocument/${id}/invalid" with payload
 """json
 {
@@ -75,4 +77,3 @@ When I PATCH a REST request to URL "/compliancedocument/${id}/invalid" with payl
 """
 Then the REST response does not contain key "mutatedEntity"
 And the http status code is 422
-

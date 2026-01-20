@@ -4,17 +4,28 @@ It helps to create a platform and manages the state of the platform as documente
 Scenario: Create a new platform
 Given that "flowName" equals "platformFlow"
 And that "initialState" equals "DRAFT"
-When I POST a REST request to URL "/platform" with payload
+Given that "tenant" equals "tenant0"
+And that "employee" equals "E1"
+When I construct a REST request with header "x-chenile-tenant-id" and value "${tenant}"
+And I construct a REST request with header "x-chenile-eid" and value "${employee}"
+And I POST a REST request to URL "/platform" with payload
 """json
 {
-    "description": "Description"
+    "platformCode": "PLAT-US-UNIQUE-03",
+    "name": "United States Platform",
+    "countryCode": "US",
+    "currencyCode": "USD",
+    "marketplaceType": "B2C",
+    "description": "United States Region Platform",
+    "isActive": true
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.platformCode" is "PLAT-US-UNIQUE-03"
 
 Scenario: Retrieve the platform that just got created
 When I GET a REST request to URL "/platform/${id}"

@@ -40,13 +40,13 @@ public class SellerVerificationConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerVerification> sellerverificationEntityStm(@Qualifier("sellerverificationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerVerification> sellerverificationEntityStm(@Qualifier("sellerverificationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerVerification> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider sellerverificationActionsInfoProvider(@Qualifier("sellerverificationFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider sellerverificationActionsInfoProvider(@Qualifier("sellerverificationFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("sellerverification",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerVerificationConfiguration {
 		return new SellerVerificationEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerVerification> _sellerverificationStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerVerification> _sellerverificationStateEntityService_(
 			@Qualifier("sellerverificationEntityStm") STM<SellerVerification> stm,
 			@Qualifier("sellerverificationActionsInfoProvider") STMActionsInfoProvider sellerverificationInfoProvider,
 			@Qualifier("sellerverificationEntityStore") EntityStore<SellerVerification> entityStore){
@@ -65,7 +65,7 @@ public class SellerVerificationConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerVerification> sellerverificationEntryAction(@Qualifier("sellerverificationEntityStore") EntityStore<SellerVerification> entityStore,
+	@Bean GenericEntryAction<SellerVerification> sellerverificationEntryAction(@Qualifier("sellerverificationEntityStore") EntityStore<SellerVerification> entityStore,
 			@Qualifier("sellerverificationActionsInfoProvider") STMActionsInfoProvider sellerverificationInfoProvider,
             @Qualifier("sellerverificationFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerVerification> entryAction =  new GenericEntryAction<SellerVerification>(entityStore,sellerverificationInfoProvider);
@@ -101,13 +101,13 @@ public class SellerVerificationConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector sellerverificationBodyTypeSelector(
+    @Bean StmBodyTypeSelector sellerverificationBodyTypeSelector(
     @Qualifier("sellerverificationActionsInfoProvider") STMActionsInfoProvider sellerverificationInfoProvider,
     @Qualifier("sellerverificationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(sellerverificationInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerVerification> sellerverificationBaseTransitionAction(
+    @Bean STMTransitionAction<SellerVerification> sellerverificationBaseTransitionAction(
         @Qualifier("sellerverificationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,40 +121,34 @@ public class SellerVerificationConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/sellerverification/sellerverification-states.xml
 
-    @Bean ApproveSellerVerificationAction
-            sellerverificationApprove(){
-        return new ApproveSellerVerificationAction();
-    }
-    @Bean RejectSellerVerificationAction
-            sellerverificationReject(){
-        return new RejectSellerVerificationAction();
-    }
+
+
     @Bean RequiresReviewSellerVerificationAction
-            sellerverificationRequiresReview(){
+            requiresReviewSellerVerificationAction(){
         return new RequiresReviewSellerVerificationAction();
     }
     @Bean ApproveSellerVerificationAction
-            sellerverificationApprove(){
+            approveSellerVerificationAction(){
         return new ApproveSellerVerificationAction();
     }
     @Bean RejectSellerVerificationAction
-            sellerverificationReject(){
+            sellerVerificationAction(){
         return new RejectSellerVerificationAction();
     }
     @Bean CancelSellerVerificationAction
-            sellerverificationCancel(){
+            cancelSellerVerificationAction(){
         return new CancelSellerVerificationAction();
     }
     @Bean SubmitSellerVerificationAction
-            sellerverificationSubmit(){
+            submitSellerVerificationAction(){
         return new SubmitSellerVerificationAction();
     }
     @Bean VerifySellerVerificationAction
-            sellerverificationVerify(){
+            verifySellerVerificationAction(){
         return new VerifySellerVerificationAction();
     }
     @Bean RetrySellerVerificationAction
-            sellerverificationRetry(){
+            retrySellerVerificationAction(){
         return new RetrySellerVerificationAction();
     }
 

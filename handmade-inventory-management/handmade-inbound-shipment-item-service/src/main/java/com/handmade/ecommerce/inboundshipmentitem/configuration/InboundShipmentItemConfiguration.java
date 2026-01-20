@@ -40,13 +40,13 @@ public class InboundShipmentItemConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<InboundShipmentItem> inboundshipmentitemEntityStm(@Qualifier("inboundshipmentitemFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<InboundShipmentItem> inboundshipmentitemEntityStm(@Qualifier("inboundshipmentitemFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<InboundShipmentItem> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider inboundshipmentitemActionsInfoProvider(@Qualifier("inboundshipmentitemFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider inboundshipmentitemActionsInfoProvider(@Qualifier("inboundshipmentitemFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("inboundshipmentitem",provider);
         return provider;
@@ -56,7 +56,7 @@ public class InboundShipmentItemConfiguration {
 		return new InboundShipmentItemEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<InboundShipmentItem> _inboundshipmentitemStateEntityService_(
+	@Bean StateEntityServiceImpl<InboundShipmentItem> _inboundshipmentitemStateEntityService_(
 			@Qualifier("inboundshipmentitemEntityStm") STM<InboundShipmentItem> stm,
 			@Qualifier("inboundshipmentitemActionsInfoProvider") STMActionsInfoProvider inboundshipmentitemInfoProvider,
 			@Qualifier("inboundshipmentitemEntityStore") EntityStore<InboundShipmentItem> entityStore){
@@ -65,7 +65,7 @@ public class InboundShipmentItemConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<InboundShipmentItem> inboundshipmentitemEntryAction(@Qualifier("inboundshipmentitemEntityStore") EntityStore<InboundShipmentItem> entityStore,
+	@Bean GenericEntryAction<InboundShipmentItem> inboundshipmentitemEntryAction(@Qualifier("inboundshipmentitemEntityStore") EntityStore<InboundShipmentItem> entityStore,
 			@Qualifier("inboundshipmentitemActionsInfoProvider") STMActionsInfoProvider inboundshipmentitemInfoProvider,
             @Qualifier("inboundshipmentitemFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<InboundShipmentItem> entryAction =  new GenericEntryAction<InboundShipmentItem>(entityStore,inboundshipmentitemInfoProvider);
@@ -101,13 +101,13 @@ public class InboundShipmentItemConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector inboundshipmentitemBodyTypeSelector(
+    @Bean StmBodyTypeSelector inboundshipmentitemBodyTypeSelector(
     @Qualifier("inboundshipmentitemActionsInfoProvider") STMActionsInfoProvider inboundshipmentitemInfoProvider,
     @Qualifier("inboundshipmentitemTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(inboundshipmentitemInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<InboundShipmentItem> inboundshipmentitemBaseTransitionAction(
+    @Bean STMTransitionAction<InboundShipmentItem> inboundshipmentitemBaseTransitionAction(
         @Qualifier("inboundshipmentitemTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

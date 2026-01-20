@@ -40,13 +40,13 @@ public class FinanceProfileConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<FinanceProfile> financeprofileEntityStm(@Qualifier("financeprofileFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<FinanceProfile> financeprofileEntityStm(@Qualifier("financeprofileFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<FinanceProfile> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider financeprofileActionsInfoProvider(@Qualifier("financeprofileFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider financeprofileActionsInfoProvider(@Qualifier("financeprofileFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("financeprofile",provider);
         return provider;
@@ -56,7 +56,7 @@ public class FinanceProfileConfiguration {
 		return new FinanceProfileEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<FinanceProfile> _financeprofileStateEntityService_(
+	@Bean StateEntityServiceImpl<FinanceProfile> _financeprofileStateEntityService_(
 			@Qualifier("financeprofileEntityStm") STM<FinanceProfile> stm,
 			@Qualifier("financeprofileActionsInfoProvider") STMActionsInfoProvider financeprofileInfoProvider,
 			@Qualifier("financeprofileEntityStore") EntityStore<FinanceProfile> entityStore){
@@ -65,7 +65,7 @@ public class FinanceProfileConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<FinanceProfile> financeprofileEntryAction(@Qualifier("financeprofileEntityStore") EntityStore<FinanceProfile> entityStore,
+	@Bean GenericEntryAction<FinanceProfile> financeprofileEntryAction(@Qualifier("financeprofileEntityStore") EntityStore<FinanceProfile> entityStore,
 			@Qualifier("financeprofileActionsInfoProvider") STMActionsInfoProvider financeprofileInfoProvider,
             @Qualifier("financeprofileFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<FinanceProfile> entryAction =  new GenericEntryAction<FinanceProfile>(entityStore,financeprofileInfoProvider);
@@ -101,13 +101,13 @@ public class FinanceProfileConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector financeprofileBodyTypeSelector(
+    @Bean StmBodyTypeSelector financeprofileBodyTypeSelector(
     @Qualifier("financeprofileActionsInfoProvider") STMActionsInfoProvider financeprofileInfoProvider,
     @Qualifier("financeprofileTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(financeprofileInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<FinanceProfile> financeprofileBaseTransitionAction(
+    @Bean STMTransitionAction<FinanceProfile> financeprofileBaseTransitionAction(
         @Qualifier("financeprofileTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

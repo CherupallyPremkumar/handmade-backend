@@ -40,13 +40,13 @@ public class CompliancePolicyConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<CompliancePolicy> compliancepolicyEntityStm(@Qualifier("compliancepolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<CompliancePolicy> compliancepolicyEntityStm(@Qualifier("compliancepolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<CompliancePolicy> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider compliancepolicyActionsInfoProvider(@Qualifier("compliancepolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider compliancepolicyActionsInfoProvider(@Qualifier("compliancepolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("compliancepolicy",provider);
         return provider;
@@ -56,7 +56,7 @@ public class CompliancePolicyConfiguration {
 		return new CompliancePolicyEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<CompliancePolicy> _compliancepolicyStateEntityService_(
+	@Bean StateEntityServiceImpl<CompliancePolicy> _compliancepolicyStateEntityService_(
 			@Qualifier("compliancepolicyEntityStm") STM<CompliancePolicy> stm,
 			@Qualifier("compliancepolicyActionsInfoProvider") STMActionsInfoProvider compliancepolicyInfoProvider,
 			@Qualifier("compliancepolicyEntityStore") EntityStore<CompliancePolicy> entityStore){
@@ -65,7 +65,7 @@ public class CompliancePolicyConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<CompliancePolicy> compliancepolicyEntryAction(@Qualifier("compliancepolicyEntityStore") EntityStore<CompliancePolicy> entityStore,
+	@Bean GenericEntryAction<CompliancePolicy> compliancepolicyEntryAction(@Qualifier("compliancepolicyEntityStore") EntityStore<CompliancePolicy> entityStore,
 			@Qualifier("compliancepolicyActionsInfoProvider") STMActionsInfoProvider compliancepolicyInfoProvider,
             @Qualifier("compliancepolicyFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<CompliancePolicy> entryAction =  new GenericEntryAction<CompliancePolicy>(entityStore,compliancepolicyInfoProvider);
@@ -101,13 +101,13 @@ public class CompliancePolicyConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector compliancepolicyBodyTypeSelector(
+    @Bean StmBodyTypeSelector compliancepolicyBodyTypeSelector(
     @Qualifier("compliancepolicyActionsInfoProvider") STMActionsInfoProvider compliancepolicyInfoProvider,
     @Qualifier("compliancepolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(compliancepolicyInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<CompliancePolicy> compliancepolicyBaseTransitionAction(
+    @Bean STMTransitionAction<CompliancePolicy> compliancepolicyBaseTransitionAction(
         @Qualifier("compliancepolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,35 +122,31 @@ public class CompliancePolicyConfiguration {
     // segment in src/main/resources/com/handmade/compliancepolicy/compliancepolicy-states.xml
 
     @Bean SuspendCompliancePolicyAction
-            compliancepolicySuspend(){
+            suspendCompliancePolicyAction(){
         return new SuspendCompliancePolicyAction();
     }
-    @Bean DeprecateCompliancePolicyAction
-            compliancepolicyDeprecate(){
-        return new DeprecateCompliancePolicyAction();
-    }
     @Bean SubmitCompliancePolicyAction
-            compliancepolicySubmit(){
+            submitCompliancePolicyAction(){
         return new SubmitCompliancePolicyAction();
     }
     @Bean DeprecateCompliancePolicyAction
-            compliancepolicyDeprecate(){
+            deprecateCompliancePolicyAction(){
         return new DeprecateCompliancePolicyAction();
     }
     @Bean ReactivateCompliancePolicyAction
-            compliancepolicyReactivate(){
+            reactivateCompliancePolicyAction(){
         return new ReactivateCompliancePolicyAction();
     }
     @Bean ApproveCompliancePolicyAction
-            compliancepolicyApprove(){
+            approveCompliancePolicyAction(){
         return new ApproveCompliancePolicyAction();
     }
     @Bean RejectCompliancePolicyAction
-            compliancepolicyReject(){
+            rejectCompliancePolicyAction(){
         return new RejectCompliancePolicyAction();
     }
     @Bean ActivateCompliancePolicyAction
-            compliancepolicyActivate(){
+            activateCompliancePolicyAction(){
         return new ActivateCompliancePolicyAction();
     }
 

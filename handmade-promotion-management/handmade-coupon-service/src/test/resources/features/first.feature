@@ -7,14 +7,19 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/coupon" with payload
 """json
 {
-    "description": "Description"
+    "promotionId": "promo-001",
+    "code": "TEST-CODE",
+    "discountType": "PERCENTAGE",
+    "discountValue": 10.0,
+    "validFrom": "2023-01-01",
+    "expirationDate": "2025-12-31"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.code" is "TEST-CODE"
 
 Scenario: Retrieve the coupon that just got created
 When I GET a REST request to URL "/coupon/${id}"

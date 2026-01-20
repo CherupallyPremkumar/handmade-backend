@@ -40,13 +40,13 @@ public class GDPRRequestConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<GDPRRequest> gdprrequestEntityStm(@Qualifier("gdprrequestFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<GDPRRequest> gdprrequestEntityStm(@Qualifier("gdprrequestFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<GDPRRequest> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider gdprrequestActionsInfoProvider(@Qualifier("gdprrequestFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider gdprrequestActionsInfoProvider(@Qualifier("gdprrequestFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("gdprrequest",provider);
         return provider;
@@ -56,7 +56,7 @@ public class GDPRRequestConfiguration {
 		return new GDPRRequestEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<GDPRRequest> _gdprrequestStateEntityService_(
+	@Bean StateEntityServiceImpl<GDPRRequest> _gdprrequestStateEntityService_(
 			@Qualifier("gdprrequestEntityStm") STM<GDPRRequest> stm,
 			@Qualifier("gdprrequestActionsInfoProvider") STMActionsInfoProvider gdprrequestInfoProvider,
 			@Qualifier("gdprrequestEntityStore") EntityStore<GDPRRequest> entityStore){
@@ -65,7 +65,7 @@ public class GDPRRequestConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<GDPRRequest> gdprrequestEntryAction(@Qualifier("gdprrequestEntityStore") EntityStore<GDPRRequest> entityStore,
+	@Bean GenericEntryAction<GDPRRequest> gdprrequestEntryAction(@Qualifier("gdprrequestEntityStore") EntityStore<GDPRRequest> entityStore,
 			@Qualifier("gdprrequestActionsInfoProvider") STMActionsInfoProvider gdprrequestInfoProvider,
             @Qualifier("gdprrequestFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<GDPRRequest> entryAction =  new GenericEntryAction<GDPRRequest>(entityStore,gdprrequestInfoProvider);
@@ -101,13 +101,13 @@ public class GDPRRequestConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector gdprrequestBodyTypeSelector(
+    @Bean StmBodyTypeSelector gdprrequestBodyTypeSelector(
     @Qualifier("gdprrequestActionsInfoProvider") STMActionsInfoProvider gdprrequestInfoProvider,
     @Qualifier("gdprrequestTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(gdprrequestInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<GDPRRequest> gdprrequestBaseTransitionAction(
+    @Bean STMTransitionAction<GDPRRequest> gdprrequestBaseTransitionAction(
         @Qualifier("gdprrequestTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,29 +121,29 @@ public class GDPRRequestConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/gdprrequest/gdprrequest-states.xml
 
-    @Bean FailGDPRRequestAction
-            gdprrequestFail(){
-        return new FailGDPRRequestAction();
+    @Bean FailGdprRequestAction
+            failGdprRequestAction(){
+        return new FailGdprRequestAction();
     }
-    @Bean CompleteGDPRRequestAction
-            gdprrequestComplete(){
-        return new CompleteGDPRRequestAction();
+    @Bean CompleteGdprRequestAction
+            completeGdprRequestAction(){
+        return new CompleteGdprRequestAction();
     }
-    @Bean ReviewGDPRRequestAction
-            gdprrequestReview(){
-        return new ReviewGDPRRequestAction();
+    @Bean ReviewGdprRequestAction
+            reviewGdprRequestAction(){
+        return new ReviewGdprRequestAction();
     }
-    @Bean ProcessGDPRRequestAction
-            gdprrequestProcess(){
-        return new ProcessGDPRRequestAction();
+    @Bean ProcessGdprRequestAction
+            processGdprRequestAction(){
+        return new ProcessGdprRequestAction();
     }
-    @Bean ApproveGDPRRequestAction
-            gdprrequestApprove(){
-        return new ApproveGDPRRequestAction();
+    @Bean ApproveGdprRequestAction
+            approveGdprRequestAction(){
+        return new ApproveGdprRequestAction();
     }
-    @Bean RejectGDPRRequestAction
-            gdprrequestReject(){
-        return new RejectGDPRRequestAction();
+    @Bean RejectGdprRequestAction
+            rejectGdprRequestAction(){
+        return new RejectGdprRequestAction();
     }
 
 

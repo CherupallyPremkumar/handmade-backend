@@ -1,13 +1,13 @@
 package com.handmade.ecommerce.seo.bdd;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import com.handmade.ecommerce.seo.SpringTestConfig;
 
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
+import io.cucumber.spring.CucumberContextConfiguration;
 
 
 /**
@@ -21,6 +21,7 @@ import cucumber.api.java.en.Given;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = SpringTestConfig.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("unittest")
+@CucumberContextConfiguration
 public class CukesSteps {
 	
 	@Given("dummy") public void dummy(){}

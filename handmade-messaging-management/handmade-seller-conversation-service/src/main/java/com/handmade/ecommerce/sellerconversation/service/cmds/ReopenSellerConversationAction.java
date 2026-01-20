@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.messaging.model.SellerConversation;
-import com.handmade.ecommerce.messaging.model. ReopenSellerConversationPayload;
+import com.handmade.ecommerce.messaging.dto.ReopenSellerConversationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.messaging.model. ReopenSellerConversationPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ReopenSellerConversationAction extends AbstractSTMTransitionAction<SellerConversation,
-    ReopenSellerConversationPayload>{
+               ReopenSellerConversationPayload>{
 
 	@Override
 	public void transitionTo(SellerConversation sellerconversation,

@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-platform
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_platform
+        - insert:
+            tableName: hm_platform
+            columns:
+              - column: {name: id, value: "PLT-GLOBAL"}
+              - column: {name: platform_code, value: "HANDMADE_GLOBAL"}
+              - column: {name: name, value: "Handmade Global Marketplace"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: marketplace_type, value: "B2C"}
+              - column: {name: is_active, valueBoolean: true}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PLATFORM_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: last_modified_time, valueDate: "2024-01-01T00:00:00"}

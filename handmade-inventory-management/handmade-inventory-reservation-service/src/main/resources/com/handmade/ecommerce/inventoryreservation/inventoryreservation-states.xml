@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="inventoryReservationFlow" default="true">
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelInventoryReservationPayload"/>
+    <event-information eventId="confirm" meta-bodyType="com.handmade.ecommerce.inventory.dto.ConfirmInventoryReservationPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.inventory.dto.ExpireInventoryReservationPayload"/>
+    <event-information eventId="fulfill" meta-bodyType="com.handmade.ecommerce.inventory.dto.FulfillInventoryReservationPayload"/>
+
+    <flow id="HM_INVENTORY_RESERVATION_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="confirm" newStateId="CONFIRMED" componentName="inventoryReservationConfirmAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="inventoryReservationCancelAction"/>
+            <on eventId="confirm" newStateId="CONFIRMED" componentName="com.handmade.ecommerce.inventoryreservation.service.cmds.ConfirmInventoryReservationAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.inventoryreservation.service.cmds.CancelInventoryReservationAction"/>
         </manual-state>
 
         <manual-state id="CONFIRMED">
-            <on eventId="fulfill" newStateId="FULFILLED" componentName="inventoryReservationFulfillAction"/>
-            <on eventId="expire" newStateId="EXPIRED" componentName="inventoryReservationExpireAction"/>
+            <on eventId="fulfill" newStateId="FULFILLED" componentName="com.handmade.ecommerce.inventoryreservation.service.cmds.FulfillInventoryReservationAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.inventoryreservation.service.cmds.ExpireInventoryReservationAction"/>
         </manual-state>
 
         <manual-state id="FULFILLED" meta-endState="true"/>

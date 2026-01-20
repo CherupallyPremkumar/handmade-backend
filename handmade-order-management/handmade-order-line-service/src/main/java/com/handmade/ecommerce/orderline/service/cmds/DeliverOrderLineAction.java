@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.order.model.OrderLine;
-import com.handmade.ecommerce.order.model. DeliverOrderLinePayload;
+import com.handmade.ecommerce.order.dto.DeliverOrderLinePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.order.model. DeliverOrderLinePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class DeliverOrderLineAction extends AbstractSTMTransitionAction<OrderLine,
-    DeliverOrderLinePayload>{
+               DeliverOrderLinePayload>{
 
 	@Override
 	public void transitionTo(OrderLine orderline,

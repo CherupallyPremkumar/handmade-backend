@@ -40,13 +40,13 @@ public class LimitCounterConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<LimitCounter> limitcounterEntityStm(@Qualifier("limitcounterFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<LimitCounter> limitcounterEntityStm(@Qualifier("limitcounterFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<LimitCounter> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider limitcounterActionsInfoProvider(@Qualifier("limitcounterFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider limitcounterActionsInfoProvider(@Qualifier("limitcounterFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("limitcounter",provider);
         return provider;
@@ -56,7 +56,7 @@ public class LimitCounterConfiguration {
 		return new LimitCounterEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<LimitCounter> _limitcounterStateEntityService_(
+	@Bean StateEntityServiceImpl<LimitCounter> _limitcounterStateEntityService_(
 			@Qualifier("limitcounterEntityStm") STM<LimitCounter> stm,
 			@Qualifier("limitcounterActionsInfoProvider") STMActionsInfoProvider limitcounterInfoProvider,
 			@Qualifier("limitcounterEntityStore") EntityStore<LimitCounter> entityStore){
@@ -65,7 +65,7 @@ public class LimitCounterConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<LimitCounter> limitcounterEntryAction(@Qualifier("limitcounterEntityStore") EntityStore<LimitCounter> entityStore,
+	@Bean GenericEntryAction<LimitCounter> limitcounterEntryAction(@Qualifier("limitcounterEntityStore") EntityStore<LimitCounter> entityStore,
 			@Qualifier("limitcounterActionsInfoProvider") STMActionsInfoProvider limitcounterInfoProvider,
             @Qualifier("limitcounterFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<LimitCounter> entryAction =  new GenericEntryAction<LimitCounter>(entityStore,limitcounterInfoProvider);
@@ -101,13 +101,13 @@ public class LimitCounterConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector limitcounterBodyTypeSelector(
+    @Bean StmBodyTypeSelector limitcounterBodyTypeSelector(
     @Qualifier("limitcounterActionsInfoProvider") STMActionsInfoProvider limitcounterInfoProvider,
     @Qualifier("limitcounterTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(limitcounterInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<LimitCounter> limitcounterBaseTransitionAction(
+    @Bean STMTransitionAction<LimitCounter> limitcounterBaseTransitionAction(
         @Qualifier("limitcounterTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,19 +122,16 @@ public class LimitCounterConfiguration {
     // segment in src/main/resources/com/handmade/limitcounter/limitcounter-states.xml
 
     @Bean BreachLimitCounterAction
-            limitcounterBreach(){
+            breachLimitCounterAction(){
         return new BreachLimitCounterAction();
     }
-    @Bean ResetLimitCounterAction
-            limitcounterReset(){
-        return new ResetLimitCounterAction();
-    }
+
     @Bean ActivateLimitCounterAction
-            limitcounterActivate(){
+            activateLimitCounterAction(){
         return new ActivateLimitCounterAction();
     }
     @Bean ResetLimitCounterAction
-            limitcounterReset(){
+            resetLimitCounterAction(){
         return new ResetLimitCounterAction();
     }
 

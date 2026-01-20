@@ -1,0 +1,161 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-promotion-policies
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_promotion_policy
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-001"}
+              - column: {name: policy_version, value: "v1.0-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "New Seller Growth Boost"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 20.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 50.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-002"}
+              - column: {name: policy_version, value: "v1.0-US-ENTERPRISE"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ENTERPRISE"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "Enterprise High Vol Promo"}
+              - column: {name: default_discount_type, value: "FIXED_AMOUNT"}
+              - column: {name: max_discount_amount, valueNumeric: 500.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 30.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-003"}
+              - column: {name: policy_version, value: "v1.0-UK-ARTISAN"}
+              - column: {name: country_code, value: "GB"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "UK Artisan Craft Week"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 15.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 100.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-004"}
+              - column: {name: policy_version, value: "v1.0-EU-GENERIC"}
+              - column: {name: country_code, value: "DE"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "EU Handcrafted Summer"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 10.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 25.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-005"}
+              - column: {name: policy_version, value: "v1.1-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-09-01"}
+              - column: {name: promotion_name, value: "Holiday Season Kickoff"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 25.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 40.00}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-006"}
+              - column: {name: policy_version, value: "v1.0-CA-ARTISAN"}
+              - column: {name: country_code, value: "CA"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "Canada Maker Day"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 15.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 50.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-007"}
+              - column: {name: policy_version, value: "v1.0-AU-ARTISAN"}
+              - column: {name: country_code, value: "AU"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "Down Under Designs"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 12.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 30.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-008"}
+              - column: {name: policy_version, value: "v1.0-JP-ARTISAN"}
+              - column: {name: country_code, value: "JP"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: promotion_name, value: "Tokyo Traditional Tech"}
+              - column: {name: default_discount_type, value: "FIXED_AMOUNT"}
+              - column: {name: max_discount_amount, valueNumeric: 1000.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 10.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-009"}
+              - column: {name: policy_version, value: "v2.0-US-GENERIC"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2025-01-01"}
+              - column: {name: promotion_name, value: "2025 Artisan Vision"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 20.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 50.00}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_promotion_policy
+            columns:
+              - column: {name: id, value: "PRM-010"}
+              - column: {name: policy_version, value: "v1.5-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-11-25"}
+              - column: {name: promotion_name, value: "Black Friday Handmade"}
+              - column: {name: default_discount_type, value: "PERCENTAGE"}
+              - column: {name: max_discount_percentage, valueNumeric: 30.00}
+              - column: {name: platform_co_funding_percentage, valueNumeric: 20.00}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PROMOTION_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

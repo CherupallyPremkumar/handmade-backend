@@ -35,9 +35,6 @@ public class CompliancePolicy extends AbstractJpaStateEntity {
     @Column(name = "applicable_region", length = 50)
     private String applicableRegion;
 
-    @Column(name = "status", length = 50)
-    private String status; // DRAFT, ACTIVE, DEPRECATED
-
     @Column(name = "policy_version", length = 50)
     private String policyVersion;
 

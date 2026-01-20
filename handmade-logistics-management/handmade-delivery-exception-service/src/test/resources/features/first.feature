@@ -7,7 +7,9 @@ And that "initialState" equals "REPORTED"
 When I POST a REST request to URL "/deliveryexception" with payload
 """json
 {
-    "description": "Description"
+    "description": "Description",
+    "trackingNumber": "1Z9999999999999999",
+    "exceptionTime": "2024-02-01"
 }
 """
 Then the REST response contains key "mutatedEntity"

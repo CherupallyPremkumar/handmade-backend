@@ -2,6 +2,8 @@ package com.handmade.ecommerce.selleraccount;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,14 +11,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 
-import org.chenile.utils.entity.service.EntityStore;
-import com.handmade.ecommerce.selleraccount.model.Selleraccount;
 
 
 @Configuration
 @PropertySource("classpath:com/handmade/ecommerce/selleraccount/TestService.properties")
 @SpringBootApplication(scanBasePackages = { "org.chenile.configuration", "com.handmade.ecommerce.selleraccount.configuration" })
 @ActiveProfiles("unittest")
+@EntityScan(basePackages = { "com.handmade.ecommerce.seller.model" })
 public class SpringTestConfig extends SpringBootServletInitializer{
 	
 }

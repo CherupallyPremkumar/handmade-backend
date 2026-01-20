@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="refundFlow" default="true">
+    <flow id="HM_REFUND_FLOW" default="true">
         <manual-state id="INITIATED" initialState="true">
             <on eventId="submit" newStateId="PENDING" componentName="refundSubmitAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="refundCancelAction"/>

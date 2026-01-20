@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.logistics.model.RoutePlan;
-import com.handmade.ecommerce.logistics.model. CancelRoutePlanPayload;
+import com.handmade.ecommerce.logistics.dto.CancelRoutePlanPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.logistics.model. CancelRoutePlanPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class CancelRoutePlanAction extends AbstractSTMTransitionAction<RoutePlan,
-    CancelRoutePlanPayload>{
+               CancelRoutePlanPayload>{
 
 	@Override
 	public void transitionTo(RoutePlan routeplan,

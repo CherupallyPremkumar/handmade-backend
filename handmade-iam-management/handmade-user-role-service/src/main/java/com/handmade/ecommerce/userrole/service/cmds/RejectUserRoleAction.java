@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.iam.model.UserRole;
-import com.handmade.ecommerce.iam.model. RejectUserRolePayload;
+import com.handmade.ecommerce.iam.dto.RejectUserRolePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.iam.model. RejectUserRolePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectUserRoleAction extends AbstractSTMTransitionAction<UserRole,
-    RejectUserRolePayload>{
+               RejectUserRolePayload>{
 
 	@Override
 	public void transitionTo(UserRole userrole,

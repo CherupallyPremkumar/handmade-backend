@@ -40,13 +40,13 @@ public class CycleCountConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<CycleCount> cyclecountEntityStm(@Qualifier("cyclecountFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<CycleCount> cyclecountEntityStm(@Qualifier("cyclecountFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<CycleCount> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider cyclecountActionsInfoProvider(@Qualifier("cyclecountFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider cyclecountActionsInfoProvider(@Qualifier("cyclecountFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("cyclecount",provider);
         return provider;
@@ -56,7 +56,7 @@ public class CycleCountConfiguration {
 		return new CycleCountEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<CycleCount> _cyclecountStateEntityService_(
+	@Bean StateEntityServiceImpl<CycleCount> _cyclecountStateEntityService_(
 			@Qualifier("cyclecountEntityStm") STM<CycleCount> stm,
 			@Qualifier("cyclecountActionsInfoProvider") STMActionsInfoProvider cyclecountInfoProvider,
 			@Qualifier("cyclecountEntityStore") EntityStore<CycleCount> entityStore){
@@ -65,7 +65,7 @@ public class CycleCountConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<CycleCount> cyclecountEntryAction(@Qualifier("cyclecountEntityStore") EntityStore<CycleCount> entityStore,
+	@Bean GenericEntryAction<CycleCount> cyclecountEntryAction(@Qualifier("cyclecountEntityStore") EntityStore<CycleCount> entityStore,
 			@Qualifier("cyclecountActionsInfoProvider") STMActionsInfoProvider cyclecountInfoProvider,
             @Qualifier("cyclecountFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<CycleCount> entryAction =  new GenericEntryAction<CycleCount>(entityStore,cyclecountInfoProvider);
@@ -101,13 +101,13 @@ public class CycleCountConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector cyclecountBodyTypeSelector(
+    @Bean StmBodyTypeSelector cyclecountBodyTypeSelector(
     @Qualifier("cyclecountActionsInfoProvider") STMActionsInfoProvider cyclecountInfoProvider,
     @Qualifier("cyclecountTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(cyclecountInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<CycleCount> cyclecountBaseTransitionAction(
+    @Bean STMTransitionAction<CycleCount> cyclecountBaseTransitionAction(
         @Qualifier("cyclecountTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,27 +122,27 @@ public class CycleCountConfiguration {
     // segment in src/main/resources/com/handmade/cyclecount/cyclecount-states.xml
 
     @Bean CompleteCycleCountAction
-            cyclecountComplete(){
+            completeCycleCountAction(){
         return new CompleteCycleCountAction();
     }
     @Bean DetectVarianceCycleCountAction
-            cyclecountDetectVariance(){
+            detectVarianceCycleCountAction(){
         return new DetectVarianceCycleCountAction();
     }
     @Bean ApproveCycleCountAction
-            cyclecountApprove(){
+            approveCycleCountAction(){
         return new ApproveCycleCountAction();
     }
     @Bean ApproveVarianceCycleCountAction
-            cyclecountApproveVariance(){
+            approveVarianceCycleCountAction(){
         return new ApproveVarianceCycleCountAction();
     }
     @Bean AdjustCycleCountAction
-            cyclecountAdjust(){
+            adjustCycleCountAction(){
         return new AdjustCycleCountAction();
     }
     @Bean StartCycleCountAction
-            cyclecountStart(){
+            startCycleCountAction(){
         return new StartCycleCountAction();
     }
 

@@ -7,14 +7,16 @@ And that "initialState" equals "CREATED"
 When I POST a REST request to URL "/subscription" with payload
 """json
 {
-    "description": "Description"
+    "customerId": "CUST-001",
+    "planType": "MONTHLY"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.customerId" is "CUST-001"
 
 Scenario: Retrieve the subscription that just got created
 When I GET a REST request to URL "/subscription/${id}"
@@ -31,7 +33,8 @@ When I PATCH a REST request to URL "/subscription/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"

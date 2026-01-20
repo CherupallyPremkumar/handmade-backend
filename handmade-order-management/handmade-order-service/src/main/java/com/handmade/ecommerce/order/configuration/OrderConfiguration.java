@@ -40,13 +40,13 @@ public class OrderConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Order> orderEntityStm(@Qualifier("orderFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Order> orderEntityStm(@Qualifier("orderFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Order> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider orderActionsInfoProvider(@Qualifier("orderFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider orderActionsInfoProvider(@Qualifier("orderFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("order",provider);
         return provider;
@@ -56,7 +56,7 @@ public class OrderConfiguration {
 		return new OrderEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Order> _orderStateEntityService_(
+	@Bean StateEntityServiceImpl<Order> _orderStateEntityService_(
 			@Qualifier("orderEntityStm") STM<Order> stm,
 			@Qualifier("orderActionsInfoProvider") STMActionsInfoProvider orderInfoProvider,
 			@Qualifier("orderEntityStore") EntityStore<Order> entityStore){
@@ -65,7 +65,7 @@ public class OrderConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Order> orderEntryAction(@Qualifier("orderEntityStore") EntityStore<Order> entityStore,
+	@Bean GenericEntryAction<Order> orderEntryAction(@Qualifier("orderEntityStore") EntityStore<Order> entityStore,
 			@Qualifier("orderActionsInfoProvider") STMActionsInfoProvider orderInfoProvider,
             @Qualifier("orderFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Order> entryAction =  new GenericEntryAction<Order>(entityStore,orderInfoProvider);
@@ -101,13 +101,13 @@ public class OrderConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector orderBodyTypeSelector(
+    @Bean StmBodyTypeSelector orderBodyTypeSelector(
     @Qualifier("orderActionsInfoProvider") STMActionsInfoProvider orderInfoProvider,
     @Qualifier("orderTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(orderInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Order> orderBaseTransitionAction(
+    @Bean STMTransitionAction<Order> orderBaseTransitionAction(
         @Qualifier("orderTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,55 +122,48 @@ public class OrderConfiguration {
     // segment in src/main/resources/com/handmade/order/order-states.xml
 
     @Bean ApproveReturnOrderAction
-            orderApproveReturn(){
+            approveReturnOrderAction(){
         return new ApproveReturnOrderAction();
     }
     @Bean RejectReturnOrderAction
-            orderRejectReturn(){
+            rejectReturnOrderAction(){
         return new RejectReturnOrderAction();
     }
     @Bean CompleteOrderAction
-            orderComplete(){
+            completeOrderAction(){
         return new CompleteOrderAction();
     }
     @Bean ReturnOrderAction
-            orderReturn(){
+            returnOrderAction(){
         return new ReturnOrderAction();
     }
-    @Bean CancelOrderAction
-            orderCancel(){
-        return new CancelOrderAction();
-    }
+
     @Bean PayOrderAction
-            orderPay(){
+            payOrderAction(){
         return new PayOrderAction();
     }
     @Bean RefundOrderAction
-            orderRefund(){
+            refundOrderAction(){
         return new RefundOrderAction();
     }
     @Bean CancelOrderAction
-            orderCancel(){
+            cancelOrderAction(){
         return new CancelOrderAction();
     }
     @Bean ShipOrderAction
-            orderShip(){
+            shipOrderAction(){
         return new ShipOrderAction();
     }
     @Bean ProcessOrderAction
-            orderProcess(){
+            processOrderAction(){
         return new ProcessOrderAction();
     }
     @Bean ConfirmOrderAction
-            orderConfirm(){
+            confirmOrderAction(){
         return new ConfirmOrderAction();
     }
-    @Bean CancelOrderAction
-            orderCancel(){
-        return new CancelOrderAction();
-    }
     @Bean DeliverOrderAction
-            orderDeliver(){
+            deliverOrderAction(){
         return new DeliverOrderAction();
     }
 

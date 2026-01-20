@@ -7,10 +7,13 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/policydefinition" with payload
 """json
 {
+    "policyKey": "POL-GEN-001",
+    "policyName": "General Policy",
     "description": "Description"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"

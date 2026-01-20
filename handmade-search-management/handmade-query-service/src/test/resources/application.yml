@@ -1,14 +1,6 @@
 logging:
   level:
     ROOT: INFO
-    org.hibernate.SQL: INFO
-    org.chenile: DEBUG
-    org.apache.ibatis: DEBUG
-    java.sql: DEBUG
-    # MyBatis mapper namespaces
-    search-products: DEBUG
-    search-facets: DEBUG
-    browse-nodes: DEBUG
 
 spring:
   banner:
@@ -42,12 +34,13 @@ spring:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
     cache: false
+  web:
+    error:
+      whitelabel:
+        enabled: false
 
 server:
   port: 8000
-  error:
-    whitelabel:
-      enabled: false
 
 query:
   jpa:

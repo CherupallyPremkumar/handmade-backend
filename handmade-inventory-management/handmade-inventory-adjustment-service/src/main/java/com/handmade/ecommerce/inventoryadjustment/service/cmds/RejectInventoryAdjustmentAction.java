@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.InventoryAdjustment;
-import com.handmade.ecommerce.inventory.model. RejectInventoryAdjustmentPayload;
+import com.handmade.ecommerce.inventory.dto.RejectInventoryAdjustmentPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. RejectInventoryAdjustmentPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectInventoryAdjustmentAction extends AbstractSTMTransitionAction<InventoryAdjustment,
-    RejectInventoryAdjustmentPayload>{
+               RejectInventoryAdjustmentPayload>{
 
 	@Override
 	public void transitionTo(InventoryAdjustment inventoryadjustment,

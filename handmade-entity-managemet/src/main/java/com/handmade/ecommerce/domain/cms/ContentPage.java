@@ -25,9 +25,6 @@ public class ContentPage extends AbstractJpaStateEntity {
     @Column(name = "raw_content", columnDefinition = "TEXT")
     private String rawContent;
 
-    @Column(name = "status", length = 20)
-    private String status = "DRAFT";
-
     @Column(name = "meta_description", length = 500)
     private String metaDescription;
 }

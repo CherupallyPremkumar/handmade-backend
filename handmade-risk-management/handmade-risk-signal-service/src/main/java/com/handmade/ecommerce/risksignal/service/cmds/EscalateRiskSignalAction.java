@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.risk.model.RiskSignal;
-import com.handmade.ecommerce.risk.model. EscalateRiskSignalPayload;
+import com.handmade.ecommerce.risk.dto.EscalateRiskSignalPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.risk.model. EscalateRiskSignalPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class EscalateRiskSignalAction extends AbstractSTMTransitionAction<RiskSignal,
-    EscalateRiskSignalPayload>{
+               EscalateRiskSignalPayload>{
 
 	@Override
 	public void transitionTo(RiskSignal risksignal,

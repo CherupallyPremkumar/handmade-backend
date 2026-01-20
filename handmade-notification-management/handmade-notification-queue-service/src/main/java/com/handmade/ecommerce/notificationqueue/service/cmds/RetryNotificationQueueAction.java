@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.notification.model.NotificationQueue;
-import com.handmade.ecommerce.notification.model. RetryNotificationQueuePayload;
+import com.handmade.ecommerce.notification.dto.RetryNotificationQueuePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.notification.model. RetryNotificationQueuePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RetryNotificationQueueAction extends AbstractSTMTransitionAction<NotificationQueue,
-    RetryNotificationQueuePayload>{
+               RetryNotificationQueuePayload>{
 
 	@Override
 	public void transitionTo(NotificationQueue notificationqueue,

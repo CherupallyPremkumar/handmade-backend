@@ -40,13 +40,13 @@ public class SellerConversationConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerConversation> sellerconversationEntityStm(@Qualifier("sellerconversationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerConversation> sellerconversationEntityStm(@Qualifier("sellerconversationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerConversation> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider sellerconversationActionsInfoProvider(@Qualifier("sellerconversationFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider sellerconversationActionsInfoProvider(@Qualifier("sellerconversationFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("sellerconversation",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerConversationConfiguration {
 		return new SellerConversationEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerConversation> _sellerconversationStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerConversation> _sellerconversationStateEntityService_(
 			@Qualifier("sellerconversationEntityStm") STM<SellerConversation> stm,
 			@Qualifier("sellerconversationActionsInfoProvider") STMActionsInfoProvider sellerconversationInfoProvider,
 			@Qualifier("sellerconversationEntityStore") EntityStore<SellerConversation> entityStore){
@@ -65,7 +65,7 @@ public class SellerConversationConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerConversation> sellerconversationEntryAction(@Qualifier("sellerconversationEntityStore") EntityStore<SellerConversation> entityStore,
+	@Bean GenericEntryAction<SellerConversation> sellerconversationEntryAction(@Qualifier("sellerconversationEntityStore") EntityStore<SellerConversation> entityStore,
 			@Qualifier("sellerconversationActionsInfoProvider") STMActionsInfoProvider sellerconversationInfoProvider,
             @Qualifier("sellerconversationFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerConversation> entryAction =  new GenericEntryAction<SellerConversation>(entityStore,sellerconversationInfoProvider);
@@ -101,13 +101,13 @@ public class SellerConversationConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector sellerconversationBodyTypeSelector(
+    @Bean StmBodyTypeSelector sellerconversationBodyTypeSelector(
     @Qualifier("sellerconversationActionsInfoProvider") STMActionsInfoProvider sellerconversationInfoProvider,
     @Qualifier("sellerconversationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(sellerconversationInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerConversation> sellerconversationBaseTransitionAction(
+    @Bean STMTransitionAction<SellerConversation> sellerconversationBaseTransitionAction(
         @Qualifier("sellerconversationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,44 +122,33 @@ public class SellerConversationConfiguration {
     // segment in src/main/resources/com/handmade/sellerconversation/sellerconversation-states.xml
 
     @Bean ReopenSellerConversationAction
-            sellerconversationReopen(){
+            reopenSellerConversationAction(){
         return new ReopenSellerConversationAction();
     }
     @Bean CustomerReplySellerConversationAction
-            sellerconversationCustomerReply(){
+            customerReplySellerConversationAction(){
         return new CustomerReplySellerConversationAction();
     }
     @Bean CloseSellerConversationAction
-            sellerconversationClose(){
+            closeSellerConversationAction(){
         return new CloseSellerConversationAction();
     }
     @Bean RespondSellerConversationAction
-            sellerconversationRespond(){
+            respondSellerConversationAction(){
         return new RespondSellerConversationAction();
     }
-    @Bean CloseSellerConversationAction
-            sellerconversationClose(){
-        return new CloseSellerConversationAction();
-    }
+
     @Bean EscalateSellerConversationAction
-            sellerconversationEscalate(){
+            escalateSellerConversationAction(){
         return new EscalateSellerConversationAction();
     }
-    @Bean CloseSellerConversationAction
-            sellerconversationClose(){
-        return new CloseSellerConversationAction();
-    }
     @Bean AssignSellerConversationAction
-            sellerconversationAssign(){
+            assignSellerConversationAction(){
         return new AssignSellerConversationAction();
     }
     @Bean ResolveSellerConversationAction
-            sellerconversationResolve(){
+            resolveSellerConversationAction(){
         return new ResolveSellerConversationAction();
-    }
-    @Bean CloseSellerConversationAction
-            sellerconversationClose(){
-        return new CloseSellerConversationAction();
     }
 
 

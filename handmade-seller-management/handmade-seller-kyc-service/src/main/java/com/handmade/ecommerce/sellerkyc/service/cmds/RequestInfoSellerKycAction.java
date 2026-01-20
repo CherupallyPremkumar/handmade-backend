@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.seller.model.SellerKyc;
-import com.handmade.ecommerce.seller.model. RequestInfoSellerKycPayload;
+import com.handmade.ecommerce.seller.dto.RequestInfoSellerKycPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.seller.model. RequestInfoSellerKycPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RequestInfoSellerKycAction extends AbstractSTMTransitionAction<SellerKyc,
-    RequestInfoSellerKycPayload>{
+               RequestInfoSellerKycPayload>{
 
 	@Override
 	public void transitionTo(SellerKyc sellerkyc,

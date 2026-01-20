@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="sellerStoreFlow" default="true">
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.seller.dto.ApproveSellerStorePayload"/>
+    <event-information eventId="publish" meta-bodyType="com.handmade.ecommerce.seller.dto.PublishSellerStorePayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.seller.dto.ReactivateSellerStorePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.seller.dto.RejectSellerStorePayload"/>
+    <event-information eventId="republish" meta-bodyType="com.handmade.ecommerce.seller.dto.RepublishSellerStorePayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.seller.dto.SubmitSellerStorePayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.seller.dto.SuspendSellerStorePayload"/>
+    <event-information eventId="unpublish" meta-bodyType="com.handmade.ecommerce.seller.dto.UnpublishSellerStorePayload"/>
+
+    <flow id="HM_SELLER_STORE_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submit" newStateId="REVIEW" componentName="sellerStoreSubmitAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.sellerstore.service.cmds.SubmitSellerStoreAction"/>
         </manual-state>
 
         <manual-state id="REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="sellerStoreApproveAction"/>
-            <on eventId="reject" newStateId="DRAFT" componentName="sellerStoreRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.ApproveSellerStoreAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.sellerstore.service.cmds.RejectSellerStoreAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="publish" newStateId="PUBLISHED" componentName="sellerStorePublishAction"/>
+            <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.PublishSellerStoreAction"/>
         </manual-state>
 
         <manual-state id="PUBLISHED">
-            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="sellerStoreUnpublishAction"/>
-            <on eventId="suspend" newStateId="SUSPENDED" componentName="sellerStoreSuspendAction"/>
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.UnpublishSellerStoreAction"/>
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.SuspendSellerStoreAction"/>
         </manual-state>
 
         <manual-state id="UNPUBLISHED">
-            <on eventId="republish" newStateId="PUBLISHED" componentName="sellerStoreRepublishAction"/>
+            <on eventId="republish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.RepublishSellerStoreAction"/>
         </manual-state>
 
         <manual-state id="SUSPENDED">
-            <on eventId="reactivate" newStateId="PUBLISHED" componentName="sellerStoreReactivateAction"/>
+            <on eventId="reactivate" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.sellerstore.service.cmds.ReactivateSellerStoreAction"/>
         </manual-state>
     </flow>
 </states>

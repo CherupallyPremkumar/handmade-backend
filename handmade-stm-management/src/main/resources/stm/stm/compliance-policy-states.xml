@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="compliancePolicyFlow" default="true">
+    <flow id="HM_COMPLIANCE_POLICY_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
             <on eventId="submit" newStateId="REVIEW" componentName="compliancePolicySubmitAction"/>
         </manual-state>

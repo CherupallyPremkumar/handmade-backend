@@ -11,6 +11,8 @@
             default_effect as "defaultEffect",
             owner_service as "ownerService",
             is_active as "isActive",
+            flow_id as "flowId",
+            state_id as "stateId",
             created_by as "createdBy",
             created_time as "createdAt",
             last_modified_time as "updatedAt"

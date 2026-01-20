@@ -40,13 +40,13 @@ public class AuditProcessConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<AuditProcess> auditprocessEntityStm(@Qualifier("auditprocessFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<AuditProcess> auditprocessEntityStm(@Qualifier("auditprocessFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<AuditProcess> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider auditprocessActionsInfoProvider(@Qualifier("auditprocessFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider auditprocessActionsInfoProvider(@Qualifier("auditprocessFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("auditprocess",provider);
         return provider;
@@ -56,7 +56,7 @@ public class AuditProcessConfiguration {
 		return new AuditProcessEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<AuditProcess> _auditprocessStateEntityService_(
+	@Bean StateEntityServiceImpl<AuditProcess> _auditprocessStateEntityService_(
 			@Qualifier("auditprocessEntityStm") STM<AuditProcess> stm,
 			@Qualifier("auditprocessActionsInfoProvider") STMActionsInfoProvider auditprocessInfoProvider,
 			@Qualifier("auditprocessEntityStore") EntityStore<AuditProcess> entityStore){
@@ -65,7 +65,7 @@ public class AuditProcessConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<AuditProcess> auditprocessEntryAction(@Qualifier("auditprocessEntityStore") EntityStore<AuditProcess> entityStore,
+	@Bean GenericEntryAction<AuditProcess> auditprocessEntryAction(@Qualifier("auditprocessEntityStore") EntityStore<AuditProcess> entityStore,
 			@Qualifier("auditprocessActionsInfoProvider") STMActionsInfoProvider auditprocessInfoProvider,
             @Qualifier("auditprocessFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<AuditProcess> entryAction =  new GenericEntryAction<AuditProcess>(entityStore,auditprocessInfoProvider);
@@ -101,13 +101,13 @@ public class AuditProcessConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector auditprocessBodyTypeSelector(
+    @Bean StmBodyTypeSelector auditprocessBodyTypeSelector(
     @Qualifier("auditprocessActionsInfoProvider") STMActionsInfoProvider auditprocessInfoProvider,
     @Qualifier("auditprocessTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(auditprocessInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<AuditProcess> auditprocessBaseTransitionAction(
+    @Bean STMTransitionAction<AuditProcess> auditprocessBaseTransitionAction(
         @Qualifier("auditprocessTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

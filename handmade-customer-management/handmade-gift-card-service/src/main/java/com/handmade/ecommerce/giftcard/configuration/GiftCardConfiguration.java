@@ -40,13 +40,13 @@ public class GiftCardConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<GiftCard> giftcardEntityStm(@Qualifier("giftcardFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<GiftCard> giftcardEntityStm(@Qualifier("giftcardFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<GiftCard> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider giftcardActionsInfoProvider(@Qualifier("giftcardFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider giftcardActionsInfoProvider(@Qualifier("giftcardFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("giftcard",provider);
         return provider;
@@ -56,7 +56,7 @@ public class GiftCardConfiguration {
 		return new GiftCardEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<GiftCard> _giftcardStateEntityService_(
+	@Bean StateEntityServiceImpl<GiftCard> _giftcardStateEntityService_(
 			@Qualifier("giftcardEntityStm") STM<GiftCard> stm,
 			@Qualifier("giftcardActionsInfoProvider") STMActionsInfoProvider giftcardInfoProvider,
 			@Qualifier("giftcardEntityStore") EntityStore<GiftCard> entityStore){
@@ -65,7 +65,7 @@ public class GiftCardConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<GiftCard> giftcardEntryAction(@Qualifier("giftcardEntityStore") EntityStore<GiftCard> entityStore,
+	@Bean GenericEntryAction<GiftCard> giftcardEntryAction(@Qualifier("giftcardEntityStore") EntityStore<GiftCard> entityStore,
 			@Qualifier("giftcardActionsInfoProvider") STMActionsInfoProvider giftcardInfoProvider,
             @Qualifier("giftcardFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<GiftCard> entryAction =  new GenericEntryAction<GiftCard>(entityStore,giftcardInfoProvider);
@@ -101,13 +101,13 @@ public class GiftCardConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector giftcardBodyTypeSelector(
+    @Bean StmBodyTypeSelector giftcardBodyTypeSelector(
     @Qualifier("giftcardActionsInfoProvider") STMActionsInfoProvider giftcardInfoProvider,
     @Qualifier("giftcardTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(giftcardInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<GiftCard> giftcardBaseTransitionAction(
+    @Bean STMTransitionAction<GiftCard> giftcardBaseTransitionAction(
         @Qualifier("giftcardTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,15 +122,15 @@ public class GiftCardConfiguration {
     // segment in src/main/resources/com/handmade/giftcard/giftcard-states.xml
 
     @Bean ActivateGiftCardAction
-            giftcardActivate(){
+            activateGiftCardAction(){
         return new ActivateGiftCardAction();
     }
     @Bean ExpireGiftCardAction
-            giftcardExpire(){
+            expireGiftCardAction(){
         return new ExpireGiftCardAction();
     }
     @Bean RedeemGiftCardAction
-            giftcardRedeem(){
+            redeemGiftCardAction(){
         return new RedeemGiftCardAction();
     }
 

@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.offer.dto.ActivatePriceRulePayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.offer.dto.ApprovePriceRulePayload"/>
+    <event-information eventId="deactivate" meta-bodyType="com.handmade.ecommerce.offer.dto.DeactivatePriceRulePayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.offer.dto.DeprecatePriceRulePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.offer.dto.RejectPriceRulePayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.offer.dto.SubmitPriceRulePayload"/>
+
     <flow id="priceRuleFlow" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submit" newStateId="REVIEW" componentName="priceRuleSubmitAction"/>
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.pricerule.service.cmds.SubmitPriceRuleAction"/>
         </manual-state>
 
         <manual-state id="REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="priceRuleApproveAction"/>
-            <on eventId="reject" newStateId="DRAFT" componentName="priceRuleRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.pricerule.service.cmds.ApprovePriceRuleAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.pricerule.service.cmds.RejectPriceRuleAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="activate" newStateId="ACTIVE" componentName="priceRuleActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.pricerule.service.cmds.ActivatePriceRuleAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="deactivate" newStateId="INACTIVE" componentName="priceRuleDeactivateAction"/>
-            <on eventId="deprecate" newStateId="DEPRECATED" componentName="priceRuleDeprecateAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="com.handmade.ecommerce.pricerule.service.cmds.DeactivatePriceRuleAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="com.handmade.ecommerce.pricerule.service.cmds.DeprecatePriceRuleAction"/>
         </manual-state>
 
         <manual-state id="INACTIVE">
-            <on eventId="activate" newStateId="ACTIVE" componentName="priceRuleReactivateAction"/>
-            <on eventId="deprecate" newStateId="DEPRECATED" componentName="priceRuleDeprecateFromInactiveAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.pricerule.service.cmds.ActivatePriceRuleAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="com.handmade.ecommerce.pricerule.service.cmds.DeprecatePriceRuleAction"/>
         </manual-state>
 
         <manual-state id="DEPRECATED" meta-endState="true"/>

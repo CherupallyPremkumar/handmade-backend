@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="assign" meta-bodyType="com.handmade.ecommerce.support.dto.AssignSupportCasePayload"/>
+    <event-information eventId="awaitCustomer" meta-bodyType="com.handmade.ecommerce.support.dto.AwaitCustomerSupportCasePayload"/>
+    <event-information eventId="close" meta-bodyType="com.handmade.ecommerce.support.dto.CloseSupportCasePayload"/>
+    <event-information eventId="escalate" meta-bodyType="com.handmade.ecommerce.support.dto.EscalateSupportCasePayload"/>
+    <event-information eventId="investigate" meta-bodyType="com.handmade.ecommerce.support.dto.InvestigateSupportCasePayload"/>
+    <event-information eventId="reassign" meta-bodyType="com.handmade.ecommerce.support.dto.ReassignSupportCasePayload"/>
+    <event-information eventId="reopen" meta-bodyType="com.handmade.ecommerce.support.dto.ReopenSupportCasePayload"/>
+    <event-information eventId="resolve" meta-bodyType="com.handmade.ecommerce.support.dto.ResolveSupportCasePayload"/>
+    <event-information eventId="respond" meta-bodyType="com.handmade.ecommerce.support.dto.RespondSupportCasePayload"/>
+
     <flow id="supportCaseFlow" default="true">
         <manual-state id="OPEN" initialState="true">
-            <on eventId="assign" newStateId="ASSIGNED" componentName="supportCaseAssignAction"/>
+            <on eventId="assign" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.supportcase.service.cmds.AssignSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="ASSIGNED">
-            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="supportCaseInvestigateAction"/>
-            <on eventId="reassign" newStateId="ASSIGNED" componentName="supportCaseReassignAction"/>
+            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.supportcase.service.cmds.InvestigateSupportCaseAction"/>
+            <on eventId="reassign" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.supportcase.service.cmds.ReassignSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="awaitCustomer" newStateId="AWAITING_CUSTOMER" componentName="supportCaseAwaitCustomerAction"/>
-            <on eventId="escalate" newStateId="ESCALATED" componentName="supportCaseEscalateAction"/>
-            <on eventId="resolve" newStateId="RESOLVED" componentName="supportCaseResolveAction"/>
+            <on eventId="awaitCustomer" newStateId="AWAITING_CUSTOMER" componentName="com.handmade.ecommerce.supportcase.service.cmds.AwaitCustomerSupportCaseAction"/>
+            <on eventId="escalate" newStateId="ESCALATED" componentName="com.handmade.ecommerce.supportcase.service.cmds.EscalateSupportCaseAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="com.handmade.ecommerce.supportcase.service.cmds.ResolveSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="AWAITING_CUSTOMER">
-            <on eventId="respond" newStateId="IN_PROGRESS" componentName="supportCaseRespondAction"/>
+            <on eventId="respond" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.supportcase.service.cmds.RespondSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="ESCALATED">
-            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="supportCaseInvestigateFromEscalatedAction"/>
+            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.supportcase.service.cmds.InvestigateSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="RESOLVED">
-            <on eventId="close" newStateId="CLOSED" componentName="supportCaseCloseAction"/>
-            <on eventId="reopen" newStateId="OPEN" componentName="supportCaseReopenAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.supportcase.service.cmds.CloseSupportCaseAction"/>
+            <on eventId="reopen" newStateId="OPEN" componentName="com.handmade.ecommerce.supportcase.service.cmds.ReopenSupportCaseAction"/>
         </manual-state>
 
         <manual-state id="CLOSED" meta-endState="true"/>

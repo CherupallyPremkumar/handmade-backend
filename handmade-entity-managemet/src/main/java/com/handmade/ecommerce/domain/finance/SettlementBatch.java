@@ -17,9 +17,6 @@ public class SettlementBatch extends AbstractJpaStateEntity {
     @Column(name = "batch_reference", length = 100, nullable = false, unique = true)
     private String batchReference;
 
-    @Column(name = "status", length = 20)
-    private String status = "OPEN";
-
     @Column(name = "start_time", nullable = false)
     private Date startTime;
 

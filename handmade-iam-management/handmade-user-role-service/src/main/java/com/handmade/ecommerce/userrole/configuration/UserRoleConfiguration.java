@@ -40,13 +40,13 @@ public class UserRoleConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<UserRole> userroleEntityStm(@Qualifier("userroleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<UserRole> userroleEntityStm(@Qualifier("userroleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<UserRole> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider userroleActionsInfoProvider(@Qualifier("userroleFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider userroleActionsInfoProvider(@Qualifier("userroleFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("userrole",provider);
         return provider;
@@ -56,7 +56,7 @@ public class UserRoleConfiguration {
 		return new UserRoleEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<UserRole> _userroleStateEntityService_(
+	@Bean StateEntityServiceImpl<UserRole> _userroleStateEntityService_(
 			@Qualifier("userroleEntityStm") STM<UserRole> stm,
 			@Qualifier("userroleActionsInfoProvider") STMActionsInfoProvider userroleInfoProvider,
 			@Qualifier("userroleEntityStore") EntityStore<UserRole> entityStore){
@@ -65,7 +65,7 @@ public class UserRoleConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<UserRole> userroleEntryAction(@Qualifier("userroleEntityStore") EntityStore<UserRole> entityStore,
+	@Bean GenericEntryAction<UserRole> userroleEntryAction(@Qualifier("userroleEntityStore") EntityStore<UserRole> entityStore,
 			@Qualifier("userroleActionsInfoProvider") STMActionsInfoProvider userroleInfoProvider,
             @Qualifier("userroleFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<UserRole> entryAction =  new GenericEntryAction<UserRole>(entityStore,userroleInfoProvider);
@@ -101,13 +101,13 @@ public class UserRoleConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector userroleBodyTypeSelector(
+    @Bean StmBodyTypeSelector userroleBodyTypeSelector(
     @Qualifier("userroleActionsInfoProvider") STMActionsInfoProvider userroleInfoProvider,
     @Qualifier("userroleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(userroleInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<UserRole> userroleBaseTransitionAction(
+    @Bean STMTransitionAction<UserRole> userroleBaseTransitionAction(
         @Qualifier("userroleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,27 +122,24 @@ public class UserRoleConfiguration {
     // segment in src/main/resources/com/handmade/userrole/userrole-states.xml
 
     @Bean SuspendUserRoleAction
-            userroleSuspend(){
+            suspendUserRoleAction(){
         return new SuspendUserRoleAction();
     }
     @Bean RevokeUserRoleAction
-            userroleRevoke(){
+            revokeUserRoleAction(){
         return new RevokeUserRoleAction();
     }
     @Bean ReactivateUserRoleAction
-            userroleReactivate(){
+            reactivateUserRoleAction(){
         return new ReactivateUserRoleAction();
     }
-    @Bean RevokeUserRoleAction
-            userroleRevoke(){
-        return new RevokeUserRoleAction();
-    }
+
     @Bean RejectUserRoleAction
-            userroleReject(){
+            rejectUserRoleAction(){
         return new RejectUserRoleAction();
     }
     @Bean ActivateUserRoleAction
-            userroleActivate(){
+            activateUserRoleAction(){
         return new ActivateUserRoleAction();
     }
 

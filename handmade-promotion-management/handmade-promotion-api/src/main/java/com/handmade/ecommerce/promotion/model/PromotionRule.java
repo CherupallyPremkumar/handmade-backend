@@ -28,7 +28,7 @@ public class PromotionRule extends BaseJpaEntity {
     private String operator; // GT, LT, EQ, IN, CONTAINS
 
     @Lob
-    @Column(name = "value", nullable = false)
+    @Column(name = "rule_value", nullable = false, columnDefinition = "TEXT")
     private String value;
 
     @Column(name = "description", length = 500)

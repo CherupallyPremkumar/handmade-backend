@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.integration.model.ETLJob;
-import com.handmade.ecommerce.integration.model. StartETLJobPayload;
+import com.handmade.ecommerce.integration.dto.StartEtlJobPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,11 +14,11 @@ import com.handmade.ecommerce.integration.model. StartETLJobPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class StartETLJobAction extends AbstractSTMTransitionAction<ETLJob,
-    StartETLJobPayload>{
+               StartEtlJobPayload>{
 
 	@Override
 	public void transitionTo(ETLJob etljob,
-            StartETLJobPayload payload,
+            StartEtlJobPayload payload,
             State startState, String eventId,
 			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
 	}

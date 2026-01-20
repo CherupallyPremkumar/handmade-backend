@@ -1,0 +1,241 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-finance
+      author: antigravity
+      changes:
+        # Delete in correct order to respect foreign keys
+        - delete:
+            tableName: hm_payout
+        - delete:
+            tableName: hm_transaction
+        - delete:
+            tableName: hm_settlement_batch
+        - delete:
+            tableName: hm_finance_profile
+        
+        # Finance Profiles (10)
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-004"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-005"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-007"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-008"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-009"}
+              - column: {name: seller_id, value: "SEL-009"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_finance_profile
+            columns:
+              - column: {name: id, value: "FIN-PR-010"}
+              - column: {name: seller_id, value: "SEL-010"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_FINANCE_PROFILE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Settlement Batches (2)
+        - insert:
+            tableName: hm_settlement_batch
+            columns:
+              - column: {name: id, value: "BAT-001"}
+              - column: {name: batch_reference, value: "BATCH-2024-02-15"}
+              - column: {name: start_time, valueDate: "2024-02-15T00:00:00"}
+              - column: {name: close_time, valueDate: "2024-02-15T23:59:59"}
+              - column: {name: state_id, value: "CLOSED"}
+              - column: {name: flow_id, value: "HM_SETTLEMENT_BATCH_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_settlement_batch
+            columns:
+              - column: {name: id, value: "BAT-002"}
+              - column: {name: batch_reference, value: "BATCH-2024-02-22"}
+              - column: {name: start_time, valueDate: "2024-02-22T00:00:00"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_SETTLEMENT_BATCH_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Financial Transactions (10)
+        - insert:
+            tableName: hm_transaction
+            columns:
+              - column: {name: id, value: "FTX-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: amount, valueNumeric: 25.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: type, value: "PAYMENT"}
+              - column: {name: posted_date, valueDate: "2024-02-15T10:00:00"}
+              - column: {name: state_id, value: "POSTED"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_transaction
+            columns:
+              - column: {name: id, value: "FTX-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: amount, valueNumeric: 45.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: type, value: "PAYMENT"}
+              - column: {name: posted_date, valueDate: "2024-02-15T10:00:00"}
+              - column: {name: state_id, value: "POSTED"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Payouts (10)
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: amount, valueNumeric: 250.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: amount, valueNumeric: 450.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+
+              - column: {name: amount, valueNumeric: 1200.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-004"}
+              - column: {name: seller_id, value: "SEL-004"}
+
+              - column: {name: amount, valueNumeric: 350.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-005"}
+              - column: {name: seller_id, value: "SEL-005"}
+
+              - column: {name: amount, valueNumeric: 750.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+
+              - column: {name: amount, valueNumeric: 150.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-007"}
+              - column: {name: seller_id, value: "SEL-007"}
+
+              - column: {name: amount, valueNumeric: 400.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-008"}
+              - column: {name: seller_id, value: "SEL-008"}
+
+              - column: {name: amount, valueNumeric: 600.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-009"}
+              - column: {name: seller_id, value: "SEL-009"}
+
+              - column: {name: amount, valueNumeric: 850.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout
+            columns:
+              - column: {name: id, value: "PO-010"}
+              - column: {name: seller_id, value: "SEL-010"}
+
+              - column: {name: amount, valueNumeric: 300.00}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_PAYOUT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

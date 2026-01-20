@@ -1,0 +1,133 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-qa
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_product_answer
+        - delete:
+            tableName: hm_product_question
+        
+        # Questions (10)
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: question_text, value: "Is this mug microwave safe?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-002"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: customer_id, value: "CUST-002"}
+              - column: {name: question_text, value: "What is the exact width of the scarf?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-003"}
+              - column: {name: product_id, value: "PROD-003"}
+              - column: {name: customer_id, value: "CUST-003"}
+              - column: {name: question_text, value: "Can I customize the wood finish?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-004"}
+              - column: {name: product_id, value: "PROD-004"}
+              - column: {name: customer_id, value: "CUST-004"}
+              - column: {name: question_text, value: "How many bowls are in a set?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-005"}
+              - column: {name: product_id, value: "PROD-005"}
+              - column: {name: customer_id, value: "CUST-005"}
+              - column: {name: question_text, value: "Does the leather patina over time?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-006"}
+              - column: {name: product_id, value: "PROD-006"}
+              - column: {name: customer_id, value: "CUST-006"}
+              - column: {name: question_text, value: "What is the burn time for this candle?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-007"}
+              - column: {name: product_id, value: "PROD-007"}
+              - column: {name: customer_id, value: "CUST-007"}
+              - column: {name: question_text, value: "Is the board pre-seasoned?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-008"}
+              - column: {name: product_id, value: "PROD-008"}
+              - column: {name: customer_id, value: "CUST-008"}
+              - column: {name: question_text, value: "Is this hand-blown glass?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-009"}
+              - column: {name: product_id, value: "PROD-009"}
+              - column: {name: customer_id, value: "CUST-009"}
+              - column: {name: question_text, value: "Is the wool ethically sourced?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_question
+            columns:
+              - column: {name: id, value: "QST-010"}
+              - column: {name: product_id, value: "PROD-010"}
+              - column: {name: customer_id, value: "CUST-010"}
+              - column: {name: question_text, value: "What paper is used for the print?"}
+              - column: {name: state_id, value: "APPROVED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_QUESTION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Answers (10)
+        - insert:
+            tableName: hm_product_answer
+            columns:
+              - column: {name: id, value: "ANS-001"}
+              - column: {name: question_id, value: "QST-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: answer_text, value: "Yes, it is microwave and dishwasher safe."}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_ANSWER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_answer
+            columns:
+              - column: {name: id, value: "ANS-002"}
+              - column: {name: question_id, value: "QST-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: answer_text, value: "The scarf is 22 inches wide and 70 inches long."}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_PRODUCT_ANSWER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

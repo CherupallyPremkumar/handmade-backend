@@ -40,13 +40,13 @@ public class ComplianceDocumentConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ComplianceDocument> compliancedocumentEntityStm(@Qualifier("compliancedocumentFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ComplianceDocument> compliancedocumentEntityStm(@Qualifier("compliancedocumentFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ComplianceDocument> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider compliancedocumentActionsInfoProvider(@Qualifier("compliancedocumentFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider compliancedocumentActionsInfoProvider(@Qualifier("compliancedocumentFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("compliancedocument",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ComplianceDocumentConfiguration {
 		return new ComplianceDocumentEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ComplianceDocument> _compliancedocumentStateEntityService_(
+	@Bean StateEntityServiceImpl<ComplianceDocument> _compliancedocumentStateEntityService_(
 			@Qualifier("compliancedocumentEntityStm") STM<ComplianceDocument> stm,
 			@Qualifier("compliancedocumentActionsInfoProvider") STMActionsInfoProvider compliancedocumentInfoProvider,
 			@Qualifier("compliancedocumentEntityStore") EntityStore<ComplianceDocument> entityStore){
@@ -65,7 +65,7 @@ public class ComplianceDocumentConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ComplianceDocument> compliancedocumentEntryAction(@Qualifier("compliancedocumentEntityStore") EntityStore<ComplianceDocument> entityStore,
+	@Bean GenericEntryAction<ComplianceDocument> compliancedocumentEntryAction(@Qualifier("compliancedocumentEntityStore") EntityStore<ComplianceDocument> entityStore,
 			@Qualifier("compliancedocumentActionsInfoProvider") STMActionsInfoProvider compliancedocumentInfoProvider,
             @Qualifier("compliancedocumentFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ComplianceDocument> entryAction =  new GenericEntryAction<ComplianceDocument>(entityStore,compliancedocumentInfoProvider);
@@ -101,13 +101,13 @@ public class ComplianceDocumentConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector compliancedocumentBodyTypeSelector(
+    @Bean StmBodyTypeSelector compliancedocumentBodyTypeSelector(
     @Qualifier("compliancedocumentActionsInfoProvider") STMActionsInfoProvider compliancedocumentInfoProvider,
     @Qualifier("compliancedocumentTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(compliancedocumentInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ComplianceDocument> compliancedocumentBaseTransitionAction(
+    @Bean STMTransitionAction<ComplianceDocument> compliancedocumentBaseTransitionAction(
         @Qualifier("compliancedocumentTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

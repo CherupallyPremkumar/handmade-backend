@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="paymentRefundTransactionFlow" default="true">
+    <flow id="HM_PAYMENT_REFUND_TRANSACTION_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="process" newStateId="PROCESSING" componentName="paymentRefundTransactionProcessAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="paymentRefundTransactionCancelAction"/>

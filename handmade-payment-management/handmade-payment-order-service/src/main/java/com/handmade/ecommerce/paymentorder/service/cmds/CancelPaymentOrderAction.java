@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.payment.model.PaymentOrder;
-import com.handmade.ecommerce.payment.model. CancelPaymentOrderPayload;
+import com.handmade.ecommerce.payment.dto.CancelPaymentOrderPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,33 +14,7 @@ import com.handmade.ecommerce.payment.model. CancelPaymentOrderPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class CancelPaymentOrderAction extends AbstractSTMTransitionAction<PaymentOrder,
-    CancelPaymentOrderPayload>{
-
-	@Override
-	public void transitionTo(PaymentOrder paymentorder,
-            CancelPaymentOrderPayload payload,
-            State startState, String eventId,
-			State endState, STMInternalTransitionInvoker<?> stm, Transition transition) throws Exception {
-	}
-
-}
-package com.handmade.ecommerce.paymentorder.service.cmds;
-
-import org.chenile.stm.STMInternalTransitionInvoker;
-import org.chenile.stm.State;
-import org.chenile.stm.model.Transition;
-
-import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
-import com.handmade.ecommerce.payment.model.PaymentOrder;
-import com.handmade.ecommerce.payment.model. CancelPaymentOrderPayload;
-
-/**
- Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
- <p>Use this class if you want to augment the common logic for this specific transition</p>
- <p>Use a customized payload if required instead of MinimalPayload</p>
-*/
-public class CancelPaymentOrderAction extends AbstractSTMTransitionAction<PaymentOrder,
-    CancelPaymentOrderPayload>{
+               CancelPaymentOrderPayload>{
 
 	@Override
 	public void transitionTo(PaymentOrder paymentorder,

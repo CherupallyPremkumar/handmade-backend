@@ -40,13 +40,13 @@ public class SubscriptionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Subscription> subscriptionEntityStm(@Qualifier("subscriptionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Subscription> subscriptionEntityStm(@Qualifier("subscriptionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Subscription> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider subscriptionActionsInfoProvider(@Qualifier("subscriptionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider subscriptionActionsInfoProvider(@Qualifier("subscriptionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("subscription",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SubscriptionConfiguration {
 		return new SubscriptionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Subscription> _subscriptionStateEntityService_(
+	@Bean StateEntityServiceImpl<Subscription> _subscriptionStateEntityService_(
 			@Qualifier("subscriptionEntityStm") STM<Subscription> stm,
 			@Qualifier("subscriptionActionsInfoProvider") STMActionsInfoProvider subscriptionInfoProvider,
 			@Qualifier("subscriptionEntityStore") EntityStore<Subscription> entityStore){
@@ -65,7 +65,7 @@ public class SubscriptionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Subscription> subscriptionEntryAction(@Qualifier("subscriptionEntityStore") EntityStore<Subscription> entityStore,
+	@Bean GenericEntryAction<Subscription> subscriptionEntryAction(@Qualifier("subscriptionEntityStore") EntityStore<Subscription> entityStore,
 			@Qualifier("subscriptionActionsInfoProvider") STMActionsInfoProvider subscriptionInfoProvider,
             @Qualifier("subscriptionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Subscription> entryAction =  new GenericEntryAction<Subscription>(entityStore,subscriptionInfoProvider);
@@ -101,13 +101,13 @@ public class SubscriptionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector subscriptionBodyTypeSelector(
+    @Bean StmBodyTypeSelector subscriptionBodyTypeSelector(
     @Qualifier("subscriptionActionsInfoProvider") STMActionsInfoProvider subscriptionInfoProvider,
     @Qualifier("subscriptionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(subscriptionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Subscription> subscriptionBaseTransitionAction(
+    @Bean STMTransitionAction<Subscription> subscriptionBaseTransitionAction(
         @Qualifier("subscriptionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

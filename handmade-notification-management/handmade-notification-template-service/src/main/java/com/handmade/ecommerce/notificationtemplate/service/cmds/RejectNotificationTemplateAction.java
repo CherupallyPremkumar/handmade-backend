@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.notification.model.NotificationTemplate;
-import com.handmade.ecommerce.notification.model. RejectNotificationTemplatePayload;
+import com.handmade.ecommerce.notification.dto.RejectNotificationTemplatePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.notification.model. RejectNotificationTemplatePayl
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectNotificationTemplateAction extends AbstractSTMTransitionAction<NotificationTemplate,
-    RejectNotificationTemplatePayload>{
+               RejectNotificationTemplatePayload>{
 
 	@Override
 	public void transitionTo(NotificationTemplate notificationtemplate,

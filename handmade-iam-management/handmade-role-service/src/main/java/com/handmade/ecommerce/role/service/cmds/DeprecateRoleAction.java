@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.iam.model.Role;
-import com.handmade.ecommerce.iam.model. DeprecateRolePayload;
+import com.handmade.ecommerce.iam.dto.DeprecateRolePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.iam.model. DeprecateRolePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class DeprecateRoleAction extends AbstractSTMTransitionAction<Role,
-    DeprecateRolePayload>{
+               DeprecateRolePayload>{
 
 	@Override
 	public void transitionTo(Role role,

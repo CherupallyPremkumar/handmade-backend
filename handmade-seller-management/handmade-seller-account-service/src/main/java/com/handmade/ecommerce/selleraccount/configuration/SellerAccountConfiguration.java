@@ -40,13 +40,13 @@ public class SellerAccountConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerAccount> selleraccountEntityStm(@Qualifier("selleraccountFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerAccount> selleraccountEntityStm(@Qualifier("selleraccountFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerAccount> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider selleraccountActionsInfoProvider(@Qualifier("selleraccountFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider selleraccountActionsInfoProvider(@Qualifier("selleraccountFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("selleraccount",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerAccountConfiguration {
 		return new SellerAccountEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerAccount> _selleraccountStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerAccount> _selleraccountStateEntityService_(
 			@Qualifier("selleraccountEntityStm") STM<SellerAccount> stm,
 			@Qualifier("selleraccountActionsInfoProvider") STMActionsInfoProvider selleraccountInfoProvider,
 			@Qualifier("selleraccountEntityStore") EntityStore<SellerAccount> entityStore){
@@ -65,7 +65,7 @@ public class SellerAccountConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerAccount> selleraccountEntryAction(@Qualifier("selleraccountEntityStore") EntityStore<SellerAccount> entityStore,
+	@Bean GenericEntryAction<SellerAccount> selleraccountEntryAction(@Qualifier("selleraccountEntityStore") EntityStore<SellerAccount> entityStore,
 			@Qualifier("selleraccountActionsInfoProvider") STMActionsInfoProvider selleraccountInfoProvider,
             @Qualifier("selleraccountFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerAccount> entryAction =  new GenericEntryAction<SellerAccount>(entityStore,selleraccountInfoProvider);
@@ -101,13 +101,13 @@ public class SellerAccountConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector selleraccountBodyTypeSelector(
+    @Bean StmBodyTypeSelector selleraccountBodyTypeSelector(
     @Qualifier("selleraccountActionsInfoProvider") STMActionsInfoProvider selleraccountInfoProvider,
     @Qualifier("selleraccountTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(selleraccountInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerAccount> selleraccountBaseTransitionAction(
+    @Bean STMTransitionAction<SellerAccount> selleraccountBaseTransitionAction(
         @Qualifier("selleraccountTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,31 +122,28 @@ public class SellerAccountConfiguration {
     // segment in src/main/resources/com/handmade/selleraccount/selleraccount-states.xml
 
     @Bean SuspendSellerAccountAction
-            selleraccountSuspend(){
+            suspendSellerAccountAction(){
         return new SuspendSellerAccountAction();
     }
-    @Bean DeactivateSellerAccountAction
-            selleraccountDeactivate(){
-        return new DeactivateSellerAccountAction();
-    }
+
     @Bean CloseSellerAccountAction
-            selleraccountClose(){
+            closeSellerAccountAction(){
         return new CloseSellerAccountAction();
     }
     @Bean ReactivateSellerAccountAction
-            selleraccountReactivate(){
+            reactivateSellerAccountAction(){
         return new ReactivateSellerAccountAction();
     }
     @Bean DeactivateSellerAccountAction
-            selleraccountDeactivate(){
+            deactivateSellerAccountAction(){
         return new DeactivateSellerAccountAction();
     }
     @Bean VerifySellerAccountAction
-            selleraccountVerify(){
+            verifySellerAccountAction(){
         return new VerifySellerAccountAction();
     }
     @Bean ActivateSellerAccountAction
-            selleraccountActivate(){
+    activateSellerAccountAction(){
         return new ActivateSellerAccountAction();
     }
 

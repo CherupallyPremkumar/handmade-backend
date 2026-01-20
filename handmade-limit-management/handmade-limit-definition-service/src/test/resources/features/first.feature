@@ -7,14 +7,16 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/limitdefinition" with payload
 """json
 {
-    "description": "Description"
+    "limitKey": "DAILY_ORDER_LIMIT",
+    "resourceType": "API",
+    "description": "Daily order limit for sellers"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.limitKey" is "DAILY_ORDER_LIMIT"
 
 Scenario: Retrieve the limitdefinition that just got created
 When I GET a REST request to URL "/limitdefinition/${id}"

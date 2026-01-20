@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.seller.dto.ApproveSellerKycPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.seller.dto.RejectSellerKycPayload"/>
+    <event-information eventId="requestInfo" meta-bodyType="com.handmade.ecommerce.seller.dto.RequestInfoSellerKycPayload"/>
+    <event-information eventId="resubmit" meta-bodyType="com.handmade.ecommerce.seller.dto.ResubmitSellerKycPayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.seller.dto.ReviewSellerKycPayload"/>
+
     <flow id="sellerKycFlow" default="true">
         <manual-state id="SUBMITTED" initialState="true">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="sellerKycReviewAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.sellerkyc.service.cmds.ReviewSellerKycAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="sellerKycApproveAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="sellerKycRejectAction"/>
-            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="sellerKycRequestInfoAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.sellerkyc.service.cmds.ApproveSellerKycAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.sellerkyc.service.cmds.RejectSellerKycAction"/>
+            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="com.handmade.ecommerce.sellerkyc.service.cmds.RequestInfoSellerKycAction"/>
         </manual-state>
 
         <manual-state id="INFO_REQUESTED">
-            <on eventId="resubmit" newStateId="UNDER_REVIEW" componentName="sellerKycResubmitAction"/>
+            <on eventId="resubmit" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.sellerkyc.service.cmds.ResubmitSellerKycAction"/>
         </manual-state>
 
         <manual-state id="APPROVED" meta-endState="true"/>

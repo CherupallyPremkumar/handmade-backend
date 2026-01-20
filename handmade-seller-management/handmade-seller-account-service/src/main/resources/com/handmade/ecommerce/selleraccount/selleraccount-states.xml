@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="sellerAccountFlow" default="true">
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.seller.dto.ActivateSellerAccountPayload"/>
+    <event-information eventId="close" meta-bodyType="com.handmade.ecommerce.seller.dto.CloseSellerAccountPayload"/>
+    <event-information eventId="deactivate" meta-bodyType="com.handmade.ecommerce.seller.dto.DeactivateSellerAccountPayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.seller.dto.ReactivateSellerAccountPayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.seller.dto.SuspendSellerAccountPayload"/>
+    <event-information eventId="verify" meta-bodyType="com.handmade.ecommerce.seller.dto.VerifySellerAccountPayload"/>
+
+    <flow id="HM_SELLER_ACCOUNT_FLOW" default="true">
         <manual-state id="REGISTERED" initialState="true">
-            <on eventId="verify" newStateId="VERIFIED" componentName="sellerAccountVerifyAction"/>
+            <on eventId="verify" newStateId="VERIFIED" componentName="com.handmade.ecommerce.selleraccount.service.cmds.VerifySellerAccountAction"/>
         </manual-state>
 
         <manual-state id="VERIFIED">
-            <on eventId="activate" newStateId="ACTIVE" componentName="sellerAccountActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.selleraccount.service.cmds.ActivateSellerAccountAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="suspend" newStateId="SUSPENDED" componentName="sellerAccountSuspendAction"/>
-            <on eventId="deactivate" newStateId="INACTIVE" componentName="sellerAccountDeactivateAction"/>
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="com.handmade.ecommerce.selleraccount.service.cmds.SuspendSellerAccountAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="com.handmade.ecommerce.selleraccount.service.cmds.DeactivateSellerAccountAction"/>
         </manual-state>
 
         <manual-state id="SUSPENDED">
-            <on eventId="reactivate" newStateId="ACTIVE" componentName="sellerAccountReactivateAction"/>
-            <on eventId="deactivate" newStateId="INACTIVE" componentName="sellerAccountDeactivateFromSuspendedAction"/>
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.selleraccount.service.cmds.ReactivateSellerAccountAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="com.handmade.ecommerce.selleraccount.service.cmds.DeactivateSellerAccountAction"/>
         </manual-state>
 
         <manual-state id="INACTIVE">
-            <on eventId="close" newStateId="CLOSED" componentName="sellerAccountCloseAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.selleraccount.service.cmds.CloseSellerAccountAction"/>
         </manual-state>
 
         <manual-state id="CLOSED" meta-endState="true"/>

@@ -67,7 +67,7 @@ public class AutomatedEntityIntegrationTest {
     }
     
     @SpringBootApplication(scanBasePackages = "com.handmade.ecommerce")
-    @org.springframework.boot.autoconfigure.domain.EntityScan(basePackages = "com.handmade.ecommerce")
+    @org.springframework.boot.persistence.autoconfigure.EntityScan(basePackages = "com.handmade.ecommerce")
     static class TestConfig {
         // Minimal app to bootstrap the test context
     }

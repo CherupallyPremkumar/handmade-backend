@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.logistics.model.DeliveryAttempt;
-import com.handmade.ecommerce.logistics.model. FailDeliveryAttemptPayload;
+import com.handmade.ecommerce.logistics.dto.FailDeliveryAttemptPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.logistics.model. FailDeliveryAttemptPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class FailDeliveryAttemptAction extends AbstractSTMTransitionAction<DeliveryAttempt,
-    FailDeliveryAttemptPayload>{
+               FailDeliveryAttemptPayload>{
 
 	@Override
 	public void transitionTo(DeliveryAttempt deliveryattempt,

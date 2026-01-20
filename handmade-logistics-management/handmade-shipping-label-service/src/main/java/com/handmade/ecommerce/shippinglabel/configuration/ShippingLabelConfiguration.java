@@ -40,13 +40,13 @@ public class ShippingLabelConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ShippingLabel> shippinglabelEntityStm(@Qualifier("shippinglabelFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ShippingLabel> shippinglabelEntityStm(@Qualifier("shippinglabelFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ShippingLabel> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider shippinglabelActionsInfoProvider(@Qualifier("shippinglabelFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider shippinglabelActionsInfoProvider(@Qualifier("shippinglabelFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("shippinglabel",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ShippingLabelConfiguration {
 		return new ShippingLabelEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ShippingLabel> _shippinglabelStateEntityService_(
+	@Bean StateEntityServiceImpl<ShippingLabel> _shippinglabelStateEntityService_(
 			@Qualifier("shippinglabelEntityStm") STM<ShippingLabel> stm,
 			@Qualifier("shippinglabelActionsInfoProvider") STMActionsInfoProvider shippinglabelInfoProvider,
 			@Qualifier("shippinglabelEntityStore") EntityStore<ShippingLabel> entityStore){
@@ -65,7 +65,7 @@ public class ShippingLabelConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ShippingLabel> shippinglabelEntryAction(@Qualifier("shippinglabelEntityStore") EntityStore<ShippingLabel> entityStore,
+	@Bean GenericEntryAction<ShippingLabel> shippinglabelEntryAction(@Qualifier("shippinglabelEntityStore") EntityStore<ShippingLabel> entityStore,
 			@Qualifier("shippinglabelActionsInfoProvider") STMActionsInfoProvider shippinglabelInfoProvider,
             @Qualifier("shippinglabelFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ShippingLabel> entryAction =  new GenericEntryAction<ShippingLabel>(entityStore,shippinglabelInfoProvider);
@@ -101,13 +101,13 @@ public class ShippingLabelConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector shippinglabelBodyTypeSelector(
+    @Bean StmBodyTypeSelector shippinglabelBodyTypeSelector(
     @Qualifier("shippinglabelActionsInfoProvider") STMActionsInfoProvider shippinglabelInfoProvider,
     @Qualifier("shippinglabelTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(shippinglabelInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ShippingLabel> shippinglabelBaseTransitionAction(
+    @Bean STMTransitionAction<ShippingLabel> shippinglabelBaseTransitionAction(
         @Qualifier("shippinglabelTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,19 +122,16 @@ public class ShippingLabelConfiguration {
     // segment in src/main/resources/com/handmade/shippinglabel/shippinglabel-states.xml
 
     @Bean PrintShippingLabelAction
-            shippinglabelPrint(){
+           printShippingLabelAction(){
         return new PrintShippingLabelAction();
     }
+
     @Bean VoidShippingLabelAction
-            shippinglabelVoid(){
-        return new VoidShippingLabelAction();
-    }
-    @Bean VoidShippingLabelAction
-            shippinglabelVoid(){
+            voidShippingLabelAction(){
         return new VoidShippingLabelAction();
     }
     @Bean UseShippingLabelAction
-            shippinglabelUse(){
+            useShippingLabelAction(){
         return new UseShippingLabelAction();
     }
 

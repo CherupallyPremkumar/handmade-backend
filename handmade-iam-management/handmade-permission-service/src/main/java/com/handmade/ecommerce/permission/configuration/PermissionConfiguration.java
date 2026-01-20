@@ -40,13 +40,13 @@ public class PermissionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Permission> permissionEntityStm(@Qualifier("permissionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Permission> permissionEntityStm(@Qualifier("permissionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Permission> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider permissionActionsInfoProvider(@Qualifier("permissionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider permissionActionsInfoProvider(@Qualifier("permissionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("permission",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PermissionConfiguration {
 		return new PermissionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Permission> _permissionStateEntityService_(
+	@Bean StateEntityServiceImpl<Permission> _permissionStateEntityService_(
 			@Qualifier("permissionEntityStm") STM<Permission> stm,
 			@Qualifier("permissionActionsInfoProvider") STMActionsInfoProvider permissionInfoProvider,
 			@Qualifier("permissionEntityStore") EntityStore<Permission> entityStore){
@@ -65,7 +65,7 @@ public class PermissionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Permission> permissionEntryAction(@Qualifier("permissionEntityStore") EntityStore<Permission> entityStore,
+	@Bean GenericEntryAction<Permission> permissionEntryAction(@Qualifier("permissionEntityStore") EntityStore<Permission> entityStore,
 			@Qualifier("permissionActionsInfoProvider") STMActionsInfoProvider permissionInfoProvider,
             @Qualifier("permissionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Permission> entryAction =  new GenericEntryAction<Permission>(entityStore,permissionInfoProvider);
@@ -101,13 +101,13 @@ public class PermissionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector permissionBodyTypeSelector(
+    @Bean StmBodyTypeSelector permissionBodyTypeSelector(
     @Qualifier("permissionActionsInfoProvider") STMActionsInfoProvider permissionInfoProvider,
     @Qualifier("permissionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(permissionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Permission> permissionBaseTransitionAction(
+    @Bean STMTransitionAction<Permission> permissionBaseTransitionAction(
         @Qualifier("permissionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

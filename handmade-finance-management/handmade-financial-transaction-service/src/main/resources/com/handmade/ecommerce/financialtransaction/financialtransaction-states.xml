@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.finance.dto.CompletePayoutPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.finance.dto.FailFinancialTransactionPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.finance.dto.ProcessFinancialTransactionPayload"/>
+
     <flow id="financialTransactionFlow" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.financialtransaction.service.cmds.ProcessFinancialTransactionAction"/>

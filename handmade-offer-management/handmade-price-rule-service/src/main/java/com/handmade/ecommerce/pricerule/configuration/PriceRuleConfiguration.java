@@ -40,13 +40,13 @@ public class PriceRuleConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PriceRule> priceruleEntityStm(@Qualifier("priceruleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PriceRule> priceruleEntityStm(@Qualifier("priceruleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PriceRule> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider priceruleActionsInfoProvider(@Qualifier("priceruleFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider priceruleActionsInfoProvider(@Qualifier("priceruleFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("pricerule",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PriceRuleConfiguration {
 		return new PriceRuleEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PriceRule> _priceruleStateEntityService_(
+	@Bean StateEntityServiceImpl<PriceRule> _priceruleStateEntityService_(
 			@Qualifier("priceruleEntityStm") STM<PriceRule> stm,
 			@Qualifier("priceruleActionsInfoProvider") STMActionsInfoProvider priceruleInfoProvider,
 			@Qualifier("priceruleEntityStore") EntityStore<PriceRule> entityStore){
@@ -65,7 +65,7 @@ public class PriceRuleConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PriceRule> priceruleEntryAction(@Qualifier("priceruleEntityStore") EntityStore<PriceRule> entityStore,
+	@Bean GenericEntryAction<PriceRule> priceruleEntryAction(@Qualifier("priceruleEntityStore") EntityStore<PriceRule> entityStore,
 			@Qualifier("priceruleActionsInfoProvider") STMActionsInfoProvider priceruleInfoProvider,
             @Qualifier("priceruleFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PriceRule> entryAction =  new GenericEntryAction<PriceRule>(entityStore,priceruleInfoProvider);
@@ -101,13 +101,13 @@ public class PriceRuleConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector priceruleBodyTypeSelector(
+    @Bean StmBodyTypeSelector priceruleBodyTypeSelector(
     @Qualifier("priceruleActionsInfoProvider") STMActionsInfoProvider priceruleInfoProvider,
     @Qualifier("priceruleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(priceruleInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PriceRule> priceruleBaseTransitionAction(
+    @Bean STMTransitionAction<PriceRule> priceruleBaseTransitionAction(
         @Qualifier("priceruleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,36 +121,30 @@ public class PriceRuleConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/pricerule/pricerule-states.xml
 
-    @Bean DeprecatePriceRuleAction
-            priceruleDeprecate(){
-        return new DeprecatePriceRuleAction();
-    }
+
     @Bean DeactivatePriceRuleAction
-            priceruleDeactivate(){
+            deactivatePriceRuleAction(){
         return new DeactivatePriceRuleAction();
     }
     @Bean SubmitPriceRuleAction
-            priceruleSubmit(){
+            submitPriceRuleAction(){
         return new SubmitPriceRuleAction();
     }
     @Bean DeprecatePriceRuleAction
-            priceruleDeprecate(){
+            deprecatePriceRuleAction(){
         return new DeprecatePriceRuleAction();
     }
-    @Bean ActivatePriceRuleAction
-            priceruleActivate(){
-        return new ActivatePriceRuleAction();
-    }
+
     @Bean ApprovePriceRuleAction
-            priceruleApprove(){
+            approvePriceRuleAction(){
         return new ApprovePriceRuleAction();
     }
     @Bean RejectPriceRuleAction
-            priceruleReject(){
+            rejectPriceRuleAction(){
         return new RejectPriceRuleAction();
     }
     @Bean ActivatePriceRuleAction
-            priceruleActivate(){
+            activatePriceRuleActione(){
         return new ActivatePriceRuleAction();
     }
 

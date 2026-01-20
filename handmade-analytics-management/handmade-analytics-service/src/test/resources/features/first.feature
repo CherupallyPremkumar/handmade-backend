@@ -8,6 +8,8 @@ Feature: Tests the analytics Workflow Service using a REST client. This is done 
     When I POST a REST request to URL "/analytics" with payload
 """json
 {
+    "metricCode": "TEST_METRIC",
+    "name": "Test Metric Name",
     "description": "Description"
 }
 """

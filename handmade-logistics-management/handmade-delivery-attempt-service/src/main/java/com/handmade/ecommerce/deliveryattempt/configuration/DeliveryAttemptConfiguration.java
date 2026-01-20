@@ -40,13 +40,13 @@ public class DeliveryAttemptConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<DeliveryAttempt> deliveryattemptEntityStm(@Qualifier("deliveryattemptFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<DeliveryAttempt> deliveryattemptEntityStm(@Qualifier("deliveryattemptFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<DeliveryAttempt> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider deliveryattemptActionsInfoProvider(@Qualifier("deliveryattemptFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider deliveryattemptActionsInfoProvider(@Qualifier("deliveryattemptFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("deliveryattempt",provider);
         return provider;
@@ -56,7 +56,7 @@ public class DeliveryAttemptConfiguration {
 		return new DeliveryAttemptEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<DeliveryAttempt> _deliveryattemptStateEntityService_(
+	@Bean StateEntityServiceImpl<DeliveryAttempt> _deliveryattemptStateEntityService_(
 			@Qualifier("deliveryattemptEntityStm") STM<DeliveryAttempt> stm,
 			@Qualifier("deliveryattemptActionsInfoProvider") STMActionsInfoProvider deliveryattemptInfoProvider,
 			@Qualifier("deliveryattemptEntityStore") EntityStore<DeliveryAttempt> entityStore){
@@ -65,7 +65,7 @@ public class DeliveryAttemptConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<DeliveryAttempt> deliveryattemptEntryAction(@Qualifier("deliveryattemptEntityStore") EntityStore<DeliveryAttempt> entityStore,
+	@Bean GenericEntryAction<DeliveryAttempt> deliveryattemptEntryAction(@Qualifier("deliveryattemptEntityStore") EntityStore<DeliveryAttempt> entityStore,
 			@Qualifier("deliveryattemptActionsInfoProvider") STMActionsInfoProvider deliveryattemptInfoProvider,
             @Qualifier("deliveryattemptFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<DeliveryAttempt> entryAction =  new GenericEntryAction<DeliveryAttempt>(entityStore,deliveryattemptInfoProvider);
@@ -101,13 +101,13 @@ public class DeliveryAttemptConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector deliveryattemptBodyTypeSelector(
+    @Bean StmBodyTypeSelector deliveryattemptBodyTypeSelector(
     @Qualifier("deliveryattemptActionsInfoProvider") STMActionsInfoProvider deliveryattemptInfoProvider,
     @Qualifier("deliveryattemptTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(deliveryattemptInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<DeliveryAttempt> deliveryattemptBaseTransitionAction(
+    @Bean STMTransitionAction<DeliveryAttempt> deliveryattemptBaseTransitionAction(
         @Qualifier("deliveryattemptTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

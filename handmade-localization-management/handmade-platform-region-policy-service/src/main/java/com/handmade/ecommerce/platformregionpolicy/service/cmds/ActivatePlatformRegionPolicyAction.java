@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.localization.model.PlatformRegionPolicy;
-import com.handmade.ecommerce.localization.model. ActivatePlatformRegionPolicyPayload;
+import com.handmade.ecommerce.localization.dto.ActivatePlatformRegionPolicyPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.localization.model. ActivatePlatformRegionPolicyPa
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ActivatePlatformRegionPolicyAction extends AbstractSTMTransitionAction<PlatformRegionPolicy,
-    ActivatePlatformRegionPolicyPayload>{
+               ActivatePlatformRegionPolicyPayload>{
 
 	@Override
 	public void transitionTo(PlatformRegionPolicy platformregionpolicy,

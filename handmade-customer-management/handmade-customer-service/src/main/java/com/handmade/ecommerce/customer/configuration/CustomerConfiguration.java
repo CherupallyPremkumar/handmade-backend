@@ -1,10 +1,9 @@
 package com.handmade.ecommerce.customer.configuration;
 
+import com.handmade.ecommerce.customer.service.impl.CustomerProfileServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.handmade.ecommerce.customer.service.CustomerService;
-import com.handmade.ecommerce.customer.service.impl.CustomerServiceImpl;
 import com.handmade.ecommerce.customer.service.healthcheck.CustomerHealthChecker;
 
 /**
@@ -13,8 +12,8 @@ import com.handmade.ecommerce.customer.service.healthcheck.CustomerHealthChecker
 */
 @Configuration
 public class CustomerConfiguration {
-	@Bean public CustomerService _customerService_() {
-		return new CustomerServiceImpl();
+	@Bean public CustomerProfileServiceImpl _customerService_() {
+		return new CustomerProfileServiceImpl();
 	}
 
 	@Bean CustomerHealthChecker customerHealthChecker(){

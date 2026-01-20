@@ -40,13 +40,13 @@ public class PlatformConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Platform> platformEntityStm(@Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Platform> platformEntityStm(@Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Platform> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider platformActionsInfoProvider(@Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider platformActionsInfoProvider(@Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("platform",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PlatformConfiguration {
 		return new PlatformEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Platform> _platformStateEntityService_(
+	@Bean StateEntityServiceImpl<Platform> _platformStateEntityService_(
 			@Qualifier("platformEntityStm") STM<Platform> stm,
 			@Qualifier("platformActionsInfoProvider") STMActionsInfoProvider platformInfoProvider,
 			@Qualifier("platformEntityStore") EntityStore<Platform> entityStore){
@@ -65,7 +65,7 @@ public class PlatformConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Platform> platformEntryAction(@Qualifier("platformEntityStore") EntityStore<Platform> entityStore,
+	@Bean GenericEntryAction<Platform> platformEntryAction(@Qualifier("platformEntityStore") EntityStore<Platform> entityStore,
 			@Qualifier("platformActionsInfoProvider") STMActionsInfoProvider platformInfoProvider,
             @Qualifier("platformFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Platform> entryAction =  new GenericEntryAction<Platform>(entityStore,platformInfoProvider);
@@ -101,13 +101,13 @@ public class PlatformConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector platformBodyTypeSelector(
+    @Bean StmBodyTypeSelector platformBodyTypeSelector(
     @Qualifier("platformActionsInfoProvider") STMActionsInfoProvider platformInfoProvider,
     @Qualifier("platformTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(platformInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Platform> platformBaseTransitionAction(
+    @Bean STMTransitionAction<Platform> platformBaseTransitionAction(
         @Qualifier("platformTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,39 +122,36 @@ public class PlatformConfiguration {
     // segment in src/main/resources/com/handmade/platform/platform-states.xml
 
     @Bean SuspendPlatformAction
-            platformSuspend(){
+            suspendPlatformAction(){
         return new SuspendPlatformAction();
     }
     @Bean DeactivatePlatformAction
-            platformDeactivate(){
+            deactivatePlatformAction(){
         return new DeactivatePlatformAction();
     }
     @Bean SubmitPlatformAction
-            platformSubmit(){
+            submitPlatformAction(){
         return new SubmitPlatformAction();
     }
     @Bean ArchivePlatformAction
-            platformArchive(){
+            archivePlatformAction(){
         return new ArchivePlatformAction();
     }
     @Bean ReactivatePlatformAction
-            platformReactivate(){
+            reactivatePlatformAction(){
         return new ReactivatePlatformAction();
     }
-    @Bean DeactivatePlatformAction
-            platformDeactivate(){
-        return new DeactivatePlatformAction();
-    }
+
     @Bean ApprovePlatformAction
-            platformApprove(){
+            approvePlatformAction(){
         return new ApprovePlatformAction();
     }
     @Bean RejectPlatformAction
-            platformReject(){
+            rejectPlatformAction(){
         return new RejectPlatformAction();
     }
     @Bean ActivatePlatformAction
-            platformActivate(){
+            activatePlatformAction(){
         return new ActivatePlatformAction();
     }
 

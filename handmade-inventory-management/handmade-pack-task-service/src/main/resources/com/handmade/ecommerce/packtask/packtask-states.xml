@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="packTaskFlow" default="true">
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelPackTaskPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.inventory.dto.CompletePackTaskPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.inventory.dto.StartPackTaskPayload"/>
+
+    <flow id="HM_PACK_TASK_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="packTaskStartAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.packtask.service.cmds.StartPackTaskAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="complete" newStateId="COMPLETED" componentName="packTaskCompleteAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="packTaskCancelAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.packtask.service.cmds.CompletePackTaskAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.packtask.service.cmds.CancelPackTaskAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

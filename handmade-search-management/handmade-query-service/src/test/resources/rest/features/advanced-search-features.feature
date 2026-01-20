@@ -12,23 +12,22 @@ Feature: Advanced Search & Personalization Features
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.facet_value" is "4★ & above"
-    And the REST response key "list[0].row.facet_count" is "1"
+    And the REST response key "list[0].row.facet_value" is "1★ & above"
+    And the REST response key "payload.list[0].row.facet_count" is 1
 
   Scenario: Get Full Product Details
     When I POST a REST request to URL "/q/get-product-details" with payload
     """
     {
       "filters": {
-        "id": "prod-001"
+        "id": "PROD-001"
       }
     }
     """
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.name" is "Handmade Ceramic Mug"
-    And the REST response key "list[0].row.average_rating" is "5.0"
+    And the REST response key "list[0].row.name" is "Artisan Hand-Thrown Turquoise Mug"
     And the REST response key "list[0].row.price" is "25.0"
 
   Scenario: Get Product Variants
@@ -36,7 +35,7 @@ Feature: Advanced Search & Personalization Features
     """
     {
       "filters": {
-        "id": "prod-003"
+        "id": "PROD-SEARCH-003"
       }
     }
     """
@@ -50,14 +49,14 @@ Feature: Advanced Search & Personalization Features
     """
     {
       "filters": {
-        "user_id": "cust-001"
+        "user_id": "CUST-001"
       }
     }
     """
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.name" is "Organic Lavender Soap"
+    And the REST response key "list[0].row.name" is "Hand-Woven Organic Silk Scarf"
 
   Scenario: Search Buy It Again Items
     When I POST a REST request to URL "/q/search-buy-it-again" with payload

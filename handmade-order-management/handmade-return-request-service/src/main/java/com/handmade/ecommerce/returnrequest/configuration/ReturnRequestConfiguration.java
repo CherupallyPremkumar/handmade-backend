@@ -40,13 +40,13 @@ public class ReturnRequestConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ReturnRequest> returnrequestEntityStm(@Qualifier("returnrequestFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ReturnRequest> returnrequestEntityStm(@Qualifier("returnrequestFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ReturnRequest> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider returnrequestActionsInfoProvider(@Qualifier("returnrequestFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider returnrequestActionsInfoProvider(@Qualifier("returnrequestFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("returnrequest",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ReturnRequestConfiguration {
 		return new ReturnRequestEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ReturnRequest> _returnrequestStateEntityService_(
+	@Bean StateEntityServiceImpl<ReturnRequest> _returnrequestStateEntityService_(
 			@Qualifier("returnrequestEntityStm") STM<ReturnRequest> stm,
 			@Qualifier("returnrequestActionsInfoProvider") STMActionsInfoProvider returnrequestInfoProvider,
 			@Qualifier("returnrequestEntityStore") EntityStore<ReturnRequest> entityStore){
@@ -65,7 +65,7 @@ public class ReturnRequestConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ReturnRequest> returnrequestEntryAction(@Qualifier("returnrequestEntityStore") EntityStore<ReturnRequest> entityStore,
+	@Bean GenericEntryAction<ReturnRequest> returnrequestEntryAction(@Qualifier("returnrequestEntityStore") EntityStore<ReturnRequest> entityStore,
 			@Qualifier("returnrequestActionsInfoProvider") STMActionsInfoProvider returnrequestInfoProvider,
             @Qualifier("returnrequestFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ReturnRequest> entryAction =  new GenericEntryAction<ReturnRequest>(entityStore,returnrequestInfoProvider);
@@ -101,13 +101,13 @@ public class ReturnRequestConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector returnrequestBodyTypeSelector(
+    @Bean StmBodyTypeSelector returnrequestBodyTypeSelector(
     @Qualifier("returnrequestActionsInfoProvider") STMActionsInfoProvider returnrequestInfoProvider,
     @Qualifier("returnrequestTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(returnrequestInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ReturnRequest> returnrequestBaseTransitionAction(
+    @Bean STMTransitionAction<ReturnRequest> returnrequestBaseTransitionAction(
         @Qualifier("returnrequestTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,7 +122,7 @@ public class ReturnRequestConfiguration {
     // segment in src/main/resources/com/handmade/returnrequest/returnrequest-states.xml
 
     @Bean InspectReturnRequestAction
-            returnrequestInspect(){
+            inspectReturnRequestAction(){
         return new InspectReturnRequestAction();
     }
     @Bean RefundReturnRequestAction
@@ -130,35 +130,32 @@ public class ReturnRequestConfiguration {
         return new RefundReturnRequestAction();
     }
     @Bean ReceiveReturnRequestAction
-            returnrequestReceive(){
+            receiveReturnRequestAction(){
         return new ReceiveReturnRequestAction();
     }
-    @Bean RejectReturnRequestAction
-            returnrequestReject(){
-        return new RejectReturnRequestAction();
-    }
+
     @Bean AcceptReturnRequestAction
-            returnrequestAccept(){
+            acceptReturnRequestAction(){
         return new AcceptReturnRequestAction();
     }
     @Bean CancelReturnRequestAction
-            returnrequestCancel(){
+            cancelReturnRequestAction(){
         return new CancelReturnRequestAction();
     }
     @Bean ReviewReturnRequestAction
-            returnrequestReview(){
+            reviewReturnRequestAction(){
         return new ReviewReturnRequestAction();
     }
     @Bean ShipReturnRequestAction
-            returnrequestShip(){
+            shipReturnRequestAction(){
         return new ShipReturnRequestAction();
     }
     @Bean ApproveReturnRequestAction
-            returnrequestApprove(){
+            approveReturnRequestAction(){
         return new ApproveReturnRequestAction();
     }
     @Bean RejectReturnRequestAction
-            returnrequestReject(){
+            rejectReturnRequestAction(){
         return new RejectReturnRequestAction();
     }
 

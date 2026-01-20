@@ -4,8 +4,9 @@
         "name": "search-sellers",
         "paginated": true,
         "sortable": true,
-        "workflowName": "SELLER_ACCOUNT_FLOW",
-        "stateColumn": "state",
+        "workflowName": "HM_SELLER_ACCOUNT_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
         "columnMetadata": {
             "sellerId": {
                 "name": "ID",

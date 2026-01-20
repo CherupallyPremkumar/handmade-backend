@@ -1,20 +1,24 @@
 Feature: Testcase ID 
 Tests the routeplan Workflow Service using a REST client. Routeplan service exists and is under test.
 It helps to create a routeplan and manages the state of the routeplan as documented in states xml
+
 Scenario: Create a new routeplan
 Given that "flowName" equals "routePlanFlow"
 And that "initialState" equals "CREATED"
 When I POST a REST request to URL "/routeplan" with payload
 """json
 {
-    "description": "Description"
+    "driverId": "driver-001",
+    "routeDate": "2026-01-20",
+    "vehicleId": "vehicle-001",
+    "plannedStopsJson": "[{\"stop\": 1, \"location\": \"Loc A\"}]"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.driverId" is "driver-001"
 
 Scenario: Retrieve the routeplan that just got created
 When I GET a REST request to URL "/routeplan/${id}"
@@ -35,6 +39,7 @@ Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "ASSIGNED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
 Scenario: Send the start event to the routeplan with comments
 Given that "comment" equals "Comment for start"
 And that "event" equals "start"
@@ -48,6 +53,7 @@ Then the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
 Scenario: Send the complete event to the routeplan with comments
 Given that "comment" equals "Comment for complete"
 And that "event" equals "complete"

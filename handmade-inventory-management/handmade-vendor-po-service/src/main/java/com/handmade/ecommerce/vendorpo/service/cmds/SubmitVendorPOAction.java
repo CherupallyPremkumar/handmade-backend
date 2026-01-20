@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.VendorPO;
-import com.handmade.ecommerce.inventory.model. SubmitVendorPOPayload;
+import com.handmade.ecommerce.inventory.dto.SubmitVendorPOPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. SubmitVendorPOPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SubmitVendorPOAction extends AbstractSTMTransitionAction<VendorPO,
-    SubmitVendorPOPayload>{
+               SubmitVendorPOPayload>{
 
 	@Override
 	public void transitionTo(VendorPO vendorpo,

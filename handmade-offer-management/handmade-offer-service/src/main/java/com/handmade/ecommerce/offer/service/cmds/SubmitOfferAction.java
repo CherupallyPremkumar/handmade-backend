@@ -1,12 +1,12 @@
 package com.handmade.ecommerce.offer.service.cmds;
 
+import com.handmade.ecommerce.offer.dto.SubmitOfferPayload;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.offer.model.Offer;
-import com.handmade.ecommerce.offer.model.SubmitOfferPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.offer.model.SubmitOfferPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SubmitOfferAction extends AbstractSTMTransitionAction<Offer,
-    SubmitOfferPayload>{
+		SubmitOfferPayload>{
 
 	@Override
 	public void transitionTo(Offer offer,

@@ -1,0 +1,127 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-sellers
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_seller_account
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Earth & Fire Ceramics"}
+              - column: {name: email, value: "hello@earthfire.ceramics"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T09:00:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Indigo Weaves"}
+              - column: {name: email, value: "support@indigoweaves.com"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-02T10:30:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Heritage Woodcrafts"}
+              - column: {name: email, value: "sales@heritagewood.io"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-03T11:00:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-004"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "The Leather Studio"}
+              - column: {name: email, value: "craft@leatherstudio.art"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-04T13:45:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-005"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Serene Soy Candles"}
+              - column: {name: email, value: "glow@serenesoy.shop"}
+              - column: {name: state_id, value: "REGISTERED"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-05T15:00:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-006"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Amber Glass Collective"}
+              - column: {name: email, value: "blowers@amberglass.org"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-06T16:20:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-007"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Merino Knits"}
+              - column: {name: email, value: "warmth@merinoknits.com"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-07T17:00:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-008"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Linocut Impressions"}
+              - column: {name: email, value: "prints@linocut.art"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-08T09:30:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-009"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Boho Basketry"}
+              - column: {name: email, value: "weave@bohobasket.com"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-09T10:45:00"}
+        - insert:
+            tableName: hm_seller_account
+            columns:
+              - column: {name: id, value: "SEL-010"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: business_name, value: "Silver Lining Jewelry"}
+              - column: {name: email, value: "sparkle@silverlining.io"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_ACCOUNT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-10T12:00:00"}

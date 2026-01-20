@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.event.dto.CompleteWorkflowTaskPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.event.dto.FailWorkflowTaskPayload"/>
+
     <flow id="workflowTaskFlow" default="true">
         <manual-state id="STARTED" initialState="true">
             <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.workflowtask.service.cmds.CompleteWorkflowTaskAction"/>

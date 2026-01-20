@@ -40,13 +40,13 @@ public class PaymentOrderConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PaymentOrder> paymentorderEntityStm(@Qualifier("paymentorderFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PaymentOrder> paymentorderEntityStm(@Qualifier("paymentorderFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PaymentOrder> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider paymentorderActionsInfoProvider(@Qualifier("paymentorderFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider paymentorderActionsInfoProvider(@Qualifier("paymentorderFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("paymentorder",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PaymentOrderConfiguration {
 		return new PaymentOrderEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PaymentOrder> _paymentorderStateEntityService_(
+	@Bean StateEntityServiceImpl<PaymentOrder> _paymentorderStateEntityService_(
 			@Qualifier("paymentorderEntityStm") STM<PaymentOrder> stm,
 			@Qualifier("paymentorderActionsInfoProvider") STMActionsInfoProvider paymentorderInfoProvider,
 			@Qualifier("paymentorderEntityStore") EntityStore<PaymentOrder> entityStore){
@@ -65,7 +65,7 @@ public class PaymentOrderConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PaymentOrder> paymentorderEntryAction(@Qualifier("paymentorderEntityStore") EntityStore<PaymentOrder> entityStore,
+	@Bean GenericEntryAction<PaymentOrder> paymentorderEntryAction(@Qualifier("paymentorderEntityStore") EntityStore<PaymentOrder> entityStore,
 			@Qualifier("paymentorderActionsInfoProvider") STMActionsInfoProvider paymentorderInfoProvider,
             @Qualifier("paymentorderFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PaymentOrder> entryAction =  new GenericEntryAction<PaymentOrder>(entityStore,paymentorderInfoProvider);
@@ -101,13 +101,13 @@ public class PaymentOrderConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector paymentorderBodyTypeSelector(
+    @Bean StmBodyTypeSelector paymentorderBodyTypeSelector(
     @Qualifier("paymentorderActionsInfoProvider") STMActionsInfoProvider paymentorderInfoProvider,
     @Qualifier("paymentorderTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(paymentorderInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PaymentOrder> paymentorderBaseTransitionAction(
+    @Bean STMTransitionAction<PaymentOrder> paymentorderBaseTransitionAction(
         @Qualifier("paymentorderTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,39 +122,36 @@ public class PaymentOrderConfiguration {
     // segment in src/main/resources/com/handmade/paymentorder/paymentorder-states.xml
 
     @Bean SettlePaymentOrderAction
-            paymentorderSettle(){
+            settlePaymentOrderAction(){
         return new SettlePaymentOrderAction();
     }
     @Bean RefundPaymentOrderAction
-            paymentorderRefund(){
+            refundPaymentOrderAction(){
         return new RefundPaymentOrderAction();
     }
     @Bean InitiatePaymentOrderAction
-            paymentorderInitiate(){
+            initiatePaymentOrderAction(){
         return new InitiatePaymentOrderAction();
     }
     @Bean CancelPaymentOrderAction
-            paymentorderCancel(){
+            cancelPaymentOrderAction(){
         return new CancelPaymentOrderAction();
     }
-    @Bean CancelPaymentOrderAction
-            paymentorderCancel(){
-        return new CancelPaymentOrderAction();
-    }
+
     @Bean FailPaymentOrderAction
-            paymentorderFail(){
+            failPaymentOrderAction(){
         return new FailPaymentOrderAction();
     }
     @Bean AuthorizePaymentOrderAction
-            paymentorderAuthorize(){
+            authorizePaymentOrderAction(){
         return new AuthorizePaymentOrderAction();
     }
     @Bean VoidPaymentOrderAction
-            paymentorderVoid(){
+            voidPaymentOrderAction(){
         return new VoidPaymentOrderAction();
     }
     @Bean CapturePaymentOrderAction
-            paymentorderCapture(){
+            capturePaymentOrderAction(){
         return new CapturePaymentOrderAction();
     }
 

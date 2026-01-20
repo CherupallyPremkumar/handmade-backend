@@ -40,13 +40,13 @@ public class ETLJobConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ETLJob> etljobEntityStm(@Qualifier("etljobFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ETLJob> etljobEntityStm(@Qualifier("etljobFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ETLJob> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider etljobActionsInfoProvider(@Qualifier("etljobFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider etljobActionsInfoProvider(@Qualifier("etljobFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("etljob",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ETLJobConfiguration {
 		return new ETLJobEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ETLJob> _etljobStateEntityService_(
+	@Bean StateEntityServiceImpl<ETLJob> _etljobStateEntityService_(
 			@Qualifier("etljobEntityStm") STM<ETLJob> stm,
 			@Qualifier("etljobActionsInfoProvider") STMActionsInfoProvider etljobInfoProvider,
 			@Qualifier("etljobEntityStore") EntityStore<ETLJob> entityStore){
@@ -65,7 +65,7 @@ public class ETLJobConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ETLJob> etljobEntryAction(@Qualifier("etljobEntityStore") EntityStore<ETLJob> entityStore,
+	@Bean GenericEntryAction<ETLJob> etljobEntryAction(@Qualifier("etljobEntityStore") EntityStore<ETLJob> entityStore,
 			@Qualifier("etljobActionsInfoProvider") STMActionsInfoProvider etljobInfoProvider,
             @Qualifier("etljobFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ETLJob> entryAction =  new GenericEntryAction<ETLJob>(entityStore,etljobInfoProvider);
@@ -101,13 +101,13 @@ public class ETLJobConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector etljobBodyTypeSelector(
+    @Bean StmBodyTypeSelector etljobBodyTypeSelector(
     @Qualifier("etljobActionsInfoProvider") STMActionsInfoProvider etljobInfoProvider,
     @Qualifier("etljobTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(etljobInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ETLJob> etljobBaseTransitionAction(
+    @Bean STMTransitionAction<ETLJob> etljobBaseTransitionAction(
         @Qualifier("etljobTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

@@ -8,6 +8,8 @@ Feature: Testcase ID
     When I POST a REST request to URL "/analytics" with payload
 """json
 {
+    "metricCode": "TEST_METRIC_2",
+    "name": "Test Metric Name 2",
     "description": "Description"
 }
 """

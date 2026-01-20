@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="archive" meta-bodyType="com.handmade.ecommerce.cms.dto.ArchiveContentPagePayload"/>
+    <event-information eventId="publish" meta-bodyType="com.handmade.ecommerce.cms.dto.PublishContentPagePayload"/>
+    <event-information eventId="restore" meta-bodyType="com.handmade.ecommerce.cms.dto.RestoreContentPagePayload"/>
+    <event-information eventId="unpublish" meta-bodyType="com.handmade.ecommerce.cms.dto.UnpublishCMSEntryPayload"/>
+
 
     <!-- Content Lifecycle -->
-    <flow id="contentFlow" default="true">
+    <flow id="HM_CONTENT_PAGE_FLOW" default="true">
 
         <manual-state id="DRAFT" initialState="true">
             <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.contentpage.service.cmds.PublishContentPageAction"/>

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="print" meta-bodyType="com.handmade.ecommerce.logistics.dto.PrintShippingLabelPayload"/>
+    <event-information eventId="use" meta-bodyType="com.handmade.ecommerce.logistics.dto.UseShippingLabelPayload"/>
+    <event-information eventId="void" meta-bodyType="com.handmade.ecommerce.logistics.dto.VoidShippingLabelPayload"/>
+
     <flow id="shippingLabelFlow" default="true">
         <manual-state id="CREATED" initialState="true">
-            <on eventId="print" newStateId="PRINTED" componentName="shippingLabelPrintAction"/>
-            <on eventId="void" newStateId="VOIDED" componentName="shippingLabelVoidAction"/>
+            <on eventId="print" newStateId="PRINTED" componentName="com.handmade.ecommerce.shippinglabel.service.cmds.PrintShippingLabelAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="com.handmade.ecommerce.shippinglabel.service.cmds.VoidShippingLabelAction"/>
         </manual-state>
 
         <manual-state id="PRINTED">
-            <on eventId="use" newStateId="USED" componentName="shippingLabelUseAction"/>
-            <on eventId="void" newStateId="VOIDED" componentName="shippingLabelVoidFromPrintedAction"/>
+            <on eventId="use" newStateId="USED" componentName="com.handmade.ecommerce.shippinglabel.service.cmds.UseShippingLabelAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="com.handmade.ecommerce.shippinglabel.service.cmds.VoidShippingLabelAction"/>
         </manual-state>
 
         <manual-state id="USED" meta-endState="true"/>

@@ -40,13 +40,13 @@ public class InventoryReservationConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<InventoryReservation> inventoryreservationEntityStm(@Qualifier("inventoryreservationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<InventoryReservation> inventoryreservationEntityStm(@Qualifier("inventoryreservationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<InventoryReservation> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider inventoryreservationActionsInfoProvider(@Qualifier("inventoryreservationFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider inventoryreservationActionsInfoProvider(@Qualifier("inventoryreservationFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("inventoryreservation",provider);
         return provider;
@@ -56,7 +56,7 @@ public class InventoryReservationConfiguration {
 		return new InventoryReservationEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<InventoryReservation> _inventoryreservationStateEntityService_(
+	@Bean StateEntityServiceImpl<InventoryReservation> _inventoryreservationStateEntityService_(
 			@Qualifier("inventoryreservationEntityStm") STM<InventoryReservation> stm,
 			@Qualifier("inventoryreservationActionsInfoProvider") STMActionsInfoProvider inventoryreservationInfoProvider,
 			@Qualifier("inventoryreservationEntityStore") EntityStore<InventoryReservation> entityStore){
@@ -65,7 +65,7 @@ public class InventoryReservationConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<InventoryReservation> inventoryreservationEntryAction(@Qualifier("inventoryreservationEntityStore") EntityStore<InventoryReservation> entityStore,
+	@Bean GenericEntryAction<InventoryReservation> inventoryreservationEntryAction(@Qualifier("inventoryreservationEntityStore") EntityStore<InventoryReservation> entityStore,
 			@Qualifier("inventoryreservationActionsInfoProvider") STMActionsInfoProvider inventoryreservationInfoProvider,
             @Qualifier("inventoryreservationFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<InventoryReservation> entryAction =  new GenericEntryAction<InventoryReservation>(entityStore,inventoryreservationInfoProvider);
@@ -101,13 +101,13 @@ public class InventoryReservationConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector inventoryreservationBodyTypeSelector(
+    @Bean StmBodyTypeSelector inventoryreservationBodyTypeSelector(
     @Qualifier("inventoryreservationActionsInfoProvider") STMActionsInfoProvider inventoryreservationInfoProvider,
     @Qualifier("inventoryreservationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(inventoryreservationInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<InventoryReservation> inventoryreservationBaseTransitionAction(
+    @Bean STMTransitionAction<InventoryReservation> inventoryreservationBaseTransitionAction(
         @Qualifier("inventoryreservationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

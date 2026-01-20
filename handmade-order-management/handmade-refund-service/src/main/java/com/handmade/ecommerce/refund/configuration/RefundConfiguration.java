@@ -40,13 +40,13 @@ public class RefundConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Refund> refundEntityStm(@Qualifier("refundFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Refund> refundEntityStm(@Qualifier("refundFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Refund> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider refundActionsInfoProvider(@Qualifier("refundFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider refundActionsInfoProvider(@Qualifier("refundFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("refund",provider);
         return provider;
@@ -56,7 +56,7 @@ public class RefundConfiguration {
 		return new RefundEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Refund> _refundStateEntityService_(
+	@Bean StateEntityServiceImpl<Refund> _refundStateEntityService_(
 			@Qualifier("refundEntityStm") STM<Refund> stm,
 			@Qualifier("refundActionsInfoProvider") STMActionsInfoProvider refundInfoProvider,
 			@Qualifier("refundEntityStore") EntityStore<Refund> entityStore){
@@ -65,7 +65,7 @@ public class RefundConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Refund> refundEntryAction(@Qualifier("refundEntityStore") EntityStore<Refund> entityStore,
+	@Bean GenericEntryAction<Refund> refundEntryAction(@Qualifier("refundEntityStore") EntityStore<Refund> entityStore,
 			@Qualifier("refundActionsInfoProvider") STMActionsInfoProvider refundInfoProvider,
             @Qualifier("refundFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Refund> entryAction =  new GenericEntryAction<Refund>(entityStore,refundInfoProvider);
@@ -101,13 +101,13 @@ public class RefundConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector refundBodyTypeSelector(
+    @Bean StmBodyTypeSelector refundBodyTypeSelector(
     @Qualifier("refundActionsInfoProvider") STMActionsInfoProvider refundInfoProvider,
     @Qualifier("refundTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(refundInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Refund> refundBaseTransitionAction(
+    @Bean STMTransitionAction<Refund> refundBaseTransitionAction(
         @Qualifier("refundTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

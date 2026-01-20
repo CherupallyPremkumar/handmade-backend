@@ -40,13 +40,13 @@ public class NotificationLogConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<NotificationLog> notificationlogEntityStm(@Qualifier("notificationlogFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<NotificationLog> notificationlogEntityStm(@Qualifier("notificationlogFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<NotificationLog> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider notificationlogActionsInfoProvider(@Qualifier("notificationlogFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider notificationlogActionsInfoProvider(@Qualifier("notificationlogFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("notificationlog",provider);
         return provider;
@@ -56,7 +56,7 @@ public class NotificationLogConfiguration {
 		return new NotificationLogEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<NotificationLog> _notificationlogStateEntityService_(
+	@Bean StateEntityServiceImpl<NotificationLog> _notificationlogStateEntityService_(
 			@Qualifier("notificationlogEntityStm") STM<NotificationLog> stm,
 			@Qualifier("notificationlogActionsInfoProvider") STMActionsInfoProvider notificationlogInfoProvider,
 			@Qualifier("notificationlogEntityStore") EntityStore<NotificationLog> entityStore){
@@ -65,7 +65,7 @@ public class NotificationLogConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<NotificationLog> notificationlogEntryAction(@Qualifier("notificationlogEntityStore") EntityStore<NotificationLog> entityStore,
+	@Bean GenericEntryAction<NotificationLog> notificationlogEntryAction(@Qualifier("notificationlogEntityStore") EntityStore<NotificationLog> entityStore,
 			@Qualifier("notificationlogActionsInfoProvider") STMActionsInfoProvider notificationlogInfoProvider,
             @Qualifier("notificationlogFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<NotificationLog> entryAction =  new GenericEntryAction<NotificationLog>(entityStore,notificationlogInfoProvider);
@@ -101,13 +101,13 @@ public class NotificationLogConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector notificationlogBodyTypeSelector(
+    @Bean StmBodyTypeSelector notificationlogBodyTypeSelector(
     @Qualifier("notificationlogActionsInfoProvider") STMActionsInfoProvider notificationlogInfoProvider,
     @Qualifier("notificationlogTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(notificationlogInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<NotificationLog> notificationlogBaseTransitionAction(
+    @Bean STMTransitionAction<NotificationLog> notificationlogBaseTransitionAction(
         @Qualifier("notificationlogTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,28 +121,25 @@ public class NotificationLogConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/notificationlog/notificationlog-states.xml
 
-    @Bean ClickNotificationLogAction
-            notificationlogClick(){
-        return new ClickNotificationLogAction();
-    }
+
     @Bean OpenNotificationLogAction
-            notificationlogOpen(){
+            openNotificationLogAction(){
         return new OpenNotificationLogAction();
     }
     @Bean FailNotificationLogAction
-            notificationlogFail(){
+            failNotificationLogAction(){
         return new FailNotificationLogAction();
     }
     @Bean BounceNotificationLogAction
-            notificationlogBounce(){
+            bounceNotificationLogAction(){
         return new BounceNotificationLogAction();
     }
     @Bean DeliverNotificationLogAction
-            notificationlogDeliver(){
+            deliverNotificationLogAction(){
         return new DeliverNotificationLogAction();
     }
     @Bean ClickNotificationLogAction
-            notificationlogClick(){
+            clickNotificationLogAction(){
         return new ClickNotificationLogAction();
     }
 

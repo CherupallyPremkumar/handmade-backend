@@ -40,13 +40,13 @@ public class ProductQuestionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ProductQuestion> productquestionEntityStm(@Qualifier("productquestionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ProductQuestion> productquestionEntityStm(@Qualifier("productquestionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ProductQuestion> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider productquestionActionsInfoProvider(@Qualifier("productquestionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider productquestionActionsInfoProvider(@Qualifier("productquestionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("productquestion",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ProductQuestionConfiguration {
 		return new ProductQuestionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ProductQuestion> _productquestionStateEntityService_(
+	@Bean StateEntityServiceImpl<ProductQuestion> _productquestionStateEntityService_(
 			@Qualifier("productquestionEntityStm") STM<ProductQuestion> stm,
 			@Qualifier("productquestionActionsInfoProvider") STMActionsInfoProvider productquestionInfoProvider,
 			@Qualifier("productquestionEntityStore") EntityStore<ProductQuestion> entityStore){
@@ -65,7 +65,7 @@ public class ProductQuestionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ProductQuestion> productquestionEntryAction(@Qualifier("productquestionEntityStore") EntityStore<ProductQuestion> entityStore,
+	@Bean GenericEntryAction<ProductQuestion> productquestionEntryAction(@Qualifier("productquestionEntityStore") EntityStore<ProductQuestion> entityStore,
 			@Qualifier("productquestionActionsInfoProvider") STMActionsInfoProvider productquestionInfoProvider,
             @Qualifier("productquestionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ProductQuestion> entryAction =  new GenericEntryAction<ProductQuestion>(entityStore,productquestionInfoProvider);
@@ -101,13 +101,13 @@ public class ProductQuestionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector productquestionBodyTypeSelector(
+    @Bean StmBodyTypeSelector productquestionBodyTypeSelector(
     @Qualifier("productquestionActionsInfoProvider") STMActionsInfoProvider productquestionInfoProvider,
     @Qualifier("productquestionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(productquestionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ProductQuestion> productquestionBaseTransitionAction(
+    @Bean STMTransitionAction<ProductQuestion> productquestionBaseTransitionAction(
         @Qualifier("productquestionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

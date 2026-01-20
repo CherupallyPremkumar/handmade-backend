@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-seller-growth
+      author: test
+      comment: Insert test data for Seller Growth tables
+      changes:
+        - insert:
+            tableName: hm_seller_goal
+            columns:
+              - column: { name: id, value: "goal-001" }
+              - column: { name: seller_id, value: "seller-123" }
+              - column: { name: goal_type, value: "MONTHLY_GMV" }
+              - column: { name: target_value, valueNumeric: 10000.00 }
+              - column: { name: current_value, valueNumeric: 2500.00 }
+              - column: { name: start_date, valueDate: "2024-01-01" }
+              - column: { name: end_date, valueDate: "2024-01-31" }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+
+        - insert:
+            tableName: hm_seller_recommendation
+            columns:
+              - column: { name: id, value: "rec-001" }
+              - column: { name: seller_id, value: "seller-123" }
+              - column: { name: recommendation_type, value: "PRICE_OPTIMIZATION" }
+              - column: { name: resource_id, value: "PROD-001" }
+              - column: { name: priority, value: "HIGH" }
+              - column: { name: details_json, value: '{"suggested_price": 24.99, "competitor_price": 22.99}' }
+              - column: { name: status, value: "NEW" }
+              - column: { name: created_time, valueDate: "2024-01-05T00:00:00" }
+
+        - insert:
+            tableName: hm_seller_action_item
+            columns:
+              - column: { name: id, value: "action-001" }
+              - column: { name: seller_id, value: "seller-123" }
+              - column: { name: action_type, value: "TAX_COMPLIANCE" }
+              - column: { name: description, value: "Update VAT ID for EU sales" }
+              - column: { name: due_date, valueDate: "2024-02-01T00:00:00" }
+              - column: { name: status, value: "PENDING" }
+              - column: { name: severity, value: "CRITICAL" }
+              - column: { name: created_time, valueDate: "2024-01-10T00:00:00" }
+
+        - insert:
+            tableName: hm_seller_badge
+            columns:
+              - column: { name: id, value: "badge-001" }
+              - column: { name: seller_id, value: "seller-123" }
+              - column: { name: badge_code, value: "TOP_SELLER" }
+              - column: { name: awarded_at, valueDate: "2023-12-01T00:00:00" }
+              - column: { name: expiry_date, valueDate: "2024-12-01" }
+              - column: { name: created_time, valueDate: "2023-12-01T00:00:00" }

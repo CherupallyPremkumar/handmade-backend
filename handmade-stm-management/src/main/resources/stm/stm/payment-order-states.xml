@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="paymentOrderFlow" default="true">
+    <flow id="HM_PAYMENT_ORDER_FLOW" default="true">
         <manual-state id="CREATED" initialState="true">
             <on eventId="initiate" newStateId="INITIATED" componentName="paymentOrderInitiateAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="paymentOrderCancelAction"/>

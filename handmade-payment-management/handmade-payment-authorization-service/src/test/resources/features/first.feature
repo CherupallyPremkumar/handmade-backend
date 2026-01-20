@@ -7,14 +7,15 @@ And that "initialState" equals "AUTHORIZED"
 When I POST a REST request to URL "/paymentauthorization" with payload
 """json
 {
-    "description": "Description"
+    "paymentTransactionId": "TXN-123",
+    "authorizedAmount": 149.97
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.paymentTransactionId" is "TXN-123"
 
 Scenario: Retrieve the paymentauthorization that just got created
 When I GET a REST request to URL "/paymentauthorization/${id}"

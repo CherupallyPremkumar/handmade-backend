@@ -40,13 +40,13 @@ public class RoleConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Role> roleEntityStm(@Qualifier("roleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Role> roleEntityStm(@Qualifier("roleFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Role> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider roleActionsInfoProvider(@Qualifier("roleFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider roleActionsInfoProvider(@Qualifier("roleFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("role",provider);
         return provider;
@@ -56,7 +56,7 @@ public class RoleConfiguration {
 		return new RoleEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Role> _roleStateEntityService_(
+	@Bean StateEntityServiceImpl<Role> _roleStateEntityService_(
 			@Qualifier("roleEntityStm") STM<Role> stm,
 			@Qualifier("roleActionsInfoProvider") STMActionsInfoProvider roleInfoProvider,
 			@Qualifier("roleEntityStore") EntityStore<Role> entityStore){
@@ -65,7 +65,7 @@ public class RoleConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Role> roleEntryAction(@Qualifier("roleEntityStore") EntityStore<Role> entityStore,
+	@Bean GenericEntryAction<Role> roleEntryAction(@Qualifier("roleEntityStore") EntityStore<Role> entityStore,
 			@Qualifier("roleActionsInfoProvider") STMActionsInfoProvider roleInfoProvider,
             @Qualifier("roleFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Role> entryAction =  new GenericEntryAction<Role>(entityStore,roleInfoProvider);
@@ -101,13 +101,13 @@ public class RoleConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector roleBodyTypeSelector(
+    @Bean StmBodyTypeSelector roleBodyTypeSelector(
     @Qualifier("roleActionsInfoProvider") STMActionsInfoProvider roleInfoProvider,
     @Qualifier("roleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(roleInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Role> roleBaseTransitionAction(
+    @Bean STMTransitionAction<Role> roleBaseTransitionAction(
         @Qualifier("roleTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

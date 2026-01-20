@@ -40,13 +40,13 @@ public class PickTaskConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PickTask> picktaskEntityStm(@Qualifier("picktaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PickTask> picktaskEntityStm(@Qualifier("picktaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PickTask> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider picktaskActionsInfoProvider(@Qualifier("picktaskFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider picktaskActionsInfoProvider(@Qualifier("picktaskFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("picktask",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PickTaskConfiguration {
 		return new PickTaskEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PickTask> _picktaskStateEntityService_(
+	@Bean StateEntityServiceImpl<PickTask> _picktaskStateEntityService_(
 			@Qualifier("picktaskEntityStm") STM<PickTask> stm,
 			@Qualifier("picktaskActionsInfoProvider") STMActionsInfoProvider picktaskInfoProvider,
 			@Qualifier("picktaskEntityStore") EntityStore<PickTask> entityStore){
@@ -65,7 +65,7 @@ public class PickTaskConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PickTask> picktaskEntryAction(@Qualifier("picktaskEntityStore") EntityStore<PickTask> entityStore,
+	@Bean GenericEntryAction<PickTask> picktaskEntryAction(@Qualifier("picktaskEntityStore") EntityStore<PickTask> entityStore,
 			@Qualifier("picktaskActionsInfoProvider") STMActionsInfoProvider picktaskInfoProvider,
             @Qualifier("picktaskFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PickTask> entryAction =  new GenericEntryAction<PickTask>(entityStore,picktaskInfoProvider);
@@ -101,13 +101,13 @@ public class PickTaskConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector picktaskBodyTypeSelector(
+    @Bean StmBodyTypeSelector picktaskBodyTypeSelector(
     @Qualifier("picktaskActionsInfoProvider") STMActionsInfoProvider picktaskInfoProvider,
     @Qualifier("picktaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(picktaskInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PickTask> picktaskBaseTransitionAction(
+    @Bean STMTransitionAction<PickTask> picktaskBaseTransitionAction(
         @Qualifier("picktaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

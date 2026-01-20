@@ -13,8 +13,12 @@ import org.chenile.utils.entity.service.EntityStore;
 
 @Configuration
 @PropertySource("classpath:com/handmade/ecommerce/analytics/TestService.properties")
-@SpringBootApplication(scanBasePackages = { "org.chenile.configuration", "com.handmade.ecommerce.analytics.configuration" })
-@ActiveProfiles("unittest")
+@SpringBootApplication(
+        scanBasePackages = {
+                "org.chenile.configuration",
+                "com.handmade.ecommerce.analytics.configuration"
+        }
+)
 public class SpringTestConfig extends SpringBootServletInitializer{
 	
 }

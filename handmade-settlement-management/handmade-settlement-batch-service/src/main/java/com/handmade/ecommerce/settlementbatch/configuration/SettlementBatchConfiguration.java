@@ -40,13 +40,13 @@ public class SettlementBatchConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SettlementBatch> settlementbatchEntityStm(@Qualifier("settlementbatchFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SettlementBatch> settlementbatchEntityStm(@Qualifier("settlementbatchFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SettlementBatch> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider settlementbatchActionsInfoProvider(@Qualifier("settlementbatchFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider settlementbatchActionsInfoProvider(@Qualifier("settlementbatchFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("settlementbatch",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SettlementBatchConfiguration {
 		return new SettlementBatchEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SettlementBatch> _settlementbatchStateEntityService_(
+	@Bean StateEntityServiceImpl<SettlementBatch> _settlementbatchStateEntityService_(
 			@Qualifier("settlementbatchEntityStm") STM<SettlementBatch> stm,
 			@Qualifier("settlementbatchActionsInfoProvider") STMActionsInfoProvider settlementbatchInfoProvider,
 			@Qualifier("settlementbatchEntityStore") EntityStore<SettlementBatch> entityStore){
@@ -65,7 +65,7 @@ public class SettlementBatchConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SettlementBatch> settlementbatchEntryAction(@Qualifier("settlementbatchEntityStore") EntityStore<SettlementBatch> entityStore,
+	@Bean GenericEntryAction<SettlementBatch> settlementbatchEntryAction(@Qualifier("settlementbatchEntityStore") EntityStore<SettlementBatch> entityStore,
 			@Qualifier("settlementbatchActionsInfoProvider") STMActionsInfoProvider settlementbatchInfoProvider,
             @Qualifier("settlementbatchFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SettlementBatch> entryAction =  new GenericEntryAction<SettlementBatch>(entityStore,settlementbatchInfoProvider);
@@ -101,13 +101,13 @@ public class SettlementBatchConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector settlementbatchBodyTypeSelector(
+    @Bean StmBodyTypeSelector settlementbatchBodyTypeSelector(
     @Qualifier("settlementbatchActionsInfoProvider") STMActionsInfoProvider settlementbatchInfoProvider,
     @Qualifier("settlementbatchTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(settlementbatchInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SettlementBatch> settlementbatchBaseTransitionAction(
+    @Bean STMTransitionAction<SettlementBatch> settlementbatchBaseTransitionAction(
         @Qualifier("settlementbatchTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

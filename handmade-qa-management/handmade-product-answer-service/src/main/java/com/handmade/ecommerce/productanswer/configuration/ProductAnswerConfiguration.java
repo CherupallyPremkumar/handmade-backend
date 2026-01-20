@@ -40,13 +40,13 @@ public class ProductAnswerConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ProductAnswer> productanswerEntityStm(@Qualifier("productanswerFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ProductAnswer> productanswerEntityStm(@Qualifier("productanswerFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ProductAnswer> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider productanswerActionsInfoProvider(@Qualifier("productanswerFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider productanswerActionsInfoProvider(@Qualifier("productanswerFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("productanswer",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ProductAnswerConfiguration {
 		return new ProductAnswerEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ProductAnswer> _productanswerStateEntityService_(
+	@Bean StateEntityServiceImpl<ProductAnswer> _productanswerStateEntityService_(
 			@Qualifier("productanswerEntityStm") STM<ProductAnswer> stm,
 			@Qualifier("productanswerActionsInfoProvider") STMActionsInfoProvider productanswerInfoProvider,
 			@Qualifier("productanswerEntityStore") EntityStore<ProductAnswer> entityStore){
@@ -65,7 +65,7 @@ public class ProductAnswerConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ProductAnswer> productanswerEntryAction(@Qualifier("productanswerEntityStore") EntityStore<ProductAnswer> entityStore,
+	@Bean GenericEntryAction<ProductAnswer> productanswerEntryAction(@Qualifier("productanswerEntityStore") EntityStore<ProductAnswer> entityStore,
 			@Qualifier("productanswerActionsInfoProvider") STMActionsInfoProvider productanswerInfoProvider,
             @Qualifier("productanswerFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ProductAnswer> entryAction =  new GenericEntryAction<ProductAnswer>(entityStore,productanswerInfoProvider);
@@ -101,13 +101,13 @@ public class ProductAnswerConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector productanswerBodyTypeSelector(
+    @Bean StmBodyTypeSelector productanswerBodyTypeSelector(
     @Qualifier("productanswerActionsInfoProvider") STMActionsInfoProvider productanswerInfoProvider,
     @Qualifier("productanswerTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(productanswerInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ProductAnswer> productanswerBaseTransitionAction(
+    @Bean STMTransitionAction<ProductAnswer> productanswerBaseTransitionAction(
         @Qualifier("productanswerTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,35 +122,32 @@ public class ProductAnswerConfiguration {
     // segment in src/main/resources/com/handmade/productanswer/productanswer-states.xml
 
     @Bean MarkHelpfulProductAnswerAction
-            productanswerMarkHelpful(){
+            markHelpfulProductAnswerAction(){
         return new MarkHelpfulProductAnswerAction();
     }
     @Bean UnpublishProductAnswerAction
-            productanswerUnpublish(){
+            unpublishProductAnswerAction(){
         return new UnpublishProductAnswerAction();
     }
     @Bean RepublishProductAnswerAction
-            productanswerRepublish(){
+            republishProductAnswerAction(){
         return new RepublishProductAnswerAction();
     }
     @Bean ReviewProductAnswerAction
-            productanswerReview(){
+            reviewProductAnswerAction(){
         return new ReviewProductAnswerAction();
     }
     @Bean PublishProductAnswerAction
-            productanswerPublish(){
+            publishProductAnswerAction(){
         return new PublishProductAnswerAction();
     }
-    @Bean UnpublishProductAnswerAction
-            productanswerUnpublish(){
-        return new UnpublishProductAnswerAction();
-    }
+
     @Bean ApproveProductAnswerAction
-            productanswerApprove(){
+            approveProductAnswerAction(){
         return new ApproveProductAnswerAction();
     }
     @Bean RejectProductAnswerAction
-            productanswerReject(){
+            rejectProductAnswerAction(){
         return new RejectProductAnswerAction();
     }
 

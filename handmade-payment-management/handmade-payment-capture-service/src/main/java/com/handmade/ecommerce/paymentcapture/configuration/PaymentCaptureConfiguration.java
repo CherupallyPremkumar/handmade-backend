@@ -40,13 +40,13 @@ public class PaymentCaptureConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PaymentCapture> paymentcaptureEntityStm(@Qualifier("paymentcaptureFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PaymentCapture> paymentcaptureEntityStm(@Qualifier("paymentcaptureFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PaymentCapture> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider paymentcaptureActionsInfoProvider(@Qualifier("paymentcaptureFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider paymentcaptureActionsInfoProvider(@Qualifier("paymentcaptureFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("paymentcapture",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PaymentCaptureConfiguration {
 		return new PaymentCaptureEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PaymentCapture> _paymentcaptureStateEntityService_(
+	@Bean StateEntityServiceImpl<PaymentCapture> _paymentcaptureStateEntityService_(
 			@Qualifier("paymentcaptureEntityStm") STM<PaymentCapture> stm,
 			@Qualifier("paymentcaptureActionsInfoProvider") STMActionsInfoProvider paymentcaptureInfoProvider,
 			@Qualifier("paymentcaptureEntityStore") EntityStore<PaymentCapture> entityStore){
@@ -65,7 +65,7 @@ public class PaymentCaptureConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PaymentCapture> paymentcaptureEntryAction(@Qualifier("paymentcaptureEntityStore") EntityStore<PaymentCapture> entityStore,
+	@Bean GenericEntryAction<PaymentCapture> paymentcaptureEntryAction(@Qualifier("paymentcaptureEntityStore") EntityStore<PaymentCapture> entityStore,
 			@Qualifier("paymentcaptureActionsInfoProvider") STMActionsInfoProvider paymentcaptureInfoProvider,
             @Qualifier("paymentcaptureFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PaymentCapture> entryAction =  new GenericEntryAction<PaymentCapture>(entityStore,paymentcaptureInfoProvider);
@@ -101,13 +101,13 @@ public class PaymentCaptureConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector paymentcaptureBodyTypeSelector(
+    @Bean StmBodyTypeSelector paymentcaptureBodyTypeSelector(
     @Qualifier("paymentcaptureActionsInfoProvider") STMActionsInfoProvider paymentcaptureInfoProvider,
     @Qualifier("paymentcaptureTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(paymentcaptureInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PaymentCapture> paymentcaptureBaseTransitionAction(
+    @Bean STMTransitionAction<PaymentCapture> paymentcaptureBaseTransitionAction(
         @Qualifier("paymentcaptureTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

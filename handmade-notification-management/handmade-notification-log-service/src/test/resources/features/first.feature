@@ -7,14 +7,18 @@ And that "initialState" equals "SENT"
 When I POST a REST request to URL "/notificationlog" with payload
 """json
 {
-    "description": "Description"
+    "userId": "user-123",
+    "templateId": "tmpl-456",
+    "channel": "EMAIL",
+    "status": "SENT",
+    "sentAt": "2026-01-18"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.userId" is "user-123"
 
 Scenario: Retrieve the notificationlog that just got created
 When I GET a REST request to URL "/notificationlog/${id}"

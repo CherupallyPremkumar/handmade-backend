@@ -8,7 +8,7 @@ Feature: Product Search & Browse Query Service
     """
     {
       "filters": {
-        "name": "Ceramic"
+        "name": "Artisan"
       },
       "pageNum": 1,
       "numRowsInPage": 10
@@ -16,7 +16,7 @@ Feature: Product Search & Browse Query Service
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.name" contains string "Ceramic"
+    And the REST response key "list[0].row.name" contains string "Artisan"
 
   Scenario: Search products with multi-brand filter
     When I POST a REST request to URL "/q/search-products" with payload
@@ -56,7 +56,7 @@ Feature: Product Search & Browse Query Service
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.facet_value" is "Organic Soaps"
+    And the REST response key "list[0].row.facet_value" is "Serene Soy Candles"
 
   Scenario: Get Price Facets
     When I POST a REST request to URL "/q/price-facets" with payload

@@ -1,21 +1,17 @@
 package com.handmade.ecommerce.analytics.bdd;
 
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
-
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
-
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(features = "src/test/resources/features",
-    glue = {"classpath:com/handmade/ecommerce/analytics/bdd",
-    "classpath:org/chenile/cucumber/rest"},
-
+@CucumberOptions(
+        glue = {"classpath:com/handmade/ecommerce/analytics/bdd",
+                "classpath:org/chenile/cucumber/rest"},
+        features = "src/test/resources/features",
         plugin = {"pretty"}
-        )
-@ActiveProfiles("unittest")
+)
 public class CukesRestTest {
 
 }

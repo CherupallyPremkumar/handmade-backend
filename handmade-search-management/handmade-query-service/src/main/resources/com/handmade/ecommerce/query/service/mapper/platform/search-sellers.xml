@@ -14,7 +14,7 @@
             suspension_reason as "suspensionReason",
             deleted as "deleted",
             can_create_listings as "canCreateListings",
-            state_id as "state",
+            state_id as "stateId",
             flow_id as "flowId",
             onboarding_policy_id as "onboardingPolicyId",
             onboarding_policy_version as "onboardingPolicyVersion",

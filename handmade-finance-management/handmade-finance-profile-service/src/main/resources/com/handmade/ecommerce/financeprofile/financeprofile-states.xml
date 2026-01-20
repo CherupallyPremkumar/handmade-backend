@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.finance.dto.ActivateFinanceProfilePayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.finance.dto.ReactivateFinanceProfilePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.finance.dto.RejectFinanceProfilePayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.finance.dto.SuspendFinanceProfilePayload"/>
+    <event-information eventId="verify" meta-bodyType="com.handmade.ecommerce.finance.dto.VerifyFinanceProfilePayload"/>
+
     <flow id="financeProfileFlow" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="verify" newStateId="VERIFIED" componentName="com.handmade.ecommerce.financeprofile.service.cmds.VerifyFinanceProfileAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.financeprofile.service.cmds.ReactivateFinanceProfileAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.financeprofile.service.cmds.RejectFinanceProfileAction"/>
         </manual-state>
 
         <manual-state id="VERIFIED">

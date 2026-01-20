@@ -4,23 +4,23 @@ Feature: Comprehensive Search & Personalization Scenarios
     When I POST a REST request to URL "/q/search-products" with payload
     """
     {
-      "filters": { "name": "Handmade Ceramic Mug" }
+      "filters": { "name": "Artisan Hand-Thrown Turquoise Mug" }
     }
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.name" is "Handmade Ceramic Mug"
+    And the REST response key "list[0].row.name" is "Artisan Hand-Thrown Turquoise Mug"
 
   Scenario: Partial Keyword Match
     When I POST a REST request to URL "/q/search-products" with payload
     """
     {
-      "filters": { "name": "Organic" }
+      "filters": { "name": "Artisan" }
     }
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.name" contains string "Organic"
+    And the REST response key "list[0].row.name" contains string "Artisan"
 
   Scenario: Search with Non-existent Keyword
     When I POST a REST request to URL "/q/search-products" with payload
@@ -31,7 +31,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 0 records
+    And the REST response key "payload.list" has 0 records
 
   Scenario: Filter by Category and Price Range
     When I POST a REST request to URL "/q/search-products" with payload
@@ -46,7 +46,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.id" is "prod-001"
+    And the REST response key "list[0].row.id" is "PROD-001"
 
   Scenario: Multi-select Brand Filter
     When I POST a REST request to URL "/q/search-products" with payload
@@ -65,23 +65,23 @@ Feature: Comprehensive Search & Personalization Scenarios
     When I POST a REST request to URL "/q/get-product-variants" with payload
     """
     {
-      "filters": { "id": "standalone-001" }
+      "filters": { "id": "PROD-STANDALONE-001" }
     }
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 1 records
+    And the REST response key "payload.list" has 1 records
 
   Scenario: PDP for Variant Product
     When I POST a REST request to URL "/q/get-product-variants" with payload
     """
     {
-      "filters": { "id": "prod-003" }
+      "filters": { "id": "PROD-SEARCH-003" }
     }
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 2 records
+    And the REST response key "payload.list" has 2 records
 
   Scenario: PDP for Invalid Product ID
     When I POST a REST request to URL "/q/get-product-details" with payload
@@ -92,7 +92,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 0 records
+    And the REST response key "payload.list" has 0 records
 
   Scenario: Recently Viewed for New User (No History)
     When I POST a REST request to URL "/q/search-recently-viewed" with payload
@@ -103,7 +103,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 0 records
+    And the REST response key "payload.list" has 0 records
 
   Scenario: Buy It Again for New User (No Orders)
     When I POST a REST request to URL "/q/search-buy-it-again" with payload
@@ -114,7 +114,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 0 records
+    And the REST response key "payload.list" has 0 records
 
   Scenario: Filter by Category with No Products
     When I POST a REST request to URL "/q/search-products" with payload
@@ -125,7 +125,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 0 records
+    And the REST response key "payload.list" has 0 records
 
   Scenario: Search with Pagination (Page Beyond Results snaps to Last Page)
     # Chenile's AbstractSearchServiceImpl snaps the page to maxPages if pageNum > maxPages
@@ -139,7 +139,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list" has 1 records
+    And the REST response key "payload.list" has 1 records
 
   Scenario: Search with Empty Filters (Return All)
     When I POST a REST request to URL "/q/search-products" with payload
@@ -164,7 +164,7 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.name" contains string "Handmade"
+    And the REST response key "list[0].row.name" contains string "Artisan"
 
   Scenario: Sort Products by Name Descending
     When I POST a REST request to URL "/q/search-products" with payload
@@ -178,4 +178,4 @@ Feature: Comprehensive Search & Personalization Scenarios
     """
     Then the http status code is 200
     And success is true
-    And the REST response key "list[0].row.name" contains string "Vintage"
+    And the REST response key "list[0].row.name" contains string "Sandalwood"

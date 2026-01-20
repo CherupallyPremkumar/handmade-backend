@@ -40,13 +40,13 @@ public class WorkflowTaskConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<WorkflowTask> workflowtaskEntityStm(@Qualifier("workflowtaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<WorkflowTask> workflowtaskEntityStm(@Qualifier("workflowtaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<WorkflowTask> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider workflowtaskActionsInfoProvider(@Qualifier("workflowtaskFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider workflowtaskActionsInfoProvider(@Qualifier("workflowtaskFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("workflowtask",provider);
         return provider;
@@ -56,7 +56,7 @@ public class WorkflowTaskConfiguration {
 		return new WorkflowTaskEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<WorkflowTask> _workflowtaskStateEntityService_(
+	@Bean StateEntityServiceImpl<WorkflowTask> _workflowtaskStateEntityService_(
 			@Qualifier("workflowtaskEntityStm") STM<WorkflowTask> stm,
 			@Qualifier("workflowtaskActionsInfoProvider") STMActionsInfoProvider workflowtaskInfoProvider,
 			@Qualifier("workflowtaskEntityStore") EntityStore<WorkflowTask> entityStore){
@@ -65,7 +65,7 @@ public class WorkflowTaskConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<WorkflowTask> workflowtaskEntryAction(@Qualifier("workflowtaskEntityStore") EntityStore<WorkflowTask> entityStore,
+	@Bean GenericEntryAction<WorkflowTask> workflowtaskEntryAction(@Qualifier("workflowtaskEntityStore") EntityStore<WorkflowTask> entityStore,
 			@Qualifier("workflowtaskActionsInfoProvider") STMActionsInfoProvider workflowtaskInfoProvider,
             @Qualifier("workflowtaskFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<WorkflowTask> entryAction =  new GenericEntryAction<WorkflowTask>(entityStore,workflowtaskInfoProvider);
@@ -101,13 +101,13 @@ public class WorkflowTaskConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector workflowtaskBodyTypeSelector(
+    @Bean StmBodyTypeSelector workflowtaskBodyTypeSelector(
     @Qualifier("workflowtaskActionsInfoProvider") STMActionsInfoProvider workflowtaskInfoProvider,
     @Qualifier("workflowtaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(workflowtaskInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<WorkflowTask> workflowtaskBaseTransitionAction(
+    @Bean STMTransitionAction<WorkflowTask> workflowtaskBaseTransitionAction(
         @Qualifier("workflowtaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

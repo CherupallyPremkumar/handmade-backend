@@ -7,14 +7,16 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/contentpage" with payload
 """json
 {
-    "description": "Description"
+    "slug": "test-page",
+    "title": "Test Page",
+    "metaDescription": "Description"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.metaDescription" is "Description"
 
 Scenario: Retrieve the contentpage that just got created
 When I GET a REST request to URL "/contentpage/${id}"

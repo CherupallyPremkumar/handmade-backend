@@ -55,7 +55,7 @@
             <plugin>
                 <groupId>org.chenile</groupId>
                 <artifactId>stm-generate-puml</artifactId>
-                <version>${revision}</version>
+                <version>${chenile.revision}</version>
                 <executions>
                     <execution>
                         <goals>

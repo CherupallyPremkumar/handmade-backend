@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.CycleCount;
-import com.handmade.ecommerce.inventory.model. ApproveVarianceCycleCountPayload;
+import com.handmade.ecommerce.inventory.dto.ApproveVarianceCycleCountPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. ApproveVarianceCycleCountPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ApproveVarianceCycleCountAction extends AbstractSTMTransitionAction<CycleCount,
-    ApproveVarianceCycleCountPayload>{
+               ApproveVarianceCycleCountPayload>{
 
 	@Override
 	public void transitionTo(CycleCount cyclecount,

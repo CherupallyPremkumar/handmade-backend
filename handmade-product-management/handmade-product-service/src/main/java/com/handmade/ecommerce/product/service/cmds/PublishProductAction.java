@@ -1,12 +1,13 @@
 package com.handmade.ecommerce.product.service.cmds;
 
+import com.handmade.ecommerce.product.dto.PublishProductPayload;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.product.model.Product;
-import com.handmade.ecommerce.product.model.PublishProductPayload;
+import com.handmade.ecommerce.product.dto.PublishProductPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +15,7 @@ import com.handmade.ecommerce.product.model.PublishProductPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class PublishProductAction extends AbstractSTMTransitionAction<Product,
-    PublishProductPayload>{
+               PublishProductPayload>{
 
 	@Override
 	public void transitionTo(Product product,

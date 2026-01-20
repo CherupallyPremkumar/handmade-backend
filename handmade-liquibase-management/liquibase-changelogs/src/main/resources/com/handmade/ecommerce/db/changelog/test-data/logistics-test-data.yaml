@@ -1,0 +1,132 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-logistics
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_shipping_label
+        - delete:
+            tableName: hm_shipment
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-001" }
+              - column: { name: order_id, value: "ORD-001" }
+              - column: { name: carrier, value: "FEDEX" }
+              - column: { name: tracking_number, value: "FDX-1001" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-02T09:00:00" }
+        - insert:
+            tableName: hm_shipping_label
+            columns:
+              - column: { name: id, value: "LBL-001" }
+              - column: { name: shipment_id, value: "SHP-001" }
+              - column: { name: tracking_number, value: "FDX-1001" }
+              - column: { name: label_image_url, value: "https://labels.PLT-GLOBAL.com/LBL-001.pdf" }
+              - column: { name: carrier_id, value: "CARR-FEDEX" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPPING_LABEL_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-002" }
+              - column: { name: order_id, value: "ORD-002" }
+              - column: { name: carrier, value: "UPS" }
+              - column: { name: tracking_number, value: "UPS-1002" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-02T10:30:00" }
+        - insert:
+            tableName: hm_shipping_label
+            columns:
+              - column: { name: id, value: "LBL-002" }
+              - column: { name: shipment_id, value: "SHP-002" }
+              - column: { name: tracking_number, value: "UPS-1002" }
+              - column: { name: carrier_id, value: "CARR-UPS" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPPING_LABEL_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-003" }
+              - column: { name: order_id, value: "ORD-003" }
+              - column: { name: carrier, value: "DHL" }
+              - column: { name: tracking_number, value: "DHL-1003" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-004" }
+              - column: { name: order_id, value: "ORD-004" }
+              - column: { name: carrier, value: "USPS" }
+              - column: { name: tracking_number, value: "USPS-1004" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-005" }
+              - column: { name: order_id, value: "ORD-005" }
+              - column: { name: carrier, value: "FEDEX" }
+              - column: { name: tracking_number, value: "FDX-1005" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-006" }
+              - column: { name: order_id, value: "ORD-006" }
+              - column: { name: carrier, value: "UPS" }
+              - column: { name: tracking_number, value: "UPS-1006" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-007" }
+              - column: { name: order_id, value: "ORD-007" }
+              - column: { name: carrier, value: "DHL" }
+              - column: { name: tracking_number, value: "DHL-1007" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-008" }
+              - column: { name: order_id, value: "ORD-008" }
+              - column: { name: carrier, value: "USPS" }
+              - column: { name: tracking_number, value: "USPS-1008" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-009" }
+              - column: { name: order_id, value: "ORD-009" }
+              - column: { name: carrier, value: "FEDEX" }
+              - column: { name: tracking_number, value: "FDX-1009" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_shipment
+            columns:
+              - column: { name: id, value: "SHP-010" }
+              - column: { name: order_id, value: "ORD-010" }
+              - column: { name: carrier, value: "UPS" }
+              - column: { name: tracking_number, value: "UPS-1010" }
+              - column: { name: state_id, value: "CREATED" }
+              - column: { name: flow_id, value: "HM_SHIPMENT_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }

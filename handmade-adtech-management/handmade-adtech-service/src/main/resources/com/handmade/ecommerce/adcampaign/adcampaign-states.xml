@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <states>
-
+    <event-information eventId="launch" meta-bodyType="com.handmade.ecommerce.adcampaign.dto.LaunchAdCampaignPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.adcampaign.dto.PauseAdCampaignPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.adcampaign.dto.ResumeAdCampaignPayload"/>
+    <event-information eventId="end" meta-bodyType="com.handmade.ecommerce.adcampaign.dto.EndAdCampaignPayload"/>
 
     <!-- Ad Campaign Flow -->
     <flow id="adCampaignFlow" default="true">

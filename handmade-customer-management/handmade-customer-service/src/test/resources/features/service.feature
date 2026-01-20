@@ -8,7 +8,10 @@ Feature: Tests the customer Service using a REST client.
     And I POST a REST request to URL "/customer" with payload
     """
     {
-      "attribute1": "value-of-attribute1"
+      "userId": "user-001",
+      "email": "user001@example.com",
+      "firstName": "John",
+      "lastName": "Doe"
 	}
 	"""
 	Then success is true
@@ -31,7 +34,10 @@ Feature: Tests the customer Service using a REST client.
   """
   {
     "id": "${id}",
-    "attribute1": "value-of-attribute1"
+    "userId": "user-002",
+    "email": "user002@example.com",
+    "firstName": "Jane",
+    "lastName": "Doe"
   }
   """
     Then success is true

@@ -40,13 +40,13 @@ public class PackTaskConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PackTask> packtaskEntityStm(@Qualifier("packtaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PackTask> packtaskEntityStm(@Qualifier("packtaskFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PackTask> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider packtaskActionsInfoProvider(@Qualifier("packtaskFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider packtaskActionsInfoProvider(@Qualifier("packtaskFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("packtask",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PackTaskConfiguration {
 		return new PackTaskEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PackTask> _packtaskStateEntityService_(
+	@Bean StateEntityServiceImpl<PackTask> _packtaskStateEntityService_(
 			@Qualifier("packtaskEntityStm") STM<PackTask> stm,
 			@Qualifier("packtaskActionsInfoProvider") STMActionsInfoProvider packtaskInfoProvider,
 			@Qualifier("packtaskEntityStore") EntityStore<PackTask> entityStore){
@@ -65,7 +65,7 @@ public class PackTaskConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PackTask> packtaskEntryAction(@Qualifier("packtaskEntityStore") EntityStore<PackTask> entityStore,
+	@Bean GenericEntryAction<PackTask> packtaskEntryAction(@Qualifier("packtaskEntityStore") EntityStore<PackTask> entityStore,
 			@Qualifier("packtaskActionsInfoProvider") STMActionsInfoProvider packtaskInfoProvider,
             @Qualifier("packtaskFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PackTask> entryAction =  new GenericEntryAction<PackTask>(entityStore,packtaskInfoProvider);
@@ -101,13 +101,13 @@ public class PackTaskConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector packtaskBodyTypeSelector(
+    @Bean StmBodyTypeSelector packtaskBodyTypeSelector(
     @Qualifier("packtaskActionsInfoProvider") STMActionsInfoProvider packtaskInfoProvider,
     @Qualifier("packtaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(packtaskInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PackTask> packtaskBaseTransitionAction(
+    @Bean STMTransitionAction<PackTask> packtaskBaseTransitionAction(
         @Qualifier("packtaskTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

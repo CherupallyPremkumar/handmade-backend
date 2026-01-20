@@ -40,13 +40,13 @@ public class CouponConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Coupon> couponEntityStm(@Qualifier("couponFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Coupon> couponEntityStm(@Qualifier("couponFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Coupon> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider couponActionsInfoProvider(@Qualifier("couponFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider couponActionsInfoProvider(@Qualifier("couponFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("coupon",provider);
         return provider;
@@ -56,7 +56,7 @@ public class CouponConfiguration {
 		return new CouponEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Coupon> _couponStateEntityService_(
+	@Bean StateEntityServiceImpl<Coupon> _couponStateEntityService_(
 			@Qualifier("couponEntityStm") STM<Coupon> stm,
 			@Qualifier("couponActionsInfoProvider") STMActionsInfoProvider couponInfoProvider,
 			@Qualifier("couponEntityStore") EntityStore<Coupon> entityStore){
@@ -65,7 +65,7 @@ public class CouponConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Coupon> couponEntryAction(@Qualifier("couponEntityStore") EntityStore<Coupon> entityStore,
+	@Bean GenericEntryAction<Coupon> couponEntryAction(@Qualifier("couponEntityStore") EntityStore<Coupon> entityStore,
 			@Qualifier("couponActionsInfoProvider") STMActionsInfoProvider couponInfoProvider,
             @Qualifier("couponFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Coupon> entryAction =  new GenericEntryAction<Coupon>(entityStore,couponInfoProvider);
@@ -101,13 +101,13 @@ public class CouponConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector couponBodyTypeSelector(
+    @Bean StmBodyTypeSelector couponBodyTypeSelector(
     @Qualifier("couponActionsInfoProvider") STMActionsInfoProvider couponInfoProvider,
     @Qualifier("couponTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(couponInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Coupon> couponBaseTransitionAction(
+    @Bean STMTransitionAction<Coupon> couponBaseTransitionAction(
         @Qualifier("couponTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,39 +122,36 @@ public class CouponConfiguration {
     // segment in src/main/resources/com/handmade/coupon/coupon-states.xml
 
     @Bean ResumeCouponAction
-            couponResume(){
+            resumeCouponAction(){
         return new ResumeCouponAction();
     }
-    @Bean DeactivateCouponAction
-            couponDeactivate(){
-        return new DeactivateCouponAction();
-    }
+
     @Bean ExpireCouponAction
-            couponExpire(){
+            expireCouponAction(){
         return new ExpireCouponAction();
     }
     @Bean PauseCouponAction
-            couponPause(){
+            pauseCouponAction(){
         return new PauseCouponAction();
     }
     @Bean DeactivateCouponAction
-            couponDeactivate(){
+            deactivateCouponAction(){
         return new DeactivateCouponAction();
     }
     @Bean SubmitCouponAction
-            couponSubmit(){
+            submitCouponAction(){
         return new SubmitCouponAction();
     }
     @Bean ApproveCouponAction
-            couponApprove(){
+            approveCouponAction(){
         return new ApproveCouponAction();
     }
     @Bean RejectCouponAction
-            couponReject(){
+            rejectCouponAction(){
         return new RejectCouponAction();
     }
     @Bean ActivateCouponAction
-            couponActivate(){
+            activateCouponAction(){
         return new ActivateCouponAction();
     }
 

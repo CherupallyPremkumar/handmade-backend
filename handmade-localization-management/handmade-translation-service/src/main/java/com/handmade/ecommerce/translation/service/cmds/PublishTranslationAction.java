@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.localization.model.Translation;
-import com.handmade.ecommerce.localization.model. PublishTranslationPayload;
+import com.handmade.ecommerce.localization.dto.PublishTranslationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.localization.model. PublishTranslationPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class PublishTranslationAction extends AbstractSTMTransitionAction<Translation,
-    PublishTranslationPayload>{
+               PublishTranslationPayload>{
 
 	@Override
 	public void transitionTo(Translation translation,

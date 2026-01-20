@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * InboundShipment - Inbound inventory shipment managed by STM
  */
-@Entity
+@Entity(name = "InventoryInboundShipment")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor

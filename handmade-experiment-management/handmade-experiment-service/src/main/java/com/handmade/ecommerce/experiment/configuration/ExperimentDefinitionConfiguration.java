@@ -42,13 +42,13 @@ public class ExperimentDefinitionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ExperimentDefinition> experimentDefinitionEntityStm(@Qualifier("experimentDefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ExperimentDefinition> experimentDefinitionEntityStm(@Qualifier("experimentDefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ExperimentDefinition> stm = new STMImpl<>();
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider experimentDefinitionActionsInfoProvider(@Qualifier("experimentDefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider experimentDefinitionActionsInfoProvider(@Qualifier("experimentDefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("experimentDefinition",provider);
         return provider;
@@ -58,7 +58,7 @@ public class ExperimentDefinitionConfiguration {
 		return new ExperimentDefinitionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ExperimentDefinition> _experimentDefinitionStateEntityService_(
+	@Bean StateEntityServiceImpl<ExperimentDefinition> _experimentDefinitionStateEntityService_(
 			@Qualifier("experimentDefinitionEntityStm") STM<ExperimentDefinition> stm,
 			@Qualifier("experimentDefinitionActionsInfoProvider") STMActionsInfoProvider experimentDefinitionInfoProvider,
 			@Qualifier("experimentDefinitionEntityStore") EntityStore<ExperimentDefinition> entityStore){
@@ -67,7 +67,7 @@ public class ExperimentDefinitionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ExperimentDefinition> experimentDefinitionEntryAction(@Qualifier("experimentDefinitionEntityStore") EntityStore<ExperimentDefinition> entityStore,
+	@Bean GenericEntryAction<ExperimentDefinition> experimentDefinitionEntryAction(@Qualifier("experimentDefinitionEntityStore") EntityStore<ExperimentDefinition> entityStore,
 			@Qualifier("experimentDefinitionActionsInfoProvider") STMActionsInfoProvider experimentDefinitionInfoProvider,
             @Qualifier("experimentDefinitionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ExperimentDefinition> entryAction =  new GenericEntryAction<ExperimentDefinition>(entityStore,experimentDefinitionInfoProvider);
@@ -104,13 +104,13 @@ public class ExperimentDefinitionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector experimentDefinitionBodyTypeSelector(
+    @Bean StmBodyTypeSelector experimentDefinitionBodyTypeSelector(
     @Qualifier("experimentDefinitionActionsInfoProvider") STMActionsInfoProvider experimentDefinitionInfoProvider,
     @Qualifier("experimentDefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(experimentDefinitionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ExperimentDefinition> experimentDefinitionBaseTransitionAction(
+    @Bean STMTransitionAction<ExperimentDefinition> experimentDefinitionBaseTransitionAction(
         @Qualifier("experimentDefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

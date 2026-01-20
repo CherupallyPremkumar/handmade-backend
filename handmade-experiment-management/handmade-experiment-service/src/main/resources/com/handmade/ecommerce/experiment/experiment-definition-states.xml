@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.experiment.dto.ActivateExperimentDefinitionPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.experiment.dto.CompleteExperimentDefinitionPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.experiment.dto.PauseExperimentDefinitionPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.experiment.dto.ResumeExperimentDefinitionPayload"/>
+
     <!-- Experiment Lifecycle -->
     <flow id="experimentFlow" default="true">
         <manual-state id="DRAFT" initialState="true">

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.inventory.model.InboundShipmentItem;
-import com.handmade.ecommerce.inventory.model. ReceiveInboundShipmentItemPayload;
+import com.handmade.ecommerce.inventory.dto.ReceiveInboundShipmentItemPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.inventory.model. ReceiveInboundShipmentItemPayload
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ReceiveInboundShipmentItemAction extends AbstractSTMTransitionAction<InboundShipmentItem,
-    ReceiveInboundShipmentItemPayload>{
+               ReceiveInboundShipmentItemPayload>{
 
 	@Override
 	public void transitionTo(InboundShipmentItem inboundshipmentitem,

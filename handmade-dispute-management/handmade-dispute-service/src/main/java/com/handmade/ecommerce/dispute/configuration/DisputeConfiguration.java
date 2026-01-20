@@ -40,13 +40,13 @@ public class DisputeConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Dispute> disputeEntityStm(@Qualifier("disputeFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Dispute> disputeEntityStm(@Qualifier("disputeFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Dispute> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider disputeActionsInfoProvider(@Qualifier("disputeFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider disputeActionsInfoProvider(@Qualifier("disputeFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("dispute",provider);
         return provider;
@@ -56,7 +56,7 @@ public class DisputeConfiguration {
 		return new DisputeEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Dispute> _disputeStateEntityService_(
+	@Bean StateEntityServiceImpl<Dispute> _disputeStateEntityService_(
 			@Qualifier("disputeEntityStm") STM<Dispute> stm,
 			@Qualifier("disputeActionsInfoProvider") STMActionsInfoProvider disputeInfoProvider,
 			@Qualifier("disputeEntityStore") EntityStore<Dispute> entityStore){
@@ -65,7 +65,7 @@ public class DisputeConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Dispute> disputeEntryAction(@Qualifier("disputeEntityStore") EntityStore<Dispute> entityStore,
+	@Bean GenericEntryAction<Dispute> disputeEntryAction(@Qualifier("disputeEntityStore") EntityStore<Dispute> entityStore,
 			@Qualifier("disputeActionsInfoProvider") STMActionsInfoProvider disputeInfoProvider,
             @Qualifier("disputeFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Dispute> entryAction =  new GenericEntryAction<Dispute>(entityStore,disputeInfoProvider);
@@ -101,13 +101,13 @@ public class DisputeConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector disputeBodyTypeSelector(
+    @Bean StmBodyTypeSelector disputeBodyTypeSelector(
     @Qualifier("disputeActionsInfoProvider") STMActionsInfoProvider disputeInfoProvider,
     @Qualifier("disputeTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(disputeInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Dispute> disputeBaseTransitionAction(
+    @Bean STMTransitionAction<Dispute> disputeBaseTransitionAction(
         @Qualifier("disputeTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

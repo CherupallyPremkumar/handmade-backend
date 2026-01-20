@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-notifications
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_notification_queue
+        - delete:
+            tableName: hm_notification_log
+        - delete:
+            tableName: hm_notification_template
+        
+        # Templates (10)
+        - insert:
+            tableName: hm_notification_template
+            columns:
+              - column: {name: id, value: "TMPL-ORDER-CONF"}
+              - column: {name: template_code, value: "Order Confirmation"}
+              - column: {name: channel, value: "EMAIL"}
+              - column: {name: body_template, value: "Your order is confirmed."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_NOTIFICATION_TEMPLATE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_notification_template
+            columns:
+              - column: {name: id, value: "TMPL-SHIP-CONF"}
+              - column: {name: template_code, value: "Shipment Confirmation"}
+              - column: {name: channel, value: "EMAIL"}
+              - column: {name: body_template, value: "Your order has shipped."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_NOTIFICATION_TEMPLATE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Logs (10)
+        - insert:
+            tableName: hm_notification_log
+            columns:
+              - column: {name: id, value: "LOG-001"}
+              - column: {name: template_id, value: "TMPL-ORDER-CONF"}
+              - column: {name: user_id, value: "cust1@example.com"}
+              - column: {name: channel, value: "EMAIL"}
+              - column: {name: status, value: "SENT"}
+              - column: {name: sent_at, valueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: state_id, value: "SENT"}
+              - column: {name: flow_id, value: "HM_NOTIFICATION_LOG_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

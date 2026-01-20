@@ -40,13 +40,13 @@ public class PayoutConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Payout> payoutEntityStm(@Qualifier("payoutFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Payout> payoutEntityStm(@Qualifier("payoutFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Payout> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider payoutActionsInfoProvider(@Qualifier("payoutFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider payoutActionsInfoProvider(@Qualifier("payoutFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("payout",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PayoutConfiguration {
 		return new PayoutEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Payout> _payoutStateEntityService_(
+	@Bean StateEntityServiceImpl<Payout> _payoutStateEntityService_(
 			@Qualifier("payoutEntityStm") STM<Payout> stm,
 			@Qualifier("payoutActionsInfoProvider") STMActionsInfoProvider payoutInfoProvider,
 			@Qualifier("payoutEntityStore") EntityStore<Payout> entityStore){
@@ -65,7 +65,7 @@ public class PayoutConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Payout> payoutEntryAction(@Qualifier("payoutEntityStore") EntityStore<Payout> entityStore,
+	@Bean GenericEntryAction<Payout> payoutEntryAction(@Qualifier("payoutEntityStore") EntityStore<Payout> entityStore,
 			@Qualifier("payoutActionsInfoProvider") STMActionsInfoProvider payoutInfoProvider,
             @Qualifier("payoutFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Payout> entryAction =  new GenericEntryAction<Payout>(entityStore,payoutInfoProvider);
@@ -101,13 +101,13 @@ public class PayoutConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector payoutBodyTypeSelector(
+    @Bean StmBodyTypeSelector payoutBodyTypeSelector(
     @Qualifier("payoutActionsInfoProvider") STMActionsInfoProvider payoutInfoProvider,
     @Qualifier("payoutTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(payoutInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Payout> payoutBaseTransitionAction(
+    @Bean STMTransitionAction<Payout> payoutBaseTransitionAction(
         @Qualifier("payoutTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

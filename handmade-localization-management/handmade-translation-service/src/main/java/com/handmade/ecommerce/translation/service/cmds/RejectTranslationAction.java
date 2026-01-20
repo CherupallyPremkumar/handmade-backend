@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.localization.model.Translation;
-import com.handmade.ecommerce.localization.model. RejectTranslationPayload;
+import com.handmade.ecommerce.localization.dto.RejectTranslationPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.localization.model. RejectTranslationPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectTranslationAction extends AbstractSTMTransitionAction<Translation,
-    RejectTranslationPayload>{
+               RejectTranslationPayload>{
 
 	@Override
 	public void transitionTo(Translation translation,

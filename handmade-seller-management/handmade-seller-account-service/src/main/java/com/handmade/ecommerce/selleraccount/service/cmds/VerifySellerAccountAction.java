@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.seller.model.SellerAccount;
-import com.handmade.ecommerce.seller.model. VerifySellerAccountPayload;
+import com.handmade.ecommerce.seller.dto.VerifySellerAccountPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.seller.model. VerifySellerAccountPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class VerifySellerAccountAction extends AbstractSTMTransitionAction<SellerAccount,
-    VerifySellerAccountPayload>{
+               VerifySellerAccountPayload>{
 
 	@Override
 	public void transitionTo(SellerAccount selleraccount,

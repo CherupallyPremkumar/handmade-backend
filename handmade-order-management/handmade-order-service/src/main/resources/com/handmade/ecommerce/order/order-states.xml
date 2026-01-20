@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="orderFlow" default="true">
+    <event-information eventId="approveReturn" meta-bodyType="com.handmade.ecommerce.order.dto.ApproveReturnOrderPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.order.dto.CancelOrderPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.order.dto.CompleteOrderPayload"/>
+    <event-information eventId="confirm" meta-bodyType="com.handmade.ecommerce.order.dto.ConfirmOrderPayload"/>
+    <event-information eventId="deliver" meta-bodyType="com.handmade.ecommerce.order.dto.DeliverOrderPayload"/>
+    <event-information eventId="pay" meta-bodyType="com.handmade.ecommerce.order.dto.PayOrderPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.order.dto.ProcessOrderPayload"/>
+    <event-information eventId="refund" meta-bodyType="com.handmade.ecommerce.order.dto.RefundOrderPayload"/>
+    <event-information eventId="rejectReturn" meta-bodyType="com.handmade.ecommerce.order.dto.RejectReturnOrderPayload"/>
+    <event-information eventId="return" meta-bodyType="com.handmade.ecommerce.order.dto.ReturnOrderPayload"/>
+    <event-information eventId="ship" meta-bodyType="com.handmade.ecommerce.order.dto.ShipOrderPayload"/>
+
+    <flow id="HM_ORDER_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="confirm" newStateId="CONFIRMED" componentName="orderConfirmAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelAction"/>
+            <on eventId="confirm" newStateId="CONFIRMED" componentName="com.handmade.ecommerce.order.service.cmds.ConfirmOrderAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.order.service.cmds.CancelOrderAction"/>
         </manual-state>
 
         <manual-state id="CONFIRMED">
-            <on eventId="pay" newStateId="PAID" componentName="orderPayAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelFromConfirmedAction"/>
+            <on eventId="pay" newStateId="PAID" componentName="com.handmade.ecommerce.order.service.cmds.PayOrderAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.order.service.cmds.CancelOrderAction"/>
         </manual-state>
 
         <manual-state id="PAID">
-            <on eventId="process" newStateId="PROCESSING" componentName="orderProcessAction"/>
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.order.service.cmds.ProcessOrderAction"/>
         </manual-state>
 
         <manual-state id="PROCESSING">
-            <on eventId="ship" newStateId="SHIPPED" componentName="orderShipAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelFromProcessingAction"/>
+            <on eventId="ship" newStateId="SHIPPED" componentName="com.handmade.ecommerce.order.service.cmds.ShipOrderAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.order.service.cmds.CancelOrderAction"/>
         </manual-state>
 
         <manual-state id="SHIPPED">
-            <on eventId="deliver" newStateId="DELIVERED" componentName="orderDeliverAction"/>
+            <on eventId="deliver" newStateId="DELIVERED" componentName="com.handmade.ecommerce.order.service.cmds.DeliverOrderAction"/>
         </manual-state>
 
         <manual-state id="DELIVERED">
-            <on eventId="complete" newStateId="COMPLETED" componentName="orderCompleteAction"/>
-            <on eventId="return" newStateId="RETURN_REQUESTED" componentName="orderReturnAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.order.service.cmds.CompleteOrderAction"/>
+            <on eventId="return" newStateId="RETURN_REQUESTED" componentName="com.handmade.ecommerce.order.service.cmds.ReturnOrderAction"/>
         </manual-state>
 
         <manual-state id="RETURN_REQUESTED">
-            <on eventId="approveReturn" newStateId="RETURNED" componentName="orderApproveReturnAction"/>
-            <on eventId="rejectReturn" newStateId="DELIVERED" componentName="orderRejectReturnAction"/>
+            <on eventId="approveReturn" newStateId="RETURNED" componentName="com.handmade.ecommerce.order.service.cmds.ApproveReturnOrderAction"/>
+            <on eventId="rejectReturn" newStateId="DELIVERED" componentName="com.handmade.ecommerce.order.service.cmds.RejectReturnOrderAction"/>
         </manual-state>
 
         <manual-state id="RETURNED">
-            <on eventId="refund" newStateId="REFUNDED" componentName="orderRefundAction"/>
+            <on eventId="refund" newStateId="REFUNDED" componentName="com.handmade.ecommerce.order.service.cmds.RefundOrderAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.promotion.model.Coupon;
-import com.handmade.ecommerce.promotion.model. RejectCouponPayload;
+import com.handmade.ecommerce.promotion.dto.RejectCouponPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.promotion.model. RejectCouponPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectCouponAction extends AbstractSTMTransitionAction<Coupon,
-    RejectCouponPayload>{
+               RejectCouponPayload>{
 
 	@Override
 	public void transitionTo(Coupon coupon,

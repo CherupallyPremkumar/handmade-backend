@@ -40,13 +40,13 @@ public class PlatformRegionPolicyConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PlatformRegionPolicy> platformregionpolicyEntityStm(@Qualifier("platformregionpolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PlatformRegionPolicy> platformregionpolicyEntityStm(@Qualifier("platformregionpolicyFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PlatformRegionPolicy> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider platformregionpolicyActionsInfoProvider(@Qualifier("platformregionpolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider platformregionpolicyActionsInfoProvider(@Qualifier("platformregionpolicyFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("platformregionpolicy",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PlatformRegionPolicyConfiguration {
 		return new PlatformRegionPolicyEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PlatformRegionPolicy> _platformregionpolicyStateEntityService_(
+	@Bean StateEntityServiceImpl<PlatformRegionPolicy> _platformregionpolicyStateEntityService_(
 			@Qualifier("platformregionpolicyEntityStm") STM<PlatformRegionPolicy> stm,
 			@Qualifier("platformregionpolicyActionsInfoProvider") STMActionsInfoProvider platformregionpolicyInfoProvider,
 			@Qualifier("platformregionpolicyEntityStore") EntityStore<PlatformRegionPolicy> entityStore){
@@ -65,7 +65,7 @@ public class PlatformRegionPolicyConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PlatformRegionPolicy> platformregionpolicyEntryAction(@Qualifier("platformregionpolicyEntityStore") EntityStore<PlatformRegionPolicy> entityStore,
+	@Bean GenericEntryAction<PlatformRegionPolicy> platformregionpolicyEntryAction(@Qualifier("platformregionpolicyEntityStore") EntityStore<PlatformRegionPolicy> entityStore,
 			@Qualifier("platformregionpolicyActionsInfoProvider") STMActionsInfoProvider platformregionpolicyInfoProvider,
             @Qualifier("platformregionpolicyFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PlatformRegionPolicy> entryAction =  new GenericEntryAction<PlatformRegionPolicy>(entityStore,platformregionpolicyInfoProvider);
@@ -101,13 +101,13 @@ public class PlatformRegionPolicyConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector platformregionpolicyBodyTypeSelector(
+    @Bean StmBodyTypeSelector platformregionpolicyBodyTypeSelector(
     @Qualifier("platformregionpolicyActionsInfoProvider") STMActionsInfoProvider platformregionpolicyInfoProvider,
     @Qualifier("platformregionpolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(platformregionpolicyInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PlatformRegionPolicy> platformregionpolicyBaseTransitionAction(
+    @Bean STMTransitionAction<PlatformRegionPolicy> platformregionpolicyBaseTransitionAction(
         @Qualifier("platformregionpolicyTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,23 +122,23 @@ public class PlatformRegionPolicyConfiguration {
     // segment in src/main/resources/com/handmade/platformregionpolicy/platformregionpolicy-states.xml
 
     @Bean DeprecatePlatformRegionPolicyAction
-            platformregionpolicyDeprecate(){
+            deprecatePlatformRegionPolicyAction(){
         return new DeprecatePlatformRegionPolicyAction();
     }
     @Bean SubmitForReviewPlatformRegionPolicyAction
-            platformregionpolicySubmitForReview(){
+            submitForReviewPlatformRegionPolicyAction(){
         return new SubmitForReviewPlatformRegionPolicyAction();
     }
     @Bean ApprovePlatformRegionPolicyAction
-            platformregionpolicyApprove(){
+            approvePlatformRegionPolicyAction(){
         return new ApprovePlatformRegionPolicyAction();
     }
     @Bean RejectPlatformRegionPolicyAction
-            platformregionpolicyReject(){
+            rejectPlatformRegionPolicyAction(){
         return new RejectPlatformRegionPolicyAction();
     }
     @Bean ActivatePlatformRegionPolicyAction
-            platformregionpolicyActivate(){
+            activatePlatformRegionPolicyAction(){
         return new ActivatePlatformRegionPolicyAction();
     }
 

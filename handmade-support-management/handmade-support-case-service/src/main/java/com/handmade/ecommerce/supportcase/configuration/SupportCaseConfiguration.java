@@ -40,13 +40,13 @@ public class SupportCaseConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SupportCase> supportcaseEntityStm(@Qualifier("supportcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SupportCase> supportcaseEntityStm(@Qualifier("supportcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SupportCase> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider supportcaseActionsInfoProvider(@Qualifier("supportcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider supportcaseActionsInfoProvider(@Qualifier("supportcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("supportcase",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SupportCaseConfiguration {
 		return new SupportCaseEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SupportCase> _supportcaseStateEntityService_(
+	@Bean StateEntityServiceImpl<SupportCase> _supportcaseStateEntityService_(
 			@Qualifier("supportcaseEntityStm") STM<SupportCase> stm,
 			@Qualifier("supportcaseActionsInfoProvider") STMActionsInfoProvider supportcaseInfoProvider,
 			@Qualifier("supportcaseEntityStore") EntityStore<SupportCase> entityStore){
@@ -65,7 +65,7 @@ public class SupportCaseConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SupportCase> supportcaseEntryAction(@Qualifier("supportcaseEntityStore") EntityStore<SupportCase> entityStore,
+	@Bean GenericEntryAction<SupportCase> supportcaseEntryAction(@Qualifier("supportcaseEntityStore") EntityStore<SupportCase> entityStore,
 			@Qualifier("supportcaseActionsInfoProvider") STMActionsInfoProvider supportcaseInfoProvider,
             @Qualifier("supportcaseFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SupportCase> entryAction =  new GenericEntryAction<SupportCase>(entityStore,supportcaseInfoProvider);
@@ -101,13 +101,13 @@ public class SupportCaseConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector supportcaseBodyTypeSelector(
+    @Bean StmBodyTypeSelector supportcaseBodyTypeSelector(
     @Qualifier("supportcaseActionsInfoProvider") STMActionsInfoProvider supportcaseInfoProvider,
     @Qualifier("supportcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(supportcaseInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SupportCase> supportcaseBaseTransitionAction(
+    @Bean STMTransitionAction<SupportCase> supportcaseBaseTransitionAction(
         @Qualifier("supportcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,43 +122,40 @@ public class SupportCaseConfiguration {
     // segment in src/main/resources/com/handmade/supportcase/supportcase-states.xml
 
     @Bean ResolveSupportCaseAction
-            supportcaseResolve(){
+            resolveSupportCaseAction(){
         return new ResolveSupportCaseAction();
     }
     @Bean AwaitCustomerSupportCaseAction
-            supportcaseAwaitCustomer(){
+            awaitCustomerSupportCaseAction(){
         return new AwaitCustomerSupportCaseAction();
     }
     @Bean EscalateSupportCaseAction
-            supportcaseEscalate(){
+            escalateSupportCaseAction(){
         return new EscalateSupportCaseAction();
     }
     @Bean ReopenSupportCaseAction
-            supportcaseReopen(){
+            reopenSupportCaseAction(){
         return new ReopenSupportCaseAction();
     }
     @Bean CloseSupportCaseAction
-            supportcaseClose(){
+            closeSupportCaseAction(){
         return new CloseSupportCaseAction();
     }
     @Bean RespondSupportCaseAction
-            supportcaseRespond(){
+            respondSupportCaseAction(){
         return new RespondSupportCaseAction();
     }
     @Bean ReassignSupportCaseAction
-            supportcaseReassign(){
+            reassignSupportCaseAction(){
         return new ReassignSupportCaseAction();
     }
-    @Bean InvestigateSupportCaseAction
-            supportcaseInvestigate(){
-        return new InvestigateSupportCaseAction();
-    }
+
     @Bean AssignSupportCaseAction
-            supportcaseAssign(){
+            assignSupportCaseAction(){
         return new AssignSupportCaseAction();
     }
     @Bean InvestigateSupportCaseAction
-            supportcaseInvestigate(){
+            investigateSupportCaseAction(){
         return new InvestigateSupportCaseAction();
     }
 

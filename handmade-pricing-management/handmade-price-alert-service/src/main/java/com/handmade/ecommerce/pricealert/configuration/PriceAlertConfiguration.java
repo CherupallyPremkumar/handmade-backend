@@ -40,13 +40,13 @@ public class PriceAlertConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PriceAlert> pricealertEntityStm(@Qualifier("pricealertFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PriceAlert> pricealertEntityStm(@Qualifier("pricealertFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PriceAlert> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider pricealertActionsInfoProvider(@Qualifier("pricealertFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider pricealertActionsInfoProvider(@Qualifier("pricealertFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("pricealert",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PriceAlertConfiguration {
 		return new PriceAlertEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PriceAlert> _pricealertStateEntityService_(
+	@Bean StateEntityServiceImpl<PriceAlert> _pricealertStateEntityService_(
 			@Qualifier("pricealertEntityStm") STM<PriceAlert> stm,
 			@Qualifier("pricealertActionsInfoProvider") STMActionsInfoProvider pricealertInfoProvider,
 			@Qualifier("pricealertEntityStore") EntityStore<PriceAlert> entityStore){
@@ -65,7 +65,7 @@ public class PriceAlertConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PriceAlert> pricealertEntryAction(@Qualifier("pricealertEntityStore") EntityStore<PriceAlert> entityStore,
+	@Bean GenericEntryAction<PriceAlert> pricealertEntryAction(@Qualifier("pricealertEntityStore") EntityStore<PriceAlert> entityStore,
 			@Qualifier("pricealertActionsInfoProvider") STMActionsInfoProvider pricealertInfoProvider,
             @Qualifier("pricealertFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PriceAlert> entryAction =  new GenericEntryAction<PriceAlert>(entityStore,pricealertInfoProvider);
@@ -101,13 +101,13 @@ public class PriceAlertConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector pricealertBodyTypeSelector(
+    @Bean StmBodyTypeSelector pricealertBodyTypeSelector(
     @Qualifier("pricealertActionsInfoProvider") STMActionsInfoProvider pricealertInfoProvider,
     @Qualifier("pricealertTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(pricealertInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PriceAlert> pricealertBaseTransitionAction(
+    @Bean STMTransitionAction<PriceAlert> pricealertBaseTransitionAction(
         @Qualifier("pricealertTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

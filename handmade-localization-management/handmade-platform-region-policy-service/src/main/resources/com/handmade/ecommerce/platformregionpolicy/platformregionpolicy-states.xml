@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="platformRegionPolicyFlow" default="true">
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.localization.dto.ActivatePlatformRegionPolicyPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.localization.dto.ApprovePlatformRegionPolicyPayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.localization.dto.DeprecatePlatformRegionPolicyPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.localization.dto.RejectPlatformRegionPolicyPayload"/>
+    <event-information eventId="submitForReview" meta-bodyType="com.handmade.ecommerce.localization.dto.SubmitForReviewPlatformRegionPolicyPayload"/>
+
+    <flow id="HM_PLATFORM_REGION_POLICY_FLOW" default="true">
         <manual-state id="DRAFT" initialState="true">
-            <on eventId="submitForReview" newStateId="REVIEW" componentName="platformRegionPolicySubmitForReviewAction"/>
+            <on eventId="submitForReview" newStateId="REVIEW" componentName="submitForReviewPlatformRegionPolicyAction"/>
         </manual-state>
 
         <manual-state id="REVIEW">
-            <on eventId="approve" newStateId="APPROVED" componentName="platformRegionPolicyApproveAction"/>
-            <on eventId="reject" newStateId="DRAFT" componentName="platformRegionPolicyRejectAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="approvePlatformRegionPolicyAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="rejectPlatformRegionPolicyAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="activate" newStateId="ACTIVE" componentName="platformRegionPolicyActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="activatePlatformRegionPolicyAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE">
-            <on eventId="deprecate" newStateId="DEPRECATED" componentName="platformRegionPolicyDeprecateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="deprecatePlatformRegionPolicyAction"/>
         </manual-state>
 
         <manual-state id="DEPRECATED" meta-endState="true"/>

@@ -40,13 +40,13 @@ public class EventQueueConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<EventQueue> eventqueueEntityStm(@Qualifier("eventqueueFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<EventQueue> eventqueueEntityStm(@Qualifier("eventqueueFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<EventQueue> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider eventqueueActionsInfoProvider(@Qualifier("eventqueueFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider eventqueueActionsInfoProvider(@Qualifier("eventqueueFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("eventqueue",provider);
         return provider;
@@ -56,7 +56,7 @@ public class EventQueueConfiguration {
 		return new EventQueueEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<EventQueue> _eventqueueStateEntityService_(
+	@Bean StateEntityServiceImpl<EventQueue> _eventqueueStateEntityService_(
 			@Qualifier("eventqueueEntityStm") STM<EventQueue> stm,
 			@Qualifier("eventqueueActionsInfoProvider") STMActionsInfoProvider eventqueueInfoProvider,
 			@Qualifier("eventqueueEntityStore") EntityStore<EventQueue> entityStore){
@@ -65,7 +65,7 @@ public class EventQueueConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<EventQueue> eventqueueEntryAction(@Qualifier("eventqueueEntityStore") EntityStore<EventQueue> entityStore,
+	@Bean GenericEntryAction<EventQueue> eventqueueEntryAction(@Qualifier("eventqueueEntityStore") EntityStore<EventQueue> entityStore,
 			@Qualifier("eventqueueActionsInfoProvider") STMActionsInfoProvider eventqueueInfoProvider,
             @Qualifier("eventqueueFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<EventQueue> entryAction =  new GenericEntryAction<EventQueue>(entityStore,eventqueueInfoProvider);
@@ -101,13 +101,13 @@ public class EventQueueConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector eventqueueBodyTypeSelector(
+    @Bean StmBodyTypeSelector eventqueueBodyTypeSelector(
     @Qualifier("eventqueueActionsInfoProvider") STMActionsInfoProvider eventqueueInfoProvider,
     @Qualifier("eventqueueTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(eventqueueInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<EventQueue> eventqueueBaseTransitionAction(
+    @Bean STMTransitionAction<EventQueue> eventqueueBaseTransitionAction(
         @Qualifier("eventqueueTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

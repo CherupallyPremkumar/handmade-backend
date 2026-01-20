@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.logistics.model.ShippingLabel;
-import com.handmade.ecommerce.logistics.model. PrintShippingLabelPayload;
+import com.handmade.ecommerce.logistics.dto.PrintShippingLabelPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.logistics.model. PrintShippingLabelPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class PrintShippingLabelAction extends AbstractSTMTransitionAction<ShippingLabel,
-    PrintShippingLabelPayload>{
+               PrintShippingLabelPayload>{
 
 	@Override
 	public void transitionTo(ShippingLabel shippinglabel,

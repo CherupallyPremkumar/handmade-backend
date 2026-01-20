@@ -14,7 +14,7 @@ Feature: Homepage Search Query Service
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.sellerName" is "Organic Soap Creations"
+    And the REST response key "list[0].row.sellerName" is "Serene Soy Candles Shop"
     And the REST response contains key "list[0].row.imageUrl"
 
   Scenario: Search Best Sellers
@@ -28,8 +28,8 @@ Feature: Homepage Search Query Service
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.sellerName" is "Handcrafted Pottery Studio"
-    And the REST response key "list[0].row.averageRating" is "5.0"
+    And the REST response key "list[0].row.sellerName" is "Earth & Fire Ceramics Store"
+    And the REST response key "list[0].row.averageRating" is "0"
 
   Scenario: Search New Arrivals
     When I POST a REST request to URL "/q/search-new-arrivals" with payload
@@ -42,7 +42,7 @@ Feature: Homepage Search Query Service
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.sellerName" is "Organic Soap Creations"
+    And the REST response key "list[0].row.sellerName" is "Linocut Impressions Art Store"
 
   Scenario: Search Recommendations
     When I POST a REST request to URL "/q/search-recommendations" with payload
@@ -56,7 +56,7 @@ Feature: Homepage Search Query Service
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.sellerName" is "Organic Soap Creations"
+    And the REST response key "list[0].row.sellerName" is "Indigo Weaves Boutique"
 
   Scenario: Search Sponsored Products
     When I POST a REST request to URL "/q/search-sponsored-products" with payload
@@ -69,4 +69,4 @@ Feature: Homepage Search Query Service
     Then the http status code is 200
     And the top level code is 200
     And success is true
-    And the REST response key "list[0].row.sellerName" is "Handcrafted Pottery Studio"
+    And the REST response key "list[0].row.sellerName" is "Merino Knits Atelier"

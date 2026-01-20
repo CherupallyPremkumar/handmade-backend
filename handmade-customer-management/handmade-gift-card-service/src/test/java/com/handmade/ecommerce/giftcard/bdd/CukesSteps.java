@@ -1,12 +1,13 @@
 package com.handmade.ecommerce.giftcard.bdd;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import com.handmade.ecommerce.giftcard.SpringTestConfig;
 
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
+import io.cucumber.spring.CucumberContextConfiguration;
 
 /**
 * This "steps" file's purpose is to hook up the SpringConfig to the test case.
@@ -20,6 +21,7 @@ import cucumber.api.java.en.Given;
 @AutoConfigureMockMvc
 @ActiveProfiles("unittest")
 
+@CucumberContextConfiguration
 public class CukesSteps {
 	@Given("dummy") public void dummy(){}
 }

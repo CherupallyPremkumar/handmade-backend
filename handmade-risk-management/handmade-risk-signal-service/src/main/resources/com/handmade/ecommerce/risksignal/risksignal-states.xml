@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="confirm" meta-bodyType="com.handmade.ecommerce.risk.dto.ConfirmRiskSignalPayload"/>
+    <event-information eventId="dismiss" meta-bodyType="com.handmade.ecommerce.risk.dto.DismissRiskSignalPayload"/>
+    <event-information eventId="escalate" meta-bodyType="com.handmade.ecommerce.risk.dto.EscalateRiskSignalPayload"/>
+    <event-information eventId="mitigate" meta-bodyType="com.handmade.ecommerce.risk.dto.MitigateRiskSignalPayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.risk.dto.ReviewRiskSignalPayload"/>
+
     <flow id="riskSignalFlow" default="true">
         <manual-state id="DETECTED" initialState="true">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="riskSignalReviewAction"/>
-            <on eventId="dismiss" newStateId="DISMISSED" componentName="riskSignalDismissAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.risksignal.service.cmds.ReviewRiskSignalAction"/>
+            <on eventId="dismiss" newStateId="DISMISSED" componentName="com.handmade.ecommerce.risksignal.service.cmds.DismissRiskSignalAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="confirm" newStateId="CONFIRMED" componentName="riskSignalConfirmAction"/>
-            <on eventId="dismiss" newStateId="DISMISSED" componentName="riskSignalDismissFromReviewAction"/>
+            <on eventId="confirm" newStateId="CONFIRMED" componentName="com.handmade.ecommerce.risksignal.service.cmds.ConfirmRiskSignalAction"/>
+            <on eventId="dismiss" newStateId="DISMISSED" componentName="com.handmade.ecommerce.risksignal.service.cmds.DismissRiskSignalAction"/>
         </manual-state>
 
         <manual-state id="CONFIRMED">
-            <on eventId="escalate" newStateId="ESCALATED" componentName="riskSignalEscalateAction"/>
-            <on eventId="mitigate" newStateId="MITIGATED" componentName="riskSignalMitigateAction"/>
+            <on eventId="escalate" newStateId="ESCALATED" componentName="com.handmade.ecommerce.risksignal.service.cmds.EscalateRiskSignalAction"/>
+            <on eventId="mitigate" newStateId="MITIGATED" componentName="com.handmade.ecommerce.risksignal.service.cmds.MitigateRiskSignalAction"/>
         </manual-state>
 
         <manual-state id="ESCALATED">
-            <on eventId="mitigate" newStateId="MITIGATED" componentName="riskSignalMitigateFromEscalatedAction"/>
+            <on eventId="mitigate" newStateId="MITIGATED" componentName="com.handmade.ecommerce.risksignal.service.cmds.MitigateRiskSignalAction"/>
         </manual-state>
 
         <manual-state id="MITIGATED" meta-endState="true"/>

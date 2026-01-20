@@ -3,13 +3,13 @@ package com.handmade.ecommerce.query.service.bdd;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/rest/features",
-		glue = {"classpath:org/chenile/cucumber/rest", "classpath:com/handmade/ecommerce/query/service/bdd"},
+		glue = {"org/chenile/cucumber/rest", "com/handmade/ecommerce/query/service/bdd"},
         plugin = {"pretty"}
         )
 @ActiveProfiles("unittest")

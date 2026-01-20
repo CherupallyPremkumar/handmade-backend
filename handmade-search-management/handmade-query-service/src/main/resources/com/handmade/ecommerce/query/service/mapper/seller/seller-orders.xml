@@ -8,6 +8,8 @@
             o.id as "order_id",
             cp.firstName as "customer_name",
             o.status as "order_status",
+            o.state_id as "stateId",
+            o.flow_id as "flowId",
             o.total_amount as "total_revenue",
             o.created_at as "order_date",
             s.status as "shipment_status",

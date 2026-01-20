@@ -40,13 +40,13 @@ public class PaymentAuthorizationConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PaymentAuthorization> paymentauthorizationEntityStm(@Qualifier("paymentauthorizationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PaymentAuthorization> paymentauthorizationEntityStm(@Qualifier("paymentauthorizationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PaymentAuthorization> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider paymentauthorizationActionsInfoProvider(@Qualifier("paymentauthorizationFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider paymentauthorizationActionsInfoProvider(@Qualifier("paymentauthorizationFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("paymentauthorization",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PaymentAuthorizationConfiguration {
 		return new PaymentAuthorizationEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PaymentAuthorization> _paymentauthorizationStateEntityService_(
+	@Bean StateEntityServiceImpl<PaymentAuthorization> _paymentauthorizationStateEntityService_(
 			@Qualifier("paymentauthorizationEntityStm") STM<PaymentAuthorization> stm,
 			@Qualifier("paymentauthorizationActionsInfoProvider") STMActionsInfoProvider paymentauthorizationInfoProvider,
 			@Qualifier("paymentauthorizationEntityStore") EntityStore<PaymentAuthorization> entityStore){
@@ -65,7 +65,7 @@ public class PaymentAuthorizationConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PaymentAuthorization> paymentauthorizationEntryAction(@Qualifier("paymentauthorizationEntityStore") EntityStore<PaymentAuthorization> entityStore,
+	@Bean GenericEntryAction<PaymentAuthorization> paymentauthorizationEntryAction(@Qualifier("paymentauthorizationEntityStore") EntityStore<PaymentAuthorization> entityStore,
 			@Qualifier("paymentauthorizationActionsInfoProvider") STMActionsInfoProvider paymentauthorizationInfoProvider,
             @Qualifier("paymentauthorizationFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PaymentAuthorization> entryAction =  new GenericEntryAction<PaymentAuthorization>(entityStore,paymentauthorizationInfoProvider);
@@ -101,13 +101,13 @@ public class PaymentAuthorizationConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector paymentauthorizationBodyTypeSelector(
+    @Bean StmBodyTypeSelector paymentauthorizationBodyTypeSelector(
     @Qualifier("paymentauthorizationActionsInfoProvider") STMActionsInfoProvider paymentauthorizationInfoProvider,
     @Qualifier("paymentauthorizationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(paymentauthorizationInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PaymentAuthorization> paymentauthorizationBaseTransitionAction(
+    @Bean STMTransitionAction<PaymentAuthorization> paymentauthorizationBaseTransitionAction(
         @Qualifier("paymentauthorizationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

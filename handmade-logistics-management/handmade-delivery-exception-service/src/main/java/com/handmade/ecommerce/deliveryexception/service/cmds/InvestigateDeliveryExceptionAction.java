@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.logistics.model.DeliveryException;
-import com.handmade.ecommerce.logistics.model. InvestigateDeliveryExceptionPayload;
+import com.handmade.ecommerce.logistics.dto.InvestigateDeliveryExceptionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.logistics.model. InvestigateDeliveryExceptionPaylo
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class InvestigateDeliveryExceptionAction extends AbstractSTMTransitionAction<DeliveryException,
-    InvestigateDeliveryExceptionPayload>{
+               InvestigateDeliveryExceptionPayload>{
 
 	@Override
 	public void transitionTo(DeliveryException deliveryexception,

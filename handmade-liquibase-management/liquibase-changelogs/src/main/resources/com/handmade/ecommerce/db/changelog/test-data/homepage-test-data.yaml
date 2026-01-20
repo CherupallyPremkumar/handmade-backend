@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-homepage-enhancement-v3
+      author: antigravity
+      changes:
+        # Set existing offers to ACTIVE so they show up in queries
+        - update:
+            tableName: hm_offer
+            columns:
+              - column: { name: state_id, value: "ACTIVE" }
+            where: state_id IS NULL
+
+
+
+        # Update products with image URLs
+        - update:
+            tableName: hm_product
+            columns:
+              - column: { name: primary_image_url, value: "https://example.com/mug.jpg" }
+            where: id = 'PROD-001'
+        - update:
+            tableName: hm_product
+            columns:
+              - column: { name: primary_image_url, value: "https://example.com/soap.jpg" }
+            where: id = 'PROD-002'
+
+        # Add popularity data for best sellers (PROD-001 is Ceramic Mug)
+        - insert:
+            tableName: hm_product_popularity_signal
+            columns:
+              - column: { name: id, value: "ps-001" }
+              - column: { name: product_id, value: "PROD-001" }
+              - column: { name: trending_score, valueNumeric: 95.5 }
+              - column: { name: views_count, valueNumeric: 1000 }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_product_popularity_signal
+            columns:
+              - column: { name: id, value: "ps-002" }
+              - column: { name: product_id, value: "PROD-002" }
+              - column: { name: trending_score, valueNumeric: 85.0 }
+              - column: { name: views_count, valueNumeric: 500 }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        # Add recommendation data (Source: PROD-001, Target: PROD-002)
+        - insert:
+            tableName: hm_recommendation
+            columns:
+              - column: { name: id, value: "reco-001" }
+              - column: { name: source_product_id, value: "PROD-001" }
+              - column: { name: target_product_id, value: "PROD-002" }
+              - column: { name: recommendation_type, value: "ALSO_BOUGHT" }
+              - column: { name: score, valueNumeric: 0.99 }
+              - column: { name: computed_at, valueDate: "2024-01-01T00:00:00" }

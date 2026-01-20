@@ -7,14 +7,18 @@ And that "initialState" equals "PENDING"
 When I POST a REST request to URL "/inventoryreservation" with payload
 """json
 {
-    "description": "Description"
+    "fulfillmentNodeId": "node-123",
+    "productId": "prod-456",
+    "orderId": "order-789",
+    "quantityReserved": 5,
+    "reservationDate": "2026-01-18"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.fulfillmentNodeId" is "node-123"
 
 Scenario: Retrieve the inventoryreservation that just got created
 When I GET a REST request to URL "/inventoryreservation/${id}"

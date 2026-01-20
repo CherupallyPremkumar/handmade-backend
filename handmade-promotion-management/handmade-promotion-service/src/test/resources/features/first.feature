@@ -7,14 +7,19 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/promotion" with payload
 """json
 {
-    "description": "Description"
+    "promotionCode": "PROMO-001",
+    "name": "Summer Sale",
+    "promotionType": "PERCENTAGE",
+    "startDate": "2026-06-01T00:00:00Z",
+    "endDate": "2026-06-30T23:59:59Z"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.promotionCode" is "PROMO-001"
 
 Scenario: Retrieve the promotion that just got created
 When I GET a REST request to URL "/promotion/${id}"
@@ -31,7 +36,8 @@ When I PATCH a REST request to URL "/promotion/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "REVIEW"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -45,7 +51,8 @@ When I PATCH a REST request to URL "/promotion/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -59,7 +66,8 @@ When I PATCH a REST request to URL "/promotion/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "SCHEDULED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -73,7 +81,8 @@ When I PATCH a REST request to URL "/promotion/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"

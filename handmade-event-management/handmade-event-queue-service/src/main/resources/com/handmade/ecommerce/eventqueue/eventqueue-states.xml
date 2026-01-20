@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.event.dto.CompleteEventQueuePayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.event.dto.FailEventQueuePayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.event.dto.ProcessEventQueuePayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.event.dto.RetryEventQueuePayload"/>
+
     <flow id="eventQueueFlow" default="true">
         <manual-state id="NEW" initialState="true">
             <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.eventqueue.service.cmds.ProcessEventQueueAction"/>

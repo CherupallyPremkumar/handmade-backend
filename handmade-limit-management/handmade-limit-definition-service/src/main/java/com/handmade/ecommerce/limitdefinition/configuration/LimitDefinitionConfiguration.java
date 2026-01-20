@@ -40,13 +40,13 @@ public class LimitDefinitionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<LimitDefinition> limitdefinitionEntityStm(@Qualifier("limitdefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<LimitDefinition> limitdefinitionEntityStm(@Qualifier("limitdefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<LimitDefinition> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider limitdefinitionActionsInfoProvider(@Qualifier("limitdefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider limitdefinitionActionsInfoProvider(@Qualifier("limitdefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("limitdefinition",provider);
         return provider;
@@ -56,7 +56,7 @@ public class LimitDefinitionConfiguration {
 		return new LimitDefinitionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<LimitDefinition> _limitdefinitionStateEntityService_(
+	@Bean StateEntityServiceImpl<LimitDefinition> _limitdefinitionStateEntityService_(
 			@Qualifier("limitdefinitionEntityStm") STM<LimitDefinition> stm,
 			@Qualifier("limitdefinitionActionsInfoProvider") STMActionsInfoProvider limitdefinitionInfoProvider,
 			@Qualifier("limitdefinitionEntityStore") EntityStore<LimitDefinition> entityStore){
@@ -65,7 +65,7 @@ public class LimitDefinitionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<LimitDefinition> limitdefinitionEntryAction(@Qualifier("limitdefinitionEntityStore") EntityStore<LimitDefinition> entityStore,
+	@Bean GenericEntryAction<LimitDefinition> limitdefinitionEntryAction(@Qualifier("limitdefinitionEntityStore") EntityStore<LimitDefinition> entityStore,
 			@Qualifier("limitdefinitionActionsInfoProvider") STMActionsInfoProvider limitdefinitionInfoProvider,
             @Qualifier("limitdefinitionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<LimitDefinition> entryAction =  new GenericEntryAction<LimitDefinition>(entityStore,limitdefinitionInfoProvider);
@@ -101,13 +101,13 @@ public class LimitDefinitionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector limitdefinitionBodyTypeSelector(
+    @Bean StmBodyTypeSelector limitdefinitionBodyTypeSelector(
     @Qualifier("limitdefinitionActionsInfoProvider") STMActionsInfoProvider limitdefinitionInfoProvider,
     @Qualifier("limitdefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(limitdefinitionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<LimitDefinition> limitdefinitionBaseTransitionAction(
+    @Bean STMTransitionAction<LimitDefinition> limitdefinitionBaseTransitionAction(
         @Qualifier("limitdefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,19 +122,19 @@ public class LimitDefinitionConfiguration {
     // segment in src/main/resources/com/handmade/limitdefinition/limitdefinition-states.xml
 
     @Bean SuspendLimitDefinitionAction
-            limitdefinitionSuspend(){
+            suspendLimitDefinitionAction(){
         return new SuspendLimitDefinitionAction();
     }
     @Bean DeprecateLimitDefinitionAction
-            limitdefinitionDeprecate(){
+            deprecateLimitDefinitionAction(){
         return new DeprecateLimitDefinitionAction();
     }
     @Bean ActivateLimitDefinitionAction
-            limitdefinitionActivate(){
+            activateLimitDefinitionAction(){
         return new ActivateLimitDefinitionAction();
     }
     @Bean ReactivateLimitDefinitionAction
-            limitdefinitionReactivate(){
+            reactivateLimitDefinitionAction(){
         return new ReactivateLimitDefinitionAction();
     }
 

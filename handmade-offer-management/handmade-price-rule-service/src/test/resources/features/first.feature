@@ -7,14 +7,17 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/pricerule" with payload
 """json
 {
-    "description": "Description"
+    "offerId": "OFFER-001",
+    "ruleType": "DISCOUNT",
+    "ruleExpression": "amount > 100"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.offerId" is "OFFER-001"
 
 Scenario: Retrieve the pricerule that just got created
 When I GET a REST request to URL "/pricerule/${id}"

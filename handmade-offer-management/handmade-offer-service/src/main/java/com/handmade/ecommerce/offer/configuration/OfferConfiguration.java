@@ -40,13 +40,13 @@ public class OfferConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Offer> offerEntityStm(@Qualifier("offerFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Offer> offerEntityStm(@Qualifier("offerFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Offer> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider offerActionsInfoProvider(@Qualifier("offerFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider offerActionsInfoProvider(@Qualifier("offerFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("offer",provider);
         return provider;
@@ -56,7 +56,7 @@ public class OfferConfiguration {
 		return new OfferEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Offer> _offerStateEntityService_(
+	@Bean StateEntityServiceImpl<Offer> _offerStateEntityService_(
 			@Qualifier("offerEntityStm") STM<Offer> stm,
 			@Qualifier("offerActionsInfoProvider") STMActionsInfoProvider offerInfoProvider,
 			@Qualifier("offerEntityStore") EntityStore<Offer> entityStore){
@@ -65,7 +65,7 @@ public class OfferConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Offer> offerEntryAction(@Qualifier("offerEntityStore") EntityStore<Offer> entityStore,
+	@Bean GenericEntryAction<Offer> offerEntryAction(@Qualifier("offerEntityStore") EntityStore<Offer> entityStore,
 			@Qualifier("offerActionsInfoProvider") STMActionsInfoProvider offerInfoProvider,
             @Qualifier("offerFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Offer> entryAction =  new GenericEntryAction<Offer>(entityStore,offerInfoProvider);
@@ -101,13 +101,13 @@ public class OfferConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector offerBodyTypeSelector(
+    @Bean StmBodyTypeSelector offerBodyTypeSelector(
     @Qualifier("offerActionsInfoProvider") STMActionsInfoProvider offerInfoProvider,
     @Qualifier("offerTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(offerInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Offer> offerBaseTransitionAction(
+    @Bean STMTransitionAction<Offer> offerBaseTransitionAction(
         @Qualifier("offerTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,53 +122,44 @@ public class OfferConfiguration {
     // segment in src/main/resources/com/handmade/offer/offer-states.xml
 
     @Bean ResumeOfferAction
-            offerResume(){
+            resumeOfferAction(){
         return new ResumeOfferAction();
     }
-    @Bean CancelOfferAction
-            offerCancel(){
-        return new CancelOfferAction();
-    }
-    @Bean CancelOfferAction
-            offerCancel(){
-        return new CancelOfferAction();
-    }
+
+
     @Bean ExpireOfferAction
-            offerExpire(){
+            expireOfferAction(){
         return new ExpireOfferAction();
     }
     @Bean PauseOfferAction
-            offerPause(){
+            pauseOfferAction(){
         return new PauseOfferAction();
     }
     @Bean SubmitOfferAction
-            offerSubmit(){
+    submitOfferActiont(){
         return new SubmitOfferAction();
     }
     @Bean ApproveOfferAction
-            offerApprove(){
+            approveOfferAction(){
         return new ApproveOfferAction();
     }
     @Bean RejectOfferAction
-            offerReject(){
+            rejectOfferAction(){
         return new RejectOfferAction();
     }
     @Bean ScheduleOfferAction
-            offerSchedule(){
+            scheduleOfferAction(){
         return new ScheduleOfferAction();
     }
     @Bean ActivateOfferAction
-            offerActivate(){
+            activateOfferAction(){
         return new ActivateOfferAction();
     }
     @Bean CancelOfferAction
-            offerCancel(){
+            cancelOfferAction(){
         return new CancelOfferAction();
     }
-    @Bean ActivateOfferAction
-            offerActivate(){
-        return new ActivateOfferAction();
-    }
+
 
 
 }

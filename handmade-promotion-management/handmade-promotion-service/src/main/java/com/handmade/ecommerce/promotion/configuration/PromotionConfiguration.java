@@ -40,13 +40,13 @@ public class PromotionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Promotion> promotionEntityStm(@Qualifier("promotionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Promotion> promotionEntityStm(@Qualifier("promotionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Promotion> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider promotionActionsInfoProvider(@Qualifier("promotionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider promotionActionsInfoProvider(@Qualifier("promotionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("promotion",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PromotionConfiguration {
 		return new PromotionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Promotion> _promotionStateEntityService_(
+	@Bean StateEntityServiceImpl<Promotion> _promotionStateEntityService_(
 			@Qualifier("promotionEntityStm") STM<Promotion> stm,
 			@Qualifier("promotionActionsInfoProvider") STMActionsInfoProvider promotionInfoProvider,
 			@Qualifier("promotionEntityStore") EntityStore<Promotion> entityStore){
@@ -65,7 +65,7 @@ public class PromotionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Promotion> promotionEntryAction(@Qualifier("promotionEntityStore") EntityStore<Promotion> entityStore,
+	@Bean GenericEntryAction<Promotion> promotionEntryAction(@Qualifier("promotionEntityStore") EntityStore<Promotion> entityStore,
 			@Qualifier("promotionActionsInfoProvider") STMActionsInfoProvider promotionInfoProvider,
             @Qualifier("promotionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Promotion> entryAction =  new GenericEntryAction<Promotion>(entityStore,promotionInfoProvider);
@@ -101,13 +101,13 @@ public class PromotionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector promotionBodyTypeSelector(
+    @Bean StmBodyTypeSelector promotionBodyTypeSelector(
     @Qualifier("promotionActionsInfoProvider") STMActionsInfoProvider promotionInfoProvider,
     @Qualifier("promotionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(promotionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Promotion> promotionBaseTransitionAction(
+    @Bean STMTransitionAction<Promotion> promotionBaseTransitionAction(
         @Qualifier("promotionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,53 +122,43 @@ public class PromotionConfiguration {
     // segment in src/main/resources/com/handmade/promotion/promotion-states.xml
 
     @Bean ResumePromotionAction
-            promotionResume(){
+            resumePromotionAction(){
         return new ResumePromotionAction();
     }
     @Bean CancelPromotionAction
-            promotionCancel(){
+            cancelPromotionAction(){
         return new CancelPromotionAction();
     }
-    @Bean CancelPromotionAction
-            promotionCancel(){
-        return new CancelPromotionAction();
-    }
+
     @Bean ExpirePromotionAction
-            promotionExpire(){
+            expirePromotionAction(){
         return new ExpirePromotionAction();
     }
     @Bean PausePromotionAction
-            promotionPause(){
+            pausePromotionAction(){
         return new PausePromotionAction();
     }
     @Bean SubmitPromotionAction
-            promotionSubmit(){
+            submitPromotionAction(){
         return new SubmitPromotionAction();
     }
     @Bean ApprovePromotionAction
-            promotionApprove(){
+            approvePromotionAction(){
         return new ApprovePromotionAction();
     }
     @Bean RejectPromotionAction
-            promotionReject(){
+           rejectPromotionAction(){
         return new RejectPromotionAction();
     }
     @Bean SchedulePromotionAction
-            promotionSchedule(){
+           schedulePromotionAction(){
         return new SchedulePromotionAction();
     }
     @Bean ActivatePromotionAction
-            promotionActivate(){
+            activatePromotionAction(){
         return new ActivatePromotionAction();
     }
-    @Bean CancelPromotionAction
-            promotionCancel(){
-        return new CancelPromotionAction();
-    }
-    @Bean ActivatePromotionAction
-            promotionActivate(){
-        return new ActivatePromotionAction();
-    }
+
 
 
 }

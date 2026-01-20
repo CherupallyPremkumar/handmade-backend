@@ -40,13 +40,13 @@ public class RoutePlanConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<RoutePlan> routeplanEntityStm(@Qualifier("routeplanFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<RoutePlan> routeplanEntityStm(@Qualifier("routeplanFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<RoutePlan> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider routeplanActionsInfoProvider(@Qualifier("routeplanFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider routeplanActionsInfoProvider(@Qualifier("routeplanFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("routeplan",provider);
         return provider;
@@ -56,7 +56,7 @@ public class RoutePlanConfiguration {
 		return new RoutePlanEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<RoutePlan> _routeplanStateEntityService_(
+	@Bean StateEntityServiceImpl<RoutePlan> _routeplanStateEntityService_(
 			@Qualifier("routeplanEntityStm") STM<RoutePlan> stm,
 			@Qualifier("routeplanActionsInfoProvider") STMActionsInfoProvider routeplanInfoProvider,
 			@Qualifier("routeplanEntityStore") EntityStore<RoutePlan> entityStore){
@@ -65,7 +65,7 @@ public class RoutePlanConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<RoutePlan> routeplanEntryAction(@Qualifier("routeplanEntityStore") EntityStore<RoutePlan> entityStore,
+	@Bean GenericEntryAction<RoutePlan> routeplanEntryAction(@Qualifier("routeplanEntityStore") EntityStore<RoutePlan> entityStore,
 			@Qualifier("routeplanActionsInfoProvider") STMActionsInfoProvider routeplanInfoProvider,
             @Qualifier("routeplanFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<RoutePlan> entryAction =  new GenericEntryAction<RoutePlan>(entityStore,routeplanInfoProvider);
@@ -101,13 +101,13 @@ public class RoutePlanConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector routeplanBodyTypeSelector(
+    @Bean StmBodyTypeSelector routeplanBodyTypeSelector(
     @Qualifier("routeplanActionsInfoProvider") STMActionsInfoProvider routeplanInfoProvider,
     @Qualifier("routeplanTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(routeplanInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<RoutePlan> routeplanBaseTransitionAction(
+    @Bean STMTransitionAction<RoutePlan> routeplanBaseTransitionAction(
         @Qualifier("routeplanTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

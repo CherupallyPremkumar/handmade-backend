@@ -4,9 +4,9 @@
         "name": "platform-seller-overview",
         "paginated": false,
         "sortable": false,
-        "workflowName": "SELLER_ACCOUNT_FLOW",
-        "stateColumn": "state",
-        "flowColumn": "flow",
+        "workflowName": "HM_SELLER_ACCOUNT_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
         "columnMetadata": {
             "id": {
                 "name": "Seller ID",

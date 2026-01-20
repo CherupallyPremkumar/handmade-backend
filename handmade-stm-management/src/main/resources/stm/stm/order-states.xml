@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="orderFlow" default="true">
+    <flow id="HM_ORDER_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="confirm" newStateId="CONFIRMED" componentName="orderConfirmAction"/>
             <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelAction"/>

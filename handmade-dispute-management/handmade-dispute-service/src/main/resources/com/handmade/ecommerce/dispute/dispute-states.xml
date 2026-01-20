@@ -7,15 +7,15 @@ Flow: DISPUTE_FLOW
 <states>
 
     <event-information eventId='assign' eventName='Assign owner' meta-acls="support.ops"
-                       meta-bodyType=""/>
+                       meta-bodyType="com.handmade.ecommerce.dispute.dto.AssignDisputePayload"/>
     <event-information eventId='review' eventName='Review' meta-acls="support.ops"
-                       meta-bodyType=""/>
+                       meta-bodyType="com.handmade.ecommerce.dispute.dto.ReviewDisputePayload"/>
     <event-information eventId='resolve' eventName='Resolve' meta-acls="support.ops"
-                       meta-bodyType="com.handmade.ecommerce.cart.dto.AbandonCartPayload"/>
+                       meta-bodyType="com.handmade.ecommerce.dispute.dto.ResolveDisputePayload"/>
     <event-information eventId='escalate' eventName='Escalate' meta-acls="support.ops"
-                       meta-bodyType="com.handmade.ecommerce.cart.dto.RecoverCartPayload"/>
+                       meta-bodyType="com.handmade.ecommerce.dispute.dto.EscalateDisputePayload"/>
     <event-information eventId='close' eventName='Close' meta-acls="support.ops"
-                       meta-bodyType="com.handmade.ecommerce.cart.dto.MergeCartPayload"/>
+                       meta-bodyType="com.handmade.ecommerce.dispute.dto.CloseDisputePayload"/>
 
     <flow id="DISPUTE_FLOW" default="true">
         <manual-state id="OPEN" initialState="true">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="sellerAccountFlow" default="true">
+    <flow id="HM_SELLER_ACCOUNT_FLOW" default="true">
         <manual-state id="REGISTERED" initialState="true">
             <on eventId="verify" newStateId="VERIFIED" componentName="sellerAccountVerifyAction"/>
         </manual-state>

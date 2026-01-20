@@ -7,14 +7,17 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/vendorpo" with payload
 """json
 {
-    "description": "Description"
+    "poNumber": "PO-2024-001",
+    "sellerId": "SELLER-001",
+    "vendorCode": "VEND-001"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.poNumber" is "PO-2024-001"
 
 Scenario: Retrieve the vendorpo that just got created
 When I GET a REST request to URL "/vendorpo/${id}"
@@ -31,7 +34,8 @@ When I PATCH a REST request to URL "/vendorpo/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "SUBMITTED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -45,7 +49,8 @@ When I PATCH a REST request to URL "/vendorpo/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "APPROVED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -59,7 +64,8 @@ When I PATCH a REST request to URL "/vendorpo/${id}/${event}" with payload
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "RECEIVED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"

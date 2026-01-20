@@ -7,7 +7,7 @@ import org.chenile.jpautils.entity.AbstractJpaStateEntity;
 /**
  * Shipment - Order shipment managed by STM
  */
-@Entity
+@Entity(name = "DomainShipment")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor

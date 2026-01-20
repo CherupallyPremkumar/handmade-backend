@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="acknowledge" meta-bodyType="com.handmade.ecommerce.pricing.dto.AcknowledgePriceAlertPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.pricing.dto.CancelPriceAlertPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.pricing.dto.ExpirePriceAlertPayload"/>
+    <event-information eventId="notify" meta-bodyType="com.handmade.ecommerce.pricing.dto.NotifyPriceAlertPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.pricing.dto.PausePriceAlertPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.pricing.dto.ResumePriceAlertPayload"/>
+    <event-information eventId="trigger" meta-bodyType="com.handmade.ecommerce.pricing.dto.TriggerPriceAlertPayload"/>
+
     <flow id="priceAlertFlow" default="true">
         <manual-state id="ACTIVE" initialState="true">
-            <on eventId="trigger" newStateId="TRIGGERED" componentName="priceAlertTriggerAction"/>
-            <on eventId="pause" newStateId="PAUSED" componentName="priceAlertPauseAction"/>
-            <on eventId="expire" newStateId="EXPIRED" componentName="priceAlertExpireAction"/>
+            <on eventId="trigger" newStateId="TRIGGERED" componentName="com.handmade.ecommerce.pricealert.service.cmds.TriggerPriceAlertAction"/>
+            <on eventId="pause" newStateId="PAUSED" componentName="com.handmade.ecommerce.pricealert.service.cmds.PausePriceAlertAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.pricealert.service.cmds.ExpirePriceAlertAction"/>
         </manual-state>
 
         <manual-state id="TRIGGERED">
-            <on eventId="notify" newStateId="NOTIFIED" componentName="priceAlertNotifyAction"/>
+            <on eventId="notify" newStateId="NOTIFIED" componentName="com.handmade.ecommerce.pricealert.service.cmds.NotifyPriceAlertAction"/>
         </manual-state>
 
         <manual-state id="NOTIFIED">
-            <on eventId="acknowledge" newStateId="ACKNOWLEDGED" componentName="priceAlertAcknowledgeAction"/>
+            <on eventId="acknowledge" newStateId="ACKNOWLEDGED" componentName="com.handmade.ecommerce.pricealert.service.cmds.AcknowledgePriceAlertAction"/>
         </manual-state>
 
         <manual-state id="PAUSED">
-            <on eventId="resume" newStateId="ACTIVE" componentName="priceAlertResumeAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="priceAlertCancelAction"/>
+            <on eventId="resume" newStateId="ACTIVE" componentName="com.handmade.ecommerce.pricealert.service.cmds.ResumePriceAlertAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.pricealert.service.cmds.CancelPriceAlertAction"/>
         </manual-state>
 
         <manual-state id="ACKNOWLEDGED" meta-endState="true"/>

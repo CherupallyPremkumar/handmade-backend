@@ -2,6 +2,7 @@ package com.handmade.ecommerce.paymenttransaction;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,14 +10,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 
-import org.chenile.utils.entity.service.EntityStore;
-import com.handmade.ecommerce.paymenttransaction.model.Paymenttransaction;
 
 
 @Configuration
 @PropertySource("classpath:com/handmade/ecommerce/paymenttransaction/TestService.properties")
 @SpringBootApplication(scanBasePackages = { "org.chenile.configuration", "com.handmade.ecommerce.paymenttransaction.configuration" })
 @ActiveProfiles("unittest")
+@EntityScan(basePackages = { "com.handmade.ecommerce.payment.model" })
 public class SpringTestConfig extends SpringBootServletInitializer{
 	
 }

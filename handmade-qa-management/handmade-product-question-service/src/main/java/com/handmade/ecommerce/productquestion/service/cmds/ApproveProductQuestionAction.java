@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.qa.model.ProductQuestion;
-import com.handmade.ecommerce.qa.model. ApproveProductQuestionPayload;
+import com.handmade.ecommerce.qa.dto.ApproveProductQuestionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.qa.model. ApproveProductQuestionPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ApproveProductQuestionAction extends AbstractSTMTransitionAction<ProductQuestion,
-    ApproveProductQuestionPayload>{
+               ApproveProductQuestionPayload>{
 
 	@Override
 	public void transitionTo(ProductQuestion productquestion,

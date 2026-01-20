@@ -1,0 +1,141 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-reviews
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_product_review
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-001" }
+              - column: { name: product_id, value: "PROD-001" }
+              - column: { name: customer_id, value: "CUST-001" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Absolutely beautiful!" }
+              - column: { name: review_text, value: "The turquoise glaze is even more stunning in person. Highly recommended!" }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: version, valueNumeric: 1}
+              - column: { name: created_time, valueDate: "2024-02-15T10:00:00" }
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-002" }
+              - column: { name: product_id, value: "PROD-002" }
+              - column: { name: customer_id, value: "CUST-002" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Luxury quality" }
+              - column: { name: review_text, value: "The silk is so soft and the colors are vibrant. A true piece of art." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-16T12:00:00" }
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-003" }
+              - column: { name: product_id, value: "PROD-003" }
+              - column: { name: customer_id, value: "CUST-003" }
+              - column: { name: rating, valueNumeric: 4 }
+              - column: { name: title, value: "Great craftsmanship" }
+              - column: { name: review_text, value: "Solid table, looks great in my living room. Slightly darker than the photo but still lovely." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-17T14:00:00" }
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-004" }
+              - column: { name: product_id, value: "PROD-004" }
+              - column: { name: customer_id, value: "CUST-004" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Perfect Pasta Bowls" }
+              - column: { name: review_text, value: "These are the perfect size for pasta. The speckled glaze is so unique." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-005" }
+              - column: { name: product_id, value: "PROD-005" }
+              - column: { name: customer_id, value: "CUST-005" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Best Tote Ever" }
+              - column: { name: review_text, value: "The leather is so high quality. It smells amazing and fits everything I need." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-006" }
+              - column: { name: product_id, value: "PROD-006" }
+              - column: { name: customer_id, value: "CUST-006" }
+              - column: { name: rating, valueNumeric: 3 }
+              - column: { name: title, value: "Smells great, but small" }
+              - column: { name: review_text, value: "The scent is lovely, but the candle is smaller than I expected for the price." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-007" }
+              - column: { name: product_id, value: "PROD-007" }
+              - column: { name: customer_id, value: "CUST-007" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Kitchen Essential" }
+              - column: { name: review_text, value: "This cutting board is heavy and beautiful. I never want to use anything else." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-008" }
+              - column: { name: product_id, value: "PROD-008" }
+              - column: { name: customer_id, value: "CUST-008" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Stunning Centerpiece" }
+              - column: { name: review_text, value: "The amber color is so warm. It looks amazing on my dining table." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "APPROVED" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-009" }
+              - column: { name: product_id, value: "PROD-009" }
+              - column: { name: customer_id, value: "CUST-009" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "So Cosy" }
+              - column: { name: review_text, value: "This throw is so warm and chunky. Perfect for winter nights." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "PENDING" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_review
+            columns:
+              - column: { name: id, value: "REV-010" }
+              - column: { name: product_id, value: "PROD-010" }
+              - column: { name: customer_id, value: "CUST-010" }
+              - column: { name: rating, valueNumeric: 5 }
+              - column: { name: title, value: "Beautiful Print" }
+              - column: { name: review_text, value: "The linocut detail is incredible. I'll definitely be buying more from this artist." }
+              - column: { name: is_verified_purchase, valueBoolean: true }
+              - column: { name: state_id, value: "PENDING" }
+              - column: { name: flow_id, value: "HM_PRODUCT_REVIEW_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL"}

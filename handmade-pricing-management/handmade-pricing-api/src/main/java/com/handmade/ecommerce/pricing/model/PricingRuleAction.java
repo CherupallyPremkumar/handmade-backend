@@ -18,7 +18,7 @@ public class PricingRuleAction extends BaseJpaEntity {
     @Column(name = "action_type", length = 50, nullable = false)
     private String actionType; // PERCENTAGE_OFF, FIXED_AMOUNT, OVERRIDE
 
-    @Column(name = "value", precision = 19, scale = 4, nullable = false)
+    @Column(name = "rule_value", precision = 19, scale = 4, nullable = false)
     private BigDecimal value;
 
     @Column(name = "currency", length = 3)

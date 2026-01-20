@@ -14,9 +14,9 @@
     <name>handmade-customer-management</name>
 
     <modules>
+        <module>handmade-customer-api</module>
         <module>handmade-subscription-service</module>
         <module>handmade-gift-card-service</module>
-        <module>handmade-customer-api</module>
         <module>handmade-customer-service</module>
     </modules>
 </project>

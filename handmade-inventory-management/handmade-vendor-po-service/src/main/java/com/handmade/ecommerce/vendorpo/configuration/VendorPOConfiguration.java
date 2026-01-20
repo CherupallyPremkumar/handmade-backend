@@ -40,13 +40,13 @@ public class VendorPOConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<VendorPO> vendorpoEntityStm(@Qualifier("vendorpoFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<VendorPO> vendorpoEntityStm(@Qualifier("vendorpoFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<VendorPO> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider vendorpoActionsInfoProvider(@Qualifier("vendorpoFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider vendorpoActionsInfoProvider(@Qualifier("vendorpoFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("vendorpo",provider);
         return provider;
@@ -56,7 +56,7 @@ public class VendorPOConfiguration {
 		return new VendorPOEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<VendorPO> _vendorpoStateEntityService_(
+	@Bean StateEntityServiceImpl<VendorPO> _vendorpoStateEntityService_(
 			@Qualifier("vendorpoEntityStm") STM<VendorPO> stm,
 			@Qualifier("vendorpoActionsInfoProvider") STMActionsInfoProvider vendorpoInfoProvider,
 			@Qualifier("vendorpoEntityStore") EntityStore<VendorPO> entityStore){
@@ -65,7 +65,7 @@ public class VendorPOConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<VendorPO> vendorpoEntryAction(@Qualifier("vendorpoEntityStore") EntityStore<VendorPO> entityStore,
+	@Bean GenericEntryAction<VendorPO> vendorpoEntryAction(@Qualifier("vendorpoEntityStore") EntityStore<VendorPO> entityStore,
 			@Qualifier("vendorpoActionsInfoProvider") STMActionsInfoProvider vendorpoInfoProvider,
             @Qualifier("vendorpoFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<VendorPO> entryAction =  new GenericEntryAction<VendorPO>(entityStore,vendorpoInfoProvider);
@@ -101,13 +101,13 @@ public class VendorPOConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector vendorpoBodyTypeSelector(
+    @Bean StmBodyTypeSelector vendorpoBodyTypeSelector(
     @Qualifier("vendorpoActionsInfoProvider") STMActionsInfoProvider vendorpoInfoProvider,
     @Qualifier("vendorpoTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(vendorpoInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<VendorPO> vendorpoBaseTransitionAction(
+    @Bean STMTransitionAction<VendorPO> vendorpoBaseTransitionAction(
         @Qualifier("vendorpoTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

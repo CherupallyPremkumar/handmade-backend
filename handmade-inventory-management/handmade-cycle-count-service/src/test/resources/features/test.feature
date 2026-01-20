@@ -7,14 +7,15 @@ And that "initialState" equals "PLANNED"
 When I POST a REST request to URL "/cyclecount" with payload
 """json
 {
-    "description": "Description"
+    "countType": "FULL",
+    "fulfillmentNodeId": "node-002"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.countType" is "FULL"
 
 Scenario: Retrieve the cyclecount that just got created
 When I GET a REST request to URL "/cyclecount/${id}"

@@ -1,5 +1,6 @@
 package com.handmade.ecommerce.observability.configuration.controller;
 
+import com.handmade.ecommerce.observability.model.MetricsSnapshot;
 import jakarta.servlet.http.HttpServletRequest;
 import org.chenile.base.response.GenericResponse;
 import org.chenile.http.annotation.ChenileController;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 public class ObservabilityController extends ControllerSupport{
 	
     @PostMapping("/observability")
-    public ResponseEntity<GenericResponse<Observability>> save(
+    public ResponseEntity<GenericResponse<MetricsSnapshot>> save(
         HttpServletRequest httpServletRequest,
-        @RequestBody Observability entity){
+        @RequestBody MetricsSnapshot entity){
         return process(httpServletRequest,entity);
         }
 
     @GetMapping("/observability/{id}")
-    public ResponseEntity<GenericResponse<Observability>> retrieve(
+    public ResponseEntity<GenericResponse<MetricsSnapshot>> retrieve(
     HttpServletRequest httpServletRequest,
     @PathVariable("id") String id){
     return process(httpServletRequest,id);

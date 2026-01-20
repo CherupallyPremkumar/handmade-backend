@@ -4,6 +4,9 @@
         "name": "search-seller-approvals",
         "paginated": true,
         "sortable": true,
+        "workflowName": "HM_SELLER_VERIFICATION_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
         "columnMetadata": {
             "sellerId": {
                 "name": "Seller ID",

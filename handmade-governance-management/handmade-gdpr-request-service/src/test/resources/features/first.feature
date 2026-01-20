@@ -7,14 +7,15 @@ And that "initialState" equals "SUBMITTED"
 When I POST a REST request to URL "/gdprrequest" with payload
 """json
 {
-    "description": "Description"
+    "userId": "user-001",
+    "requestType": "DATA_EXPORT"
 }
 """
 Then the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.userId" is "user-001"
 
 Scenario: Retrieve the gdprrequest that just got created
 When I GET a REST request to URL "/gdprrequest/${id}"

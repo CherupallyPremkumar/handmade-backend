@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
-    <flow id="pickTaskFlow" default="true">
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelPickTaskPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.inventory.dto.CompletePickTaskPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.inventory.dto.StartPickTaskPayload"/>
+
+    <flow id="HM_PICK_TASK_FLOW" default="true">
         <manual-state id="PENDING" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="pickTaskStartAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.picktask.service.cmds.StartPickTaskAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="complete" newStateId="COMPLETED" componentName="pickTaskCompleteAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="pickTaskCancelAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.picktask.service.cmds.CompletePickTaskAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.picktask.service.cmds.CancelPickTaskAction"/>
         </manual-state>
 
         <manual-state id="COMPLETED" meta-endState="true"/>

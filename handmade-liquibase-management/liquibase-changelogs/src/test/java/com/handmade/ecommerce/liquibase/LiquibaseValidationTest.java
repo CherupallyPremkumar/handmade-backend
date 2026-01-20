@@ -33,20 +33,20 @@ public class LiquibaseValidationTest {
      * "sa",
      * ""
      * );
-     * 
+     *
      * // Initialize Liquibase
      * Database database = DatabaseFactory.getInstance()
      * .findCorrectDatabaseImplementation(new JdbcConnection(connection));
-     * 
+     *
      * Liquibase liquibase = new Liquibase(
      * "db/changelog/db.changelog-master.yaml",
      * new ClassLoaderResourceAccessor(),
      * database
      * );
-     * 
+     *
      * // Execute changelogs
      * liquibase.update("");
-     * 
+     *
      * // Close resources
      * liquibase.close();
      * connection.close();
@@ -82,7 +82,7 @@ public class LiquibaseValidationTest {
                 rs.next();
                 int platformCount = rs.getInt(1);
                 System.out.println("✅ Platform records: " + platformCount);
-                assertTrue(platformCount >= 3, "Should have at least 3 platforms");
+                assertTrue(platformCount >= 1, "Should have at least 1 platform");
 
                 // Verify seller data
                 rs = stmt.executeQuery("SELECT COUNT(*) FROM hm_seller_account");

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.policy.model.PolicyDefinition;
-import com.handmade.ecommerce.policy.model. PublishPolicyDefinitionPayload;
+import com.handmade.ecommerce.policy.dto.PublishPolicyDefinitionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.policy.model. PublishPolicyDefinitionPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class PublishPolicyDefinitionAction extends AbstractSTMTransitionAction<PolicyDefinition,
-    PublishPolicyDefinitionPayload>{
+               PublishPolicyDefinitionPayload>{
 
 	@Override
 	public void transitionTo(PolicyDefinition policydefinition,

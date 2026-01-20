@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.risk.model.CompliancePolicy;
-import com.handmade.ecommerce.risk.model. ApproveCompliancePolicyPayload;
+import com.handmade.ecommerce.risk.dto.ApproveCompliancePolicyPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.risk.model. ApproveCompliancePolicyPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ApproveCompliancePolicyAction extends AbstractSTMTransitionAction<CompliancePolicy,
-    ApproveCompliancePolicyPayload>{
+               ApproveCompliancePolicyPayload>{
 
 	@Override
 	public void transitionTo(CompliancePolicy compliancepolicy,

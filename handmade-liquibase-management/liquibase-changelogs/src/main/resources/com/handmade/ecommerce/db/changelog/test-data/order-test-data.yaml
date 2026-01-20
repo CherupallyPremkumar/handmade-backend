@@ -1,0 +1,473 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-orders
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_shipping_label
+        - delete:
+            tableName: hm_shipment
+        - delete:
+            tableName: hm_order_line
+        - delete:
+            tableName: hm_order
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: order_number, value: "HAND-ORD-1001"}
+              - column: {name: subtotal, valueNumeric: 25.00}
+              - column: {name: tax, valueNumeric: 2.00}
+              - column: {name: shipping_cost, valueNumeric: 5.00}
+              - column: {name: total, valueNumeric: 32.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-02-01T10:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-001"}
+              - column: {name: order_id, value: "ORD-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: offer_id, value: "OFF-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 25.00}
+              - column: {name: line_total, valueNumeric: 25.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-002"}
+              - column: {name: order_number, value: "HAND-ORD-1002"}
+              - column: {name: subtotal, valueNumeric: 45.00}
+              - column: {name: tax, valueNumeric: 3.50}
+              - column: {name: shipping_cost, valueNumeric: 0.00}
+              - column: {name: total, valueNumeric: 48.50}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-01T11:30:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-002"}
+              - column: {name: order_id, value: "ORD-002"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: offer_id, value: "OFF-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 45.00}
+              - column: {name: line_total, valueNumeric: 45.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-003"}
+              - column: {name: order_number, value: "HAND-ORD-1003"}
+              - column: {name: total, valueNumeric: 120.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-01T12:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-003"}
+              - column: {name: order_id, value: "ORD-003"}
+              - column: {name: product_id, value: "PROD-003"}
+              - column: {name: offer_id, value: "OFF-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 120.00}
+              - column: {name: line_total, valueNumeric: 120.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-004"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-004"}
+              - column: {name: order_number, value: "HAND-ORD-1004"}
+              - column: {name: total, valueNumeric: 35.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-01T13:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-004"}
+              - column: {name: order_id, value: "ORD-004"}
+              - column: {name: product_id, value: "PROD-004"}
+              - column: {name: offer_id, value: "OFF-004"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 35.00}
+              - column: {name: line_total, valueNumeric: 35.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-005"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-005"}
+              - column: {name: order_number, value: "HAND-ORD-1005"}
+              - column: {name: total, valueNumeric: 75.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-01T14:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-005"}
+              - column: {name: order_id, value: "ORD-005"}
+              - column: {name: product_id, value: "PROD-005"}
+              - column: {name: offer_id, value: "OFF-005"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 75.00}
+              - column: {name: line_total, valueNumeric: 75.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-006"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-006"}
+              - column: {name: order_number, value: "HAND-ORD-1006"}
+              - column: {name: total, valueNumeric: 15.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-01T15:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-006"}
+              - column: {name: order_id, value: "ORD-006"}
+              - column: {name: product_id, value: "PROD-006"}
+              - column: {name: offer_id, value: "OFF-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 15.00}
+              - column: {name: line_total, valueNumeric: 15.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-007"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-001"}
+              - column: {name: order_number, value: "HAND-ORD-1007"}
+              - column: {name: total, valueNumeric: 40.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-02T10:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-007"}
+              - column: {name: order_id, value: "ORD-007"}
+              - column: {name: product_id, value: "PROD-007"}
+              - column: {name: offer_id, value: "OFF-007"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 40.00}
+              - column: {name: line_total, valueNumeric: 40.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-008"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-002"}
+              - column: {name: order_number, value: "HAND-ORD-1008"}
+              - column: {name: total, valueNumeric: 60.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-02T11:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-008"}
+              - column: {name: order_id, value: "ORD-008"}
+              - column: {name: product_id, value: "PROD-008"}
+              - column: {name: offer_id, value: "OFF-008"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 60.00}
+              - column: {name: line_total, valueNumeric: 60.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-009"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-003"}
+              - column: {name: order_number, value: "HAND-ORD-1009"}
+              - column: {name: total, valueNumeric: 85.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-02T12:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-009"}
+              - column: {name: order_id, value: "ORD-009"}
+              - column: {name: product_id, value: "PROD-009"}
+              - column: {name: offer_id, value: "OFF-009"}
+              - column: {name: seller_id, value: "SEL-009"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 85.00}
+              - column: {name: line_total, valueNumeric: 85.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_order
+            columns:
+              - column: {name: id, value: "ORD-010"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: customer_id, value: "CUST-004"}
+              - column: {name: order_number, value: "HAND-ORD-1010"}
+              - column: {name: total, valueNumeric: 30.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-02T13:00:00"}
+        - insert:
+            tableName: hm_order_line
+            columns:
+              - column: {name: id, value: "ORL-010"}
+              - column: {name: order_id, value: "ORD-010"}
+              - column: {name: product_id, value: "PROD-010"}
+              - column: {name: offer_id, value: "OFF-010"}
+              - column: {name: seller_id, value: "SEL-010"}
+              - column: {name: quantity, valueNumeric: 1}
+              - column: {name: unit_price, valueNumeric: 30.00}
+              - column: {name: line_total, valueNumeric: 30.00}
+              - column: {name: flow_id, value: "HM_ORDER_FLOW"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-001" }
+              - column: { name: order_id, value: "ORD-001" }
+              - column: { name: return_reason, value: "Changed my mind" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-20T10:00:00" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-002" }
+              - column: { name: order_id, value: "ORD-002" }
+              - column: { name: return_reason, value: "Damaged on arrival" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-003" }
+              - column: { name: order_id, value: "ORD-003" }
+              - column: { name: return_reason, value: "Defective" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-004" }
+              - column: { name: order_id, value: "ORD-004" }
+              - column: { name: return_reason, value: "Wrong item sent" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-005" }
+              - column: { name: order_id, value: "ORD-005" }
+              - column: { name: return_reason, value: "Not as described" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-006" }
+              - column: { name: order_id, value: "ORD-006" }
+              - column: { name: return_reason, value: "Quality not as expected" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-007" }
+              - column: { name: order_id, value: "ORD-007" }
+              - column: { name: return_reason, value: "Cancelled too late" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-008" }
+              - column: { name: order_id, value: "ORD-008" }
+              - column: { name: return_reason, value: "Found better price" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-009" }
+              - column: { name: order_id, value: "ORD-009" }
+              - column: { name: return_reason, value: "Incomplete shipment" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_return_request
+            columns:
+              - column: { name: id, value: "RET-010" }
+              - column: { name: order_id, value: "ORD-010" }
+              - column: { name: return_reason, value: "Personal reasons" }
+              - column: { name: state_id, value: "SUBMITTED" }
+              - column: { name: flow_id, value: "HM_RETURN_REQUEST_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-001" }
+              - column: { name: order_id, value: "ORD-001" }
+              - column: { name: refund_amount, valueNumeric: 32.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+              - column: { name: created_time, valueDate: "2024-02-21T11:00:00" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-002" }
+              - column: { name: order_id, value: "ORD-002" }
+              - column: { name: refund_amount, valueNumeric: 20.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-003" }
+              - column: { name: order_id, value: "ORD-003" }
+              - column: { name: refund_amount, valueNumeric: 50.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-004" }
+              - column: { name: order_id, value: "ORD-004" }
+              - column: { name: refund_amount, valueNumeric: 35.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-005" }
+              - column: { name: order_id, value: "ORD-005" }
+              - column: { name: refund_amount, valueNumeric: 10.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-006" }
+              - column: { name: order_id, value: "ORD-006" }
+              - column: { name: refund_amount, valueNumeric: 15.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-007" }
+              - column: { name: order_id, value: "ORD-007" }
+              - column: { name: refund_amount, valueNumeric: 40.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-008" }
+              - column: { name: order_id, value: "ORD-008" }
+              - column: { name: refund_amount, valueNumeric: 60.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-009" }
+              - column: { name: order_id, value: "ORD-009" }
+              - column: { name: refund_amount, valueNumeric: 85.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+        - insert:
+            tableName: hm_refund
+            columns:
+              - column: { name: id, value: "REF-010" }
+              - column: { name: order_id, value: "ORD-010" }
+              - column: { name: refund_amount, valueNumeric: 30.00 }
+              - column: { name: state_id, value: "INITIATED" }
+              - column: { name: flow_id, value: "HM_REFUND_FLOW" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }

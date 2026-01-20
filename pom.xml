@@ -4,58 +4,78 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>org.chenile</groupId>
-    <version>2.0.35</version>
+    <version>2.1.10</version>
     <artifactId>chenile-parent</artifactId>
   </parent>
 
-    <modules>
+  <modules>
+    <!-- 1. Infrastructure & Configuration -->
     <module>handmade-liquibase-management</module>
     <module>handmade-owiz-workflows</module>
     <module>handmade-stm-management</module>
-    <module>handmade-search-management</module>
-    <module>handmade-stm-configuration</module>
     <module>handmade-entity-managemet</module>
+
+    <!-- 2. Core Domains (Product, Catalog, Seller) -->
     <module>handmade-product-management</module>
+    <module>handmade-catalog-management</module>
+    <module>handmade-seller-management</module>
+    <module>handmade-customer-management</module>
+
+    <!-- 3. Pricing & Offer -->
+    <module>handmade-pricing-management</module>
+    <module>handmade-offer-management</module>
+    <module>handmade-promotion-management</module>
+
+    <!-- 4. Inventory & Logistics -->
+    <module>handmade-inventory-management</module>
+    <module>handmade-logistics-management</module>
+
+    <!-- 5. Order & Payment Flow -->
+    <module>handmade-cart-management</module>
     <module>handmade-order-management</module>
     <module>handmade-payment-management</module>
-    <module>handmade-inventory-management</module>
-    <module>handmade-seller-management</module>
-    <module>handmade-cart-management</module>
-    <module>handmade-catalog-management</module>
-    <module>handmade-offer-management</module>
-    <module>handmade-pricing-management</module>
-    <module>handmade-promotion-management</module>
-    <module>handmade-logistics-management</module>
-    <module>handmade-shipping-management</module>
     <module>handmade-tax-management</module>
     <module>handmade-finance-management</module>
     <module>handmade-settlement-management</module>
-    <module>handmade-customer-management</module>
+
+    <!-- 6. Post-Order -->
     <module>handmade-reviews-management</module>
     <module>handmade-qa-management</module>
-    <module>handmade-loyalty-management</module>
-    <module>handmade-support-management</module>
     <module>handmade-dispute-management</module>
+    <module>handmade-support-management</module>
+
+    <!-- 7. Search & Analytics (depend on most domains) -->
+    <module>handmade-search-management</module>
+    <module>handmade-analytics-management</module>
+
+    <!-- 8. Platform Services -->
     <module>handmade-iam-management</module>
     <module>handmade-notification-management</module>
     <module>handmade-cms-management</module>
     <module>handmade-seo-management</module>
-    <module>handmade-analytics-management</module>
     <module>handmade-adtech-management</module>
+    <module>handmade-loyalty-management</module>
     <module>handmade-experiment-management</module>
+
+    <!-- 9. Governance & Risk -->
     <module>handmade-governance-management</module>
     <module>handmade-risk-management</module>
     <module>handmade-policy-management</module>
+    <module>handmade-limit-management</module>
+
+    <!-- 10. Infrastructure Services -->
     <module>handmade-localization-management</module>
     <module>handmade-messaging-management</module>
     <module>handmade-event-management</module>
     <module>handmade-integration-management</module>
-    <module>handmade-limit-management</module>
     <module>handmade-observability-management</module>
     <module>handmade-platform-management</module>
     <module>handmade-onboarding-management</module>
     <module>handmade-comparison-management</module>
-      <module>handmade-app-boot</module>
+    <module>handmade-keycloak-management</module>
+
+    <!-- 11. Application Boot (ALWAYS LAST) -->
+    <module>handmade-app-boot</module>
   </modules>
 
   <groupId>com.handmade.ecommerce</groupId>
@@ -64,9 +84,11 @@
 
   <name>handmade-parent</name>
   <properties>
-    <revision>2.0.35</revision>
+    <chenile.revision>2.1.10</chenile.revision>
+    <revision>1.0.0-SNAPSHOT</revision>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
   <dependencies>

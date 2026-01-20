@@ -40,13 +40,13 @@ public class CMSEntryConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<CMSEntry> cmsentryEntityStm(@Qualifier("cmsentryFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<CMSEntry> cmsentryEntityStm(@Qualifier("cmsentryFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<CMSEntry> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider cmsentryActionsInfoProvider(@Qualifier("cmsentryFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider cmsentryActionsInfoProvider(@Qualifier("cmsentryFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("cmsentry",provider);
         return provider;
@@ -56,7 +56,7 @@ public class CMSEntryConfiguration {
 		return new CMSEntryEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<CMSEntry> _cmsentryStateEntityService_(
+	@Bean StateEntityServiceImpl<CMSEntry> _cmsentryStateEntityService_(
 			@Qualifier("cmsentryEntityStm") STM<CMSEntry> stm,
 			@Qualifier("cmsentryActionsInfoProvider") STMActionsInfoProvider cmsentryInfoProvider,
 			@Qualifier("cmsentryEntityStore") EntityStore<CMSEntry> entityStore){
@@ -65,7 +65,7 @@ public class CMSEntryConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<CMSEntry> cmsentryEntryAction(@Qualifier("cmsentryEntityStore") EntityStore<CMSEntry> entityStore,
+	@Bean GenericEntryAction<CMSEntry> cmsentryEntryAction(@Qualifier("cmsentryEntityStore") EntityStore<CMSEntry> entityStore,
 			@Qualifier("cmsentryActionsInfoProvider") STMActionsInfoProvider cmsentryInfoProvider,
             @Qualifier("cmsentryFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<CMSEntry> entryAction =  new GenericEntryAction<CMSEntry>(entityStore,cmsentryInfoProvider);
@@ -101,13 +101,13 @@ public class CMSEntryConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector cmsentryBodyTypeSelector(
+    @Bean StmBodyTypeSelector cmsentryBodyTypeSelector(
     @Qualifier("cmsentryActionsInfoProvider") STMActionsInfoProvider cmsentryInfoProvider,
     @Qualifier("cmsentryTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(cmsentryInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<CMSEntry> cmsentryBaseTransitionAction(
+    @Bean STMTransitionAction<CMSEntry> cmsentryBaseTransitionAction(
         @Qualifier("cmsentryTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

@@ -40,13 +40,13 @@ public class InventoryTransferConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<InventoryTransfer> inventorytransferEntityStm(@Qualifier("inventorytransferFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<InventoryTransfer> inventorytransferEntityStm(@Qualifier("inventorytransferFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<InventoryTransfer> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider inventorytransferActionsInfoProvider(@Qualifier("inventorytransferFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider inventorytransferActionsInfoProvider(@Qualifier("inventorytransferFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("inventorytransfer",provider);
         return provider;
@@ -56,7 +56,7 @@ public class InventoryTransferConfiguration {
 		return new InventoryTransferEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<InventoryTransfer> _inventorytransferStateEntityService_(
+	@Bean StateEntityServiceImpl<InventoryTransfer> _inventorytransferStateEntityService_(
 			@Qualifier("inventorytransferEntityStm") STM<InventoryTransfer> stm,
 			@Qualifier("inventorytransferActionsInfoProvider") STMActionsInfoProvider inventorytransferInfoProvider,
 			@Qualifier("inventorytransferEntityStore") EntityStore<InventoryTransfer> entityStore){
@@ -65,7 +65,7 @@ public class InventoryTransferConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<InventoryTransfer> inventorytransferEntryAction(@Qualifier("inventorytransferEntityStore") EntityStore<InventoryTransfer> entityStore,
+	@Bean GenericEntryAction<InventoryTransfer> inventorytransferEntryAction(@Qualifier("inventorytransferEntityStore") EntityStore<InventoryTransfer> entityStore,
 			@Qualifier("inventorytransferActionsInfoProvider") STMActionsInfoProvider inventorytransferInfoProvider,
             @Qualifier("inventorytransferFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<InventoryTransfer> entryAction =  new GenericEntryAction<InventoryTransfer>(entityStore,inventorytransferInfoProvider);
@@ -101,13 +101,13 @@ public class InventoryTransferConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector inventorytransferBodyTypeSelector(
+    @Bean StmBodyTypeSelector inventorytransferBodyTypeSelector(
     @Qualifier("inventorytransferActionsInfoProvider") STMActionsInfoProvider inventorytransferInfoProvider,
     @Qualifier("inventorytransferTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(inventorytransferInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<InventoryTransfer> inventorytransferBaseTransitionAction(
+    @Bean STMTransitionAction<InventoryTransfer> inventorytransferBaseTransitionAction(
         @Qualifier("inventorytransferTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

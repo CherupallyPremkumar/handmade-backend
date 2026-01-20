@@ -1,12 +1,12 @@
 package com.handmade.ecommerce.order.service.cmds;
 
+import com.handmade.ecommerce.order.dto.CompleteOrderPayload;
 import org.chenile.stm.STMInternalTransitionInvoker;
 import org.chenile.stm.State;
 import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.order.model.Order;
-import com.handmade.ecommerce.order.model.CompleteOrderPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.order.model.CompleteOrderPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class CompleteOrderAction extends AbstractSTMTransitionAction<Order,
-    CompleteOrderPayload>{
+		CompleteOrderPayload>{
 
 	@Override
 	public void transitionTo(Order order,

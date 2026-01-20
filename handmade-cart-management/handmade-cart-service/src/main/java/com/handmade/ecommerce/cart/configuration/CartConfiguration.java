@@ -40,13 +40,13 @@ public class CartConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Cart> cartEntityStm(@Qualifier("cartFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Cart> cartEntityStm(@Qualifier("cartFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Cart> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider cartActionsInfoProvider(@Qualifier("cartFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider cartActionsInfoProvider(@Qualifier("cartFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("cart",provider);
         return provider;
@@ -56,7 +56,7 @@ public class CartConfiguration {
 		return new CartEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Cart> _cartStateEntityService_(
+	@Bean StateEntityServiceImpl<Cart> _cartStateEntityService_(
 			@Qualifier("cartEntityStm") STM<Cart> stm,
 			@Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
 			@Qualifier("cartEntityStore") EntityStore<Cart> entityStore){
@@ -65,7 +65,7 @@ public class CartConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Cart> cartEntryAction(@Qualifier("cartEntityStore") EntityStore<Cart> entityStore,
+	@Bean GenericEntryAction<Cart> cartEntryAction(@Qualifier("cartEntityStore") EntityStore<Cart> entityStore,
 			@Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
             @Qualifier("cartFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Cart> entryAction =  new GenericEntryAction<Cart>(entityStore,cartInfoProvider);
@@ -101,13 +101,13 @@ public class CartConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector cartBodyTypeSelector(
+    @Bean StmBodyTypeSelector cartBodyTypeSelector(
     @Qualifier("cartActionsInfoProvider") STMActionsInfoProvider cartInfoProvider,
     @Qualifier("cartTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(cartInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Cart> cartBaseTransitionAction(
+    @Bean STMTransitionAction<Cart> cartBaseTransitionAction(
         @Qualifier("cartTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

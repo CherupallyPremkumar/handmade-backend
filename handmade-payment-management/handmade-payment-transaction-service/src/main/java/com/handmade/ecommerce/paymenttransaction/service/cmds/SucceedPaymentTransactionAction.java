@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.payment.model.PaymentTransaction;
-import com.handmade.ecommerce.payment.model. SucceedPaymentTransactionPayload;
+import com.handmade.ecommerce.payment.dto.SucceedPaymentTransactionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.payment.model. SucceedPaymentTransactionPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SucceedPaymentTransactionAction extends AbstractSTMTransitionAction<PaymentTransaction,
-    SucceedPaymentTransactionPayload>{
+               SucceedPaymentTransactionPayload>{
 
 	@Override
 	public void transitionTo(PaymentTransaction paymenttransaction,

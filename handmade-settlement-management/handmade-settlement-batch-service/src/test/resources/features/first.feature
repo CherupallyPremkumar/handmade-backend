@@ -7,14 +7,17 @@ And that "initialState" equals "PENDING"
 When I POST a REST request to URL "/settlementbatch" with payload
 """json
 {
-    "description": "Description"
+    "batchReference": "BATCH-001",
+    "startTime": "2024-01-01T10:00:00.000+00:00",
+    "totalAmount": 1500.50
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.batchReference" is "BATCH-001"
 
 Scenario: Retrieve the settlementbatch that just got created
 When I GET a REST request to URL "/settlementbatch/${id}"
@@ -31,7 +34,8 @@ When I PATCH a REST request to URL "/settlementbatch/${id}/${event}" with payloa
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "PROCESSING"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -45,7 +49,8 @@ When I PATCH a REST request to URL "/settlementbatch/${id}/${event}" with payloa
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "FAILED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
@@ -59,7 +64,8 @@ When I PATCH a REST request to URL "/settlementbatch/${id}/${event}" with payloa
     "comment": "${comment}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "CANCELLED"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"

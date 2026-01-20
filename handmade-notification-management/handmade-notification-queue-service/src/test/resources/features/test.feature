@@ -1,113 +1,117 @@
 Feature: Testcase ID 
 Tests the notificationqueue Workflow Service using a REST client. Notificationqueue service exists and is under test.
 It helps to create a notificationqueue and manages the state of the notificationqueue as documented in states xml
+
 Scenario: Create a new notificationqueue
 Given that "flowName" equals "notificationQueueFlow"
 And that "initialState" equals "PENDING"
 When I POST a REST request to URL "/notificationqueue" with payload
 """json
 {
-    "description": "Description"
+    "recipientId": "user-123",
+    "recipientType": "USER",
+    "channel": "EMAIL",
+    "templateId": "WELCOME_EMAIL",
+    "payload": "{\"name\":\"John Doe\"}"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.recipientId" is "user-123"
 
 Scenario: Retrieve the notificationqueue that just got created
 When I GET a REST request to URL "/notificationqueue/${id}"
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
 
-Scenario: Send the send event to the notificationqueue with comments
-Given that "comment" equals "Comment for send"
-And that "event" equals "send"
+Scenario: Send the send event to the notificationqueue
+Given that "event" equals "send"
 When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Sending notification"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.id" is "${id}"
 And the REST response key "mutatedEntity.currentState.stateId" is "SENDING"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the fail event to the notificationqueue with comments
-Given that "comment" equals "Comment for fail"
-And that "event" equals "fail"
+
+Scenario: Send the fail event to the notificationqueue
+Given that "event" equals "fail"
 When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "errorMessage": "SMTP Connection failed"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And the REST response key "mutatedEntity.currentState.stateId" is "FAILED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the abandon event to the notificationqueue with comments
-Given that "comment" equals "Comment for abandon"
-And that "event" equals "abandon"
+
+Scenario: Send the retry event to the notificationqueue
+Given that "event" equals "retry"
 When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Retrying after failure"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "ABANDONED"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Feature: Testcase ID 
-Tests the notificationqueue Workflow Service using a REST client. Notificationqueue service exists and is under test.
-It helps to create a notificationqueue and manages the state of the notificationqueue as documented in states xml
-Scenario: Create a new notificationqueue
+Then success is true
+And the REST response key "mutatedEntity.currentState.stateId" is "PENDING"
+
+Scenario: Send the send event again for succeed test
+When I PATCH a REST request to URL "/notificationqueue/${id}/send" with payload
+"""json
+{}
+"""
+Then success is true
+
+Scenario: Send the succeed event to the notificationqueue
+Given that "event" equals "succeed"
+When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
+"""json
+{
+    "comment": "Notification sent successfully"
+}
+"""
+Then success is true
+And the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.currentState.stateId" is "SENT"
+
+Scenario: Create another queue for abandon test
 Given that "flowName" equals "notificationQueueFlow"
 And that "initialState" equals "PENDING"
 When I POST a REST request to URL "/notificationqueue" with payload
 """json
 {
-    "description": "Description"
+    "recipientId": "user-456",
+    "channel": "SMS",
+    "payload": "text message"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And store "$.payload.mutatedEntity.id" from response to "id"
-And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+Then success is true
+And store "$.payload.mutatedEntity.id" from response to "id2"
 
-Scenario: Retrieve the notificationqueue that just got created
-When I GET a REST request to URL "/notificationqueue/${id}"
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
-
-Scenario: Send the send event to the notificationqueue with comments
-Given that "comment" equals "Comment for send"
-And that "event" equals "send"
-When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
+Scenario: Fail and Abandon it
+When I PATCH a REST request to URL "/notificationqueue/${id2}/send" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/notificationqueue/${id2}/fail" with payload
+"""json
+{}
+"""
+And I PATCH a REST request to URL "/notificationqueue/${id2}/abandon" with payload
 """json
 {
-    "comment": "${comment}"
+    "comment": "Giving up"
 }
 """
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "SENDING"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
-Scenario: Send the succeed event to the notificationqueue with comments
-Given that "comment" equals "Comment for succeed"
-And that "event" equals "succeed"
-When I PATCH a REST request to URL "/notificationqueue/${id}/${event}" with payload
-"""json
-{
-    "comment": "${comment}"
-}
-"""
-Then the REST response contains key "mutatedEntity"
-And the REST response key "mutatedEntity.id" is "${id}"
-And the REST response key "mutatedEntity.currentState.stateId" is "SENT"
-And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+Then success is true
+And the REST response key "mutatedEntity.currentState.stateId" is "ABANDONED"

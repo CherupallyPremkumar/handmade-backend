@@ -3,8 +3,8 @@ package com.handmade.ecommerce.customer.bdd;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 
 
 @RunWith(Cucumber.class)

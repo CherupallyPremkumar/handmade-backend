@@ -40,13 +40,13 @@ public class SellerOnboardingCaseConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerOnboardingCase> selleronboardingcaseEntityStm(@Qualifier("selleronboardingcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerOnboardingCase> selleronboardingcaseEntityStm(@Qualifier("selleronboardingcaseFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerOnboardingCase> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider selleronboardingcaseActionsInfoProvider(@Qualifier("selleronboardingcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider selleronboardingcaseActionsInfoProvider(@Qualifier("selleronboardingcaseFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("selleronboardingcase",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerOnboardingCaseConfiguration {
 		return new SellerOnboardingCaseEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerOnboardingCase> _selleronboardingcaseStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerOnboardingCase> _selleronboardingcaseStateEntityService_(
 			@Qualifier("selleronboardingcaseEntityStm") STM<SellerOnboardingCase> stm,
 			@Qualifier("selleronboardingcaseActionsInfoProvider") STMActionsInfoProvider selleronboardingcaseInfoProvider,
 			@Qualifier("selleronboardingcaseEntityStore") EntityStore<SellerOnboardingCase> entityStore){
@@ -65,7 +65,7 @@ public class SellerOnboardingCaseConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerOnboardingCase> selleronboardingcaseEntryAction(@Qualifier("selleronboardingcaseEntityStore") EntityStore<SellerOnboardingCase> entityStore,
+	@Bean GenericEntryAction<SellerOnboardingCase> selleronboardingcaseEntryAction(@Qualifier("selleronboardingcaseEntityStore") EntityStore<SellerOnboardingCase> entityStore,
 			@Qualifier("selleronboardingcaseActionsInfoProvider") STMActionsInfoProvider selleronboardingcaseInfoProvider,
             @Qualifier("selleronboardingcaseFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerOnboardingCase> entryAction =  new GenericEntryAction<SellerOnboardingCase>(entityStore,selleronboardingcaseInfoProvider);
@@ -101,13 +101,13 @@ public class SellerOnboardingCaseConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector selleronboardingcaseBodyTypeSelector(
+    @Bean StmBodyTypeSelector selleronboardingcaseBodyTypeSelector(
     @Qualifier("selleronboardingcaseActionsInfoProvider") STMActionsInfoProvider selleronboardingcaseInfoProvider,
     @Qualifier("selleronboardingcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(selleronboardingcaseInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerOnboardingCase> selleronboardingcaseBaseTransitionAction(
+    @Bean STMTransitionAction<SellerOnboardingCase> selleronboardingcaseBaseTransitionAction(
         @Qualifier("selleronboardingcaseTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,47 +122,41 @@ public class SellerOnboardingCaseConfiguration {
     // segment in src/main/resources/com/handmade/selleronboardingcase/selleronboardingcase-states.xml
 
     @Bean CancelSellerOnboardingCaseAction
-            selleronboardingcaseCancel(){
+            cancelSellerOnboardingCaseAction(){
         return new CancelSellerOnboardingCaseAction();
     }
     @Bean SubmitSellerOnboardingCaseAction
-            selleronboardingcaseSubmit(){
+            submitSellerOnboardingCaseAction(){
         return new SubmitSellerOnboardingCaseAction();
     }
-    @Bean CancelSellerOnboardingCaseAction
-            selleronboardingcaseCancel(){
-        return new CancelSellerOnboardingCaseAction();
-    }
+
     @Bean StartSellerOnboardingCaseAction
-            selleronboardingcaseStart(){
+            startSellerOnboardingCaseAction(){
         return new StartSellerOnboardingCaseAction();
     }
     @Bean ReviewSellerOnboardingCaseAction
-            selleronboardingcaseReview(){
+            reviewSellerOnboardingCaseAction(){
         return new ReviewSellerOnboardingCaseAction();
     }
-    @Bean CancelSellerOnboardingCaseAction
-            selleronboardingcaseCancel(){
-        return new CancelSellerOnboardingCaseAction();
-    }
+
     @Bean ProvideInfoSellerOnboardingCaseAction
-            selleronboardingcaseProvideInfo(){
+            provideInfoSellerOnboardingCaseAction(){
         return new ProvideInfoSellerOnboardingCaseAction();
     }
     @Bean ActivateSellerOnboardingCaseAction
-            selleronboardingcaseActivate(){
+            activateSellerOnboardingCaseAction(){
         return new ActivateSellerOnboardingCaseAction();
     }
     @Bean ApproveSellerOnboardingCaseAction
-            selleronboardingcaseApprove(){
+            approveSellerOnboardingCaseAction(){
         return new ApproveSellerOnboardingCaseAction();
     }
     @Bean RejectSellerOnboardingCaseAction
-            selleronboardingcaseReject(){
+            rejectSellerOnboardingCaseAction(){
         return new RejectSellerOnboardingCaseAction();
     }
     @Bean RequestInfoSellerOnboardingCaseAction
-            selleronboardingcaseRequestInfo(){
+            requestInfoSellerOnboardingCaseAction(){
         return new RequestInfoSellerOnboardingCaseAction();
     }
 

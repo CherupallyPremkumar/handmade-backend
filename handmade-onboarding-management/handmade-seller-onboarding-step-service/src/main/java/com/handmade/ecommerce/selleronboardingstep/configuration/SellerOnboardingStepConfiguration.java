@@ -40,13 +40,13 @@ public class SellerOnboardingStepConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<SellerOnboardingStep> selleronboardingstepEntityStm(@Qualifier("selleronboardingstepFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<SellerOnboardingStep> selleronboardingstepEntityStm(@Qualifier("selleronboardingstepFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<SellerOnboardingStep> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider selleronboardingstepActionsInfoProvider(@Qualifier("selleronboardingstepFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider selleronboardingstepActionsInfoProvider(@Qualifier("selleronboardingstepFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("selleronboardingstep",provider);
         return provider;
@@ -56,7 +56,7 @@ public class SellerOnboardingStepConfiguration {
 		return new SellerOnboardingStepEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<SellerOnboardingStep> _selleronboardingstepStateEntityService_(
+	@Bean StateEntityServiceImpl<SellerOnboardingStep> _selleronboardingstepStateEntityService_(
 			@Qualifier("selleronboardingstepEntityStm") STM<SellerOnboardingStep> stm,
 			@Qualifier("selleronboardingstepActionsInfoProvider") STMActionsInfoProvider selleronboardingstepInfoProvider,
 			@Qualifier("selleronboardingstepEntityStore") EntityStore<SellerOnboardingStep> entityStore){
@@ -65,7 +65,7 @@ public class SellerOnboardingStepConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<SellerOnboardingStep> selleronboardingstepEntryAction(@Qualifier("selleronboardingstepEntityStore") EntityStore<SellerOnboardingStep> entityStore,
+	@Bean GenericEntryAction<SellerOnboardingStep> selleronboardingstepEntryAction(@Qualifier("selleronboardingstepEntityStore") EntityStore<SellerOnboardingStep> entityStore,
 			@Qualifier("selleronboardingstepActionsInfoProvider") STMActionsInfoProvider selleronboardingstepInfoProvider,
             @Qualifier("selleronboardingstepFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<SellerOnboardingStep> entryAction =  new GenericEntryAction<SellerOnboardingStep>(entityStore,selleronboardingstepInfoProvider);
@@ -101,13 +101,13 @@ public class SellerOnboardingStepConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector selleronboardingstepBodyTypeSelector(
+    @Bean StmBodyTypeSelector selleronboardingstepBodyTypeSelector(
     @Qualifier("selleronboardingstepActionsInfoProvider") STMActionsInfoProvider selleronboardingstepInfoProvider,
     @Qualifier("selleronboardingstepTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(selleronboardingstepInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<SellerOnboardingStep> selleronboardingstepBaseTransitionAction(
+    @Bean STMTransitionAction<SellerOnboardingStep> selleronboardingstepBaseTransitionAction(
         @Qualifier("selleronboardingstepTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -121,20 +121,17 @@ public class SellerOnboardingStepConfiguration {
     // The payload types will be detected as well so that there is no need to introduce an <event-information/>
     // segment in src/main/resources/com/handmade/selleronboardingstep/selleronboardingstep-states.xml
 
-    @Bean SkipSellerOnboardingStepAction
-            selleronboardingstepSkip(){
-        return new SkipSellerOnboardingStepAction();
-    }
+
     @Bean CompleteSellerOnboardingStepAction
-            selleronboardingstepComplete(){
+            completeSellerOnboardingStepAction(){
         return new CompleteSellerOnboardingStepAction();
     }
     @Bean StartSellerOnboardingStepAction
-            selleronboardingstepStart(){
+            startSellerOnboardingStepAction(){
         return new StartSellerOnboardingStepAction();
     }
     @Bean SkipSellerOnboardingStepAction
-            selleronboardingstepSkip(){
+            skipSellerOnboardingStepAction(){
         return new SkipSellerOnboardingStepAction();
     }
 

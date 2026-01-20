@@ -7,14 +7,17 @@ And that "initialState" equals "ACTIVE"
 When I POST a REST request to URL "/pricealert" with payload
 """json
 {
+    "customerId": "CUST-001",
+    "productId": "PROD-001",
     "description": "Description"
 }
 """
-Then the REST response contains key "mutatedEntity"
+Then success is true
+And the REST response contains key "mutatedEntity"
 And store "$.payload.mutatedEntity.id" from response to "id"
 And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
 And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
-And the REST response key "mutatedEntity.description" is "Description"
+And the REST response key "mutatedEntity.customerId" is "CUST-001"
 
 Scenario: Retrieve the pricealert that just got created
 When I GET a REST request to URL "/pricealert/${id}"

@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.pricing.model.PriceAlert;
-import com.handmade.ecommerce.pricing.model. NotifyPriceAlertPayload;
+import com.handmade.ecommerce.pricing.dto.NotifyPriceAlertPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.pricing.model. NotifyPriceAlertPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class NotifyPriceAlertAction extends AbstractSTMTransitionAction<PriceAlert,
-    NotifyPriceAlertPayload>{
+               NotifyPriceAlertPayload>{
 
 	@Override
 	public void transitionTo(PriceAlert pricealert,

@@ -17,7 +17,7 @@
         FROM hm_offer o
         JOIN hm_product p ON o.product_id = p.id
         JOIN hm_offer_price op ON op.offer_id = o.id
-        JOIN hm_seller_store s ON s.id = p.seller_id
+        JOIN hm_seller_store s ON s.seller_account_id = p.seller_id
         LEFT JOIN hm_review_aggregation_snapshot ra ON ra.product_id = p.id
         WHERE p.state_id = 'ACTIVE'
           AND o.state_id = 'ACTIVE'

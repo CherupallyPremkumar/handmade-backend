@@ -40,13 +40,13 @@ public class PricingRuleDefinitionConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<PricingRuleDefinition> pricingruledefinitionEntityStm(@Qualifier("pricingruledefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<PricingRuleDefinition> pricingruledefinitionEntityStm(@Qualifier("pricingruledefinitionFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<PricingRuleDefinition> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider pricingruledefinitionActionsInfoProvider(@Qualifier("pricingruledefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider pricingruledefinitionActionsInfoProvider(@Qualifier("pricingruledefinitionFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("pricingruledefinition",provider);
         return provider;
@@ -56,7 +56,7 @@ public class PricingRuleDefinitionConfiguration {
 		return new PricingRuleDefinitionEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<PricingRuleDefinition> _pricingruledefinitionStateEntityService_(
+	@Bean StateEntityServiceImpl<PricingRuleDefinition> _pricingruledefinitionStateEntityService_(
 			@Qualifier("pricingruledefinitionEntityStm") STM<PricingRuleDefinition> stm,
 			@Qualifier("pricingruledefinitionActionsInfoProvider") STMActionsInfoProvider pricingruledefinitionInfoProvider,
 			@Qualifier("pricingruledefinitionEntityStore") EntityStore<PricingRuleDefinition> entityStore){
@@ -65,7 +65,7 @@ public class PricingRuleDefinitionConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<PricingRuleDefinition> pricingruledefinitionEntryAction(@Qualifier("pricingruledefinitionEntityStore") EntityStore<PricingRuleDefinition> entityStore,
+	@Bean GenericEntryAction<PricingRuleDefinition> pricingruledefinitionEntryAction(@Qualifier("pricingruledefinitionEntityStore") EntityStore<PricingRuleDefinition> entityStore,
 			@Qualifier("pricingruledefinitionActionsInfoProvider") STMActionsInfoProvider pricingruledefinitionInfoProvider,
             @Qualifier("pricingruledefinitionFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<PricingRuleDefinition> entryAction =  new GenericEntryAction<PricingRuleDefinition>(entityStore,pricingruledefinitionInfoProvider);
@@ -101,13 +101,13 @@ public class PricingRuleDefinitionConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector pricingruledefinitionBodyTypeSelector(
+    @Bean StmBodyTypeSelector pricingruledefinitionBodyTypeSelector(
     @Qualifier("pricingruledefinitionActionsInfoProvider") STMActionsInfoProvider pricingruledefinitionInfoProvider,
     @Qualifier("pricingruledefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(pricingruledefinitionInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<PricingRuleDefinition> pricingruledefinitionBaseTransitionAction(
+    @Bean STMTransitionAction<PricingRuleDefinition> pricingruledefinitionBaseTransitionAction(
         @Qualifier("pricingruledefinitionTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,35 +122,28 @@ public class PricingRuleDefinitionConfiguration {
     // segment in src/main/resources/com/handmade/pricingruledefinition/pricingruledefinition-states.xml
 
     @Bean DeprecatePricingRuleDefinitionAction
-            pricingruledefinitionDeprecate(){
+            deprecatePricingRuleDefinitionAction(){
         return new DeprecatePricingRuleDefinitionAction();
     }
     @Bean DeactivatePricingRuleDefinitionAction
-            pricingruledefinitionDeactivate(){
+            deactivatePricingRuleDefinitionAction(){
         return new DeactivatePricingRuleDefinitionAction();
     }
     @Bean SubmitPricingRuleDefinitionAction
-            pricingruledefinitionSubmit(){
+            submitPricingRuleDefinitionAction(){
         return new SubmitPricingRuleDefinitionAction();
     }
-    @Bean DeprecatePricingRuleDefinitionAction
-            pricingruledefinitionDeprecate(){
-        return new DeprecatePricingRuleDefinitionAction();
-    }
-    @Bean ActivatePricingRuleDefinitionAction
-            pricingruledefinitionActivate(){
-        return new ActivatePricingRuleDefinitionAction();
-    }
+
     @Bean ApprovePricingRuleDefinitionAction
-            pricingruledefinitionApprove(){
+            approvePricingRuleDefinitionAction(){
         return new ApprovePricingRuleDefinitionAction();
     }
     @Bean RejectPricingRuleDefinitionAction
-            pricingruledefinitionReject(){
+            rejectPricingRuleDefinitionAction(){
         return new RejectPricingRuleDefinitionAction();
     }
     @Bean ActivatePricingRuleDefinitionAction
-            pricingruledefinitionActivate(){
+            activatePricingRuleDefinitionAction(){
         return new ActivatePricingRuleDefinitionAction();
     }
 

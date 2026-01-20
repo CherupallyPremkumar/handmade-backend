@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.seller.model.SellerAccount;
-import com.handmade.ecommerce.seller.model. SuspendSellerAccountPayload;
+import com.handmade.ecommerce.seller.dto.SuspendSellerAccountPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.seller.model. SuspendSellerAccountPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SuspendSellerAccountAction extends AbstractSTMTransitionAction<SellerAccount,
-    SuspendSellerAccountPayload>{
+               SuspendSellerAccountPayload>{
 
 	@Override
 	public void transitionTo(SellerAccount selleraccount,

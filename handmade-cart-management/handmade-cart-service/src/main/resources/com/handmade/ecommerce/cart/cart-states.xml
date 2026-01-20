@@ -2,17 +2,17 @@
 <states>
 
     <!-- Cart Event Definitions -->
-    <event-information eventId='checkout' eventName='proceed to checkout'
+    <event-information eventId='checkout'
                        meta-bodyType="com.handmade.ecommerce.cart.dto.CheckoutCartPayload"/>
-    <event-information eventId='convert' eventName='convert to order'
+    <event-information eventId='convert'
                        meta-bodyType="com.handmade.ecommerce.cart.dto.ConvertCartPayload"/>
-    <event-information eventId='abandon' eventName='abandon cart'
+    <event-information eventId='abandon'
                        meta-bodyType="com.handmade.ecommerce.cart.dto.AbandonCartPayload"/>
-    <event-information eventId='recover' eventName='recover abandoned cart'
+    <event-information eventId='recover'
                        meta-bodyType="com.handmade.ecommerce.cart.dto.RecoverCartPayload"/>
-    <event-information eventId='merge' eventName='merge cart'
+    <event-information eventId='merge'
                        meta-bodyType="com.handmade.ecommerce.cart.dto.MergeCartPayload"/>
-    <event-information eventId='expire' eventName='expire cart'/>
+    <event-information eventId='expire' meta-bodyType="com.handmade.ecommerce.cart.dto.ExpireCartPayload"/>
 
     <!-- Cart Flow -->
     <flow id="cartFlow" default="true">

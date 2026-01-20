@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.iam.model.Permission;
-import com.handmade.ecommerce.iam.model. ActivatePermissionPayload;
+import com.handmade.ecommerce.iam.dto.ActivatePermissionPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.iam.model. ActivatePermissionPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ActivatePermissionAction extends AbstractSTMTransitionAction<Permission,
-    ActivatePermissionPayload>{
+               ActivatePermissionPayload>{
 
 	@Override
 	public void transitionTo(Permission permission,

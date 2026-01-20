@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.offer.model.PriceRule;
-import com.handmade.ecommerce.offer.model. RejectPriceRulePayload;
+import com.handmade.ecommerce.offer.dto.RejectPriceRulePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.offer.model. RejectPriceRulePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class RejectPriceRuleAction extends AbstractSTMTransitionAction<PriceRule,
-    RejectPriceRulePayload>{
+               RejectPriceRulePayload>{
 
 	@Override
 	public void transitionTo(PriceRule pricerule,

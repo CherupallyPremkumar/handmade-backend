@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.order.model.ReturnRequest;
-import com.handmade.ecommerce.order.model. ReceiveReturnRequestPayload;
+import com.handmade.ecommerce.order.dto.ReceiveReturnRequestPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.order.model. ReceiveReturnRequestPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ReceiveReturnRequestAction extends AbstractSTMTransitionAction<ReturnRequest,
-    ReceiveReturnRequestPayload>{
+               ReceiveReturnRequestPayload>{
 
 	@Override
 	public void transitionTo(ReturnRequest returnrequest,

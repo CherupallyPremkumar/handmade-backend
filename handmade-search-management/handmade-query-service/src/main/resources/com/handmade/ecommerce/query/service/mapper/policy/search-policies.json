@@ -4,6 +4,9 @@
         "name": "search-policies",
         "paginated": true,
         "sortable": true,
+        "workflowName": "HM_COMPLIANCE_POLICY_FLOW",
+        "stateColumn": "stateId",
+        "flowColumn": "flowId",
         "columnMetadata": {
             "id": {
                 "name": "ID",

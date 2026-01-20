@@ -40,13 +40,13 @@ public class TranslationConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<Translation> translationEntityStm(@Qualifier("translationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<Translation> translationEntityStm(@Qualifier("translationFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<Translation> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider translationActionsInfoProvider(@Qualifier("translationFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider translationActionsInfoProvider(@Qualifier("translationFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("translation",provider);
         return provider;
@@ -56,7 +56,7 @@ public class TranslationConfiguration {
 		return new TranslationEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<Translation> _translationStateEntityService_(
+	@Bean StateEntityServiceImpl<Translation> _translationStateEntityService_(
 			@Qualifier("translationEntityStm") STM<Translation> stm,
 			@Qualifier("translationActionsInfoProvider") STMActionsInfoProvider translationInfoProvider,
 			@Qualifier("translationEntityStore") EntityStore<Translation> entityStore){
@@ -65,7 +65,7 @@ public class TranslationConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<Translation> translationEntryAction(@Qualifier("translationEntityStore") EntityStore<Translation> entityStore,
+	@Bean GenericEntryAction<Translation> translationEntryAction(@Qualifier("translationEntityStore") EntityStore<Translation> entityStore,
 			@Qualifier("translationActionsInfoProvider") STMActionsInfoProvider translationInfoProvider,
             @Qualifier("translationFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<Translation> entryAction =  new GenericEntryAction<Translation>(entityStore,translationInfoProvider);
@@ -101,13 +101,13 @@ public class TranslationConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector translationBodyTypeSelector(
+    @Bean StmBodyTypeSelector translationBodyTypeSelector(
     @Qualifier("translationActionsInfoProvider") STMActionsInfoProvider translationInfoProvider,
     @Qualifier("translationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(translationInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<Translation> translationBaseTransitionAction(
+    @Bean STMTransitionAction<Translation> translationBaseTransitionAction(
         @Qualifier("translationTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }

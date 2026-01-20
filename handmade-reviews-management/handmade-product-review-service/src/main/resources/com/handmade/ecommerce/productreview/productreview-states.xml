@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.reviews.dto.ApproveProductReviewPayload"/>
+    <event-information eventId="clear" meta-bodyType="com.handmade.ecommerce.reviews.dto.ClearProductReviewPayload"/>
+    <event-information eventId="flag" meta-bodyType="com.handmade.ecommerce.reviews.dto.FlagProductReviewPayload"/>
+    <event-information eventId="investigate" meta-bodyType="com.handmade.ecommerce.reviews.dto.InvestigateProductReviewPayload"/>
+    <event-information eventId="publish" meta-bodyType="com.handmade.ecommerce.reviews.dto.PublishProductReviewPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.reviews.dto.RejectProductReviewPayload"/>
+    <event-information eventId="remove" meta-bodyType="com.handmade.ecommerce.reviews.dto.RemoveProductReviewPayload"/>
+    <event-information eventId="republish" meta-bodyType="com.handmade.ecommerce.reviews.dto.RepublishProductReviewPayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.reviews.dto.ReviewProductReviewPayload"/>
+    <event-information eventId="unpublish" meta-bodyType="com.handmade.ecommerce.reviews.dto.UnpublishProductReviewPayload"/>
+
     <flow id="productReviewFlow" default="true">
         <manual-state id="SUBMITTED" initialState="true">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="productReviewReviewAction"/>
-            <on eventId="publish" newStateId="PUBLISHED" componentName="productReviewPublishAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.productreview.service.cmds.ReviewProductReviewAction"/>
+            <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.productreview.service.cmds.PublishProductReviewAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="approve" newStateId="PUBLISHED" componentName="productReviewApproveAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="productReviewRejectAction"/>
-            <on eventId="flag" newStateId="FLAGGED" componentName="productReviewFlagAction"/>
+            <on eventId="approve" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.productreview.service.cmds.ApproveProductReviewAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.productreview.service.cmds.RejectProductReviewAction"/>
+            <on eventId="flag" newStateId="FLAGGED" componentName="com.handmade.ecommerce.productreview.service.cmds.FlagProductReviewAction"/>
         </manual-state>
 
         <manual-state id="PUBLISHED">
-            <on eventId="flag" newStateId="FLAGGED" componentName="productReviewFlagFromPublishedAction"/>
-            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="productReviewUnpublishAction"/>
+            <on eventId="flag" newStateId="FLAGGED" componentName="com.handmade.ecommerce.productreview.service.cmds.FlagProductReviewAction"/>
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="com.handmade.ecommerce.productreview.service.cmds.UnpublishProductReviewAction"/>
         </manual-state>
 
         <manual-state id="FLAGGED">
-            <on eventId="investigate" newStateId="UNDER_INVESTIGATION" componentName="productReviewInvestigateAction"/>
+            <on eventId="investigate" newStateId="UNDER_INVESTIGATION" componentName="com.handmade.ecommerce.productreview.service.cmds.InvestigateProductReviewAction"/>
         </manual-state>
 
         <manual-state id="UNDER_INVESTIGATION">
-            <on eventId="clear" newStateId="PUBLISHED" componentName="productReviewClearAction"/>
-            <on eventId="remove" newStateId="REMOVED" componentName="productReviewRemoveAction"/>
+            <on eventId="clear" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.productreview.service.cmds.ClearProductReviewAction"/>
+            <on eventId="remove" newStateId="REMOVED" componentName="com.handmade.ecommerce.productreview.service.cmds.RemoveProductReviewAction"/>
         </manual-state>
 
         <manual-state id="UNPUBLISHED">
-            <on eventId="republish" newStateId="PUBLISHED" componentName="productReviewRepublishAction"/>
+            <on eventId="republish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.productreview.service.cmds.RepublishProductReviewAction"/>
         </manual-state>
 
         <manual-state id="REMOVED" meta-endState="true"/>

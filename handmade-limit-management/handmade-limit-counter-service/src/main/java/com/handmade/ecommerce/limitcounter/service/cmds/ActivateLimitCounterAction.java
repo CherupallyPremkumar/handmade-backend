@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.limit.model.LimitCounter;
-import com.handmade.ecommerce.limit.model. ActivateLimitCounterPayload;
+import com.handmade.ecommerce.limit.dto.ActivateLimitCounterPayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.limit.model. ActivateLimitCounterPayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class ActivateLimitCounterAction extends AbstractSTMTransitionAction<LimitCounter,
-    ActivateLimitCounterPayload>{
+               ActivateLimitCounterPayload>{
 
 	@Override
 	public void transitionTo(LimitCounter limitcounter,

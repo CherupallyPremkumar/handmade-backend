@@ -7,7 +7,10 @@ And that "initialState" equals "DRAFT"
 When I POST a REST request to URL "/compliancepolicy" with payload
 """json
 {
-    "description": "Description"
+    "description": "Description",
+    "policyName": "Test Policy",
+    "policyType": "KYC",
+    "policyCode": "KYC-001"
 }
 """
 Then the REST response contains key "mutatedEntity"

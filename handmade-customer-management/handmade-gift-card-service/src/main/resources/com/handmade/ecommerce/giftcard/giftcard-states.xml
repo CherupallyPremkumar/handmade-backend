@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.customer.dto.ActivateGiftCardPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.customer.dto.ExpireGiftCardPayload"/>
+    <event-information eventId="redeem" meta-bodyType="com.handmade.ecommerce.customer.dto.RedeemGiftCardPayload"/>
+
     <flow id="giftCardFlow" default="true">
         <manual-state id="ISSUED" initialState="true">
-            <on eventId="activate" newStateId="ACTIVATED" componentName="giftCardActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVATED" componentName="com.handmade.ecommerce.giftcard.service.cmds.ActivateGiftCardAction"/>
         </manual-state>
 
         <manual-state id="ACTIVATED">
-            <on eventId="redeem" newStateId="REDEEMED" componentName="giftCardRedeemAction"/>
-            <on eventId="expire" newStateId="EXPIRED" componentName="giftCardExpireAction"/>
+            <on eventId="redeem" newStateId="REDEEMED" componentName="com.handmade.ecommerce.giftcard.service.cmds.RedeemGiftCardAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.giftcard.service.cmds.ExpireGiftCardAction"/>
         </manual-state>
 
         <manual-state id="REDEEMED"/>

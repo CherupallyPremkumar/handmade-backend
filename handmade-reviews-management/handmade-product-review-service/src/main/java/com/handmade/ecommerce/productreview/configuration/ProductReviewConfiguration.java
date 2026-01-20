@@ -40,13 +40,13 @@ public class ProductReviewConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<ProductReview> productreviewEntityStm(@Qualifier("productreviewFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<ProductReview> productreviewEntityStm(@Qualifier("productreviewFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<ProductReview> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider productreviewActionsInfoProvider(@Qualifier("productreviewFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider productreviewActionsInfoProvider(@Qualifier("productreviewFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("productreview",provider);
         return provider;
@@ -56,7 +56,7 @@ public class ProductReviewConfiguration {
 		return new ProductReviewEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<ProductReview> _productreviewStateEntityService_(
+	@Bean StateEntityServiceImpl<ProductReview> _productreviewStateEntityService_(
 			@Qualifier("productreviewEntityStm") STM<ProductReview> stm,
 			@Qualifier("productreviewActionsInfoProvider") STMActionsInfoProvider productreviewInfoProvider,
 			@Qualifier("productreviewEntityStore") EntityStore<ProductReview> entityStore){
@@ -65,7 +65,7 @@ public class ProductReviewConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<ProductReview> productreviewEntryAction(@Qualifier("productreviewEntityStore") EntityStore<ProductReview> entityStore,
+	@Bean GenericEntryAction<ProductReview> productreviewEntryAction(@Qualifier("productreviewEntityStore") EntityStore<ProductReview> entityStore,
 			@Qualifier("productreviewActionsInfoProvider") STMActionsInfoProvider productreviewInfoProvider,
             @Qualifier("productreviewFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<ProductReview> entryAction =  new GenericEntryAction<ProductReview>(entityStore,productreviewInfoProvider);
@@ -101,13 +101,13 @@ public class ProductReviewConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector productreviewBodyTypeSelector(
+    @Bean StmBodyTypeSelector productreviewBodyTypeSelector(
     @Qualifier("productreviewActionsInfoProvider") STMActionsInfoProvider productreviewInfoProvider,
     @Qualifier("productreviewTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(productreviewInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<ProductReview> productreviewBaseTransitionAction(
+    @Bean STMTransitionAction<ProductReview> productreviewBaseTransitionAction(
         @Qualifier("productreviewTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
@@ -122,47 +122,44 @@ public class ProductReviewConfiguration {
     // segment in src/main/resources/com/handmade/productreview/productreview-states.xml
 
     @Bean FlagProductReviewAction
-            productreviewFlag(){
+            flagProductReviewAction(){
         return new FlagProductReviewAction();
     }
     @Bean UnpublishProductReviewAction
-            productreviewUnpublish(){
+            unpublishProductReviewAction(){
         return new UnpublishProductReviewAction();
     }
     @Bean InvestigateProductReviewAction
-            productreviewInvestigate(){
+            investigateProductReviewAction(){
         return new InvestigateProductReviewAction();
     }
     @Bean RepublishProductReviewAction
-            productreviewRepublish(){
+            republishProductReviewAction(){
         return new RepublishProductReviewAction();
     }
     @Bean ReviewProductReviewAction
-            productreviewReview(){
+            reviewProductReviewAction(){
         return new ReviewProductReviewAction();
     }
     @Bean PublishProductReviewAction
-            productreviewPublish(){
+            publishProductReviewAction(){
         return new PublishProductReviewAction();
     }
-    @Bean FlagProductReviewAction
-            productreviewFlag(){
-        return new FlagProductReviewAction();
-    }
+
     @Bean ApproveProductReviewAction
-            productreviewApprove(){
+            approveProductReviewAction(){
         return new ApproveProductReviewAction();
     }
     @Bean RejectProductReviewAction
-            productreviewReject(){
+            rejectProductReviewAction(){
         return new RejectProductReviewAction();
     }
     @Bean ClearProductReviewAction
-            productreviewClear(){
+            clearProductReviewAction(){
         return new ClearProductReviewAction();
     }
     @Bean RemoveProductReviewAction
-            productreviewRemove(){
+            removeProductReviewAction(){
         return new RemoveProductReviewAction();
     }
 

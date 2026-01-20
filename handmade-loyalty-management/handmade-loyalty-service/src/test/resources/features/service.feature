@@ -8,13 +8,13 @@ Feature: Tests the loyalty Service using a REST client.
     And I POST a REST request to URL "/loyalty" with payload
     """
     {
-      "attribute1": "value-of-attribute1"
+      "programName": "Gold Rewards",
+      "tierLevel": 2
 	}
 	"""
 	Then success is true
     And store "$.payload.id" from response to "id"
-    # And the REST response key "tenant" is "${tenant}"
-    # And the REST response key "createdBy" is "${employee}"
+    And the REST response key "programName" is "Gold Rewards"
 
   Scenario: Retrieve the saved loyalty
     Given that "entity" equals "loyalty"
@@ -31,11 +31,12 @@ Feature: Tests the loyalty Service using a REST client.
   """
   {
     "id": "${id}",
-    "attribute1": "value-of-attribute1"
+    "programName": "Platinum Rewards"
   }
   """
     Then success is true
     And the REST response key "id" is "${id}"
+    And the REST response key "programName" is "Platinum Rewards"
 
   Scenario: Retrieve the saved loyalty
   Given that "entity" equals "loyalty"

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.settlement.dto.CancelSettlementBatchPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.settlement.dto.CompleteSettlementBatchPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.settlement.dto.FailSettlementBatchPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.settlement.dto.ProcessSettlementBatchPayload"/>
+    <event-information eventId="reconcile" meta-bodyType="com.handmade.ecommerce.settlement.dto.ReconcileSettlementBatchPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.settlement.dto.RetrySettlementBatchPayload"/>
+
     <flow id="settlementBatchFlow" default="true">
         <manual-state id="PENDING" initialState="true">
             <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.settlementbatch.service.cmds.ProcessSettlementBatchAction"/>

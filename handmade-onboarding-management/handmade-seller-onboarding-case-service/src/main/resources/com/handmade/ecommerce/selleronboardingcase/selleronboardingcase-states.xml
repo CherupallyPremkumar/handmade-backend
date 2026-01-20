@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.onboarding.dto.ActivateSellerOnboardingCasePayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.onboarding.dto.ApproveSellerOnboardingCasePayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.onboarding.dto.CancelSellerOnboardingCasePayload"/>
+    <event-information eventId="provideInfo" meta-bodyType="com.handmade.ecommerce.onboarding.dto.ProvideInfoSellerOnboardingCasePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.onboarding.dto.RejectSellerOnboardingCasePayload"/>
+    <event-information eventId="requestInfo" meta-bodyType="com.handmade.ecommerce.onboarding.dto.RequestInfoSellerOnboardingCasePayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.onboarding.dto.ReviewSellerOnboardingCasePayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.onboarding.dto.StartSellerOnboardingCasePayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.onboarding.dto.SubmitSellerOnboardingCasePayload"/>
+
     <flow id="sellerOnboardingCaseFlow" default="true">
         <manual-state id="INITIATED" initialState="true">
-            <on eventId="start" newStateId="IN_PROGRESS" componentName="sellerOnboardingCaseStartAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="sellerOnboardingCaseCancelAction"/>
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.StartSellerOnboardingCaseAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.CancelSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="IN_PROGRESS">
-            <on eventId="submit" newStateId="SUBMITTED" componentName="sellerOnboardingCaseSubmitAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="sellerOnboardingCaseCancelFromProgressAction"/>
+            <on eventId="submit" newStateId="SUBMITTED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.SubmitSellerOnboardingCaseAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.CancelSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="SUBMITTED">
-            <on eventId="review" newStateId="UNDER_REVIEW" componentName="sellerOnboardingCaseReviewAction"/>
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.ReviewSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="UNDER_REVIEW">
-            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="sellerOnboardingCaseRequestInfoAction"/>
-            <on eventId="approve" newStateId="APPROVED" componentName="sellerOnboardingCaseApproveAction"/>
-            <on eventId="reject" newStateId="REJECTED" componentName="sellerOnboardingCaseRejectAction"/>
+            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.RequestInfoSellerOnboardingCaseAction"/>
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.ApproveSellerOnboardingCaseAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.RejectSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="INFO_REQUESTED">
-            <on eventId="provideInfo" newStateId="UNDER_REVIEW" componentName="sellerOnboardingCaseProvideInfoAction"/>
-            <on eventId="cancel" newStateId="CANCELLED" componentName="sellerOnboardingCaseCancelFromInfoRequestedAction"/>
+            <on eventId="provideInfo" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.ProvideInfoSellerOnboardingCaseAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.CancelSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="APPROVED">
-            <on eventId="activate" newStateId="ACTIVE" componentName="sellerOnboardingCaseActivateAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.selleronboardingcase.service.cmds.ActivateSellerOnboardingCaseAction"/>
         </manual-state>
 
         <manual-state id="ACTIVE" meta-endState="true"/>

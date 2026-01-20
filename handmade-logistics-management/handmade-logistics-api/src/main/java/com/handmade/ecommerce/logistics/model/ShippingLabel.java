@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * ShippingLabel - Generated shipping labels for shipments
  */
-@Entity
+@Entity(name = "LogisticsShippingLabel")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -34,6 +34,4 @@ public class ShippingLabel extends AbstractJpaStateEntity {
     @Column(name = "shipping_cost", precision = 19, scale = 4)
     private BigDecimal shippingCost;
 
-    @Column(name = "status", length = 20)
-    private String status; // GENERATED, VOIDED
 }

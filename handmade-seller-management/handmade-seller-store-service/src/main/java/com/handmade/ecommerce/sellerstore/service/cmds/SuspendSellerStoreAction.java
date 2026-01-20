@@ -6,7 +6,7 @@ import org.chenile.stm.model.Transition;
 
 import org.chenile.workflow.service.stmcmds.AbstractSTMTransitionAction;
 import com.handmade.ecommerce.seller.model.SellerStore;
-import com.handmade.ecommerce.seller.model. SuspendSellerStorePayload;
+import com.handmade.ecommerce.seller.dto.SuspendSellerStorePayload;
 
 /**
  Contains customized logic for the transition. Common logic resides at {@link DefaultSTMTransitionAction}
@@ -14,7 +14,7 @@ import com.handmade.ecommerce.seller.model. SuspendSellerStorePayload;
  <p>Use a customized payload if required instead of MinimalPayload</p>
 */
 public class SuspendSellerStoreAction extends AbstractSTMTransitionAction<SellerStore,
-    SuspendSellerStorePayload>{
+               SuspendSellerStorePayload>{
 
 	@Override
 	public void transitionTo(SellerStore sellerstore,

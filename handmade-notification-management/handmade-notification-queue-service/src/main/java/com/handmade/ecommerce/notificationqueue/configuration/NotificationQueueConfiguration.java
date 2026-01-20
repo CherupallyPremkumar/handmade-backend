@@ -40,13 +40,13 @@ public class NotificationQueueConfiguration {
 		return stmFlowStore;
 	}
 	
-	@Bean @Autowired STM<NotificationQueue> notificationqueueEntityStm(@Qualifier("notificationqueueFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
+	@Bean STM<NotificationQueue> notificationqueueEntityStm(@Qualifier("notificationqueueFlowStore") STMFlowStoreImpl stmFlowStore) throws Exception{
 		STMImpl<NotificationQueue> stm = new STMImpl<>();		
 		stm.setStmFlowStore(stmFlowStore);
 		return stm;
 	}
 	
-	@Bean @Autowired STMActionsInfoProvider notificationqueueActionsInfoProvider(@Qualifier("notificationqueueFlowStore") STMFlowStoreImpl stmFlowStore) {
+	@Bean STMActionsInfoProvider notificationqueueActionsInfoProvider(@Qualifier("notificationqueueFlowStore") STMFlowStoreImpl stmFlowStore) {
 		STMActionsInfoProvider provider =  new STMActionsInfoProvider(stmFlowStore);
         WorkflowRegistry.addSTMActionsInfoProvider("notificationqueue",provider);
         return provider;
@@ -56,7 +56,7 @@ public class NotificationQueueConfiguration {
 		return new NotificationQueueEntityStore();
 	}
 	
-	@Bean @Autowired StateEntityServiceImpl<NotificationQueue> _notificationqueueStateEntityService_(
+	@Bean StateEntityServiceImpl<NotificationQueue> _notificationqueueStateEntityService_(
 			@Qualifier("notificationqueueEntityStm") STM<NotificationQueue> stm,
 			@Qualifier("notificationqueueActionsInfoProvider") STMActionsInfoProvider notificationqueueInfoProvider,
 			@Qualifier("notificationqueueEntityStore") EntityStore<NotificationQueue> entityStore){
@@ -65,7 +65,7 @@ public class NotificationQueueConfiguration {
 	
 	// Now we start constructing the STM Components 
 	
-	@Bean @Autowired GenericEntryAction<NotificationQueue> notificationqueueEntryAction(@Qualifier("notificationqueueEntityStore") EntityStore<NotificationQueue> entityStore,
+	@Bean GenericEntryAction<NotificationQueue> notificationqueueEntryAction(@Qualifier("notificationqueueEntityStore") EntityStore<NotificationQueue> entityStore,
 			@Qualifier("notificationqueueActionsInfoProvider") STMActionsInfoProvider notificationqueueInfoProvider,
             @Qualifier("notificationqueueFlowStore") STMFlowStoreImpl stmFlowStore){
         GenericEntryAction<NotificationQueue> entryAction =  new GenericEntryAction<NotificationQueue>(entityStore,notificationqueueInfoProvider);
@@ -101,13 +101,13 @@ public class NotificationQueueConfiguration {
         return new STMTransitionActionResolver(PREFIX_FOR_RESOLVER,defaultSTMTransitionAction);
     }
 
-    @Bean @Autowired StmBodyTypeSelector notificationqueueBodyTypeSelector(
+    @Bean StmBodyTypeSelector notificationqueueBodyTypeSelector(
     @Qualifier("notificationqueueActionsInfoProvider") STMActionsInfoProvider notificationqueueInfoProvider,
     @Qualifier("notificationqueueTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver) {
         return new StmBodyTypeSelector(notificationqueueInfoProvider,stmTransitionActionResolver);
     }
 
-    @Bean @Autowired STMTransitionAction<NotificationQueue> notificationqueueBaseTransitionAction(
+    @Bean STMTransitionAction<NotificationQueue> notificationqueueBaseTransitionAction(
         @Qualifier("notificationqueueTransitionActionResolver") STMTransitionActionResolver stmTransitionActionResolver){
             return new BaseTransitionAction<>(stmTransitionActionResolver);
     }
