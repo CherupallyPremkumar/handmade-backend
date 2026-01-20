@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: infrastructure
+      comment: Create hm_fraud_signal table
+      changes:
+        - createTable:
+            tableName: hm_fraud_signal
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: signal_type, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: source_ip, type: VARCHAR(45) }
+              - column: { name: device_fingerprint, type: VARCHAR(255) }
+              - column: { name: user_id, type: VARCHAR(100) }
+              - column: { name: score, type: "DECIMAL(5, 2)" }
+              - column: { name: metadata, type: TEXT } # JSON string
+              - column: { name: captured_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

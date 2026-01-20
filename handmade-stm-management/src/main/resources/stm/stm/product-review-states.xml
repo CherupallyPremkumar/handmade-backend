@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="productReviewFlow" default="true">
+        <manual-state id="SUBMITTED" initialState="true">
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="productReviewReviewAction"/>
+            <on eventId="publish" newStateId="PUBLISHED" componentName="productReviewPublishAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="approve" newStateId="PUBLISHED" componentName="productReviewApproveAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="productReviewRejectAction"/>
+            <on eventId="flag" newStateId="FLAGGED" componentName="productReviewFlagAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="flag" newStateId="FLAGGED" componentName="productReviewFlagFromPublishedAction"/>
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="productReviewUnpublishAction"/>
+        </manual-state>
+
+        <manual-state id="FLAGGED">
+            <on eventId="investigate" newStateId="UNDER_INVESTIGATION" componentName="productReviewInvestigateAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_INVESTIGATION">
+            <on eventId="clear" newStateId="PUBLISHED" componentName="productReviewClearAction"/>
+            <on eventId="remove" newStateId="REMOVED" componentName="productReviewRemoveAction"/>
+        </manual-state>
+
+        <manual-state id="UNPUBLISHED">
+            <on eventId="republish" newStateId="PUBLISHED" componentName="productReviewRepublishAction"/>
+        </manual-state>
+
+        <manual-state id="REMOVED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

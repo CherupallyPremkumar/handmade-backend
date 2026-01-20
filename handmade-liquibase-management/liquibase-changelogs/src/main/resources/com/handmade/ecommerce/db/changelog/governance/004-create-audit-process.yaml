@@ -1,0 +1,123 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: governance-management
+      changes:
+        - createTable:
+            tableName: hm_audit_process
+            # Audit workflow management
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: audit_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  # FINANCIAL, COMPLIANCE, SECURITY, OPERATIONAL
+              - column:
+                  name: entity_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                  # SELLER, ORDER, TRANSACTION, etc.
+              - column:
+                  name: entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: auditor_id
+                  type: varchar(36)
+              - column:
+                  name: priority
+                  type: varchar(50)
+                  # LOW, MEDIUM, HIGH, CRITICAL
+              - column:
+                  name: scope
+                  type: text
+                  # JSON describing audit scope
+              - column:
+                  name: findings
+                  type: text
+                  # JSON array of findings
+              - column:
+                  name: risk_rating
+                  type: varchar(50)
+              - column:
+                  name: remediation_required
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: initiated_date
+                  type: timestamp
+              - column:
+                  name: due_date
+                  type: timestamp
+              - column:
+                  name: completed_date
+                  type: timestamp
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+        - createIndex:
+            indexName: idx_audit_process_entity
+            tableName: hm_audit_process
+            columns:
+              - column:
+                  name: entity_type
+              - column:
+                  name: entity_id
+
+        - createIndex:
+            indexName: idx_audit_process_status
+            tableName: hm_audit_process
+            columns:
+              - column:
+                  name: state_id

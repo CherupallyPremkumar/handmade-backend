@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: product-management
+      changes:
+        - createTable:
+            tableName: hm_product
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              # AbstractSeller
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              # Core Product
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: sales_description
+                  type: text
+              - column:
+                  name: feature_description
+                  type: text
+              - column:
+                  name: details_description
+                  type: text
+              # Taxonomy & Hierarchy (Amazon Style)
+              - column:
+                  name: classification_id
+                  type: varchar(36)
+              - column:
+                  name: parent_id
+                  type: varchar(36)
+              - column:
+                  name: variation_theme_id
+                  type: varchar(36)
+              # Brand & Manufacturer
+              - column:
+                  name: brand
+                  type: varchar(255)
+              - column:
+                  name: manufacturer
+                  type: varchar(255)
+              # Status (Legacy + New)
+              - column:
+                  name: is_published
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: status
+                  type: varchar(50) 
+              # Images
+              - column:
+                  name: primary_image_url
+                  type: varchar(2048)
+              - column:
+                  name: primary_image_alt_text
+                  type: varchar(255)
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0

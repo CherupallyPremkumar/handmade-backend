@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.payment.dto.CancelPaymentTransactionPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.payment.dto.FailPaymentTransactionPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.payment.dto.ProcessPaymentTransactionPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.payment.dto.RetryPaymentTransactionPayload"/>
+    <event-information eventId="succeed" meta-bodyType="com.handmade.ecommerce.payment.dto.SucceedPaymentTransactionPayload"/>
+
+    <flow id="paymentTransactionFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.paymenttransaction.service.cmds.ProcessPaymentTransactionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.paymenttransaction.service.cmds.CancelPaymentTransactionAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="succeed" newStateId="SUCCESS" componentName="com.handmade.ecommerce.paymenttransaction.service.cmds.SucceedPaymentTransactionAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.paymenttransaction.service.cmds.FailPaymentTransactionAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="PENDING" componentName="com.handmade.ecommerce.paymenttransaction.service.cmds.RetryPaymentTransactionAction"/>
+        </manual-state>
+
+        <manual-state id="SUCCESS" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>
+

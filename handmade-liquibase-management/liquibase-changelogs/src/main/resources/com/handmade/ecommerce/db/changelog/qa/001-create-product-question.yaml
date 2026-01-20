@@ -1,0 +1,124 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: qa-management
+      changes:
+        - createTable:
+            tableName: hm_product_question
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: question_text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_public
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: upvote_count
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: answer_count
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: moderated_at
+                  type: timestamp
+              - column:
+                  name: moderated_by
+                  type: varchar(255)
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_question_product
+            tableName: hm_product_question
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: state_id
+        
+        - createIndex:
+            indexName: idx_question_customer
+            tableName: hm_product_question
+            columns:
+              - column:
+                  name: customer_id
+
+  - changeSet:
+      id: 2
+      author: qa-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_question
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_qa_question_product
+        - addForeignKeyConstraint:
+            baseTableName: hm_product_question
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_qa_question_customer

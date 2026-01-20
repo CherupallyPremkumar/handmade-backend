@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="acknowledge" meta-bodyType="com.handmade.ecommerce.logistics.dto.AcknowledgeDeliveryExceptionPayload"/>
+    <event-information eventId="escalate" meta-bodyType="com.handmade.ecommerce.logistics.dto.EscalateDeliveryExceptionPayload"/>
+    <event-information eventId="investigate" meta-bodyType="com.handmade.ecommerce.logistics.dto.InvestigateDeliveryExceptionPayload"/>
+    <event-information eventId="resolve" meta-bodyType="com.handmade.ecommerce.logistics.dto.ResolveDeliveryExceptionPayload"/>
+
+    <flow id="deliveryExceptionFlow" default="true">
+        <manual-state id="REPORTED" initialState="true">
+            <on eventId="acknowledge" newStateId="ACKNOWLEDGED" componentName="com.handmade.ecommerce.deliveryexception.service.cmds.AcknowledgeDeliveryExceptionAction"/>
+        </manual-state>
+
+        <manual-state id="ACKNOWLEDGED">
+            <on eventId="investigate" newStateId="INVESTIGATING" componentName="com.handmade.ecommerce.deliveryexception.service.cmds.InvestigateDeliveryExceptionAction"/>
+        </manual-state>
+
+        <manual-state id="INVESTIGATING">
+            <on eventId="resolve" newStateId="RESOLVED" componentName="com.handmade.ecommerce.deliveryexception.service.cmds.ResolveDeliveryExceptionAction"/>
+            <on eventId="escalate" newStateId="ESCALATED" componentName="com.handmade.ecommerce.deliveryexception.service.cmds.EscalateDeliveryExceptionAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="resolve" newStateId="RESOLVED" componentName="com.handmade.ecommerce.deliveryexception.service.cmds.ResolveDeliveryExceptionAction"/>
+        </manual-state>
+
+        <manual-state id="RESOLVED" meta-endState="true"/>
+    </flow>
+</states>

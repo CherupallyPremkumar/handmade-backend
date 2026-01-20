@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_SHIPMENT_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="book" newStateId="BOOKED" componentName="shipmentBookAction"/>
+        </manual-state>
+
+        <manual-state id="BOOKED">
+            <on eventId="pickup" newStateId="PICKED_UP" componentName="shipmentPickupAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="shipmentCancelAction"/>
+        </manual-state>
+
+        <manual-state id="PICKED_UP">
+            <on eventId="transit" newStateId="IN_TRANSIT" componentName="shipmentTransitAction"/>
+        </manual-state>
+
+        <manual-state id="IN_TRANSIT">
+            <on eventId="outForDelivery" newStateId="OUT_FOR_DELIVERY" componentName="shipmentOutForDeliveryAction"/>
+            <on eventId="exception" newStateId="EXCEPTION" componentName="shipmentExceptionAction"/>
+        </manual-state>
+
+        <manual-state id="OUT_FOR_DELIVERY">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="shipmentDeliverAction"/>
+            <on eventId="exception" newStateId="EXCEPTION" componentName="shipmentExceptionFromOutForDeliveryAction"/>
+        </manual-state>
+
+        <manual-state id="EXCEPTION">
+            <on eventId="retry" newStateId="IN_TRANSIT" componentName="shipmentRetryAction"/>
+            <on eventId="returnToSender" newStateId="RETURNED" componentName="shipmentReturnAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED" meta-endState="true"/>
+        <manual-state id="RETURNED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

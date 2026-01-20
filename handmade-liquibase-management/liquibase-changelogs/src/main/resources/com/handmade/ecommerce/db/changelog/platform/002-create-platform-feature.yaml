@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: platform-admin
+      changes:
+        - createTable:
+            tableName: hm_platform_feature_config
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: feature_code
+                  type: varchar(50) # FBA, ADS, SUBSCRIPTIONS
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_enabled
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: config_json
+                  type: text
+                  constraints:
+                    nullable: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_platform_feature_config
+            indexName: idx_plat_feat_cfg_plat
+            columns:
+              - column:
+                  name: platform_id
+        - addUniqueConstraint:
+            tableName: hm_platform_feature_config
+            columnNames: platform_id, feature_code
+            constraintName: uq_plat_feat_cfg

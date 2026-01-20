@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-team
+      changes:
+        - createTable:
+            tableName: hm_analytics_session
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: user_id, type: varchar(36)}
+              - column: {name: session_token, type: varchar(255), constraints: {nullable: false, unique: true}}
+              - column: {name: start_time, type: timestamp, constraints: {nullable: false}}
+              - column: {name: last_activity_time, type: timestamp}
+              - column: {name: expires_at, type: timestamp, constraints: {nullable: false}}
+              - column: {name: status, type: varchar(20), defaultValue: "ACTIVE"} # ACTIVE, EXPIRED, CLOSED
+              - column: {name: device_type, type: varchar(50)}
+              - column: {name: ip_address, type: varchar(45)}
+              - column: {name: user_agent, type: varchar(500)}
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+
+        - createIndex:
+            tableName: hm_analytics_session
+            indexName: idx_as_user_id
+            columns:
+              - column: {name: user_id}
+        - createIndex:
+            tableName: hm_analytics_session
+            indexName: idx_as_expires_at
+            columns:
+              - column: {name: expires_at}

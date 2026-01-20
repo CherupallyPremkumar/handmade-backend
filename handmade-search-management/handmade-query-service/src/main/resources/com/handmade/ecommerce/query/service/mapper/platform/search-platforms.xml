@@ -6,26 +6,26 @@
         SELECT 
             id as "id",
             name as "name",
-            state_id as "state",
-            suspended as "suspended",
-            suspension_reason as "suspensionReason",
-            deleted as "deleted",
-            deleted_at as "deletedAt",
-            active_commission_policy_id as "activeCommissionPolicyId",
-            active_feature_config_id as "activeFeatureConfigId"
-        FROM platform_owner
+            platform_code as "platformCode",
+            country_code as "countryCode",
+            currency_code as "currencyCode",
+            marketplace_type as "marketplaceType",
+            is_active as "isActive",
+            created_time as "createdTime",
+            created_by as "createdBy"
+        FROM hm_platform
         WHERE 1=1
         <if test="name != null">
             AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
         </if>
-        <if test="state != null">
-            AND state_id = #{state}
+        <if test="platformCode != null">
+            AND platform_code = #{platformCode}
         </if>
-        <if test="suspended != null">
-            AND suspended = #{suspended}
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
         </if>
-        <if test="deleted != null">
-            AND deleted = #{deleted}
+        <if test="isActive != null">
+            AND is_active = #{isActive}
         </if>
         <if test="sortColumn != null and sortOrder != null">
             ORDER BY ${sortColumn} ${sortOrder}
@@ -40,19 +40,19 @@
 
     <select id="search-platforms-count" resultType="int">
         SELECT COUNT(*)
-        FROM platform_owner
+        FROM hm_platform
         WHERE 1=1
         <if test="name != null">
             AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
         </if>
-        <if test="state != null">
-            AND state_id = #{state}
+        <if test="platformCode != null">
+            AND platform_code = #{platformCode}
         </if>
-        <if test="suspended != null">
-            AND suspended = #{suspended}
+        <if test="countryCode != null">
+            AND country_code = #{countryCode}
         </if>
-        <if test="deleted != null">
-            AND deleted = #{deleted}
+        <if test="isActive != null">
+            AND is_active = #{isActive}
         </if>
     </select>
 </mapper>

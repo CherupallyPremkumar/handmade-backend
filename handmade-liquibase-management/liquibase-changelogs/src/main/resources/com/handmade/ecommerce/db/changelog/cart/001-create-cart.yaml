@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: cart-management
+      changes:
+        - createTable:
+            tableName: hm_cart
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: session_id
+                  type: varchar(255)
+
+              - column:
+                  name: subtotal_amount
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+              - column:
+                  name: tax_amount
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+              - column:
+                  name: shipping_amount
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+              - column:
+                  name: discount_amount
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+              - column:
+                  name: total_amount
+                  type: decimal(19,4)
+                  defaultValueNumeric: 0
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: cart_type
+                  type: varchar(50)
+                  defaultValue: STANDARD
+              - column:
+                  name: merged_from_cart_id
+                  type: varchar(36)
+              - column:
+                  name: expires_at
+                  type: timestamp
+              - column:
+                  name: converted_to_order_id
+                  type: varchar(36)
+              - column:
+                  name: conversion_date
+                  type: timestamp
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_cart_customer
+            tableName: hm_cart
+            columns:
+              - column:
+                  name: customer_id
+              - column:
+                  name: state_id
+        
+        - createIndex:
+            indexName: idx_cart_session
+            tableName: hm_cart
+            columns:
+              - column:
+                  name: session_id
+
+  - changeSet:
+      id: 2
+      author: cart-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_cart
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_cart_customer

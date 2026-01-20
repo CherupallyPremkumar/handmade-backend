@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="inboundShipmentFlow" default="true">
+        <manual-state id="EXPECTED" initialState="true">
+            <on eventId="receive" newStateId="RECEIVING" componentName="inboundShipmentReceiveAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVING">
+            <on eventId="complete" newStateId="RECEIVED" componentName="inboundShipmentCompleteAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="inboundShipmentCancelAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

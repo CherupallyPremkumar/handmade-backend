@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: policy-engine-core
+      validCheckSum: ANY
+      comment: Create hm_policy_decision table
+      changes:
+        - createTable:
+            tableName: hm_policy_decision
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: trace_id, type: VARCHAR(36), constraints: { nullable: false, unique: true } }
+              - column: { name: policy_key, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: input_context_hash, type: VARCHAR(64) } # SHA-256 of context JSON for quick lookup
+              - column: { name: input_context_json, type: TEXT }
+              - column: { name: final_decision, type: VARCHAR(50) } # ALLOW, DENY
+              - column: { name: executing_service, type: VARCHAR(100) }
+              - column: { name: decision_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_policy_decision
+            indexName: idx_decision_policy
+            columns:
+              - column: { name: policy_key }

@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: offer-management
+      changes:
+        - createTable:
+            tableName: hm_price_rule
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rule_type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rule_expression
+                  type: text
+              - column:
+                  name: priority
+                  type: int
+              - column:
+                  name: start_date
+                  type: timestamp
+              - column:
+                  name: end_date
+                  type: timestamp
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}
+  - changeSet:
+      id: 2
+      author: offer-management
+      changes:
+        - addColumn:
+            tableName: hm_price_rule
+            columns:
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+              - column:
+                  name: offer_id
+                  type: varchar(36)
+        - addForeignKeyConstraint:
+            baseTableName: hm_price_rule
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_pr_seller
+        - addForeignKeyConstraint:
+            baseTableName: hm_price_rule
+            baseColumnNames: offer_id
+            referencedTableName: hm_offer
+            referencedColumnNames: id
+            constraintName: fk_pr_offer
+        - createIndex:
+            tableName: hm_price_rule
+            indexName: idx_pr_seller
+            columns:
+              - column:
+                  name: seller_id

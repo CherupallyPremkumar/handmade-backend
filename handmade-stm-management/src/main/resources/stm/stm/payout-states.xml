@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="payoutFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="payoutProcessAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="payoutCompleteAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="payoutFailAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+    </flow>
+</states>

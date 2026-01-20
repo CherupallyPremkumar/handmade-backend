@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-seller-onboarding
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_seller_verification
+        - delete:
+            tableName: hm_seller_onboarding_step
+        - delete:
+            tableName: hm_seller_onboarding_case
+        
+        # Onboarding Cases (10)
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: email, value: "seller1@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: email, value: "seller2@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: email, value: "seller3@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-004"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: email, value: "seller4@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-005"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: email, value: "seller5@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: email, value: "seller6@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-007"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: email, value: "seller7@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-008"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: email, value: "seller8@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-009"}
+              - column: {name: seller_id, value: "SEL-009"}
+              - column: {name: email, value: "seller9@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_onboarding_case
+            columns:
+              - column: {name: id, value: "ONB-010"}
+              - column: {name: seller_id, value: "SEL-010"}
+              - column: {name: email, value: "seller10@example.com"}
+              - column: {name: started_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "INITIATED"}
+              - column: {name: flow_id, value: "HM_SELLER_ONBOARDING_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Verifications (10)
+        - insert:
+            tableName: hm_seller_verification
+            columns:
+              - column: {name: id, value: "VRF-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: verification_type, value: "ID_VERIFICATION"}
+              - column: {name: initiated_at, value: "2023-01-01T10:00:00"}
+              - column: {name: state_id, value: "PENDING"}
+              - column: {name: flow_id, value: "HM_SELLER_VERIFICATION_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

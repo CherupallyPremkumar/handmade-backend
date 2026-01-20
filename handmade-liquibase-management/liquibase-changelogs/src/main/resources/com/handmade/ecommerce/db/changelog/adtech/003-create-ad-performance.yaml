@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: platform-infrastructure
+      changes:
+        - createTable:
+            tableName: hm_ad_performance
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: sponsored_product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: report_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: impressions
+                  type: bigint
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: clicks
+                  type: bigint
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: spend
+                  type: decimal(10, 2)
+                  defaultValueNumeric: 0.00
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sales
+                  type: decimal(10, 2)
+                  defaultValueNumeric: 0.00
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_ad_performance
+            indexName: idx_ad_perf_date
+            columns:
+              - column:
+                  name: report_date
+              - column:
+                  name: sponsored_product_id

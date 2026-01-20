@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: search-engine
+      changes:
+        - createTable:
+            tableName: hm_recommendation_graph
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source_entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: relation_type
+                  type: varchar(50)
+                  # BOUGHT_TOGETHER, SIMILAR_TO, VIEWED_TOGETHER
+              - column:
+                  name: strength
+                  type: decimal(10, 4)
+                  defaultValueNumeric: 0.0000
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_recommendation_graph
+            indexName: idx_rec_graph_src
+            columns:
+              - column: { name: source_entity_id }
+        - createIndex:
+            tableName: hm_recommendation_graph
+            indexName: idx_rec_graph_rel
+            columns:
+              - column: { name: relation_type }

@@ -1,0 +1,117 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-policies
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_onboarding_policy
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-001"}
+              - column: {name: policy_name, value: "Artisan Quality Standards"}
+              - column: {name: description, value: "Defines the minimum quality requirements for PLT-GLOBAL goods."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-002"}
+              - column: {name: policy_name, value: "Ethical Sourcing Policy"}
+              - column: {name: description, value: "Ensures all materials are ethically and sustainably sourced."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-003"}
+              - column: {name: policy_name, value: "Seller Performance Guarantee"}
+              - column: {name: description, value: "Commitment to timely shipping and customer satisfaction."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-004"}
+              - column: {name: policy_name, value: "Intellectual Property Protection"}
+              - column: {name: description, value: "Guidelines for protecting original designs and trademarks."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-005"}
+              - column: {name: policy_name, value: "Global Shipping Requirements"}
+              - column: {name: description, value: "Standards for international shipping and customs documentation."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-006"}
+              - column: {name: policy_name, value: "Packaging & Sustainability"}
+              - column: {name: description, value: "Guidelines for eco-friendly and secure product packaging."}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-10T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-007"}
+              - column: {name: policy_name, value: "Customer Data Privacy"}
+              - column: {name: description, value: "Strict rules for handling and protecting buyer information."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-008"}
+              - column: {name: policy_name, value: "Fair Pricing Standards"}
+              - column: {name: description, value: "Ensuring transparent and fair pricing across the marketplace."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-009"}
+              - column: {name: policy_name, value: "Returns & Exchanges Policy"}
+              - column: {name: description, value: "Unified framework for handling artisan product returns."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_onboarding_policy
+            columns:
+              - column: {name: id, value: "POL-010"}
+              - column: {name: policy_name, value: "Restricted Materials Policy"}
+              - column: {name: description, value: "List of prohibited materials and chemical substances."}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}

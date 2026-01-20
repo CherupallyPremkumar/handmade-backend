@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: event-infra-engine
+      changes:
+        - createTable:
+            tableName: hm_event_subscription
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscriber_endpoint
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_event_subscription
+            indexName: idx_event_sub_type
+            columns:
+              - column: { name: event_type }

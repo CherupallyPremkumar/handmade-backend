@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seller-growth-ops
+      validCheckSum: ANY
+      comment: Create hm_seller_goal table
+      changes:
+        - createTable:
+            tableName: hm_seller_goal
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: seller_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: goal_type, type: VARCHAR(50), constraints: { nullable: false } } # MONTHLY_GMV, CANCELLATION_RATE
+              - column:
+                  name: target_value
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: current_value
+                  type: "DECIMAL(19, 4)"
+              - column: { name: start_date, type: DATE }
+              - column: { name: end_date, type: DATE }
+              - column: { name: status, type: VARCHAR(20) } # ACTIVE, ACHIEVED, FAILED
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_seller_goal
+            indexName: idx_seller_goal_seller
+            columns:
+              - column: { name: seller_id }

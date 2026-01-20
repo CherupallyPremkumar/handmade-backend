@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: payout-policy
+      validCheckSum: ANY
+      comment: Create payout_policy_audit_log table
+      changes:
+        - createTable:
+            tableName: payout_policy_audit_log
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: policy_id, type: VARCHAR(255), constraints: {nullable: false}}
+              - column: {name: policy_version, type: VARCHAR(50), constraints: {nullable: false}}
+              - column: {name: action, type: VARCHAR(50), constraints: {nullable: false}}
+              - column: {name: changed_by, type: VARCHAR(255), constraints: {nullable: false}}
+              - column: {name: changed_at, type: TIMESTAMP, constraints: {nullable: false}}
+              - column: {name: field_name, type: VARCHAR(100)}
+              - column: {name: old_value, type: TEXT}
+              - column: {name: new_value, type: TEXT}
+              - column: {name: reason, type: TEXT}
+              - column: {name: tenant, type: VARCHAR(255)}
+              # BaseJpaEntity
+              - column: {name: created_time, type: TIMESTAMP}
+              - column: {name: last_modified_time, type: TIMESTAMP}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT, defaultValueNumeric: 0}
+        
+        - createIndex:
+            indexName: idx_audit_policy
+            tableName: payout_policy_audit_log
+            columns:
+              - column: {name: policy_id}
+              - column: {name: changed_at}
+        
+        - createIndex:
+            indexName: idx_audit_user
+            tableName: payout_policy_audit_log
+            columns:
+              - column: {name: changed_by}
+              - column: {name: changed_at}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.platform.dto.ActivatePlatformPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.platform.dto.ApprovePlatformPayload"/>
+    <event-information eventId="archive" meta-bodyType="com.handmade.ecommerce.platform.dto.ArchivePlatformPayload"/>
+    <event-information eventId="deactivate" meta-bodyType="com.handmade.ecommerce.platform.dto.DeactivatePlatformPayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.platform.dto.ReactivatePlatformPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.platform.dto.RejectPlatformPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.platform.dto.SubmitPlatformPayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.platform.dto.SuspendPlatformPayload"/>
+
+    <flow id="HM_PLATFORM_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="submitPlatformAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="approvePlatformAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="rejectPlatformAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activatePlatformAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="suspendPlatformAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="deactivatePlatformAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="reactivatePlatformAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="deactivatePlatformAction"/>
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="archivePlatformAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+    </flow>
+</states>

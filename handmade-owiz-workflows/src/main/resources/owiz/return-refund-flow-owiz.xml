@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Return + refund orchestration that drives RETURN_REQUEST_FLOW and REFUND_FLOW STMs.
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: RETURN_REFUND_FLOW
+    Trigger: APPROVE_RETURN
+
+    Expected STMs:
+    - RETURN_REQUEST_FLOW: REQUESTED -> APPROVED -> PICKUP_SCHEDULED -> IN_TRANSIT_TO_FC -> RECEIVED -> CLOSED
+    - REFUND_FLOW: REQUESTED -> APPROVED -> PROCESSING -> REFUNDED / FAILED / REJECTED
+    -->
+    <flow id="RETURN_REFUND_FLOW" triggerEvent="APPROVE_RETURN">
+        <!-- Validate returned item and move RETURN_REQUEST STM forward -->
+        <command id="validateReturnedItem" componentName="returnQualityCheckService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Process refund via payment gateway and fire REFUND_FLOW events -->
+        <command id="processRefundPayment" componentName="paymentgatewayService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+
+        <!-- Update seller/buyer ledger balances after refund -->
+        <command id="updateSellerBalance" componentName="ledgerService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Notify buyer about refund completion -->
+        <command id="notifyBuyer" componentName="refundNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="2000" onError="stop"/>
+    </flow>
+</flows>

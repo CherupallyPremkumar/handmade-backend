@@ -1,0 +1,161 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-payout-policies
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_payout_policy
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-001"}
+              - column: {name: policy_version, value: "v1.0-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 100.00}
+              - column: {name: currency, value: "USD"}
+              - column: {name: hold_period_days, valueNumeric: 7}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-002"}
+              - column: {name: policy_version, value: "v1.0-US-ENTERPRISE"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ENTERPRISE"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "DAILY"}
+              - column: {name: minimum_threshold, valueNumeric: 1000.00}
+              - column: {name: currency, value: "USD"}
+              - column: {name: hold_period_days, valueNumeric: 3}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-003"}
+              - column: {name: policy_version, value: "v1.0-UK-ARTISAN"}
+              - column: {name: country_code, value: "GB"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "BI-WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 50.00}
+              - column: {name: currency, value: "GBP"}
+              - column: {name: hold_period_days, valueNumeric: 10}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-004"}
+              - column: {name: policy_version, value: "v1.0-EU-ARTISAN"}
+              - column: {name: country_code, value: "DE"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 75.00}
+              - column: {name: currency, value: "EUR"}
+              - column: {name: hold_period_days, valueNumeric: 5}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-005"}
+              - column: {name: policy_version, value: "v1.1-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-06-01"}
+              - column: {name: default_frequency, value: "MONTHLY"}
+              - column: {name: minimum_threshold, valueNumeric: 500.00}
+              - column: {name: currency, value: "USD"}
+              - column: {name: hold_period_days, valueNumeric: 14}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-006"}
+              - column: {name: policy_version, value: "v1.0-CA-ARTISAN"}
+              - column: {name: country_code, value: "CA"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 100.00}
+              - column: {name: currency, value: "CAD"}
+              - column: {name: hold_period_days, valueNumeric: 7}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-007"}
+              - column: {name: policy_version, value: "v1.0-AU-ARTISAN"}
+              - column: {name: country_code, value: "AU"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 100.00}
+              - column: {name: currency, value: "AUD"}
+              - column: {name: hold_period_days, valueNumeric: 7}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-008"}
+              - column: {name: policy_version, value: "v1.0-JP-ARTISAN"}
+              - column: {name: country_code, value: "JP"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-01-01"}
+              - column: {name: default_frequency, value: "MONTHLY"}
+              - column: {name: minimum_threshold, valueNumeric: 10000.00}
+              - column: {name: currency, value: "JPY"}
+              - column: {name: hold_period_days, valueNumeric: 30}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-009"}
+              - column: {name: policy_version, value: "v2.0-US-ENTERPRISE"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ENTERPRISE"}
+              - column: {name: effective_from, valueDate: "2025-01-01"}
+              - column: {name: default_frequency, value: "REAL_TIME"}
+              - column: {name: minimum_threshold, valueNumeric: 0.00}
+              - column: {name: currency, value: "USD"}
+              - column: {name: hold_period_days, valueNumeric: 0}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_payout_policy
+            columns:
+              - column: {name: id, value: "PAY-010"}
+              - column: {name: policy_version, value: "v1.2-US-ARTISAN"}
+              - column: {name: country_code, value: "US"}
+              - column: {name: seller_type, value: "ARTISAN"}
+              - column: {name: effective_from, valueDate: "2024-12-01"}
+              - column: {name: default_frequency, value: "WEEKLY"}
+              - column: {name: minimum_threshold, valueNumeric: 200.00}
+              - column: {name: currency, value: "USD"}
+              - column: {name: hold_period_days, valueNumeric: 5}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_PAYOUT_POLICY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

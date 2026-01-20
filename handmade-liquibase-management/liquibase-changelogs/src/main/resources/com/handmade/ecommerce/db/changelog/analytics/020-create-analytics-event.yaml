@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-team
+      changes:
+        - createTable:
+            tableName: hm_analytics_event
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: event_type, type: varchar(100), constraints: {nullable: false}}
+              - column: {name: session_id, type: varchar(36)}
+              - column: {name: user_id, type: varchar(36)}
+              - column: {name: entity_id, type: varchar(36)}
+              - column: {name: entity_type, type: varchar(50)}
+              - column: {name: event_timestamp, type: timestamp, constraints: {nullable: false}}
+              - column: {name: payload_json, type: text} # Flexible event details
+              - column: {name: source, type: varchar(50)} # WEB, MOBILE, API
+              - column: {name: url, type: varchar(2048)}
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        
+        # Performance Indexes for Filtering
+        - createIndex:
+            tableName: hm_analytics_event
+            indexName: idx_ae_event_type
+            columns:
+              - column: {name: event_type}
+        - createIndex:
+            tableName: hm_analytics_event
+            indexName: idx_ae_session_id
+            columns:
+              - column: {name: session_id}
+        - createIndex:
+            tableName: hm_analytics_event
+            indexName: idx_ae_user_id
+            columns:
+              - column: {name: user_id}
+        - createIndex:
+            tableName: hm_analytics_event
+            indexName: idx_ae_entity
+            columns:
+              - column: {name: entity_id}
+              - column: {name: entity_type}
+        - createIndex:
+            tableName: hm_analytics_event
+            indexName: idx_ae_timestamp
+            columns:
+              - column: {name: event_timestamp}

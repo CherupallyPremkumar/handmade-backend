@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-team
+      changes:
+        - createTable:
+            tableName: hm_analytics_metric_def
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: metric_code, type: varchar(100), constraints: {nullable: false, unique: true}}
+              - column: {name: name, type: varchar(255), constraints: {nullable: false}}
+              - column: {name: description, type: varchar(500)}
+              - column: {name: aggregation_type, type: varchar(20)} # COUNT, SUM, AVG, MAX, MIN
+              - column: {name: value_type, type: varchar(20)} # INT, DECIMAL
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+              # AbstractJpaStateEntity
+              - column: {name: state_id, type: varchar(50)}
+              - column: {name: flow_id, type: varchar(50)}
+              - column: {name: state_entry_time, type: timestamp}
+              - column: {name: sla_yellow_date, type: timestamp}
+              - column: {name: sla_red_date, type: timestamp}
+              - column: {name: sla_tending_late, type: int, defaultValueNumeric: 0}
+              - column: {name: sla_late, type: int, defaultValueNumeric: 0}

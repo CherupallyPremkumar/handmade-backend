@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: limits-engine
+      changes:
+        - createTable:
+            tableName: hm_limit_scope
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: limit_definition_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: scope_dimension
+                  type: varchar(50) # SELLER_TIER, USER_ROLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: scope_value
+                  type: varchar(255) # GOLD, ADMIN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: override_value
+                  type: bigint
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_limit_scope
+            baseColumnNames: limit_definition_id
+            referencedTableName: hm_limit_definition
+            referencedColumnNames: id
+            constraintName: fk_limit_scp_def
+        - createIndex:
+            tableName: hm_limit_scope
+            indexName: idx_limit_scp_def
+            columns:
+              - column: {name: limit_definition_id}

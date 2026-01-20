@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.governance.dto.ReviewGDPRRequestPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.governance.dto.ProcessGDPRRequestPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.governance.dto.ApproveGDPRRequestPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.governance.dto.RejectGDPRRequestPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.governance.dto.CompleteGDPRRequestPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.governance.dto.FailGDPRRequestPayload"/>
+
+    <flow id="gdprRequestFlow" default="true">
+        <manual-state id="SUBMITTED" initialState="true">
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ReviewGdprRequestAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ApproveGdprRequestAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.RejectGdprRequestAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.ProcessGdprRequestAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.CompleteGdprRequestAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.gdprrequest.service.cmds.FailGdprRequestAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+    </flow>
+</states>

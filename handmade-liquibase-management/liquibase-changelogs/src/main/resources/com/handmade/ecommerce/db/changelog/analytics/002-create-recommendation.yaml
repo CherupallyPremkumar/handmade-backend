@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: analytics-team
+      changes:
+        - createTable:
+            tableName: hm_recommendation
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source_product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: recommendation_type
+                  type: varchar(50)
+                  defaultValue: "ALSO_BOUGHT"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: score
+                  type: decimal(5, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: computed_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_recommendation
+            indexName: idx_recommendation_source
+            columns:
+              - column:
+                  name: source_product_id
+        - createIndex:
+            tableName: hm_recommendation
+            indexName: idx_recommendation_type
+            columns:
+              - column:
+                  name: recommendation_type

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Compliance and audit orchestration that drives COMPLIANCE_POLICY_FLOW, AUDIT_PROCESS_FLOW STMs.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: COMPLIANCE_AUDIT_FLOW
+    Trigger: INITIATE_COMPLIANCE_AUDIT
+
+    Expected STM (AUDIT_PROCESS_FLOW):
+    INITIATED -> ASSIGNED -> IN_PROGRESS -> COMPLETED -> REVIEWED -> PUBLISHED
+    -->
+    <flow id="COMPLIANCE_AUDIT_FLOW" triggerEvent="INITIATE_COMPLIANCE_AUDIT">
+        <!-- Validate audit scope and determine compliance requirements -->
+        <command id="validateAuditScope" componentName="complianceAuditValidationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Create audit process entity and assign auditor -->
+        <command id="createAuditProcess" componentName="auditProcessCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Gather baseline compliance data in parallel -->
+        <parallel id="gatherBaselineData">
+            <command id="extractPolicyCompliance" componentName="policyComplianceExtractionService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+            <command id="extractDataPrivacyInfo" componentName="dataPrivacyExtractionService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+            <command id="extractSecurityMetrics" componentName="securityMetricsExtractionService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+            <command id="extractAccessLogs" componentName="accessLogExtractionService" retryLimit="3" retryDelay="1000" timeoutMs="20000" onError="stop"/>
+        </parallel>
+
+        <!-- Perform automated compliance checks -->
+        <command id="runAutomatedChecks" componentName="complianceAutomatedCheckService" retryLimit="3" retryDelay="1000" timeoutMs="30000" onError="stop"/>
+
+        <!-- Generate preliminary audit findings -->
+        <command id="generatePreliminaryFindings" componentName="auditFindingsGenerationService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+
+        <!-- Route for manual review if issues found -->
+        <conditional id="issuesFound" expression="#{generatePreliminaryFindings.issuesCount > 0}">
+            <when condition="true">
+                <command id="assignManualReviewer" componentName="auditManualReviewAssignmentService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+                <command id="performManualReview" componentName="auditManualReviewService" retryLimit="1" retryDelay="0" timeoutMs="86400000" onError="stop"/> <!-- 24 hour timeout -->
+            </when>
+        </conditional>
+
+        <!-- Compile final audit report -->
+        <command id="compileAuditReport" componentName="auditReportCompilationService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+
+        <!-- Notify stakeholders and publish results -->
+        <parallel id="notifyAndPublish">
+            <command id="notifyComplianceTeam" componentName="complianceNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+            <command id="publishAuditReport" componentName="auditReportPublishingService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="continue"/>
+            <command id="updateComplianceScore" componentName="complianceScoreUpdateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="continue"/>
+        </parallel>
+    </flow>
+
+    <!--
+    Flow: POLICY_COMPLIANCE_REVIEW_FLOW
+    Trigger: REVIEW_POLICY_COMPLIANCE
+
+    Expected STM (COMPLIANCE_POLICY_FLOW):
+    DRAFT -> REVIEW -> ACTIVE -> DEPRECATED
+    -->
+    <flow id="POLICY_COMPLIANCE_REVIEW_FLOW" triggerEvent="REVIEW_POLICY_COMPLIANCE">
+        <!-- Validate policy against regulatory frameworks -->
+        <command id="validatePolicyCompliance" componentName="policyComplianceValidationService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Assess impact and risk -->
+        <parallel id="assessPolicyImpact">
+            <command id="assessBusinessImpact" componentName="policyBusinessImpactAssessmentService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+            <command id="assessTechnicalImpact" componentName="policyTechnicalImpactAssessmentService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+            <command id="assessRegulatoryCompliance" componentName="policyRegulatoryComplianceService" retryLimit="3" retryDelay="1000" timeoutMs="12000" onError="stop"/>
+        </parallel>
+
+        <!-- Route for approval based on risk level -->
+        <conditional id="highRiskPolicy" expression="#{assessBusinessImpact.riskLevel == 'HIGH' or assessTechnicalImpact.riskLevel == 'HIGH'}">
+            <when condition="true">
+                <command id="escalateForSeniorApproval" componentName="policyEscalationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+                <command id="awaitSeniorApproval" componentName="policyApprovalWaitService" retryLimit="1" retryDelay="0" timeoutMs="172800000" onError="stop"/> <!-- 48 hour timeout -->
+            </when>
+            <otherwise>
+                <command id="routeForStandardApproval" componentName="policyStandardApprovalService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+            </otherwise>
+        </conditional>
+
+        <!-- Activate policy if approved -->
+        <command id="activatePolicy" componentName="policyActivationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Setup monitoring for the new policy -->
+        <command id="setupPolicyMonitoring" componentName="policyMonitoringSetupService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="continue"/>
+    </flow>
+
+    <!--
+    Flow: GDPR_REQUEST_PROCESSING_FLOW
+    Trigger: PROCESS_GDPR_REQUEST
+
+    Expected STM (GDPR_REQUEST_FLOW):
+    SUBMITTED -> VALIDATING -> PROCESSING -> COMPLETED/REJECTED
+    -->
+    <flow id="GDPR_REQUEST_PROCESSING_FLOW" triggerEvent="PROCESS_GDPR_REQUEST">
+        <!-- Validate GDPR request and identity verification -->
+        <command id="validateGdprRequest" componentName="gdprRequestValidationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Verify user identity -->
+        <command id="verifyUserIdentity" componentName="gdprIdentityVerificationService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+
+        <!-- Process request based on type -->
+        <conditional id="gdprRequestType" expression="#{validateGdprRequest.requestType}">
+            <when condition="'DATA_EXPORT'">
+                <command id="exportUserData" componentName="gdprDataExportService" retryLimit="3" retryDelay="2000" timeoutMs="60000" onError="stop"/>
+                <command id="packageDataExport" componentName="gdprDataPackagingService" retryLimit="3" retryDelay="1000" timeoutMs="30000" onError="stop"/>
+            </when>
+            <when condition="'DATA_DELETION'">
+                <command id="anonymizeUserData" componentName="gdprDataAnonymizationService" retryLimit="3" retryDelay="2000" timeoutMs="120000" onError="stop"/>
+                <command id="verifyDataDeletion" componentName="gdprDeletionVerificationService" retryLimit="3" retryDelay="1000" timeoutMs="30000" onError="stop"/>
+            </when>
+            <when condition="'DATA_RECTIFICATION'">
+                <command id="correctUserData" componentName="gdprDataCorrectionService" retryLimit="3" retryDelay="1000" timeoutMs="15000" onError="stop"/>
+            </when>
+            <otherwise>
+                <command id="processGenericRequest" componentName="gdprGenericRequestService" retryLimit="3" retryDelay="1000" timeoutMs="20000" onError="stop"/>
+            </otherwise>
+        </conditional>
+
+        <!-- Complete the GDPR request and notify user -->
+        <parallel id="completeGdprRequest">
+            <command id="finalizeGdprRequest" componentName="gdprRequestFinalizationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+            <command id="notifyGdprCompletion" componentName="gdprCompletionNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+            <command id="logGdprActivity" componentName="gdprActivityLoggingService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+        </parallel>
+    </flow>
+</flows>

@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-pricing-engine
+      author: test
+      changes:
+        # 1. Define Rule: Holiday Sale
+        - insert:
+            tableName: hm_pricing_rule_definition
+            columns:
+              - column: { name: id, value: "RULE-PRICE-001" }
+              - column: { name: rule_key, value: "HOLIDAY_SALE_2025" }
+              - column: { name: rule_name, value: "Holiday Sale 2025" }
+              - column: { name: description, value: "10% off storewide for holidays." }
+              - column: { name: rule_type, value: "DISCOUNT" }
+              - column: { name: state_id, value: "ACTIVE" }
+              - column: { name: owner_service, value: "marketing-service" }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        # 2. Condition: Region-specific (US)
+        - insert:
+            tableName: hm_pricing_rule_condition
+            columns:
+              - column: { name: id, value: "COND-001" }
+              - column: { name: rule_id, value: "RULE-PRICE-001" }
+              - column: { name: condition_json, value: '{"region": "US"}' }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        # 3. Action: 10% Off
+        - insert:
+            tableName: hm_pricing_rule_action
+            columns:
+              - column: { name: id, value: "ACT-001" }
+              - column: { name: rule_id, value: "RULE-PRICE-001" }
+              - column: { name: action_type, value: "PERCENTAGE_OFF" }
+              - column: { name: rule_value, valueNumeric: 10.00 }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        # 4. Priority
+        - insert:
+            tableName: hm_pricing_priority
+            columns:
+              - column: { name: id, value: "PRIO-001" }
+              - column: { name: rule_id, value: "RULE-PRICE-001" }
+              - column: { name: priority_score, valueNumeric: 100 }
+              - column: { name: stacking_group, value: "DEFAULT" }
+              - column: { name: created_time, valueDate: "2024-01-01T00:00:00" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }
+
+        # 5. Decision Log (Sample)
+        - insert:
+            tableName: hm_pricing_decision_log
+            columns:
+              - column: { name: id, value: "DL-001" }
+              - column: { name: transaction_id, value: "TXN-12345" }
+              - column: { name: original_price, valueNumeric: 100.00 }
+              - column: { name: final_price, valueNumeric: 90.00 }
+              - column: { name: applied_rules_json, value: '["HOLIDAY_SALE_2025"]' }
+              - column: { name: decision_time, valueDate: "2024-01-02T12:00:00" }
+              - column: { name: tenant, value: "PLT-GLOBAL" }

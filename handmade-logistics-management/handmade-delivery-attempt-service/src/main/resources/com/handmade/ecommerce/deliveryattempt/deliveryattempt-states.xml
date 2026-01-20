@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.logistics.dto.CancelDeliveryAttemptPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.logistics.dto.FailDeliveryAttemptPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.logistics.dto.StartDeliveryAttemptPayload"/>
+    <event-information eventId="succeed" meta-bodyType="com.handmade.ecommerce.logistics.dto.SucceedDeliveryAttemptPayload"/>
+
+    <flow id="deliveryAttemptFlow" default="true">
+        <manual-state id="SCHEDULED" initialState="true">
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.deliveryattempt.service.cmds.StartDeliveryAttemptAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.deliveryattempt.service.cmds.CancelDeliveryAttemptAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="succeed" newStateId="SUCCESSFUL" componentName="com.handmade.ecommerce.deliveryattempt.service.cmds.SucceedDeliveryAttemptAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.deliveryattempt.service.cmds.FailDeliveryAttemptAction"/>
+        </manual-state>
+
+        <manual-state id="SUCCESSFUL" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

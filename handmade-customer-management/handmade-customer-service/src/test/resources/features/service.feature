@@ -1,0 +1,54 @@
+Feature: Tests the customer Service using a REST client.
+ 
+  Scenario: Save the customer first.
+    Given that "tenant" equals "tenant0"
+    And that "employee" equals "E1"
+    When I construct a REST request with header "x-chenile-tenant-id" and value "${tenant}"
+    And I construct a REST request with header "x-chenile-eid" and value "${employee}"
+    And I POST a REST request to URL "/customer" with payload
+    """
+    {
+      "userId": "user-001",
+      "email": "user001@example.com",
+      "firstName": "John",
+      "lastName": "Doe"
+	}
+	"""
+	Then success is true
+    And store "$.payload.id" from response to "id"
+    # And the REST response key "tenant" is "${tenant}"
+    # And the REST response key "createdBy" is "${employee}"
+
+  Scenario: Retrieve the saved customer
+    Given that "entity" equals "customer"
+    And I construct a REST request with header "x-chenile-tenant-id" and value "tenant0"
+    And I GET a REST request to URL "/${entity}/${id}"
+    Then success is true
+    And the REST response key "id" is "${id}"
+
+  Scenario: Save a customer using an ID that already is determined
+  Given that "id" equals "123"
+    And I construct a REST request with header "x-chenile-tenant-id" and value "tenant0"
+    And I construct a REST request with header "x-chenile-eid" and value "E1"
+    And I POST a REST request to URL "/customer" with payload
+  """
+  {
+    "id": "${id}",
+    "userId": "user-002",
+    "email": "user002@example.com",
+    "firstName": "Jane",
+    "lastName": "Doe"
+  }
+  """
+    Then success is true
+    And the REST response key "id" is "${id}"
+
+  Scenario: Retrieve the saved customer
+  Given that "entity" equals "customer"
+    And I construct a REST request with header "x-chenile-tenant-id" and value "tenant0"
+    And I GET a REST request to URL "/${entity}/${id}"
+    Then success is true
+    And the REST response key "id" is "${id}"
+
+
+    

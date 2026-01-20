@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="assign" meta-bodyType="com.handmade.ecommerce.risk.dto.AssignFraudCasePayload"/>
+    <event-information eventId="close" meta-bodyType="com.handmade.ecommerce.risk.dto.CloseFraudCasePayload"/>
+    <event-information eventId="escalate" meta-bodyType="com.handmade.ecommerce.risk.dto.EscalateFraudCasePayload"/>
+    <event-information eventId="investigate" meta-bodyType="com.handmade.ecommerce.risk.dto.InvestigateFraudCasePayload"/>
+    <event-information eventId="resolve" meta-bodyType="com.handmade.ecommerce.risk.dto.ResolveFraudCasePayload"/>
+
+    <flow id="fraudCaseFlow" default="true">
+        <manual-state id="REPORTED" initialState="true">
+            <on eventId="assign" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.fraudcase.service.cmds.AssignFraudCaseAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="investigate" newStateId="INVESTIGATING" componentName="com.handmade.ecommerce.fraudcase.service.cmds.InvestigateFraudCaseAction"/>
+        </manual-state>
+
+        <manual-state id="INVESTIGATING">
+            <on eventId="escalate" newStateId="ESCALATED" componentName="com.handmade.ecommerce.fraudcase.service.cmds.EscalateFraudCaseAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="com.handmade.ecommerce.fraudcase.service.cmds.ResolveFraudCaseAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="resolve" newStateId="RESOLVED" componentName="com.handmade.ecommerce.fraudcase.service.cmds.ResolveFraudCaseAction"/>
+        </manual-state>
+
+        <manual-state id="RESOLVED">
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.fraudcase.service.cmds.CloseFraudCaseAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="productAnswerFlow" default="true">
+        <manual-state id="SUBMITTED" initialState="true">
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="productAnswerReviewAction"/>
+            <on eventId="publish" newStateId="PUBLISHED" componentName="productAnswerPublishAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="approve" newStateId="PUBLISHED" componentName="productAnswerApproveAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="productAnswerRejectAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="markHelpful" newStateId="VERIFIED" componentName="productAnswerMarkHelpfulAction"/>
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="productAnswerUnpublishAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFIED">
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="productAnswerUnpublishFromVerifiedAction"/>
+        </manual-state>
+
+        <manual-state id="UNPUBLISHED">
+            <on eventId="republish" newStateId="PUBLISHED" componentName="productAnswerRepublishAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

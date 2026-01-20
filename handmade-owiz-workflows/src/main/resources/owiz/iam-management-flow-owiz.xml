@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: IAM management orchestration that drives ROLE_FLOW, PERMISSION_FLOW, USER_ROLE_FLOW STMs.
+Version: 1.0
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: ROLE_PROVISIONING_FLOW
+    Trigger: CREATE_ROLE
+    
+    Expected STM (ROLE_FLOW):
+    DRAFT -> ACTIVE -> SUSPENDED -> DEACTIVATED
+    -->
+    <flow id="ROLE_PROVISIONING_FLOW" triggerEvent="CREATE_ROLE">
+        <!-- Validate role definition and check for conflicts -->
+        <command id="validateRoleDefinition" componentName="roleValidationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Create role entity and fire activate_role STM event if validation passes -->
+        <command id="createRoleEntity" componentName="roleCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Setup default permissions for standard role types -->
+        <command id="setupDefaultPermissions" componentName="rolePermissionBootstrapService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Notify IAM administrators about new role creation -->
+        <command id="notifyRoleCreated" componentName="iamNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+    </flow>
+
+    <!--
+    Flow: USER_ROLE_ASSIGNMENT_FLOW
+    Trigger: ASSIGN_USER_ROLE
+    
+    Expected STM (USER_ROLE_FLOW):
+    PENDING -> ACTIVE -> SUSPENDED -> EXPIRED/REVOKED
+    -->
+    <flow id="USER_ROLE_ASSIGNMENT_FLOW" triggerEvent="ASSIGN_USER_ROLE">
+        <!-- Validate user eligibility and role compatibility -->
+        <command id="validateUserRoleEligibility" componentName="userRoleValidationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Check if assignment requires approval based on role risk level -->
+        <command id="checkApprovalRequirement" componentName="roleApprovalCheckService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Create user role assignment in PENDING state -->
+        <command id="createUserRoleAssignment" componentName="userRoleCreateService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- If approval required, route to approval workflow, otherwise auto-approve -->
+        <conditional id="approvalRequired" expression="#{checkApprovalRequirement.requiresApproval}">
+            <when condition="true">
+                <command id="routeToApprovalWorkflow" componentName="iamApprovalRoutingService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+            </when>
+            <otherwise>
+                <command id="autoApproveAssignment" componentName="userRoleAutoApprovalService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+            </otherwise>
+        </conditional>
+
+        <!-- Log the assignment for audit purposes -->
+        <command id="auditRoleAssignment" componentName="iamAuditService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+    </flow>
+
+    <!--
+    Flow: PERMISSION_LIFECYCLE_FLOW
+    Trigger: CREATE_OR_UPDATE_PERMISSION
+    
+    Expected STM (PERMISSION_FLOW):
+    DRAFT -> ACTIVE -> DEPRECATED
+    -->
+    <flow id="PERMISSION_LIFECYCLE_FLOW" triggerEvent="CREATE_OR_UPDATE_PERMISSION">
+        <!-- Validate permission definition and check security implications -->
+        <command id="validatePermissionDefinition" componentName="permissionValidationService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Perform security risk assessment for new permissions -->
+        <command id="assessSecurityRisk" componentName="permissionRiskAssessmentService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Create or update permission entity -->
+        <command id="createOrUpdatePermission" componentName="permissionManagementService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Update dependent roles and invalidate permission cache -->
+        <parallel id="updateDependencies">
+            <command id="updateDependentRoles" componentName="roleDependencyUpdateService" retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="continue"/>
+            <command id="invalidatePermissionCache" componentName="permissionCacheInvalidationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+        </parallel>
+
+        <!-- Notify security team if high-risk permission -->
+        <conditional id="highRiskPermission" expression="#{assessSecurityRisk.riskLevel == 'HIGH' or assessSecurityRisk.riskLevel == 'CRITICAL'}">
+            <when condition="true">
+                <command id="notifySecurityTeam" componentName="securityNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+            </when>
+        </conditional>
+    </flow>
+</flows>

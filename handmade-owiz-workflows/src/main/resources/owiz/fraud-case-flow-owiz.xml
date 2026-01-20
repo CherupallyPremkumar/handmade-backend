@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Fraud case orchestration that drives the FRAUD_CASE_FLOW STM.
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: FRAUD_CASE_OWIZ_FLOW
+    Trigger: OPEN_FRAUD_CASE
+
+    Expected STM (FRAUD_CASE_FLOW) path:
+    OPEN -> UNDER_INVESTIGATION / ESCALATED -> CONFIRMED_FRAUD / CLOSED_NO_FRAUD
+    -->
+    <flow id="FRAUD_CASE_OWIZ_FLOW" triggerEvent="OPEN_FRAUD_CASE">
+        <!-- Initialize fraud case entity and fire start_investigation STM event -->
+        <command id="initFraudCase"
+                 componentName="fraudCaseInitService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Risk checks (buyer history, seller rating) feeding into STM decision -->
+        <parallel id="riskChecks">
+            <command id="checkBuyerHistory"  componentName="buyerRiskProfileService"    retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+            <command id="checkSellerRating"  componentName="sellerReputationService"   retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+        </parallel>
+
+        <!-- Apply fraud rules engine and decide whether to escalate or close via STM -->
+        <command id="applyRulesEngine"
+                 componentName="fraudRulesEngineService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Optional manual review step (may fire escalate_case / dismiss_case STM events) -->
+        <command id="escalateToManual"
+                 componentName="fraudManualReviewService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+    </flow>
+</flows>

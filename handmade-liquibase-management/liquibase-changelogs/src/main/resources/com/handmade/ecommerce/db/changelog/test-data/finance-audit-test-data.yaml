@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-finance-audit
+      author: test
+      changes:
+        - insert:
+            tableName: hm_fee_definition
+            columns:
+              - column: {name: id, value: "fee-def-ref"}
+              - column: {name: fee_code, value: "REFERRAL_FEE_15"}
+              - column: {name: description, value: "15% Referral Fee"}
+              - column: {name: fee_type, value: "REFERRAL"}
+              - column: {name: is_active, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_fee_application
+            columns:
+              - column: {name: id, value: "fee-app-001"}
+              - column: {name: transaction_id, value: "tx-001"}
+              - column: {name: fee_definition_id, value: "fee-def-ref"}
+              - column: {name: amount, valueNumeric: 3.75}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_tax_calculation
+            columns:
+              - column: {name: id, value: "tax-calc-001"}
+              - column: {name: order_id, value: "ord-001"}
+              - column: {name: order_line_id, value: "ord-line-001"}
+              - column: {name: tax_code, value: "TAX_GEN"}
+              - column: {name: taxable_amount, valueNumeric: 25.00}
+              - column: {name: tax_amount, valueNumeric: 2.00}
+              - column: {name: tax_rate, valueNumeric: 0.08}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_settlement_batch
+            columns:
+              - column: {name: id, value: "batch-001"}
+              - column: {name: batch_reference, value: "BATCH-2024-01-15"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: start_time, valueDate: "2024-01-15T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

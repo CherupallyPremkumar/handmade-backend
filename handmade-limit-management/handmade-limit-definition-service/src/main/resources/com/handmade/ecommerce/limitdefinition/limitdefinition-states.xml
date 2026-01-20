@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.limit.dto.ActivateLimitDefinitionPayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.limit.dto.DeprecateLimitDefinitionPayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.limit.dto.ReactivateLimitDefinitionPayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.limit.dto.SuspendLimitDefinitionPayload"/>
+
+    <flow id="limitDefinitionFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateLimitDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="suspendLimitDefinitionAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="deprecateLimitDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="reactivateLimitDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

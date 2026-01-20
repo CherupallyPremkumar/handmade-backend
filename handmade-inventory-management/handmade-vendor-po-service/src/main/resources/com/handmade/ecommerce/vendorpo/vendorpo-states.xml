@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApproveVendorPOPayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveVendorPOPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.inventory.dto.RejectVendorPOPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.inventory.dto.SubmitVendorPOPayload"/>
+
+    <flow id="HM_VENDOR_PO_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="SUBMITTED" componentName="com.handmade.ecommerce.vendorpo.service.cmds.SubmitVendorPOAction"/>
+        </manual-state>
+
+        <manual-state id="SUBMITTED">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.vendorpo.service.cmds.ApproveVendorPOAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.vendorpo.service.cmds.RejectVendorPOAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="receive" newStateId="RECEIVED" componentName="com.handmade.ecommerce.vendorpo.service.cmds.ReceiveVendorPOAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

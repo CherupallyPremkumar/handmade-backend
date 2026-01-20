@@ -1,0 +1,247 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-adtech
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_sponsored_product
+        - delete:
+            tableName: hm_ad_campaign
+        # Active Campaigns
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: campaign_name, value: "Spring Ceramics Showcase"}
+              - column: {name: start_date, valueDate: "2024-03-01"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 25.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-02-15T10:00:00"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: campaign_name, value: "Artisanal Silk Promo"}
+              - column: {name: start_date, valueDate: "2024-03-05"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 50.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-16T11:00:00"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: campaign_name, value: "Heritage Wood Weekend"}
+              - column: {name: start_date, valueDate: "2024-03-10"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 100.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-004"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: campaign_name, value: "Leather Goods Launch"}
+              - column: {name: start_date, valueDate: "2024-03-15"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 40.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-005"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: campaign_name, value: "Serene Scents Collection"}
+              - column: {name: start_date, valueDate: "2024-03-20"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 30.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-006"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: campaign_name, value: "Amber Glow Sale"}
+              - column: {name: start_date, valueDate: "2024-03-25"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 60.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        # Draft Campaigns
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-007"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: campaign_name, value: "Summer Wool Blowout"}
+              - column: {name: start_date, valueDate: "2024-06-01"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 20.00}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-008"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: campaign_name, value: "Art Print Expo"}
+              - column: {name: start_date, valueDate: "2024-04-10"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 35.00}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        # Paused Campaigns
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-009"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-009"}
+              - column: {name: campaign_name, value: "Boho Basket Bestsellers"}
+              - column: {name: start_date, valueDate: "2024-02-01"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 45.00}
+              - column: {name: state_id, value: "PAUSED"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_ad_campaign
+            columns:
+              - column: {name: id, value: "CAMP-010"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_id, value: "SEL-010"}
+              - column: {name: campaign_name, value: "Silver Lining Spotlight"}
+              - column: {name: start_date, valueDate: "2024-01-15"}
+              - column: {name: budget_type, value: "DAILY"}
+              - column: {name: budget_amount, valueNumeric: 25.00}
+              - column: {name: state_id, value: "PAUSED"}
+              - column: {name: flow_id, value: "HM_AD_CAMPAIGN_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Sponsored Products
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-001"}
+              - column: {name: campaign_id, value: "CAMP-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: bid_amount, valueNumeric: 0.50}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-002"}
+              - column: {name: campaign_id, value: "CAMP-002"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: bid_amount, valueNumeric: 0.75}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-003"}
+              - column: {name: campaign_id, value: "CAMP-003"}
+              - column: {name: product_id, value: "PROD-003"}
+              - column: {name: bid_amount, valueNumeric: 1.00}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-004"}
+              - column: {name: campaign_id, value: "CAMP-004"}
+              - column: {name: product_id, value: "PROD-004"}
+              - column: {name: bid_amount, valueNumeric: 0.45}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-005"}
+              - column: {name: campaign_id, value: "CAMP-005"}
+              - column: {name: product_id, value: "PROD-005"}
+              - column: {name: bid_amount, valueNumeric: 0.60}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-006"}
+              - column: {name: campaign_id, value: "CAMP-006"}
+              - column: {name: product_id, value: "PROD-006"}
+              - column: {name: bid_amount, valueNumeric: 0.35}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-007"}
+              - column: {name: campaign_id, value: "CAMP-001"}
+              - column: {name: product_id, value: "PROD-007"}
+              - column: {name: bid_amount, valueNumeric: 0.55}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-008"}
+              - column: {name: campaign_id, value: "CAMP-002"}
+              - column: {name: product_id, value: "PROD-008"}
+              - column: {name: bid_amount, valueNumeric: 0.80}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-009"}
+              - column: {name: campaign_id, value: "CAMP-003"}
+              - column: {name: product_id, value: "PROD-009"}
+              - column: {name: bid_amount, valueNumeric: 0.95}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_sponsored_product
+            columns:
+              - column: {name: id, value: "SPON-010"}
+              - column: {name: campaign_id, value: "CAMP-004"}
+              - column: {name: product_id, value: "PROD-010"}
+              - column: {name: bid_amount, valueNumeric: 0.40}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SPONSORED_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="translationFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submitForReview" newStateId="REVIEW" componentName="translationSubmitForReviewAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="translationApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="translationRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="publish" newStateId="PUBLISHED" componentName="translationPublishAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="translationArchiveAction"/>
+            <on eventId="unpublish" newStateId="APPROVED" componentName="translationUnpublishAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+    </flow>
+</states>

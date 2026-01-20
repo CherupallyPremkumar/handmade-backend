@@ -1,0 +1,109 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: messaging-management
+      changes:
+        - createTable:
+            tableName: hm_seller_conversation
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+              - column:
+                  name: order_id
+                  type: varchar(36)
+              - column:
+                  name: subject
+                  type: varchar(500)
+
+              - column:
+                  name: message_count
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: last_message_at
+                  type: timestamp
+              - column:
+                  name: closed_at
+                  type: timestamp
+              - column:
+                  name: closed_by
+                  type: varchar(255)
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_conversation_customer
+            tableName: hm_seller_conversation
+            columns:
+              - column:
+                  name: customer_id
+              - column:
+                  name: state_id
+        
+        - createIndex:
+            indexName: idx_conversation_seller
+            tableName: hm_seller_conversation
+            columns:
+              - column:
+                  name: seller_id
+              - column:
+                  name: state_id

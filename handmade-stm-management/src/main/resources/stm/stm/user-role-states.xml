@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="userRoleFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="userRoleActivateAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="userRoleRejectAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="userRoleSuspendAction"/>
+            <on eventId="revoke" newStateId="REVOKED" componentName="userRoleRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="userRoleReactivateAction"/>
+            <on eventId="revoke" newStateId="REVOKED" componentName="userRoleRevokeAction"/>
+        </manual-state>
+
+        <manual-state id="REVOKED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

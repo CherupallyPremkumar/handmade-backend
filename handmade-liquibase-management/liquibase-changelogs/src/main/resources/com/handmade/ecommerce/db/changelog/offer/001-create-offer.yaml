@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: product-management
+      changes:
+        - createTable:
+            tableName: hm_offer
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              # Core Identification
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_sku
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              # Offer Details
+              - column:
+                  name: condition_type
+                  type: varchar(50) 
+                  # New, Used, Collectible
+              - column:
+                  name: condition_note
+                  type: varchar(2000)
+              - column:
+                  name: fulfillment_channel
+                  type: varchar(50)
+                  # FBA (Handmade) or Merchant
+              - column:
+                  name: available_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: restock_date
+                  type: timestamp
+              - column:
+                  name: max_order_quantity
+                  type: int
+              - column:
+                  name: tax_code
+                  type: varchar(50)
+              - column:
+                  name: handling_time_days
+                  type: int
+              - column:
+                  name: shipping_template_id
+                  type: varchar(36)
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_offer
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_off_product
+        - addForeignKeyConstraint:
+            baseTableName: hm_offer
+            baseColumnNames: seller_id
+            referencedTableName: hm_seller_account
+            referencedColumnNames: id
+            constraintName: fk_off_seller
+        - createIndex:
+            tableName: hm_offer
+            indexName: idx_off_seller_sku
+            columns:
+              - column:
+                  name: seller_id
+              - column:
+                  name: seller_sku
+            unique: true

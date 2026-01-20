@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="fraudCaseFlow" default="true">
+        <manual-state id="REPORTED" initialState="true">
+            <on eventId="assign" newStateId="ASSIGNED" componentName="fraudCaseAssignAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="investigate" newStateId="INVESTIGATING" componentName="fraudCaseInvestigateAction"/>
+        </manual-state>
+
+        <manual-state id="INVESTIGATING">
+            <on eventId="escalate" newStateId="ESCALATED" componentName="fraudCaseEscalateAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="fraudCaseResolveAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="resolve" newStateId="RESOLVED" componentName="fraudCaseResolveFromEscalatedAction"/>
+        </manual-state>
+
+        <manual-state id="RESOLVED">
+            <on eventId="close" newStateId="CLOSED" componentName="fraudCaseCloseAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED" meta-endState="true"/>
+    </flow>
+</states>

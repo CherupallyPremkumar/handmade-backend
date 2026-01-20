@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="allocate" meta-bodyType="com.handmade.ecommerce.order.dto.AllocateOrderLinePayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.order.dto.CancelOrderLinePayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.order.dto.CompleteOrderPayload"/>
+    <event-information eventId="deliver" meta-bodyType="com.handmade.ecommerce.order.dto.DeliverShipmentPayload"/>
+    <event-information eventId="pack" meta-bodyType="com.handmade.ecommerce.order.dto.PackOrderLinePayload"/>
+    <event-information eventId="pick" meta-bodyType="com.handmade.ecommerce.order.dto.PickOrderLinePayload"/>
+    <event-information eventId="return" meta-bodyType="com.handmade.ecommerce.order.dto.ReturnOrderLinePayload"/>
+    <event-information eventId="ship" meta-bodyType="com.handmade.ecommerce.order.dto.ShipOrderLinePayload"/>
+
+    <flow id="orderLineFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="allocate" newStateId="ALLOCATED" componentName="com.handmade.ecommerce.orderline.service.cmds.AllocateOrderLineAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.orderline.service.cmds.CancelOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="ALLOCATED">
+            <on eventId="pick" newStateId="PICKED" componentName="com.handmade.ecommerce.orderline.service.cmds.PickOrderLineAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.orderline.service.cmds.CancelOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="PICKED">
+            <on eventId="pack" newStateId="PACKED" componentName="com.handmade.ecommerce.orderline.service.cmds.PackOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="PACKED">
+            <on eventId="ship" newStateId="SHIPPED" componentName="com.handmade.ecommerce.orderline.service.cmds.ShipOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="SHIPPED">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="com.handmade.ecommerce.orderline.service.cmds.DeliverOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED">
+            <on eventId="return" newStateId="RETURNED" componentName="com.handmade.ecommerce.orderline.service.cmds.ReturnOrderLineAction"/>
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.orderline.service.cmds.CompleteOrderLineAction"/>
+        </manual-state>
+
+        <manual-state id="RETURNED" meta-endState="true"/>
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

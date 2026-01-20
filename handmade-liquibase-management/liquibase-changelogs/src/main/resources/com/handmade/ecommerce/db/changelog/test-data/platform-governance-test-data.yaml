@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-data-platform-gov
+      author: test
+      changes:
+        - insert:
+            tableName: hm_platform_feature_config
+            columns:
+              - column: {name: id, value: "feat-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: feature_code, value: "FBA_ENABLED"}
+              - column: {name: is_enabled, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_platform_policy
+            columns:
+              - column: {name: id, value: "pol-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: policy_type, value: "RETURN_WINDOW"}
+              - column: {name: policy_value, value: "30_DAYS"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_platform_policy
+            columns:
+              - column: {name: id, value: "pol-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: policy_type, value: "CANCELLATION_SLA"}
+              - column: {name: policy_value, value: "24_HOURS"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_platform_policy
+            columns:
+              - column: {name: id, value: "pol-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: policy_type, value: "WARRANTY_MIN_1Y"}
+              - column: {name: policy_value, value: "TRUE"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_platform_compliance
+            columns:
+              - column: {name: id, value: "comp-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: compliance_code, value: "TAX_COLLECTION"}
+              - column: {name: is_mandatory, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

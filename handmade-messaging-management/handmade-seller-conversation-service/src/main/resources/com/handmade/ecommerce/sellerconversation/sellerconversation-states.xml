@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="assign" meta-bodyType="com.handmade.ecommerce.messaging.dto.AssignSellerConversationPayload"/>
+    <event-information eventId="close" meta-bodyType="com.handmade.ecommerce.messaging.dto.CloseSellerConversationPayload"/>
+    <event-information eventId="customerReply" meta-bodyType="com.handmade.ecommerce.messaging.dto.CustomerReplySellerConversationPayload"/>
+    <event-information eventId="escalate" meta-bodyType="com.handmade.ecommerce.messaging.dto.EscalateSellerConversationPayload"/>
+    <event-information eventId="reopen" meta-bodyType="com.handmade.ecommerce.messaging.dto.ReopenSellerConversationPayload"/>
+    <event-information eventId="resolve" meta-bodyType="com.handmade.ecommerce.messaging.dto.ResolveSellerConversationPayload"/>
+    <event-information eventId="respond" meta-bodyType="com.handmade.ecommerce.messaging.dto.RespondSellerConversationPayload"/>
+
+    <flow id="sellerConversationFlow" default="true">
+        <manual-state id="OPEN" initialState="true">
+            <on eventId="assign" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.AssignSellerConversationAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.CloseSellerConversationAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="respond" newStateId="AWAITING_CUSTOMER" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.RespondSellerConversationAction"/>
+            <on eventId="escalate" newStateId="ESCALATED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.EscalateSellerConversationAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.CloseSellerConversationAction"/>
+        </manual-state>
+
+        <manual-state id="AWAITING_CUSTOMER">
+            <on eventId="customerReply" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.CustomerReplySellerConversationAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.CloseSellerConversationAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="resolve" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.ResolveSellerConversationAction"/>
+            <on eventId="close" newStateId="CLOSED" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.CloseSellerConversationAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED" meta-endState="true">
+            <on eventId="reopen" newStateId="OPEN" componentName="com.handmade.ecommerce.sellerconversation.service.cmds.ReopenSellerConversationAction"/>
+        </manual-state>
+    </flow>
+</states>

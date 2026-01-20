@@ -1,0 +1,107 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_browse_node
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: slug
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: parent_id
+                  type: varchar(36)
+              - column:
+                  name: level
+                  type: int
+              - column:
+                  name: display_order
+                  type: int
+              - column:
+                  name: image_url
+                  type: varchar(2048)
+              - column:
+                  name: icon
+                  type: varchar(255)
+              - column:
+                  name: active
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: featured
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: product_count
+                  type: bigint
+                  defaultValueNumeric: 0
+              # BaseJpaEntity Fields
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+              # Embedded Metadata
+              - column:
+                  name: meta_title
+                  type: varchar(255)
+              - column:
+                  name: meta_description
+                  type: varchar(500)
+              - column:
+                  name: meta_keywords
+                  type: varchar(1000)
+              - column:
+                  name: banner_image_url
+                  type: varchar(2048)
+              - column:
+                  name: show_in_menu
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: show_in_footer
+                  type: boolean
+                  defaultValueBoolean: false
+
+  - changeSet:
+      id: 2
+      author: catalog-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_browse_node
+            baseColumnNames: parent_id
+            referencedTableName: hm_browse_node
+            referencedColumnNames: id
+            constraintName: fk_browse_node_parent

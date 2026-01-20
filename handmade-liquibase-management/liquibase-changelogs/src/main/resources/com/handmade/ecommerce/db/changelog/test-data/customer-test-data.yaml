@@ -1,0 +1,102 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-customers
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_customer_profile
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-001"}
+              - column: {name: user_id, value: "auth-001"}
+              - column: {name: email, value: "sophia.artisan@example.com"}
+              - column: {name: first_name, value: "Sophia"}
+              - column: {name: last_name, value: "Artisan"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-01T10:00:00"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-002"}
+              - column: {name: user_id, value: "auth-002"}
+              - column: {name: email, value: "liam.weaver@example.com"}
+              - column: {name: first_name, value: "Liam"}
+              - column: {name: last_name, value: "Weaver"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-02T11:00:00"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-003"}
+              - column: {name: user_id, value: "auth-003"}
+              - column: {name: email, value: "emma.wood@example.com"}
+              - column: {name: first_name, value: "Emma"}
+              - column: {name: last_name, value: "Wood"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-03T12:00:00"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-004"}
+              - column: {name: user_id, value: "auth-004"}
+              - column: {name: email, value: "noah.clay@example.com"}
+              - column: {name: first_name, value: "Noah"}
+              - column: {name: last_name, value: "Clay"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-04T13:00:00"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-005"}
+              - column: {name: user_id, value: "auth-005"}
+              - column: {name: email, value: "ava.leather@example.com"}
+              - column: {name: first_name, value: "Ava"}
+              - column: {name: last_name, value: "Leather"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-05T14:00:00"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-006"}
+              - column: {name: user_id, value: "auth-006"}
+              - column: {name: email, value: "oliver.glass@example.com"}
+              - column: {name: first_name, value: "Oliver"}
+              - column: {name: last_name, value: "Glass"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-007"}
+              - column: {name: user_id, value: "auth-007"}
+              - column: {name: email, value: "isabella.knit@example.com"}
+              - column: {name: first_name, value: "Isabella"}
+              - column: {name: last_name, value: "Knit"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-008"}
+              - column: {name: user_id, value: "auth-008"}
+              - column: {name: email, value: "james.print@example.com"}
+              - column: {name: first_name, value: "James"}
+              - column: {name: last_name, value: "Print"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-009"}
+              - column: {name: user_id, value: "auth-009"}
+              - column: {name: email, value: "mia.basket@example.com"}
+              - column: {name: first_name, value: "Mia"}
+              - column: {name: last_name, value: "Basket"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_customer_profile
+            columns:
+              - column: {name: id, value: "CUST-010"}
+              - column: {name: user_id, value: "auth-010"}
+              - column: {name: email, value: "ethan.silver@example.com"}
+              - column: {name: first_name, value: "Ethan"}
+              - column: {name: last_name, value: "Silver"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

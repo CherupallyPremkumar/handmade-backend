@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="apply" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApplyInventoryAdjustmentPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApproveInventoryAdjustmentPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.inventory.dto.RejectInventoryAdjustmentPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.inventory.dto.SubmitInventoryAdjustmentPayload"/>
+
+    <flow id="HM_INVENTORY_ADJUSTMENT_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="PENDING_APPROVAL" componentName="com.handmade.ecommerce.inventoryadjustment.service.cmds.SubmitInventoryAdjustmentAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING_APPROVAL">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.inventoryadjustment.service.cmds.ApproveInventoryAdjustmentAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.inventoryadjustment.service.cmds.RejectInventoryAdjustmentAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="apply" newStateId="APPLIED" componentName="com.handmade.ecommerce.inventoryadjustment.service.cmds.ApplyInventoryAdjustmentAction"/>
+        </manual-state>
+
+        <manual-state id="APPLIED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

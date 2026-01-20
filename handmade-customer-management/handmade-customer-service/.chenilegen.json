@@ -1,0 +1,17 @@
+{
+	"template": "service",
+	"artifactType": "service",
+	"data":
+
+{
+"service": "customer",
+"serviceVersion": "0.0.1-SNAPSHOT",
+"jpa": "true",
+"com": "com",
+"org": "ecommerce",
+"company": "handmade",
+"chenilePackage": "org.chenile",
+"chenileVersion": "2.0.11",
+"Service": "Customer"
+}
+}

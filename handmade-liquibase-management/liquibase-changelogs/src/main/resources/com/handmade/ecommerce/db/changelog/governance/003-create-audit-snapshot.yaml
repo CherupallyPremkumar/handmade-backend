@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: legal-compliance
+      comment: Create hm_audit_snapshot for sensitive tracking
+      changes:
+        - createTable:
+            tableName: hm_audit_snapshot
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: entity_name, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: entity_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: snapshot_data, type: LONGTEXT } # JSON representation
+              - column: { name: snapshotted_at, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: reason, type: VARCHAR(255) }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

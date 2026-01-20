@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: limits-engine
+      changes:
+        - createTable:
+            tableName: hm_limit_definition
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: limit_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: resource_type
+                  type: varchar(50) # PRODUCT, API, STORAGE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: default_value
+                  type: bigint
+                  defaultValueNumeric: 0
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: reset_period
+                  type: varchar(20) # MONTHLY, DAILY, REALTIME
+
+              # AbstractJpaStateEntity (STM)
+              - column: { name: flow_id, type: VARCHAR(255) }
+              - column: { name: state_id, type: VARCHAR(255) }
+              - column: { name: state_entry_time, type: TIMESTAMP }
+              - column: { name: sla_yellow_date, type: TIMESTAMP }
+              - column: { name: sla_red_date, type: TIMESTAMP }
+              - column: { name: sla_tending_late, type: INT, defaultValueNumeric: 0 }
+              - column: { name: sla_late, type: INT, defaultValueNumeric: 0 }
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - createIndex:
+            tableName: hm_limit_definition
+            indexName: idx_limit_key
+            columns:
+              - column: {name: limit_key}

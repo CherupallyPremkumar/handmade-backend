@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="bounce" meta-bodyType="com.handmade.ecommerce.notification.dto.BounceNotificationLogPayload"/>
+    <event-information eventId="click" meta-bodyType="com.handmade.ecommerce.notification.dto.ClickNotificationLogPayload"/>
+    <event-information eventId="deliver" meta-bodyType="com.handmade.ecommerce.notification.dto.DeliverNotificationLogPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.notification.dto.FailNotificationLogPayload"/>
+    <event-information eventId="open" meta-bodyType="com.handmade.ecommerce.notification.dto.OpenNotificationLogPayload"/>
+
+    <flow id="notificationLogFlow" default="true">
+        <manual-state id="SENT" initialState="true">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="deliverNotificationLogAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="failNotificationLogAction"/>
+            <on eventId="bounce" newStateId="BOUNCED" componentName="bounceNotificationLogAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED">
+            <on eventId="open" newStateId="OPENED" componentName="openNotificationLogAction"/>
+            <on eventId="click" newStateId="CLICKED" componentName="clickNotificationLogAction"/>
+        </manual-state>
+
+        <manual-state id="OPENED">
+            <on eventId="click" newStateId="CLICKED" componentName="clickNotificationLogAction"/>
+        </manual-state>
+
+        <manual-state id="CLICKED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+        <manual-state id="BOUNCED" meta-endState="true"/>
+    </flow>
+</states>

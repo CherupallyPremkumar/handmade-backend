@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: offer-management
+      changes:
+        - createTable:
+            tableName: hm_offer_tier_price
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: offer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: min_quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_quantity
+                  type: int
+              - column:
+                  name: discount_percentage
+                  type: decimal(5, 2)
+              - column:
+                  name: tier_price
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_offer_tier_price
+            baseColumnNames: offer_id
+            referencedTableName: hm_offer
+            referencedColumnNames: id
+            constraintName: fk_otp_offer
+        - addForeignKeyConstraint:
+            baseTableName: hm_offer
+            baseColumnNames: shipping_template_id
+            referencedTableName: hm_shipping_template
+            referencedColumnNames: id
+            constraintName: fk_off_template

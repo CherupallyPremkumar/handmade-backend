@@ -9,14 +9,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>search-management</artifactId>
+    <artifactId>handmade-search-management</artifactId>
     <packaging>pom</packaging>
-    <name>search-management</name>
+    <name>handmade-search-management</name>
 
     <modules>
-        <module>search-core</module>
-        <module>search-api</module>
         <module>handmade-query-service</module>
-        <module>catalog-search</module>
     </modules>
 </project>

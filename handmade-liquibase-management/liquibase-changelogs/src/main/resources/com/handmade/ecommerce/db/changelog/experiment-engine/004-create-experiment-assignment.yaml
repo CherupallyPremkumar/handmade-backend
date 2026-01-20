@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: experiment-engine
+      changes:
+        - createTable:
+            tableName: hm_experiment_assignment
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: experiment_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: variant_key
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: varchar(100) # User ID, Seller ID, Session ID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: context_json
+                  type: text # Snapshot of context used for decision
+              - column:
+                  name: assigned_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - createIndex:
+            tableName: hm_experiment_assignment
+            indexName: idx_exp_assign_entity
+            columns:
+              - column: {name: entity_id}
+              - column: {name: experiment_key}

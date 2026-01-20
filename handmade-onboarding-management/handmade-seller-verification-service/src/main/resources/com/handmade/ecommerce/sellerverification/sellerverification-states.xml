@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.onboarding.dto.ApproveSellerVerificationPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.onboarding.dto.CancelSellerVerificationPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.onboarding.dto.RejectSellerVerificationPayload"/>
+    <event-information eventId="requiresReview" meta-bodyType="com.handmade.ecommerce.onboarding.dto.RequiresReviewSellerVerificationPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.onboarding.dto.RetrySellerVerificationPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.onboarding.dto.SubmitSellerVerificationPayload"/>
+    <event-information eventId="verify" meta-bodyType="com.handmade.ecommerce.onboarding.dto.VerifySellerVerificationPayload"/>
+
+    <flow id="HM_SELLER_VERIFICATION_FLOW" default="true">
+        <manual-state id="INITIATED" initialState="true">
+            <on eventId="submit" newStateId="PENDING" componentName="com.handmade.ecommerce.sellerverification.service.cmds.SubmitSellerVerificationAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.CancelSellerVerificationAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING">
+            <on eventId="verify" newStateId="VERIFYING" componentName="com.handmade.ecommerce.sellerverification.service.cmds.VerifySellerVerificationAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFYING">
+            <on eventId="approve" newStateId="VERIFIED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.ApproveSellerVerificationAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.RejectSellerVerificationAction"/>
+            <on eventId="requiresReview" newStateId="MANUAL_REVIEW" componentName="com.handmade.ecommerce.sellerverification.service.cmds.RequiresReviewSellerVerificationAction"/>
+        </manual-state>
+
+        <manual-state id="MANUAL_REVIEW">
+            <on eventId="approve" newStateId="VERIFIED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.ApproveSellerVerificationAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.RejectSellerVerificationAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED">
+            <on eventId="retry" newStateId="INITIATED" componentName="com.handmade.ecommerce.sellerverification.service.cmds.RetrySellerVerificationAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFIED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

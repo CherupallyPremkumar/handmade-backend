@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inventory_health
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fnsku
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fulfillment_node_id
+                  type: varchar(36)
+              - column:
+                  name: snapshot_date
+                  type: date
+                  constraints:
+                      nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: qty_sellable
+                  type: int
+              - column:
+                  name: unsellable_quantity
+                  type: int
+              - column:
+                  name: reserved_quantity
+                  type: int
+              - column:
+                  name: turnover_rate
+                  type: decimal(5, 2)
+              - column:
+                  name: days_of_supply
+                  type: int
+              - column:
+                  name: health_status
+                  type: varchar(50)
+              - column:
+                  name: age_0_60_days
+                  type: int
+              - column:
+                  name: age_61_90_days
+                  type: int
+              - column:
+                  name: age_91_180_days
+                  type: int
+              - column:
+                  name: age_181_365_days
+                  type: int
+              - column:
+                  name: age_365_plus_days
+                  type: int
+              - column:
+                  name: est_long_term_storage_fee
+                  type: decimal(19, 4)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - createIndex:
+            tableName: hm_inventory_health
+            indexName: idx_inv_health_seller
+            columns:
+              - column:
+                  name: seller_id
+              - column:
+                  name: snapshot_date

@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inbound_shipment_item
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: shipment_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_sku
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fulfillment_network_sku
+                  type: varchar(100)
+                  # FNSKU
+              - column:
+                  name: quantity_shipped
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity_received
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: quantity_in_case
+                  type: int
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: damaged_quantity
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: condition_type
+                  type: varchar(50)
+              - column:
+                  name: prep_details
+                  type: varchar(255)
+                  # POLYBAGGING, BUBBLEWRAP
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_inbound_shipment_item
+            baseColumnNames: shipment_id
+            referencedTableName: hm_inbound_shipment
+            referencedColumnNames: id
+            constraintName: fk_isi_ship

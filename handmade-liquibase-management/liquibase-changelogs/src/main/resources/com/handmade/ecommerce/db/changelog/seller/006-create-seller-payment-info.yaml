@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: seller-management
+      validCheckSum: ANY
+      comment: Create hm_seller_payment_info table
+      changes:
+        - createTable:
+            tableName: hm_seller_payment_info
+            columns:
+              - column: {name: id, type: VARCHAR(36), constraints: {primaryKey: true, nullable: false}}
+              # Payment Info fields
+              - column: {name: seller_id, type: VARCHAR(36), constraints: {nullable: false}}
+              - column: {name: preferred_method, type: VARCHAR(50)}
+              - column: {name: currency, type: VARCHAR(10)}
+              - column: {name: is_default_active, type: BOOLEAN, defaultValueBoolean: true}
+              # BaseJpaEntity
+              - column: {name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: VARCHAR(255)}
+              - column: {name: created_by, type: VARCHAR(255)}
+              - column: {name: tenant, type: VARCHAR(255)}
+              - column: {name: version, type: BIGINT, defaultValueNumeric: 0}
+        
+        - createIndex:
+            indexName: idx_payment_info_seller_id
+            tableName: hm_seller_payment_info
+            columns:
+              - column: {name: seller_id}

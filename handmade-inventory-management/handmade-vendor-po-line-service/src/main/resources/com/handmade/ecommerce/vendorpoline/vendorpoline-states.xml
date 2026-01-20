@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelVendorPOLinePayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveVendorPOLinePayload"/>
+
+    <flow id="HM_VENDOR_PO_LINE_FLOW" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="receive" newStateId="RECEIVED" componentName="com.handmade.ecommerce.vendorpoline.service.cmds.ReceiveVendorPOLineAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.vendorpoline.service.cmds.CancelVendorPOLineAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="platformFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="platformSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="platformApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="platformRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="platformActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="platformSuspendAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="platformDeactivateAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="platformReactivateAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="platformDeactivateFromSuspendedAction"/>
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="platformArchiveAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+    </flow>
+</states>

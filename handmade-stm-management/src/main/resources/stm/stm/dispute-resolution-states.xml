@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Dispute Resolution Definitions -->
+    <event-information eventId='approve' eventName='Approve Resolution'
+                       meta-acls="dispute.admin"/>
+    <event-information eventId='reject' eventName='Reject Resolution'
+                       meta-acls="dispute.admin"/>
+    <event-information eventId='rework' eventName='Request Rework'
+                       meta-acls="dispute.admin"/>
+
+    <!-- Dispute Resolution Flow -->
+    <flow id="disputeResolutionFlow" default="true">
+
+        <!-- PENDING_APPROVAL (Initial) -->
+        <manual-state id="PENDING_APPROVAL" initialState="true">
+            <on eventId="approve" newStateId="APPROVED" componentName="approveResolutionAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="rejectResolutionAction"/>
+            <on eventId="rework" newStateId="DRAFT" componentName="requestReworkAction"/>
+        </manual-state>
+        
+        <!-- DRAFT (Rework needed) -->
+        <manual-state id="DRAFT">
+             <on eventId="submit" newStateId="PENDING_APPROVAL" componentName="submitResolutionAction"/>
+        </manual-state>
+
+        <!-- APPROVED (Final) -->
+        <manual-state id="APPROVED"/>
+
+        <!-- REJECTED (Final) -->
+        <manual-state id="REJECTED"/>
+
+    </flow>
+
+</states>

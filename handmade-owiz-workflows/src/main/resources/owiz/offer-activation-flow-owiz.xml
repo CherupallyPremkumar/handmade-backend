@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Offer activation orchestration that validates eligibility and activates OFFER_FLOW STM.
+Version: 1.0
+
+Orchestrates the complete offer activation process with cross-module coordination:
+1. Validate product eligibility (Catalog module)
+2. Check inventory availability (Inventory module)  
+3. Validate seller eligibility (Policy Engine)
+4. Validate pricing rules (Pricing Engine)
+5. Activate offer (STM transition: DRAFT -> ACTIVE)
+6. Calculate buy box eligibility
+7. Index in search
+8. Emit activation event
+
+Follows Flipkart standards for marketplace offer activation
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: OFFER_ACTIVATION_OWIZ_FLOW
+    Trigger: ACTIVATE_OFFER (called from OfferService or API)
+    
+    Expected STM: OFFER_FLOW
+    States: DRAFT -> ACTIVE -> INACTIVE -> ARCHIVED
+    -->
+    <flow id="OFFER_ACTIVATION_OWIZ_FLOW" triggerEvent="ACTIVATE_OFFER">
+        <!-- Step 1: Validate product exists and is active -->
+        <command id="validateProductEligibility" 
+                 componentName="productValidationService" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Step 2: Check inventory availability for offer quantity -->
+        <command id="checkInventoryAvailability" 
+                 componentName="inventoryValidationService" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Step 3: Validate seller eligibility via Policy Engine -->
+        <command id="validateSellerEligibility" 
+                 componentName="sellerEligibilityCheckService" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Step 4: Validate pricing rules and competitiveness -->
+        <command id="validatePricingRules" 
+                 componentName="pricingValidationService" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Step 5: Execute STM state transition to ACTIVE (fires 'activate' event) -->
+        <command id="executeOfferActivation" 
+                 componentName="offerActivationService" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Step 6: Calculate buy box eligibility score -->
+        <command id="calculateBuyBoxEligibility" 
+                 componentName="buyBoxCalculationService" 
+                 retryLimit="2" retryDelay="1000" timeoutMs="5000" onError="continue"/>
+
+        <!-- Step 7: Index offer in search for discoverability -->
+        <command id="indexOfferInSearch" 
+                 componentName="offerSearchIndexService" 
+                 retryLimit="2" retryDelay="1000" timeoutMs="5000" onError="continue"/>
+
+        <!-- Step 8: Emit OfferActivatedEvent for downstream processing -->
+        <command id="emitOfferActivatedEvent" 
+                 componentName="offerEventPublisher" 
+                 retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="continue"/>
+    </flow>
+</flows>

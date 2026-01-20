@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: dispute-management
+      changes:
+        - createTable:
+            tableName: hm_dispute_evidence
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: dispute_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitter_role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: evidence_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: document_url
+                  type: varchar(2048)
+              - column:
+                  name: submitted_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_evidence_dispute
+            tableName: hm_dispute_evidence
+            columns:
+              - column:
+                  name: dispute_id

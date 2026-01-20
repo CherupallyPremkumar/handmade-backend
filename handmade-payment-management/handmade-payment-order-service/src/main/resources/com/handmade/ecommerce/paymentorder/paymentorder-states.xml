@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="authorize" meta-bodyType="com.handmade.ecommerce.payment.dto.AuthorizePaymentOrderPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.payment.dto.CancelPaymentOrderPayload"/>
+    <event-information eventId="capture" meta-bodyType="com.handmade.ecommerce.payment.dto.CapturePaymentOrderPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.payment.dto.FailPaymentOrderPayload"/>
+    <event-information eventId="initiate" meta-bodyType="com.handmade.ecommerce.payment.dto.InitiatePaymentOrderPayload"/>
+    <event-information eventId="refund" meta-bodyType="com.handmade.ecommerce.payment.dto.RefundPaymentOrderPayload"/>
+    <event-information eventId="settle" meta-bodyType="com.handmade.ecommerce.payment.dto.SettlePaymentOrderPayload"/>
+    <event-information eventId="void" meta-bodyType="com.handmade.ecommerce.payment.dto.VoidPaymentOrderPayload"/>
+
+    <flow id="paymentOrderFlow" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="initiate" newStateId="INITIATED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.InitiatePaymentOrderAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.CancelPaymentOrderAction"/>
+        </manual-state>
+
+        <manual-state id="INITIATED">
+            <on eventId="authorize" newStateId="AUTHORIZED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.AuthorizePaymentOrderAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.FailPaymentOrderAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.CancelPaymentOrderAction"/>
+        </manual-state>
+
+        <manual-state id="AUTHORIZED">
+            <on eventId="capture" newStateId="CAPTURED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.CapturePaymentOrderAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.VoidPaymentOrderAction"/>
+        </manual-state>
+
+        <manual-state id="CAPTURED">
+            <on eventId="settle" newStateId="SETTLED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.SettlePaymentOrderAction"/>
+            <on eventId="refund" newStateId="REFUNDED" componentName="com.handmade.ecommerce.paymentorder.service.cmds.RefundPaymentOrderAction"/>
+        </manual-state>
+
+        <manual-state id="SETTLED" meta-endState="true"/>
+        <manual-state id="REFUNDED" meta-endState="true"/>
+        <manual-state id="VOIDED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

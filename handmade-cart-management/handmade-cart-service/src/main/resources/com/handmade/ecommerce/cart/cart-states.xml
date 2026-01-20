@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+
+    <!-- Cart Event Definitions -->
+    <event-information eventId='checkout'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.CheckoutCartPayload"/>
+    <event-information eventId='convert'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.ConvertCartPayload"/>
+    <event-information eventId='abandon'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.AbandonCartPayload"/>
+    <event-information eventId='recover'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.RecoverCartPayload"/>
+    <event-information eventId='merge'
+                       meta-bodyType="com.handmade.ecommerce.cart.dto.MergeCartPayload"/>
+    <event-information eventId='expire' meta-bodyType="com.handmade.ecommerce.cart.dto.ExpireCartPayload"/>
+
+    <!-- Cart Flow -->
+    <flow id="cartFlow" default="true">
+
+        <!-- ACTIVE (initial state) -->
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="checkout" newStateId="CHECKED_OUT" componentName="com.handmade.ecommerce.cart.service.cmds.CheckoutCartAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="com.handmade.ecommerce.cart.service.cmds.AbandonCartAction"/>
+            <on eventId="merge" newStateId="MERGED" componentName="com.handmade.ecommerce.cart.service.cmds.MergeCartAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.cart.service.cmds.ExpireCartAction"/>
+        </manual-state>
+
+        <!-- CHECKED_OUT -->
+        <manual-state id="CHECKED_OUT">
+            <on eventId="convert" newStateId="CONVERTED" componentName="com.handmade.ecommerce.cart.service.cmds.ConvertCartAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="com.handmade.ecommerce.cart.service.cmds.AbandonCartAction"/>
+        </manual-state>
+
+        <!-- ABANDONED -->
+        <manual-state id="ABANDONED">
+            <on eventId="recover" newStateId="ACTIVE" componentName="com.handmade.ecommerce.cart.service.cmds.RecoverCartAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.cart.service.cmds.ExpireCartAction"/>
+        </manual-state>
+
+        <!-- CONVERTED (final) -->
+        <manual-state id="CONVERTED" meta-endState="true"/>
+
+        <!-- MERGED (final) -->
+        <manual-state id="MERGED" meta-endState="true"/>
+
+        <!-- EXPIRED (final) -->
+        <manual-state id="EXPIRED" meta-endState="true"/>
+
+    </flow>
+
+</states>

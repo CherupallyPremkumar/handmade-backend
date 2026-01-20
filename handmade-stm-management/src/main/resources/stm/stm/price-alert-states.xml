@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="priceAlertFlow" default="true">
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="trigger" newStateId="TRIGGERED" componentName="priceAlertTriggerAction"/>
+            <on eventId="pause" newStateId="PAUSED" componentName="priceAlertPauseAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="priceAlertExpireAction"/>
+        </manual-state>
+
+        <manual-state id="TRIGGERED">
+            <on eventId="notify" newStateId="NOTIFIED" componentName="priceAlertNotifyAction"/>
+        </manual-state>
+
+        <manual-state id="NOTIFIED">
+            <on eventId="acknowledge" newStateId="ACKNOWLEDGED" componentName="priceAlertAcknowledgeAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="priceAlertResumeAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="priceAlertCancelAction"/>
+        </manual-state>
+
+        <manual-state id="ACKNOWLEDGED" meta-endState="true"/>
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

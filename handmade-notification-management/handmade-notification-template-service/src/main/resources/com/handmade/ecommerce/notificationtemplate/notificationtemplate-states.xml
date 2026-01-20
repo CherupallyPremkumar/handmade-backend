@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.notification.dto.ActivateNotificationTemplatePayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.notification.dto.ApproveNotificationTemplatePayload"/>
+    <event-information eventId="deactivate" meta-bodyType="com.handmade.ecommerce.notification.dto.DeactivateNotificationTemplatePayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.notification.dto.DeprecateNotificationTemplatePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.notification.dto.RejectNotificationTemplatePayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.notification.dto.SubmitNotificationTemplatePayload"/>
+
+    <flow id="notificationTemplateFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="submitNotificationTemplateAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="approveNotificationTemplateAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="rejectNotificationTemplateAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateNotificationTemplateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="deactivateNotificationTemplateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="deprecateNotificationTemplateAction"/>
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateNotificationTemplateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="deprecateNotificationTemplateAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

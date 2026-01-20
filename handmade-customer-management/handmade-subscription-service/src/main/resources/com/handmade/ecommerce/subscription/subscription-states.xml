@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Standard E-commerce Subscription State Machine
+Purpose: Manage customer subscriptions (e.g. Plus/Prime plans).
+Flow: SUBSCRIPTION_FLOW
+Lifecycle: CREATED -> TRIAL -> ACTIVE -> GRACE -> EXPIRED / CANCELLED
+-->
+<states>
+    <event-information eventId="startTrial" meta-bodyType="com.handmade.ecommerce.customer.dto.StartTrialSubscriptionPayload"/>
+    <event-information eventId="activatePaid" meta-bodyType="com.handmade.ecommerce.customer.dto.ActivatePaidSubscriptionPayload"/>
+    <event-information eventId="renew" meta-bodyType="com.handmade.ecommerce.customer.dto.RenewSubscriptionPayload"/>
+    <event-information eventId="enterGrace" meta-bodyType="com.handmade.ecommerce.customer.dto.EnterGraceSubscriptionPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.customer.dto.ExpireSubscriptionPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.customer.dto.CancelSubscriptionPayload"/>
+
+    <flow id="SUBSCRIPTION_FLOW" default="true">
+        <!-- Subscription object exists but not yet started -->
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="startTrial"   newStateId="TRIAL"  componentName="com.handmade.ecommerce.subscription.service.cmds.StartTrialSubscriptionAction"/>
+            <on eventId="activatePaid" newStateId="ACTIVE" componentName="com.handmade.ecommerce.subscription.service.cmds.ActivatePaidSubscriptionAction"/>
+            <on eventId="cancel"        newStateId="CANCELLED" componentName="com.handmade.ecommerce.subscription.service.cmds.CancelSubscriptionAction"/>
+        </manual-state>
+
+        <!-- Trial period -->
+        <manual-state id="TRIAL">
+            <on eventId="activatePaid" newStateId="ACTIVE" componentName="com.handmade.ecommerce.subscription.service.cmds.ActivatePaidSubscriptionAction"/>
+            <on eventId="expire"        newStateId="EXPIRED" componentName="com.handmade.ecommerce.subscription.service.cmds.ExpireSubscriptionAction"/>
+            <on eventId="cancel"        newStateId="CANCELLED" componentName="com.handmade.ecommerce.subscription.service.cmds.CancelSubscriptionAction"/>
+        </manual-state>
+
+        <!-- Paid active -->
+        <manual-state id="ACTIVE">
+            <on eventId="renew"       newStateId="ACTIVE"    componentName="com.handmade.ecommerce.subscription.service.cmds.RenewSubscriptionAction"/>
+            <on eventId="enterGrace" newStateId="GRACE"     componentName="com.handmade.ecommerce.subscription.service.cmds.EnterGraceSubscriptionAction"/>
+            <on eventId="cancel"      newStateId="CANCELLED" componentName="com.handmade.ecommerce.subscription.service.cmds.CancelSubscriptionAction"/>
+        </manual-state>
+
+        <!-- Grace period after failed renewal -->
+        <manual-state id="GRACE">
+            <on eventId="renew"  newStateId="ACTIVE"  componentName="com.handmade.ecommerce.subscription.service.cmds.RenewSubscriptionAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.subscription.service.cmds.ExpireSubscriptionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.subscription.service.cmds.CancelSubscriptionAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED"   meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Orchestrated seller onboarding pipeline that drives the SELLER_ONBOARDING_FLOW STM.
+Version: 1.0
+-->
+<flows>
+    <!-- Enable parallel chains if needed in future -->
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: SELLER_ONBOARDING_OWIZ_FLOW
+    Trigger: START_SELLER_ONBOARDING (domain event from API or saga orchestration)
+
+    High-level steps:
+    1. submit-application  -> APPLIED
+    2. kyc-started         -> KYC_IN_PROGRESS
+    3. (external KYC process) then kyc-approved / kyc-rejected
+    4. start-policy-eval   -> POLICY_EVALUATION
+    5. policy-approved / policy-flagged
+    6. finance-profile-created
+    7. go-live-confirmed   -> COMPLETED
+    -->
+    <flow id="SELLER_ONBOARDING_OWIZ_FLOW" triggerEvent="START_SELLER_ONBOARDING">
+        <!-- Initialize onboarding case and fire submit-application STM event -->
+        <command id="initOnboardingCase"
+                 componentName="sellerOnboardingInitService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Start KYC phase (fires kyc-started STM event) -->
+        <command id="startKycPhase"
+                 componentName="sellerOnboardingKycStartService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Kick off automated policy evaluation after KYC approval -->
+        <command id="startPolicyEvaluation"
+                 componentName="sellerOnboardingPolicyEvalService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- If policies are approved or manually approved, move to finance setup -->
+        <command id="prepareFinanceProfile"
+                 componentName="sellerOnboardingFinanceSetupService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="8000" onError="stop"/>
+
+        <!-- Once finance profile is done, confirm go-live and complete onboarding -->
+        <command id="confirmGoLive"
+                 componentName="sellerOnboardingGoLiveService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+    </flow>
+</flows>

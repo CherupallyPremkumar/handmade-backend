@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.offer.dto.ActivateOfferPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.offer.dto.ApproveOfferPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.offer.dto.CancelOfferPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.offer.dto.ExpireOfferPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.offer.dto.PauseOfferPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.offer.dto.RejectOfferPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.offer.dto.ResumeOfferPayload"/>
+    <event-information eventId="schedule" meta-bodyType="com.handmade.ecommerce.offer.dto.ScheduleOfferPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.offer.dto.SubmitOfferPayload"/>
+
+    <flow id="offerFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.offer.service.cmds.SubmitOfferAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.offer.service.cmds.ApproveOfferAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.offer.service.cmds.RejectOfferAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="schedule" newStateId="SCHEDULED" componentName="com.handmade.ecommerce.offer.service.cmds.ScheduleOfferAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.offer.service.cmds.ActivateOfferAction"/>
+        </manual-state>
+
+        <manual-state id="SCHEDULED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.offer.service.cmds.ActivateOfferAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.offer.service.cmds.CancelOfferAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="com.handmade.ecommerce.offer.service.cmds.PauseOfferAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.offer.service.cmds.ExpireOfferAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.offer.service.cmds.CancelOfferAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="com.handmade.ecommerce.offer.service.cmds.ResumeOfferAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.offer.service.cmds.CancelOfferAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>
+

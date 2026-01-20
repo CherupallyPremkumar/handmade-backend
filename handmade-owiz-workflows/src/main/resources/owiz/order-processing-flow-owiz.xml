@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Order processing orchestration that drives ORDER_FLOW / SHIPMENT_FLOW STMs.
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!--
+    Flow: ORDER_PROCESSING_FLOW
+    Trigger: PAY_ORDER
+
+    Expected STMs:
+    - ORDER_FLOW: CREATED -> CONFIRMED -> PACKED -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED
+    - SHIPMENT_FLOW: CREATED -> DISPATCHED -> IN_TRANSIT -> OUT_FOR_DELIVERY -> DELIVERED
+    -->
+    <flow id="ORDER_PROCESSING_FLOW" triggerEvent="PAY_ORDER">
+        <!-- Validate and reserve inventory, fire appropriate STM events on order lines -->
+        <command id="validateInventory" componentName="inventoryValidationService" retryLimit="3" retryDelay="1000" timeoutMs="3000" onError="stop"/>
+
+        <!-- Deduct stock and move order/orderLine STM forward -->
+        <command id="deductStock" componentName="stockManagementService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+
+        <!-- Create shipment entity and transition SHIPMENT_FLOW from CREATED -> DISPATCHED -->
+        <command id="createShipment" componentName="fulfillmentService" retryLimit="3" retryDelay="1000" timeoutMs="10000" onError="stop"/>
+
+        <!-- Notify customer using NOTIFICATIONS_FLOW (may internally trigger SEND_NOTIFICATION) -->
+        <command id="notifyCustomer" componentName="orderNotificationService" retryLimit="3" retryDelay="1000" timeoutMs="2000" onError="stop"/>
+    </flow>
+</flows>

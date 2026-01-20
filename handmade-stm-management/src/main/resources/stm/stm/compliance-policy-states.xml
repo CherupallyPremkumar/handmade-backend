@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_COMPLIANCE_POLICY_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="compliancePolicySubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="compliancePolicyApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="compliancePolicyRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="compliancePolicyActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="compliancePolicySuspendAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="compliancePolicyDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="compliancePolicyReactivateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="compliancePolicyDeprecateFromSuspendedAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

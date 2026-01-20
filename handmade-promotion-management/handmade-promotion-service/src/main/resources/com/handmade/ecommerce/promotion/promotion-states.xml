@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.promotion.dto.ActivatePromotionPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.promotion.dto.ApprovePromotionPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.promotion.dto.CancelPromotionPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.promotion.dto.ExpirePromotionPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.promotion.dto.PausePromotionPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.promotion.dto.RejectPromotionPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.promotion.dto.ResumePromotionPayload"/>
+    <event-information eventId="schedule" meta-bodyType="com.handmade.ecommerce.promotion.dto.SchedulePromotionPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.promotion.dto.SubmitPromotionPayload"/>
+
+    <flow id="promotionFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.promotion.service.cmds.SubmitPromotionAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.promotion.service.cmds.ApprovePromotionAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.promotion.service.cmds.RejectPromotionAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="schedule" newStateId="SCHEDULED" componentName="com.handmade.ecommerce.promotion.service.cmds.SchedulePromotionAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.promotion.service.cmds.ActivatePromotionAction"/>
+        </manual-state>
+
+        <manual-state id="SCHEDULED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.promotion.service.cmds.ActivatePromotionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.promotion.service.cmds.CancelPromotionAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="com.handmade.ecommerce.promotion.service.cmds.PausePromotionAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.promotion.service.cmds.ExpirePromotionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.promotion.service.cmds.CancelPromotionAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="com.handmade.ecommerce.promotion.service.cmds.ResumePromotionAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.promotion.service.cmds.CancelPromotionAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

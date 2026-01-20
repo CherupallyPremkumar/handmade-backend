@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: inventory-management
+      changes:
+        - createTable:
+            tableName: hm_inventory_position
+            columns:
+              - column: { name: id, type: varchar(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: warehouse_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: bin_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: product_id, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: is_primary_location, type: boolean, defaultValueBoolean: false }
+              - column: { name: quantity_on_hand, type: int, defaultValueNumeric: 0 }
+              - column: { name: quantity_reserved, type: int, defaultValueNumeric: 0 }
+              - column: { name: quantity_available, type: int, defaultValueNumeric: 0 }
+              - column: { name: last_sync_at, type: timestamp }
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }

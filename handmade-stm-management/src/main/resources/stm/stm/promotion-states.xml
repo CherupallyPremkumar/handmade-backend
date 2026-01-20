@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="promotionFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="promotionSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="promotionApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="promotionRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="schedule" newStateId="SCHEDULED" componentName="promotionScheduleAction"/>
+            <on eventId="activate" newStateId="ACTIVE" componentName="promotionActivateAction"/>
+        </manual-state>
+
+        <manual-state id="SCHEDULED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="promotionActivateFromScheduledAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="promotionPauseAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="promotionExpireAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelFromActiveAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="promotionResumeAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="promotionCancelFromPausedAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

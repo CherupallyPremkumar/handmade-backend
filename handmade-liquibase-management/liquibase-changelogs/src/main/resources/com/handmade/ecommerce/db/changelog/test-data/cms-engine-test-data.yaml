@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-cms
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_cms_entry
+        - insert:
+            tableName: hm_cms_schema
+            columns:
+              - column: {name: id, value: "sch-001"}
+              - column: {name: schema_code, value: "ARTICLE"}
+              - column: {name: name, value: "Article"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-001"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "meet-the-artisans"}
+              - column: {name: title, value: "Meet Our Master Artisans"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-02-10T10:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-002"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "summer-collection-2024"}
+              - column: {name: title, value: "Summer Handcrafted Collection 2024"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-11T11:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-003"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "the-art-of-weaving"}
+              - column: {name: title, value: "The Ancient Art of Silk Weaving"}
+              - column: {name: state_id, value: "DRAFT"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-12T12:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-004"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "sustainable-materials"}
+              - column: {name: title, value: "Our Commitment to Sustainability"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-13T13:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-005"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "ceramics-care-guide"}
+              - column: {name: title, value: "Handmade Ceramics Care Guide"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-14T14:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-006"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "leather-craftsmanship"}
+              - column: {name: title, value: "The Leather Craftsmanship Journey"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-15T15:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-007"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "global-impact-report"}
+              - column: {name: title, value: "2023 Global Impact & Artisan Report"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-16T16:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-008"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "woodworking-traditions"}
+              - column: {name: title, value: "Traditions in Modern Woodworking"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-17T17:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-009"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "gift-wrapping-ideas"}
+              - column: {name: title, value: "Artisanal Gift Wrapping Ideas"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-18T18:00:00"}
+        - insert:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, value: "CMS-010"}
+              - column: {name: schema_id, value: "sch-001"}
+              - column: {name: slug, value: "PLT-GLOBAL-holiday-gift-guide"}
+              - column: {name: title, value: "The Ultimate Handmade Holiday Gift Guide"}
+              - column: {name: state_id, value: "PUBLISHED"}
+              - column: {name: flow_id, value: "HM_CMS_ENTRY_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-02-19T19:00:00"}

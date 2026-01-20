@@ -1,0 +1,205 @@
+databaseChangeLog:
+  - changeSet:
+      id: search-browse-test-data
+      author: search-browse
+      changes:
+        # Update existing products with classifications
+        - update:
+            tableName: hm_product
+            columns:
+              - column: {name: classification_id, value: "cat-002"}
+            where: id = 'PROD-001'
+        - update:
+            tableName: hm_product
+            columns:
+              - column: {name: classification_id, value: "cat-001"}
+            where: id = 'PROD-002'
+        - update:
+            tableName: hm_product
+            columns:
+              - column: {name: classification_id, value: "cat-001"}
+            where: id = 'PROD-006'
+
+        # Additional Products for richer search (using existing ones if possible, but these look like new ones)
+        # Actually I will just fix the ones being inserted here to have PLT-GLOBAL
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-SEARCH-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Vintage Leather Journal"}
+              - column: {name: classification_id, value: "cat-001"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: created_time, valueDate: "2024-01-12T11:00:00"}
+        
+        # Offers for PROD-SEARCH-003
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-SEARCH-003"}
+              - column: {name: product_id, value: "PROD-SEARCH-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_sku, value: "JOURNAL-001"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 200}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Price History (Primary Searchable Price source)
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-001"}
+              - column: {name: offer_id, value: "OFF-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 25.00}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-002"}
+              - column: {name: offer_id, value: "OFF-002"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: price, valueNumeric: 8.50}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-003"}
+              - column: {name: offer_id, value: "OFF-SEARCH-003"}
+              - column: {name: product_id, value: "PROD-SEARCH-003"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 45.00}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "ph-004"}
+              - column: {name: offer_id, value: "OFF-006"}
+              - column: {name: product_id, value: "PROD-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: price, valueNumeric: 15.00}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Browse Node Mappings
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: browse_node_id, value: "cat-002"} # Pottery
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-002"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: browse_node_id, value: "cat-001"} # Home & Garden
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-003"}
+              - column: {name: product_id, value: "PROD-SEARCH-003"}
+              - column: {name: browse_node_id, value: "cat-001"} # Home & Garden
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Variation: Leather Journal (Small)
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-SEARCH-003-SM"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: name, value: "Vintage Leather Journal - Small"}
+              - column: {name: classification_id, value: "cat-001"}
+              - column: {name: parent_id, value: "PROD-SEARCH-003"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Browse History for Personalization
+        - insert:
+            tableName: hm_browse_history
+            columns:
+              - column: {name: id, value: "bh-001"}
+              - column: {name: user_id, value: "CUST-001"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: viewed_at, valueDate: "2024-03-01T10:00:00"}
+        - insert:
+            tableName: hm_browse_history
+            columns:
+              - column: {name: id, value: "bh-002"}
+              - column: {name: user_id, value: "CUST-001"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: viewed_at, valueDate: "2024-03-01T11:00:00"}
+
+        # Standalone product with no variants
+        - insert:
+            tableName: hm_product
+            columns:
+              - column: {name: id, value: "PROD-STANDALONE-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: name, value: "Standalone Artisan Vase"}
+              - column: {name: classification_id, value: "cat-002"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_PRODUCT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Standalone product offer
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-STANDALONE"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-STANDALONE-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: seller_sku, value: "VASE-001"}
+              - column: {name: available_quantity, valueNumeric: 5}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Standalone product price
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-STANDALONE"}
+              - column: {name: offer_id, value: "OFF-STANDALONE"}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: list_price, valueNumeric: 45.00}
+              - column: {name: sale_price, valueNumeric: 45.00}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        - insert:
+            tableName: hm_price_history
+            columns:
+              - column: {name: id, value: "hist-standalone"}
+              - column: {name: offer_id, value: "OFF-STANDALONE"}
+              - column: {name: product_id, value: "PROD-STANDALONE-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: price, valueNumeric: 45.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: effective_from, valueDate: "2024-01-01T00:00:00"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_product_browse_node
+            columns:
+              - column: {name: id, value: "pbn-004"}
+              - column: {name: product_id, value: "PROD-STANDALONE-001"}
+              - column: {name: browse_node_id, value: "cat-002"} # Pottery
+              - column: {name: is_primary, valueBoolean: true}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

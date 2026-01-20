@@ -1,0 +1,136 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: payment-management
+      changes:
+        - createTable:
+            tableName: hm_payment_transaction
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_method_id
+                  type: varchar(36)
+              - column:
+                  name: transaction_type
+                  type: varchar(50)
+              - column:
+                  name: amount
+                  type: "DECIMAL(19, 4)"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: provider
+                  type: varchar(100)
+              - column:
+                  name: provider_transaction_id
+                  type: varchar(255)
+              - column:
+                  name: payment_gateway_response
+                  type: text
+              # AbstractJpaStateEntity (Chenile STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_payment_order
+            tableName: hm_payment_transaction
+            columns:
+              - column:
+                  name: order_id
+        
+        - createIndex:
+            indexName: idx_payment_customer
+            tableName: hm_payment_transaction
+            columns:
+              - column:
+                  name: customer_id
+        
+        - createIndex:
+            indexName: idx_payment_provider_txn
+            tableName: hm_payment_transaction
+            columns:
+              - column:
+                  name: provider_transaction_id
+
+  - changeSet:
+      id: 2
+      author: payment-management
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_payment_transaction
+            baseColumnNames: order_id
+            referencedTableName: hm_order
+            referencedColumnNames: id
+            constraintName: fk_payment_order
+        - addForeignKeyConstraint:
+            baseTableName: hm_payment_transaction
+            baseColumnNames: customer_id
+            referencedTableName: hm_customer_profile
+            referencedColumnNames: id
+            constraintName: fk_payment_customer
+        - addForeignKeyConstraint:
+            baseTableName: hm_payment_transaction
+            baseColumnNames: payment_method_id
+            referencedTableName: hm_payment_method
+            referencedColumnNames: id
+            constraintName: fk_payment_method

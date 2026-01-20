@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="etlJobFlow" default="true">
+        <manual-state id="SCHEDULED" initialState="true">
+            <on eventId="start" newStateId="RUNNING" componentName="etlJobStartAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="etlJobCancelAction"/>
+        </manual-state>
+
+        <manual-state id="RUNNING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="etlJobCompleteAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="etlJobFailAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="SCHEDULED" componentName="etlJobRetryAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

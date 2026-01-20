@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: order-management
+      changes:
+        - createTable:
+            tableName: hm_order_financial_event
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: financial_event_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: varchar(50)
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        - addForeignKeyConstraint:
+            baseTableName: hm_order_financial_event
+            baseColumnNames: order_id
+            referencedTableName: hm_order
+            referencedColumnNames: id
+            constraintName: fk_ofe_order
+        - addForeignKeyConstraint:
+            baseTableName: hm_order_financial_event
+            baseColumnNames: financial_event_id
+            referencedTableName: hm_seller_financial_event
+            referencedColumnNames: id
+            constraintName: fk_ofe_event

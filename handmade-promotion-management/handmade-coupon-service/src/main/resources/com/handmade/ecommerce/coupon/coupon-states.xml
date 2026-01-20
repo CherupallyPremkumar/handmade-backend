@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.promotion.dto.ActivateCouponPayload"/>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.promotion.dto.ApproveCouponPayload"/>
+    <event-information eventId="deactivate" meta-bodyType="com.handmade.ecommerce.promotion.dto.DeactivateCouponPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.promotion.dto.ExpireCouponPayload"/>
+    <event-information eventId="pause" meta-bodyType="com.handmade.ecommerce.promotion.dto.PauseCouponPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.promotion.dto.RejectCouponPayload"/>
+    <event-information eventId="resume" meta-bodyType="com.handmade.ecommerce.promotion.dto.ResumeCouponPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.promotion.dto.SubmitCouponPayload"/>
+
+    <flow id="couponFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="com.handmade.ecommerce.coupon.service.cmds.SubmitCouponAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.coupon.service.cmds.ApproveCouponAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="com.handmade.ecommerce.coupon.service.cmds.RejectCouponAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.coupon.service.cmds.ActivateCouponAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pause" newStateId="PAUSED" componentName="com.handmade.ecommerce.coupon.service.cmds.PauseCouponAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.coupon.service.cmds.ExpireCouponAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="com.handmade.ecommerce.coupon.service.cmds.DeactivateCouponAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resume" newStateId="ACTIVE" componentName="com.handmade.ecommerce.coupon.service.cmds.ResumeCouponAction"/>
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="com.handmade.ecommerce.coupon.service.cmds.DeactivateCouponAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED" meta-endState="true"/>
+        <manual-state id="INACTIVE" meta-endState="true"/>
+    </flow>
+</states>

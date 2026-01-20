@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="platformRegionPolicyFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submitForReview" newStateId="REVIEW" componentName="platformRegionPolicySubmitForReviewAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="platformRegionPolicyApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="platformRegionPolicyRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="platformRegionPolicyActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="platformRegionPolicyDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

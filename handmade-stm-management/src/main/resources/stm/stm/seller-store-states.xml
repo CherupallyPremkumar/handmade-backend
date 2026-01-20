@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_SELLER_STORE_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="sellerStoreSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="sellerStoreApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="sellerStoreRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="publish" newStateId="PUBLISHED" componentName="sellerStorePublishAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="unpublish" newStateId="UNPUBLISHED" componentName="sellerStoreUnpublishAction"/>
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="sellerStoreSuspendAction"/>
+        </manual-state>
+
+        <manual-state id="UNPUBLISHED">
+            <on eventId="republish" newStateId="PUBLISHED" componentName="sellerStoreRepublishAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="PUBLISHED" componentName="sellerStoreReactivateAction"/>
+        </manual-state>
+    </flow>
+</states>

@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_collection_product_mapping
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: collection_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: display_order
+                  type: int
+              - column:
+                  name: is_featured
+                  type: boolean
+                  defaultValueBoolean: false
+              # BaseJpaEntity Fields
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_collection_product_mapping
+            baseColumnNames: collection_id
+            referencedTableName: hm_collection
+            referencedColumnNames: id
+            constraintName: fk_cpm_collection
+        - createIndex:
+            tableName: hm_collection_product_mapping
+            indexName: idx_cpm_collection_product
+            columns:
+              - column: {name: collection_id}
+              - column: {name: product_id}
+            unique: true

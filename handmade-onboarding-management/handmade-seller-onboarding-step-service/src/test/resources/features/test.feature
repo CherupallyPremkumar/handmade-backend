@@ -1,0 +1,82 @@
+Feature: Testcase ID 
+Tests the selleronboardingstep Workflow Service using a REST client. Selleronboardingstep service exists and is under test.
+It helps to create a selleronboardingstep and manages the state of the selleronboardingstep as documented in states xml
+
+Scenario: Create a new selleronboardingstep
+Given that "flowName" equals "sellerOnboardingStepFlow"
+And that "initialState" equals "PENDING"
+When I POST a REST request to URL "/selleronboardingstep" with payload
+"""json
+{
+    "onboardingCaseId": "onboarding-case-001",
+    "stepName": "BUSINESS_INFO",
+    "stepOrder": 1,
+    "isRequired": true
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And store "$.payload.mutatedEntity.id" from response to "id"
+And the REST response key "mutatedEntity.currentState.stateId" is "${initialState}"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "currentState"
+And the REST response key "mutatedEntity.stepName" is "BUSINESS_INFO"
+
+Scenario: Retrieve the selleronboardingstep that just got created
+When I GET a REST request to URL "/selleronboardingstep/${id}"
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "${currentState}"
+
+Scenario: Send the start event to the selleronboardingstep with comments
+Given that "comment" equals "Comment for start"
+And that "event" equals "start"
+When I PATCH a REST request to URL "/selleronboardingstep/${id}/${event}" with payload
+"""json
+{
+    "comment": "${comment}"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "IN_PROGRESS"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
+Scenario: Send the complete event to the selleronboardingstep with comments
+Given that "comment" equals "Comment for complete"
+And that "event" equals "complete"
+When I PATCH a REST request to URL "/selleronboardingstep/${id}/${event}" with payload
+"""json
+{
+    "comment": "${comment}"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.id" is "${id}"
+And the REST response key "mutatedEntity.currentState.stateId" is "COMPLETED"
+And store "$.payload.mutatedEntity.currentState.stateId" from response to "finalState"
+
+Scenario: Create another selleronboardingstep for skip test
+Given that "flowName" equals "sellerOnboardingStepFlow"
+And that "initialState" equals "PENDING"
+When I POST a REST request to URL "/selleronboardingstep" with payload
+"""json
+{
+    "onboardingCaseId": "onboarding-case-001",
+    "stepName": "ID_PROOF",
+    "stepOrder": 2,
+    "isRequired": false
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And store "$.payload.mutatedEntity.id" from response to "id2"
+And the REST response key "mutatedEntity.currentState.stateId" is "PENDING"
+
+Scenario: Skip the second selleronboardingstep
+Given that "event" equals "skip"
+When I PATCH a REST request to URL "/selleronboardingstep/${id2}/${event}" with payload
+"""json
+{
+    "comment": "Skipping optional step"
+}
+"""
+Then the REST response contains key "mutatedEntity"
+And the REST response key "mutatedEntity.currentState.stateId" is "SKIPPED"

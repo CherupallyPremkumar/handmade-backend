@@ -1,0 +1,13 @@
+[
+  {
+    "id": "search-categories",
+    "name": "search-categories",
+    "paginated": false,
+    "columnMetadata": {
+      "classification_id": {
+        "name": "classification_id",
+        "columnType": "Text"
+      }
+    }
+  }
+]

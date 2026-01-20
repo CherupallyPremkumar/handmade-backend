@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.iam.dto.ActivateRolePayload"/>
+    <event-information eventId="deprecate" meta-bodyType="com.handmade.ecommerce.iam.dto.DeprecateRolePayload"/>
+
+    <flow id="roleFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.role.service.cmds.ActivateRoleAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="com.handmade.ecommerce.role.service.cmds.DeprecateRoleAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

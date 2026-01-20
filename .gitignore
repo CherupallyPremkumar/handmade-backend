@@ -3,6 +3,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
+build_output.txt
+final_build_output.txt
+task.md
+walkthrough.md
 # Maven Flatten Plugin - Generated POMs
 .flattened-pom.xml
 */.flattened-pom.xml
@@ -16,6 +21,9 @@ target/
 *.iws
 *.iml
 *.ipr
+
+
+**.py
 
 ### Eclipse ###
 .apt_generated
@@ -41,3 +49,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+### Agents ###
+.agent/
+
+### IDE ###
+.idea/

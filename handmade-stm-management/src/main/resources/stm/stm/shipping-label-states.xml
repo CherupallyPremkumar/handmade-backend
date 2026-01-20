@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_SHIPPING_LABEL_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="print" newStateId="PRINTED" componentName="shippingLabelPrintAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="shippingLabelVoidAction"/>
+        </manual-state>
+
+        <manual-state id="PRINTED">
+            <on eventId="use" newStateId="USED" componentName="shippingLabelUseAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="shippingLabelVoidFromPrintedAction"/>
+        </manual-state>
+
+        <manual-state id="USED" meta-endState="true"/>
+        <manual-state id="VOIDED" meta-endState="true"/>
+    </flow>
+</states>

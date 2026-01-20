@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="capture" meta-bodyType="com.handmade.ecommerce.payment.dto.CapturePaymentAuthorizationPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.payment.dto.ExpirePaymentAuthorizationPayload"/>
+    <event-information eventId="void" meta-bodyType="com.handmade.ecommerce.payment.dto.VoidPaymentAuthorizationPayload"/>
+
+    <flow id="paymentAuthorizationFlow" default="true">
+        <manual-state id="AUTHORIZED" initialState="true">
+            <on eventId="capture" newStateId="CAPTURED" componentName="com.handmade.ecommerce.paymentauthorization.service.cmds.CapturePaymentAuthorizationAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="com.handmade.ecommerce.paymentauthorization.service.cmds.VoidPaymentAuthorizationAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.paymentauthorization.service.cmds.ExpirePaymentAuthorizationAction"/>
+        </manual-state>
+
+        <manual-state id="CAPTURED" meta-endState="true"/>
+        <manual-state id="VOIDED" meta-endState="true"/>
+        <manual-state id="EXPIRED" meta-endState="true"/>
+    </flow>
+</states>

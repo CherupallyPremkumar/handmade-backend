@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="financeProfileFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="verify" newStateId="VERIFIED" componentName="financeProfileVerifyAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="financeProfileRejectAction"/>
+        </manual-state>
+
+        <manual-state id="VERIFIED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="financeProfileActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="financeProfileSuspendAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="financeProfileReactivateAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

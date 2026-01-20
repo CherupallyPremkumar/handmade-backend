@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-risk
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_fraud_case
+        - delete:
+            tableName: hm_compliance_document
+        - delete:
+            tableName: hm_risk_signal
+        
+        # Risk Signals (10)
+        - insert:
+            tableName: hm_risk_signal
+            columns:
+              - column: {name: id, value: "RSK-001"}
+              - column: {name: entity_type, value: "SELLER"}
+              - column: {name: entity_id, value: "SEL-001"}
+              - column: {name: signal_type, value: "VELOCITY"}
+              - column: {name: risk_score, valueNumeric: 80}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_RISK_SIGNAL_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_risk_signal
+            columns:
+              - column: {name: id, value: "RSK-002"}
+              - column: {name: entity_type, value: "ORDER"}
+              - column: {name: entity_id, value: "ORD-001"}
+              - column: {name: signal_type, value: "IP_MISMATCH"}
+              - column: {name: risk_score, valueNumeric: 90}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_RISK_SIGNAL_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        
+        # Fraud Cases (10)
+        - insert:
+            tableName: hm_fraud_case
+            columns:
+              - column: {name: id, value: "FRD-001"}
+              - column: {name: reference_id, value: "SEL-001"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_FRAUD_CASE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+
+        # Compliance Documents (10)
+        - insert:
+            tableName: hm_compliance_document
+            columns:
+              - column: {name: id, value: "DOC-001"}
+              - column: {name: entity_id, value: "SEL-001"}
+              - column: {name: entity_type, value: "SELLER"}
+              - column: {name: doc_type, value: "TAX_ID"}
+              - column: {name: state_id, value: "PENDING_VERIFICATION"}
+              - column: {name: flow_id, value: "HM_COMPLIANCE_DOCUMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

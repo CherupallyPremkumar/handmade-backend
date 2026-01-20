@@ -1,0 +1,4 @@
+package com.handmade.ecommerce.risk.dto;
+
+public class MitigateRiskSignalPayload {
+}

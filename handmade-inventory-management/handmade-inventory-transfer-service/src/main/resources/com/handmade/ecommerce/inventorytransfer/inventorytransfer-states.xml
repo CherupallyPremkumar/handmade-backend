@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelInventoryTransferPayload"/>
+    <event-information eventId="dispatch" meta-bodyType="com.handmade.ecommerce.inventory.dto.DispatchInventoryTransferPayload"/>
+    <event-information eventId="partialReceive" meta-bodyType="com.handmade.ecommerce.inventory.dto.PartialReceiveInventoryTransferPayload"/>
+    <event-information eventId="pick" meta-bodyType="com.handmade.ecommerce.inventory.dto.PickInventoryTransferPayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveInventoryTransferPayload"/>
+    <event-information eventId="receiveRemaining" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveRemainingInventoryTransferPayload"/>
+
+    <flow id="HM_INVENTORY_TRANSFER_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="pick" newStateId="PICKING" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.PickInventoryTransferAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.CancelInventoryTransferAction"/>
+        </manual-state>
+
+        <manual-state id="PICKING">
+            <on eventId="dispatch" newStateId="IN_TRANSIT" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.DispatchInventoryTransferAction"/>
+        </manual-state>
+
+        <manual-state id="IN_TRANSIT">
+            <on eventId="receive" newStateId="RECEIVED" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.ReceiveInventoryTransferAction"/>
+            <on eventId="partialReceive" newStateId="PARTIALLY_RECEIVED" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.PartialReceiveInventoryTransferAction"/>
+        </manual-state>
+
+        <manual-state id="PARTIALLY_RECEIVED">
+            <on eventId="receiveRemaining" newStateId="RECEIVED" componentName="com.handmade.ecommerce.inventorytransfer.service.cmds.ReceiveRemainingInventoryTransferAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

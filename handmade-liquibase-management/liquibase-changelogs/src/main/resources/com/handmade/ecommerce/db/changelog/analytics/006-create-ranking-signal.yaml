@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: search-engine
+      changes:
+        - createTable:
+            tableName: hm_ranking_signal
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: signal_type
+                  type: varchar(50)
+                  # POPULARITY, SALES_VELOCITY, REVIEW_RATING
+              - column:
+                  name: signal_weight
+                  type: decimal(10, 4)
+                  defaultValueNumeric: 1.0000
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_ranking_signal
+            indexName: idx_rank_signal_ent
+            columns:
+              - column: { name: entity_id }

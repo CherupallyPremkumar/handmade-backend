@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.inventory.dto.CancelInboundShipmentPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.inventory.dto.CompleteInboundShipmentPayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveInboundShipmentPayload"/>
+
+    <flow id="HM_INBOUND_SHIPMENT_FLOW" default="true">
+        <manual-state id="EXPECTED" initialState="true">
+            <on eventId="receive" newStateId="RECEIVING" componentName="com.handmade.ecommerce.inboundshipment.service.cmds.ReceiveInboundShipmentAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVING">
+            <on eventId="complete" newStateId="RECEIVED" componentName="com.handmade.ecommerce.inboundshipment.service.cmds.CompleteInboundShipmentAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.inboundshipment.service.cmds.CancelInboundShipmentAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

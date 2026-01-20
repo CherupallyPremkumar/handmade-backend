@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="limitDefinitionFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="limitDefinitionActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="limitDefinitionSuspendAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="limitDefinitionDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="limitDefinitionReactivateAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

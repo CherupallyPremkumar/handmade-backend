@@ -1,0 +1,105 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: payment-management
+      changes:
+        - createTable:
+            tableName: hm_payment_refund_transaction
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: payment_transaction_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: refund_amount
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  defaultValue: USD
+              - column:
+                  name: reason
+                  type: text
+              - column:
+                  name: provider_refund_id
+                  type: varchar(255)
+
+              - column:
+                  name: initiated_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_at
+                  type: timestamp
+              - column:
+                  name: failed_at
+                  type: timestamp
+              - column:
+                  name: failure_reason
+                  type: text
+              - column:
+                  name: initiated_by
+                  type: varchar(255)
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_refund_txn
+            tableName: hm_payment_refund_transaction
+            columns:
+              - column:
+                  name: payment_transaction_id
+        
+

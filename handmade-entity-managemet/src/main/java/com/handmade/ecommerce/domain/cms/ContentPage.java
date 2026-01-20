@@ -1,0 +1,30 @@
+package com.handmade.ecommerce.domain.cms;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.chenile.jpautils.entity.AbstractJpaStateEntity;
+
+@Entity
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "hm_content_page")
+public class ContentPage extends AbstractJpaStateEntity {
+
+    @Column(name = "slug", length = 255, nullable = false, unique = true)
+    private String slug;
+
+    @Column(name = "title", length = 255, nullable = false)
+    private String title;
+
+    @Column(name = "content_type", length = 50)
+    private String contentType; // FAQ, HELP, STATIC_PAGE
+
+    @Lob
+    @Column(name = "raw_content", columnDefinition = "TEXT")
+    private String rawContent;
+
+    @Column(name = "meta_description", length = 500)
+    private String metaDescription;
+}

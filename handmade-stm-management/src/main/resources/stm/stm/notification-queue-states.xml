@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="notificationQueueFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="send" newStateId="SENDING" componentName="notificationQueueSendAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="notificationQueueCancelAction"/>
+        </manual-state>
+
+        <manual-state id="SENDING">
+            <on eventId="succeed" newStateId="SENT" componentName="notificationQueueSucceedAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="notificationQueueFailAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="PENDING" componentName="notificationQueueRetryAction"/>
+            <on eventId="abandon" newStateId="ABANDONED" componentName="notificationQueueAbandonAction"/>
+        </manual-state>
+
+        <manual-state id="SENT" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+        <manual-state id="ABANDONED" meta-endState="true"/>
+    </flow>
+</states>

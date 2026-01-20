@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ecosystem-team
+      validCheckSum: ANY
+      comment: Create hm_external_vendor table
+      changes:
+        - createTable:
+            tableName: hm_external_vendor
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: vendor_name, type: VARCHAR(255), constraints: { nullable: false } }
+              - column: { name: vendor_type, type: VARCHAR(50) } # LOGISTICS, TAX_SERVICE, PAYMENT_GATEWAY
+              - column: { name: integration_protocol, type: VARCHAR(50) } # REST, SOAP, WEBHOOK
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

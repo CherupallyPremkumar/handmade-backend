@@ -1,0 +1,33 @@
+<!--
+Standard E-commerce Metric Definition State Machine
+Purpose: Manage lifecycle of observability metrics and KPIs.
+Flow: METRIC_DEFINITION_FLOW
+Lifecycle: DRAFT -> ACTIVE -> PAUSED -> ARCHIVED
+-->
+<states>
+    <event-information eventId="activateMetric" meta-bodyType="com.handmade.ecommerce.analytics.dto.ActivateMetricDefinitionPayload"/>
+    <event-information eventId="pauseMetric" meta-bodyType="com.handmade.ecommerce.analytics.dto.PauseMetricDefinitionPayload"/>
+    <event-information eventId="resumeMetric" meta-bodyType="com.handmade.ecommerce.analytics.dto.ResumeMetricDefinitionPayload"/>
+    <event-information eventId="archiveMetric" meta-bodyType="com.handmade.ecommerce.analytics.dto.ArchiveMetricDefinitionPayload"/>
+    <event-information eventId="updateThreshold" meta-bodyType="com.handmade.ecommerce.analytics.dto.UpdateThresholdMetricDefinitionPayload"/>
+
+    <flow id="METRIC_DEFINITION_FLOW" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="activateMetric"   newStateId="ACTIVE"      componentName="activateMetricDefinitionAction"/>
+            <on eventId="archiveMetric"    newStateId="ARCHIVED"    componentName="archiveMetricDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="pauseMetric"      newStateId="PAUSED"      componentName="pauseMetricDefinitionAction"/>
+            <on eventId="updateThreshold"  newStateId="ACTIVE"      componentName="updateThresholdMetricDefinitionAction"/>
+            <on eventId="archiveMetric"    newStateId="ARCHIVED"    componentName="archiveMetricDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="PAUSED">
+            <on eventId="resumeMetric"     newStateId="ACTIVE"      componentName="resumeMetricDefinitionAction"/>
+            <on eventId="archiveMetric"    newStateId="ARCHIVED"    componentName="archiveMetricDefinitionAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED" meta-endState="true"/>
+    </flow>
+</states>

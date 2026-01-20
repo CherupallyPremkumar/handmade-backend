@@ -1,0 +1,99 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: pricing-management
+      changes:
+        - createTable:
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_price
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: current_price
+                  type: "DECIMAL(19, 4)"
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: notification_sent
+                  type: boolean
+                  defaultValueBoolean: false
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_price_alert_customer
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: customer_id
+              - column:
+                  name: state_id
+        
+        - createIndex:
+            indexName: idx_price_alert_product
+            tableName: hm_price_alert
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: state_id

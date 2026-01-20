@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="assign" meta-bodyType="com.handmade.ecommerce.logistics.dto.AssignRoutePlanPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.logistics.dto.CancelRoutePlanPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.logistics.dto.CompleteRoutePlanPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.logistics.dto.StartRoutePlanPayload"/>
+
+    <flow id="routePlanFlow" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="assign" newStateId="ASSIGNED" componentName="com.handmade.ecommerce.routeplan.service.cmds.AssignRoutePlanAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.routeplan.service.cmds.CancelRoutePlanAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="com.handmade.ecommerce.routeplan.service.cmds.StartRoutePlanAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.routeplan.service.cmds.CompleteRoutePlanAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>
+

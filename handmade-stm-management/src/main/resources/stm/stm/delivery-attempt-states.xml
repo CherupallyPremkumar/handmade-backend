@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="deliveryAttemptFlow" default="true">
+        <manual-state id="SCHEDULED" initialState="true">
+            <on eventId="start" newStateId="IN_PROGRESS" componentName="deliveryAttemptStartAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="deliveryAttemptCancelAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="succeed" newStateId="SUCCESSFUL" componentName="deliveryAttemptSucceedAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="deliveryAttemptFailAction"/>
+        </manual-state>
+
+        <manual-state id="SUCCESSFUL" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

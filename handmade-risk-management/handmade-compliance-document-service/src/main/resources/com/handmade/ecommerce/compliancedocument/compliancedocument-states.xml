@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.risk.dto.ApproveComplianceDocumentPayload"/>
+    <event-information eventId="expire" meta-bodyType="com.handmade.ecommerce.risk.dto.ExpireComplianceDocumentPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.risk.dto.RejectComplianceDocumentPayload"/>
+    <event-information eventId="renew" meta-bodyType="com.handmade.ecommerce.risk.dto.RenewComplianceDocumentPayload"/>
+    <event-information eventId="review" meta-bodyType="com.handmade.ecommerce.risk.dto.ReviewComplianceDocumentPayload"/>
+    <event-information eventId="revoke" meta-bodyType="com.handmade.ecommerce.risk.dto.RevokeComplianceDocumentPayload"/>
+
+    <flow id="complianceDocumentFlow" default="true">
+        <manual-state id="SUBMITTED" initialState="true">
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.ReviewComplianceDocumentAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.ApproveComplianceDocumentAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.RejectComplianceDocumentAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="expire" newStateId="EXPIRED" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.ExpireComplianceDocumentAction"/>
+            <on eventId="revoke" newStateId="REVOKED" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.RevokeComplianceDocumentAction"/>
+        </manual-state>
+
+        <manual-state id="EXPIRED">
+            <on eventId="renew" newStateId="SUBMITTED" componentName="com.handmade.ecommerce.compliancedocument.service.cmds.RenewComplianceDocumentAction"/>
+        </manual-state>
+
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="REVOKED" meta-endState="true"/>
+    </flow>
+</states>

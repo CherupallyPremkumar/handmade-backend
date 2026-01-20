@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="supportCaseFlow" default="true">
+        <manual-state id="OPEN" initialState="true">
+            <on eventId="assign" newStateId="ASSIGNED" componentName="supportCaseAssignAction"/>
+        </manual-state>
+
+        <manual-state id="ASSIGNED">
+            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="supportCaseInvestigateAction"/>
+            <on eventId="reassign" newStateId="ASSIGNED" componentName="supportCaseReassignAction"/>
+        </manual-state>
+
+        <manual-state id="IN_PROGRESS">
+            <on eventId="awaitCustomer" newStateId="AWAITING_CUSTOMER" componentName="supportCaseAwaitCustomerAction"/>
+            <on eventId="escalate" newStateId="ESCALATED" componentName="supportCaseEscalateAction"/>
+            <on eventId="resolve" newStateId="RESOLVED" componentName="supportCaseResolveAction"/>
+        </manual-state>
+
+        <manual-state id="AWAITING_CUSTOMER">
+            <on eventId="respond" newStateId="IN_PROGRESS" componentName="supportCaseRespondAction"/>
+        </manual-state>
+
+        <manual-state id="ESCALATED">
+            <on eventId="investigate" newStateId="IN_PROGRESS" componentName="supportCaseInvestigateFromEscalatedAction"/>
+        </manual-state>
+
+        <manual-state id="RESOLVED">
+            <on eventId="close" newStateId="CLOSED" componentName="supportCaseCloseAction"/>
+            <on eventId="reopen" newStateId="OPEN" componentName="supportCaseReopenAction"/>
+        </manual-state>
+
+        <manual-state id="CLOSED" meta-endState="true"/>
+    </flow>
+</states>

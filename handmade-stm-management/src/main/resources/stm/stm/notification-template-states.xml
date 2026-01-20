@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="notificationTemplateFlow" default="true">
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="submit" newStateId="REVIEW" componentName="notificationTemplateSubmitAction"/>
+        </manual-state>
+
+        <manual-state id="REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="notificationTemplateApproveAction"/>
+            <on eventId="reject" newStateId="DRAFT" componentName="notificationTemplateRejectAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="activate" newStateId="ACTIVE" componentName="notificationTemplateActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="deactivate" newStateId="INACTIVE" componentName="notificationTemplateDeactivateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="notificationTemplateDeprecateAction"/>
+        </manual-state>
+
+        <manual-state id="INACTIVE">
+            <on eventId="activate" newStateId="ACTIVE" componentName="notificationTemplateReactivateAction"/>
+            <on eventId="deprecate" newStateId="DEPRECATED" componentName="notificationTemplateDeprecateFromInactiveAction"/>
+        </manual-state>
+
+        <manual-state id="DEPRECATED" meta-endState="true"/>
+    </flow>
+</states>

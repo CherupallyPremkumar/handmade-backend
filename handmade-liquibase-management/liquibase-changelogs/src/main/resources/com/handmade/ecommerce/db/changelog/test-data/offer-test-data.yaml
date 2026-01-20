@@ -1,0 +1,259 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-offers
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_offer_price
+        - delete:
+            tableName: hm_offer
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-001"}
+              - column: {name: seller_id, value: "SEL-001"}
+              - column: {name: seller_sku, value: "CER-MUG-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 100}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-001"}
+              - column: {name: offer_id, value: "OFF-001"}
+              - column: {name: list_price, valueNumeric: 25.00}
+              - column: {name: sale_price, valueNumeric: 25.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-002"}
+              - column: {name: seller_id, value: "SEL-002"}
+              - column: {name: seller_sku, value: "TEX-SCARF-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 50}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-002"}
+              - column: {name: offer_id, value: "OFF-002"}
+              - column: {name: list_price, valueNumeric: 45.00}
+              - column: {name: sale_price, valueNumeric: 45.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-003"}
+              - column: {name: seller_id, value: "SEL-003"}
+              - column: {name: seller_sku, value: "WD-TABLE-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 10}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-003"}
+              - column: {name: offer_id, value: "OFF-003"}
+              - column: {name: list_price, valueNumeric: 120.00}
+              - column: {name: sale_price, valueNumeric: 120.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-004"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-004"}
+              - column: {name: seller_id, value: "SEL-004"}
+              - column: {name: seller_sku, value: "CER-BOWL-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 200}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-004"}
+              - column: {name: offer_id, value: "OFF-004"}
+              - column: {name: list_price, valueNumeric: 35.00}
+              - column: {name: sale_price, valueNumeric: 35.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-005"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-005"}
+              - column: {name: seller_id, value: "SEL-005"}
+              - column: {name: seller_sku, value: "LEA-BAG-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 30}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-005"}
+              - column: {name: offer_id, value: "OFF-005"}
+              - column: {name: list_price, valueNumeric: 75.00}
+              - column: {name: sale_price, valueNumeric: 75.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-006"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-006"}
+              - column: {name: seller_id, value: "SEL-006"}
+              - column: {name: seller_sku, value: "CAN-SOY-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 300}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-006"}
+              - column: {name: offer_id, value: "OFF-006"}
+              - column: {name: list_price, valueNumeric: 15.00}
+              - column: {name: sale_price, valueNumeric: 15.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-007"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-007"}
+              - column: {name: seller_id, value: "SEL-007"}
+              - column: {name: seller_sku, value: "WD-BOARD-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 80}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-007"}
+              - column: {name: offer_id, value: "OFF-007"}
+              - column: {name: list_price, valueNumeric: 40.00}
+              - column: {name: sale_price, valueNumeric: 40.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-008"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-008"}
+              - column: {name: seller_id, value: "SEL-008"}
+              - column: {name: seller_sku, value: "GL-VASE-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 25}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-008"}
+              - column: {name: offer_id, value: "OFF-008"}
+              - column: {name: list_price, valueNumeric: 60.00}
+              - column: {name: sale_price, valueNumeric: 60.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-009"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-009"}
+              - column: {name: seller_id, value: "SEL-009"}
+              - column: {name: seller_sku, value: "TEX-THROW-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 40}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-009"}
+              - column: {name: offer_id, value: "OFF-009"}
+              - column: {name: list_price, valueNumeric: 85.00}
+              - column: {name: sale_price, valueNumeric: 85.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_offer
+            columns:
+              - column: {name: id, value: "OFF-010"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: product_id, value: "PROD-010"}
+              - column: {name: seller_id, value: "SEL-010"}
+              - column: {name: seller_sku, value: "ART-PRINT-001-NEW"}
+              - column: {name: condition_type, value: "NEW"}
+              - column: {name: fulfillment_channel, value: "MERCHANT"}
+              - column: {name: available_quantity, valueNumeric: 150}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_OFFER_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T00:00:00"}
+        - insert:
+            tableName: hm_offer_price
+            columns:
+              - column: {name: id, value: "PRI-010"}
+              - column: {name: offer_id, value: "OFF-010"}
+              - column: {name: list_price, valueNumeric: 30.00}
+              - column: {name: sale_price, valueNumeric: 30.00}
+              - column: {name: currency_code, value: "USD"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

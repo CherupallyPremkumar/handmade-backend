@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="giftCardFlow" default="true">
+        <manual-state id="ISSUED" initialState="true">
+            <on eventId="activate" newStateId="ACTIVATED" componentName="giftCardActivateAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVATED">
+            <on eventId="redeem" newStateId="REDEEMED" componentName="giftCardRedeemAction"/>
+            <on eventId="expire" newStateId="EXPIRED" componentName="giftCardExpireAction"/>
+        </manual-state>
+
+        <manual-state id="REDEEMED"/>
+        <manual-state id="EXPIRED"/>
+    </flow>
+</states>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_ORDER_FLOW" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="confirm" newStateId="CONFIRMED" componentName="orderConfirmAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelAction"/>
+        </manual-state>
+
+        <manual-state id="CONFIRMED">
+            <on eventId="pay" newStateId="PAID" componentName="orderPayAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelFromConfirmedAction"/>
+        </manual-state>
+
+        <manual-state id="PAID">
+            <on eventId="process" newStateId="PROCESSING" componentName="orderProcessAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="ship" newStateId="SHIPPED" componentName="orderShipAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="orderCancelFromProcessingAction"/>
+        </manual-state>
+
+        <manual-state id="SHIPPED">
+            <on eventId="deliver" newStateId="DELIVERED" componentName="orderDeliverAction"/>
+        </manual-state>
+
+        <manual-state id="DELIVERED">
+            <on eventId="complete" newStateId="COMPLETED" componentName="orderCompleteAction"/>
+            <on eventId="return" newStateId="RETURN_REQUESTED" componentName="orderReturnAction"/>
+        </manual-state>
+
+        <manual-state id="RETURN_REQUESTED">
+            <on eventId="approveReturn" newStateId="RETURNED" componentName="orderApproveReturnAction"/>
+            <on eventId="rejectReturn" newStateId="DELIVERED" componentName="orderRejectReturnAction"/>
+        </manual-state>
+
+        <manual-state id="RETURNED">
+            <on eventId="refund" newStateId="REFUNDED" componentName="orderRefundAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="REFUNDED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

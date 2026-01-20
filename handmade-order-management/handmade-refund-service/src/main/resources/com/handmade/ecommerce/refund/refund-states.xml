@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.order.dto.ApproveRefundPayload"/>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.order.dto.CancelRefundPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.order.dto.CompleteRefundPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.order.dto.FailRefundPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.order.dto.ProcessRefundPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.order.dto.RejectRefundPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.order.dto.RetryRefundPayload"/>
+    <event-information eventId="submit" meta-bodyType="com.handmade.ecommerce.order.dto.SubmitRefundPayload"/>
+
+    <flow id="refundFlow" default="true">
+        <manual-state id="INITIATED" initialState="true">
+            <on eventId="submit" newStateId="PENDING" componentName="com.handmade.ecommerce.refund.service.cmds.SubmitRefundAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.refund.service.cmds.CancelRefundAction"/>
+        </manual-state>
+
+        <manual-state id="PENDING">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.refund.service.cmds.ApproveRefundAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.refund.service.cmds.RejectRefundAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="process" newStateId="PROCESSING" componentName="com.handmade.ecommerce.refund.service.cmds.ProcessRefundAction"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.refund.service.cmds.CompleteRefundAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.refund.service.cmds.FailRefundAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="PROCESSING" componentName="com.handmade.ecommerce.refund.service.cmds.RetryRefundAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="archive" meta-bodyType="com.handmade.ecommerce.cms.dto.ArchiveCMSEntryPayload"/>
+    <event-information eventId="publish" meta-bodyType="com.handmade.ecommerce.cms.dto.PublishCMSEntryPayload"/>
+    <event-information eventId="unpublish" meta-bodyType="com.handmade.ecommerce.cms.dto.UnpublishCMSEntryPayload"/>
+
+
+    <!-- CMS Entry Lifecycle -->
+    <flow id="HM_CMS_ENTRY_FLOW" default="true">
+
+        <manual-state id="DRAFT" initialState="true">
+            <on eventId="publish" newStateId="PUBLISHED" componentName="com.handmade.ecommerce.cmsentry.service.cmds.PublishCMSEntryAction"/>
+        </manual-state>
+
+        <manual-state id="PUBLISHED">
+            <on eventId="archive" newStateId="ARCHIVED" componentName="com.handmade.ecommerce.cmsentry.service.cmds.ArchiveCMSEntryAction"/>
+            <on eventId="unpublish" newStateId="DRAFT" componentName="com.handmade.ecommerce.cmsentry.service.cmds.UnpublishCMSEntryAction"/>
+        </manual-state>
+
+        <manual-state id="ARCHIVED"/>
+
+    </flow>
+    
+</states>

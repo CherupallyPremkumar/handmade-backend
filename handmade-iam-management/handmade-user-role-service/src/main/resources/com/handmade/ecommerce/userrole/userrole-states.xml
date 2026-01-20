@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.iam.dto.ActivateUserRolePayload"/>
+    <event-information eventId="reactivate" meta-bodyType="com.handmade.ecommerce.iam.dto.ReactivateUserRolePayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.iam.dto.RejectUserRolePayload"/>
+    <event-information eventId="revoke" meta-bodyType="com.handmade.ecommerce.iam.dto.RevokeUserRolePayload"/>
+    <event-information eventId="suspend" meta-bodyType="com.handmade.ecommerce.iam.dto.SuspendUserRolePayload"/>
+
+    <flow id="userRoleFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="activate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.userrole.service.cmds.ActivateUserRoleAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.userrole.service.cmds.RejectUserRoleAction"/>
+        </manual-state>
+
+        <manual-state id="ACTIVE">
+            <on eventId="suspend" newStateId="SUSPENDED" componentName="com.handmade.ecommerce.userrole.service.cmds.SuspendUserRoleAction"/>
+            <on eventId="revoke" newStateId="REVOKED" componentName="com.handmade.ecommerce.userrole.service.cmds.RevokeUserRoleAction"/>
+        </manual-state>
+
+        <manual-state id="SUSPENDED">
+            <on eventId="reactivate" newStateId="ACTIVE" componentName="com.handmade.ecommerce.userrole.service.cmds.ReactivateUserRoleAction"/>
+            <on eventId="revoke" newStateId="REVOKED" componentName="com.handmade.ecommerce.userrole.service.cmds.RevokeUserRoleAction"/>
+        </manual-state>
+
+        <manual-state id="REVOKED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

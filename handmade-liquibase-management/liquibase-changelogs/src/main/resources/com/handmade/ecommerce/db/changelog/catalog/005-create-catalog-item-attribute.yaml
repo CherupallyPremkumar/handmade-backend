@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_catalog_item_attribute
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: catalog_item_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attribute_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value_text
+                  type: varchar(2048)
+              - column:
+                  name: value_number
+                  type: "decimal(19, 4)"
+              - column:
+                  name: value_boolean
+                  type: boolean
+              - column:
+                  name: value_date
+                  type: timestamp
+              # BaseJpaEntity Fields
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_catalog_item_attribute
+            baseColumnNames: catalog_item_id
+            referencedTableName: hm_catalog_item
+            referencedColumnNames: id
+            constraintName: fk_cia_item
+        - addForeignKeyConstraint:
+            baseTableName: hm_catalog_item_attribute
+            baseColumnNames: attribute_id
+            referencedTableName: hm_attribute_definition
+            referencedColumnNames: id
+            constraintName: fk_cia_attribute
+        - createIndex:
+            tableName: hm_catalog_item_attribute
+            indexName: idx_cia_item_attr
+            columns:
+              - column: {name: catalog_item_id}
+              - column: {name: attribute_id}
+            unique: true

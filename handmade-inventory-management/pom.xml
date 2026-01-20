@@ -1,14 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <modules>
-		<module>inventory-domain</module>
-		<module>inventory-api</module>
-		<module>inventory-service</module>
-		<module>inventory-delegator</module>
-		<module>inventory-async</module>
-	</modules>
-    <packaging>pom</packaging>
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
         <artifactId>handmade-parent</artifactId>
@@ -16,23 +9,22 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.handmade.ecommerce.inventory</groupId>
     <artifactId>handmade-inventory-management</artifactId>
-
-
+    <packaging>pom</packaging>
     <name>handmade-inventory-management</name>
-    <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>handmade-cycle-count-service</module>
+        <module>handmade-return-item-service</module>
+        <module>handmade-inventory-transfer-service</module>
+        <module>handmade-inventory-adjustment-service</module>
+        <module>handmade-vendor-po-line-service</module>
+        <module>handmade-vendor-po-service</module>
+        <module>handmade-pick-task-service</module>
+        <module>handmade-pack-task-service</module>
+        <module>handmade-inventory-reservation-service</module>
+        <module>handmade-inbound-shipment-item-service</module>
+        <module>handmade-inbound-shipment-service</module>
+        <module>handmade-inventory-api</module>
+    </modules>
 </project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+OWIZ Workflows
+Description: Notification fan-out flow (no STM), used by other orchestration chains.
+Version: 1.1
+-->
+<flows>
+    <add-command-tag tag="parallel" componentName="org.chenile.owiz.impl.ParallelChain"/>
+
+    <!-- Generic notification dispatch flow triggered by SEND_NOTIFICATION -->
+    <flow id="NOTIFICATIONS_FLOW" triggerEvent="SEND_NOTIFICATION">
+        <!-- Build the notification payload from context -->
+        <command id="preparePayload"
+                 componentName="notificationPayloadService"
+                 retryLimit="3" retryDelay="1000" timeoutMs="2000" onError="stop"/>
+
+        <!-- Fan-out in parallel to different channels -->
+        <parallel id="dispatch">
+            <command id="sendEmail" componentName="emailDispatchService" retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+            <command id="sendPush"  componentName="pushDispatchService"  retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+            <command id="sendSms"   componentName="smsDispatchService"   retryLimit="3" retryDelay="1000" timeoutMs="5000" onError="stop"/>
+        </parallel>
+    </flow>
+</flows>

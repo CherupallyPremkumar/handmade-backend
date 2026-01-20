@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="cancel" meta-bodyType="com.handmade.ecommerce.integration.dto.CancelEtlJobPayload"/>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.integration.dto.CompleteEtlJobPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.integration.dto.FailEtlJobPayload"/>
+    <event-information eventId="retry" meta-bodyType="com.handmade.ecommerce.integration.dto.RetryEtlJobPayload"/>
+    <event-information eventId="start" meta-bodyType="com.handmade.ecommerce.integration.dto.StartEtlJobPayload"/>
+
+    <flow id="etlJobFlow" default="true">
+        <manual-state id="SCHEDULED" initialState="true">
+            <on eventId="start" newStateId="RUNNING" componentName="com.handmade.ecommerce.etljob.service.cmds.StartETLJobAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="com.handmade.ecommerce.etljob.service.cmds.CancelETLJobAction"/>
+        </manual-state>
+
+        <manual-state id="RUNNING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="com.handmade.ecommerce.etljob.service.cmds.CompleteETLJobAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="com.handmade.ecommerce.etljob.service.cmds.FailETLJobAction"/>
+        </manual-state>
+
+        <manual-state id="FAILED">
+            <on eventId="retry" newStateId="SCHEDULED" componentName="com.handmade.ecommerce.etljob.service.cmds.RetryETLJobAction"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

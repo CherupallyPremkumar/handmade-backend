@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
     <parent>
         <groupId>com.handmade.ecommerce</groupId>
         <artifactId>handmade-parent</artifactId>
@@ -9,22 +9,12 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <artifactId>handmade-product-management</artifactId>
+    <packaging>pom</packaging>
+    <name>handmade-product-management</name>
+
     <modules>
-        <module>product-api</module>
-        <module>product-domain</module>
-        <module>product-delegator</module>
-        <module>product-service</module>
-        <module>product-async</module>
+        <module>handmade-product-api</module>
+        <module>handmade-product-service</module>
     </modules>
-    <groupId>com.handmade.ecommerce.product</groupId>
-    <version>${revision}</version>
-    <artifactId>product-management</artifactId>
-    <name>product-management</name>
-
-    <properties>
-        <product.version>${revision}</product.version>
-    </properties>
-
-    <dependencies>
-    </dependencies>
 </project>

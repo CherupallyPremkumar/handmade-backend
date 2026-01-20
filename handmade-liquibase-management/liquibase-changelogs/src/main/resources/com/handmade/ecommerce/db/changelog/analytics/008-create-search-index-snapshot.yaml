@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: search-engine
+      changes:
+        - createTable:
+            tableName: hm_search_index_snapshot
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: index_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: business_version
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  # BUILDING, ACTIVE, DEPRECATED
+              - column:
+                  name: document_count
+                  type: bigint
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }
+        - createIndex:
+            tableName: hm_search_index_snapshot
+            indexName: idx_search_idx_name
+            columns:
+              - column: { name: index_name }

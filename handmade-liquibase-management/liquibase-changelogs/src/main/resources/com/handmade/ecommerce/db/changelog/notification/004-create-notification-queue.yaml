@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: infrastructure
+      comment: Create hm_notification_queue table
+      changes:
+        - createTable:
+            tableName: hm_notification_queue
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: recipient_id, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: recipient_type, type: VARCHAR(50) } # USER, SELLER
+              - column: { name: template_id, type: VARCHAR(100) }
+              - column: { name: channel, type: VARCHAR(20) } # EMAIL, SMS, PUSH
+              - column: { name: payload, type: TEXT } # JSON string
+
+              - column: { name: retry_count, type: INT, defaultValueNumeric: 0 }
+              - column: { name: scheduled_at, type: TIMESTAMP }
+              # AbstractJpaStateEntity (STM)
+              - column:
+                  name: flow_id
+                  type: varchar(255)
+              - column:
+                  name: state_id
+                  type: varchar(255)
+              - column:
+                  name: state_entry_time
+                  type: timestamp
+              - column:
+                  name: sla_yellow_date
+                  type: timestamp
+              - column:
+                  name: sla_red_date
+                  type: timestamp
+              - column:
+                  name: sla_tending_late
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: sla_late
+                  type: int
+                  defaultValueNumeric: 0
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }

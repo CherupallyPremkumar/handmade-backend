@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: platform-admin
+      changes:
+        - createTable:
+            tableName: hm_platform_policy
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_type
+                  type: varchar(50) # RETURN_WINDOW, CANCELLATION_SLA
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_value
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: policy_version
+                  type: varchar(20)
+                  defaultValue: "1.0"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effective_from
+                  type: timestamp
+              - column:
+                  name: effective_to
+                  type: timestamp
+              - column:
+                  name: policy_status
+                  type: varchar(20)
+                  defaultValue: "ACTIVE"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+  - changeSet:
+      id: 2
+      author: platform-admin
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_platform_policy
+            baseColumnNames: platform_id
+            referencedTableName: hm_platform
+            referencedColumnNames: id
+            constraintName: fk_platform_policy_platform

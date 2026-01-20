@@ -1,0 +1,141 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-seller-stores
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_seller_store
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-001"}
+              - column: {name: seller_account_id, value: "SEL-001"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "EARTH_FIRE"}
+              - column: {name: seller_name, value: "Earth & Fire Ceramics Store"}
+              - column: {name: url_path, value: "stores/earth-fire"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-01T10:00:00"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-002"}
+              - column: {name: seller_account_id, value: "SEL-002"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "INDIGO_WEAVES"}
+              - column: {name: seller_name, value: "Indigo Weaves Boutique"}
+              - column: {name: url_path, value: "stores/indigo-weaves"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+              - column: {name: version, valueNumeric: 1}
+              - column: {name: created_time, valueDate: "2024-01-02T11:00:00"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-003"}
+              - column: {name: seller_account_id, value: "SEL-003"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "HERITAGE_WOOD"}
+              - column: {name: seller_name, value: "Heritage Woodcrafts Gallery"}
+              - column: {name: url_path, value: "stores/heritage-woodcrafts"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-004"}
+              - column: {name: seller_account_id, value: "SEL-004"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "LEATHER_STUDIO"}
+              - column: {name: seller_name, value: "The Leather Studio Showcase"}
+              - column: {name: url_path, value: "stores/leather-studio"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-005"}
+              - column: {name: seller_account_id, value: "SEL-005"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "SERENE_SOY"}
+              - column: {name: seller_name, value: "Serene Soy Candles Shop"}
+              - column: {name: url_path, value: "stores/serene-soy"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-006"}
+              - column: {name: seller_account_id, value: "SEL-006"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "AMBER_GLASS"}
+              - column: {name: seller_name, value: "Amber Glass Collective Store"}
+              - column: {name: url_path, value: "stores/amber-glass"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-007"}
+              - column: {name: seller_account_id, value: "SEL-007"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "MERINO_KNITS"}
+              - column: {name: seller_name, value: "Merino Knits Atelier"}
+              - column: {name: url_path, value: "stores/merino-knits"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-008"}
+              - column: {name: seller_account_id, value: "SEL-008"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "LINOCUT_IMP"}
+              - column: {name: seller_name, value: "Linocut Impressions Art Store"}
+              - column: {name: url_path, value: "stores/linocut-impressions"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-009"}
+              - column: {name: seller_account_id, value: "SEL-009"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "BOHO_BASKET"}
+              - column: {name: seller_name, value: "Boho Basketry Shop"}
+              - column: {name: url_path, value: "stores/boho-basketry"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_seller_store
+            columns:
+              - column: {name: id, value: "STO-010"}
+              - column: {name: seller_account_id, value: "SEL-010"}
+              - column: {name: platform_id, value: "PLT-GLOBAL"}
+              - column: {name: seller_code, value: "SILVER_LINING"}
+              - column: {name: seller_name, value: "Silver Lining Jewelry Store"}
+              - column: {name: url_path, value: "stores/silver-lining"}
+              - column: {name: currency, value: "USD"}
+              - column: {name: state_id, value: "ACTIVE"}
+              - column: {name: flow_id, value: "HM_SELLER_STORE_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

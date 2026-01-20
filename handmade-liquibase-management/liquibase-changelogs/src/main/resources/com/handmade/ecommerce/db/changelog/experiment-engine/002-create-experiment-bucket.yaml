@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: experiment-engine
+      changes:
+        - createTable:
+            tableName: hm_experiment_bucket
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: experiment_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: variant_key
+                  type: varchar(50) # CONTROL, TREATMENT_A
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payload_json
+                  type: text # JSON config for this variant
+              - column:
+                  name: allocation_weight
+                  type: int # e.g. 50, 10 for 50%, 10%
+                  defaultValueNumeric: 0
+              - column:
+                  name: is_control
+                  type: boolean
+                  defaultValueBoolean: false
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_experiment_bucket
+            baseColumnNames: experiment_id
+            referencedTableName: hm_experiment_definition
+            referencedColumnNames: id
+            constraintName: fk_exp_bkt_def
+        - createIndex:
+            tableName: hm_experiment_bucket
+            indexName: idx_exp_bkt_exp_id
+            columns:
+              - column: {name: experiment_id}

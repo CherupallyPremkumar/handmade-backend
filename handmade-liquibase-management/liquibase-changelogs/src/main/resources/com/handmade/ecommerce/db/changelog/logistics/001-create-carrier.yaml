@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: logistics-ops
+      validCheckSum: ANY
+      comment: Create hm_carrier table
+      changes:
+        - createTable:
+            tableName: hm_carrier
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: carrier_name, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
+              - column: { name: carrier_code, type: VARCHAR(50), constraints: { nullable: false, unique: true } } # FEDEX, UPS
+              - column: { name: tracking_url_template, type: VARCHAR(500) }
+              - column: { name: api_integration_type, type: VARCHAR(50) } # REST, SOAP, FTP
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }

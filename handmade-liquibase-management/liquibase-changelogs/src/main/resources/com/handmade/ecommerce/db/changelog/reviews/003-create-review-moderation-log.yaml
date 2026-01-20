@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: trust-safety
+      validCheckSum: ANY
+      comment: Create hm_review_moderation_log table
+      changes:
+        - createTable:
+            tableName: hm_review_moderation_log
+            columns:
+              - column: { name: id, type: VARCHAR(36), constraints: { primaryKey: true, nullable: false } }
+              - column: { name: review_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: moderator_id, type: VARCHAR(36), constraints: { nullable: false } }
+              - column: { name: action, type: VARCHAR(50), constraints: { nullable: false } } # APPROVE, REJECT, REQUEST_EDIT
+              - column: { name: reason, type: VARCHAR(255) }
+              - column: { name: notes, type: TEXT }
+              # BaseJpaEntity
+              - column: { name: created_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_time, type: TIMESTAMP, defaultValueComputed: "CURRENT_TIMESTAMP" }
+              - column: { name: last_modified_by, type: VARCHAR(255) }
+              - column: { name: created_by, type: VARCHAR(255) }
+              - column: { name: tenant, type: VARCHAR(255) }
+              - column: { name: version, type: BIGINT, defaultValueNumeric: 0 }
+
+        - createIndex:
+            tableName: hm_review_moderation_log
+            indexName: idx_mod_log_review
+            columns:
+              - column: { name: review_id }
+
+  - changeSet:
+      id: 2
+      author: trust-safety
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: hm_review_moderation_log
+            baseColumnNames: review_id
+            referencedTableName: hm_product_review
+            referencedColumnNames: id
+            constraintName: fk_review_modlog_review

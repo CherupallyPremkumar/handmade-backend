@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="approve" meta-bodyType="com.handmade.ecommerce.inventory.dto.ApproveReturnItemPayload"/>
+    <event-information eventId="arrive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ArriveReturnItemPayload"/>
+    <event-information eventId="dispose" meta-bodyType="com.handmade.ecommerce.inventory.dto.DisposeReturnItemPayload"/>
+    <event-information eventId="inspect" meta-bodyType="com.handmade.ecommerce.inventory.dto.InspectReturnItemPayload"/>
+    <event-information eventId="receive" meta-bodyType="com.handmade.ecommerce.inventory.dto.ReceiveReturnItemPayload"/>
+    <event-information eventId="reject" meta-bodyType="com.handmade.ecommerce.inventory.dto.RejectReturnItemPayload"/>
+    <event-information eventId="restock" meta-bodyType="com.handmade.ecommerce.inventory.dto.RestockReturnItemPayload"/>
+
+    <flow id="HM_RETURN_ITEM_FLOW" default="true">
+        <manual-state id="REQUESTED" initialState="true">
+            <on eventId="approve" newStateId="APPROVED" componentName="com.handmade.ecommerce.returnitem.service.cmds.ApproveReturnItemAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="com.handmade.ecommerce.returnitem.service.cmds.RejectReturnItemAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED">
+            <on eventId="receive" newStateId="IN_TRANSIT" componentName="com.handmade.ecommerce.returnitem.service.cmds.ReceiveReturnItemAction"/>
+        </manual-state>
+
+        <manual-state id="IN_TRANSIT">
+            <on eventId="arrive" newStateId="RECEIVED" componentName="com.handmade.ecommerce.returnitem.service.cmds.ArriveReturnItemAction"/>
+        </manual-state>
+
+        <manual-state id="RECEIVED">
+            <on eventId="inspect" newStateId="INSPECTED" componentName="com.handmade.ecommerce.returnitem.service.cmds.InspectReturnItemAction"/>
+        </manual-state>
+
+        <manual-state id="INSPECTED">
+            <on eventId="restock" newStateId="RESTOCKED" componentName="com.handmade.ecommerce.returnitem.service.cmds.RestockReturnItemAction"/>
+            <on eventId="dispose" newStateId="DISPOSED" componentName="com.handmade.ecommerce.returnitem.service.cmds.DisposeReturnItemAction"/>
+        </manual-state>
+
+        <manual-state id="RESTOCKED" meta-endState="true"/>
+        <manual-state id="DISPOSED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,119 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-support
+      author: antigravity
+      changes:
+        - delete:
+            tableName: hm_case_management
+        
+        # Cases (10)
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-001"}
+              - column: {name: created_by_user_id, value: "CUST-001"}
+              - column: {name: case_type, value: "ORDER_ISSUE"}
+              - column: {name: subject, value: "Shipping delay query"}
+              - column: {name: priority, value: "MEDIUM"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-002"}
+              - column: {name: created_by_user_id, value: "CUST-002"}
+              - column: {name: case_type, value: "ORDER_ISSUE"}
+              - column: {name: subject, value: "Damaged item report"}
+              - column: {name: priority, value: "HIGH"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-003"}
+              - column: {name: created_by_user_id, value: "CUST-003"}
+              - column: {name: case_type, value: "ORDER_ISSUE"}
+              - column: {name: subject, value: "Refund request follow-up"}
+              - column: {name: priority, value: "MEDIUM"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-004"}
+              - column: {name: created_by_user_id, value: "CUST-004"}
+              - column: {name: case_type, value: "ORDER_ISSUE"}
+              - column: {name: subject, value: "Order cancellation issue"}
+              - column: {name: priority, value: "LOW"}
+              - column: {name: state_id, value: "RESOLVED"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-005"}
+              - column: {name: created_by_user_id, value: "CUST-005"}
+              - column: {name: case_type, value: "ACCOUNT_ISSUE"}
+              - column: {name: subject, value: "Payment failure inquiry"}
+              - column: {name: priority, value: "CRITICAL"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-006"}
+              - column: {name: created_by_user_id, value: "CUST-006"}
+              - column: {name: case_type, value: "ACCOUNT_ISSUE"}
+              - column: {name: subject, value: "Account access problem"}
+              - column: {name: priority, value: "MEDIUM"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-007"}
+              - column: {name: created_by_user_id, value: "CUST-007"}
+              - column: {name: case_type, value: "TECHNICAL"}
+              - column: {name: subject, value: "Product customization help"}
+              - column: {name: priority, value: "LOW"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-008"}
+              - column: {name: created_by_user_id, value: "CUST-008"}
+              - column: {name: case_type, value: "ACCOUNT_ISSUE"}
+              - column: {name: subject, value: "Gift card balance query"}
+              - column: {name: priority, value: "LOW"}
+              - column: {name: state_id, value: "RESOLVED"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-009"}
+              - column: {name: created_by_user_id, value: "CUST-009"}
+              - column: {name: case_type, value: "ACCOUNT_ISSUE"}
+              - column: {name: subject, value: "Seller performance report"}
+              - column: {name: priority, value: "MEDIUM"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}
+        - insert:
+            tableName: hm_case_management
+            columns:
+              - column: {name: id, value: "CASE-010"}
+              - column: {name: created_by_user_id, value: "CUST-010"}
+              - column: {name: case_type, value: "TECHNICAL"}
+              - column: {name: subject, value: "Technical glitch on checkout"}
+              - column: {name: priority, value: "HIGH"}
+              - column: {name: state_id, value: "OPEN"}
+              - column: {name: flow_id, value: "HM_CASE_MANAGEMENT_FLOW"}
+              - column: {name: tenant, value: "PLT-GLOBAL"}

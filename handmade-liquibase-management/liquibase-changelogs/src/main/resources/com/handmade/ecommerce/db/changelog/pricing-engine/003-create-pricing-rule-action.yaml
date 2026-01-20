@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: pricing-engine
+      changes:
+        - createTable:
+            tableName: hm_pricing_rule_action
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rule_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: action_type
+                  type: varchar(50) # PERCENTAGE_OFF, FIXED_AMOUNT, OVERRIDE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rule_value
+                  type: decimal(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(3)
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp}
+              - column: {name: last_modified_time, type: timestamp}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+        - addForeignKeyConstraint:
+            baseTableName: hm_pricing_rule_action
+            baseColumnNames: rule_id
+            referencedTableName: hm_pricing_rule_definition
+            referencedColumnNames: id
+            constraintName: fk_price_act_rule
+        - createIndex:
+            tableName: hm_pricing_rule_action
+            indexName: idx_price_act_rule
+            columns:
+              - column: {name: rule_id}

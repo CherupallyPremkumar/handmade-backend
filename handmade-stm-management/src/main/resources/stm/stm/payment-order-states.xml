@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="HM_PAYMENT_ORDER_FLOW" default="true">
+        <manual-state id="CREATED" initialState="true">
+            <on eventId="initiate" newStateId="INITIATED" componentName="paymentOrderInitiateAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="paymentOrderCancelAction"/>
+        </manual-state>
+
+        <manual-state id="INITIATED">
+            <on eventId="authorize" newStateId="AUTHORIZED" componentName="paymentOrderAuthorizeAction"/>
+            <on eventId="fail" newStateId="FAILED" componentName="paymentOrderFailAction"/>
+            <on eventId="cancel" newStateId="CANCELLED" componentName="paymentOrderCancelFromInitiatedAction"/>
+        </manual-state>
+
+        <manual-state id="AUTHORIZED">
+            <on eventId="capture" newStateId="CAPTURED" componentName="paymentOrderCaptureAction"/>
+            <on eventId="void" newStateId="VOIDED" componentName="paymentOrderVoidAction"/>
+        </manual-state>
+
+        <manual-state id="CAPTURED">
+            <on eventId="settle" newStateId="SETTLED" componentName="paymentOrderSettleAction"/>
+            <on eventId="refund" newStateId="REFUNDED" componentName="paymentOrderRefundAction"/>
+        </manual-state>
+
+        <manual-state id="SETTLED" meta-endState="true"/>
+        <manual-state id="REFUNDED" meta-endState="true"/>
+        <manual-state id="VOIDED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+        <manual-state id="CANCELLED" meta-endState="true"/>
+    </flow>
+</states>

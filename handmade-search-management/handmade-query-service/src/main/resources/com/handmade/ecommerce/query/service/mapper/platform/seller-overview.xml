@@ -8,10 +8,10 @@
             s.email as "email",
             s.state_id as "state",
             s.platform_id as "platformId",
-            s.created_at as "joinedDate",
+            s.created_time as "joinedDate",
             s.verified as "verified",
             s.kyc_completed as "kycCompleted"
-        FROM seller_account s
+        FROM hm_seller_account s
         WHERE s.id = #{id}
      </select>
 </mapper>

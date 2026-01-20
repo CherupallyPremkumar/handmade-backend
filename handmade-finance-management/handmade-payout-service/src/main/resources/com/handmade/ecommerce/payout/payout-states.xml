@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="complete" meta-bodyType="com.handmade.ecommerce.finance.dto.CompletePayoutPayload"/>
+    <event-information eventId="fail" meta-bodyType="com.handmade.ecommerce.finance.dto.FailPayoutPayload"/>
+    <event-information eventId="process" meta-bodyType="com.handmade.ecommerce.finance.dto.ProcessPayoutPayload"/>
+
+    <flow id="payoutFlow" default="true">
+        <manual-state id="PENDING" initialState="true">
+            <on eventId="process" newStateId="PROCESSING" componentName="payoutProcess"/>
+        </manual-state>
+
+        <manual-state id="PROCESSING">
+            <on eventId="complete" newStateId="COMPLETED" componentName="payoutComplete"/>
+            <on eventId="fail" newStateId="FAILED" componentName="payoutFail"/>
+        </manual-state>
+
+        <manual-state id="COMPLETED" meta-endState="true"/>
+        <manual-state id="FAILED" meta-endState="true"/>
+    </flow>
+</states>

@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: cms-team
+      changes:
+        - createTable:
+            tableName: hm_cms_entry
+            columns:
+              - column: {name: id, type: varchar(36), constraints: {primaryKey: true, nullable: false}}
+              - column: {name: schema_id, type: varchar(36), constraints: {nullable: false}}
+              - column: {name: slug, type: varchar(255), constraints: {nullable: false, unique: true}}
+              - column: {name: title, type: varchar(255), constraints: {nullable: false}}
+
+              - column: {name: publish_start, type: timestamp}
+              - column: {name: publish_end, type: timestamp}
+              - column: {name: active_version_id, type: varchar(36)}
+              
+              # AbstractJpaStateEntity (STM)
+              - column: { name: flow_id, type: VARCHAR(255) }
+              - column: { name: state_id, type: VARCHAR(255) }
+              - column: { name: state_entry_time, type: TIMESTAMP }
+              - column: { name: sla_yellow_date, type: TIMESTAMP }
+              - column: { name: sla_red_date, type: TIMESTAMP }
+              - column: { name: sla_tending_late, type: INT, defaultValueNumeric: 0 }
+              - column: { name: sla_late, type: INT, defaultValueNumeric: 0 }
+              
+              # BaseJpaEntity
+              - column: {name: created_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_time, type: timestamp, defaultValueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: last_modified_by, type: varchar(255)}
+              - column: {name: created_by, type: varchar(255)}
+              - column: {name: tenant, type: varchar(255)}
+              - column: {name: version, type: bigint, defaultValueNumeric: 0}
+
+        - addForeignKeyConstraint:
+            baseTableName: hm_cms_entry
+            baseColumnNames: schema_id
+            referencedTableName: hm_cms_schema
+            referencedColumnNames: id
+            constraintName: fk_entry_schema
+
+        - createIndex:
+            tableName: hm_cms_entry
+            indexName: idx_cms_entry_slug
+            columns:
+              - column: {name: slug}
+              - column: {name: state_id}

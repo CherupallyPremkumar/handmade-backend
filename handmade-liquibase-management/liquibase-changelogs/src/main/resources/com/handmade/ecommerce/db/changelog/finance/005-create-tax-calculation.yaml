@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: finance-team
+      changes:
+        - createTable:
+            tableName: hm_tax_calculation
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_line_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tax_code
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: taxable_amount
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tax_amount
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tax_rate
+                  type: decimal(5, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: jurisdiction
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0

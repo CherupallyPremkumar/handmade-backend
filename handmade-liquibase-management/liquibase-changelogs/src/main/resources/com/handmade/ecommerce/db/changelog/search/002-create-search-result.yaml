@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: search-management
+      changes:
+        - createTable:
+            tableName: hm_search_result
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: search_query_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: result_position
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: relevance_score
+                  type: decimal(10,4)
+              - column:
+                  name: was_clicked
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: click_timestamp
+                  type: timestamp
+              # BaseJpaEntity
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+        
+        - createIndex:
+            indexName: idx_search_result_query
+            tableName: hm_search_result
+            columns:
+              - column:
+                  name: search_query_id
+        
+        - createIndex:
+            indexName: idx_search_result_product
+            tableName: hm_search_result
+            columns:
+              - column:
+                  name: product_id

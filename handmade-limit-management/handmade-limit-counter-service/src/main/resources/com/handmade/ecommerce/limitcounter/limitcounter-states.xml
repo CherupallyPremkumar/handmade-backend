@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <event-information eventId="activate" meta-bodyType="com.handmade.ecommerce.limit.dto.ActivateLimitCounterPayload"/>
+    <event-information eventId="breach" meta-bodyType="com.handmade.ecommerce.limit.dto.BreachLimitCounterPayload"/>
+    <event-information eventId="reset" meta-bodyType="com.handmade.ecommerce.limit.dto.ResetLimitCounterPayload"/>
+
+    <flow id="limitCounterFlow" default="true">
+        <manual-state id="ACTIVE" initialState="true">
+            <on eventId="reset" newStateId="RESET" componentName="resetLimitCounterAction"/>
+            <on eventId="breach" newStateId="BREACHED" componentName="breachLimitCounterAction"/>
+        </manual-state>
+
+        <manual-state id="RESET">
+            <on eventId="activate" newStateId="ACTIVE" componentName="activateLimitCounterAction"/>
+        </manual-state>
+
+        <manual-state id="BREACHED">
+            <on eventId="reset" newStateId="RESET" componentName="resetLimitCounterAction"/>
+        </manual-state>
+    </flow>
+</states>

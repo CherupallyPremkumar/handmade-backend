@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<states>
+    <flow id="sellerKycFlow" default="true">
+        <manual-state id="SUBMITTED" initialState="true">
+            <on eventId="review" newStateId="UNDER_REVIEW" componentName="sellerKycReviewAction"/>
+        </manual-state>
+
+        <manual-state id="UNDER_REVIEW">
+            <on eventId="approve" newStateId="APPROVED" componentName="sellerKycApproveAction"/>
+            <on eventId="reject" newStateId="REJECTED" componentName="sellerKycRejectAction"/>
+            <on eventId="requestInfo" newStateId="INFO_REQUESTED" componentName="sellerKycRequestInfoAction"/>
+        </manual-state>
+
+        <manual-state id="INFO_REQUESTED">
+            <on eventId="resubmit" newStateId="UNDER_REVIEW" componentName="sellerKycResubmitAction"/>
+        </manual-state>
+
+        <manual-state id="APPROVED" meta-endState="true"/>
+        <manual-state id="REJECTED" meta-endState="true"/>
+    </flow>
+</states>

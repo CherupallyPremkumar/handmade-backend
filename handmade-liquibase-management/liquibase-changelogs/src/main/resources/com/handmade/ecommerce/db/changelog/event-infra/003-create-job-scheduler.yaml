@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: event-infra-engine
+      changes:
+        - createTable:
+            tableName: hm_job_scheduler
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: job_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cron_expression
+                  type: varchar(50)
+              - column:
+                  name: last_run_time
+                  type: timestamp
+              - column:
+                  name: next_run_time
+                  type: timestamp
+              - column:
+                  name: status
+                  type: varchar(20)
+                  # ACTIVE, PAUSED, RUNNING
+              # BaseJpaEntity
+              - column: { name: created_time, type: timestamp }
+              - column: { name: last_modified_time, type: timestamp }
+              - column: { name: last_modified_by, type: varchar(255) }
+              - column: { name: created_by, type: varchar(255) }
+              - column: { name: tenant, type: varchar(255) }
+              - column: { name: version, type: bigint, defaultValueNumeric: 0 }

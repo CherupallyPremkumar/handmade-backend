@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: catalog-management
+      changes:
+        - createTable:
+            tableName: hm_catalog_item
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: featured
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: display_order
+                  type: int
+              - column:
+                  name: active
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
+                  name: visibility_start_date
+                  type: timestamp
+              - column:
+                  name: visibility_end_date
+                  type: timestamp
+              - column:
+                  name: merchandising_tags
+                  type: text # JSON or CSV tags
+              # BaseJpaEntity Fields
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: last_modified_time
+                  type: timestamp
+              - column:
+                  name: last_modified_by
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(255)
+              - column:
+                  name: tenant
+                  type: varchar(255)
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValueNumeric: 0
+
+  - changeSet:
+      id: 2
+      author: catalog-management
+      changes:
+        - createIndex:
+            tableName: hm_catalog_item
+            indexName: idx_catalog_item_product_id
+            columns:
+              - column:
+                  name: product_id
+                  type: varchar(36)
+        - addForeignKeyConstraint:
+            baseTableName: hm_catalog_item
+            baseColumnNames: product_id
+            referencedTableName: hm_product
+            referencedColumnNames: id
+            constraintName: fk_catalog_item_product
